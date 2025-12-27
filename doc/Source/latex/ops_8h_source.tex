@@ -1,0 +1,126 @@
+\doxysection{ops.\+h}
+\hypertarget{ops_8h_source}{}\label{ops_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/ops.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/ops.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ operand\ types:}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ +\ Z:\ no\ operand}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ +\ B:\ 8bit}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ \ \ +\ BB:\ 8+8bit}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ \ +\ BBB:\ 8+8+8bit}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ \ +\ BS:\ 8+16bit}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ \ +\ BSS:\ 8+16+16bit}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ \ +\ S:\ 16bit}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ \ +\ W:\ 24bit}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00013\ \textcolor{comment}{operation\ code\ \ \ \ operands\ \ \ \ \ \ semantics}}
+\DoxyCodeLine{00014\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00015\ OPCODE(NOP,\ \ \ \ \ \ \ \ Z)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ no\ operation\ */}}
+\DoxyCodeLine{00016\ OPCODE(MOVE,\ \ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[b]\ */}}
+\DoxyCodeLine{00017\ OPCODE(LOADL,\ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ Pool[b]\ */}}
+\DoxyCodeLine{00018\ OPCODE(LOADI,\ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ mrb\_int(b)\ */}}
+\DoxyCodeLine{00019\ OPCODE(LOADINEG,\ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ mrb\_int(-\/b)\ */}}
+\DoxyCodeLine{00020\ OPCODE(LOADI\_\_1,\ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ mrb\_int(-\/1)\ */}}
+\DoxyCodeLine{00021\ OPCODE(LOADI\_0,\ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ mrb\_int(0)\ */}}
+\DoxyCodeLine{00022\ OPCODE(LOADI\_1,\ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ mrb\_int(1)\ */}}
+\DoxyCodeLine{00023\ OPCODE(LOADI\_2,\ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ mrb\_int(2)\ */}}
+\DoxyCodeLine{00024\ OPCODE(LOADI\_3,\ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ mrb\_int(3)\ */}}
+\DoxyCodeLine{00025\ OPCODE(LOADI\_4,\ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ mrb\_int(4)\ */}}
+\DoxyCodeLine{00026\ OPCODE(LOADI\_5,\ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ mrb\_int(5)\ */}}
+\DoxyCodeLine{00027\ OPCODE(LOADI\_6,\ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ mrb\_int(6)\ */}}
+\DoxyCodeLine{00028\ OPCODE(LOADI\_7,\ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ mrb\_int(7)\ */}}
+\DoxyCodeLine{00029\ OPCODE(LOADI16,\ \ \ \ BS)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ mrb\_int(b)\ */}}
+\DoxyCodeLine{00030\ OPCODE(LOADI32,\ \ \ \ BSS)\ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ mrb\_int((b<<16)+c)\ */}}
+\DoxyCodeLine{00031\ OPCODE(LOADSYM,\ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ Syms[b]\ */}}
+\DoxyCodeLine{00032\ OPCODE(LOADNIL,\ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ nil\ */}}
+\DoxyCodeLine{00033\ OPCODE(LOADSELF,\ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ self\ */}}
+\DoxyCodeLine{00034\ OPCODE(LOADT,\ \ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ true\ */}}
+\DoxyCodeLine{00035\ OPCODE(LOADF,\ \ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ false\ */}}
+\DoxyCodeLine{00036\ OPCODE(GETGV,\ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ getglobal(Syms[b])\ */}}
+\DoxyCodeLine{00037\ OPCODE(SETGV,\ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ setglobal(Syms[b],\ R[a])\ */}}
+\DoxyCodeLine{00038\ OPCODE(GETSV,\ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ Special[Syms[b]]\ */}}
+\DoxyCodeLine{00039\ OPCODE(SETSV,\ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ Special[Syms[b]]\ =\ R[a]\ */}}
+\DoxyCodeLine{00040\ OPCODE(GETIV,\ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ ivget(Syms[b])\ */}}
+\DoxyCodeLine{00041\ OPCODE(SETIV,\ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ ivset(Syms[b],R[a])\ */}}
+\DoxyCodeLine{00042\ OPCODE(GETCV,\ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ cvget(Syms[b])\ */}}
+\DoxyCodeLine{00043\ OPCODE(SETCV,\ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ cvset(Syms[b],R[a])\ */}}
+\DoxyCodeLine{00044\ OPCODE(GETCONST,\ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ constget(Syms[b])\ */}}
+\DoxyCodeLine{00045\ OPCODE(SETCONST,\ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ constset(Syms[b],R[a])\ */}}
+\DoxyCodeLine{00046\ OPCODE(GETMCNST,\ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[a]::Syms[b]\ */}}
+\DoxyCodeLine{00047\ OPCODE(SETMCNST,\ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a+1]::Syms[b]\ =\ R[a]\ */}}
+\DoxyCodeLine{00048\ OPCODE(GETUPVAR,\ \ \ BBB)\ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ uvget(b,c)\ */}}
+\DoxyCodeLine{00049\ OPCODE(SETUPVAR,\ \ \ BBB)\ \ \ \ \ \ \textcolor{comment}{/*\ uvset(b,c,R[a])\ */}}
+\DoxyCodeLine{00050\ OPCODE(GETIDX,\ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[a][R[a+1]]\ */}}
+\DoxyCodeLine{00051\ OPCODE(SETIDX,\ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a][R[a+1]]\ =\ R[a+2]\ */}}
+\DoxyCodeLine{00052\ OPCODE(JMP,\ \ \ \ \ \ \ \ S)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ pc+=a\ */}}
+\DoxyCodeLine{00053\ OPCODE(JMPIF,\ \ \ \ \ \ BS)\ \ \ \ \ \ \ \textcolor{comment}{/*\ if\ R[a]\ pc+=b\ */}}
+\DoxyCodeLine{00054\ OPCODE(JMPNOT,\ \ \ \ \ BS)\ \ \ \ \ \ \ \textcolor{comment}{/*\ if\ !R[a]\ pc+=b\ */}}
+\DoxyCodeLine{00055\ OPCODE(JMPNIL,\ \ \ \ \ BS)\ \ \ \ \ \ \ \textcolor{comment}{/*\ if\ R[a]==nil\ pc+=b\ */}}
+\DoxyCodeLine{00056\ OPCODE(JMPUW,\ \ \ \ \ \ S)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ unwind\_and\_jump\_to(a)\ */}}
+\DoxyCodeLine{00057\ OPCODE(EXCEPT,\ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ exc\ */}}
+\DoxyCodeLine{00058\ OPCODE(RESCUE,\ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[b]\ =\ R[a].isa?(R[b])\ */}}
+\DoxyCodeLine{00059\ OPCODE(RAISEIF,\ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ raise(R[a])\ if\ R[a]\ */}}
+\DoxyCodeLine{00060\ OPCODE(SSEND,\ \ \ \ \ \ BBB)\ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ self.send(Syms[b],R[a+1]..,R[a+n+1]:R[a+n+2]..)\ (c=n|k<<4)\ */}}
+\DoxyCodeLine{00061\ OPCODE(SSENDB,\ \ \ \ \ BBB)\ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ self.send(Syms[b],R[a+1]..,R[a+n+1]:R[a+n+2]..,\&R[a+n+2k+1])\ */}}
+\DoxyCodeLine{00062\ OPCODE(SEND,\ \ \ \ \ \ \ BBB)\ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[a].send(Syms[b],R[a+1]..,R[a+n+1]:R[a+n+2]..)\ (c=n|k<<4)\ */}}
+\DoxyCodeLine{00063\ OPCODE(SENDB,\ \ \ \ \ \ BBB)\ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[a].send(Syms[b],R[a+1]..,R[a+n+1]:R[a+n+2]..,\&R[a+n+2k+1])\ */}}
+\DoxyCodeLine{00064\ OPCODE(CALL,\ \ \ \ \ \ \ Z)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ self.call(*,\ **,\ \&)\ (But\ overlay\ the\ current\ call\ frame;\ tailcall)\ */}}
+\DoxyCodeLine{00065\ OPCODE(SUPER,\ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ super(R[a+1],...\ ,R[a+b+1])\ */}}
+\DoxyCodeLine{00066\ OPCODE(ARGARY,\ \ \ \ \ BS)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ argument\ array\ (16=m5:r1:m5:d1:lv4)\ */}}
+\DoxyCodeLine{00067\ OPCODE(ENTER,\ \ \ \ \ \ W)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ arg\ setup\ according\ to\ flags\ (23=m5:o5:r1:m5:k5:d1:b1)\ */}}
+\DoxyCodeLine{00068\ OPCODE(KEY\_P,\ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ kdict.key?(Syms[b])\ */}}
+\DoxyCodeLine{00069\ OPCODE(KEYEND,\ \ \ \ \ Z)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ raise\ unless\ kdict.empty?\ */}}
+\DoxyCodeLine{00070\ OPCODE(KARG,\ \ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ kdict[Syms[b]];\ kdict.delete(Syms[b])\ */}}
+\DoxyCodeLine{00071\ OPCODE(RETURN,\ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ return\ R[a]\ (normal)\ */}}
+\DoxyCodeLine{00072\ OPCODE(RETURN\_BLK,\ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ return\ R[a]\ (in-\/block\ return)\ */}}
+\DoxyCodeLine{00073\ OPCODE(BREAK,\ \ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ break\ R[a]\ */}}
+\DoxyCodeLine{00074\ OPCODE(BLKPUSH,\ \ \ \ BS)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ block\ (16=m5:r1:m5:d1:lv4)\ */}}
+\DoxyCodeLine{00075\ OPCODE(ADD,\ \ \ \ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[a]+R[a+1]\ */}}
+\DoxyCodeLine{00076\ OPCODE(ADDI,\ \ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[a]+mrb\_int(b)\ */}}
+\DoxyCodeLine{00077\ OPCODE(SUB,\ \ \ \ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[a]-\/R[a+1]\ */}}
+\DoxyCodeLine{00078\ OPCODE(SUBI,\ \ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[a]-\/mrb\_int(b)\ */}}
+\DoxyCodeLine{00079\ OPCODE(MUL,\ \ \ \ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[a]*R[a+1]\ */}}
+\DoxyCodeLine{00080\ OPCODE(DIV,\ \ \ \ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[a]/R[a+1]\ */}}
+\DoxyCodeLine{00081\ OPCODE(EQ,\ \ \ \ \ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[a]==R[a+1]\ */}}
+\DoxyCodeLine{00082\ OPCODE(LT,\ \ \ \ \ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[a]<R[a+1]\ */}}
+\DoxyCodeLine{00083\ OPCODE(LE,\ \ \ \ \ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[a]<=R[a+1]\ */}}
+\DoxyCodeLine{00084\ OPCODE(GT,\ \ \ \ \ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[a]>R[a+1]\ */}}
+\DoxyCodeLine{00085\ OPCODE(GE,\ \ \ \ \ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[a]>=R[a+1]\ */}}
+\DoxyCodeLine{00086\ OPCODE(ARRAY,\ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ ary\_new(R[a],R[a+1]..R[a+b])\ */}}
+\DoxyCodeLine{00087\ OPCODE(ARRAY2,\ \ \ \ \ BBB)\ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ ary\_new(R[b],R[b+1]..R[b+c])\ */}}
+\DoxyCodeLine{00088\ OPCODE(ARYCAT,\ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ary\_cat(R[a],R[a+1])\ */}}
+\DoxyCodeLine{00089\ OPCODE(ARYPUSH,\ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ ary\_push(R[a],R[a+1]..R[a+b])\ */}}
+\DoxyCodeLine{00090\ OPCODE(ARYSPLAT,\ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ ary\_splat(R[a])\ */}}
+\DoxyCodeLine{00091\ OPCODE(AREF,\ \ \ \ \ \ \ BBB)\ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[b][c]\ */}}
+\DoxyCodeLine{00092\ OPCODE(ASET,\ \ \ \ \ \ \ BBB)\ \ \ \ \ \ \textcolor{comment}{/*\ R[b][c]\ =\ R[a]\ */}}
+\DoxyCodeLine{00093\ OPCODE(APOST,\ \ \ \ \ \ BBB)\ \ \ \ \ \ \textcolor{comment}{/*\ *R[a],R[a+1]..R[a+c]\ =\ R[a][b..]\ */}}
+\DoxyCodeLine{00094\ OPCODE(INTERN,\ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ intern(R[a])\ */}}
+\DoxyCodeLine{00095\ OPCODE(SYMBOL,\ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ intern(Pool[b])\ */}}
+\DoxyCodeLine{00096\ OPCODE(STRING,\ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ str\_dup(Pool[b])\ */}}
+\DoxyCodeLine{00097\ OPCODE(STRCAT,\ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ str\_cat(R[a],R[a+1])\ */}}
+\DoxyCodeLine{00098\ OPCODE(HASH,\ \ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ hash\_new(R[a],R[a+1]..R[a+b*2-\/1])\ */}}
+\DoxyCodeLine{00099\ OPCODE(HASHADD,\ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ hash\_push(R[a],R[a+1]..R[a+b*2])\ */}}
+\DoxyCodeLine{00100\ OPCODE(HASHCAT,\ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ hash\_cat(R[a],R[a+1])\ */}}
+\DoxyCodeLine{00101\ OPCODE(LAMBDA,\ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ lambda(Irep[b],L\_LAMBDA)\ */}}
+\DoxyCodeLine{00102\ OPCODE(BLOCK,\ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ lambda(Irep[b],L\_BLOCK)\ */}}
+\DoxyCodeLine{00103\ OPCODE(METHOD,\ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ lambda(Irep[b],L\_METHOD)\ */}}
+\DoxyCodeLine{00104\ OPCODE(RANGE\_INC,\ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ range\_new(R[a],R[a+1],FALSE)\ */}}
+\DoxyCodeLine{00105\ OPCODE(RANGE\_EXC,\ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ range\_new(R[a],R[a+1],TRUE)\ */}}
+\DoxyCodeLine{00106\ OPCODE(OCLASS,\ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ ::Object\ */}}
+\DoxyCodeLine{00107\ OPCODE(CLASS,\ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ newclass(R[a],Syms[b],R[a+1])\ */}}
+\DoxyCodeLine{00108\ OPCODE(MODULE,\ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ newmodule(R[a],Syms[b])\ */}}
+\DoxyCodeLine{00109\ OPCODE(EXEC,\ \ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ blockexec(R[a],Irep[b])\ */}}
+\DoxyCodeLine{00110\ OPCODE(DEF,\ \ \ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a].newmethod(Syms[b],R[a+1]);\ R[a]\ =\ Syms[b]\ */}}
+\DoxyCodeLine{00111\ OPCODE(ALIAS,\ \ \ \ \ \ BB)\ \ \ \ \ \ \ \textcolor{comment}{/*\ alias\_method(target\_class,Syms[a],Syms[b])\ */}}
+\DoxyCodeLine{00112\ OPCODE(UNDEF,\ \ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ undef\_method(target\_class,Syms[a])\ */}}
+\DoxyCodeLine{00113\ OPCODE(SCLASS,\ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ R[a].singleton\_class\ */}}
+\DoxyCodeLine{00114\ OPCODE(TCLASS,\ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ R[a]\ =\ target\_class\ */}}
+\DoxyCodeLine{00115\ OPCODE(DEBUG,\ \ \ \ \ \ BBB)\ \ \ \ \ \ \textcolor{comment}{/*\ print\ a,b,c\ */}}
+\DoxyCodeLine{00116\ OPCODE(ERR,\ \ \ \ \ \ \ \ B)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ raise(LocalJumpError,\ Pool[a])\ */}}
+\DoxyCodeLine{00117\ OPCODE(EXT1,\ \ \ \ \ \ \ Z)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ make\ 1st\ operand\ (a)\ 16bit\ */}}
+\DoxyCodeLine{00118\ OPCODE(EXT2,\ \ \ \ \ \ \ Z)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ make\ 2nd\ operand\ (b)\ 16bit\ */}}
+\DoxyCodeLine{00119\ OPCODE(EXT3,\ \ \ \ \ \ \ Z)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ make\ 1st\ and\ 2nd\ operands\ 16bit\ */}}
+\DoxyCodeLine{00120\ OPCODE(STOP,\ \ \ \ \ \ \ Z)\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ stop\ VM\ */}}
+
+\end{DoxyCode}

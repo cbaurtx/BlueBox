@@ -1,0 +1,980 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>/home/iris/Development/Projects/BlueBox/Electronics/BlueBox_board/bluebox.kicad_sch</source>
+    <date>2025-12-06T22:07:12+0100</date>
+    <tool>Eeschema 9.0.4</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>BlueBox</title>
+        <company/>
+        <rev>1.0</rev>
+        <date/>
+        <source>bluebox.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="2" name="/Power/" tstamps="/832f7e48-3abc-4993-aa08-6901f0292a1a/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>power.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="3" name="/MPU/" tstamps="/fa435435-9fbd-41c9-af89-3c54b9b51f8b/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>MPU.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="H101">
+      <value>MountingHole_Pad</value>
+      <footprint>MountingHole:MountingHole_3.2mm_M3_DIN965_Pad</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Footprint">MountingHole:MountingHole_3.2mm_M3_DIN965_Pad</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Mechanical" part="MountingHole_Pad" description="Mounting Hole with connection"/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="bluebox.kicad_sch"/>
+      <property name="ki_keywords" value="mounting hole"/>
+      <property name="ki_fp_filters" value="MountingHole*Pad*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6fdb6885-64c4-45f5-a364-21695ec4fb42</tstamps>
+    </comp>
+    <comp ref="H102">
+      <value>MountingHole_Pad</value>
+      <footprint>MountingHole:MountingHole_3.2mm_M3_DIN965_Pad</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Footprint">MountingHole:MountingHole_3.2mm_M3_DIN965_Pad</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Mechanical" part="MountingHole_Pad" description="Mounting Hole with connection"/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="bluebox.kicad_sch"/>
+      <property name="ki_keywords" value="mounting hole"/>
+      <property name="ki_fp_filters" value="MountingHole*Pad*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1e1f9d89-7f45-43e9-99e0-75721fe66de5</tstamps>
+    </comp>
+    <comp ref="H103">
+      <value>MountingHole_Pad</value>
+      <footprint>MountingHole:MountingHole_3.2mm_M3_DIN965_Pad</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Footprint">MountingHole:MountingHole_3.2mm_M3_DIN965_Pad</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Mechanical" part="MountingHole_Pad" description="Mounting Hole with connection"/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="bluebox.kicad_sch"/>
+      <property name="ki_keywords" value="mounting hole"/>
+      <property name="ki_fp_filters" value="MountingHole*Pad*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>cc897edd-fd40-470e-929e-1580ae226cd3</tstamps>
+    </comp>
+    <comp ref="H104">
+      <value>MountingHole_Pad</value>
+      <footprint>MountingHole:MountingHole_3.2mm_M3_DIN965_Pad</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Footprint">MountingHole:MountingHole_3.2mm_M3_DIN965_Pad</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Mechanical" part="MountingHole_Pad" description="Mounting Hole with connection"/>
+      <property name="Sheetname" value="Root"/>
+      <property name="Sheetfile" value="bluebox.kicad_sch"/>
+      <property name="ki_keywords" value="mounting hole"/>
+      <property name="ki_fp_filters" value="MountingHole*Pad*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a2092ed1-d341-46b3-8fee-e0f74bcf56fb</tstamps>
+    </comp>
+    <comp ref="C201">
+      <value>470n</value>
+      <footprint>Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="LCSC">C5139492</field>
+        <field name="LCSC_E">B</field>
+        <field name="Footprint">Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="LCSC" value="C5139492"/>
+      <property name="LCSC_E" value="B"/>
+      <property name="Sheetname" value="Power"/>
+      <property name="Sheetfile" value="power.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/Power/" tstamps="/832f7e48-3abc-4993-aa08-6901f0292a1a/"/>
+      <tstamps>4f626ce5-0338-4de9-a87b-1e80e71b051a</tstamps>
+    </comp>
+    <comp ref="C202">
+      <value>100n</value>
+      <footprint>Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="LCSC">C13967</field>
+        <field name="LCSC_E">B</field>
+        <field name="Footprint">Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="LCSC" value="C13967"/>
+      <property name="LCSC_E" value="B"/>
+      <property name="Sheetname" value="Power"/>
+      <property name="Sheetfile" value="power.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/Power/" tstamps="/832f7e48-3abc-4993-aa08-6901f0292a1a/"/>
+      <tstamps>d636e601-cdc4-4052-a524-8322819f9b5a</tstamps>
+    </comp>
+    <comp ref="D201">
+      <value>!N5819</value>
+      <footprint>Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal</footprint>
+      <datasheet>~</datasheet>
+      <description>Schottky diode</description>
+      <fields>
+        <field name="Footprint">Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal</field>
+        <field name="Datasheet">~</field>
+        <field name="Description">Schottky diode</field>
+      </fields>
+      <libsource lib="Device" part="D_Schottky" description="Schottky diode"/>
+      <property name="Sheetname" value="Power"/>
+      <property name="Sheetfile" value="power.kicad_sch"/>
+      <property name="ki_keywords" value="diode Schottky"/>
+      <property name="ki_fp_filters" value="TO-???* *_Diode_* *SingleDiode* D_*"/>
+      <sheetpath names="/Power/" tstamps="/832f7e48-3abc-4993-aa08-6901f0292a1a/"/>
+      <tstamps>38106967-3bd0-4273-92ed-0bd796385c8b</tstamps>
+    </comp>
+    <comp ref="D202">
+      <value>!N5819</value>
+      <footprint>Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal</footprint>
+      <datasheet>~</datasheet>
+      <description>Schottky diode</description>
+      <fields>
+        <field name="Footprint">Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal</field>
+        <field name="Datasheet">~</field>
+        <field name="Description">Schottky diode</field>
+      </fields>
+      <libsource lib="Device" part="D_Schottky" description="Schottky diode"/>
+      <property name="Sheetname" value="Power"/>
+      <property name="Sheetfile" value="power.kicad_sch"/>
+      <property name="ki_keywords" value="diode Schottky"/>
+      <property name="ki_fp_filters" value="TO-???* *_Diode_* *SingleDiode* D_*"/>
+      <sheetpath names="/Power/" tstamps="/832f7e48-3abc-4993-aa08-6901f0292a1a/"/>
+      <tstamps>9a5b1031-32ea-45e1-9d3e-5e65b08e1642</tstamps>
+    </comp>
+    <comp ref="HS201">
+      <value>23mm x 40mm x 16mm</value>
+      <footprint>KiCad_modulesFP:Heatsink_TO220_23mmX40mm</footprint>
+      <datasheet>~</datasheet>
+      <description>Heatsink</description>
+      <fields>
+        <field name="Footprint">KiCad_modulesFP:Heatsink_TO220_23mmX40mm</field>
+        <field name="Datasheet">~</field>
+        <field name="Description">Heatsink</field>
+      </fields>
+      <libsource lib="Mechanical" part="Heatsink" description="Heatsink"/>
+      <property name="Sheetname" value="Power"/>
+      <property name="Sheetfile" value="power.kicad_sch"/>
+      <property name="ki_keywords" value="thermal heat temperature"/>
+      <property name="ki_fp_filters" value="Heatsink_*"/>
+      <sheetpath names="/Power/" tstamps="/832f7e48-3abc-4993-aa08-6901f0292a1a/"/>
+      <tstamps>5e23d9c6-beb4-4555-91d1-af5a827ed8ec</tstamps>
+    </comp>
+    <comp ref="J201">
+      <value>Conn_01x02</value>
+      <footprint>Connector_JST:JST_EH_S2B-EH_1x02_P2.50mm_Horizontal</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="Footprint">Connector_JST:JST_EH_S2B-EH_1x02_P2.50mm_Horizontal</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value="Power"/>
+      <property name="Sheetfile" value="power.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/Power/" tstamps="/832f7e48-3abc-4993-aa08-6901f0292a1a/"/>
+      <tstamps>f28259ba-a823-4f07-a24e-d1f55eb0cb5e</tstamps>
+    </comp>
+    <comp ref="TP201">
+      <value>TestPoint</value>
+      <footprint>TestPoint:TestPoint_Loop_D1.80mm_Drill1.0mm_Beaded</footprint>
+      <datasheet>~</datasheet>
+      <description>test point</description>
+      <fields>
+        <field name="Footprint">TestPoint:TestPoint_Loop_D1.80mm_Drill1.0mm_Beaded</field>
+        <field name="Datasheet">~</field>
+        <field name="Description">test point</field>
+      </fields>
+      <libsource lib="Connector" part="TestPoint" description="test point"/>
+      <property name="Sheetname" value="Power"/>
+      <property name="Sheetfile" value="power.kicad_sch"/>
+      <property name="ki_keywords" value="test point tp"/>
+      <property name="ki_fp_filters" value="Pin* Test*"/>
+      <sheetpath names="/Power/" tstamps="/832f7e48-3abc-4993-aa08-6901f0292a1a/"/>
+      <tstamps>1af68ef4-e66f-4bff-bcd5-ee5bc3c33728</tstamps>
+    </comp>
+    <comp ref="TP202">
+      <value>TestPoint</value>
+      <footprint>TestPoint:TestPoint_Loop_D1.80mm_Drill1.0mm_Beaded</footprint>
+      <datasheet>~</datasheet>
+      <description>test point</description>
+      <fields>
+        <field name="Footprint">TestPoint:TestPoint_Loop_D1.80mm_Drill1.0mm_Beaded</field>
+        <field name="Datasheet">~</field>
+        <field name="Description">test point</field>
+      </fields>
+      <libsource lib="Connector" part="TestPoint" description="test point"/>
+      <property name="Sheetname" value="Power"/>
+      <property name="Sheetfile" value="power.kicad_sch"/>
+      <property name="ki_keywords" value="test point tp"/>
+      <property name="ki_fp_filters" value="Pin* Test*"/>
+      <sheetpath names="/Power/" tstamps="/832f7e48-3abc-4993-aa08-6901f0292a1a/"/>
+      <tstamps>ba62392a-dee1-4f75-abc0-3e66c26643bf</tstamps>
+    </comp>
+    <comp ref="U201">
+      <value>L7805</value>
+      <footprint>Package_TO_SOT_THT:TO-220-3_Horizontal_TabUp</footprint>
+      <datasheet>http://www.st.com/content/ccc/resource/technical/document/datasheet/41/4f/b3/b0/12/d4/47/88/CD00000444.pdf/files/CD00000444.pdf/jcr:content/translations/en.CD00000444.pdf</datasheet>
+      <fields>
+        <field name="Footprint">Package_TO_SOT_THT:TO-220-3_Horizontal_TabUp</field>
+        <field name="Datasheet">http://www.st.com/content/ccc/resource/technical/document/datasheet/41/4f/b3/b0/12/d4/47/88/CD00000444.pdf/files/CD00000444.pdf/jcr:content/translations/en.CD00000444.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Regulator_Linear" part="L7805" description="Positive 1.5A 35V Linear Regulator, Fixed Output 5V, TO-220/TO-263/TO-252"/>
+      <property name="Sheetname" value="Power"/>
+      <property name="Sheetfile" value="power.kicad_sch"/>
+      <property name="ki_keywords" value="Voltage Regulator 1.5A Positive"/>
+      <property name="ki_fp_filters" value="TO?252* TO?263* TO?220*"/>
+      <sheetpath names="/Power/" tstamps="/832f7e48-3abc-4993-aa08-6901f0292a1a/"/>
+      <tstamps>3a3d6e2a-0590-4563-b30d-9b93f8976dec</tstamps>
+    </comp>
+    <comp ref="C301">
+      <value>100n</value>
+      <footprint>Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</footprint>
+      <datasheet>~</datasheet>
+      <description>Unpolarized capacitor</description>
+      <fields>
+        <field name="Footprint">Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</field>
+        <field name="Datasheet">~</field>
+        <field name="Description">Unpolarized capacitor</field>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="Sheetname" value="MPU"/>
+      <property name="Sheetfile" value="MPU.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/MPU/" tstamps="/fa435435-9fbd-41c9-af89-3c54b9b51f8b/"/>
+      <tstamps>61f8d507-bc6e-4ecf-8fee-3028434e5a29</tstamps>
+    </comp>
+    <comp ref="C302">
+      <value>100u</value>
+      <footprint>Capacitor_THT:CP_Radial_D8.0mm_P5.00mm</footprint>
+      <datasheet>~</datasheet>
+      <description>Polarized capacitor, US symbol</description>
+      <fields>
+        <field name="Footprint">Capacitor_THT:CP_Radial_D8.0mm_P5.00mm</field>
+        <field name="Datasheet">~</field>
+        <field name="Description">Polarized capacitor, US symbol</field>
+      </fields>
+      <libsource lib="Device" part="C_Polarized_US" description="Polarized capacitor, US symbol"/>
+      <property name="Sheetname" value="MPU"/>
+      <property name="Sheetfile" value="MPU.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="CP_*"/>
+      <sheetpath names="/MPU/" tstamps="/fa435435-9fbd-41c9-af89-3c54b9b51f8b/"/>
+      <tstamps>5480fd44-f46f-40c3-8479-542bfb1a5ee0</tstamps>
+    </comp>
+    <comp ref="C303">
+      <value>100n</value>
+      <footprint>Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</footprint>
+      <datasheet>~</datasheet>
+      <description>Unpolarized capacitor</description>
+      <fields>
+        <field name="Footprint">Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</field>
+        <field name="Datasheet">~</field>
+        <field name="Description">Unpolarized capacitor</field>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="Sheetname" value="MPU"/>
+      <property name="Sheetfile" value="MPU.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/MPU/" tstamps="/fa435435-9fbd-41c9-af89-3c54b9b51f8b/"/>
+      <tstamps>0b6f1433-bce9-4847-b902-7415ed1e83e9</tstamps>
+    </comp>
+    <comp ref="C304">
+      <value>100n</value>
+      <footprint>Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</footprint>
+      <datasheet>~</datasheet>
+      <description>Unpolarized capacitor</description>
+      <fields>
+        <field name="Footprint">Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm</field>
+        <field name="Datasheet">~</field>
+        <field name="Description">Unpolarized capacitor</field>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="Sheetname" value="MPU"/>
+      <property name="Sheetfile" value="MPU.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/MPU/" tstamps="/fa435435-9fbd-41c9-af89-3c54b9b51f8b/"/>
+      <tstamps>bf46ee55-bd0c-4e23-b929-238fc370d6b6</tstamps>
+    </comp>
+    <comp ref="J301">
+      <value>Conn_01x07</value>
+      <footprint>Connector_Molex:Molex_PicoBlade_53048-0710_1x07_P1.25mm_Horizontal</footprint>
+      <datasheet>~</datasheet>
+      <description>Generic connector, single row, 01x07, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <fields>
+        <field name="Footprint">Connector_Molex:Molex_PicoBlade_53048-0710_1x07_P1.25mm_Horizontal</field>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x07, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x07" description="Generic connector, single row, 01x07, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value="MPU"/>
+      <property name="Sheetfile" value="MPU.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/MPU/" tstamps="/fa435435-9fbd-41c9-af89-3c54b9b51f8b/"/>
+      <tstamps>e0d4aaf4-4409-4df1-b425-9c0085b2b8a9</tstamps>
+    </comp>
+    <comp ref="J302">
+      <value>Conn_01x05</value>
+      <footprint>Connector_Molex:Molex_PicoBlade_53048-0510_1x05_P1.25mm_Horizontal</footprint>
+      <datasheet>~</datasheet>
+      <description>Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <fields>
+        <field name="Footprint">Connector_Molex:Molex_PicoBlade_53048-0510_1x05_P1.25mm_Horizontal</field>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x05" description="Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value="MPU"/>
+      <property name="Sheetfile" value="MPU.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/MPU/" tstamps="/fa435435-9fbd-41c9-af89-3c54b9b51f8b/"/>
+      <tstamps>a927eb07-9162-4337-ada4-4c3657c4767c</tstamps>
+    </comp>
+    <comp ref="J303">
+      <value>Conn_01x06</value>
+      <footprint>Connector_Molex:Molex_PicoBlade_53048-0610_1x06_P1.25mm_Horizontal</footprint>
+      <datasheet>~</datasheet>
+      <description>Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <fields>
+        <field name="Footprint">Connector_Molex:Molex_PicoBlade_53048-0610_1x06_P1.25mm_Horizontal</field>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x06" description="Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value="MPU"/>
+      <property name="Sheetfile" value="MPU.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/MPU/" tstamps="/fa435435-9fbd-41c9-af89-3c54b9b51f8b/"/>
+      <tstamps>e7d47d99-8e56-4b83-afdb-8e622b170cf7</tstamps>
+    </comp>
+    <comp ref="J399">
+      <value>Conn_01x07_Socket</value>
+      <datasheet>~</datasheet>
+      <description>Generic connector, single row, 01x07, script generated</description>
+      <fields>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x07, script generated</field>
+      </fields>
+      <libsource lib="Connector" part="Conn_01x07_Socket" description="Generic connector, single row, 01x07, script generated"/>
+      <property name="Sheetname" value="MPU"/>
+      <property name="Sheetfile" value="MPU.kicad_sch"/>
+      <property name="exclude_from_board"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/MPU/" tstamps="/fa435435-9fbd-41c9-af89-3c54b9b51f8b/"/>
+      <tstamps>10c1df63-b88d-47a6-8877-688ae746ce3b</tstamps>
+    </comp>
+    <comp ref="U301">
+      <value>ESP32-DevKitC</value>
+      <footprint>KiCad_modulesFP:ESP32-DevKitC</footprint>
+      <datasheet>https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/hw-reference/esp32/get-started-devkitc.html</datasheet>
+      <description>Development Kit</description>
+      <fields>
+        <field name="Footprint">KiCad_modulesFP:ESP32-DevKitC</field>
+        <field name="Datasheet">https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/hw-reference/esp32/get-started-devkitc.html</field>
+        <field name="Description">Development Kit</field>
+      </fields>
+      <libsource lib="Espressif" part="ESP32-DevKitC" description="Development Kit"/>
+      <property name="Sheetname" value="MPU"/>
+      <property name="Sheetfile" value="MPU.kicad_sch"/>
+      <property name="ki_keywords" value="ESP32"/>
+      <sheetpath names="/MPU/" tstamps="/fa435435-9fbd-41c9-af89-3c54b9b51f8b/"/>
+      <tstamps>2bbe36d1-fb06-40c3-a701-f7233b21e6da</tstamps>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="Connector" part="Conn_01x07_Socket">
+      <description>Generic connector, single row, 01x07, script generated</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x07_Socket</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x07, script generated</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector" part="TestPoint">
+      <description>test point</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Pin*</fp>
+        <fp>Test*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">TP</field>
+        <field name="Value">TestPoint</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">test point</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x02">
+      <description>Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x02</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x05">
+      <description>Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x05</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x06">
+      <description>Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x06</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x07">
+      <description>Generic connector, single row, 01x07, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x07</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x07, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="C">
+      <description>Unpolarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Unpolarized capacitor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="C_Polarized_US">
+      <description>Polarized capacitor, US symbol</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>CP_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C_Polarized_US</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Polarized capacitor, US symbol</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="D_Schottky">
+      <description>Schottky diode</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>TO-???*</fp>
+        <fp>*_Diode_*</fp>
+        <fp>*SingleDiode*</fp>
+        <fp>D_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">D_Schottky</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Schottky diode</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Espressif" part="ESP32-DevKitC">
+      <description>Development Kit</description>
+      <docs>https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/hw-reference/esp32/get-started-devkitc.html</docs>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">ESP32-DevKitC</field>
+        <field name="Footprint">PCM_Espressif:ESP32-DevKitC</field>
+        <field name="Datasheet">https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/hw-reference/esp32/get-started-devkitc.html</field>
+        <field name="Description">Development Kit</field>
+      </fields>
+      <pins>
+        <pin num="1" name="3V3" type="power_in"/>
+        <pin num="2" name="CHIP_PU" type="input"/>
+        <pin num="3" name="SENSOR_VP/GPIO36/ADC1_CH0" type="input"/>
+        <pin num="4" name="SENSOR_VN/GPIO39/ADC1_CH3" type="input"/>
+        <pin num="5" name="VDET_1/GPIO34/ADC1_CH6" type="input"/>
+        <pin num="6" name="VDET_2/GPIO35/ADC1_CH7" type="input"/>
+        <pin num="7" name="32K_XP/GPIO32/ADC1_CH4" type="bidirectional"/>
+        <pin num="8" name="32K_XN/GPIO33/ADC1_CH5" type="bidirectional"/>
+        <pin num="9" name="DAC_1/ADC2_CH8/GPIO25" type="bidirectional"/>
+        <pin num="10" name="DAC_2/ADC2_CH9/GPIO26" type="bidirectional"/>
+        <pin num="11" name="ADC2_CH7/GPIO27" type="bidirectional"/>
+        <pin num="12" name="MTMS/GPIO14/ADC2_CH6" type="bidirectional"/>
+        <pin num="13" name="MTDI/GPIO12/ADC2_CH5" type="bidirectional"/>
+        <pin num="14" name="GND" type="power_in"/>
+        <pin num="15" name="MTCK/GPIO13/ADC2_CH4" type="bidirectional"/>
+        <pin num="16" name="SD_DATA2/GPIO9" type="bidirectional"/>
+        <pin num="17" name="SD_DATA3/GPIO10" type="bidirectional"/>
+        <pin num="18" name="CMD" type="bidirectional"/>
+        <pin num="19" name="5V" type="power_in"/>
+        <pin num="20" name="SD_CLK/GPIO6" type="bidirectional"/>
+        <pin num="21" name="SD_DATA0/GPIO7" type="bidirectional"/>
+        <pin num="22" name="SD_DATA1/GPIO8" type="bidirectional"/>
+        <pin num="23" name="MTDO/GPIO15/ADC2_CH3" type="bidirectional"/>
+        <pin num="24" name="ADC2_CH2/GPIO2" type="bidirectional"/>
+        <pin num="25" name="GPIO0/BOOT/ADC2_CH1" type="bidirectional"/>
+        <pin num="26" name="ADC2_CH0/GPIO4" type="bidirectional"/>
+        <pin num="27" name="GPIO16" type="bidirectional"/>
+        <pin num="28" name="GPIO17" type="bidirectional"/>
+        <pin num="29" name="GPIO5" type="bidirectional"/>
+        <pin num="30" name="GPIO18" type="bidirectional"/>
+        <pin num="31" name="GPIO19" type="bidirectional"/>
+        <pin num="32" name="GND" type="passive"/>
+        <pin num="33" name="GPIO21" type="bidirectional"/>
+        <pin num="34" name="U0RXD/GPIO3" type="bidirectional"/>
+        <pin num="35" name="U0TXD/GPIO1" type="bidirectional"/>
+        <pin num="36" name="GPIO22" type="bidirectional"/>
+        <pin num="37" name="GPIO23" type="bidirectional"/>
+        <pin num="38" name="GND" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Mechanical" part="Heatsink">
+      <description>Heatsink</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Heatsink_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">HS</field>
+        <field name="Value">Heatsink</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Heatsink</field>
+      </fields>
+    </libpart>
+    <libpart lib="Mechanical" part="MountingHole_Pad">
+      <description>Mounting Hole with connection</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>MountingHole*Pad*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">H</field>
+        <field name="Value">MountingHole_Pad</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Mounting Hole with connection</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="Regulator_Linear" part="L7805">
+      <description>Positive 1.5A 35V Linear Regulator, Fixed Output 5V, TO-220/TO-263/TO-252</description>
+      <docs>http://www.st.com/content/ccc/resource/technical/document/datasheet/41/4f/b3/b0/12/d4/47/88/CD00000444.pdf/files/CD00000444.pdf/jcr:content/translations/en.CD00000444.pdf</docs>
+      <footprints>
+        <fp>TO?252*</fp>
+        <fp>TO?263*</fp>
+        <fp>TO?220*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">L7805</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">http://www.st.com/content/ccc/resource/technical/document/datasheet/41/4f/b3/b0/12/d4/47/88/CD00000444.pdf/files/CD00000444.pdf/jcr:content/translations/en.CD00000444.pdf</field>
+        <field name="Description">Positive 1.5A 35V Linear Regulator, Fixed Output 5V, TO-220/TO-263/TO-252</field>
+      </fields>
+      <pins>
+        <pin num="1" name="IN" type="power_in"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="OUT" type="power_out"/>
+      </pins>
+    </libpart>
+    <libpart lib="SSD1315_OLED_SPI" part="SSD1315_OLED_SPI-IOT_Modules">
+      <description>OLED with SPI interface and a SSD1315 controller</description>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">SSD1315_OLED_SPI-IOT_Modules</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description">OLED with SPI interface and a SSD1315 controller</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="power_in"/>
+        <pin num="2" name="VCC" type="power_in"/>
+        <pin num="3" name="SCL" type="input"/>
+        <pin num="4" name="SDA" type="input"/>
+        <pin num="5" name="~{RES}" type="input"/>
+        <pin num="6" name="D~{C}" type="input"/>
+        <pin num="7" name="~{CS}" type="input"/>
+        <pin num="8" name="RSO" type="output"/>
+        <pin num="9" name="CS2" type="input"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="Connector">
+      <uri>/usr/share/kicad/symbols//Connector.kicad_sym</uri>
+    </library>
+    <library logical="Connector_Generic">
+      <uri>/usr/share/kicad/symbols//Connector_Generic.kicad_sym</uri>
+    </library>
+    <library logical="Device">
+      <uri>/usr/share/kicad/symbols//Device.kicad_sym</uri>
+    </library>
+    <library logical="Espressif">
+      <uri>/home/iris/Development/Projects/BlueBox/Electronics/BlueBox_board/KiCad_custom/KiCad_libs/Espressif.kicad_sym</uri>
+    </library>
+    <library logical="Mechanical">
+      <uri>/usr/share/kicad/symbols//Mechanical.kicad_sym</uri>
+    </library>
+    <library logical="Regulator_Linear">
+      <uri>/usr/share/kicad/symbols//Regulator_Linear.kicad_sym</uri>
+    </library>
+    <library logical="SSD1315_OLED_SPI">
+      <uri>/home/iris/Development/Projects/BlueBox/Electronics/BlueBox_board/KiCad_custom/KiCad_libs/SSD1315_OLED_SPI.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/MPU/MCU5V" class="Default">
+      <node ref="D201" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="TP202" pin="1" pinfunction="1" pintype="passive"/>
+      <node ref="U301" pin="19" pinfunction="5V" pintype="power_in"/>
+    </net>
+    <net code="2" name="GND" class="Default">
+      <node ref="C201" pin="2" pintype="passive"/>
+      <node ref="C301" pin="2" pintype="passive"/>
+      <node ref="C302" pin="2" pintype="passive"/>
+      <node ref="C303" pin="2" pintype="passive"/>
+      <node ref="C304" pin="2" pintype="passive"/>
+      <node ref="D202" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="H101" pin="1" pinfunction="1" pintype="input"/>
+      <node ref="J201" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="J301" pin="7" pinfunction="Pin_7" pintype="passive"/>
+      <node ref="J302" pin="5" pinfunction="Pin_5" pintype="passive"/>
+      <node ref="J303" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="TP201" pin="1" pinfunction="1" pintype="passive"/>
+      <node ref="U301" pin="14" pinfunction="GND" pintype="power_in"/>
+      <node ref="U301" pin="32" pinfunction="GND" pintype="passive"/>
+      <node ref="U301" pin="38" pinfunction="GND" pintype="passive"/>
+    </net>
+    <net code="3" name="Net-(#FLG0302-Pad1)" class="Default">
+      <node ref="J399" pin="6" pinfunction="Pin_6" pintype="passive"/>
+    </net>
+    <net code="4" name="Net-(#FLG0303-Pad1)" class="Default">
+      <node ref="J399" pin="7" pinfunction="Pin_7" pintype="passive"/>
+    </net>
+    <net code="5" name="Net-(D201-A)" class="Default">
+      <node ref="C202" pin="1" pintype="passive"/>
+      <node ref="D201" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="U201" pin="3" pinfunction="OUT" pintype="power_out"/>
+    </net>
+    <net code="6" name="Net-(D202-A)" class="Default">
+      <node ref="C202" pin="2" pintype="passive"/>
+      <node ref="D202" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="U201" pin="2" pinfunction="GND" pintype="power_in"/>
+    </net>
+    <net code="7" name="Net-(J201-Pin_1)" class="Default">
+      <node ref="C201" pin="1" pintype="passive"/>
+      <node ref="J201" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="U201" pin="1" pinfunction="IN" pintype="power_in"/>
+    </net>
+    <net code="8" name="Net-(J301-Pin_1)" class="Default">
+      <node ref="J301" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="U301" pin="29" pinfunction="GPIO5" pintype="bidirectional"/>
+    </net>
+    <net code="9" name="Net-(J301-Pin_2)" class="Default">
+      <node ref="J301" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="U301" pin="33" pinfunction="GPIO21" pintype="bidirectional"/>
+    </net>
+    <net code="10" name="Net-(J301-Pin_3)" class="Default">
+      <node ref="J301" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="U301" pin="36" pinfunction="GPIO22" pintype="bidirectional"/>
+    </net>
+    <net code="11" name="Net-(J301-Pin_4)" class="Default">
+      <node ref="J301" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="U301" pin="37" pinfunction="GPIO23" pintype="bidirectional"/>
+    </net>
+    <net code="12" name="Net-(J301-Pin_5)" class="Default">
+      <node ref="J301" pin="5" pinfunction="Pin_5" pintype="passive"/>
+      <node ref="U301" pin="30" pinfunction="GPIO18" pintype="bidirectional"/>
+    </net>
+    <net code="13" name="Net-(J301-Pin_6)" class="Default">
+      <node ref="C301" pin="1" pintype="passive"/>
+      <node ref="C302" pin="1" pintype="passive"/>
+      <node ref="C303" pin="1" pintype="passive"/>
+      <node ref="C304" pin="1" pintype="passive"/>
+      <node ref="J301" pin="6" pinfunction="Pin_6" pintype="passive"/>
+      <node ref="J302" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="J303" pin="6" pinfunction="Pin_6" pintype="passive"/>
+      <node ref="U301" pin="1" pinfunction="3V3" pintype="power_in"/>
+    </net>
+    <net code="14" name="Net-(J302-Pin_2)" class="Default">
+      <node ref="J302" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="U301" pin="11" pinfunction="ADC2_CH7/GPIO27" pintype="bidirectional"/>
+    </net>
+    <net code="15" name="Net-(J302-Pin_3)" class="Default">
+      <node ref="J302" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="U301" pin="10" pinfunction="DAC_2/ADC2_CH9/GPIO26" pintype="bidirectional"/>
+    </net>
+    <net code="16" name="Net-(J302-Pin_4)" class="Default">
+      <node ref="J302" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="U301" pin="9" pinfunction="DAC_1/ADC2_CH8/GPIO25" pintype="bidirectional"/>
+    </net>
+    <net code="17" name="Net-(J303-Pin_2)" class="Default">
+      <node ref="J303" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="U301" pin="8" pinfunction="32K_XN/GPIO33/ADC1_CH5" pintype="bidirectional"/>
+    </net>
+    <net code="18" name="Net-(J303-Pin_3)" class="Default">
+      <node ref="J303" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="U301" pin="7" pinfunction="32K_XP/GPIO32/ADC1_CH4" pintype="bidirectional"/>
+    </net>
+    <net code="19" name="Net-(J303-Pin_4)" class="Default">
+      <node ref="J303" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="U301" pin="15" pinfunction="MTCK/GPIO13/ADC2_CH4" pintype="bidirectional"/>
+    </net>
+    <net code="20" name="Net-(J303-Pin_5)" class="Default">
+      <node ref="J303" pin="5" pinfunction="Pin_5" pintype="passive"/>
+      <node ref="U301" pin="12" pinfunction="MTMS/GPIO14/ADC2_CH6" pintype="bidirectional"/>
+    </net>
+    <net code="21" name="Net-(J399-Pin_1)" class="Default">
+      <node ref="J399" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="22" name="Net-(J399-Pin_2)" class="Default">
+      <node ref="J399" pin="2" pinfunction="Pin_2" pintype="passive"/>
+    </net>
+    <net code="23" name="Net-(J399-Pin_3)" class="Default">
+      <node ref="J399" pin="3" pinfunction="Pin_3" pintype="passive"/>
+    </net>
+    <net code="24" name="Net-(J399-Pin_4)" class="Default">
+      <node ref="J399" pin="4" pinfunction="Pin_4" pintype="passive"/>
+    </net>
+    <net code="25" name="Net-(J399-Pin_5)" class="Default">
+      <node ref="J399" pin="5" pinfunction="Pin_5" pintype="passive"/>
+    </net>
+    <net code="26" name="unconnected-(H102-Pad1)" class="Default">
+      <node ref="H102" pin="1" pinfunction="1" pintype="input+no_connect"/>
+    </net>
+    <net code="27" name="unconnected-(H103-Pad1)" class="Default">
+      <node ref="H103" pin="1" pinfunction="1" pintype="input+no_connect"/>
+    </net>
+    <net code="28" name="unconnected-(H104-Pad1)" class="Default">
+      <node ref="H104" pin="1" pinfunction="1" pintype="input+no_connect"/>
+    </net>
+    <net code="29" name="unconnected-(U301-ADC2_CH0/GPIO4-Pad26)" class="Default">
+      <node ref="U301" pin="26" pinfunction="ADC2_CH0/GPIO4" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="30" name="unconnected-(U301-ADC2_CH2/GPIO2-Pad24)" class="Default">
+      <node ref="U301" pin="24" pinfunction="ADC2_CH2/GPIO2" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="31" name="unconnected-(U301-CHIP_PU-Pad2)" class="Default">
+      <node ref="U301" pin="2" pinfunction="CHIP_PU" pintype="input+no_connect"/>
+    </net>
+    <net code="32" name="unconnected-(U301-CMD-Pad18)" class="Default">
+      <node ref="U301" pin="18" pinfunction="CMD" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="33" name="unconnected-(U301-GPIO0/BOOT/ADC2_CH1-Pad25)" class="Default">
+      <node ref="U301" pin="25" pinfunction="GPIO0/BOOT/ADC2_CH1" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="34" name="unconnected-(U301-GPIO16-Pad27)" class="Default">
+      <node ref="U301" pin="27" pinfunction="GPIO16" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="35" name="unconnected-(U301-GPIO17-Pad28)" class="Default">
+      <node ref="U301" pin="28" pinfunction="GPIO17" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="36" name="unconnected-(U301-GPIO19-Pad31)" class="Default">
+      <node ref="U301" pin="31" pinfunction="GPIO19" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="37" name="unconnected-(U301-MTDI/GPIO12/ADC2_CH5-Pad13)" class="Default">
+      <node ref="U301" pin="13" pinfunction="MTDI/GPIO12/ADC2_CH5" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="38" name="unconnected-(U301-MTDO/GPIO15/ADC2_CH3-Pad23)" class="Default">
+      <node ref="U301" pin="23" pinfunction="MTDO/GPIO15/ADC2_CH3" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="39" name="unconnected-(U301-SD_CLK/GPIO6-Pad20)" class="Default">
+      <node ref="U301" pin="20" pinfunction="SD_CLK/GPIO6" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="40" name="unconnected-(U301-SD_DATA0/GPIO7-Pad21)" class="Default">
+      <node ref="U301" pin="21" pinfunction="SD_DATA0/GPIO7" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="41" name="unconnected-(U301-SD_DATA1/GPIO8-Pad22)" class="Default">
+      <node ref="U301" pin="22" pinfunction="SD_DATA1/GPIO8" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="42" name="unconnected-(U301-SD_DATA2/GPIO9-Pad16)" class="Default">
+      <node ref="U301" pin="16" pinfunction="SD_DATA2/GPIO9" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="43" name="unconnected-(U301-SD_DATA3/GPIO10-Pad17)" class="Default">
+      <node ref="U301" pin="17" pinfunction="SD_DATA3/GPIO10" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="44" name="unconnected-(U301-SENSOR_VN/GPIO39/ADC1_CH3-Pad4)" class="Default">
+      <node ref="U301" pin="4" pinfunction="SENSOR_VN/GPIO39/ADC1_CH3" pintype="input+no_connect"/>
+    </net>
+    <net code="45" name="unconnected-(U301-SENSOR_VP/GPIO36/ADC1_CH0-Pad3)" class="Default">
+      <node ref="U301" pin="3" pinfunction="SENSOR_VP/GPIO36/ADC1_CH0" pintype="input+no_connect"/>
+    </net>
+    <net code="46" name="unconnected-(U301-U0RXD/GPIO3-Pad34)" class="Default">
+      <node ref="U301" pin="34" pinfunction="U0RXD/GPIO3" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="47" name="unconnected-(U301-U0TXD/GPIO1-Pad35)" class="Default">
+      <node ref="U301" pin="35" pinfunction="U0TXD/GPIO1" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="48" name="unconnected-(U301-VDET_1/GPIO34/ADC1_CH6-Pad5)" class="Default">
+      <node ref="U301" pin="5" pinfunction="VDET_1/GPIO34/ADC1_CH6" pintype="input+no_connect"/>
+    </net>
+    <net code="49" name="unconnected-(U301-VDET_2/GPIO35/ADC1_CH7-Pad6)" class="Default">
+      <node ref="U301" pin="6" pinfunction="VDET_2/GPIO35/ADC1_CH7" pintype="input+no_connect"/>
+    </net>
+  </nets>
+</export>

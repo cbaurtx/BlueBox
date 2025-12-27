@@ -1,0 +1,120 @@
+\doxysection{shrpx\+\_\+api\+\_\+downstream\+\_\+connection.\+h}
+\hypertarget{shrpx__api__downstream__connection_8h_source}{}\label{shrpx__api__downstream__connection_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_api\_downstream\_connection.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_api\_downstream\_connection.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2016\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_API\_DOWNSTREAM\_CONNECTION\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_API\_DOWNSTREAM\_CONNECTION\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx\_downstream\_connection.h"{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}template.h"{}}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{using\ namespace\ }nghttp2;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1Worker}{Worker}};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ If\ new\ method\ is\ added,\ don't\ forget\ to\ update\ API\_METHOD\_STRING\ as}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ well.}}
+\DoxyCodeLine{00039\ \textcolor{keyword}{enum}\ APIMethod\ \{}
+\DoxyCodeLine{00040\ \ \ API\_METHOD\_GET,}
+\DoxyCodeLine{00041\ \ \ API\_METHOD\_POST,}
+\DoxyCodeLine{00042\ \ \ API\_METHOD\_PUT,}
+\DoxyCodeLine{00043\ \ \ API\_METHOD\_MAX,}
+\DoxyCodeLine{00044\ \};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ API\ status\ code,\ which\ is\ independent\ from\ HTTP\ status\ code.\ \ But}}
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ generally,\ 2xx\ code\ for\ SUCCESS,\ and\ otherwise\ FAILURE.}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{enum\ class}\ APIStatusCode\ \{}
+\DoxyCodeLine{00049\ \ \ SUCCESS,}
+\DoxyCodeLine{00050\ \ \ FAILURE,}
+\DoxyCodeLine{00051\ \};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1APIDownstreamConnection}{APIDownstreamConnection}};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1APIEndpoint}{APIEndpoint}}\ \{}
+\DoxyCodeLine{00056\ \ \ \textcolor{comment}{//\ Endpoint\ path.\ \ It\ must\ start\ with\ "{}/api/"{}.}}
+\DoxyCodeLine{00057\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ path;}
+\DoxyCodeLine{00058\ \ \ \textcolor{comment}{//\ true\ if\ we\ evaluate\ request\ body.}}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{bool}\ require\_body;}
+\DoxyCodeLine{00060\ \ \ \textcolor{comment}{//\ Allowed\ methods.\ \ This\ is\ bitwise\ OR\ of\ one\ or\ more\ of\ (1\ <<}}
+\DoxyCodeLine{00061\ \ \ \textcolor{comment}{//\ APIMethod\ value).}}
+\DoxyCodeLine{00062\ \ \ uint8\_t\ allowed\_methods;}
+\DoxyCodeLine{00063\ \ \ std::function<int(\mbox{\hyperlink{classshrpx_1_1APIDownstreamConnection}{APIDownstreamConnection}}\ \&)>\ handler;}
+\DoxyCodeLine{00064\ \};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{class\ }APIDownstreamConnection\ :\ \textcolor{keyword}{public}\ DownstreamConnection\ \{}
+\DoxyCodeLine{00067\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00068\ \ \ APIDownstreamConnection(\mbox{\hyperlink{classshrpx_1_1Worker}{Worker}}\ *worker);}
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{virtual}\ \string~APIDownstreamConnection();}
+\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ attach\_downstream(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream);}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ detach\_downstream(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ push\_request\_headers();}
+\DoxyCodeLine{00074\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ push\_upload\_data\_chunk(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ datalen);}
+\DoxyCodeLine{00075\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ end\_upload\_data();}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ pause\_read(IOCtrlReason\ reason);}
+\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ resume\_read(IOCtrlReason\ reason,\ \textcolor{keywordtype}{size\_t}\ consumed);}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ force\_resume\_read();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ on\_read();}
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ on\_write();}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ on\_upstream\_change(\mbox{\hyperlink{classshrpx_1_1Upstream}{Upstream}}\ *upstream);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \textcolor{comment}{//\ true\ if\ this\ object\ is\ poolable.}}
+\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ poolable()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ std::shared\_ptr<DownstreamAddrGroup>\ \&}
+\DoxyCodeLine{00090\ \ \ get\_downstream\_addr\_group()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}}\ *get\_addr()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{int}\ send\_reply(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ http\_status,\ APIStatusCode\ api\_status,}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&data\ =\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\{\});}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{int}\ error\_method\_not\_allowed();}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{comment}{//\ Handles\ backendconfig\ API\ request.}}
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{int}\ handle\_backendconfig();}
+\DoxyCodeLine{00099\ \ \ \textcolor{comment}{//\ Handles\ configrevision\ API\ request.}}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{int}\ handle\_configrevision();}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00103\ \ \ \mbox{\hyperlink{classshrpx_1_1Worker}{Worker}}\ *worker\_;}
+\DoxyCodeLine{00104\ \ \ \textcolor{comment}{//\ This\ points\ to\ the\ requested\ APIEndpoint\ struct.}}
+\DoxyCodeLine{00105\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1APIEndpoint}{APIEndpoint}}\ *api\_;}
+\DoxyCodeLine{00106\ \ \ \textcolor{comment}{//\ The\ file\ descriptor\ for\ temporary\ file\ to\ store\ request\ body.}}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{int}\ fd\_;}
+\DoxyCodeLine{00108\ \ \ \textcolor{comment}{//\ true\ if\ we\ stop\ reading\ request\ body.}}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{bool}\ shutdown\_read\_;}
+\DoxyCodeLine{00110\ \};}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_API\_DOWNSTREAM\_CONNECTION\_H}}
+
+\end{DoxyCode}

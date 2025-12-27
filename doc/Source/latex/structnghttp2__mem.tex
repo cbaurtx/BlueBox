@@ -1,0 +1,91 @@
+\doxysection{nghttp2\+\_\+mem Struct Reference}
+\hypertarget{structnghttp2__mem}{}\label{structnghttp2__mem}\index{nghttp2\_mem@{nghttp2\_mem}}
+
+
+{\ttfamily \#include $<$nghttp2.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structnghttp2__mem_ad44c08c42f4385cc2a44773eaaf9b884}{mem\+\_\+user\+\_\+data}}
+\item 
+nghttp2\+\_\+malloc \mbox{\hyperlink{structnghttp2__mem_a3846b0f15a8a7d7bb94e410bc89f1611}{malloc}}
+\item 
+nghttp2\+\_\+free \mbox{\hyperlink{structnghttp2__mem_ad65efc0ff026114962d5d135561ed0f9}{free}}
+\item 
+nghttp2\+\_\+calloc \mbox{\hyperlink{structnghttp2__mem_a9c4df71c23a0cf6d563443c8c703a5da}{calloc}}
+\item 
+nghttp2\+\_\+realloc \mbox{\hyperlink{structnghttp2__mem_a2ea00eebba6c9f75a425b6ae4376418f}{realloc}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Custom memory allocator functions and user defined pointer. The \texorpdfstring{$\vert$}{|}mem\+\_\+user\+\_\+data\texorpdfstring{$\vert$}{|} member is passed to each allocator function. This can be used, for example, to achieve per-\/session memory pool.
+
+In the following example code, {\ttfamily my\+\_\+malloc}, {\ttfamily my\+\_\+free}, {\ttfamily my\+\_\+calloc} and {\ttfamily my\+\_\+realloc} are the replacement of the standard allocators {\ttfamily \doxylink{structnghttp2__mem_a3846b0f15a8a7d7bb94e410bc89f1611}{malloc}}, {\ttfamily \doxylink{structnghttp2__mem_ad65efc0ff026114962d5d135561ed0f9}{free}}, {\ttfamily \doxylink{structnghttp2__mem_a9c4df71c23a0cf6d563443c8c703a5da}{calloc}} and {\ttfamily \doxylink{structnghttp2__mem_a2ea00eebba6c9f75a425b6ae4376418f}{realloc}} respectively\+:\+: \begin{DoxyVerb}void *my_malloc_cb(size_t size, void *mem_user_data) {
+  return my_malloc(size);
+}
+
+void my_free_cb(void *ptr, void *mem_user_data) { my_free(ptr); }
+
+void *my_calloc_cb(size_t nmemb, size_t size, void *mem_user_data) {
+  return my_calloc(nmemb, size);
+}
+
+void *my_realloc_cb(void *ptr, size_t size, void *mem_user_data) {
+  return my_realloc(ptr, size);
+}
+
+void session_new() {
+  nghttp2_session *session;
+  nghttp2_session_callbacks *callbacks;
+  nghttp2_mem mem = {NULL, my_malloc_cb, my_free_cb, my_calloc_cb,
+                     my_realloc_cb};
+
+  ...
+
+  nghttp2_session_client_new3(&session, callbacks, NULL, NULL, &mem);
+
+  ...
+}
+\end{DoxyVerb}
+ 
+
+\label{doc-variable-members}
+\Hypertarget{structnghttp2__mem_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structnghttp2__mem_a9c4df71c23a0cf6d563443c8c703a5da}\index{nghttp2\_mem@{nghttp2\_mem}!calloc@{calloc}}
+\index{calloc@{calloc}!nghttp2\_mem@{nghttp2\_mem}}
+\doxysubsubsection{\texorpdfstring{calloc}{calloc}}
+{\footnotesize\ttfamily \label{structnghttp2__mem_a9c4df71c23a0cf6d563443c8c703a5da} 
+nghttp2\+\_\+calloc nghttp2\+\_\+mem\+::calloc}
+
+Custom allocator function to replace \doxylink{structnghttp2__mem_a9c4df71c23a0cf6d563443c8c703a5da}{calloc()}. \Hypertarget{structnghttp2__mem_ad65efc0ff026114962d5d135561ed0f9}\index{nghttp2\_mem@{nghttp2\_mem}!free@{free}}
+\index{free@{free}!nghttp2\_mem@{nghttp2\_mem}}
+\doxysubsubsection{\texorpdfstring{free}{free}}
+{\footnotesize\ttfamily \label{structnghttp2__mem_ad65efc0ff026114962d5d135561ed0f9} 
+nghttp2\+\_\+free nghttp2\+\_\+mem\+::free}
+
+Custom allocator function to replace \doxylink{structnghttp2__mem_ad65efc0ff026114962d5d135561ed0f9}{free()}. \Hypertarget{structnghttp2__mem_a3846b0f15a8a7d7bb94e410bc89f1611}\index{nghttp2\_mem@{nghttp2\_mem}!malloc@{malloc}}
+\index{malloc@{malloc}!nghttp2\_mem@{nghttp2\_mem}}
+\doxysubsubsection{\texorpdfstring{malloc}{malloc}}
+{\footnotesize\ttfamily \label{structnghttp2__mem_a3846b0f15a8a7d7bb94e410bc89f1611} 
+nghttp2\+\_\+malloc nghttp2\+\_\+mem\+::malloc}
+
+Custom allocator function to replace \doxylink{structnghttp2__mem_a3846b0f15a8a7d7bb94e410bc89f1611}{malloc()}. \Hypertarget{structnghttp2__mem_ad44c08c42f4385cc2a44773eaaf9b884}\index{nghttp2\_mem@{nghttp2\_mem}!mem\_user\_data@{mem\_user\_data}}
+\index{mem\_user\_data@{mem\_user\_data}!nghttp2\_mem@{nghttp2\_mem}}
+\doxysubsubsection{\texorpdfstring{mem\_user\_data}{mem\_user\_data}}
+{\footnotesize\ttfamily \label{structnghttp2__mem_ad44c08c42f4385cc2a44773eaaf9b884} 
+void\texorpdfstring{$\ast$}{*} nghttp2\+\_\+mem\+::mem\+\_\+user\+\_\+data}
+
+An arbitrary user supplied data. This is passed to each allocator function. \Hypertarget{structnghttp2__mem_a2ea00eebba6c9f75a425b6ae4376418f}\index{nghttp2\_mem@{nghttp2\_mem}!realloc@{realloc}}
+\index{realloc@{realloc}!nghttp2\_mem@{nghttp2\_mem}}
+\doxysubsubsection{\texorpdfstring{realloc}{realloc}}
+{\footnotesize\ttfamily \label{structnghttp2__mem_a2ea00eebba6c9f75a425b6ae4376418f} 
+nghttp2\+\_\+realloc nghttp2\+\_\+mem\+::realloc}
+
+Custom allocator function to replace \doxylink{structnghttp2__mem_a2ea00eebba6c9f75a425b6ae4376418f}{realloc()}. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/lib/includes/nghttp2/nghttp2.\+h\end{DoxyCompactItemize}

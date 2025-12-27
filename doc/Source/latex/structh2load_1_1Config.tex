@@ -1,0 +1,178 @@
+\doxysection{h2load\+::Config Struct Reference}
+\hypertarget{structh2load_1_1Config}{}\label{structh2load_1_1Config}\index{h2load::Config@{h2load::Config}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structh2load_1_1Config_a853c3dad588d11ef1c1db1fb358a1e4e}\label{structh2load_1_1Config_a853c3dad588d11ef1c1db1fb358a1e4e} 
+enum \{ {\bfseries PROTO\+\_\+\+HTTP2}
+, {\bfseries PROTO\+\_\+\+HTTP1\+\_\+1}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structh2load_1_1Config_a3fc627f555f40b22a65162575555776b}\label{structh2load_1_1Config_a3fc627f555f40b22a65162575555776b} 
+bool {\bfseries is\+\_\+rate\+\_\+mode} () const
+\item 
+\Hypertarget{structh2load_1_1Config_af36421e60647be2cc3138119a95180b8}\label{structh2load_1_1Config_af36421e60647be2cc3138119a95180b8} 
+bool {\bfseries is\+\_\+timing\+\_\+based\+\_\+mode} () const
+\item 
+\Hypertarget{structh2load_1_1Config_aae1e87997edee03e92684de170363d59}\label{structh2load_1_1Config_aae1e87997edee03e92684de170363d59} 
+bool {\bfseries has\+\_\+base\+\_\+uri} () const
+\item 
+\Hypertarget{structh2load_1_1Config_a03c4183415f3078c446e72473f6ac240}\label{structh2load_1_1Config_a03c4183415f3078c446e72473f6ac240} 
+bool {\bfseries rps\+\_\+enabled} () const
+\item 
+\Hypertarget{structh2load_1_1Config_a064177d4f10ab8c9b5f0215fae556463}\label{structh2load_1_1Config_a064177d4f10ab8c9b5f0215fae556463} 
+bool {\bfseries is\+\_\+quic} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structh2load_1_1Config_a709dfe5aac83d508b9011d9bd11f0431}\label{structh2load_1_1Config_a709dfe5aac83d508b9011d9bd11f0431} 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\+\_\+nv}} $>$ $>$ {\bfseries nva}
+\item 
+\Hypertarget{structh2load_1_1Config_a5b96869f4ebdda47e944e5c87c74d79c}\label{structh2load_1_1Config_a5b96869f4ebdda47e944e5c87c74d79c} 
+std\+::vector$<$ std\+::string $>$ {\bfseries h1reqs}
+\item 
+\Hypertarget{structh2load_1_1Config_a405e12db02cdd0f52275616f2b209f0e}\label{structh2load_1_1Config_a405e12db02cdd0f52275616f2b209f0e} 
+std\+::vector$<$ std\+::chrono\+::steady\+\_\+clock\+::duration $>$ {\bfseries timings}
+\item 
+\Hypertarget{structh2load_1_1Config_a6b729033a22094d513837f03f46ed351}\label{structh2load_1_1Config_a6b729033a22094d513837f03f46ed351} 
+nghttp2\+::\+Headers {\bfseries custom\+\_\+headers}
+\item 
+\Hypertarget{structh2load_1_1Config_a86671ae4d99ccb6bac623f04934db7b2}\label{structh2load_1_1Config_a86671ae4d99ccb6bac623f04934db7b2} 
+std\+::string {\bfseries scheme}
+\item 
+\Hypertarget{structh2load_1_1Config_a30756f8d5899147d6c0a77bc2d8fc560}\label{structh2load_1_1Config_a30756f8d5899147d6c0a77bc2d8fc560} 
+std\+::string {\bfseries host}
+\item 
+\Hypertarget{structh2load_1_1Config_a5085321c201d6505a163cd5f94b4b3e4}\label{structh2load_1_1Config_a5085321c201d6505a163cd5f94b4b3e4} 
+std\+::string {\bfseries connect\+\_\+to\+\_\+host}
+\item 
+\Hypertarget{structh2load_1_1Config_a47a554eceac9cdaede4e07d5356321ef}\label{structh2load_1_1Config_a47a554eceac9cdaede4e07d5356321ef} 
+std\+::string {\bfseries ifile}
+\item 
+\Hypertarget{structh2load_1_1Config_a5b9b61b69c6309abf99ff6927747053c}\label{structh2load_1_1Config_a5b9b61b69c6309abf99ff6927747053c} 
+std\+::string {\bfseries ciphers}
+\item 
+\Hypertarget{structh2load_1_1Config_a0dd75b8db57c50ca85538e4f6470536b}\label{structh2load_1_1Config_a0dd75b8db57c50ca85538e4f6470536b} 
+std\+::string {\bfseries tls13\+\_\+ciphers}
+\item 
+\Hypertarget{structh2load_1_1Config_a4e749d39db0956417890a1ebdb4dbf32}\label{structh2load_1_1Config_a4e749d39db0956417890a1ebdb4dbf32} 
+std\+::string {\bfseries groups}
+\item 
+\Hypertarget{structh2load_1_1Config_a0baf2bce39567c70adf9e154ba45cc38}\label{structh2load_1_1Config_a0baf2bce39567c70adf9e154ba45cc38} 
+int64\+\_\+t {\bfseries data\+\_\+length}
+\item 
+\Hypertarget{structh2load_1_1Config_a6e7f26c06345e203f166868c9be39961}\label{structh2load_1_1Config_a6e7f26c06345e203f166868c9be39961} 
+uint8\+\_\+t \texorpdfstring{$\ast$}{*} {\bfseries data}
+\item 
+\Hypertarget{structh2load_1_1Config_a4247b59581aae27f8469760920ac87af}\label{structh2load_1_1Config_a4247b59581aae27f8469760920ac87af} 
+addrinfo \texorpdfstring{$\ast$}{*} {\bfseries addrs}
+\item 
+\Hypertarget{structh2load_1_1Config_a924f12794497e08e8c9e5dd8476dbe1f}\label{structh2load_1_1Config_a924f12794497e08e8c9e5dd8476dbe1f} 
+size\+\_\+t {\bfseries nreqs}
+\item 
+\Hypertarget{structh2load_1_1Config_a5ddfd7cbae74487335585b5e2707b16c}\label{structh2load_1_1Config_a5ddfd7cbae74487335585b5e2707b16c} 
+size\+\_\+t {\bfseries nclients}
+\item 
+\Hypertarget{structh2load_1_1Config_a7ddcfbb367da18138bff5d7e565ecd96}\label{structh2load_1_1Config_a7ddcfbb367da18138bff5d7e565ecd96} 
+size\+\_\+t {\bfseries nthreads}
+\item 
+\Hypertarget{structh2load_1_1Config_ad71ff3096b59ac8947e59c88544e397d}\label{structh2load_1_1Config_ad71ff3096b59ac8947e59c88544e397d} 
+size\+\_\+t {\bfseries max\+\_\+concurrent\+\_\+streams}
+\item 
+\Hypertarget{structh2load_1_1Config_a57b8143fb2ce798802fb76777e571846}\label{structh2load_1_1Config_a57b8143fb2ce798802fb76777e571846} 
+size\+\_\+t {\bfseries window\+\_\+bits}
+\item 
+\Hypertarget{structh2load_1_1Config_a9d213a5f847c25caf044bb3fbea3e501}\label{structh2load_1_1Config_a9d213a5f847c25caf044bb3fbea3e501} 
+size\+\_\+t {\bfseries connection\+\_\+window\+\_\+bits}
+\item 
+\Hypertarget{structh2load_1_1Config_a4e418311bed5b7032fea889f4eabfdf2}\label{structh2load_1_1Config_a4e418311bed5b7032fea889f4eabfdf2} 
+size\+\_\+t {\bfseries max\+\_\+frame\+\_\+size}
+\item 
+\Hypertarget{structh2load_1_1Config_aa7493ce751de2d393c967f2f991e2918}\label{structh2load_1_1Config_aa7493ce751de2d393c967f2f991e2918} 
+size\+\_\+t {\bfseries rate}
+\item 
+\Hypertarget{structh2load_1_1Config_a5b00c94a032e5bbff4fd0d9964c8da2e}\label{structh2load_1_1Config_a5b00c94a032e5bbff4fd0d9964c8da2e} 
+ev\+\_\+tstamp {\bfseries rate\+\_\+period}
+\item 
+\Hypertarget{structh2load_1_1Config_ad3840723cd80c68edc6a888a0eedc994}\label{structh2load_1_1Config_ad3840723cd80c68edc6a888a0eedc994} 
+ev\+\_\+tstamp {\bfseries duration}
+\item 
+\Hypertarget{structh2load_1_1Config_accf8379a7de916bf1bbf3772a9a8058e}\label{structh2load_1_1Config_accf8379a7de916bf1bbf3772a9a8058e} 
+ev\+\_\+tstamp {\bfseries warm\+\_\+up\+\_\+time}
+\item 
+\Hypertarget{structh2load_1_1Config_a7102ce014033a2e98a3834eddc432a9f}\label{structh2load_1_1Config_a7102ce014033a2e98a3834eddc432a9f} 
+ev\+\_\+tstamp {\bfseries conn\+\_\+active\+\_\+timeout}
+\item 
+\Hypertarget{structh2load_1_1Config_a116434bfb507b36e80ce846fecb742bd}\label{structh2load_1_1Config_a116434bfb507b36e80ce846fecb742bd} 
+ev\+\_\+tstamp {\bfseries conn\+\_\+inactivity\+\_\+timeout}
+\item 
+\Hypertarget{structh2load_1_1Config_a399c08aece679fb1f6e51d07c353f51b}\label{structh2load_1_1Config_a399c08aece679fb1f6e51d07c353f51b} 
+enum h2load\+::\+Config\+:: \{ ... \}  {\bfseries no\+\_\+tls\+\_\+proto}
+\item 
+\Hypertarget{structh2load_1_1Config_a687cfc824bf901f7dca81727e4d7fd22}\label{structh2load_1_1Config_a687cfc824bf901f7dca81727e4d7fd22} 
+uint32\+\_\+t {\bfseries header\+\_\+table\+\_\+size}
+\item 
+\Hypertarget{structh2load_1_1Config_a9da614ec8a780ed5b70906b7602602c3}\label{structh2load_1_1Config_a9da614ec8a780ed5b70906b7602602c3} 
+uint32\+\_\+t {\bfseries encoder\+\_\+header\+\_\+table\+\_\+size}
+\item 
+\Hypertarget{structh2load_1_1Config_a99cc6dbdf651de62bb34d2632e7b90de}\label{structh2load_1_1Config_a99cc6dbdf651de62bb34d2632e7b90de} 
+int {\bfseries data\+\_\+fd}
+\item 
+\Hypertarget{structh2load_1_1Config_adb6b7b127503e70f080907a6312eb333}\label{structh2load_1_1Config_adb6b7b127503e70f080907a6312eb333} 
+int {\bfseries log\+\_\+fd}
+\item 
+\Hypertarget{structh2load_1_1Config_a382749e7a2939b6786e064f4d5d9e697}\label{structh2load_1_1Config_a382749e7a2939b6786e064f4d5d9e697} 
+std\+::string {\bfseries qlog\+\_\+file\+\_\+base}
+\item 
+\Hypertarget{structh2load_1_1Config_a57a5490edf743f7ef46fa2ecd7e6412b}\label{structh2load_1_1Config_a57a5490edf743f7ef46fa2ecd7e6412b} 
+uint16\+\_\+t {\bfseries port}
+\item 
+\Hypertarget{structh2load_1_1Config_a268dd89b6112ac309a366323a94d7c89}\label{structh2load_1_1Config_a268dd89b6112ac309a366323a94d7c89} 
+uint16\+\_\+t {\bfseries default\+\_\+port}
+\item 
+\Hypertarget{structh2load_1_1Config_a399cc0bd5c3202d20eff78c98ca0af96}\label{structh2load_1_1Config_a399cc0bd5c3202d20eff78c98ca0af96} 
+uint16\+\_\+t {\bfseries connect\+\_\+to\+\_\+port}
+\item 
+\Hypertarget{structh2load_1_1Config_afa0e06505b95c732d07246b72e390a56}\label{structh2load_1_1Config_afa0e06505b95c732d07246b72e390a56} 
+bool {\bfseries verbose}
+\item 
+\Hypertarget{structh2load_1_1Config_ac2ba23dcec8cf1dc5161cf7e8d248f35}\label{structh2load_1_1Config_ac2ba23dcec8cf1dc5161cf7e8d248f35} 
+bool {\bfseries timing\+\_\+script}
+\item 
+\Hypertarget{structh2load_1_1Config_a29fad01c1f2d35bc23733ee6b7e2e876}\label{structh2load_1_1Config_a29fad01c1f2d35bc23733ee6b7e2e876} 
+std\+::string {\bfseries base\+\_\+uri}
+\item 
+\Hypertarget{structh2load_1_1Config_a7b5d8ae111f2e34000dd0e008eb7c370}\label{structh2load_1_1Config_a7b5d8ae111f2e34000dd0e008eb7c370} 
+bool {\bfseries base\+\_\+uri\+\_\+unix}
+\item 
+\Hypertarget{structh2load_1_1Config_ac7ce1329f5697044b2cc3657bfdf3d46}\label{structh2load_1_1Config_ac7ce1329f5697044b2cc3657bfdf3d46} 
+sockaddr\+\_\+un {\bfseries unix\+\_\+addr}
+\item 
+\Hypertarget{structh2load_1_1Config_a181cadf6b09a1fa1863d162ee860ddf8}\label{structh2load_1_1Config_a181cadf6b09a1fa1863d162ee860ddf8} 
+std\+::vector$<$ std\+::string $>$ {\bfseries alpn\+\_\+list}
+\item 
+\Hypertarget{structh2load_1_1Config_afdd58a9de86d0ddb18ff7239d74dc4e6}\label{structh2load_1_1Config_afdd58a9de86d0ddb18ff7239d74dc4e6} 
+double {\bfseries rps}
+\item 
+\Hypertarget{structh2load_1_1Config_aa8f869da621d22ed4c270c3f635018d5}\label{structh2load_1_1Config_aa8f869da621d22ed4c270c3f635018d5} 
+bool {\bfseries no\+\_\+udp\+\_\+gso}
+\item 
+\Hypertarget{structh2load_1_1Config_aef9a8eb906729ffbcf5e872ba08af94b}\label{structh2load_1_1Config_aef9a8eb906729ffbcf5e872ba08af94b} 
+size\+\_\+t {\bfseries max\+\_\+udp\+\_\+payload\+\_\+size}
+\item 
+\Hypertarget{structh2load_1_1Config_a85c4aff24b8d15acaaf01c5e3257124d}\label{structh2load_1_1Config_a85c4aff24b8d15acaaf01c5e3257124d} 
+bool {\bfseries ktls}
+\item 
+\Hypertarget{structh2load_1_1Config_a9eaea12e3a6ee3d8d1e5dd4c734fe3fd}\label{structh2load_1_1Config_a9eaea12e3a6ee3d8d1e5dd4c734fe3fd} 
+std\+::string {\bfseries sni}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/h2load.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/h2load.\+cc\end{DoxyCompactItemize}

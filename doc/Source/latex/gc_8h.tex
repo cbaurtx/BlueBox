@@ -1,0 +1,79 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/gc.h File Reference}
+\hypertarget{gc_8h}{}\label{gc_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/gc.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/gc.h}}
+{\ttfamily \#include "{}common.\+h"{}}\newline
+Include dependency graph for gc.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{gc_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gc_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structmrb__gc}{mrb\+\_\+gc}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{gc_8h_ae3d9e486655d53bdae3809bf653842c7}\label{gc_8h_ae3d9e486655d53bdae3809bf653842c7} 
+\#define {\bfseries MRB\+\_\+\+EACH\+\_\+\+OBJ\+\_\+\+OK}~0
+\item 
+\Hypertarget{gc_8h_a4aad7340e303da7f392ff6be2062b1bb}\label{gc_8h_a4aad7340e303da7f392ff6be2062b1bb} 
+\#define {\bfseries MRB\+\_\+\+EACH\+\_\+\+OBJ\+\_\+\+BREAK}~1
+\item 
+\Hypertarget{gc_8h_a359c104142b25e3d6d9c647379b58f86}\label{gc_8h_a359c104142b25e3d6d9c647379b58f86} 
+\#define {\bfseries MRB\+\_\+\+GC\+\_\+\+ARENA\+\_\+\+SIZE}~100
+\item 
+\Hypertarget{gc_8h_a3f06721bc1299ee5d667f0042b1c09f4}\label{gc_8h_a3f06721bc1299ee5d667f0042b1c09f4} 
+\#define {\bfseries MRB\+\_\+\+GC\+\_\+\+RED}~7
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{gc_8h_a57445b2dea8463cab974f7af7c6c7332}\label{gc_8h_a57445b2dea8463cab974f7af7c6c7332} 
+typedef int {\bfseries mrb\+\_\+each\+\_\+object\+\_\+callback}(struct \mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structRBasic}{RBasic}} \texorpdfstring{$\ast$}{*}obj, void \texorpdfstring{$\ast$}{*}data)
+\item 
+\Hypertarget{gc_8h_a46a7fac69506196b61da3abb9ed7ef0d}\label{gc_8h_a46a7fac69506196b61da3abb9ed7ef0d} 
+typedef struct mrb\+\_\+gc {\bfseries mrb\+\_\+gc}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{gc_8h_a152f44757afa894c5ca0f95682dcae15}\label{gc_8h_a152f44757afa894c5ca0f95682dcae15} 
+enum {\bfseries mrb\+\_\+gc\+\_\+state} \{ {\bfseries MRB\+\_\+\+GC\+\_\+\+STATE\+\_\+\+ROOT} = 0
+, {\bfseries MRB\+\_\+\+GC\+\_\+\+STATE\+\_\+\+MARK}
+, {\bfseries MRB\+\_\+\+GC\+\_\+\+STATE\+\_\+\+SWEEP}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{gc_8h_aa48c5c08100d31780c96d5afb04aef96}\label{gc_8h_aa48c5c08100d31780c96d5afb04aef96} 
+void {\bfseries mrb\+\_\+objspace\+\_\+each\+\_\+objects} (struct \mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, mrb\+\_\+each\+\_\+object\+\_\+callback \texorpdfstring{$\ast$}{*}callback, void \texorpdfstring{$\ast$}{*}data)
+\item 
+\Hypertarget{gc_8h_af93c09b41c7888a0cf43d10b42d5de6d}\label{gc_8h_af93c09b41c7888a0cf43d10b42d5de6d} 
+size\+\_\+t {\bfseries mrb\+\_\+objspace\+\_\+page\+\_\+slot\+\_\+size} (void)
+\item 
+\Hypertarget{gc_8h_a9fc1d224b7c788b71c67c123006972dc}\label{gc_8h_a9fc1d224b7c788b71c67c123006972dc} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+free\+\_\+context} (struct \mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structmrb__context}{mrb\+\_\+context}} \texorpdfstring{$\ast$}{*}c)
+\item 
+\Hypertarget{gc_8h_ab1eb474ec156ae63eac4913370f52154}\label{gc_8h_ab1eb474ec156ae63eac4913370f52154} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries mrb\+\_\+object\+\_\+dead\+\_\+p} (struct \mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structRBasic}{RBasic}} \texorpdfstring{$\ast$}{*}object)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item garbage collector for mruby
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 

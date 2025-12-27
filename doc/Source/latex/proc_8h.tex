@@ -1,0 +1,642 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/proc.h File Reference}
+\hypertarget{proc_8h}{}\label{proc_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/proc.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/proc.h}}
+{\ttfamily \#include "{}common.\+h"{}}\newline
+{\ttfamily \#include $<$mruby/irep.\+h$>$}\newline
+{\ttfamily \#include $<$mruby/khash.\+h$>$}\newline
+Include dependency graph for proc.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{proc_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{proc_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structREnv}{REnv}}
+\item 
+struct \mbox{\hyperlink{structRProc}{RProc}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{proc_8h_a2c479a7f4c4817790103e8522846a890}{MRB\+\_\+\+ENV\+\_\+\+SET\+\_\+\+LEN}}(e,  len)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a27df10334d12b9832d6d19f6d4b28e04}{MRB\+\_\+\+ENV\+\_\+\+LEN}}(e)
+\item 
+\Hypertarget{proc_8h_a76bdf26fd63ffb8158fbbf78cb629126}\label{proc_8h_a76bdf26fd63ffb8158fbbf78cb629126} 
+\#define {\bfseries MRB\+\_\+\+ENV\+\_\+\+CLOSED}~(1$<$$<$20)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a996987792173ecb2c4d101b9083ee1d6}{MRB\+\_\+\+ENV\+\_\+\+CLOSE}}(e)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a888d2bcb3be9acde4968e345776b1d29}{MRB\+\_\+\+ENV\+\_\+\+ONSTACK\+\_\+P}}(e)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a5ee74d7f1c7d791c40ed9b13504e7fba}{MRB\+\_\+\+ENV\+\_\+\+BIDX}}(e)
+\item 
+\#define \mbox{\hyperlink{proc_8h_abd8ecc4ddfee1c91c497d95d4f88994e}{MRB\+\_\+\+ENV\+\_\+\+SET\+\_\+\+BIDX}}(e,  idx)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a47c109267ceacc2b9cc56ac2178ce317}{MRB\+\_\+\+ASPEC\+\_\+\+REQ}}(a)
+\item 
+\#define \mbox{\hyperlink{proc_8h_ad66ec064c02633f0986bd18312dce928}{MRB\+\_\+\+ASPEC\+\_\+\+OPT}}(a)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a382c032c5d761f82b3caeafa32e0e4fc}{MRB\+\_\+\+ASPEC\+\_\+\+REST}}(a)
+\item 
+\#define \mbox{\hyperlink{proc_8h_aec4e30839d5bb421fcf07807fca9d5fd}{MRB\+\_\+\+ASPEC\+\_\+\+POST}}(a)
+\item 
+\#define \mbox{\hyperlink{proc_8h_aa970063c7fb22c8074de72e79736a233}{MRB\+\_\+\+ASPEC\+\_\+\+KEY}}(a)
+\item 
+\#define \mbox{\hyperlink{proc_8h_abc8c4e2acb8253daf7a4fd606bd65959}{MRB\+\_\+\+ASPEC\+\_\+\+KDICT}}(a)
+\item 
+\#define \mbox{\hyperlink{proc_8h_aed87ad2349a4ebab34028cced694a002}{MRB\+\_\+\+ASPEC\+\_\+\+BLOCK}}(a)
+\item 
+\Hypertarget{proc_8h_a7af605c4423ba10cd425a8764efb7702}\label{proc_8h_a7af605c4423ba10cd425a8764efb7702} 
+\#define {\bfseries MRB\+\_\+\+PROC\+\_\+\+CFUNC\+\_\+\+FL}~128
+\item 
+\#define \mbox{\hyperlink{proc_8h_a68a55a0936c91daa47b35e0641952a96}{MRB\+\_\+\+PROC\+\_\+\+CFUNC\+\_\+P}}(p)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a9384f2e3f6c7d563a8eef1f0a04d05f6}{MRB\+\_\+\+PROC\+\_\+\+CFUNC}}(p)
+\item 
+\Hypertarget{proc_8h_ad9b0ee65e9e5862fdd007ea800ea6bf3}\label{proc_8h_ad9b0ee65e9e5862fdd007ea800ea6bf3} 
+\#define {\bfseries MRB\+\_\+\+PROC\+\_\+\+STRICT}~256
+\item 
+\#define \mbox{\hyperlink{proc_8h_af280858933ba2b9f247a666223cbfff5}{MRB\+\_\+\+PROC\+\_\+\+STRICT\+\_\+P}}(p)
+\item 
+\Hypertarget{proc_8h_a583073eb6ae7e1932e0b747dc1febb07}\label{proc_8h_a583073eb6ae7e1932e0b747dc1febb07} 
+\#define {\bfseries MRB\+\_\+\+PROC\+\_\+\+ORPHAN}~512
+\item 
+\#define \mbox{\hyperlink{proc_8h_abdaa953741966097aaa6184d99403ba9}{MRB\+\_\+\+PROC\+\_\+\+ORPHAN\+\_\+P}}(p)
+\item 
+\Hypertarget{proc_8h_a109acf03e44110c045bad42abf2011fb}\label{proc_8h_a109acf03e44110c045bad42abf2011fb} 
+\#define {\bfseries MRB\+\_\+\+PROC\+\_\+\+ENVSET}~1024
+\item 
+\#define \mbox{\hyperlink{proc_8h_a6180a14d7a0447b2e636cbdb372ee78e}{MRB\+\_\+\+PROC\+\_\+\+ENV\+\_\+P}}(p)
+\item 
+\#define \mbox{\hyperlink{proc_8h_ae9c80334afb2f393fb74e8142487f5f5}{MRB\+\_\+\+PROC\+\_\+\+ENV}}(p)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a4cd5f364a2fd63263d9177f9a79aa027}{MRB\+\_\+\+PROC\+\_\+\+TARGET\+\_\+\+CLASS}}(p)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a5680c1eeabb4dfe1f1ca556709d75538}{MRB\+\_\+\+PROC\+\_\+\+SET\+\_\+\+TARGET\+\_\+\+CLASS}}(p,  tc)
+\item 
+\Hypertarget{proc_8h_a21faed41665994a26ee35f644c743234}\label{proc_8h_a21faed41665994a26ee35f644c743234} 
+\#define {\bfseries MRB\+\_\+\+PROC\+\_\+\+SCOPE}~2048
+\item 
+\#define \mbox{\hyperlink{proc_8h_aa753f70e2e3a6928b8f5340b35fa17ec}{MRB\+\_\+\+PROC\+\_\+\+SCOPE\+\_\+P}}(p)
+\item 
+\Hypertarget{proc_8h_a8a02f782cfd9d7d0420a4c6e009b44cc}\label{proc_8h_a8a02f782cfd9d7d0420a4c6e009b44cc} 
+\#define {\bfseries MRB\+\_\+\+PROC\+\_\+\+NOARG}~4096 /\texorpdfstring{$\ast$}{*} for MRB\+\_\+\+PROC\+\_\+\+CFUNC\+\_\+\+FL, it would be something like \mbox{\hyperlink{mruby_8h_aa6e2ec577d218326a3546a7028b23c3c}{MRB\+\_\+\+ARGS\+\_\+\+NONE}}() or MRB\+\_\+\+METHOD\+\_\+\+NOARG\+\_\+\+FL \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{proc_8h_aedbea527ae74d116748cfc0000d8dd24}{MRB\+\_\+\+PROC\+\_\+\+NOARG\+\_\+P}}(p)
+\item 
+\Hypertarget{proc_8h_a8c4623c556c601c7c8aed47b1e76ba37}\label{proc_8h_a8c4623c556c601c7c8aed47b1e76ba37} 
+\#define {\bfseries MRB\+\_\+\+PROC\+\_\+\+ALIAS}~8192
+\item 
+\#define \mbox{\hyperlink{proc_8h_a61b2bd1752a8a4f206cbc32c28d3e8bb}{MRB\+\_\+\+PROC\+\_\+\+ALIAS\+\_\+P}}(p)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a40d45d632f7033436d4537dea8345866}{mrb\+\_\+proc\+\_\+ptr}}(v)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a7353cb86fa2c62cb68eece8cddc8aa04}{mrb\+\_\+cfunc\+\_\+env\+\_\+get}}(mrb,  idx)
+\item 
+\Hypertarget{proc_8h_a0ff9cb7c8ab6b31233cc3e67f73562e7}\label{proc_8h_a0ff9cb7c8ab6b31233cc3e67f73562e7} 
+\#define {\bfseries MRB\+\_\+\+METHOD\+\_\+\+FUNC\+\_\+\+FL}~1
+\item 
+\Hypertarget{proc_8h_a71be97bbf457ef41da946cfcf553a0f1}\label{proc_8h_a71be97bbf457ef41da946cfcf553a0f1} 
+\#define {\bfseries MRB\+\_\+\+METHOD\+\_\+\+NOARG\+\_\+\+FL}~2
+\item 
+\#define \mbox{\hyperlink{proc_8h_a50ded3ae8449a98d5101d8d85105450a}{MRB\+\_\+\+METHOD\+\_\+\+FUNC\+\_\+P}}(m)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a50e4b3387fcd0e564e6b99bad7b128fa}{MRB\+\_\+\+METHOD\+\_\+\+NOARG\+\_\+P}}(m)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a6ce4018c01c1d52f10fcc6920588f5c8}{MRB\+\_\+\+METHOD\+\_\+\+NOARG\+\_\+\+SET}}(m)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a5957e37b9f377ceed05c6ac4637e1adc}{MRB\+\_\+\+METHOD\+\_\+\+FUNC}}(m)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a6434113a2f7490caddf3b91a61054d19}{MRB\+\_\+\+METHOD\+\_\+\+FROM\+\_\+\+FUNC}}(m,  fn)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a9d38776b138bbd2f233cccf4441fd829}{MRB\+\_\+\+METHOD\+\_\+\+FROM\+\_\+\+PROC}}(m,  pr)
+\item 
+\#define \mbox{\hyperlink{proc_8h_abbdddaafabc351ef5394b478d1b0eb79}{MRB\+\_\+\+METHOD\+\_\+\+PROC\+\_\+P}}(m)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a3be1ad70dcd6cbcdf4db4d76978910f3}{MRB\+\_\+\+METHOD\+\_\+\+PROC}}(m)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a66d2b91067e43a32cc5158191290ae40}{MRB\+\_\+\+METHOD\+\_\+\+UNDEF\+\_\+P}}(m)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a0adbc9ca64b43900fc13173b0d4f0f94}{MRB\+\_\+\+METHOD\+\_\+\+CFUNC\+\_\+P}}(m)
+\item 
+\#define \mbox{\hyperlink{proc_8h_a16c86df00b7f5b9ca25661be9ad1b9ce}{MRB\+\_\+\+METHOD\+\_\+\+CFUNC}}(m)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{proc_8h_a32be3055f51766fe0c4c2a92d49bd9b4}\label{proc_8h_a32be3055f51766fe0c4c2a92d49bd9b4} 
+\mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries mrb\+\_\+env\+\_\+unshare} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structREnv}{REnv}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} noraise)
+\item 
+\Hypertarget{proc_8h_aacaedb55403ee4e22d049f584ca2c7b7}\label{proc_8h_aacaedb55403ee4e22d049f584ca2c7b7} 
+struct \mbox{\hyperlink{structRProc}{RProc}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+proc\+\_\+new} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, const \mbox{\hyperlink{structmrb__irep}{mrb\+\_\+irep}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{proc_8h_ad6f51e0a286a2a78075d90744a548d5a}\label{proc_8h_ad6f51e0a286a2a78075d90744a548d5a} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} struct \mbox{\hyperlink{structRProc}{RProc}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+proc\+\_\+new\+\_\+cfunc} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\+\_\+func\+\_\+t}})
+\item 
+\Hypertarget{proc_8h_aeb84530d8c18ba6e3caee6755b3ef431}\label{proc_8h_aeb84530d8c18ba6e3caee6755b3ef431} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} struct \mbox{\hyperlink{structRProc}{RProc}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+closure\+\_\+new\+\_\+cfunc} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\+\_\+func\+\_\+t}} func, int nlocals)
+\item 
+\Hypertarget{proc_8h_a6bee7e2e12f68385970393d24ab9a0b8}\label{proc_8h_a6bee7e2e12f68385970393d24ab9a0b8} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} struct \mbox{\hyperlink{structRProc}{RProc}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+proc\+\_\+new\+\_\+cfunc\+\_\+with\+\_\+env} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\+\_\+func\+\_\+t}} func, mrb\+\_\+int argc, const \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \texorpdfstring{$\ast$}{*}argv)
+\item 
+\Hypertarget{proc_8h_a3854b50bfa331865c98c38dd84dc3eec}\label{proc_8h_a3854b50bfa331865c98c38dd84dc3eec} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+proc\+\_\+cfunc\+\_\+env\+\_\+get} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, mrb\+\_\+int idx)
+\item 
+\Hypertarget{proc_8h_a4baf756d3ddd8f69824f364ee85c2363}\label{proc_8h_a4baf756d3ddd8f69824f364ee85c2363} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+load\+\_\+proc} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, const struct \mbox{\hyperlink{structRProc}{RProc}} \texorpdfstring{$\ast$}{*}proc)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void \mbox{\hyperlink{proc_8h_a003982b556c0e2ff6d5bd7cf401f6a6f}{mrb\+\_\+vm\+\_\+ci\+\_\+env\+\_\+clear}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__callinfo}{mrb\+\_\+callinfo}} \texorpdfstring{$\ast$}{*}ci)
+\item 
+\Hypertarget{proc_8h_afcb779cb81fa18a1294855058c98fa3a}\label{proc_8h_afcb779cb81fa18a1294855058c98fa3a} 
+void {\bfseries mrb\+\_\+vm\+\_\+ci\+\_\+proc\+\_\+set} (\mbox{\hyperlink{structmrb__callinfo}{mrb\+\_\+callinfo}} \texorpdfstring{$\ast$}{*}ci, const struct \mbox{\hyperlink{structRProc}{RProc}} \texorpdfstring{$\ast$}{*}p)
+\item 
+\Hypertarget{proc_8h_ac97c9a0989785c917f5f8687d9342638}\label{proc_8h_ac97c9a0989785c917f5f8687d9342638} 
+struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+vm\+\_\+ci\+\_\+target\+\_\+class} (const \mbox{\hyperlink{structmrb__callinfo}{mrb\+\_\+callinfo}} \texorpdfstring{$\ast$}{*}ci)
+\item 
+\Hypertarget{proc_8h_a63c2a83961cb526299ec31799ae798a5}\label{proc_8h_a63c2a83961cb526299ec31799ae798a5} 
+void {\bfseries mrb\+\_\+vm\+\_\+ci\+\_\+target\+\_\+class\+\_\+set} (\mbox{\hyperlink{structmrb__callinfo}{mrb\+\_\+callinfo}} \texorpdfstring{$\ast$}{*}ci, struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*}tc)
+\item 
+\Hypertarget{proc_8h_abba9eb9ec243f56a293df7cfd6e1de6a}\label{proc_8h_abba9eb9ec243f56a293df7cfd6e1de6a} 
+struct \mbox{\hyperlink{structREnv}{REnv}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+vm\+\_\+ci\+\_\+env} (const \mbox{\hyperlink{structmrb__callinfo}{mrb\+\_\+callinfo}} \texorpdfstring{$\ast$}{*}ci)
+\item 
+\Hypertarget{proc_8h_a9cd6c6b5aacac35884bad10bf453a6ae}\label{proc_8h_a9cd6c6b5aacac35884bad10bf453a6ae} 
+void {\bfseries mrb\+\_\+vm\+\_\+ci\+\_\+env\+\_\+set} (\mbox{\hyperlink{structmrb__callinfo}{mrb\+\_\+callinfo}} \texorpdfstring{$\ast$}{*}ci, struct \mbox{\hyperlink{structREnv}{REnv}} \texorpdfstring{$\ast$}{*}e)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item Proc class
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-define-members}
+\Hypertarget{proc_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{proc_8h_aed87ad2349a4ebab34028cced694a002}\index{proc.h@{proc.h}!MRB\_ASPEC\_BLOCK@{MRB\_ASPEC\_BLOCK}}
+\index{MRB\_ASPEC\_BLOCK@{MRB\_ASPEC\_BLOCK}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_ASPEC\_BLOCK}{MRB\_ASPEC\_BLOCK}}
+{\footnotesize\ttfamily \label{proc_8h_aed87ad2349a4ebab34028cced694a002} 
+\#define MRB\+\_\+\+ASPEC\+\_\+\+BLOCK(\begin{DoxyParamCaption}\item[{}]{a}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((a)\ \&\ 1)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_abc8c4e2acb8253daf7a4fd606bd65959}\index{proc.h@{proc.h}!MRB\_ASPEC\_KDICT@{MRB\_ASPEC\_KDICT}}
+\index{MRB\_ASPEC\_KDICT@{MRB\_ASPEC\_KDICT}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_ASPEC\_KDICT}{MRB\_ASPEC\_KDICT}}
+{\footnotesize\ttfamily \label{proc_8h_abc8c4e2acb8253daf7a4fd606bd65959} 
+\#define MRB\+\_\+\+ASPEC\+\_\+\+KDICT(\begin{DoxyParamCaption}\item[{}]{a}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((a)\ >>\ 1)\ \&\ 0x1)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_aa970063c7fb22c8074de72e79736a233}\index{proc.h@{proc.h}!MRB\_ASPEC\_KEY@{MRB\_ASPEC\_KEY}}
+\index{MRB\_ASPEC\_KEY@{MRB\_ASPEC\_KEY}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_ASPEC\_KEY}{MRB\_ASPEC\_KEY}}
+{\footnotesize\ttfamily \label{proc_8h_aa970063c7fb22c8074de72e79736a233} 
+\#define MRB\+\_\+\+ASPEC\+\_\+\+KEY(\begin{DoxyParamCaption}\item[{}]{a}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((a)\ >>\ 2)\ \&\ 0x1f)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_ad66ec064c02633f0986bd18312dce928}\index{proc.h@{proc.h}!MRB\_ASPEC\_OPT@{MRB\_ASPEC\_OPT}}
+\index{MRB\_ASPEC\_OPT@{MRB\_ASPEC\_OPT}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_ASPEC\_OPT}{MRB\_ASPEC\_OPT}}
+{\footnotesize\ttfamily \label{proc_8h_ad66ec064c02633f0986bd18312dce928} 
+\#define MRB\+\_\+\+ASPEC\+\_\+\+OPT(\begin{DoxyParamCaption}\item[{}]{a}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((a)\ >>\ 13)\ \&\ 0x1f)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_aec4e30839d5bb421fcf07807fca9d5fd}\index{proc.h@{proc.h}!MRB\_ASPEC\_POST@{MRB\_ASPEC\_POST}}
+\index{MRB\_ASPEC\_POST@{MRB\_ASPEC\_POST}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_ASPEC\_POST}{MRB\_ASPEC\_POST}}
+{\footnotesize\ttfamily \label{proc_8h_aec4e30839d5bb421fcf07807fca9d5fd} 
+\#define MRB\+\_\+\+ASPEC\+\_\+\+POST(\begin{DoxyParamCaption}\item[{}]{a}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((a)\ >>\ 7)\ \&\ 0x1f)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a47c109267ceacc2b9cc56ac2178ce317}\index{proc.h@{proc.h}!MRB\_ASPEC\_REQ@{MRB\_ASPEC\_REQ}}
+\index{MRB\_ASPEC\_REQ@{MRB\_ASPEC\_REQ}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_ASPEC\_REQ}{MRB\_ASPEC\_REQ}}
+{\footnotesize\ttfamily \label{proc_8h_a47c109267ceacc2b9cc56ac2178ce317} 
+\#define MRB\+\_\+\+ASPEC\+\_\+\+REQ(\begin{DoxyParamCaption}\item[{}]{a}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((a)\ >>\ 18)\ \&\ 0x1f)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a382c032c5d761f82b3caeafa32e0e4fc}\index{proc.h@{proc.h}!MRB\_ASPEC\_REST@{MRB\_ASPEC\_REST}}
+\index{MRB\_ASPEC\_REST@{MRB\_ASPEC\_REST}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_ASPEC\_REST}{MRB\_ASPEC\_REST}}
+{\footnotesize\ttfamily \label{proc_8h_a382c032c5d761f82b3caeafa32e0e4fc} 
+\#define MRB\+\_\+\+ASPEC\+\_\+\+REST(\begin{DoxyParamCaption}\item[{}]{a}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((a)\ >>\ 12)\ \&\ 0x1)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a7353cb86fa2c62cb68eece8cddc8aa04}\index{proc.h@{proc.h}!mrb\_cfunc\_env\_get@{mrb\_cfunc\_env\_get}}
+\index{mrb\_cfunc\_env\_get@{mrb\_cfunc\_env\_get}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_cfunc\_env\_get}{mrb\_cfunc\_env\_get}}
+{\footnotesize\ttfamily \label{proc_8h_a7353cb86fa2c62cb68eece8cddc8aa04} 
+\#define mrb\+\_\+cfunc\+\_\+env\+\_\+get(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{idx}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_proc\_cfunc\_env\_get(mrb,\ idx)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a5ee74d7f1c7d791c40ed9b13504e7fba}\index{proc.h@{proc.h}!MRB\_ENV\_BIDX@{MRB\_ENV\_BIDX}}
+\index{MRB\_ENV\_BIDX@{MRB\_ENV\_BIDX}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_ENV\_BIDX}{MRB\_ENV\_BIDX}}
+{\footnotesize\ttfamily \label{proc_8h_a5ee74d7f1c7d791c40ed9b13504e7fba} 
+\#define MRB\+\_\+\+ENV\+\_\+\+BIDX(\begin{DoxyParamCaption}\item[{}]{e}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((e)-\/>flags\ >>\ 8)\ \&\ 0xff)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a996987792173ecb2c4d101b9083ee1d6}\index{proc.h@{proc.h}!MRB\_ENV\_CLOSE@{MRB\_ENV\_CLOSE}}
+\index{MRB\_ENV\_CLOSE@{MRB\_ENV\_CLOSE}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_ENV\_CLOSE}{MRB\_ENV\_CLOSE}}
+{\footnotesize\ttfamily \label{proc_8h_a996987792173ecb2c4d101b9083ee1d6} 
+\#define MRB\+\_\+\+ENV\+\_\+\+CLOSE(\begin{DoxyParamCaption}\item[{}]{e}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((e)-\/>flags\ |=\ MRB\_ENV\_CLOSED)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a27df10334d12b9832d6d19f6d4b28e04}\index{proc.h@{proc.h}!MRB\_ENV\_LEN@{MRB\_ENV\_LEN}}
+\index{MRB\_ENV\_LEN@{MRB\_ENV\_LEN}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_ENV\_LEN}{MRB\_ENV\_LEN}}
+{\footnotesize\ttfamily \label{proc_8h_a27df10334d12b9832d6d19f6d4b28e04} 
+\#define MRB\+\_\+\+ENV\+\_\+\+LEN(\begin{DoxyParamCaption}\item[{}]{e}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((mrb\_int)((e)-\/>flags\ \&\ 0xff))}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a888d2bcb3be9acde4968e345776b1d29}\index{proc.h@{proc.h}!MRB\_ENV\_ONSTACK\_P@{MRB\_ENV\_ONSTACK\_P}}
+\index{MRB\_ENV\_ONSTACK\_P@{MRB\_ENV\_ONSTACK\_P}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_ENV\_ONSTACK\_P}{MRB\_ENV\_ONSTACK\_P}}
+{\footnotesize\ttfamily \label{proc_8h_a888d2bcb3be9acde4968e345776b1d29} 
+\#define MRB\+\_\+\+ENV\+\_\+\+ONSTACK\+\_\+P(\begin{DoxyParamCaption}\item[{}]{e}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((e)-\/>flags\ \&\ MRB\_ENV\_CLOSED)\ ==\ 0)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_abd8ecc4ddfee1c91c497d95d4f88994e}\index{proc.h@{proc.h}!MRB\_ENV\_SET\_BIDX@{MRB\_ENV\_SET\_BIDX}}
+\index{MRB\_ENV\_SET\_BIDX@{MRB\_ENV\_SET\_BIDX}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_ENV\_SET\_BIDX}{MRB\_ENV\_SET\_BIDX}}
+{\footnotesize\ttfamily \label{proc_8h_abd8ecc4ddfee1c91c497d95d4f88994e} 
+\#define MRB\+\_\+\+ENV\+\_\+\+SET\+\_\+\+BIDX(\begin{DoxyParamCaption}\item[{}]{e}{, }\item[{}]{idx}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((e)-\/>flags\ =\ (((e)-\/>flags\ \&\ \string~(0xff<<8))|((\textcolor{keywordtype}{unsigned}\ int)(idx)\ \&\ 0xff)<<8))}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a2c479a7f4c4817790103e8522846a890}\index{proc.h@{proc.h}!MRB\_ENV\_SET\_LEN@{MRB\_ENV\_SET\_LEN}}
+\index{MRB\_ENV\_SET\_LEN@{MRB\_ENV\_SET\_LEN}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_ENV\_SET\_LEN}{MRB\_ENV\_SET\_LEN}}
+{\footnotesize\ttfamily \label{proc_8h_a2c479a7f4c4817790103e8522846a890} 
+\#define MRB\+\_\+\+ENV\+\_\+\+SET\+\_\+\+LEN(\begin{DoxyParamCaption}\item[{}]{e}{, }\item[{}]{len}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((e)-\/>flags\ =\ (((e)-\/>flags\ \&\ \string~0xff)|((\textcolor{keywordtype}{unsigned}\ int)(len)\ \&\ 0xff)))}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a16c86df00b7f5b9ca25661be9ad1b9ce}\index{proc.h@{proc.h}!MRB\_METHOD\_CFUNC@{MRB\_METHOD\_CFUNC}}
+\index{MRB\_METHOD\_CFUNC@{MRB\_METHOD\_CFUNC}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_METHOD\_CFUNC}{MRB\_METHOD\_CFUNC}}
+{\footnotesize\ttfamily \label{proc_8h_a16c86df00b7f5b9ca25661be9ad1b9ce} 
+\#define MRB\+\_\+\+METHOD\+\_\+\+CFUNC(\begin{DoxyParamCaption}\item[{}]{m}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(MRB\_METHOD\_FUNC\_P(m)?MRB\_METHOD\_FUNC(m):((MRB\_METHOD\_PROC(m)\&\&MRB\_PROC\_CFUNC\_P(MRB\_METHOD\_PROC(m)))?MRB\_PROC\_CFUNC(MRB\_METHOD\_PROC(m)):NULL))}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a0adbc9ca64b43900fc13173b0d4f0f94}\index{proc.h@{proc.h}!MRB\_METHOD\_CFUNC\_P@{MRB\_METHOD\_CFUNC\_P}}
+\index{MRB\_METHOD\_CFUNC\_P@{MRB\_METHOD\_CFUNC\_P}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_METHOD\_CFUNC\_P}{MRB\_METHOD\_CFUNC\_P}}
+{\footnotesize\ttfamily \label{proc_8h_a0adbc9ca64b43900fc13173b0d4f0f94} 
+\#define MRB\+\_\+\+METHOD\+\_\+\+CFUNC\+\_\+P(\begin{DoxyParamCaption}\item[{}]{m}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(MRB\_METHOD\_FUNC\_P(m)?TRUE:(MRB\_METHOD\_PROC(m)?(MRB\_PROC\_CFUNC\_P(MRB\_METHOD\_PROC(m))):FALSE))}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a6434113a2f7490caddf3b91a61054d19}\index{proc.h@{proc.h}!MRB\_METHOD\_FROM\_FUNC@{MRB\_METHOD\_FROM\_FUNC}}
+\index{MRB\_METHOD\_FROM\_FUNC@{MRB\_METHOD\_FROM\_FUNC}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_METHOD\_FROM\_FUNC}{MRB\_METHOD\_FROM\_FUNC}}
+{\footnotesize\ttfamily \label{proc_8h_a6434113a2f7490caddf3b91a61054d19} 
+\#define MRB\+\_\+\+METHOD\+\_\+\+FROM\+\_\+\+FUNC(\begin{DoxyParamCaption}\item[{}]{m}{, }\item[{}]{fn}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((m)=(mrb\_method\_t)((((uintptr\_t)(fn))<<2)|MRB\_METHOD\_FUNC\_FL))}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a9d38776b138bbd2f233cccf4441fd829}\index{proc.h@{proc.h}!MRB\_METHOD\_FROM\_PROC@{MRB\_METHOD\_FROM\_PROC}}
+\index{MRB\_METHOD\_FROM\_PROC@{MRB\_METHOD\_FROM\_PROC}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_METHOD\_FROM\_PROC}{MRB\_METHOD\_FROM\_PROC}}
+{\footnotesize\ttfamily \label{proc_8h_a9d38776b138bbd2f233cccf4441fd829} 
+\#define MRB\+\_\+\+METHOD\+\_\+\+FROM\+\_\+\+PROC(\begin{DoxyParamCaption}\item[{}]{m}{, }\item[{}]{pr}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((m)=(mrb\_method\_t)(pr))}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a5957e37b9f377ceed05c6ac4637e1adc}\index{proc.h@{proc.h}!MRB\_METHOD\_FUNC@{MRB\_METHOD\_FUNC}}
+\index{MRB\_METHOD\_FUNC@{MRB\_METHOD\_FUNC}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_METHOD\_FUNC}{MRB\_METHOD\_FUNC}}
+{\footnotesize\ttfamily \label{proc_8h_a5957e37b9f377ceed05c6ac4637e1adc} 
+\#define MRB\+\_\+\+METHOD\+\_\+\+FUNC(\begin{DoxyParamCaption}\item[{}]{m}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\_func\_t}})((uintptr\_t)(m)>>2))}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a50ded3ae8449a98d5101d8d85105450a}\index{proc.h@{proc.h}!MRB\_METHOD\_FUNC\_P@{MRB\_METHOD\_FUNC\_P}}
+\index{MRB\_METHOD\_FUNC\_P@{MRB\_METHOD\_FUNC\_P}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_METHOD\_FUNC\_P}{MRB\_METHOD\_FUNC\_P}}
+{\footnotesize\ttfamily \label{proc_8h_a50ded3ae8449a98d5101d8d85105450a} 
+\#define MRB\+\_\+\+METHOD\+\_\+\+FUNC\+\_\+P(\begin{DoxyParamCaption}\item[{}]{m}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((uintptr\_t)(m))\&MRB\_METHOD\_FUNC\_FL)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a50e4b3387fcd0e564e6b99bad7b128fa}\index{proc.h@{proc.h}!MRB\_METHOD\_NOARG\_P@{MRB\_METHOD\_NOARG\_P}}
+\index{MRB\_METHOD\_NOARG\_P@{MRB\_METHOD\_NOARG\_P}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_METHOD\_NOARG\_P}{MRB\_METHOD\_NOARG\_P}}
+{\footnotesize\ttfamily \label{proc_8h_a50e4b3387fcd0e564e6b99bad7b128fa} 
+\#define MRB\+\_\+\+METHOD\+\_\+\+NOARG\+\_\+P(\begin{DoxyParamCaption}\item[{}]{m}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((((uintptr\_t)(m))\&MRB\_METHOD\_NOARG\_FL)?1:0)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a6ce4018c01c1d52f10fcc6920588f5c8}\index{proc.h@{proc.h}!MRB\_METHOD\_NOARG\_SET@{MRB\_METHOD\_NOARG\_SET}}
+\index{MRB\_METHOD\_NOARG\_SET@{MRB\_METHOD\_NOARG\_SET}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_METHOD\_NOARG\_SET}{MRB\_METHOD\_NOARG\_SET}}
+{\footnotesize\ttfamily \label{proc_8h_a6ce4018c01c1d52f10fcc6920588f5c8} 
+\#define MRB\+\_\+\+METHOD\+\_\+\+NOARG\+\_\+\+SET(\begin{DoxyParamCaption}\item[{}]{m}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((m)=(mrb\_method\_t)(((uintptr\_t)(m))|MRB\_METHOD\_NOARG\_FL))}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a3be1ad70dcd6cbcdf4db4d76978910f3}\index{proc.h@{proc.h}!MRB\_METHOD\_PROC@{MRB\_METHOD\_PROC}}
+\index{MRB\_METHOD\_PROC@{MRB\_METHOD\_PROC}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_METHOD\_PROC}{MRB\_METHOD\_PROC}}
+{\footnotesize\ttfamily \label{proc_8h_a3be1ad70dcd6cbcdf4db4d76978910f3} 
+\#define MRB\+\_\+\+METHOD\+\_\+\+PROC(\begin{DoxyParamCaption}\item[{}]{m}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\textcolor{keyword}{struct\ }\mbox{\hyperlink{structRProc}{RProc}}*)(m))}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_abbdddaafabc351ef5394b478d1b0eb79}\index{proc.h@{proc.h}!MRB\_METHOD\_PROC\_P@{MRB\_METHOD\_PROC\_P}}
+\index{MRB\_METHOD\_PROC\_P@{MRB\_METHOD\_PROC\_P}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_METHOD\_PROC\_P}{MRB\_METHOD\_PROC\_P}}
+{\footnotesize\ttfamily \label{proc_8h_abbdddaafabc351ef5394b478d1b0eb79} 
+\#define MRB\+\_\+\+METHOD\+\_\+\+PROC\+\_\+P(\begin{DoxyParamCaption}\item[{}]{m}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(!MRB\_METHOD\_FUNC\_P(m))}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a66d2b91067e43a32cc5158191290ae40}\index{proc.h@{proc.h}!MRB\_METHOD\_UNDEF\_P@{MRB\_METHOD\_UNDEF\_P}}
+\index{MRB\_METHOD\_UNDEF\_P@{MRB\_METHOD\_UNDEF\_P}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_METHOD\_UNDEF\_P}{MRB\_METHOD\_UNDEF\_P}}
+{\footnotesize\ttfamily \label{proc_8h_a66d2b91067e43a32cc5158191290ae40} 
+\#define MRB\+\_\+\+METHOD\+\_\+\+UNDEF\+\_\+P(\begin{DoxyParamCaption}\item[{}]{m}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((m)==0)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a61b2bd1752a8a4f206cbc32c28d3e8bb}\index{proc.h@{proc.h}!MRB\_PROC\_ALIAS\_P@{MRB\_PROC\_ALIAS\_P}}
+\index{MRB\_PROC\_ALIAS\_P@{MRB\_PROC\_ALIAS\_P}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_PROC\_ALIAS\_P}{MRB\_PROC\_ALIAS\_P}}
+{\footnotesize\ttfamily \label{proc_8h_a61b2bd1752a8a4f206cbc32c28d3e8bb} 
+\#define MRB\+\_\+\+PROC\+\_\+\+ALIAS\+\_\+P(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((p)-\/>flags\ \&\ MRB\_PROC\_ALIAS)\ !=\ 0)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a9384f2e3f6c7d563a8eef1f0a04d05f6}\index{proc.h@{proc.h}!MRB\_PROC\_CFUNC@{MRB\_PROC\_CFUNC}}
+\index{MRB\_PROC\_CFUNC@{MRB\_PROC\_CFUNC}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_PROC\_CFUNC}{MRB\_PROC\_CFUNC}}
+{\footnotesize\ttfamily \label{proc_8h_a9384f2e3f6c7d563a8eef1f0a04d05f6} 
+\#define MRB\+\_\+\+PROC\+\_\+\+CFUNC(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(p)-\/>body.func}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a68a55a0936c91daa47b35e0641952a96}\index{proc.h@{proc.h}!MRB\_PROC\_CFUNC\_P@{MRB\_PROC\_CFUNC\_P}}
+\index{MRB\_PROC\_CFUNC\_P@{MRB\_PROC\_CFUNC\_P}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_PROC\_CFUNC\_P}{MRB\_PROC\_CFUNC\_P}}
+{\footnotesize\ttfamily \label{proc_8h_a68a55a0936c91daa47b35e0641952a96} 
+\#define MRB\+\_\+\+PROC\+\_\+\+CFUNC\+\_\+P(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((p)-\/>flags\ \&\ MRB\_PROC\_CFUNC\_FL)\ !=\ 0)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_ae9c80334afb2f393fb74e8142487f5f5}\index{proc.h@{proc.h}!MRB\_PROC\_ENV@{MRB\_PROC\_ENV}}
+\index{MRB\_PROC\_ENV@{MRB\_PROC\_ENV}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_PROC\_ENV}{MRB\_PROC\_ENV}}
+{\footnotesize\ttfamily \label{proc_8h_ae9c80334afb2f393fb74e8142487f5f5} 
+\#define MRB\+\_\+\+PROC\+\_\+\+ENV(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(MRB\_PROC\_ENV\_P(p)\ ?\ (p)-\/>e.env\ :\ NULL)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a6180a14d7a0447b2e636cbdb372ee78e}\index{proc.h@{proc.h}!MRB\_PROC\_ENV\_P@{MRB\_PROC\_ENV\_P}}
+\index{MRB\_PROC\_ENV\_P@{MRB\_PROC\_ENV\_P}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_PROC\_ENV\_P}{MRB\_PROC\_ENV\_P}}
+{\footnotesize\ttfamily \label{proc_8h_a6180a14d7a0447b2e636cbdb372ee78e} 
+\#define MRB\+\_\+\+PROC\+\_\+\+ENV\+\_\+P(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((p)-\/>flags\ \&\ MRB\_PROC\_ENVSET)\ !=\ 0)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_aedbea527ae74d116748cfc0000d8dd24}\index{proc.h@{proc.h}!MRB\_PROC\_NOARG\_P@{MRB\_PROC\_NOARG\_P}}
+\index{MRB\_PROC\_NOARG\_P@{MRB\_PROC\_NOARG\_P}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_PROC\_NOARG\_P}{MRB\_PROC\_NOARG\_P}}
+{\footnotesize\ttfamily \label{proc_8h_aedbea527ae74d116748cfc0000d8dd24} 
+\#define MRB\+\_\+\+PROC\+\_\+\+NOARG\+\_\+P(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((p)-\/>flags\ \&\ MRB\_PROC\_NOARG)\ !=\ 0)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_abdaa953741966097aaa6184d99403ba9}\index{proc.h@{proc.h}!MRB\_PROC\_ORPHAN\_P@{MRB\_PROC\_ORPHAN\_P}}
+\index{MRB\_PROC\_ORPHAN\_P@{MRB\_PROC\_ORPHAN\_P}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_PROC\_ORPHAN\_P}{MRB\_PROC\_ORPHAN\_P}}
+{\footnotesize\ttfamily \label{proc_8h_abdaa953741966097aaa6184d99403ba9} 
+\#define MRB\+\_\+\+PROC\+\_\+\+ORPHAN\+\_\+P(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((p)-\/>flags\ \&\ MRB\_PROC\_ORPHAN)\ !=\ 0)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a40d45d632f7033436d4537dea8345866}\index{proc.h@{proc.h}!mrb\_proc\_ptr@{mrb\_proc\_ptr}}
+\index{mrb\_proc\_ptr@{mrb\_proc\_ptr}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_proc\_ptr}{mrb\_proc\_ptr}}
+{\footnotesize\ttfamily \label{proc_8h_a40d45d632f7033436d4537dea8345866} 
+\#define mrb\+\_\+proc\+\_\+ptr(\begin{DoxyParamCaption}\item[{}]{v}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\textcolor{keyword}{struct\ }\mbox{\hyperlink{structRProc}{RProc}}*)(mrb\_ptr(v)))}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_aa753f70e2e3a6928b8f5340b35fa17ec}\index{proc.h@{proc.h}!MRB\_PROC\_SCOPE\_P@{MRB\_PROC\_SCOPE\_P}}
+\index{MRB\_PROC\_SCOPE\_P@{MRB\_PROC\_SCOPE\_P}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_PROC\_SCOPE\_P}{MRB\_PROC\_SCOPE\_P}}
+{\footnotesize\ttfamily \label{proc_8h_aa753f70e2e3a6928b8f5340b35fa17ec} 
+\#define MRB\+\_\+\+PROC\+\_\+\+SCOPE\+\_\+P(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((p)-\/>flags\ \&\ MRB\_PROC\_SCOPE)\ !=\ 0)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a5680c1eeabb4dfe1f1ca556709d75538}\index{proc.h@{proc.h}!MRB\_PROC\_SET\_TARGET\_CLASS@{MRB\_PROC\_SET\_TARGET\_CLASS}}
+\index{MRB\_PROC\_SET\_TARGET\_CLASS@{MRB\_PROC\_SET\_TARGET\_CLASS}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_PROC\_SET\_TARGET\_CLASS}{MRB\_PROC\_SET\_TARGET\_CLASS}}
+{\footnotesize\ttfamily \label{proc_8h_a5680c1eeabb4dfe1f1ca556709d75538} 
+\#define MRB\+\_\+\+PROC\+\_\+\+SET\+\_\+\+TARGET\+\_\+\+CLASS(\begin{DoxyParamCaption}\item[{}]{p}{, }\item[{}]{tc}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\(\backslash\)}
+\DoxyCodeLine{\ \ if\ (MRB\_PROC\_ENV\_P(p))\ \{\(\backslash\)}
+\DoxyCodeLine{\ \ \ \ (p)-\/>e.env-\/>c\ =\ (tc);\(\backslash\)}
+\DoxyCodeLine{\ \ \ \ mrb\_field\_write\_barrier(mrb,\ (\textcolor{keyword}{struct}\ \mbox{\hyperlink{structRBasic}{RBasic}}*)(p)-\/>e.env,\ (\textcolor{keyword}{struct}\ \mbox{\hyperlink{structRBasic}{RBasic}}*)(tc));\(\backslash\)}
+\DoxyCodeLine{\ \ \}\(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{else}\ \{\(\backslash\)}
+\DoxyCodeLine{\ \ \ \ (p)-\/>e.target\_class\ =\ (tc);\(\backslash\)}
+\DoxyCodeLine{\ \ \ \ mrb\_field\_write\_barrier(mrb,\ (\textcolor{keyword}{struct}\ \mbox{\hyperlink{structRBasic}{RBasic}}*)p,\ (\textcolor{keyword}{struct}\ \mbox{\hyperlink{structRBasic}{RBasic}}*)(tc));\(\backslash\)}
+\DoxyCodeLine{\ \ \}\(\backslash\)}
+\DoxyCodeLine{\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_af280858933ba2b9f247a666223cbfff5}\index{proc.h@{proc.h}!MRB\_PROC\_STRICT\_P@{MRB\_PROC\_STRICT\_P}}
+\index{MRB\_PROC\_STRICT\_P@{MRB\_PROC\_STRICT\_P}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_PROC\_STRICT\_P}{MRB\_PROC\_STRICT\_P}}
+{\footnotesize\ttfamily \label{proc_8h_af280858933ba2b9f247a666223cbfff5} 
+\#define MRB\+\_\+\+PROC\+\_\+\+STRICT\+\_\+P(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((p)-\/>flags\ \&\ MRB\_PROC\_STRICT)\ !=\ 0)}
+
+\end{DoxyCode}
+\Hypertarget{proc_8h_a4cd5f364a2fd63263d9177f9a79aa027}\index{proc.h@{proc.h}!MRB\_PROC\_TARGET\_CLASS@{MRB\_PROC\_TARGET\_CLASS}}
+\index{MRB\_PROC\_TARGET\_CLASS@{MRB\_PROC\_TARGET\_CLASS}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_PROC\_TARGET\_CLASS}{MRB\_PROC\_TARGET\_CLASS}}
+{\footnotesize\ttfamily \label{proc_8h_a4cd5f364a2fd63263d9177f9a79aa027} 
+\#define MRB\+\_\+\+PROC\+\_\+\+TARGET\+\_\+\+CLASS(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(MRB\_PROC\_ENV\_P(p)\ ?\ (p)-\/>e.env-\/>c\ :\ (p)-\/>e.target\_class)}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{proc_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{proc_8h_a003982b556c0e2ff6d5bd7cf401f6a6f}\index{proc.h@{proc.h}!mrb\_vm\_ci\_env\_clear@{mrb\_vm\_ci\_env\_clear}}
+\index{mrb\_vm\_ci\_env\_clear@{mrb\_vm\_ci\_env\_clear}!proc.h@{proc.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_vm\_ci\_env\_clear()}{mrb\_vm\_ci\_env\_clear()}}
+{\footnotesize\ttfamily \label{proc_8h_a003982b556c0e2ff6d5bd7cf401f6a6f} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void mrb\+\_\+vm\+\_\+ci\+\_\+env\+\_\+clear (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{structmrb__callinfo}{mrb\+\_\+callinfo}} \texorpdfstring{$\ast$}{*}}]{ci}{}\end{DoxyParamCaption})}
+
+It can be used to isolate top-\/level scopes referenced by blocks generated by {\ttfamily mrb\+\_\+load\+\_\+string\+\_\+cxt()} or similar called before entering the mruby VM (e.\+g. from {\ttfamily main()}). In that case, the {\ttfamily ci} parameter should be {\ttfamily mrb-\/\texorpdfstring{$>$}{>}c-\/\texorpdfstring{$>$}{>}cibase}. \begin{DoxyVerb}#include <mruby.h>
+#include <mruby/compile.h>
+#include <mruby/proc.h>
+
+int
+main(int argc, char **argv)
+{
+  mrb_state *mrb;
+  mrb_ccontext *cxt;
+  mrb_value blk, ret;
+
+  mrb = mrb_open();
+  cxt = mrb_ccontext_new(mrb);
+  blk = mrb_load_string_cxt(mrb, "x, y, z = 1, 2, 3; proc { [x, y, z] }", cxt);
+  mrb_vm_ci_env_clear(mrb, mrb->c->cibase);
+  mrb_load_string_cxt(mrb, "x, y, z = 4, 5, 6", cxt);
+  ret = mrb_funcall(mrb, blk, "call", 0);
+  mrb_p(mrb, ret);  // => [1, 2, 3]
+                    // => [4, 5, 6] if `mrb_vm_ci_env_clear()` is commented out
+  mrb_ccontext_free(mrb, cxt);
+  mrb_close(mrb);
+
+  return 0;
+}
+\end{DoxyVerb}
+
+
+The top-\/level local variable names stored in {\ttfamily \doxylink{structmrb__ccontext}{mrb\+\_\+ccontext}} are retained. Use also {\ttfamily mrb\+\_\+ccontext\+\_\+cleanup\+\_\+local\+\_\+variables()} at the same time, if necessary. 

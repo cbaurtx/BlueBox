@@ -1,0 +1,288 @@
+\doxysection{allocator.\+h}
+\hypertarget{allocator_8h_source}{}\label{allocator_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/allocator.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/allocator.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2016\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ ALLOCATOR\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ ALLOCATOR\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_config.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#ifndef\ \_WIN32}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#\ \ include\ <sys/uio.h>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !\_WIN32}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <span>}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ "{}template.h"{}}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{namespace\ }nghttp2\ \{}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2_1_1MemBlock}{MemBlock}}\ \{}
+\DoxyCodeLine{00043\ \ \ \textcolor{comment}{//\ The\ next\ MemBlock\ to\ chain\ them.\ \ This\ is\ for\ book\ keeping}}
+\DoxyCodeLine{00044\ \ \ \textcolor{comment}{//\ purpose\ to\ free\ them\ later.}}
+\DoxyCodeLine{00045\ \ \ \mbox{\hyperlink{structnghttp2_1_1MemBlock}{MemBlock}}\ *next;}
+\DoxyCodeLine{00046\ \ \ \textcolor{comment}{//\ begin\ is\ the\ pointer\ to\ the\ beginning\ of\ buffer.\ \ last\ is\ the}}
+\DoxyCodeLine{00047\ \ \ \textcolor{comment}{//\ location\ of\ next\ write.\ \ end\ is\ the\ one\ beyond\ of\ the\ end\ of\ the}}
+\DoxyCodeLine{00048\ \ \ \textcolor{comment}{//\ buffer.}}
+\DoxyCodeLine{00049\ \ \ uint8\_t\ *begin,\ *last,\ *end;}
+\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{static\_assert}((\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structnghttp2_1_1MemBlock}{MemBlock}})\ \&\ 0xf)\ ==\ 0);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2_1_1ChunkHead}{ChunkHead}}\ \{}
+\DoxyCodeLine{00055\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size;}
+\DoxyCodeLine{00057\ \ \ \ \ uint64\_t\ pad1;}
+\DoxyCodeLine{00058\ \ \ \};}
+\DoxyCodeLine{00059\ \ \ uint64\_t\ pad2;}
+\DoxyCodeLine{00060\ \};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structnghttp2_1_1ChunkHead}{ChunkHead}})\ ==\ 16);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ BlockAllocator\ allocates\ memory\ block\ with\ given\ size\ at\ once,\ and}}
+\DoxyCodeLine{00065\ \textcolor{comment}{//\ cuts\ the\ region\ from\ it\ when\ allocation\ is\ requested.\ \ If\ the}}
+\DoxyCodeLine{00066\ \textcolor{comment}{//\ requested\ size\ is\ larger\ than\ given\ threshold\ (plus\ small\ internal}}
+\DoxyCodeLine{00067\ \textcolor{comment}{//\ overhead),\ it\ will\ be\ allocated\ in\ a\ distinct\ buffer\ on\ demand.}}
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ The\ |isolation\_threshold|\ must\ be\ less\ than\ or\ equal\ to}}
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ |block\_size|.}}
+\DoxyCodeLine{00070\ \textcolor{keyword}{struct\ }BlockAllocator\ \{}
+\DoxyCodeLine{00071\ \ \ BlockAllocator(\textcolor{keywordtype}{size\_t}\ block\_size,\ \textcolor{keywordtype}{size\_t}\ isolation\_threshold)}
+\DoxyCodeLine{00072\ \ \ \ \ :\ retain(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ head(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ block\_size(block\_size),}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ isolation\_threshold(std::min(block\_size,\ isolation\_threshold))\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ assert(isolation\_threshold\ <=\ block\_size);}
+\DoxyCodeLine{00077\ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \string~BlockAllocator()\ \{\ reset();\ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ BlockAllocator(BlockAllocator\ \&\&other)\ noexcept}
+\DoxyCodeLine{00082\ \ \ \ \ :\ retain\{std::exchange(other.retain,\ \textcolor{keyword}{nullptr})\},}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ head\{std::exchange(other.head,\ \textcolor{keyword}{nullptr})\},}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ block\_size(other.block\_size),}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ isolation\_threshold(other.isolation\_threshold)\ \{\}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ BlockAllocator\ \&operator=(BlockAllocator\ \&\&other)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ reset();}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ retain\ =\ std::exchange(other.retain,\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00091\ \ \ \ \ head\ =\ std::exchange(other.head,\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00092\ \ \ \ \ block\_size\ =\ other.block\_size;}
+\DoxyCodeLine{00093\ \ \ \ \ isolation\_threshold\ =\ other.isolation\_threshold;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00096\ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ BlockAllocator(\textcolor{keyword}{const}\ BlockAllocator\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00099\ \ \ BlockAllocator\ \&operator=(\textcolor{keyword}{const}\ BlockAllocator\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{void}\ reset()\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ mb\ =\ retain;\ mb;)\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ next\ =\ mb-\/>next;}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \textcolor{keyword}{operator}\ \textcolor{keyword}{delete}[](\textcolor{keyword}{reinterpret\_cast<}uint8\_t\ *\textcolor{keyword}{>}(mb),\ std::align\_val\_t(16));}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ mb\ =\ next;}
+\DoxyCodeLine{00106\ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ retain\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00109\ \ \ \ \ head\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00110\ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \mbox{\hyperlink{structnghttp2_1_1MemBlock}{MemBlock}}\ *alloc\_mem\_block(\textcolor{keywordtype}{size\_t}\ size)\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{auto}\ block\ =\ \textcolor{keyword}{new}\ (std::align\_val\_t(16))\ uint8\_t[\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structnghttp2_1_1MemBlock}{MemBlock}})\ +\ size];}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{auto}\ mb\ =\ \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{structnghttp2_1_1MemBlock}{MemBlock}}\ *\textcolor{keyword}{>}(block);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ mb-\/>next\ =\ retain;}
+\DoxyCodeLine{00117\ \ \ \ \ mb-\/>begin\ =\ mb-\/>last\ =\ \textcolor{keyword}{reinterpret\_cast<}uint8\_t\ *\textcolor{keyword}{>}(}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ (\textcolor{keyword}{reinterpret\_cast<}intptr\_t\textcolor{keyword}{>}(block\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structnghttp2_1_1MemBlock}{MemBlock}}))\ +\ 0xf)\ \&\ \string~0xf);}
+\DoxyCodeLine{00119\ \ \ \ \ mb-\/>end\ =\ mb-\/>begin\ +\ size;}
+\DoxyCodeLine{00120\ \ \ \ \ retain\ =\ mb;}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{return}\ mb;}
+\DoxyCodeLine{00122\ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ alloc\_unit(\textcolor{keywordtype}{size\_t}\ size)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structnghttp2_1_1ChunkHead}{ChunkHead}})\ +\ size;\ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{void}\ *alloc(\textcolor{keywordtype}{size\_t}\ size)\ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{auto}\ au\ =\ alloc\_unit(size);}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{if}\ (au\ >=\ isolation\_threshold)\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ size\ =\ std::max(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(16),\ size);}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \textcolor{comment}{//\ We\ will\ store\ the\ allocated\ size\ in\ size\_t\ field.}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ mb\ =\ alloc\_mem\_block(alloc\_unit(size));}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ch\ =\ \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{structnghttp2_1_1ChunkHead}{ChunkHead}}\ *\textcolor{keyword}{>}(mb-\/>begin);}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ ch-\/>size\ =\ size;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ mb-\/>last\ =\ mb-\/>end;}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb-\/>begin\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structnghttp2_1_1ChunkHead}{ChunkHead}});}
+\DoxyCodeLine{00137\ \ \ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordflow}{if}\ (!head\ ||\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(head-\/>end\ -\/\ head-\/>last)\ <\ au)\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ head\ =\ alloc\_mem\_block(block\_size);}
+\DoxyCodeLine{00141\ \ \ \ \ \}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{comment}{//\ We\ will\ store\ the\ allocated\ size\ in\ size\_t\ field.}}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keyword}{auto}\ res\ =\ head-\/>last\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structnghttp2_1_1ChunkHead}{ChunkHead}});}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{auto}\ ch\ =\ \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{structnghttp2_1_1ChunkHead}{ChunkHead}}\ *\textcolor{keyword}{>}(head-\/>last);}
+\DoxyCodeLine{00146\ \ \ \ \ ch-\/>size\ =\ size;}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ head-\/>last\ =\ \textcolor{keyword}{reinterpret\_cast<}uint8\_t\ *\textcolor{keyword}{>}(}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ (\textcolor{keyword}{reinterpret\_cast<}intptr\_t\textcolor{keyword}{>}(res\ +\ size)\ +\ 0xf)\ \&\ \string~0xf);}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00152\ \ \ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \textcolor{comment}{//\ Returns\ allocated\ size\ for\ memory\ pointed\ by\ |ptr|.\ \ We\ assume}}
+\DoxyCodeLine{00155\ \ \ \textcolor{comment}{//\ that\ |ptr|\ was\ returned\ from\ alloc()\ or\ realloc().}}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordtype}{size\_t}\ get\_alloc\_length(\textcolor{keywordtype}{void}\ *ptr)\ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{structnghttp2_1_1ChunkHead}{ChunkHead}}\ *\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}uint8\_t\ *\textcolor{keyword}{>}(ptr)\ -\/}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structnghttp2_1_1ChunkHead}{ChunkHead}}))}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ -\/>size;}
+\DoxyCodeLine{00160\ \ \ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \textcolor{comment}{//\ Allocates\ memory\ of\ at\ least\ |size|\ bytes.\ \ If\ |ptr|\ is\ nullptr,}}
+\DoxyCodeLine{00163\ \ \ \textcolor{comment}{//\ this\ is\ equivalent\ to\ alloc(size).\ \ If\ |ptr|\ is\ not\ nullptr,}}
+\DoxyCodeLine{00164\ \ \ \textcolor{comment}{//\ obtain\ the\ allocated\ size\ for\ |ptr|,\ assuming\ that\ |ptr|\ was}}
+\DoxyCodeLine{00165\ \ \ \textcolor{comment}{//\ returned\ from\ alloc()\ or\ realloc().\ \ If\ the\ allocated\ size\ is}}
+\DoxyCodeLine{00166\ \ \ \textcolor{comment}{//\ greater\ than\ or\ equal\ to\ size,\ |ptr|\ is\ returned.\ \ Otherwise,}}
+\DoxyCodeLine{00167\ \ \ \textcolor{comment}{//\ allocates\ at\ least\ |size|\ bytes\ of\ memory,\ and\ the\ original}}
+\DoxyCodeLine{00168\ \ \ \textcolor{comment}{//\ content\ pointed\ by\ |ptr|\ is\ copied\ to\ the\ newly\ allocated\ memory.}}
+\DoxyCodeLine{00169\ \ \ \textcolor{keywordtype}{void}\ *realloc(\textcolor{keywordtype}{void}\ *ptr,\ \textcolor{keywordtype}{size\_t}\ size)\ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordflow}{if}\ (!ptr)\ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ alloc(size);}
+\DoxyCodeLine{00172\ \ \ \ \ \}}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keyword}{auto}\ alloclen\ =\ get\_alloc\_length(ptr);}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ \textcolor{keyword}{reinterpret\_cast<}uint8\_t\ *\textcolor{keyword}{>}(ptr);}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ <=\ alloclen)\ \{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ptr;}
+\DoxyCodeLine{00177\ \ \ \ \ \}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keyword}{auto}\ nalloclen\ =\ std::max(size\ +\ 1,\ alloclen\ *\ 2);}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keyword}{auto}\ res\ =\ alloc(nalloclen);}
+\DoxyCodeLine{00182\ \ \ \ \ std::copy\_n(p,\ alloclen,\ \textcolor{keyword}{static\_cast<}uint8\_t\ *\textcolor{keyword}{>}(res));}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00185\ \ \ \}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \textcolor{comment}{//\ This\ holds\ live\ memory\ block\ to\ free\ them\ in\ dtor.}}
+\DoxyCodeLine{00188\ \ \ \mbox{\hyperlink{structnghttp2_1_1MemBlock}{MemBlock}}\ *retain;}
+\DoxyCodeLine{00189\ \ \ \textcolor{comment}{//\ Current\ memory\ block\ to\ use.}}
+\DoxyCodeLine{00190\ \ \ \mbox{\hyperlink{structnghttp2_1_1MemBlock}{MemBlock}}\ *head;}
+\DoxyCodeLine{00191\ \ \ \textcolor{comment}{//\ size\ of\ single\ memory\ block}}
+\DoxyCodeLine{00192\ \ \ \textcolor{keywordtype}{size\_t}\ block\_size;}
+\DoxyCodeLine{00193\ \ \ \textcolor{comment}{//\ if\ allocation\ greater\ or\ equal\ to\ isolation\_threshold\ bytes\ is}}
+\DoxyCodeLine{00194\ \ \ \textcolor{comment}{//\ requested,\ allocate\ dedicated\ block.}}
+\DoxyCodeLine{00195\ \ \ \textcolor{keywordtype}{size\_t}\ isolation\_threshold;}
+\DoxyCodeLine{00196\ \};}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \textcolor{comment}{//\ Makes\ a\ copy\ of\ |src|.\ \ The\ resulting\ string\ will\ be}}
+\DoxyCodeLine{00199\ \textcolor{comment}{//\ NULL-\/terminated.}}
+\DoxyCodeLine{00200\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BlockAllocator>}
+\DoxyCodeLine{00201\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ make\_string\_ref(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&alloc,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&src)\ \{}
+\DoxyCodeLine{00202\ \ \ \textcolor{keyword}{auto}\ dst\ =\ \textcolor{keyword}{static\_cast<}uint8\_t\ *\textcolor{keyword}{>}(alloc.alloc(src.size()\ +\ 1));}
+\DoxyCodeLine{00203\ \ \ \textcolor{keyword}{auto}\ p\ =\ dst;}
+\DoxyCodeLine{00204\ \ \ p\ =\ std::copy(std::begin(src),\ std::end(src),\ p);}
+\DoxyCodeLine{00205\ \ \ *p\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00206\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\{dst,\ src.size()\};}
+\DoxyCodeLine{00207\ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{comment}{//\ private\ function\ used\ in\ concat\_string\_ref.\ \ this\ is\ the\ base}}
+\DoxyCodeLine{00210\ \textcolor{comment}{//\ function\ of\ concat\_string\_ref\_count().}}
+\DoxyCodeLine{00211\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ concat\_string\_ref\_count(\textcolor{keywordtype}{size\_t}\ acc)\ \{\ \textcolor{keywordflow}{return}\ acc;\ \}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{comment}{//\ private\ function\ used\ in\ concat\_string\_ref.\ \ This\ function\ counts}}
+\DoxyCodeLine{00214\ \textcolor{comment}{//\ the\ sum\ of\ length\ of\ given\ arguments.\ \ The\ calculated\ length\ is}}
+\DoxyCodeLine{00215\ \textcolor{comment}{//\ accumulated,\ and\ passed\ to\ the\ next\ function.}}
+\DoxyCodeLine{00216\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00217\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ concat\_string\_ref\_count(\textcolor{keywordtype}{size\_t}\ acc,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&value,}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Args\ \&\&...args)\ \{}
+\DoxyCodeLine{00219\ \ \ \textcolor{keywordflow}{return}\ concat\_string\_ref\_count(acc\ +\ value.size(),}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<Args>(args)...);}
+\DoxyCodeLine{00221\ \}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \textcolor{comment}{//\ private\ function\ used\ in\ concat\_string\_ref.\ \ this\ is\ the\ base}}
+\DoxyCodeLine{00224\ \textcolor{comment}{//\ function\ of\ concat\_string\_ref\_copy().}}
+\DoxyCodeLine{00225\ \textcolor{keyword}{inline}\ uint8\_t\ *concat\_string\_ref\_copy(uint8\_t\ *p)\ \{\ \textcolor{keywordflow}{return}\ p;\ \}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \textcolor{comment}{//\ private\ function\ used\ in\ concat\_string\_ref.\ \ This\ function\ copies}}
+\DoxyCodeLine{00228\ \textcolor{comment}{//\ given\ strings\ into\ |p|.\ \ |p|\ is\ incremented\ by\ the\ copied\ length,}}
+\DoxyCodeLine{00229\ \textcolor{comment}{//\ and\ returned.\ \ In\ the\ end,\ return\ value\ points\ to\ the\ location\ one}}
+\DoxyCodeLine{00230\ \textcolor{comment}{//\ beyond\ the\ last\ byte\ written.}}
+\DoxyCodeLine{00231\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00232\ uint8\_t\ *concat\_string\_ref\_copy(uint8\_t\ *p,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&value,}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Args\ \&\&...args)\ \{}
+\DoxyCodeLine{00234\ \ \ p\ =\ std::copy(std::begin(value),\ std::end(value),\ p);}
+\DoxyCodeLine{00235\ \ \ \textcolor{keywordflow}{return}\ concat\_string\_ref\_copy(p,\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00236\ \}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \textcolor{comment}{//\ Returns\ the\ string\ which\ is\ the\ concatenation\ of\ |args|\ in\ the}}
+\DoxyCodeLine{00239\ \textcolor{comment}{//\ given\ order.\ \ The\ resulting\ string\ will\ be\ NULL-\/terminated.}}
+\DoxyCodeLine{00240\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}},\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00241\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ concat\_string\_ref(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&alloc,\ Args\ \&\&...args)\ \{}
+\DoxyCodeLine{00242\ \ \ \textcolor{keywordtype}{size\_t}\ len\ =\ concat\_string\_ref\_count(0,\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00243\ \ \ \textcolor{keyword}{auto}\ dst\ =\ \textcolor{keyword}{static\_cast<}uint8\_t\ *\textcolor{keyword}{>}(alloc.alloc(len\ +\ 1));}
+\DoxyCodeLine{00244\ \ \ \textcolor{keyword}{auto}\ p\ =\ dst;}
+\DoxyCodeLine{00245\ \ \ p\ =\ concat\_string\_ref\_copy(p,\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00246\ \ \ *p\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00247\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\{dst,\ len\};}
+\DoxyCodeLine{00248\ \}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \textcolor{comment}{//\ Returns\ the\ string\ which\ is\ the\ concatenation\ of\ |value|\ and\ |args|}}
+\DoxyCodeLine{00251\ \textcolor{comment}{//\ in\ the\ given\ order.\ \ The\ resulting\ string\ will\ be\ NULL-\/terminated.}}
+\DoxyCodeLine{00252\ \textcolor{comment}{//\ This\ function\ assumes\ that\ the\ pointer\ value\ value.c\_str()\ was}}
+\DoxyCodeLine{00253\ \textcolor{comment}{//\ obtained\ from\ alloc.alloc()\ or\ alloc.realloc(),\ and\ attempts\ to\ use}}
+\DoxyCodeLine{00254\ \textcolor{comment}{//\ unused\ memory\ region\ by\ using\ alloc.realloc().\ \ If\ value\ is\ empty,}}
+\DoxyCodeLine{00255\ \textcolor{comment}{//\ then\ just\ call\ concat\_string\_ref().}}
+\DoxyCodeLine{00256\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ \mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}},\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00257\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ realloc\_concat\_string\_ref(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&alloc,}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&value,\ Args\ \&\&...args)\ \{}
+\DoxyCodeLine{00259\ \ \ \textcolor{keywordflow}{if}\ (value.empty())\ \{}
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keywordflow}{return}\ concat\_string\_ref(alloc,\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00261\ \ \ \}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \textcolor{keyword}{auto}\ len\ =}
+\DoxyCodeLine{00264\ \ \ \ \ value.size()\ +\ concat\_string\_ref\_count(0,\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00265\ \ \ \textcolor{keyword}{auto}\ dst\ =\ \textcolor{keyword}{static\_cast<}uint8\_t\ *\textcolor{keyword}{>}(}
+\DoxyCodeLine{00266\ \ \ \ \ alloc.realloc(\textcolor{keyword}{const\_cast<}uint8\_t\ *\textcolor{keyword}{>}(value.byte()),\ len\ +\ 1));}
+\DoxyCodeLine{00267\ \ \ \textcolor{keyword}{auto}\ p\ =\ dst\ +\ value.size();}
+\DoxyCodeLine{00268\ \ \ p\ =\ concat\_string\_ref\_copy(p,\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00269\ \ \ *p\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\{dst,\ len\};}
+\DoxyCodeLine{00272\ \}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \textcolor{comment}{//\ Makes\ an\ uninitialized\ buffer\ with\ given\ size.}}
+\DoxyCodeLine{00275\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BlockAllocator>}
+\DoxyCodeLine{00276\ std::span<uint8\_t>\ make\_byte\_ref(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&alloc,\ \textcolor{keywordtype}{size\_t}\ size)\ \{}
+\DoxyCodeLine{00277\ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{keyword}{static\_cast<}uint8\_t\ *\textcolor{keyword}{>}(alloc.alloc(size)),\ size\};}
+\DoxyCodeLine{00278\ \}}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \}\ \textcolor{comment}{//\ namespace\ nghttp2}}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ALLOCATOR\_H}}
+
+\end{DoxyCode}

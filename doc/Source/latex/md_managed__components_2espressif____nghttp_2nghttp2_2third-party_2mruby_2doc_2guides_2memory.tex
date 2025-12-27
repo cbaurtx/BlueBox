@@ -1,0 +1,19 @@
+\chapter{Memory Allocation }
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2memory}{}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2memory}\index{Memory Allocation@{Memory Allocation}}
+\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2memory_autotoc_md344}%
+\Hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2memory_autotoc_md344}%
+
+
+There are three methods to customize memory allocation in mruby.
+
+
+\begin{DoxyEnumerate}
+\item Provide your own {\ttfamily realloc()}/{\ttfamily free()}
+\item Redefine {\ttfamily \doxylink{mruby_8h_a2cf27f87c8bb7684e7f9ef73b4082893}{mrb\+\_\+default\+\_\+allocf()}}
+\item Specify a function with {\ttfamily \doxylink{mruby_8h_aebfac968c84e9934f7f805c19c142018}{mrb\+\_\+open\+\_\+allocf()}}
+\end{DoxyEnumerate}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2memory_autotoc_md345}{}\doxysection{\texorpdfstring{Provide your own {\ttfamily realloc()}/{\ttfamily free()}}{Provide your own {\ttfamily realloc()}/{\ttfamily free()}}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2memory_autotoc_md345}
+On some platforms, especially on microcontrollers, the standard library may not provide {\ttfamily malloc()}, {\ttfamily realloc()}, and {\ttfamily free()}. In such cases, it may be necessary to define memory allocation functions for the specific platform. mruby uses {\ttfamily realloc()} and {\ttfamily free()} from the standard C library for memory management. By defining these two functions of your own, you can make mruby work. However, note the following two points\+:
+
+First, {\ttfamily realloc(\+NULL, size)} behaves the same as malloc(size). Second, {\ttfamily free(\+NULL)} exits without doing anything.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2memory_autotoc_md346}{}\doxysection{\texorpdfstring{Redefine {\ttfamily mrb\+\_\+default\+\_\+allocf()}}{Redefine {\ttfamily mrb\+\_\+default\+\_\+allocf()}}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2memory_autotoc_md346}
+The only function in mruby that uses the standard C library\textquotesingle{}s memory allocation functions is {\ttfamily \doxylink{mruby_8h_a2cf27f87c8bb7684e7f9ef73b4082893}{mrb\+\_\+default\+\_\+allocf()}}, defined in {\ttfamily alloc.\+c}. By defining this function within your application, you can customize the memory management of your application.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2memory_autotoc_md347}{}\doxysection{\texorpdfstring{Specify a function with {\ttfamily mrb\+\_\+open\+\_\+allocf()}}{Specify a function with {\ttfamily mrb\+\_\+open\+\_\+allocf()}}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2memory_autotoc_md347}
+If you want to perform different memory management for each {\ttfamily \doxylink{structmrb__state}{mrb\+\_\+state}} within your application, you can use the {\ttfamily \doxylink{mruby_8h_aebfac968c84e9934f7f805c19c142018}{mrb\+\_\+open\+\_\+allocf()}} function to create the {\ttfamily \doxylink{structmrb__state}{mrb\+\_\+state}} structure. This allows you to specify a memory allocation function (which is compatible with {\ttfamily \doxylink{mruby_8h_a2cf27f87c8bb7684e7f9ef73b4082893}{mrb\+\_\+default\+\_\+allocf}}) for each {\ttfamily \doxylink{structmrb__state}{mrb\+\_\+state}}. Although this scheme is not recommended. It may become obsolete in the future, since I have never seen per \doxylink{structmrb__state}{mrb\+\_\+state} memory management use-\/case. 

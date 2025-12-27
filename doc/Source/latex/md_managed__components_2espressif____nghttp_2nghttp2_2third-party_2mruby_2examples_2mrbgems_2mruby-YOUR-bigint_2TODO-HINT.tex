@@ -1,0 +1,47 @@
+\chapter{Hints for creating your own bigint GEM }
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2examples_2mrbgems_2mruby-YOUR-bigint_2TODO-HINT}{}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2examples_2mrbgems_2mruby-YOUR-bigint_2TODO-HINT}\index{Hints for creating your own bigint GEM@{Hints for creating your own bigint GEM}}
+\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2examples_2mrbgems_2mruby-YOUR-bigint_2TODO-HINT_autotoc_md511}%
+\Hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2examples_2mrbgems_2mruby-YOUR-bigint_2TODO-HINT_autotoc_md511}%
+
+
+This example gem, mruby-\/\+YOUR-\/bigint, is available under the Creative Commons Zero License (CC0).
+
+This file is placed for the purpose of describing hints for creating a {\ttfamily mruby-\/bigint} compatible GEM to realize multiple integers.
+
+The file structure in this example is as follows\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{+-\/\ mruby-\/YOUR-\/bigint/\ \ \ <-\/\ \ Make\ this\ directory\ public\ if\ necessary.}
+\DoxyCodeLine{\ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Change\ the\ name\ of\ copied\ directory.}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ TODO-\/HINT.md\ \ \ \ \ <-\/\ \ You\ are\ currently\ viewing\ this\ file.}
+\DoxyCodeLine{\ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Remove\ this\ from\ copied\ directory.}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ core/}
+\DoxyCodeLine{\ \ \ \ |\ \ \ |}
+\DoxyCodeLine{\ \ \ \ |\ \ \ +-\/\ bigint.c\ \ \ \ \ <-\/\ \ Body\ of\ the\ implementation.}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ mrbgem.rake\ \ \ \ \ \ <-\/\ \ GEM\ name\ is\ "{}mruby-\/bigint"{}.}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ May\ be\ depended\ on\ by\ other\ GEMs.}
+
+\end{DoxyCode}
+
+
+Implementers of their own bigints should copy below this directory to another directory and do the following\+:
+
+
+\begin{DoxyItemize}
+\item Rewrite {\ttfamily spec.\+author}, {\ttfamily spec.\+license}, {\ttfamily spec.\+homepage} and {\ttfamily spec.\+summary} in {\ttfamily \texorpdfstring{$<$}{<}gem-\/dir\texorpdfstring{$>$}{>}/mrbgem.rake} file to those of your own implementers.
+\item Implement the respective functions in {\ttfamily \texorpdfstring{$<$}{<}gem-\/dir\texorpdfstring{$>$}{>}/core/bigint.c}.
+\begin{DoxyItemize}
+\item Define and use an object structure for {\ttfamily MRB\+\_\+\+TT\+\_\+\+BIGINT} type-\/tag. It is recommended to use {\ttfamily mrb\+\_\+static\+\_\+assert\+\_\+object\+\_\+size()} to ensure that the size of the object structure is within six words.
+\end{DoxyItemize}
+\item Delete this file from the destination of the copy.
+\end{DoxyItemize}
+
+If you wish to use it as an alternative to the {\ttfamily mruby-\/bigint} provided by mruby, please leave the GEM name in {\ttfamily \texorpdfstring{$<$}{<}gem-\/dir\texorpdfstring{$>$}{>}/mrbgem.rake} as it is. This is an important factor when it is depended from other GEMs with {\ttfamily spec.\+add\+\_\+dependency \textquotesingle{}mruby-\/bigint\textquotesingle{}}.
+
+The name of the top directory of the GEM can be changed arbitrarily. The name of the Git repository can also be changed arbitrarily.
+
+Note that there is no need for an initialization function as there is in a normal GEM. If you need it, create a file {\ttfamily \texorpdfstring{$<$}{<}gem-\/dir\texorpdfstring{$>$}{>}/src/bigint.c} for example, and implement the {\ttfamily mrb\+\_\+mruby\+\_\+bigint\+\_\+gem\+\_\+init()} function. 

@@ -1,0 +1,38 @@
+\doxysection{RString Struct Reference}
+\hypertarget{structRString}{}\label{structRString}\index{RString@{RString}}
+
+
+Collaboration diagram for RString\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=209pt]{structRString__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structRString_aad62d54da37fb5d8df0b472ec27b177b}\label{structRString_aad62d54da37fb5d8df0b472ec27b177b} 
+{\bfseries MRB\+\_\+\+OBJECT\+\_\+\+HEADER}
+\item 
+\Hypertarget{structRString_aa8b50a4e04d2376f69e04acd75b81af5}\label{structRString_aa8b50a4e04d2376f69e04acd75b81af5} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>struct \{\\
+\>\>mrb\_ssize {\bfseries len}\\
+\>\>union \{\\
+\>\>\>mrb\_ssize {\bfseries capa}\\
+\>\>\>struct \mbox{\hyperlink{structmrb__shared__string}{mrb\_shared\_string}} \texorpdfstring{$\ast$}{*} {\bfseries shared}\\
+\>\>\>struct \mbox{\hyperlink{structRString}{RString}} \texorpdfstring{$\ast$}{*} {\bfseries fshared}\\
+\>\>\} {\bfseries aux}\\
+\>\>char \texorpdfstring{$\ast$}{*} {\bfseries ptr}\\
+\>\} {\bfseries heap}\\
+\} {\bfseries as}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/\mbox{\hyperlink{string_8h}{string.\+h}}\end{DoxyCompactItemize}

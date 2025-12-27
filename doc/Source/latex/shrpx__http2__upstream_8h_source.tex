@@ -1,0 +1,156 @@
+\doxysection{shrpx\+\_\+http2\+\_\+upstream.\+h}
+\hypertarget{shrpx__http2__upstream_8h_source}{}\label{shrpx__http2__upstream_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_http2\_upstream.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_http2\_upstream.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_HTTP2\_UPSTREAM\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_HTTP2\_UPSTREAM\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <ev.h>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}shrpx\_upstream.h"{}}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ "{}shrpx\_downstream\_queue.h"{}}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ "{}memchunk.h"{}}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ "{}buffer.h"{}}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{using\ namespace\ }nghttp2;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1ClientHandler}{ClientHandler}};}
+\DoxyCodeLine{00046\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1HttpsUpstream}{HttpsUpstream}};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{class\ }Http2Upstream\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classshrpx_1_1Upstream}{Upstream}}\ \{}
+\DoxyCodeLine{00049\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00050\ \ \ Http2Upstream(\mbox{\hyperlink{classshrpx_1_1ClientHandler}{ClientHandler}}\ *handler);}
+\DoxyCodeLine{00051\ \ \ \textcolor{keyword}{virtual}\ \string~Http2Upstream();}
+\DoxyCodeLine{00052\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ on\_read();}
+\DoxyCodeLine{00053\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ on\_write();}
+\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ on\_timeout(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream);}
+\DoxyCodeLine{00055\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ on\_downstream\_abort\_request(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ status\_code);}
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00058\ \ \ on\_downstream\_abort\_request\_with\_https\_redirect(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream);}
+\DoxyCodeLine{00059\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classshrpx_1_1ClientHandler}{ClientHandler}}\ *get\_client\_handler()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ downstream\_read(\mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{DownstreamConnection}}\ *dconn);}
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ downstream\_write(\mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{DownstreamConnection}}\ *dconn);}
+\DoxyCodeLine{00063\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ downstream\_eof(\mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{DownstreamConnection}}\ *dconn);}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ downstream\_error(\mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{DownstreamConnection}}\ *dconn,\ \textcolor{keywordtype}{int}\ events);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{void}\ add\_pending\_downstream(std::unique\_ptr<Downstream>\ downstream);}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{void}\ remove\_downstream(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{int}\ rst\_stream(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream,\ uint32\_t\ error\_code);}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{int}\ terminate\_session(uint32\_t\ error\_code);}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{int}\ error\_reply(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ status\_code);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ pause\_read(IOCtrlReason\ reason);}
+\DoxyCodeLine{00074\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ resume\_read(IOCtrlReason\ reason,\ \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream,}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ consumed);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ on\_downstream\_header\_complete(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream);}
+\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ on\_downstream\_body(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream,\ \textcolor{keyword}{const}\ uint8\_t\ *data,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{bool}\ flush);}
+\DoxyCodeLine{00080\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ on\_downstream\_body\_complete(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ on\_handler\_delete();}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ on\_downstream\_reset(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream,\ \textcolor{keywordtype}{bool}\ no\_retry);}
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ send\_reply(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream,\ \textcolor{keyword}{const}\ uint8\_t\ *body,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ bodylen);}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ initiate\_push(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&uri);}
+\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ response\_riovec(\textcolor{keyword}{struct}\ iovec\ *iov,\ \textcolor{keywordtype}{int}\ iovcnt)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ response\_drain(\textcolor{keywordtype}{size\_t}\ n);}
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ response\_empty()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *on\_downstream\_push\_promise(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ promised\_stream\_id);}
+\DoxyCodeLine{00093\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00094\ \ \ on\_downstream\_push\_promise\_complete(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream,}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *promised\_downstream);}
+\DoxyCodeLine{00096\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ push\_enabled()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ cancel\_premature\_downstream(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *promised\_downstream);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordtype}{bool}\ get\_flow\_control()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00100\ \ \ \textcolor{comment}{//\ Perform\ HTTP/2\ upgrade\ from\ |upstream|.\ On\ success,\ this\ object}}
+\DoxyCodeLine{00101\ \ \ \textcolor{comment}{//\ takes\ ownership\ of\ the\ |upstream|.\ This\ function\ returns\ 0\ if\ it}}
+\DoxyCodeLine{00102\ \ \ \textcolor{comment}{//\ succeeds,\ or\ -\/1.}}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{int}\ upgrade\_upstream(\mbox{\hyperlink{classshrpx_1_1HttpsUpstream}{HttpsUpstream}}\ *upstream);}
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{void}\ start\_settings\_timer();}
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{void}\ stop\_settings\_timer();}
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{int}\ consume(int32\_t\ stream\_id,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{void}\ log\_response\_headers(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream,}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<nghttp2\_nv>\ \&nva)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{void}\ start\_downstream(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream);}
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordtype}{void}\ initiate\_downstream(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream);}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \textcolor{keywordtype}{void}\ submit\_goaway();}
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordtype}{void}\ check\_shutdown();}
+\DoxyCodeLine{00114\ \ \ \textcolor{comment}{//\ Starts\ graceful\ shutdown\ period.}}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{void}\ start\_graceful\_shutdown();}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{int}\ prepare\_push\_promise(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream);}
+\DoxyCodeLine{00118\ \ \ \textcolor{keywordtype}{int}\ submit\_push\_promise(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&scheme,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&authority,}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&path,\ \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \textcolor{comment}{//\ Called\ when\ new\ request\ has\ started.}}
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{void}\ on\_start\_request(\textcolor{keyword}{const}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame);}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{int}\ on\_request\_headers(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ DefaultMemchunks\ *get\_response\_buf();}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{size\_t}\ get\_max\_buffer\_size()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \textcolor{keywordtype}{int}\ redirect\_to\_https(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00132\ \ \ DefaultMemchunks\ wb\_;}
+\DoxyCodeLine{00133\ \ \ std::unique\_ptr<HttpsUpstream>\ pre\_upstream\_;}
+\DoxyCodeLine{00134\ \ \ \mbox{\hyperlink{classshrpx_1_1DownstreamQueue}{DownstreamQueue}}\ downstream\_queue\_;}
+\DoxyCodeLine{00135\ \ \ ev\_timer\ settings\_timer\_;}
+\DoxyCodeLine{00136\ \ \ ev\_timer\ shutdown\_timer\_;}
+\DoxyCodeLine{00137\ \ \ ev\_prepare\ prep\_;}
+\DoxyCodeLine{00138\ \ \ \mbox{\hyperlink{classshrpx_1_1ClientHandler}{ClientHandler}}\ *handler\_;}
+\DoxyCodeLine{00139\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session\_;}
+\DoxyCodeLine{00140\ \ \ \textcolor{keywordtype}{size\_t}\ max\_buffer\_size\_;}
+\DoxyCodeLine{00141\ \ \ \textcolor{comment}{//\ The\ number\ of\ requests\ seen\ so\ far.}}
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordtype}{size\_t}\ num\_requests\_;}
+\DoxyCodeLine{00143\ \ \ \textcolor{keywordtype}{bool}\ flow\_control\_;}
+\DoxyCodeLine{00144\ \};}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *create\_http2\_upstream\_callbacks();}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_HTTP2\_UPSTREAM\_H}}
+
+\end{DoxyCode}

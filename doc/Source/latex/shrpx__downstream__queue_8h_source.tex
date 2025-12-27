@@ -1,0 +1,122 @@
+\doxysection{shrpx\+\_\+downstream\+\_\+queue.\+h}
+\hypertarget{shrpx__downstream__queue_8h_source}{}\label{shrpx__downstream__queue_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_downstream\_queue.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_downstream\_queue.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_DOWNSTREAM\_QUEUE\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_DOWNSTREAM\_QUEUE\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <cinttypes>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <set>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}template.h"{}}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{using\ namespace\ }nghttp2;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ Link\ entry\ in\ HostEntry.blocked\ and\ downstream\ because\ downstream}}
+\DoxyCodeLine{00044\ \textcolor{comment}{//\ could\ be\ deleted\ in\ anytime\ and\ we'd\ like\ to\ find\ Downstream\ in}}
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ O(1).\ \ Downstream\ has\ field\ to\ link\ back\ to\ this\ object.}}
+\DoxyCodeLine{00046\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1BlockedLink}{BlockedLink}}\ \{}
+\DoxyCodeLine{00047\ \ \ \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream;}
+\DoxyCodeLine{00048\ \ \ \mbox{\hyperlink{structshrpx_1_1BlockedLink}{BlockedLink}}\ *dlnext,\ *dlprev;}
+\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{class\ }DownstreamQueue\ \{}
+\DoxyCodeLine{00052\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00053\ \ \ \textcolor{keyword}{struct\ }HostEntry\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ HostEntry(\mbox{\hyperlink{classnghttp2_1_1ImmutableString}{ImmutableString}}\ \&\&key);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ HostEntry(HostEntry\ \&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00057\ \ \ \ \ HostEntry\ \&operator=(HostEntry\ \&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ HostEntry(\textcolor{keyword}{const}\ HostEntry\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00060\ \ \ \ \ HostEntry\ \&operator=(\textcolor{keyword}{const}\ HostEntry\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//\ Key\ that\ associates\ this\ object}}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1ImmutableString}{ImmutableString}}\ key;}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{comment}{//\ Set\ of\ stream\ ID\ that\ blocked\ by\ conn\_max\_per\_host\_.}}
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{structnghttp2_1_1DList}{DList<BlockedLink>}}\ blocked;}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//\ The\ number\ of\ connections\ currently\ made\ to\ this\ host.}}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ num\_active;}
+\DoxyCodeLine{00068\ \ \ \};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{using\ }HostEntryMap\ =\ std::map<StringRef,\ HostEntry>;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \textcolor{comment}{//\ conn\_max\_per\_host\ ==\ 0\ means\ no\ limit\ for\ downstream\ connection.}}
+\DoxyCodeLine{00073\ \ \ DownstreamQueue(\textcolor{keywordtype}{size\_t}\ conn\_max\_per\_host\ =\ 0,\ \textcolor{keywordtype}{bool}\ unified\_host\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00074\ \ \ \string~DownstreamQueue();}
+\DoxyCodeLine{00075\ \ \ \textcolor{comment}{//\ Add\ |downstream|\ to\ this\ queue.\ \ This\ is\ entry\ point\ for}}
+\DoxyCodeLine{00076\ \ \ \textcolor{comment}{//\ Downstream\ object.}}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{void}\ add\_pending(std::unique\_ptr<Downstream>\ downstream);}
+\DoxyCodeLine{00078\ \ \ \textcolor{comment}{//\ Set\ |downstream|\ to\ failure\ state,\ which\ means\ that\ downstream}}
+\DoxyCodeLine{00079\ \ \ \textcolor{comment}{//\ failed\ to\ connect\ to\ backend.}}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{void}\ mark\_failure(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream);}
+\DoxyCodeLine{00081\ \ \ \textcolor{comment}{//\ Set\ |downstream|\ to\ active\ state,\ which\ means\ that\ downstream}}
+\DoxyCodeLine{00082\ \ \ \textcolor{comment}{//\ connection\ has\ started.}}
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{void}\ mark\_active(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream);}
+\DoxyCodeLine{00084\ \ \ \textcolor{comment}{//\ Set\ |downstream|\ to\ blocked\ state,\ which\ means\ that\ download}}
+\DoxyCodeLine{00085\ \ \ \textcolor{comment}{//\ connection\ was\ blocked\ because\ conn\_max\_per\_host\_\ limit.}}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{void}\ mark\_blocked(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream);}
+\DoxyCodeLine{00087\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ we\ can\ make\ downstream\ connection\ to\ given}}
+\DoxyCodeLine{00088\ \ \ \textcolor{comment}{//\ |host|.}}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{bool}\ can\_activate(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&host)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00090\ \ \ \textcolor{comment}{//\ Removes\ and\ frees\ |downstream|\ object.\ \ If\ |downstream|\ is\ in}}
+\DoxyCodeLine{00091\ \ \ \textcolor{comment}{//\ DispatchState::ACTIVE,\ and\ |next\_blocked|\ is\ true,\ this\ function}}
+\DoxyCodeLine{00092\ \ \ \textcolor{comment}{//\ may\ return\ Downstream\ object\ with\ the\ same\ target\ host\ in}}
+\DoxyCodeLine{00093\ \ \ \textcolor{comment}{//\ DispatchState::BLOCKED\ if\ its\ connection\ is\ now\ not\ blocked\ by}}
+\DoxyCodeLine{00094\ \ \ \textcolor{comment}{//\ conn\_max\_per\_host\_\ limit.}}
+\DoxyCodeLine{00095\ \ \ \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *remove\_and\_get\_blocked(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ next\_blocked\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00097\ \ \ \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *get\_downstreams()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00098\ \ \ \mbox{\hyperlink{structshrpx_1_1DownstreamQueue_1_1HostEntry}{HostEntry}}\ \&find\_host\_entry(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&host);}
+\DoxyCodeLine{00099\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ make\_host\_key(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&host)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00100\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ make\_host\_key(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00103\ \ \ \textcolor{comment}{//\ Per\ target\ host\ structure\ to\ keep\ track\ of\ the\ number\ of}}
+\DoxyCodeLine{00104\ \ \ \textcolor{comment}{//\ connections\ to\ the\ same\ host.}}
+\DoxyCodeLine{00105\ \ \ HostEntryMap\ host\_entries\_;}
+\DoxyCodeLine{00106\ \ \ \mbox{\hyperlink{structnghttp2_1_1DList}{DList<Downstream>}}\ downstreams\_;}
+\DoxyCodeLine{00107\ \ \ \textcolor{comment}{//\ Maximum\ number\ of\ concurrent\ connections\ to\ the\ same\ host.}}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{size\_t}\ conn\_max\_per\_host\_;}
+\DoxyCodeLine{00109\ \ \ \textcolor{comment}{//\ true\ if\ downstream\ host\ is\ treated\ as\ the\ same.\ \ Used\ for\ reverse}}
+\DoxyCodeLine{00110\ \ \ \textcolor{comment}{//\ proxying.}}
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordtype}{bool}\ unified\_host\_;}
+\DoxyCodeLine{00112\ \};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_DOWNSTREAM\_QUEUE\_H}}
+
+\end{DoxyCode}

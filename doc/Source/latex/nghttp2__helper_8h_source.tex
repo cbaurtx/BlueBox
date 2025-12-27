@@ -1,0 +1,151 @@
+\doxysection{nghttp2\+\_\+helper.\+h}
+\hypertarget{nghttp2__helper_8h_source}{}\label{nghttp2__helper_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_helper.h@{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_helper.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_HELPER\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ NGHTTP2\_HELPER\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifdef\ HAVE\_CONFIG\_H}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ \ include\ <config.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_CONFIG\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{string_8h}{string.h}}>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_mem.h"{}}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ nghttp2\_max\_def(SUFFIX,\ T)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\ \ static\ inline\ T\ nghttp2\_max\_\#\#SUFFIX(T\ a,\ T\ b)\ \{\ return\ a\ <\ b\ ?\ b\ :\ a;\ \}}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ nghttp2\_max\_def(int8,\ int8\_t)}
+\DoxyCodeLine{00042\ nghttp2\_max\_def(int16,\ int16\_t)}
+\DoxyCodeLine{00043\ nghttp2\_max\_def(int32,\ int32\_t)}
+\DoxyCodeLine{00044\ nghttp2\_max\_def(int64,\ int64\_t)}
+\DoxyCodeLine{00045\ nghttp2\_max\_def(uint8,\ uint8\_t)}
+\DoxyCodeLine{00046\ nghttp2\_max\_def(uint16,\ uint16\_t)}
+\DoxyCodeLine{00047\ nghttp2\_max\_def(uint32,\ uint32\_t)}
+\DoxyCodeLine{00048\ nghttp2\_max\_def(uint64,\ uint64\_t)}
+\DoxyCodeLine{00049\ nghttp2\_max\_def(size,\ \textcolor{keywordtype}{size\_t})}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ nghttp2\_min\_def(SUFFIX,\ T)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\ \ static\ inline\ T\ nghttp2\_min\_\#\#SUFFIX(T\ a,\ T\ b)\ \{\ return\ a\ <\ b\ ?\ a\ :\ b;\ \}}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ nghttp2\_min\_def(int8,\ int8\_t)}
+\DoxyCodeLine{00055\ nghttp2\_min\_def(int16,\ int16\_t)}
+\DoxyCodeLine{00056\ nghttp2\_min\_def(int32,\ int32\_t)}
+\DoxyCodeLine{00057\ nghttp2\_min\_def(int64,\ int64\_t)}
+\DoxyCodeLine{00058\ nghttp2\_min\_def(uint8,\ uint8\_t)}
+\DoxyCodeLine{00059\ nghttp2\_min\_def(uint16,\ uint16\_t)}
+\DoxyCodeLine{00060\ nghttp2\_min\_def(uint32,\ uint32\_t)}
+\DoxyCodeLine{00061\ nghttp2\_min\_def(uint64,\ uint64\_t)}
+\DoxyCodeLine{00062\ nghttp2\_min\_def(size,\ \textcolor{keywordtype}{size\_t})}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ lstreq(A,\ B,\ N)\ ((sizeof((A))\ -\/\ 1)\ ==\ (N)\ \&\&\ memcmp((A),\ (B),\ (N))\ ==\ 0)}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ nghttp2\_struct\_of(ptr,\ type,\ member)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\ \ ((type\ *)(void\ *)((char\ *)(ptr)\ -\/\ offsetof(type,\ member)))}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *\ Copies\ 2\ byte\ unsigned\ integer\ |n|\ in\ host\ byte\ order\ to\ |buf|\ in}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ *\ network\ byte\ order.}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00073\ \textcolor{keywordtype}{void}\ nghttp2\_put\_uint16be(uint8\_t\ *buf,\ uint16\_t\ n);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *\ Copies\ 4\ byte\ unsigned\ integer\ |n|\ in\ host\ byte\ order\ to\ |buf|\ in}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ *\ network\ byte\ order.}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{void}\ nghttp2\_put\_uint32be(uint8\_t\ *buf,\ uint32\_t\ n);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ *\ Retrieves\ 2\ byte\ unsigned\ integer\ stored\ in\ |data|\ in\ network\ byte}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ *\ order\ and\ returns\ it\ in\ host\ byte\ order.}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00085\ uint16\_t\ nghttp2\_get\_uint16(\textcolor{keyword}{const}\ uint8\_t\ *data);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ *\ Retrieves\ 4\ byte\ unsigned\ integer\ stored\ in\ |data|\ in\ network\ byte}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ *\ order\ and\ returns\ it\ in\ host\ byte\ order.}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00091\ uint32\_t\ nghttp2\_get\_uint32(\textcolor{keyword}{const}\ uint8\_t\ *data);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{keywordtype}{void}\ nghttp2\_downcase(uint8\_t\ *s,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ *\ Adjusts\ |*local\_window\_size\_ptr|,\ |*recv\_window\_size\_ptr|,}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ *\ |*recv\_reduction\_ptr|\ with\ |*delta\_ptr|\ which\ is\ the}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ *\ WINDOW\_UPDATE's\ window\_size\_increment\ sent\ from\ local\ side.\ If}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ *\ |delta|\ is\ strictly\ larger\ than\ |*recv\_window\_size\_ptr|,}}
+\DoxyCodeLine{00100\ \textcolor{comment}{\ *\ |*local\_window\_size\_ptr|\ is\ increased\ by\ delta\ -\/}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ *\ *recv\_window\_size\_ptr.\ If\ |delta|\ is\ negative,}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ *\ |*local\_window\_size\_ptr|\ is\ decreased\ by\ delta.}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_FLOW\_CONTROL}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ *\ \ \ \ \ local\_window\_size\ overflow\ or\ gets\ negative.}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00110\ \textcolor{keywordtype}{int}\ nghttp2\_adjust\_local\_window\_size(int32\_t\ *local\_window\_size\_ptr,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ *recv\_window\_size\_ptr,}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ *recv\_reduction\_ptr,}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ *delta\_ptr);}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ *\ This\ function\ works\ like\ nghttp2\_adjust\_local\_window\_size().\ \ The}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ *\ difference\ is\ that\ this\ function\ assumes\ *delta\_ptr\ >=\ 0,\ and}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ *\ *recv\_window\_size\_ptr\ is\ not\ decreased\ by\ *delta\_ptr.}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_FLOW\_CONTROL}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ *\ \ \ \ \ local\_window\_size\ overflow\ or\ gets\ negative.}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00126\ \textcolor{keywordtype}{int}\ nghttp2\_increase\_local\_window\_size(int32\_t\ *local\_window\_size\_ptr,}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ *recv\_window\_size\_ptr,}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ *recv\_reduction\_ptr,}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ *delta\_ptr);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ *\ Returns\ non-\/zero\ if\ the\ function\ decided\ that\ WINDOW\_UPDATE\ should}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ *\ be\ sent.}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00135\ \textcolor{keywordtype}{int}\ nghttp2\_should\_send\_window\_update(int32\_t\ local\_window\_size,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ recv\_window\_size);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ *\ Copies\ the\ buffer\ |src|\ of\ length\ |len|\ to\ the\ destination\ pointed}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ *\ by\ the\ |dest|,\ assuming\ that\ the\ |dest|\ is\ at\ lest\ |len|\ bytes\ long}}
+\DoxyCodeLine{00141\ \textcolor{comment}{\ *\ .\ Returns\ dest\ +\ len.}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00143\ uint8\_t\ *nghttp2\_cpymem(uint8\_t\ *dest,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_HELPER\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,86 @@
+\doxysection{nghttp2\+\_\+rcbuf.\+h}
+\hypertarget{nghttp2__rcbuf_8h_source}{}\label{nghttp2__rcbuf_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_rcbuf.h@{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_rcbuf.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2016\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_RCBUF\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ NGHTTP2\_RCBUF\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifdef\ HAVE\_CONFIG\_H}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ \ include\ <config.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_CONFIG\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ \{}
+\DoxyCodeLine{00035\ \ \ \textcolor{comment}{/*\ custom\ memory\ allocator\ belongs\ to\ the\ mem\ parameter\ when}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ \ \ \ creating\ this\ object.\ */}}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{void}\ *mem\_user\_data;}
+\DoxyCodeLine{00038\ \ \ nghttp2\_free\ free;}
+\DoxyCodeLine{00039\ \ \ \textcolor{comment}{/*\ The\ pointer\ to\ the\ underlying\ buffer\ */}}
+\DoxyCodeLine{00040\ \ \ uint8\_t\ *base;}
+\DoxyCodeLine{00041\ \ \ \textcolor{comment}{/*\ Size\ of\ buffer\ pointed\ by\ |base|.\ */}}
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{size\_t}\ len;}
+\DoxyCodeLine{00043\ \ \ \textcolor{comment}{/*\ Reference\ count\ */}}
+\DoxyCodeLine{00044\ \ \ int32\_t\ ref;}
+\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ *\ Allocates\ nghttp2\_rcbuf\ object\ with\ |size|\ as\ initial\ buffer\ size.}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ *\ When\ the\ function\ succeeds,\ the\ reference\ count\ becomes\ 1.}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM:}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{int}\ nghttp2\_rcbuf\_new(\mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ **rcbuf\_ptr,\ \textcolor{keywordtype}{size\_t}\ size,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *\ Like\ nghttp2\_rcbuf\_new(),\ but\ initializes\ the\ buffer\ with\ |src|\ of}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *\ length\ |srclen|.\ \ This\ function\ allocates\ additional\ byte\ at\ the}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *\ end\ and\ puts\ '\(\backslash\)0'\ into\ it,\ so\ that\ the\ resulting\ buffer\ could\ be}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ *\ used\ as\ NULL-\/terminated\ string.\ \ Still\ (*rcbuf\_ptr)-\/>len\ equals\ to}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ *\ |srclen|.}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM:}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00072\ \textcolor{keywordtype}{int}\ nghttp2\_rcbuf\_new2(\mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ **rcbuf\_ptr,\ \textcolor{keyword}{const}\ uint8\_t\ *src,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ srclen,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *\ Frees\ |rcbuf|\ itself,\ regardless\ of\ its\ reference\ cout.}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00078\ \textcolor{keywordtype}{void}\ nghttp2\_rcbuf\_del(\mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ *rcbuf);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_RCBUF\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,151 @@
+\doxysection{proc.\+h}
+\hypertarget{proc_8h_source}{}\label{proc_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/proc.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/proc.h}}
+\mbox{\hyperlink{proc_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_PROC\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_PROC\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{common_8h}{common.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{irep_8h}{mruby/irep.h}}>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00016\ \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\_BEGIN\_DECL}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structREnv}{REnv}}\ \{}
+\DoxyCodeLine{00019\ \ \ MRB\_OBJECT\_HEADER;}
+\DoxyCodeLine{00020\ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ *stack;}
+\DoxyCodeLine{00021\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__context}{mrb\_context}}\ *cxt;}
+\DoxyCodeLine{00022\ \ \ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}}\ mid;}
+\DoxyCodeLine{00023\ \};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{comment}{/*\ flags\ (21bits):\ 1(close):1(touched):1(heap):8(cioff/bidx):8(stack\_len)\ */}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ MRB\_ENV\_SET\_LEN(e,len)\ ((e)-\/>flags\ =\ (((e)-\/>flags\ \&\ \string~0xff)|((unsigned\ int)(len)\ \&\ 0xff)))}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ MRB\_ENV\_LEN(e)\ ((mrb\_int)((e)-\/>flags\ \&\ 0xff))}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ MRB\_ENV\_CLOSED\ (1<<20)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ MRB\_ENV\_CLOSE(e)\ ((e)-\/>flags\ |=\ MRB\_ENV\_CLOSED)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ MRB\_ENV\_ONSTACK\_P(e)\ (((e)-\/>flags\ \&\ MRB\_ENV\_CLOSED)\ ==\ 0)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ MRB\_ENV\_BIDX(e)\ (((e)-\/>flags\ >>\ 8)\ \&\ 0xff)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ MRB\_ENV\_SET\_BIDX(e,idx)\ ((e)-\/>flags\ =\ (((e)-\/>flags\ \&\ \string~(0xff<<8))|((unsigned\ int)(idx)\ \&\ 0xff)<<8))}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ Returns\ TRUE\ on\ success.}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ If\ the\ function\ fails:}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ *\ *\ Returns\ FALSE\ if\ noraise\ is\ TRUE.}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ *\ *\ Raises\ a\ NoMemoryError\ exception\ if\ noraise\ is\ FALSE.}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00040\ mrb\_bool\ mrb\_env\_unshare(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structREnv}{REnv}}*,\ mrb\_bool\ noraise);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRProc}{RProc}}\ \{}
+\DoxyCodeLine{00043\ \ \ MRB\_OBJECT\_HEADER;}
+\DoxyCodeLine{00044\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}\ *irep;}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\_func\_t}}\ func;}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}}\ mid;}
+\DoxyCodeLine{00048\ \ \ \}\ body;}
+\DoxyCodeLine{00049\ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRProc}{RProc}}\ *upper;}
+\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRClass}{RClass}}\ *target\_class;}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structREnv}{REnv}}\ *env;}
+\DoxyCodeLine{00053\ \ \ \}\ e;}
+\DoxyCodeLine{00054\ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{/*\ aspec\ access\ */}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ MRB\_ASPEC\_REQ(a)\ \ \ \ \ \ \ \ \ \ (((a)\ >>\ 18)\ \&\ 0x1f)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ MRB\_ASPEC\_OPT(a)\ \ \ \ \ \ \ \ \ \ (((a)\ >>\ 13)\ \&\ 0x1f)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ MRB\_ASPEC\_REST(a)\ \ \ \ \ \ \ \ \ (((a)\ >>\ 12)\ \&\ 0x1)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ MRB\_ASPEC\_POST(a)\ \ \ \ \ \ \ \ \ (((a)\ >>\ 7)\ \&\ 0x1f)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ MRB\_ASPEC\_KEY(a)\ \ \ \ \ \ \ \ \ \ (((a)\ >>\ 2)\ \&\ 0x1f)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ MRB\_ASPEC\_KDICT(a)\ \ \ \ \ \ \ \ (((a)\ >>\ 1)\ \&\ 0x1)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ MRB\_ASPEC\_BLOCK(a)\ \ \ \ \ \ \ \ ((a)\ \&\ 1)}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_CFUNC\_FL\ 128}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_CFUNC\_P(p)\ (((p)-\/>flags\ \&\ MRB\_PROC\_CFUNC\_FL)\ !=\ 0)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_CFUNC(p)\ (p)-\/>body.func}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_STRICT\ 256}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_STRICT\_P(p)\ (((p)-\/>flags\ \&\ MRB\_PROC\_STRICT)\ !=\ 0)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_ORPHAN\ 512}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_ORPHAN\_P(p)\ (((p)-\/>flags\ \&\ MRB\_PROC\_ORPHAN)\ !=\ 0)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_ENVSET\ 1024}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_ENV\_P(p)\ (((p)-\/>flags\ \&\ MRB\_PROC\_ENVSET)\ !=\ 0)}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_ENV(p)\ (MRB\_PROC\_ENV\_P(p)\ ?\ (p)-\/>e.env\ :\ NULL)}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_TARGET\_CLASS(p)\ (MRB\_PROC\_ENV\_P(p)\ ?\ (p)-\/>e.env-\/>c\ :\ (p)-\/>e.target\_class)}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_SET\_TARGET\_CLASS(p,tc)\ do\ \{\(\backslash\)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ if\ (MRB\_PROC\_ENV\_P(p))\ \{\(\backslash\)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\ \ \ \ (p)-\/>e.env-\/>c\ =\ (tc);\(\backslash\)}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\ \ \ \ mrb\_field\_write\_barrier(mrb,\ (struct\ RBasic*)(p)-\/>e.env,\ (struct\ RBasic*)(tc));\(\backslash\)}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\ \ \}\(\backslash\)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\ \ else\ \{\(\backslash\)}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\ \ \ \ (p)-\/>e.target\_class\ =\ (tc);\(\backslash\)}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\ \ \ \ mrb\_field\_write\_barrier(mrb,\ (struct\ RBasic*)p,\ (struct\ RBasic*)(tc));\(\backslash\)}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\ \ \}\(\backslash\)}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\}\ while\ (0)}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_SCOPE\ 2048}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_SCOPE\_P(p)\ (((p)-\/>flags\ \&\ MRB\_PROC\_SCOPE)\ !=\ 0)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_NOARG\ 4096\ }\textcolor{comment}{/*\ for\ MRB\_PROC\_CFUNC\_FL,\ it\ would\ be\ something\ like\ MRB\_ARGS\_NONE()\ or\ MRB\_METHOD\_NOARG\_FL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_NOARG\_P(p)\ (((p)-\/>flags\ \&\ MRB\_PROC\_NOARG)\ !=\ 0)}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_ALIAS\ 8192}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ MRB\_PROC\_ALIAS\_P(p)\ (((p)-\/>flags\ \&\ MRB\_PROC\_ALIAS)\ !=\ 0)}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ mrb\_proc\_ptr(v)\ \ \ \ ((struct\ RProc*)(mrb\_ptr(v)))}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRProc}{RProc}}\ *mrb\_proc\_new(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}*);}
+\DoxyCodeLine{00096\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRProc}{RProc}}\ *mrb\_proc\_new\_cfunc(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\_func\_t}});}
+\DoxyCodeLine{00097\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRProc}{RProc}}\ *mrb\_closure\_new\_cfunc(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\_func\_t}}\ func,\ \textcolor{keywordtype}{int}\ nlocals);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{comment}{/*\ following\ functions\ are\ defined\ in\ mruby-\/proc-\/ext\ so\ please\ include\ it\ when\ using\ */}}
+\DoxyCodeLine{00100\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRProc}{RProc}}\ *mrb\_proc\_new\_cfunc\_with\_env(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\_func\_t}}\ func,\ mrb\_int\ argc,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ *argv);}
+\DoxyCodeLine{00101\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_proc\_cfunc\_env\_get(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ mrb\_int\ idx);}
+\DoxyCodeLine{00102\ \textcolor{comment}{/*\ old\ name\ */}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ mrb\_cfunc\_env\_get(mrb,\ idx)\ mrb\_proc\_cfunc\_env\_get(mrb,\ idx)}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_FUNC\_FL\ 1}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_NOARG\_FL\ 2}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#ifndef\ MRB\_USE\_METHOD\_T\_STRUCT}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_FUNC\_P(m)\ (((uintptr\_t)(m))\&MRB\_METHOD\_FUNC\_FL)}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_NOARG\_P(m)\ ((((uintptr\_t)(m))\&MRB\_METHOD\_NOARG\_FL)?1:0)}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_NOARG\_SET(m)\ ((m)=(mrb\_method\_t)(((uintptr\_t)(m))|MRB\_METHOD\_NOARG\_FL))}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_FUNC(m)\ ((mrb\_func\_t)((uintptr\_t)(m)>>2))}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_FROM\_FUNC(m,fn)\ ((m)=(mrb\_method\_t)((((uintptr\_t)(fn))<<2)|MRB\_METHOD\_FUNC\_FL))}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_FROM\_PROC(m,pr)\ ((m)=(mrb\_method\_t)(pr))}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_PROC\_P(m)\ (!MRB\_METHOD\_FUNC\_P(m))}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_PROC(m)\ ((struct\ RProc*)(m))}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_UNDEF\_P(m)\ ((m)==0)}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_FUNC\_P(m)\ ((m).flags\&MRB\_METHOD\_FUNC\_FL)}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_NOARG\_P(m)\ (((m).flags\&MRB\_METHOD\_NOARG\_FL)?1:0)}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_FUNC(m)\ ((m).func)}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_NOARG\_SET(m)\ do\{(m).flags|=MRB\_METHOD\_NOARG\_FL;\}while(0)}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_FROM\_FUNC(m,fn)\ do\{(m).flags=MRB\_METHOD\_FUNC\_FL;(m).func=(fn);\}while(0)}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_FROM\_PROC(m,pr)\ do\{(m).flags=0;(m).proc=(struct\ RProc*)(pr);\}while(0)}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_PROC\_P(m)\ (!MRB\_METHOD\_FUNC\_P(m))}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_PROC(m)\ ((m).proc)}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_UNDEF\_P(m)\ ((m).proc==NULL)}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ MRB\_USE\_METHOD\_T\_STRUCT\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_CFUNC\_P(m)\ (MRB\_METHOD\_FUNC\_P(m)?TRUE:(MRB\_METHOD\_PROC(m)?(MRB\_PROC\_CFUNC\_P(MRB\_METHOD\_PROC(m))):FALSE))}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ MRB\_METHOD\_CFUNC(m)\ (MRB\_METHOD\_FUNC\_P(m)?MRB\_METHOD\_FUNC(m):((MRB\_METHOD\_PROC(m)\&\&MRB\_PROC\_CFUNC\_P(MRB\_METHOD\_PROC(m)))?MRB\_PROC\_CFUNC(MRB\_METHOD\_PROC(m)):NULL))}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{khash_8h}{mruby/khash.h}}>}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_load\_proc(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRProc}{RProc}}\ *proc);}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00175\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{proc_8h_a003982b556c0e2ff6d5bd7cf401f6a6f}{mrb\_vm\_ci\_env\_clear}}(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__callinfo}{mrb\_callinfo}}\ *ci);}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{keywordtype}{void}\ mrb\_vm\_ci\_proc\_set(\mbox{\hyperlink{structmrb__callinfo}{mrb\_callinfo}}\ *ci,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRProc}{RProc}}\ *p);}
+\DoxyCodeLine{00178\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRClass}{RClass}}\ *\ mrb\_vm\_ci\_target\_class(\textcolor{keyword}{const}\ \mbox{\hyperlink{structmrb__callinfo}{mrb\_callinfo}}\ *ci);}
+\DoxyCodeLine{00179\ \textcolor{keywordtype}{void}\ mrb\_vm\_ci\_target\_class\_set(\mbox{\hyperlink{structmrb__callinfo}{mrb\_callinfo}}\ *ci,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}\ *tc);}
+\DoxyCodeLine{00180\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structREnv}{REnv}}\ *\ mrb\_vm\_ci\_env(\textcolor{keyword}{const}\ \mbox{\hyperlink{structmrb__callinfo}{mrb\_callinfo}}\ *ci);}
+\DoxyCodeLine{00181\ \textcolor{keywordtype}{void}\ mrb\_vm\_ci\_env\_set(\mbox{\hyperlink{structmrb__callinfo}{mrb\_callinfo}}\ *ci,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structREnv}{REnv}}\ *e);}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \mbox{\hyperlink{common_8h_a7e9674ff871a8abbcaf9ba23fa4b72d3}{MRB\_END\_DECL}}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_PROC\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

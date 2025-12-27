@@ -1,0 +1,55 @@
+\doxysection{nghttp2\+\_\+settings Struct Reference}
+\hypertarget{structnghttp2__settings}{}\label{structnghttp2__settings}\index{nghttp2\_settings@{nghttp2\_settings}}
+
+
+{\ttfamily \#include $<$nghttp2.\+h$>$}
+
+
+
+Collaboration diagram for nghttp2\+\_\+settings\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{structnghttp2__settings__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\+\_\+frame\+\_\+hd}} \mbox{\hyperlink{structnghttp2__settings_aa8385c9c1a7a44d7e9b53569a4a4a272}{hd}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structnghttp2__settings_af310f55897db6371f63dbbb83b7d9ebc}{niv}}
+\item 
+\mbox{\hyperlink{structnghttp2__settings__entry}{nghttp2\+\_\+settings\+\_\+entry}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structnghttp2__settings_ac695887c9e98cd30fac35e996bfbb6a7}{iv}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The SETTINGS frame. It has the following members\+: 
+
+\label{doc-variable-members}
+\Hypertarget{structnghttp2__settings_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structnghttp2__settings_aa8385c9c1a7a44d7e9b53569a4a4a272}\index{nghttp2\_settings@{nghttp2\_settings}!hd@{hd}}
+\index{hd@{hd}!nghttp2\_settings@{nghttp2\_settings}}
+\doxysubsubsection{\texorpdfstring{hd}{hd}}
+{\footnotesize\ttfamily \label{structnghttp2__settings_aa8385c9c1a7a44d7e9b53569a4a4a272} 
+\mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\+\_\+frame\+\_\+hd}} nghttp2\+\_\+settings\+::hd}
+
+The frame header. \Hypertarget{structnghttp2__settings_ac695887c9e98cd30fac35e996bfbb6a7}\index{nghttp2\_settings@{nghttp2\_settings}!iv@{iv}}
+\index{iv@{iv}!nghttp2\_settings@{nghttp2\_settings}}
+\doxysubsubsection{\texorpdfstring{iv}{iv}}
+{\footnotesize\ttfamily \label{structnghttp2__settings_ac695887c9e98cd30fac35e996bfbb6a7} 
+\mbox{\hyperlink{structnghttp2__settings__entry}{nghttp2\+\_\+settings\+\_\+entry}}\texorpdfstring{$\ast$}{*} nghttp2\+\_\+settings\+::iv}
+
+The pointer to the array of SETTINGS ID/\+Value pair. \Hypertarget{structnghttp2__settings_af310f55897db6371f63dbbb83b7d9ebc}\index{nghttp2\_settings@{nghttp2\_settings}!niv@{niv}}
+\index{niv@{niv}!nghttp2\_settings@{nghttp2\_settings}}
+\doxysubsubsection{\texorpdfstring{niv}{niv}}
+{\footnotesize\ttfamily \label{structnghttp2__settings_af310f55897db6371f63dbbb83b7d9ebc} 
+size\+\_\+t nghttp2\+\_\+settings\+::niv}
+
+The number of SETTINGS ID/\+Value pairs in \texorpdfstring{$\vert$}{|}iv\texorpdfstring{$\vert$}{|}. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/lib/includes/nghttp2/nghttp2.\+h\end{DoxyCompactItemize}

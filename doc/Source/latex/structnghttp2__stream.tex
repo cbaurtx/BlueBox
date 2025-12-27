@@ -1,0 +1,94 @@
+\doxysection{nghttp2\+\_\+stream Struct Reference}
+\hypertarget{structnghttp2__stream}{}\label{structnghttp2__stream}\index{nghttp2\_stream@{nghttp2\_stream}}
+
+
+Collaboration diagram for nghttp2\+\_\+stream\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structnghttp2__stream__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnghttp2__stream_adaffae41a88b1eae8ca13ac5c5b4c14e}\label{structnghttp2__stream_adaffae41a88b1eae8ca13ac5c5b4c14e} 
+nghttp2\+\_\+stream\+\_\+state {\bfseries state}
+\item 
+\Hypertarget{structnghttp2__stream_af7f27540c885b5486b42479520fae58c}\label{structnghttp2__stream_af7f27540c885b5486b42479520fae58c} 
+\mbox{\hyperlink{structnghttp2__pq__entry}{nghttp2\+\_\+pq\+\_\+entry}} {\bfseries pq\+\_\+entry}
+\item 
+\Hypertarget{structnghttp2__stream_af34eebdb711be6ef841077c43986a615}\label{structnghttp2__stream_af34eebdb711be6ef841077c43986a615} 
+int64\+\_\+t {\bfseries content\+\_\+length}
+\item 
+\Hypertarget{structnghttp2__stream_a1eea216c86436a9a5a27c5e65984f395}\label{structnghttp2__stream_a1eea216c86436a9a5a27c5e65984f395} 
+int64\+\_\+t {\bfseries recv\+\_\+content\+\_\+length}
+\item 
+\Hypertarget{structnghttp2__stream_ac16f4a6b0b5eaa1118a74c67501949c9}\label{structnghttp2__stream_ac16f4a6b0b5eaa1118a74c67501949c9} 
+uint64\+\_\+t {\bfseries cycle}
+\item 
+\Hypertarget{structnghttp2__stream_a0826f02f6c545d5878cafc512c5281bb}\label{structnghttp2__stream_a0826f02f6c545d5878cafc512c5281bb} 
+uint64\+\_\+t {\bfseries seq}
+\item 
+\Hypertarget{structnghttp2__stream_a5c0b4667b974ecd478f6d72969e800e7}\label{structnghttp2__stream_a5c0b4667b974ecd478f6d72969e800e7} 
+\mbox{\hyperlink{structnghttp2__stream}{nghttp2\+\_\+stream}} \texorpdfstring{$\ast$}{*} {\bfseries closed\+\_\+next}
+\item 
+\Hypertarget{structnghttp2__stream_a3af1cafc6e3d18f5f4cab9c4aaa29dc4}\label{structnghttp2__stream_a3af1cafc6e3d18f5f4cab9c4aaa29dc4} 
+void \texorpdfstring{$\ast$}{*} {\bfseries stream\+\_\+user\+\_\+data}
+\item 
+\Hypertarget{structnghttp2__stream_af5339cb7ad97f28b10cb8e98671b906e}\label{structnghttp2__stream_af5339cb7ad97f28b10cb8e98671b906e} 
+\mbox{\hyperlink{structnghttp2__outbound__item}{nghttp2\+\_\+outbound\+\_\+item}} \texorpdfstring{$\ast$}{*} {\bfseries item}
+\item 
+\Hypertarget{structnghttp2__stream_ab3e37d1a302e65f6ebbfe4a817fd063a}\label{structnghttp2__stream_ab3e37d1a302e65f6ebbfe4a817fd063a} 
+size\+\_\+t {\bfseries last\+\_\+writelen}
+\item 
+\Hypertarget{structnghttp2__stream_ad5f714a595141659a442ca05be4bb75a}\label{structnghttp2__stream_ad5f714a595141659a442ca05be4bb75a} 
+int32\+\_\+t {\bfseries stream\+\_\+id}
+\item 
+\Hypertarget{structnghttp2__stream_ac7b940dd11b47f774ef90f7cb9cd0afb}\label{structnghttp2__stream_ac7b940dd11b47f774ef90f7cb9cd0afb} 
+int32\+\_\+t {\bfseries remote\+\_\+window\+\_\+size}
+\item 
+\Hypertarget{structnghttp2__stream_aa6b926f3f3aed4e92107497bb19cb0df}\label{structnghttp2__stream_aa6b926f3f3aed4e92107497bb19cb0df} 
+int32\+\_\+t {\bfseries recv\+\_\+window\+\_\+size}
+\item 
+\Hypertarget{structnghttp2__stream_a8204a803f32b2996471f3afd362c7f1f}\label{structnghttp2__stream_a8204a803f32b2996471f3afd362c7f1f} 
+int32\+\_\+t {\bfseries consumed\+\_\+size}
+\item 
+\Hypertarget{structnghttp2__stream_a776934078b9182da0e5ea9bfac3a828b}\label{structnghttp2__stream_a776934078b9182da0e5ea9bfac3a828b} 
+int32\+\_\+t {\bfseries recv\+\_\+reduction}
+\item 
+\Hypertarget{structnghttp2__stream_ae7576c3c714832f340b904b66350417a}\label{structnghttp2__stream_ae7576c3c714832f340b904b66350417a} 
+int32\+\_\+t {\bfseries local\+\_\+window\+\_\+size}
+\item 
+\Hypertarget{structnghttp2__stream_a6ced85d29a69ec14631fb5e232fec0d1}\label{structnghttp2__stream_a6ced85d29a69ec14631fb5e232fec0d1} 
+uint32\+\_\+t {\bfseries pending\+\_\+penalty}
+\item 
+\Hypertarget{structnghttp2__stream_af920d1582c8e74bf213a8a922216393b}\label{structnghttp2__stream_af920d1582c8e74bf213a8a922216393b} 
+int16\+\_\+t {\bfseries status\+\_\+code}
+\item 
+\Hypertarget{structnghttp2__stream_af33513c384e325aa9d8222ed51229af9}\label{structnghttp2__stream_af33513c384e325aa9d8222ed51229af9} 
+uint32\+\_\+t {\bfseries http\+\_\+flags}
+\item 
+\Hypertarget{structnghttp2__stream_ad1a2142f338279ce55733f8f06a09061}\label{structnghttp2__stream_ad1a2142f338279ce55733f8f06a09061} 
+uint8\+\_\+t {\bfseries flags}
+\item 
+\Hypertarget{structnghttp2__stream_ac9663b21ed6bd9c0e6039591757a9f04}\label{structnghttp2__stream_ac9663b21ed6bd9c0e6039591757a9f04} 
+uint8\+\_\+t {\bfseries shut\+\_\+flags}
+\item 
+\Hypertarget{structnghttp2__stream_a9243c3274f014d73db7c26ccf51fc950}\label{structnghttp2__stream_a9243c3274f014d73db7c26ccf51fc950} 
+uint8\+\_\+t {\bfseries queued}
+\item 
+\Hypertarget{structnghttp2__stream_ad64760b46b4b3091448c0761bdae501d}\label{structnghttp2__stream_ad64760b46b4b3091448c0761bdae501d} 
+uint8\+\_\+t {\bfseries window\+\_\+update\+\_\+queued}
+\item 
+\Hypertarget{structnghttp2__stream_a1de6109f52884334a933d18d59599c09}\label{structnghttp2__stream_a1de6109f52884334a933d18d59599c09} 
+uint8\+\_\+t {\bfseries extpri}
+\item 
+\Hypertarget{structnghttp2__stream_ac73c46d585e45b521391d892061e7963}\label{structnghttp2__stream_ac73c46d585e45b521391d892061e7963} 
+uint8\+\_\+t {\bfseries http\+\_\+extpri}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/lib/nghttp2\+\_\+stream.\+h\end{DoxyCompactItemize}

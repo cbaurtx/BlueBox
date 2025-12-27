@@ -1,0 +1,73 @@
+\doxysection{shrpx\+::Downstream\+Config Struct Reference}
+\hypertarget{structshrpx_1_1DownstreamConfig}{}\label{structshrpx_1_1DownstreamConfig}\index{shrpx::DownstreamConfig@{shrpx::DownstreamConfig}}
+
+
+Collaboration diagram for shrpx\+::Downstream\+Config\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structshrpx_1_1DownstreamConfig__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamConfig_a6864fc96371996c228e689aea5573a8f}\label{structshrpx_1_1DownstreamConfig_a6864fc96371996c228e689aea5573a8f} 
+{\bfseries Downstream\+Config} (const Downstream\+Config \&)=delete
+\item 
+\Hypertarget{structshrpx_1_1DownstreamConfig_a8f58d64d248c70c6682c6cdbd0d103a0}\label{structshrpx_1_1DownstreamConfig_a8f58d64d248c70c6682c6cdbd0d103a0} 
+{\bfseries Downstream\+Config} (Downstream\+Config \&\&)=delete
+\item 
+\Hypertarget{structshrpx_1_1DownstreamConfig_aadae495a04dbfd9d317fc24f74c47b32}\label{structshrpx_1_1DownstreamConfig_aadae495a04dbfd9d317fc24f74c47b32} 
+Downstream\+Config \& {\bfseries operator=} (const Downstream\+Config \&)=delete
+\item 
+\Hypertarget{structshrpx_1_1DownstreamConfig_a0a41f599cd7a1d611d428fb35e6642a4}\label{structshrpx_1_1DownstreamConfig_a0a41f599cd7a1d611d428fb35e6642a4} 
+Downstream\+Config \& {\bfseries operator=} (Downstream\+Config \&\&)=delete
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamConfig_ae2acb46f5f07385d6fc3969832942b10}\label{structshrpx_1_1DownstreamConfig_ae2acb46f5f07385d6fc3969832942b10} 
+\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{Block\+Allocator}} {\bfseries balloc}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamConfig_a5d12f8fcbf7af872986ed16207921d6f}\label{structshrpx_1_1DownstreamConfig_a5d12f8fcbf7af872986ed16207921d6f} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>ev\_tstamp {\bfseries read}\\
+\>ev\_tstamp {\bfseries write}\\
+\>ev\_tstamp {\bfseries idle\_read}\\
+\>ev\_tstamp {\bfseries connect}\\
+\>ev\_tstamp {\bfseries max\_backoff}\\
+\} {\bfseries timeout}\\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1DownstreamConfig_a41e59bf25010439386de38fde181a07d}\label{structshrpx_1_1DownstreamConfig_a41e59bf25010439386de38fde181a07d} 
+\mbox{\hyperlink{structshrpx_1_1RouterConfig}{Router\+Config}} {\bfseries router}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamConfig_ab5f78d138cf916f32c6e226900ce9877}\label{structshrpx_1_1DownstreamConfig_ab5f78d138cf916f32c6e226900ce9877} 
+std\+::vector$<$ \mbox{\hyperlink{structshrpx_1_1DownstreamAddrGroupConfig}{Downstream\+Addr\+Group\+Config}} $>$ {\bfseries addr\+\_\+groups}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamConfig_a8ab4ff62d7bbdb8c1d07705ac13b40e7}\label{structshrpx_1_1DownstreamConfig_a8ab4ff62d7bbdb8c1d07705ac13b40e7} 
+size\+\_\+t {\bfseries addr\+\_\+group\+\_\+catch\+\_\+all}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamConfig_a1989224176dc2fbba650de4861d92329}\label{structshrpx_1_1DownstreamConfig_a1989224176dc2fbba650de4861d92329} 
+size\+\_\+t {\bfseries connections\+\_\+per\+\_\+host}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamConfig_abf82199d8de94f02a02a4abc1358c530}\label{structshrpx_1_1DownstreamConfig_abf82199d8de94f02a02a4abc1358c530} 
+size\+\_\+t {\bfseries connections\+\_\+per\+\_\+frontend}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamConfig_a561b2454e02d8c5773ae604b2a7a1834}\label{structshrpx_1_1DownstreamConfig_a561b2454e02d8c5773ae604b2a7a1834} 
+size\+\_\+t {\bfseries request\+\_\+buffer\+\_\+size}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamConfig_adbf5ad61e5f1c63d69e4b4596049c95b}\label{structshrpx_1_1DownstreamConfig_adbf5ad61e5f1c63d69e4b4596049c95b} 
+size\+\_\+t {\bfseries response\+\_\+buffer\+\_\+size}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamConfig_a946bf840bf09c4ba33c9672310fcfefb}\label{structshrpx_1_1DownstreamConfig_a946bf840bf09c4ba33c9672310fcfefb} 
+int {\bfseries family}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+config.\+h\end{DoxyCompactItemize}

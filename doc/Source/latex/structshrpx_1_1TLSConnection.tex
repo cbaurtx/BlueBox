@@ -1,0 +1,70 @@
+\doxysection{shrpx\+::TLSConnection Struct Reference}
+\hypertarget{structshrpx_1_1TLSConnection}{}\label{structshrpx_1_1TLSConnection}\index{shrpx::TLSConnection@{shrpx::TLSConnection}}
+
+
+Collaboration diagram for shrpx\+::TLSConnection\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structshrpx_1_1TLSConnection__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1TLSConnection_af5e5719e11c1039f7864373a42a4cbe2}\label{structshrpx_1_1TLSConnection_af5e5719e11c1039f7864373a42a4cbe2} 
+Default\+Memchunks {\bfseries wbuf}
+\item 
+\Hypertarget{structshrpx_1_1TLSConnection_a974acab4e554107e9b84803bf5c71726}\label{structshrpx_1_1TLSConnection_a974acab4e554107e9b84803bf5c71726} 
+Default\+Peek\+Memchunks {\bfseries rbuf}
+\item 
+\Hypertarget{structshrpx_1_1TLSConnection_a583445c4d1674beb271605df188fa966}\label{structshrpx_1_1TLSConnection_a583445c4d1674beb271605df188fa966} 
+Default\+Memchunks {\bfseries earlybuf}
+\item 
+\Hypertarget{structshrpx_1_1TLSConnection_a5ae5d58327017def0d4907370159e965}\label{structshrpx_1_1TLSConnection_a5ae5d58327017def0d4907370159e965} 
+SSL \texorpdfstring{$\ast$}{*} {\bfseries ssl}
+\item 
+\Hypertarget{structshrpx_1_1TLSConnection_afda1356b4f9a22971effd4b25ed89cea}\label{structshrpx_1_1TLSConnection_afda1356b4f9a22971effd4b25ed89cea} 
+SSL\+\_\+\+SESSION \texorpdfstring{$\ast$}{*} {\bfseries cached\+\_\+session}
+\item 
+\Hypertarget{structshrpx_1_1TLSConnection_ad89a11972e0c29c39af1c1f02c1f875d}\label{structshrpx_1_1TLSConnection_ad89a11972e0c29c39af1c1f02c1f875d} 
+\mbox{\hyperlink{structshrpx_1_1MemcachedRequest}{Memcached\+Request}} \texorpdfstring{$\ast$}{*} {\bfseries cached\+\_\+session\+\_\+lookup\+\_\+req}
+\item 
+\Hypertarget{structshrpx_1_1TLSConnection_a9726b0b8064457a4624d186f19fd00d7}\label{structshrpx_1_1TLSConnection_a9726b0b8064457a4624d186f19fd00d7} 
+\mbox{\hyperlink{structshrpx_1_1tls_1_1TLSSessionCache}{tls\+::\+TLSSession\+Cache}} \texorpdfstring{$\ast$}{*} {\bfseries client\+\_\+session\+\_\+cache}
+\item 
+\Hypertarget{structshrpx_1_1TLSConnection_a4acf1dd00e45d3526275fbaf9ba878b9}\label{structshrpx_1_1TLSConnection_a4acf1dd00e45d3526275fbaf9ba878b9} 
+std\+::chrono\+::steady\+\_\+clock\+::time\+\_\+point {\bfseries last\+\_\+write\+\_\+idle}
+\item 
+\Hypertarget{structshrpx_1_1TLSConnection_a275243ba04dfdbf006b9c067825c456a}\label{structshrpx_1_1TLSConnection_a275243ba04dfdbf006b9c067825c456a} 
+size\+\_\+t {\bfseries warmup\+\_\+writelen}
+\item 
+\Hypertarget{structshrpx_1_1TLSConnection_ab86c9fb5588d7c8151cc8d9bd1c858a2}\label{structshrpx_1_1TLSConnection_ab86c9fb5588d7c8151cc8d9bd1c858a2} 
+size\+\_\+t {\bfseries last\+\_\+writelen}
+\item 
+\Hypertarget{structshrpx_1_1TLSConnection_a8136a508957354e4db9b8a7549ddf60c}\label{structshrpx_1_1TLSConnection_a8136a508957354e4db9b8a7549ddf60c} 
+size\+\_\+t {\bfseries last\+\_\+readlen}
+\item 
+\Hypertarget{structshrpx_1_1TLSConnection_aca04f4dee8069e80b9374dd2e3b0f485}\label{structshrpx_1_1TLSConnection_aca04f4dee8069e80b9374dd2e3b0f485} 
+TLSHandshake\+State {\bfseries handshake\+\_\+state}
+\item 
+\Hypertarget{structshrpx_1_1TLSConnection_a006b112bb3cea696e1b4bc14e750400c}\label{structshrpx_1_1TLSConnection_a006b112bb3cea696e1b4bc14e750400c} 
+bool {\bfseries initial\+\_\+handshake\+\_\+done}
+\item 
+\Hypertarget{structshrpx_1_1TLSConnection_a4179dd0976b1dccf5b7588a00e4745bc}\label{structshrpx_1_1TLSConnection_a4179dd0976b1dccf5b7588a00e4745bc} 
+bool {\bfseries reneg\+\_\+started}
+\item 
+\Hypertarget{structshrpx_1_1TLSConnection_ac12a97146488482dbfde5eb7bbeff6c2}\label{structshrpx_1_1TLSConnection_ac12a97146488482dbfde5eb7bbeff6c2} 
+bool {\bfseries server\+\_\+handshake}
+\item 
+\Hypertarget{structshrpx_1_1TLSConnection_aaa31092359dee7dc99475f7fd6226611}\label{structshrpx_1_1TLSConnection_aaa31092359dee7dc99475f7fd6226611} 
+bool {\bfseries sct\+\_\+requested}
+\item 
+\Hypertarget{structshrpx_1_1TLSConnection_a726d086f7d1350193ebefa2d40b9ad6d}\label{structshrpx_1_1TLSConnection_a726d086f7d1350193ebefa2d40b9ad6d} 
+bool {\bfseries early\+\_\+data\+\_\+finish}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+connection.\+h\end{DoxyCompactItemize}

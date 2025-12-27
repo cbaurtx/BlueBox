@@ -1,0 +1,533 @@
+\doxysection{template.\+h}
+\hypertarget{template_8h_source}{}\label{template_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/template.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/template.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2015\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ TEMPLATE\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ TEMPLATE\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_config.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <cstdio>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <typeinfo>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ <ostream>}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <span>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <string\_view>}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{namespace\ }nghttp2\ \{}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{size\_t}\ N>\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ array\_size(T\ (\&)[N])\ \{}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordflow}{return}\ N;}
+\DoxyCodeLine{00047\ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{size\_t}\ N>\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ str\_size(T\ (\&)[N])\ \{}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordflow}{return}\ N\ -\/\ 1;}
+\DoxyCodeLine{00051\ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{comment}{//\ inspired\ by\ <http://blog.korfuri.fr/post/go-\/defer-\/in-\/cpp/>,\ but\ our}}
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ template\ can\ take\ functions\ returning\ other\ than\ void.}}
+\DoxyCodeLine{00055\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F,\ \textcolor{keyword}{typename}...\ T>\ \textcolor{keyword}{struct\ }Defer\ \{}
+\DoxyCodeLine{00056\ \ \ Defer(F\ \&\&f,\ T\ \&\&...t)}
+\DoxyCodeLine{00057\ \ \ \ \ :\ f(std::bind(std::forward<F>(f),\ std::forward<T>(t)...))\ \{\}}
+\DoxyCodeLine{00058\ \ \ Defer(Defer\ \&\&o)\ noexcept\ :\ f(std::move(o.f))\ \{\}}
+\DoxyCodeLine{00059\ \ \ \string~Defer()\ \{\ f();\ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{using\ }ResultType\ =\ std::invoke\_result\_t<F,\ T...>;}
+\DoxyCodeLine{00062\ \ \ std::function<ResultType()>\ f;}
+\DoxyCodeLine{00063\ \};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F,\ \textcolor{keyword}{typename}...\ T>\ \mbox{\hyperlink{structnghttp2_1_1Defer}{Defer}}<F,\ T...>\ defer(F\ \&\&f,\ T\ \&\&...t)\ \{}
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structnghttp2_1_1Defer}{Defer}}<F,\ T...>(std::forward<F>(f),\ std::forward<T>(t)...);}
+\DoxyCodeLine{00067\ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ F>\ \textcolor{keywordtype}{bool}\ test\_flags(T\ t,\ F\ flags)\ \{}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordflow}{return}\ (t\ \&\ flags)\ ==\ flags;}
+\DoxyCodeLine{00071\ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{comment}{//\ doubly\ linked\ list\ of\ element\ T*.\ \ T\ must\ have\ field\ T\ *dlprev\ and}}
+\DoxyCodeLine{00074\ \textcolor{comment}{//\ T\ *dlnext,\ which\ point\ to\ previous\ element\ and\ next\ element\ in\ the}}
+\DoxyCodeLine{00075\ \textcolor{comment}{//\ list\ respectively.}}
+\DoxyCodeLine{00076\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ \textcolor{keyword}{struct\ }DList\ \{}
+\DoxyCodeLine{00077\ \ \ DList()\ :\ head(\textcolor{keyword}{nullptr}),\ tail(\textcolor{keyword}{nullptr}),\ len(0)\ \{\}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ DList(\textcolor{keyword}{const}\ DList\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00080\ \ \ DList\ \&operator=(\textcolor{keyword}{const}\ DList\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ DList(DList\ \&\&other)\ noexcept}
+\DoxyCodeLine{00083\ \ \ \ \ :\ head\{std::exchange(other.head,\ \textcolor{keyword}{nullptr})\},}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ tail\{std::exchange(other.tail,\ \textcolor{keyword}{nullptr})\},}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ len\{std::exchange(other.len,\ 0)\}\ \{\}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ DList\ \&operator=(DList\ \&\&other)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ ==\ \&other)\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00090\ \ \ \ \ \}}
+\DoxyCodeLine{00091\ \ \ \ \ head\ =\ std::exchange(other.head,\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00092\ \ \ \ \ tail\ =\ std::exchange(other.tail,\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00093\ \ \ \ \ len\ =\ std::exchange(other.len,\ 0);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00096\ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{void}\ append(T\ *t)\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ ++len;}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{if}\ (tail)\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ tail-\/>dlnext\ =\ t;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ t-\/>dlprev\ =\ tail;}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ tail\ =\ t;}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \ \ head\ =\ tail\ =\ t;}
+\DoxyCodeLine{00107\ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{void}\ remove(T\ *t)\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ -\/-\/len;}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ t-\/>dlprev;}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{auto}\ n\ =\ t-\/>dlnext;}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordflow}{if}\ (p)\ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ p-\/>dlnext\ =\ n;}
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{if}\ (head\ ==\ t)\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ head\ =\ n;}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{if}\ (n)\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ n-\/>dlprev\ =\ p;}
+\DoxyCodeLine{00121\ \ \ \ \ \}}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordflow}{if}\ (tail\ ==\ t)\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ tail\ =\ p;}
+\DoxyCodeLine{00124\ \ \ \ \ \}}
+\DoxyCodeLine{00125\ \ \ \ \ t-\/>dlprev\ =\ t-\/>dlnext\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00126\ \ \ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{bool}\ empty()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ head\ ==\ \textcolor{keyword}{nullptr};\ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{size\_t}\ size()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ len;\ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ T\ *head,\ *tail;}
+\DoxyCodeLine{00133\ \ \ \textcolor{keywordtype}{size\_t}\ len;}
+\DoxyCodeLine{00134\ \};}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ \textcolor{keywordtype}{void}\ dlist\_delete\_all(\mbox{\hyperlink{structnghttp2_1_1DList}{DList<T>}}\ \&dl)\ \{}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ e\ =\ dl.head;\ e;)\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{auto}\ next\ =\ e-\/>dlnext;}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keyword}{delete}\ e;}
+\DoxyCodeLine{00140\ \ \ \ \ e\ =\ next;}
+\DoxyCodeLine{00141\ \ \ \}}
+\DoxyCodeLine{00142\ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{comment}{//\ User-\/defined\ literals\ for\ K,\ M,\ and\ G\ (powers\ of\ 1024)}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keyword}{operator}\textcolor{stringliteral}{"{}"{}}\ \_k(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ k)\ \{}
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordflow}{return}\ k\ *\ 1024;}
+\DoxyCodeLine{00148\ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keyword}{operator}\textcolor{stringliteral}{"{}"{}}\ \_m(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ m)\ \{}
+\DoxyCodeLine{00151\ \ \ \textcolor{keywordflow}{return}\ m\ *\ 1024\ *\ 1024;}
+\DoxyCodeLine{00152\ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keyword}{operator}\textcolor{stringliteral}{"{}"{}}\ \_g(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ g)\ \{}
+\DoxyCodeLine{00155\ \ \ \textcolor{keywordflow}{return}\ g\ *\ 1024\ *\ 1024\ *\ 1024;}
+\DoxyCodeLine{00156\ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{comment}{//\ User-\/defined\ literals\ for\ time,\ converted\ into\ double\ in\ seconds}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{comment}{//\ hours}}
+\DoxyCodeLine{00161\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{double}\ \textcolor{keyword}{operator}\textcolor{stringliteral}{"{}"{}}\ \_h(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ h)\ \{\ \textcolor{keywordflow}{return}\ h\ *\ 60\ *\ 60;\ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{comment}{//\ minutes}}
+\DoxyCodeLine{00164\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{double}\ \textcolor{keyword}{operator}\textcolor{stringliteral}{"{}"{}}\ \_min(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ min)\ \{\ \textcolor{keywordflow}{return}\ min\ *\ 60;\ \}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{comment}{//\ seconds}}
+\DoxyCodeLine{00167\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{double}\ \textcolor{keyword}{operator}\textcolor{stringliteral}{"{}"{}}\ \_s(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ s)\ \{\ \textcolor{keywordflow}{return}\ s;\ \}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{comment}{//\ milliseconds}}
+\DoxyCodeLine{00170\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{double}\ \textcolor{keyword}{operator}\textcolor{stringliteral}{"{}"{}}\ \_ms(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ ms)\ \{\ \textcolor{keywordflow}{return}\ ms\ /\ 1000.;\ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{comment}{//\ Returns\ a\ copy\ of\ NULL-\/terminated\ string\ [first,\ last).}}
+\DoxyCodeLine{00173\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ InputIt>}
+\DoxyCodeLine{00174\ std::unique\_ptr<char[]>\ strcopy(InputIt\ first,\ InputIt\ last)\ \{}
+\DoxyCodeLine{00175\ \ \ \textcolor{keyword}{auto}\ res\ =\ std::make\_unique<char[]>(last\ -\/\ first\ +\ 1);}
+\DoxyCodeLine{00176\ \ \ *std::copy(first,\ last,\ res.get())\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00177\ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00178\ \}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \textcolor{comment}{//\ Returns\ a\ copy\ of\ NULL-\/terminated\ string\ |val|.}}
+\DoxyCodeLine{00181\ \textcolor{keyword}{inline}\ std::unique\_ptr<char[]>\ strcopy(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *val)\ \{}
+\DoxyCodeLine{00182\ \ \ \textcolor{keywordflow}{return}\ strcopy(val,\ val\ +\ strlen(val));}
+\DoxyCodeLine{00183\ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{keyword}{inline}\ std::unique\_ptr<char[]>\ strcopy(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *val,\ \textcolor{keywordtype}{size\_t}\ n)\ \{}
+\DoxyCodeLine{00186\ \ \ \textcolor{keywordflow}{return}\ strcopy(val,\ val\ +\ n);}
+\DoxyCodeLine{00187\ \}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{comment}{//\ Returns\ a\ copy\ of\ val.c\_str().}}
+\DoxyCodeLine{00190\ \textcolor{keyword}{inline}\ std::unique\_ptr<char[]>\ strcopy(\textcolor{keyword}{const}\ std::string\ \&val)\ \{}
+\DoxyCodeLine{00191\ \ \ \textcolor{keywordflow}{return}\ strcopy(std::begin(val),\ std::end(val));}
+\DoxyCodeLine{00192\ \}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \textcolor{keyword}{inline}\ std::unique\_ptr<char[]>\ strcopy(\textcolor{keyword}{const}\ std::unique\_ptr<\textcolor{keywordtype}{char}[]>\ \&val)\ \{}
+\DoxyCodeLine{00195\ \ \ \textcolor{keywordflow}{if}\ (!val)\ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00197\ \ \ \}}
+\DoxyCodeLine{00198\ \ \ \textcolor{keywordflow}{return}\ strcopy(val.get());}
+\DoxyCodeLine{00199\ \}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \textcolor{keyword}{inline}\ std::unique\_ptr<char[]>\ strcopy(\textcolor{keyword}{const}\ std::unique\_ptr<\textcolor{keywordtype}{char}[]>\ \&val,}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ n)\ \{}
+\DoxyCodeLine{00203\ \ \ \textcolor{keywordflow}{if}\ (!val)\ \{}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00205\ \ \ \}}
+\DoxyCodeLine{00206\ \ \ \textcolor{keywordflow}{return}\ strcopy(val.get(),\ val.get()\ +\ n);}
+\DoxyCodeLine{00207\ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{comment}{//\ ImmutableString\ represents\ string\ that\ is\ immutable\ unlike}}
+\DoxyCodeLine{00210\ \textcolor{comment}{//\ std::string.\ \ It\ has\ c\_str()\ and\ size()\ functions\ to\ mimic}}
+\DoxyCodeLine{00211\ \textcolor{comment}{//\ std::string.\ \ It\ manages\ buffer\ by\ itself.\ \ Just\ like\ std::string,}}
+\DoxyCodeLine{00212\ \textcolor{comment}{//\ c\_str()\ returns\ NULL-\/terminated\ string,\ but\ NULL\ character\ may}}
+\DoxyCodeLine{00213\ \textcolor{comment}{//\ appear\ before\ the\ final\ terminal\ NULL.}}
+\DoxyCodeLine{00214\ \textcolor{keyword}{class\ }ImmutableString\ \{}
+\DoxyCodeLine{00215\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00216\ \ \ \textcolor{keyword}{using\ }traits\_type\ =\ std::char\_traits<char>;}
+\DoxyCodeLine{00217\ \ \ \textcolor{keyword}{using\ }value\_type\ =\ traits\_type::char\_type;}
+\DoxyCodeLine{00218\ \ \ \textcolor{keyword}{using\ }allocator\_type\ =\ std::allocator<char>;}
+\DoxyCodeLine{00219\ \ \ \textcolor{keyword}{using\ }size\_type\ =\ std::allocator\_traits<allocator\_type>::size\_type;}
+\DoxyCodeLine{00220\ \ \ \textcolor{keyword}{using\ }difference\_type\ =}
+\DoxyCodeLine{00221\ \ \ \ \ std::allocator\_traits<allocator\_type>::difference\_type;}
+\DoxyCodeLine{00222\ \ \ \textcolor{keyword}{using\ }const\_reference\ =\ \textcolor{keyword}{const}\ value\_type\ \&;}
+\DoxyCodeLine{00223\ \ \ \textcolor{keyword}{using\ }const\_pointer\ =\ \textcolor{keyword}{const}\ value\_type\ *;}
+\DoxyCodeLine{00224\ \ \ \textcolor{keyword}{using\ }const\_iterator\ =\ const\_pointer;}
+\DoxyCodeLine{00225\ \ \ \textcolor{keyword}{using\ }const\_reverse\_iterator\ =\ std::reverse\_iterator<const\_iterator>;}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \textcolor{keyword}{constexpr}\ ImmutableString()\ :\ len(0),\ base(\textcolor{stringliteral}{"{}"{}})\ \{\}}
+\DoxyCodeLine{00228\ \ \ \textcolor{keyword}{constexpr}\ ImmutableString(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *s,\ \textcolor{keywordtype}{size\_t}\ slen)}
+\DoxyCodeLine{00229\ \ \ \ \ :\ len(slen),\ base(copystr(s,\ s\ +\ len))\ \{\}}
+\DoxyCodeLine{00230\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{explicit}\ ImmutableString(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *s)}
+\DoxyCodeLine{00231\ \ \ \ \ :\ len(traits\_type::length(s)),\ base(copystr(s,\ s\ +\ len))\ \{\}}
+\DoxyCodeLine{00232\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{explicit}\ ImmutableString(\textcolor{keyword}{const}\ std::string\ \&s)}
+\DoxyCodeLine{00233\ \ \ \ \ :\ len(s.size()),\ base(copystr(std::begin(s),\ std::end(s)))\ \{\}}
+\DoxyCodeLine{00234\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ InputIt>}
+\DoxyCodeLine{00235\ \ \ \textcolor{keyword}{constexpr}\ ImmutableString(InputIt\ first,\ InputIt\ last)}
+\DoxyCodeLine{00236\ \ \ \ \ :\ len(std::distance(first,\ last)),\ base(copystr(first,\ last))\ \{\}}
+\DoxyCodeLine{00237\ \ \ \textcolor{keyword}{constexpr}\ ImmutableString(\textcolor{keyword}{const}\ ImmutableString\ \&other)}
+\DoxyCodeLine{00238\ \ \ \ \ :\ len(other.len),\ base(copystr(std::begin(other),\ std::end(other)))\ \{\}}
+\DoxyCodeLine{00239\ \ \ \textcolor{keyword}{constexpr}\ ImmutableString(ImmutableString\ \&\&other)\ noexcept}
+\DoxyCodeLine{00240\ \ \ \ \ :\ len\{std::exchange(other.len,\ 0)\},\ base\{std::exchange(other.base,\ \textcolor{stringliteral}{"{}"{}})\}\ \{\}}
+\DoxyCodeLine{00241\ \ \ \textcolor{keyword}{constexpr}\ \string~ImmutableString()\ \{}
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keywordflow}{if}\ (len)\ \{}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ base;}
+\DoxyCodeLine{00244\ \ \ \ \ \}}
+\DoxyCodeLine{00245\ \ \ \}}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \textcolor{keyword}{constexpr}\ ImmutableString\ \&operator=(\textcolor{keyword}{const}\ ImmutableString\ \&other)\ \{}
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ ==\ \&other)\ \{}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00250\ \ \ \ \ \}}
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keywordflow}{if}\ (len)\ \{}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ base;}
+\DoxyCodeLine{00253\ \ \ \ \ \}}
+\DoxyCodeLine{00254\ \ \ \ \ len\ =\ other.len;}
+\DoxyCodeLine{00255\ \ \ \ \ base\ =\ copystr(std::begin(other),\ std::end(other));}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00257\ \ \ \}}
+\DoxyCodeLine{00258\ \ \ \textcolor{keyword}{constexpr}\ ImmutableString\ \&operator=(ImmutableString\ \&\&other)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ ==\ \&other)\ \{}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00261\ \ \ \ \ \}}
+\DoxyCodeLine{00262\ \ \ \ \ \textcolor{keywordflow}{if}\ (len)\ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ base;}
+\DoxyCodeLine{00264\ \ \ \ \ \}}
+\DoxyCodeLine{00265\ \ \ \ \ len\ =\ std::exchange(other.len,\ 0);}
+\DoxyCodeLine{00266\ \ \ \ \ base\ =\ std::exchange(other.base,\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00268\ \ \ \}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{size\_t}\ N>}
+\DoxyCodeLine{00271\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ ImmutableString\ from\_lit(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ (\&s)[N])\ \{}
+\DoxyCodeLine{00272\ \ \ \ \ \textcolor{keywordflow}{return}\ ImmutableString(s,\ N\ -\/\ 1);}
+\DoxyCodeLine{00273\ \ \ \}}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \textcolor{keyword}{constexpr}\ const\_iterator\ begin()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ base;\ \}}
+\DoxyCodeLine{00276\ \ \ \textcolor{keyword}{constexpr}\ const\_iterator\ cbegin()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ base;\ \}}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \textcolor{keyword}{constexpr}\ const\_iterator\ end()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ base\ +\ len;\ \}}
+\DoxyCodeLine{00279\ \ \ \textcolor{keyword}{constexpr}\ const\_iterator\ cend()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ base\ +\ len;\ \}}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \ \ \textcolor{keyword}{constexpr}\ const\_reverse\_iterator\ rbegin()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keywordflow}{return}\ const\_reverse\_iterator\{base\ +\ len\};}
+\DoxyCodeLine{00283\ \ \ \}}
+\DoxyCodeLine{00284\ \ \ \textcolor{keyword}{constexpr}\ const\_reverse\_iterator\ crbegin()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keywordflow}{return}\ const\_reverse\_iterator\{base\ +\ len\};}
+\DoxyCodeLine{00286\ \ \ \}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \ \ \textcolor{keyword}{constexpr}\ const\_reverse\_iterator\ rend()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00289\ \ \ \ \ \textcolor{keywordflow}{return}\ const\_reverse\_iterator\{base\};}
+\DoxyCodeLine{00290\ \ \ \}}
+\DoxyCodeLine{00291\ \ \ \textcolor{keyword}{constexpr}\ const\_reverse\_iterator\ crend()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{keywordflow}{return}\ const\_reverse\_iterator\{base\};}
+\DoxyCodeLine{00293\ \ \ \}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *c\_str()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ base;\ \}}
+\DoxyCodeLine{00296\ \ \ \textcolor{keyword}{constexpr}\ size\_type\ size()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ len;\ \}}
+\DoxyCodeLine{00297\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ empty()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ len\ ==\ 0;\ \}}
+\DoxyCodeLine{00298\ \ \ \textcolor{keyword}{constexpr}\ const\_reference\ operator[](size\_type\ pos)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordflow}{return}\ *(base\ +\ pos);}
+\DoxyCodeLine{00300\ \ \ \}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00303\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ InputIt>}
+\DoxyCodeLine{00304\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *copystr(InputIt\ first,\ InputIt\ last)\ \{}
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{keywordflow}{if}\ (first\ ==\ last)\ \{}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00307\ \ \ \ \ \}}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keyword}{auto}\ res\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{char}[std::distance(first,\ last)\ +\ 1];}
+\DoxyCodeLine{00309\ \ \ \ \ *std::copy(first,\ last,\ res)\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00311\ \ \ \}}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ size\_type\ len;}
+\DoxyCodeLine{00314\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *base;}
+\DoxyCodeLine{00315\ \};}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1ImmutableString}{ImmutableString}}\ \&lhs,}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1ImmutableString}{ImmutableString}}\ \&rhs)\ \{}
+\DoxyCodeLine{00319\ \ \ \textcolor{keywordflow}{return}\ lhs.size()\ ==\ rhs.size()\ \&\&}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ std::equal(std::begin(lhs),\ std::end(lhs),\ std::begin(rhs));}
+\DoxyCodeLine{00321\ \}}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ ImmutableString\ \&lhs,}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&rhs)\ \{}
+\DoxyCodeLine{00325\ \ \ \textcolor{keywordflow}{return}\ lhs.size()\ ==\ rhs.size()\ \&\&}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ std::equal(std::begin(lhs),\ std::end(lhs),\ std::begin(rhs));}
+\DoxyCodeLine{00327\ \}}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1ImmutableString}{ImmutableString}}\ \&lhs,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *rhs)\ \{}
+\DoxyCodeLine{00330\ \ \ \textcolor{keywordflow}{return}\ lhs.size()\ ==\ std::char\_traits<char>::length(rhs)\ \&\&}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ std::equal(std::begin(lhs),\ std::end(lhs),\ rhs);}
+\DoxyCodeLine{00332\ \}}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \textcolor{keyword}{inline}\ std::ostream\ \&operator<<(std::ostream\ \&o,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1ImmutableString}{ImmutableString}}\ \&s)\ \{}
+\DoxyCodeLine{00335\ \ \ \textcolor{keywordflow}{return}\ o.write(s.c\_str(),\ s.size());}
+\DoxyCodeLine{00336\ \}}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \textcolor{keyword}{inline}\ std::string\ \&operator+=(std::string\ \&lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1ImmutableString}{ImmutableString}}\ \&rhs)\ \{}
+\DoxyCodeLine{00339\ \ \ lhs.append(rhs.c\_str(),\ rhs.size());}
+\DoxyCodeLine{00340\ \ \ \textcolor{keywordflow}{return}\ lhs;}
+\DoxyCodeLine{00341\ \}}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \textcolor{comment}{//\ StringRef\ is\ a\ reference\ to\ a\ string\ owned\ by\ something\ else.\ \ So}}
+\DoxyCodeLine{00344\ \textcolor{comment}{//\ it\ behaves\ like\ simple\ string,\ but\ it\ does\ not\ own\ pointer.\ \ When}}
+\DoxyCodeLine{00345\ \textcolor{comment}{//\ it\ is\ default\ constructed,\ it\ has\ empty\ string.\ \ You\ can\ freely}}
+\DoxyCodeLine{00346\ \textcolor{comment}{//\ copy\ or\ move\ around\ this\ struct,\ but\ never\ free\ its\ pointer.}}
+\DoxyCodeLine{00347\ \textcolor{keyword}{class\ }StringRef\ \{}
+\DoxyCodeLine{00348\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00349\ \ \ \textcolor{keyword}{using\ }traits\_type\ =\ std::char\_traits<char>;}
+\DoxyCodeLine{00350\ \ \ \textcolor{keyword}{using\ }value\_type\ =\ traits\_type::char\_type;}
+\DoxyCodeLine{00351\ \ \ \textcolor{keyword}{using\ }allocator\_type\ =\ std::allocator<char>;}
+\DoxyCodeLine{00352\ \ \ \textcolor{keyword}{using\ }size\_type\ =\ std::allocator\_traits<allocator\_type>::size\_type;}
+\DoxyCodeLine{00353\ \ \ \textcolor{keyword}{using\ }difference\_type\ =}
+\DoxyCodeLine{00354\ \ \ \ \ std::allocator\_traits<allocator\_type>::difference\_type;}
+\DoxyCodeLine{00355\ \ \ \textcolor{keyword}{using\ }const\_reference\ =\ \textcolor{keyword}{const}\ value\_type\ \&;}
+\DoxyCodeLine{00356\ \ \ \textcolor{keyword}{using\ }const\_pointer\ =\ \textcolor{keyword}{const}\ value\_type\ *;}
+\DoxyCodeLine{00357\ \ \ \textcolor{keyword}{using\ }const\_iterator\ =\ const\_pointer;}
+\DoxyCodeLine{00358\ \ \ \textcolor{keyword}{using\ }const\_reverse\_iterator\ =\ std::reverse\_iterator<const\_iterator>;}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \ \ \textcolor{keyword}{constexpr}\ StringRef()\ noexcept\ :\ base(\textcolor{stringliteral}{"{}"{}}),\ len(0)\ \{\}}
+\DoxyCodeLine{00361\ \ \ \textcolor{keyword}{constexpr}\ StringRef(\textcolor{keyword}{const}\ StringRef\ \&other)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00362\ \ \ \textcolor{keyword}{constexpr}\ StringRef(std::nullptr\_t)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00363\ \ \ \textcolor{keyword}{constexpr}\ StringRef(\textcolor{keyword}{const}\ std::string\ \&s)\ :\ base(s.c\_str()),\ len(s.size())\ \{\}}
+\DoxyCodeLine{00364\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{explicit}\ StringRef(\textcolor{keyword}{const}\ std::string\_view\ \&s)}
+\DoxyCodeLine{00365\ \ \ \ \ :\ base(s.data()),\ len(s.size())\ \{\}}
+\DoxyCodeLine{00366\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{explicit}\ StringRef(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1ImmutableString}{ImmutableString}}\ \&s)}
+\DoxyCodeLine{00367\ \ \ \ \ :\ base(s.c\_str()),\ len(s.size())\ \{\}}
+\DoxyCodeLine{00368\ \ \ \textcolor{keyword}{constexpr}\ StringRef(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *s)\ :\ base(s),\ len(traits\_type::length(s))\ \{\}}
+\DoxyCodeLine{00369\ \ \ \textcolor{keyword}{constexpr}\ StringRef(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *s,\ \textcolor{keywordtype}{size\_t}\ n)\ :\ base(s),\ len(n)\ \{\}}
+\DoxyCodeLine{00370\ \ \ \textcolor{keyword}{explicit}\ StringRef(\textcolor{keyword}{const}\ uint8\_t\ *s,\ \textcolor{keywordtype}{size\_t}\ n)}
+\DoxyCodeLine{00371\ \ \ \ \ :\ base(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(s)),\ len(n)\ \{\}}
+\DoxyCodeLine{00372\ \ \ \textcolor{keyword}{template}\ <std::contiguous\_iterator\ InputIt,}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ =\ std::enable\_if\_t<}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same\_v<std::iter\_value\_t<InputIt>,\ \textcolor{keywordtype}{char}>>>}
+\DoxyCodeLine{00375\ \ \ \textcolor{keyword}{constexpr}\ StringRef(InputIt\ first,\ InputIt\ last)}
+\DoxyCodeLine{00376\ \ \ \ \ :\ base(std::to\_address(first)),\ len(std::distance(first,\ last))\ \{\}}
+\DoxyCodeLine{00377\ \ \ \textcolor{keyword}{constexpr}\ StringRef(std::span<const\ char>\ s)}
+\DoxyCodeLine{00378\ \ \ \ \ :\ base(s.data()),\ len(s.size\_bytes())\ \{\}}
+\DoxyCodeLine{00379\ \ \ \textcolor{keyword}{explicit}\ StringRef(std::span<const\ uint8\_t>\ s)}
+\DoxyCodeLine{00380\ \ \ \ \ :\ base(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(s.data())),\ len(s.size\_bytes())\ \{\}}
+\DoxyCodeLine{00381\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ StringRef\ from\_maybe\_nullptr(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *s)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00382\ \ \ \ \ \textcolor{keywordflow}{if}\ (s\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ StringRef();}
+\DoxyCodeLine{00384\ \ \ \ \ \}}
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00386\ \ \ \ \ \textcolor{keywordflow}{return}\ StringRef(s);}
+\DoxyCodeLine{00387\ \ \ \}}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ \textcolor{keyword}{constexpr}\ StringRef\ \&operator=(\textcolor{keyword}{const}\ StringRef\ \&other)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \ \ \textcolor{keyword}{constexpr}\ const\_iterator\ begin()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ base;\ \}}
+\DoxyCodeLine{00392\ \ \ \textcolor{keyword}{constexpr}\ const\_iterator\ cbegin()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ base;\ \}}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \ \ \textcolor{keyword}{constexpr}\ const\_iterator\ end()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ base\ +\ len;\ \}}
+\DoxyCodeLine{00395\ \ \ \textcolor{keyword}{constexpr}\ const\_iterator\ cend()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ base\ +\ len;\ \}}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00397\ \ \ \textcolor{keyword}{constexpr}\ const\_reverse\_iterator\ rbegin()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00398\ \ \ \ \ \textcolor{keywordflow}{return}\ const\_reverse\_iterator\{base\ +\ len\};}
+\DoxyCodeLine{00399\ \ \ \}}
+\DoxyCodeLine{00400\ \ \ \textcolor{keyword}{constexpr}\ const\_reverse\_iterator\ crbegin()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{keywordflow}{return}\ const\_reverse\_iterator\{base\ +\ len\};}
+\DoxyCodeLine{00402\ \ \ \}}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \ \ \textcolor{keyword}{constexpr}\ const\_reverse\_iterator\ rend()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00405\ \ \ \ \ \textcolor{keywordflow}{return}\ const\_reverse\_iterator\{base\};}
+\DoxyCodeLine{00406\ \ \ \}}
+\DoxyCodeLine{00407\ \ \ \textcolor{keyword}{constexpr}\ const\_reverse\_iterator\ crend()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00408\ \ \ \ \ \textcolor{keywordflow}{return}\ const\_reverse\_iterator\{base\};}
+\DoxyCodeLine{00409\ \ \ \}}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \ \ \textcolor{keyword}{constexpr}\ const\_pointer\ data()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ base;\ \}}
+\DoxyCodeLine{00412\ \ \ \textcolor{keyword}{constexpr}\ size\_type\ size()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ len;\ \}}
+\DoxyCodeLine{00413\ \ \ [[nodiscard]]\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ empty()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ len\ ==\ 0;\ \}}
+\DoxyCodeLine{00414\ \ \ \textcolor{keyword}{constexpr}\ const\_reference\ operator[](size\_type\ pos)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00415\ \ \ \ \ \textcolor{keywordflow}{return}\ *(base\ +\ pos);}
+\DoxyCodeLine{00416\ \ \ \}}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \ \ \textcolor{keyword}{const}\ uint8\_t\ *byte()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00419\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }uint8\_t\ *\textcolor{keyword}{>}(base);}
+\DoxyCodeLine{00420\ \ \ \}}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{operator}\ std::string\_view()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \{base,\ len\};\ \}}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ size\_type\ npos\ =\ size\_type(-\/1);}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \ \ \textcolor{keyword}{constexpr}\ StringRef\ substr(size\_type\ pos\ =\ 0,\ size\_type\ count\ =\ npos)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00427\ \ \ \ \ \textcolor{keywordflow}{return}\ \{base\ +\ pos,\ std::min(count,\ len\ -\/\ pos)\};}
+\DoxyCodeLine{00428\ \ \ \}}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00430\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00431\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *base;}
+\DoxyCodeLine{00432\ \ \ size\_type\ len;}
+\DoxyCodeLine{00433\ \};}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00435\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&lhs,}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&rhs)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00437\ \ \ \textcolor{keywordflow}{return}\ lhs.size()\ ==\ rhs.size()\ \&\&}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ std::equal(std::begin(lhs),\ std::end(lhs),\ std::begin(rhs));}
+\DoxyCodeLine{00439\ \}}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00441\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ StringRef\ \&lhs,}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ImmutableString\ \&rhs)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00443\ \ \ \textcolor{keywordflow}{return}\ lhs.size()\ ==\ rhs.size()\ \&\&}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ std::equal(std::begin(lhs),\ std::end(lhs),\ std::begin(rhs));}
+\DoxyCodeLine{00445\ \}}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00447\ \textcolor{preprocessor}{\#if\ !defined(\_\_APPLE\_\_)\ \&\&\ !defined(\_LIBCPP\_VERSION)}}
+\DoxyCodeLine{00448\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ std::strong\_ordering}
+\DoxyCodeLine{00449\ operator<=>(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&rhs)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00450\ \ \ \textcolor{keywordflow}{return}\ std::lexicographical\_compare\_three\_way(std::begin(lhs),\ std::end(lhs),}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::begin(rhs),\ std::end(rhs));}
+\DoxyCodeLine{00452\ \}}
+\DoxyCodeLine{00453\ \textcolor{preprocessor}{\#else\ \ }\textcolor{comment}{//\ \_\_APPLE\_\_\ ||\ \_LIBCPP\_VERSION}}
+\DoxyCodeLine{00454\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ operator<(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&lhs,}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&rhs)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00456\ \ \ \textcolor{keywordflow}{return}\ std::lexicographical\_compare(std::begin(lhs),\ std::end(lhs),}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::begin(rhs),\ std::end(rhs));}
+\DoxyCodeLine{00458\ \}}
+\DoxyCodeLine{00459\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ \_\_APPLE\_\_\ ||\ \_LIBCPP\_VERSION}}
+\DoxyCodeLine{00460\ }
+\DoxyCodeLine{00461\ \textcolor{keyword}{inline}\ std::ostream\ \&operator<<(std::ostream\ \&o,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&s)\ \{}
+\DoxyCodeLine{00462\ \ \ \textcolor{keywordflow}{return}\ o.write(s.data(),\ s.size());}
+\DoxyCodeLine{00463\ \}}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00465\ \textcolor{keyword}{inline}\ std::string\ \&operator+=(std::string\ \&lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&rhs)\ \{}
+\DoxyCodeLine{00466\ \ \ lhs.append(rhs.data(),\ rhs.size());}
+\DoxyCodeLine{00467\ \ \ \textcolor{keywordflow}{return}\ lhs;}
+\DoxyCodeLine{00468\ \}}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00470\ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \textcolor{keyword}{operator}\textcolor{stringliteral}{"{}"{}}\_sr(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str,\ \textcolor{keywordtype}{size\_t}\ len)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00471\ \ \ \textcolor{keywordflow}{return}\ \{str,\ len\};}
+\DoxyCodeLine{00472\ \}}
+\DoxyCodeLine{00473\ }
+\DoxyCodeLine{00474\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ std::\textcolor{keywordtype}{size\_t}\ N>}
+\DoxyCodeLine{00475\ [[nodiscard]]\ std::span<}
+\DoxyCodeLine{00476\ \ \ \textcolor{keyword}{const}\ uint8\_t,\ N\ ==\ std::dynamic\_extent\ ?\ std::dynamic\_extent\ :\ N\ *\ \textcolor{keyword}{sizeof}(T)>}
+\DoxyCodeLine{00477\ as\_uint8\_span(std::span<T,\ N>\ s)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00478\ \ \ \textcolor{keywordflow}{return}\ std::span\ <\ \textcolor{keyword}{const}\ uint8\_t,}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \ N\ ==\ std::dynamic\_extent}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \ \ \ ?\ std::dynamic\_extent}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \ \ \ :\ N\ *\ \textcolor{keyword}{sizeof}(T)\ >}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }uint8\_t\ *\textcolor{keyword}{>}(s.data()),\ s.size\_bytes()\};}
+\DoxyCodeLine{00483\ \}}
+\DoxyCodeLine{00484\ }
+\DoxyCodeLine{00485\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ std::\textcolor{keywordtype}{size\_t}\ N>}
+\DoxyCodeLine{00486\ [[nodiscard]]\ std::span<uint8\_t,\ N\ ==\ std::dynamic\_extent\ ?\ std::dynamic\_extent}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ N\ *\ \textcolor{keyword}{sizeof}(T)>}
+\DoxyCodeLine{00488\ as\_writable\_uint8\_span(std::span<T,\ N>\ s)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00489\ \ \ \textcolor{keywordflow}{return}\ std::span\ <\ uint8\_t,}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ N\ ==\ std::dynamic\_extent}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \ \ \ ?\ std::dynamic\_extent}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ :\ N\ *\ \textcolor{keyword}{sizeof}(T)\ >}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{keyword}{reinterpret\_cast<}uint8\_t\ *\textcolor{keyword}{>}(s.data()),\ s.size\_bytes()\};}
+\DoxyCodeLine{00494\ \}}
+\DoxyCodeLine{00495\ }
+\DoxyCodeLine{00496\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ run\_app(std::function<\textcolor{keywordtype}{int}(\textcolor{keywordtype}{int},\ \textcolor{keywordtype}{char}\ **)>\ app,\ \textcolor{keywordtype}{int}\ argc,}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ **argv)\ \{}
+\DoxyCodeLine{00498\ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00499\ \ \ \ \ \textcolor{keywordflow}{return}\ app(argc,\ argv);}
+\DoxyCodeLine{00500\ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::bad\_alloc\ \&)\ \{}
+\DoxyCodeLine{00501\ \ \ \ \ fputs(\textcolor{stringliteral}{"{}Out\ of\ memory\(\backslash\)n"{}},\ stderr);}
+\DoxyCodeLine{00502\ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&x)\ \{}
+\DoxyCodeLine{00503\ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Caught\ \%s:\(\backslash\)n\%s\(\backslash\)n"{}},\ \textcolor{keyword}{typeid}(x).name(),\ x.what());}
+\DoxyCodeLine{00504\ \ \ \}\ \textcolor{keywordflow}{catch}\ (...)\ \{}
+\DoxyCodeLine{00505\ \ \ \ \ fputs(\textcolor{stringliteral}{"{}Unknown\ exception\ caught\(\backslash\)n"{}},\ stderr);}
+\DoxyCodeLine{00506\ \ \ \}}
+\DoxyCodeLine{00507\ \ \ \textcolor{keywordflow}{return}\ EXIT\_FAILURE;}
+\DoxyCodeLine{00508\ \}}
+\DoxyCodeLine{00509\ }
+\DoxyCodeLine{00510\ \}\ \textcolor{comment}{//\ namespace\ nghttp2}}
+\DoxyCodeLine{00511\ }
+\DoxyCodeLine{00512\ \textcolor{keyword}{namespace\ }std\ \{}
+\DoxyCodeLine{00513\ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }hash<nghttp2::StringRef>\ \{}
+\DoxyCodeLine{00514\ \ \ std::size\_t\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{nghttp2::StringRef}}\ \&s)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00515\ \ \ \ \ \textcolor{comment}{//\ 32\ bit\ FNV-\/1a:}}
+\DoxyCodeLine{00516\ \ \ \ \ \textcolor{comment}{//\ https://tools.ietf.org/html/draft-\/eastlake-\/fnv-\/16\#section-\/6.1.1}}
+\DoxyCodeLine{00517\ \ \ \ \ uint32\_t\ h\ =\ 2166136261u;}
+\DoxyCodeLine{00518\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ c\ :\ s)\ \{}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ h\ \string^=\ \textcolor{keyword}{static\_cast<}uint8\_t\textcolor{keyword}{>}(c);}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ h\ +=\ (h\ <<\ 1)\ +\ (h\ <<\ 4)\ +\ (h\ <<\ 7)\ +\ (h\ <<\ 8)\ +\ (h\ <<\ 24);}
+\DoxyCodeLine{00521\ \ \ \ \ \}}
+\DoxyCodeLine{00522\ \ \ \ \ \textcolor{keywordflow}{return}\ h;}
+\DoxyCodeLine{00523\ \ \ \}}
+\DoxyCodeLine{00524\ \};}
+\DoxyCodeLine{00525\ \}\ \textcolor{comment}{//\ namespace\ std}}
+\DoxyCodeLine{00526\ }
+\DoxyCodeLine{00527\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ TEMPLATE\_H}}
+
+\end{DoxyCode}

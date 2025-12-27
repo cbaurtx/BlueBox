@@ -1,0 +1,303 @@
+\doxysection{array.\+h}
+\hypertarget{array_8h_source}{}\label{array_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/array.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/array.h}}
+\mbox{\hyperlink{array_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_ARRAY\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_ARRAY\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{common_8h}{common.h}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ Array\ class}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00015\ \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\_BEGIN\_DECL}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__shared__array}{mrb\_shared\_array}}\ \{}
+\DoxyCodeLine{00018\ \ \ \textcolor{keywordtype}{int}\ refcnt;}
+\DoxyCodeLine{00019\ \ \ mrb\_ssize\ len;}
+\DoxyCodeLine{00020\ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ *ptr;}
+\DoxyCodeLine{00021\ \}\ \mbox{\hyperlink{structmrb__shared__array}{mrb\_shared\_array}};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#if\ defined(MRB\_32BIT)\ \&\&\ defined(MRB\_NO\_BOXING)\ \&\&\ !defined(MRB\_USE\_FLOAT32)\ \&\&\ !defined(MRB\_ARY\_NO\_EMBED)}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#\ define\ MRB\_ARY\_NO\_EMBED}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifdef\ MRB\_ARY\_NO\_EMBED}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#\ define\ MRB\_ARY\_EMBED\_LEN\_MAX\ 0}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#\ define\ MRB\_ARY\_EMBED\_LEN\_MAX\ ((mrb\_int)(sizeof(void*)*3/sizeof(mrb\_value)))}}
+\DoxyCodeLine{00031\ \mbox{\hyperlink{mruby_8h_a7a701322aa08f9fcb1d342f1a4c358fd}{mrb\_static\_assert}}(MRB\_ARY\_EMBED\_LEN\_MAX\ >\ 0,\ \textcolor{stringliteral}{"{}MRB\_ARY\_EMBED\_LEN\_MAX\ >\ 0"{}});}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRArray}{RArray}}\ \{}
+\DoxyCodeLine{00035\ \ \ MRB\_OBJECT\_HEADER;}
+\DoxyCodeLine{00036\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ mrb\_ssize\ len;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ mrb\_ssize\ capa;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structmrb__shared__array}{mrb\_shared\_array}}\ *shared;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \}\ aux;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ *ptr;}
+\DoxyCodeLine{00044\ \ \ \ \ \}\ heap;}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#ifndef\ MRB\_ARY\_NO\_EMBED}}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ ary[MRB\_ARY\_EMBED\_LEN\_MAX];}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00048\ \ \ \}\ as;}
+\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ mrb\_ary\_ptr(v)\ \ \ \ ((struct\ RArray*)(mrb\_ptr(v)))}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ mrb\_ary\_value(p)\ \ mrb\_obj\_value((void*)(p))}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ RARRAY(v)\ \ ((struct\ RArray*)(mrb\_ptr(v)))}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#ifdef\ MRB\_ARY\_NO\_EMBED}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ ARY\_EMBED\_P(a)\ 0}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ ARY\_UNSET\_EMBED\_FLAG(a)\ (void)0}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ ARY\_EMBED\_LEN(a)\ 0}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ ARY\_SET\_EMBED\_LEN(a,len)\ (void)0}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ ARY\_EMBED\_PTR(a)\ 0}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ MRB\_ARY\_EMBED\_MASK\ \ 7}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ ARY\_EMBED\_P(a)\ ((a)-\/>flags\ \&\ MRB\_ARY\_EMBED\_MASK)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ ARY\_UNSET\_EMBED\_FLAG(a)\ ((a)-\/>flags\ \&=\ \string~(MRB\_ARY\_EMBED\_MASK))}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ ARY\_EMBED\_LEN(a)\ ((mrb\_int)(((a)-\/>flags\ \&\ MRB\_ARY\_EMBED\_MASK)\ -\/\ 1))}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ ARY\_SET\_EMBED\_LEN(a,len)\ ((a)-\/>flags\ =\ ((a)-\/>flags\&\string~MRB\_ARY\_EMBED\_MASK)\ |\ ((uint32\_t)(len)\ +\ 1))}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ ARY\_EMBED\_PTR(a)\ ((a)-\/>as.ary)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ ARY\_LEN(a)\ (ARY\_EMBED\_P(a)?ARY\_EMBED\_LEN(a):(mrb\_int)(a)-\/>as.heap.len)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ ARY\_PTR(a)\ (ARY\_EMBED\_P(a)?ARY\_EMBED\_PTR(a):(a)-\/>as.heap.ptr)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ RARRAY\_LEN(a)\ ARY\_LEN(RARRAY(a))}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ RARRAY\_PTR(a)\ ARY\_PTR(RARRAY(a))}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ ARY\_SET\_LEN(a,n)\ do\ \{\(\backslash\)}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\ \ if\ (ARY\_EMBED\_P(a))\ \{\(\backslash\)}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\ \ \ \ mrb\_assert((n)\ <=\ MRB\_ARY\_EMBED\_LEN\_MAX);\ \(\backslash\)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ \ \ ARY\_SET\_EMBED\_LEN(a,n);\(\backslash\)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\ \ \}\(\backslash\)}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\ \ else\(\backslash\)}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\ \ \ \ (a)-\/>as.heap.len\ =\ (n);\(\backslash\)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\}\ while\ (0)}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ ARY\_CAPA(a)\ (ARY\_EMBED\_P(a)?MRB\_ARY\_EMBED\_LEN\_MAX:(a)-\/>as.heap.aux.capa)}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ MRB\_ARY\_SHARED\ \ \ \ \ \ 256}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ ARY\_SHARED\_P(a)\ ((a)-\/>flags\ \&\ MRB\_ARY\_SHARED)}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ ARY\_SET\_SHARED\_FLAG(a)\ ((a)-\/>flags\ |=\ MRB\_ARY\_SHARED)}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ ARY\_UNSET\_SHARED\_FLAG(a)\ ((a)-\/>flags\ \&=\ \string~MRB\_ARY\_SHARED)}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{void}\ mrb\_ary\_modify(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRArray}{RArray}}*);}
+\DoxyCodeLine{00089\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_ary\_new\_capa(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ mrb\_int);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ *\ Initializes\ a\ new\ array.}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ *\ \ \ \ \ \ Array.new}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ *\ @return\ The\ initialized\ array.}}
+\DoxyCodeLine{00100\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00101\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_ary\_new(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb);}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ *\ Initializes\ a\ new\ array\ with\ initial\ values}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ *\ \ \ \ \ \ Array[value1,\ value2,\ ...]}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ *\ @param\ size\ The\ number\ of\ values.}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ *\ @param\ vals\ The\ actual\ values.}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ *\ @return\ The\ initialized\ array.}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00115\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_ary\_new\_from\_values(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ mrb\_int\ size,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ *vals);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ *\ Initializes\ a\ new\ array\ with\ two\ initial\ values}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ *\ \ \ \ \ \ Array[car,\ cdr]}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ *\ @param\ car\ The\ first\ value.}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ *\ @param\ cdr\ The\ second\ value.}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ *\ @return\ The\ initialized\ array.}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00129\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_assoc\_new(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ car,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ cdr);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ *\ Concatenate\ two\ arrays.\ The\ target\ array\ will\ be\ modified}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ *\ \ \ \ \ \ ary.concat(other)}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ *\ @param\ self\ The\ target\ array.}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ *\ @param\ other\ The\ array\ that\ will\ be\ concatenated\ to\ self.}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00141\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{void}\ mrb\_ary\_concat(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ self,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ other);}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00144\ \textcolor{comment}{\ *\ Create\ an\ array\ from\ the\ input.\ It\ tries\ calling\ to\_a\ on\ the}}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ *\ value.\ If\ value\ does\ not\ respond\ to\ that,\ it\ creates\ a\ new}}
+\DoxyCodeLine{00146\ \textcolor{comment}{\ *\ array\ with\ just\ this\ value.}}
+\DoxyCodeLine{00147\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00148\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00149\ \textcolor{comment}{\ *\ @param\ value\ The\ value\ to\ change\ into\ an\ array.}}
+\DoxyCodeLine{00150\ \textcolor{comment}{\ *\ @return\ An\ array\ representation\ of\ value.}}
+\DoxyCodeLine{00151\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00152\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_ary\_splat(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ value);}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ *\ Pushes\ value\ into\ array.}}
+\DoxyCodeLine{00156\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00157\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00158\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ *\ \ \ \ \ \ ary\ <<\ value}}
+\DoxyCodeLine{00160\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00161\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00162\ \textcolor{comment}{\ *\ @param\ ary\ The\ array\ in\ which\ the\ value\ will\ be\ pushed}}
+\DoxyCodeLine{00163\ \textcolor{comment}{\ *\ @param\ value\ The\ value\ to\ be\ pushed\ into\ array}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00165\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{void}\ mrb\_ary\_push(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ array,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ value);}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00168\ \textcolor{comment}{\ *\ Pops\ the\ last\ element\ from\ the\ array.}}
+\DoxyCodeLine{00169\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00170\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00171\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00172\ \textcolor{comment}{\ *\ \ \ \ \ \ ary.pop}}
+\DoxyCodeLine{00173\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00174\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00175\ \textcolor{comment}{\ *\ @param\ ary\ The\ array\ from\ which\ the\ value\ will\ be\ popped.}}
+\DoxyCodeLine{00176\ \textcolor{comment}{\ *\ @return\ The\ popped\ value.}}
+\DoxyCodeLine{00177\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00178\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_ary\_pop(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ ary);}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00181\ \textcolor{comment}{\ *\ Sets\ a\ value\ on\ an\ array\ at\ the\ given\ index}}
+\DoxyCodeLine{00182\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00183\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00184\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00185\ \textcolor{comment}{\ *\ \ \ \ \ \ ary[n]\ =\ val}}
+\DoxyCodeLine{00186\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00187\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00188\ \textcolor{comment}{\ *\ @param\ ary\ The\ target\ array.}}
+\DoxyCodeLine{00189\ \textcolor{comment}{\ *\ @param\ n\ The\ array\ index\ being\ referenced.}}
+\DoxyCodeLine{00190\ \textcolor{comment}{\ *\ @param\ val\ The\ value\ being\ set.}}
+\DoxyCodeLine{00191\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00192\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{void}\ mrb\_ary\_set(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ ary,\ mrb\_int\ n,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ val);}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00195\ \textcolor{comment}{\ *\ Replace\ the\ array\ with\ another\ array}}
+\DoxyCodeLine{00196\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00197\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00198\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00199\ \textcolor{comment}{\ *\ \ \ \ \ \ ary.replace(other)}}
+\DoxyCodeLine{00200\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00201\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference}}
+\DoxyCodeLine{00202\ \textcolor{comment}{\ *\ @param\ self\ The\ target\ array.}}
+\DoxyCodeLine{00203\ \textcolor{comment}{\ *\ @param\ other\ The\ array\ to\ replace\ it\ with.}}
+\DoxyCodeLine{00204\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00205\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{void}\ mrb\_ary\_replace(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ self,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ other);}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00208\ \textcolor{comment}{\ *\ Unshift\ an\ element\ into\ the\ array}}
+\DoxyCodeLine{00209\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00210\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00211\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00212\ \textcolor{comment}{\ *\ \ \ \ \ ary.unshift(item)}}
+\DoxyCodeLine{00213\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00214\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00215\ \textcolor{comment}{\ *\ @param\ self\ The\ target\ array.}}
+\DoxyCodeLine{00216\ \textcolor{comment}{\ *\ @param\ item\ The\ item\ to\ unshift.}}
+\DoxyCodeLine{00217\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00218\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_ary\_unshift(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ self,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ item);}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00221\ \textcolor{comment}{\ *\ Get\ nth\ element\ in\ the\ array}}
+\DoxyCodeLine{00222\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00223\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00224\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00225\ \textcolor{comment}{\ *\ \ \ \ \ ary[offset]}}
+\DoxyCodeLine{00226\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00227\ \textcolor{comment}{\ *\ @param\ ary\ The\ target\ array.}}
+\DoxyCodeLine{00228\ \textcolor{comment}{\ *\ @param\ offset\ The\ element\ position\ (negative\ counts\ from\ the\ tail).}}
+\DoxyCodeLine{00229\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00230\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_ary\_entry(\mbox{\hyperlink{structmrb__value}{mrb\_value}}\ ary,\ mrb\_int\ offset);}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#define\ mrb\_ary\_ref(mrb,\ ary,\ n)\ mrb\_ary\_entry(ary,\ n)}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00234\ \textcolor{comment}{\ *\ Replace\ subsequence\ of\ an\ array.}}
+\DoxyCodeLine{00235\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00236\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00237\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00238\ \textcolor{comment}{\ *\ \ \ \ \ \ ary[head,\ len]\ =\ rpl}}
+\DoxyCodeLine{00239\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00240\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00241\ \textcolor{comment}{\ *\ @param\ self\ The\ array\ from\ which\ the\ value\ will\ be\ partiality\ replaced.}}
+\DoxyCodeLine{00242\ \textcolor{comment}{\ *\ @param\ head\ Beginning\ position\ of\ a\ replacement\ subsequence.}}
+\DoxyCodeLine{00243\ \textcolor{comment}{\ *\ @param\ len\ Length\ of\ a\ replacement\ subsequence.}}
+\DoxyCodeLine{00244\ \textcolor{comment}{\ *\ @param\ rpl\ The\ array\ of\ replacement\ elements.}}
+\DoxyCodeLine{00245\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ It\ is\ possible\ to\ pass\ \`{}mrb\_undef\_value()`\ instead\ of\ an\ empty\ array.}}
+\DoxyCodeLine{00246\ \textcolor{comment}{\ *\ @return\ The\ receiver\ array.}}
+\DoxyCodeLine{00247\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00248\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_ary\_splice(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ self,\ mrb\_int\ head,\ mrb\_int\ len,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ rpl);}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00251\ \textcolor{comment}{\ *\ Shifts\ the\ first\ element\ from\ the\ array.}}
+\DoxyCodeLine{00252\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00253\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00254\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00255\ \textcolor{comment}{\ *\ \ \ \ \ \ ary.shift}}
+\DoxyCodeLine{00256\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00257\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00258\ \textcolor{comment}{\ *\ @param\ self\ The\ array\ from\ which\ the\ value\ will\ be\ shifted.}}
+\DoxyCodeLine{00259\ \textcolor{comment}{\ *\ @return\ The\ shifted\ value.}}
+\DoxyCodeLine{00260\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00261\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_ary\_shift(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ self);}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00264\ \textcolor{comment}{\ *\ Removes\ all\ elements\ from\ the\ array}}
+\DoxyCodeLine{00265\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00266\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00267\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00268\ \textcolor{comment}{\ *\ \ \ \ \ \ ary.clear}}
+\DoxyCodeLine{00269\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00270\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00271\ \textcolor{comment}{\ *\ @param\ self\ The\ target\ array.}}
+\DoxyCodeLine{00272\ \textcolor{comment}{\ *\ @return\ self}}
+\DoxyCodeLine{00273\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00274\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_ary\_clear(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ self);}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00277\ \textcolor{comment}{\ *\ Join\ the\ array\ elements\ together\ in\ a\ string}}
+\DoxyCodeLine{00278\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00279\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00280\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00281\ \textcolor{comment}{\ *\ \ \ \ \ \ ary.join(sep="{}"{})}}
+\DoxyCodeLine{00282\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00283\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00284\ \textcolor{comment}{\ *\ @param\ ary\ The\ target\ array}}
+\DoxyCodeLine{00285\ \textcolor{comment}{\ *\ @param\ sep\ The\ separator,\ can\ be\ NULL}}
+\DoxyCodeLine{00286\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00287\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_ary\_join(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ ary,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ sep);}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00290\ \textcolor{comment}{\ *\ Update\ the\ capacity\ of\ the\ array}}
+\DoxyCodeLine{00291\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00292\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00293\ \textcolor{comment}{\ *\ @param\ ary\ The\ target\ array.}}
+\DoxyCodeLine{00294\ \textcolor{comment}{\ *\ @param\ new\_len\ The\ new\ capacity\ of\ the\ array}}
+\DoxyCodeLine{00295\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00296\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_ary\_resize(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ ary,\ mrb\_int\ new\_len);}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \mbox{\hyperlink{common_8h_a7e9674ff871a8abbcaf9ba23fa4b72d3}{MRB\_END\_DECL}}}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_ARRAY\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

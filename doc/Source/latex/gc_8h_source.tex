@@ -1,0 +1,82 @@
+\doxysection{gc.\+h}
+\hypertarget{gc_8h_source}{}\label{gc_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/gc.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/gc.h}}
+\mbox{\hyperlink{gc_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_GC\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_GC\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{common_8h}{common.h}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00015\ \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\_BEGIN\_DECL}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__state}{mrb\_state}};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ MRB\_EACH\_OBJ\_OK\ 0}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ MRB\_EACH\_OBJ\_BREAK\ 1}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{typedef}\ int\ (mrb\_each\_object\_callback)(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRBasic}{RBasic}}\ *obj,\ \textcolor{keywordtype}{void}\ *data);}
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{void}\ mrb\_objspace\_each\_objects(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ mrb\_each\_object\_callback\ *callback,\ \textcolor{keywordtype}{void}\ *data);}
+\DoxyCodeLine{00024\ \textcolor{keywordtype}{size\_t}\ mrb\_objspace\_page\_slot\_size(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00025\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{void}\ mrb\_free\_context(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structmrb__context}{mrb\_context}}\ *c);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifndef\ MRB\_GC\_ARENA\_SIZE}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ MRB\_GC\_ARENA\_SIZE\ 100}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00032\ \ \ MRB\_GC\_STATE\_ROOT\ =\ 0,}
+\DoxyCodeLine{00033\ \ \ MRB\_GC\_STATE\_MARK,}
+\DoxyCodeLine{00034\ \ \ MRB\_GC\_STATE\_SWEEP}
+\DoxyCodeLine{00035\ \}\ mrb\_gc\_state;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{/*\ Disable\ MSVC\ warning\ "{}C4200:\ nonstandard\ extension\ used:\ zero-\/sized\ array}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ *\ in\ struct/union"{}\ when\ in\ C++\ mode\ */}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#ifdef\ \_MSC\_VER}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#pragma\ warning(push)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#pragma\ warning(disable\ :\ 4200)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#ifdef\ \_MSC\_VER}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#pragma\ warning(pop)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__gc}{mrb\_gc}}\ \{}
+\DoxyCodeLine{00049\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__heap__page}{mrb\_heap\_page}}\ *heaps;\ \ \ \ \ \textcolor{comment}{/*\ all\ heaps\ pages\ */}}
+\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__heap__page}{mrb\_heap\_page}}\ *free\_heaps;\textcolor{comment}{/*\ heaps\ for\ allocation\ */}}
+\DoxyCodeLine{00051\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__heap__page}{mrb\_heap\_page}}\ *sweeps;\ \ \ \ \textcolor{comment}{/*\ page\ where\ sweep\ starts\ */}}
+\DoxyCodeLine{00052\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRBasic}{RBasic}}\ *gray\_list;\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ list\ of\ gray\ objects\ to\ be\ traversed\ incrementally\ */}}
+\DoxyCodeLine{00053\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRBasic}{RBasic}}\ *atomic\_gray\_list;\ \textcolor{comment}{/*\ list\ of\ objects\ to\ be\ traversed\ atomically\ */}}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{size\_t}\ live;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ count\ of\ live\ objects\ */}}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{size\_t}\ live\_after\_mark;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ old\ generation\ objects\ */}}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{size\_t}\ threshold;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ threshold\ to\ start\ GC\ */}}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{size\_t}\ oldgen\_threshold;\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ threshold\ to\ kick\ major\ GC\ */}}
+\DoxyCodeLine{00058\ \ \ mrb\_gc\_state\ state;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ current\ state\ of\ gc\ */}}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{int}\ interval\_ratio;}
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{int}\ step\_ratio;}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{int}\ current\_white\_part\ :2;\ \ \ \ \ \ \ \textcolor{comment}{/*\ make\ white\ object\ by\ white\_part\ */}}
+\DoxyCodeLine{00062\ \ \ mrb\_bool\ iterating\ \ \ \ \ :1;\ \ \ \ \ \ \ \textcolor{comment}{/*\ currently\ iterating\ over\ objects\ */}}
+\DoxyCodeLine{00063\ \ \ mrb\_bool\ disabled\ \ \ \ \ \ :1;\ \ \ \ \ \ \ \textcolor{comment}{/*\ GC\ disabled\ */}}
+\DoxyCodeLine{00064\ \ \ mrb\_bool\ generational\ \ :1;\ \ \ \ \ \ \ \textcolor{comment}{/*\ generational\ GC\ mode\ */}}
+\DoxyCodeLine{00065\ \ \ mrb\_bool\ full\ \ \ \ \ \ \ \ \ \ :1;\ \ \ \ \ \ \ \textcolor{comment}{/*\ major\ GC\ mode\ */}}
+\DoxyCodeLine{00066\ \ \ mrb\_bool\ out\_of\_memory\ :1;\ \ \ \ \ \ \ \textcolor{comment}{/*\ out-\/of-\/memory\ error\ occurred\ */}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#ifdef\ MRB\_GC\_FIXED\_ARENA}}
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRBasic}{RBasic}}\ *arena[MRB\_GC\_ARENA\_SIZE];\ \textcolor{comment}{/*\ GC\ protection\ array\ */}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRBasic}{RBasic}}\ **arena;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ GC\ protection\ array\ */}}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{int}\ arena\_capa;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ size\ of\ protection\ array\ */}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{int}\ arena\_idx;}
+\DoxyCodeLine{00075\ \}\ \mbox{\hyperlink{structmrb__gc}{mrb\_gc}};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ mrb\_bool\ mrb\_object\_dead\_p(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRBasic}{RBasic}}\ *\textcolor{keywordtype}{object});}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ MRB\_GC\_RED\ 7}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \mbox{\hyperlink{common_8h_a7e9674ff871a8abbcaf9ba23fa4b72d3}{MRB\_END\_DECL}}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_GC\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

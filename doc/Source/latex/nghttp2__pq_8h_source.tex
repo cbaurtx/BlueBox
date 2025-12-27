@@ -1,0 +1,130 @@
+\doxysection{nghttp2\+\_\+pq.\+h}
+\hypertarget{nghttp2__pq_8h_source}{}\label{nghttp2__pq_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_pq.h@{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_pq.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_PQ\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ NGHTTP2\_PQ\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifdef\ HAVE\_CONFIG\_H}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ \ include\ <config.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_CONFIG\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_int.h"{}}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_mem.h"{}}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{/*\ Implementation\ of\ priority\ queue\ */}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{size\_t}\ index;}
+\DoxyCodeLine{00040\ \}\ \mbox{\hyperlink{structnghttp2__pq__entry}{nghttp2\_pq\_entry}};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00043\ \ \ \textcolor{comment}{/*\ The\ pointer\ to\ the\ pointer\ to\ the\ item\ stored\ */}}
+\DoxyCodeLine{00044\ \ \ \mbox{\hyperlink{structnghttp2__pq__entry}{nghttp2\_pq\_entry}}\ **q;}
+\DoxyCodeLine{00045\ \ \ \textcolor{comment}{/*\ Memory\ allocator\ */}}
+\DoxyCodeLine{00046\ \ \ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem;}
+\DoxyCodeLine{00047\ \ \ \textcolor{comment}{/*\ The\ number\ of\ items\ stored\ */}}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{size\_t}\ length;}
+\DoxyCodeLine{00049\ \ \ \textcolor{comment}{/*\ The\ maximum\ number\ of\ items\ this\ pq\ can\ store.\ This\ is}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ \ \ \ \ automatically\ extended\ when\ length\ is\ reached\ to\ this\ value.\ */}}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{size\_t}\ capacity;}
+\DoxyCodeLine{00052\ \ \ \textcolor{comment}{/*\ The\ less\ function\ between\ items\ */}}
+\DoxyCodeLine{00053\ \ \ nghttp2\_less\ less;}
+\DoxyCodeLine{00054\ \}\ \mbox{\hyperlink{structnghttp2__pq}{nghttp2\_pq}};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ *\ Initializes\ priority\ queue\ |pq|\ with\ compare\ function\ |cmp|.}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{void}\ nghttp2\_pq\_init(\mbox{\hyperlink{structnghttp2__pq}{nghttp2\_pq}}\ *pq,\ nghttp2\_less\ less,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *\ Deallocates\ any\ resources\ allocated\ for\ |pq|.\ \ The\ stored\ items\ are}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ *\ not\ freed\ by\ this\ function.}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{void}\ nghttp2\_pq\_free(\mbox{\hyperlink{structnghttp2__pq}{nghttp2\_pq}}\ *pq);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ *\ Adds\ |item|\ to\ the\ priority\ queue\ |pq|.}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{int}\ nghttp2\_pq\_push(\mbox{\hyperlink{structnghttp2__pq}{nghttp2\_pq}}\ *pq,\ \mbox{\hyperlink{structnghttp2__pq__entry}{nghttp2\_pq\_entry}}\ *item);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ *\ Returns\ item\ at\ the\ top\ of\ the\ queue\ |pq|.\ If\ the\ queue\ is\ empty,}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ *\ this\ function\ returns\ NULL.}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00082\ \mbox{\hyperlink{structnghttp2__pq__entry}{nghttp2\_pq\_entry}}\ *nghttp2\_pq\_top(\mbox{\hyperlink{structnghttp2__pq}{nghttp2\_pq}}\ *pq);}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ *\ Pops\ item\ at\ the\ top\ of\ the\ queue\ |pq|.\ The\ popped\ item\ is\ not}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ *\ freed\ by\ this\ function.}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00088\ \textcolor{keywordtype}{void}\ nghttp2\_pq\_pop(\mbox{\hyperlink{structnghttp2__pq}{nghttp2\_pq}}\ *pq);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ *\ Returns\ nonzero\ if\ the\ queue\ |pq|\ is\ empty.}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00093\ \textcolor{keywordtype}{int}\ nghttp2\_pq\_empty(\mbox{\hyperlink{structnghttp2__pq}{nghttp2\_pq}}\ *pq);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ *\ Returns\ the\ number\ of\ items\ in\ the\ queue\ |pq|.}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00098\ \textcolor{keywordtype}{size\_t}\ nghttp2\_pq\_size(\mbox{\hyperlink{structnghttp2__pq}{nghttp2\_pq}}\ *pq);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_pq\_item\_cb)(\mbox{\hyperlink{structnghttp2__pq__entry}{nghttp2\_pq\_entry}}\ *item,\ \textcolor{keywordtype}{void}\ *arg);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ *\ Updates\ each\ item\ in\ |pq|\ using\ function\ |fun|\ and\ re-\/construct}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ *\ priority\ queue.\ The\ |fun|\ must\ return\ non-\/zero\ if\ it\ modifies\ the}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ *\ item\ in\ a\ way\ that\ it\ affects\ ordering\ in\ the\ priority\ queue.\ The}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ *\ |arg|\ is\ passed\ to\ the\ 2nd\ parameter\ of\ |fun|.}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00108\ \textcolor{keywordtype}{void}\ nghttp2\_pq\_update(\mbox{\hyperlink{structnghttp2__pq}{nghttp2\_pq}}\ *pq,\ nghttp2\_pq\_item\_cb\ fun,\ \textcolor{keywordtype}{void}\ *arg);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ *\ Applies\ |fun|\ to\ each\ item\ in\ |pq|.\ \ The\ |arg|\ is\ passed\ as\ arg}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ *\ parameter\ to\ callback\ function.\ \ This\ function\ must\ not\ change\ the}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ *\ ordering\ key.\ \ If\ the\ return\ value\ from\ callback\ is\ nonzero,\ this}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ *\ function\ returns\ 1\ immediately\ without\ iterating\ remaining\ items.}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ *\ Otherwise\ this\ function\ returns\ 0.}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00117\ \textcolor{keywordtype}{int}\ nghttp2\_pq\_each(\mbox{\hyperlink{structnghttp2__pq}{nghttp2\_pq}}\ *pq,\ nghttp2\_pq\_item\_cb\ fun,\ \textcolor{keywordtype}{void}\ *arg);}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ *\ Removes\ |item|\ from\ priority\ queue.}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00122\ \textcolor{keywordtype}{void}\ nghttp2\_pq\_remove(\mbox{\hyperlink{structnghttp2__pq}{nghttp2\_pq}}\ *pq,\ \mbox{\hyperlink{structnghttp2__pq__entry}{nghttp2\_pq\_entry}}\ *item);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_PQ\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

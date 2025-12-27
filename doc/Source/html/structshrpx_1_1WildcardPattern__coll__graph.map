@@ -1,0 +1,7 @@
+<map id="shrpx::WildcardPattern" name="shrpx::WildcardPattern">
+<area shape="rect" id="Node000001" title=" " alt="" coords="60,104,214,131"/>
+<area shape="rect" id="Node000002" href="$classnghttp2_1_1StringRef.html" title=" " alt="" coords="5,5,133,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,43,131,103,126,104,85,47"/>
+<area shape="rect" id="Node000003" href="$classshrpx_1_1Router.html" title=" " alt="" coords="156,5,256,32"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="191,44,148,106,144,102,186,46"/>
+</map>

@@ -1,0 +1,122 @@
+\doxysection{shrpx\+::Http\+Config Struct Reference}
+\hypertarget{structshrpx_1_1HttpConfig}{}\label{structshrpx_1_1HttpConfig}\index{shrpx::HttpConfig@{shrpx::HttpConfig}}
+
+
+Collaboration diagram for shrpx\+::Http\+Config\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{structshrpx_1_1HttpConfig__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_a49beeb7a5582cf3242221a629042e551}\label{structshrpx_1_1HttpConfig_a49beeb7a5582cf3242221a629042e551} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} {\bfseries by\_obfuscated}\\
+\>uint32\_t {\bfseries params}\\
+\>ForwardedNode {\bfseries by\_node\_type}\\
+\>ForwardedNode {\bfseries for\_node\_type}\\
+\>bool {\bfseries strip\_incoming}\\
+\} {\bfseries forwarded}\\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1HttpConfig_a7510fba2ab1220f9772da5142619b03c}\label{structshrpx_1_1HttpConfig_a7510fba2ab1220f9772da5142619b03c} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>bool {\bfseries add}\\
+\>bool {\bfseries strip\_incoming}\\
+\} {\bfseries xff}\\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1HttpConfig_ac87bd89ca861034d6e51693483438e8b}\label{structshrpx_1_1HttpConfig_ac87bd89ca861034d6e51693483438e8b} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>bool {\bfseries add}\\
+\>bool {\bfseries strip\_incoming}\\
+\} {\bfseries xfp}\\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1HttpConfig_a09501b64cd46b6cd17fb8725e66af1e6}\label{structshrpx_1_1HttpConfig_a09501b64cd46b6cd17fb8725e66af1e6} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>bool {\bfseries strip\_incoming}\\
+\} {\bfseries early\_data}\\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1HttpConfig_a0741163ccddc1335f4bc605a4001fc6d}\label{structshrpx_1_1HttpConfig_a0741163ccddc1335f4bc605a4001fc6d} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>ev\_tstamp {\bfseries header}\\
+\} {\bfseries timeout}\\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1HttpConfig_a317e5351cfb863757ef7df3748fb0f8b}\label{structshrpx_1_1HttpConfig_a317e5351cfb863757ef7df3748fb0f8b} 
+std\+::vector$<$ \mbox{\hyperlink{structshrpx_1_1AltSvc}{Alt\+Svc}} $>$ {\bfseries altsvcs}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_a213cfefc3c0ff8a522c486da96ab1062}\label{structshrpx_1_1HttpConfig_a213cfefc3c0ff8a522c486da96ab1062} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries altsvc\+\_\+header\+\_\+value}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_aa705658498ab1a751313029bc7aa0be4}\label{structshrpx_1_1HttpConfig_aa705658498ab1a751313029bc7aa0be4} 
+std\+::vector$<$ \mbox{\hyperlink{structshrpx_1_1AltSvc}{Alt\+Svc}} $>$ {\bfseries http2\+\_\+altsvcs}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_a9b6629c2f773f4869b32a09bb2eed94a}\label{structshrpx_1_1HttpConfig_a9b6629c2f773f4869b32a09bb2eed94a} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries http2\+\_\+altsvc\+\_\+header\+\_\+value}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_af668d74d75c03940928125abca5a7d15}\label{structshrpx_1_1HttpConfig_af668d74d75c03940928125abca5a7d15} 
+std\+::vector$<$ \mbox{\hyperlink{structshrpx_1_1ErrorPage}{Error\+Page}} $>$ {\bfseries error\+\_\+pages}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_ac42cb6371ed3addc8494d9f44cbbf184}\label{structshrpx_1_1HttpConfig_ac42cb6371ed3addc8494d9f44cbbf184} 
+Header\+Refs {\bfseries add\+\_\+request\+\_\+headers}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_af7428034e20796e9dbf480404755117c}\label{structshrpx_1_1HttpConfig_af7428034e20796e9dbf480404755117c} 
+Header\+Refs {\bfseries add\+\_\+response\+\_\+headers}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_a9c365795992bfdc70046435b9f66f4dc}\label{structshrpx_1_1HttpConfig_a9c365795992bfdc70046435b9f66f4dc} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries server\+\_\+name}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_a480496233feebb4603af7a5f9b118b86}\label{structshrpx_1_1HttpConfig_a480496233feebb4603af7a5f9b118b86} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries redirect\+\_\+https\+\_\+port}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_a18aae18aa3ed14d749236d6ee1b3aca0}\label{structshrpx_1_1HttpConfig_a18aae18aa3ed14d749236d6ee1b3aca0} 
+size\+\_\+t {\bfseries request\+\_\+header\+\_\+field\+\_\+buffer}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_a7f0ddecff1468b1decfa55f9ed596a00}\label{structshrpx_1_1HttpConfig_a7f0ddecff1468b1decfa55f9ed596a00} 
+size\+\_\+t {\bfseries max\+\_\+request\+\_\+header\+\_\+fields}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_a100707e9af7f7be05a0bc6968548d0e2}\label{structshrpx_1_1HttpConfig_a100707e9af7f7be05a0bc6968548d0e2} 
+size\+\_\+t {\bfseries response\+\_\+header\+\_\+field\+\_\+buffer}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_a35105b63f62c9d3c0655c7d34da6a168}\label{structshrpx_1_1HttpConfig_a35105b63f62c9d3c0655c7d34da6a168} 
+size\+\_\+t {\bfseries max\+\_\+response\+\_\+header\+\_\+fields}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_aae6e8d86f0aff4c077d492e68cc90d51}\label{structshrpx_1_1HttpConfig_aae6e8d86f0aff4c077d492e68cc90d51} 
+size\+\_\+t {\bfseries max\+\_\+requests}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_a3a962b8fb2c620caf749af29e4b3eb8e}\label{structshrpx_1_1HttpConfig_a3a962b8fb2c620caf749af29e4b3eb8e} 
+bool {\bfseries no\+\_\+via}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_a8f4c0d985fa50f74f0e5ca40fc88f7b6}\label{structshrpx_1_1HttpConfig_a8f4c0d985fa50f74f0e5ca40fc88f7b6} 
+bool {\bfseries no\+\_\+location\+\_\+rewrite}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_ad9554179b8f31ed3fa1ef694b3eea049}\label{structshrpx_1_1HttpConfig_ad9554179b8f31ed3fa1ef694b3eea049} 
+bool {\bfseries no\+\_\+host\+\_\+rewrite}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_a12211b8708534d57332f466c2acd3bef}\label{structshrpx_1_1HttpConfig_a12211b8708534d57332f466c2acd3bef} 
+bool {\bfseries no\+\_\+server\+\_\+rewrite}
+\item 
+\Hypertarget{structshrpx_1_1HttpConfig_a9b04097fe861be71212ecd09c46c9df7}\label{structshrpx_1_1HttpConfig_a9b04097fe861be71212ecd09c46c9df7} 
+bool {\bfseries require\+\_\+http\+\_\+scheme}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+config.\+h\end{DoxyCompactItemize}

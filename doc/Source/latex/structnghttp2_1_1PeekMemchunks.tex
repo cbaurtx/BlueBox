@@ -1,0 +1,73 @@
+\doxysection{nghttp2\+::Peek\+Memchunks\texorpdfstring{$<$}{<} Memchunk \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structnghttp2_1_1PeekMemchunks}{}\label{structnghttp2_1_1PeekMemchunks}\index{nghttp2::PeekMemchunks$<$ Memchunk $>$@{nghttp2::PeekMemchunks$<$ Memchunk $>$}}
+
+
+Collaboration diagram for nghttp2\+::Peek\+Memchunks\texorpdfstring{$<$}{<} Memchunk \texorpdfstring{$>$}{>}\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{structnghttp2_1_1PeekMemchunks__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnghttp2_1_1PeekMemchunks_acfd61fdd832dfb5f02adfd094e8d1b1e}\label{structnghttp2_1_1PeekMemchunks_acfd61fdd832dfb5f02adfd094e8d1b1e} 
+{\bfseries Peek\+Memchunks} (\mbox{\hyperlink{structnghttp2_1_1Pool}{Pool}}$<$ \mbox{\hyperlink{structnghttp2_1_1Memchunk}{Memchunk}} $>$ \texorpdfstring{$\ast$}{*}pool)
+\item 
+\Hypertarget{structnghttp2_1_1PeekMemchunks_a847932c1f66daeb9860575a30ef7062f}\label{structnghttp2_1_1PeekMemchunks_a847932c1f66daeb9860575a30ef7062f} 
+{\bfseries Peek\+Memchunks} (const Peek\+Memchunks \&)=delete
+\item 
+\Hypertarget{structnghttp2_1_1PeekMemchunks_abd099c6a197a2c1e32b5def225ef6f47}\label{structnghttp2_1_1PeekMemchunks_abd099c6a197a2c1e32b5def225ef6f47} 
+{\bfseries Peek\+Memchunks} (Peek\+Memchunks \&\&other) noexcept
+\item 
+\Hypertarget{structnghttp2_1_1PeekMemchunks_a5ddf1bb194ef912b5e5863fbb6abcdcb}\label{structnghttp2_1_1PeekMemchunks_a5ddf1bb194ef912b5e5863fbb6abcdcb} 
+Peek\+Memchunks \& {\bfseries operator=} (const Peek\+Memchunks \&)=delete
+\item 
+\Hypertarget{structnghttp2_1_1PeekMemchunks_ad7b145170634ffb938140ef064b8615f}\label{structnghttp2_1_1PeekMemchunks_ad7b145170634ffb938140ef064b8615f} 
+Peek\+Memchunks \& {\bfseries operator=} (Peek\+Memchunks \&\&other) noexcept
+\item 
+\Hypertarget{structnghttp2_1_1PeekMemchunks_a6b82d59216a35c07309c5aaa50aaa1be}\label{structnghttp2_1_1PeekMemchunks_a6b82d59216a35c07309c5aaa50aaa1be} 
+size\+\_\+t {\bfseries append} (const void \texorpdfstring{$\ast$}{*}src, size\+\_\+t count)
+\item 
+\Hypertarget{structnghttp2_1_1PeekMemchunks_afac2d6fb024e7857dd6d0a81fcf1851f}\label{structnghttp2_1_1PeekMemchunks_afac2d6fb024e7857dd6d0a81fcf1851f} 
+size\+\_\+t {\bfseries remove} (void \texorpdfstring{$\ast$}{*}dest, size\+\_\+t count)
+\item 
+\Hypertarget{structnghttp2_1_1PeekMemchunks_a83f3c064da7a2c93da3c067a6a4a983e}\label{structnghttp2_1_1PeekMemchunks_a83f3c064da7a2c93da3c067a6a4a983e} 
+size\+\_\+t {\bfseries rleft} () const
+\item 
+\Hypertarget{structnghttp2_1_1PeekMemchunks_a61b83544a00a9212193e5859899af72b}\label{structnghttp2_1_1PeekMemchunks_a61b83544a00a9212193e5859899af72b} 
+size\+\_\+t {\bfseries rleft\+\_\+buffered} () const
+\item 
+\Hypertarget{structnghttp2_1_1PeekMemchunks_a5931586336068f62be41d5542843f2b6}\label{structnghttp2_1_1PeekMemchunks_a5931586336068f62be41d5542843f2b6} 
+void {\bfseries disable\+\_\+peek} (bool drain)
+\item 
+\Hypertarget{structnghttp2_1_1PeekMemchunks_a7f2d85105da985ca91c2bc90f32a3549}\label{structnghttp2_1_1PeekMemchunks_a7f2d85105da985ca91c2bc90f32a3549} 
+void {\bfseries reset} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnghttp2_1_1PeekMemchunks_a83caca9273b6de769f0032de4b01967a}\label{structnghttp2_1_1PeekMemchunks_a83caca9273b6de769f0032de4b01967a} 
+\mbox{\hyperlink{structnghttp2_1_1Memchunks}{Memchunks}}$<$ \mbox{\hyperlink{structnghttp2_1_1Memchunk}{Memchunk}} $>$ {\bfseries memchunks}
+\item 
+\Hypertarget{structnghttp2_1_1PeekMemchunks_a0bbbb5bb603ba83467339a650ccb7505}\label{structnghttp2_1_1PeekMemchunks_a0bbbb5bb603ba83467339a650ccb7505} 
+\mbox{\hyperlink{structnghttp2_1_1Memchunk}{Memchunk}} \texorpdfstring{$\ast$}{*} {\bfseries cur}
+\item 
+\Hypertarget{structnghttp2_1_1PeekMemchunks_acde8492c7b6b1aac028e6b0cc5423f39}\label{structnghttp2_1_1PeekMemchunks_acde8492c7b6b1aac028e6b0cc5423f39} 
+uint8\+\_\+t \texorpdfstring{$\ast$}{*} {\bfseries cur\+\_\+pos}
+\item 
+\Hypertarget{structnghttp2_1_1PeekMemchunks_a5691bdac6ccfeb7645fa0562d03e2ff3}\label{structnghttp2_1_1PeekMemchunks_a5691bdac6ccfeb7645fa0562d03e2ff3} 
+uint8\+\_\+t \texorpdfstring{$\ast$}{*} {\bfseries cur\+\_\+last}
+\item 
+\Hypertarget{structnghttp2_1_1PeekMemchunks_a068a487a69665c9fe0456e201a8fc846}\label{structnghttp2_1_1PeekMemchunks_a068a487a69665c9fe0456e201a8fc846} 
+size\+\_\+t {\bfseries len}
+\item 
+\Hypertarget{structnghttp2_1_1PeekMemchunks_ac60f21017f0b2f401d6013a5d7df94dd}\label{structnghttp2_1_1PeekMemchunks_ac60f21017f0b2f401d6013a5d7df94dd} 
+bool {\bfseries peeking}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/memchunk.\+h\end{DoxyCompactItemize}

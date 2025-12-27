@@ -1,0 +1,216 @@
+\doxysection{nghttp2\+::Http\+Client Struct Reference}
+\hypertarget{structnghttp2_1_1HttpClient}{}\label{structnghttp2_1_1HttpClient}\index{nghttp2::HttpClient@{nghttp2::HttpClient}}
+
+
+Collaboration diagram for nghttp2\+::Http\+Client\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structnghttp2_1_1HttpClient__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_af31a66dda9160dcc5687339a5e854bae}\label{structnghttp2_1_1HttpClient_af31a66dda9160dcc5687339a5e854bae} 
+enum \{ {\bfseries ERR\+\_\+\+CONNECT\+\_\+\+FAIL} = -\/100
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_ad9481a31a5e3dc278b57a07cdf8035ae}\label{structnghttp2_1_1HttpClient_ad9481a31a5e3dc278b57a07cdf8035ae} 
+{\bfseries Http\+Client} (const \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\+\_\+session\+\_\+callbacks}} \texorpdfstring{$\ast$}{*}callbacks, struct ev\+\_\+loop \texorpdfstring{$\ast$}{*}loop, SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*}ssl\+\_\+ctx)
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a6808a996f81f11ecb29c0096aa37402d}\label{structnghttp2_1_1HttpClient_a6808a996f81f11ecb29c0096aa37402d} 
+bool {\bfseries need\+\_\+upgrade} () const
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_ab6dc7bd144860c25e4d0071551d8d640}\label{structnghttp2_1_1HttpClient_ab6dc7bd144860c25e4d0071551d8d640} 
+int {\bfseries resolve\+\_\+host} (const std\+::string \&host, uint16\+\_\+t port)
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a8afa79bec5a7986808f27a7a16a564b3}\label{structnghttp2_1_1HttpClient_a8afa79bec5a7986808f27a7a16a564b3} 
+int {\bfseries initiate\+\_\+connection} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_acb1ab9af3e102322a50f6896ca300f2d}\label{structnghttp2_1_1HttpClient_acb1ab9af3e102322a50f6896ca300f2d} 
+void {\bfseries disconnect} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_ae08d6af14ca2dcd3c4067d86d54daca0}\label{structnghttp2_1_1HttpClient_ae08d6af14ca2dcd3c4067d86d54daca0} 
+int {\bfseries noop} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_ac42d8337e33acb92d8498cea08b341ac}\label{structnghttp2_1_1HttpClient_ac42d8337e33acb92d8498cea08b341ac} 
+int {\bfseries read\+\_\+clear} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_af50ff295e3a8487ba3fdc9d6a0710fc0}\label{structnghttp2_1_1HttpClient_af50ff295e3a8487ba3fdc9d6a0710fc0} 
+int {\bfseries write\+\_\+clear} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_ad2b3c7a7a7cbb6e8589121fa861e476a}\label{structnghttp2_1_1HttpClient_ad2b3c7a7a7cbb6e8589121fa861e476a} 
+int {\bfseries connected} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a1098241295d5701909187fa12d5eefcc}\label{structnghttp2_1_1HttpClient_a1098241295d5701909187fa12d5eefcc} 
+int {\bfseries tls\+\_\+handshake} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a7e3ef09fb243b15f3f582570b2441bf8}\label{structnghttp2_1_1HttpClient_a7e3ef09fb243b15f3f582570b2441bf8} 
+int {\bfseries read\+\_\+tls} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a4479e3c996c7cade7fce717bcf3d2e2a}\label{structnghttp2_1_1HttpClient_a4479e3c996c7cade7fce717bcf3d2e2a} 
+int {\bfseries write\+\_\+tls} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a5696be7b8340dc5d957c9ec606e3a9f4}\label{structnghttp2_1_1HttpClient_a5696be7b8340dc5d957c9ec606e3a9f4} 
+int {\bfseries do\+\_\+read} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a432625376a3b897cc5127edd4eef0080}\label{structnghttp2_1_1HttpClient_a432625376a3b897cc5127edd4eef0080} 
+int {\bfseries do\+\_\+write} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a12e3eacaa4101f48530a6694fbce7ee9}\label{structnghttp2_1_1HttpClient_a12e3eacaa4101f48530a6694fbce7ee9} 
+int {\bfseries on\+\_\+upgrade\+\_\+connect} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a1a0328b5ae6876e26570a13311a8abe0}\label{structnghttp2_1_1HttpClient_a1a0328b5ae6876e26570a13311a8abe0} 
+int {\bfseries on\+\_\+upgrade\+\_\+read} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a76ac40b7d10057ac4d3a21480bf5a4f4}\label{structnghttp2_1_1HttpClient_a76ac40b7d10057ac4d3a21480bf5a4f4} 
+int {\bfseries on\+\_\+read} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a3918c8bd080296ee8ca459477e5f8610}\label{structnghttp2_1_1HttpClient_a3918c8bd080296ee8ca459477e5f8610} 
+int {\bfseries on\+\_\+write} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a2d0e79579410b67632711a05ea3b186f}\label{structnghttp2_1_1HttpClient_a2d0e79579410b67632711a05ea3b186f} 
+int {\bfseries connection\+\_\+made} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a44855581b5d28cf3ef484512e67bd254}\label{structnghttp2_1_1HttpClient_a44855581b5d28cf3ef484512e67bd254} 
+void {\bfseries connect\+\_\+fail} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_acf94a0f3e1b753674f49e6aedbdfc0a2}\label{structnghttp2_1_1HttpClient_acf94a0f3e1b753674f49e6aedbdfc0a2} 
+void {\bfseries request\+\_\+done} (\mbox{\hyperlink{structRequest}{Request}} \texorpdfstring{$\ast$}{*}req)
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a2e7b897cc3eb0226774383c62939dfce}\label{structnghttp2_1_1HttpClient_a2e7b897cc3eb0226774383c62939dfce} 
+void {\bfseries signal\+\_\+write} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_ad87a41b9788aaeff00b0aa7c86aad58c}\label{structnghttp2_1_1HttpClient_ad87a41b9788aaeff00b0aa7c86aad58c} 
+bool {\bfseries all\+\_\+requests\+\_\+processed} () const
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_aa9b64c6e3dd48e842da3d5d37dff39d0}\label{structnghttp2_1_1HttpClient_aa9b64c6e3dd48e842da3d5d37dff39d0} 
+void {\bfseries update\+\_\+hostport} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a8f97a9e78d65ed52142ddbd4bda3c3ce}\label{structnghttp2_1_1HttpClient_a8f97a9e78d65ed52142ddbd4bda3c3ce} 
+bool {\bfseries add\+\_\+request} (const std\+::string \&uri, const \mbox{\hyperlink{structnghttp2__data__provider2}{nghttp2\+\_\+data\+\_\+provider2}} \texorpdfstring{$\ast$}{*}data\+\_\+prd, int64\+\_\+t data\+\_\+length, const \mbox{\hyperlink{structnghttp2__extpri}{nghttp2\+\_\+extpri}} \&extpri, int level=0)
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_afb01baaca11a58dd08672e2c45e96190}\label{structnghttp2_1_1HttpClient_afb01baaca11a58dd08672e2c45e96190} 
+void {\bfseries record\+\_\+start\+\_\+time} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_af3e570d58a148a7ca13c690d58da1726}\label{structnghttp2_1_1HttpClient_af3e570d58a148a7ca13c690d58da1726} 
+void {\bfseries record\+\_\+domain\+\_\+lookup\+\_\+end\+\_\+time} ()
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a73fa6629e3270f4b4cf6de9b7afe537b}\label{structnghttp2_1_1HttpClient_a73fa6629e3270f4b4cf6de9b7afe537b} 
+void {\bfseries record\+\_\+connect\+\_\+end\+\_\+time} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a3268cbf5b0829f177229066238f86fad}\label{structnghttp2_1_1HttpClient_a3268cbf5b0829f177229066238f86fad} 
+Memchunk\+Pool {\bfseries mcpool}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a441c77a584f10b43049e86302565c5e6}\label{structnghttp2_1_1HttpClient_a441c77a584f10b43049e86302565c5e6} 
+Default\+Memchunks {\bfseries wb}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a106d0040129b56156b773d725ea6a716}\label{structnghttp2_1_1HttpClient_a106d0040129b56156b773d725ea6a716} 
+std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structRequest}{Request}} $>$ $>$ {\bfseries reqvec}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_aea6b800c83c896b5e1f1a01fac18bcbe}\label{structnghttp2_1_1HttpClient_aea6b800c83c896b5e1f1a01fac18bcbe} 
+std\+::set$<$ std\+::string $>$ {\bfseries path\+\_\+cache}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_afb110213428516216d45c9255873e508}\label{structnghttp2_1_1HttpClient_afb110213428516216d45c9255873e508} 
+std\+::string {\bfseries scheme}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a4fef2cdc62d741799436ab9895502b64}\label{structnghttp2_1_1HttpClient_a4fef2cdc62d741799436ab9895502b64} 
+std\+::string {\bfseries host}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a4cb8e660245b274a74a3d9a76da254fe}\label{structnghttp2_1_1HttpClient_a4cb8e660245b274a74a3d9a76da254fe} 
+std\+::string {\bfseries hostport}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a61fca000dce189b63b880d59ac637a83}\label{structnghttp2_1_1HttpClient_a61fca000dce189b63b880d59ac637a83} 
+std\+::unique\+\_\+ptr$<$ llhttp\+\_\+t $>$ {\bfseries htp}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_aa1e0e075d8d070002b05fbbb7d1e1e56}\label{structnghttp2_1_1HttpClient_aa1e0e075d8d070002b05fbbb7d1e1e56} 
+\mbox{\hyperlink{structnghttp2_1_1SessionTiming}{Session\+Timing}} {\bfseries timing}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a68988a1ffa32f499ac0de4bb3835c68c}\label{structnghttp2_1_1HttpClient_a68988a1ffa32f499ac0de4bb3835c68c} 
+ev\+\_\+io {\bfseries wev}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_af4b53e890f5f4854910009c5e67791a0}\label{structnghttp2_1_1HttpClient_af4b53e890f5f4854910009c5e67791a0} 
+ev\+\_\+io {\bfseries rev}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a9b6df7e56a41fa3b31e9d1e19ee4f4bb}\label{structnghttp2_1_1HttpClient_a9b6df7e56a41fa3b31e9d1e19ee4f4bb} 
+ev\+\_\+timer {\bfseries wt}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a02b0eea61b846897cffdcc1356250a47}\label{structnghttp2_1_1HttpClient_a02b0eea61b846897cffdcc1356250a47} 
+ev\+\_\+timer {\bfseries rt}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_ae1a7df2139883340d954106dc683b25e}\label{structnghttp2_1_1HttpClient_ae1a7df2139883340d954106dc683b25e} 
+ev\+\_\+timer {\bfseries settings\+\_\+timer}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a429041823a986f17aa5a23158ba699cc}\label{structnghttp2_1_1HttpClient_a429041823a986f17aa5a23158ba699cc} 
+std\+::function$<$ int(Http\+Client \&)$>$ {\bfseries readfn}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_ac8aadffc46b60af57f147027753d55ab}\label{structnghttp2_1_1HttpClient_ac8aadffc46b60af57f147027753d55ab} 
+std\+::function$<$ int(Http\+Client \&)$>$ {\bfseries writefn}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a39bb38ca05ed502741d1c8694305a4ad}\label{structnghttp2_1_1HttpClient_a39bb38ca05ed502741d1c8694305a4ad} 
+std\+::function$<$ int(Http\+Client \&, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}, size\+\_\+t)$>$ {\bfseries on\+\_\+readfn}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_ab29ecd3249424b2a8a89a62272ec2038}\label{structnghttp2_1_1HttpClient_ab29ecd3249424b2a8a89a62272ec2038} 
+std\+::function$<$ int(Http\+Client \&)$>$ {\bfseries on\+\_\+writefn}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a6005f80ac61e9538651fd15e1233b6ac}\label{structnghttp2_1_1HttpClient_a6005f80ac61e9538651fd15e1233b6ac} 
+\mbox{\hyperlink{structnghttp2__session}{nghttp2\+\_\+session}} \texorpdfstring{$\ast$}{*} {\bfseries session}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a3688c04fefd262d9eb164b5c455e06ac}\label{structnghttp2_1_1HttpClient_a3688c04fefd262d9eb164b5c455e06ac} 
+const \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\+\_\+session\+\_\+callbacks}} \texorpdfstring{$\ast$}{*} {\bfseries callbacks}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a596cc94d313a2a1d95d7cf9a3d17e9bc}\label{structnghttp2_1_1HttpClient_a596cc94d313a2a1d95d7cf9a3d17e9bc} 
+struct ev\+\_\+loop \texorpdfstring{$\ast$}{*} {\bfseries loop}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_aeeffab9a1e05a5381cd2a835b71418dc}\label{structnghttp2_1_1HttpClient_aeeffab9a1e05a5381cd2a835b71418dc} 
+SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*} {\bfseries ssl\+\_\+ctx}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_ab49160d63c86d9ccb4cb322a9c108ea1}\label{structnghttp2_1_1HttpClient_ab49160d63c86d9ccb4cb322a9c108ea1} 
+SSL \texorpdfstring{$\ast$}{*} {\bfseries ssl}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a28fe8a2577df4094299b6dbf90fa9848}\label{structnghttp2_1_1HttpClient_a28fe8a2577df4094299b6dbf90fa9848} 
+addrinfo \texorpdfstring{$\ast$}{*} {\bfseries addrs}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a965b8a846792ac1a69cc3fc836283b38}\label{structnghttp2_1_1HttpClient_a965b8a846792ac1a69cc3fc836283b38} 
+addrinfo \texorpdfstring{$\ast$}{*} {\bfseries next\+\_\+addr}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_ae003db88fd9225bb299352088d235b73}\label{structnghttp2_1_1HttpClient_ae003db88fd9225bb299352088d235b73} 
+addrinfo \texorpdfstring{$\ast$}{*} {\bfseries cur\+\_\+addr}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_ad67f0c1908fe1dcc2407c259916caaa4}\label{structnghttp2_1_1HttpClient_ad67f0c1908fe1dcc2407c259916caaa4} 
+size\+\_\+t {\bfseries complete}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a7cc8e11601ecb2768220fdbd08d689e2}\label{structnghttp2_1_1HttpClient_a7cc8e11601ecb2768220fdbd08d689e2} 
+size\+\_\+t {\bfseries success}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a67a611d3d0ef2ed325cb22f2762940e1}\label{structnghttp2_1_1HttpClient_a67a611d3d0ef2ed325cb22f2762940e1} 
+size\+\_\+t {\bfseries settings\+\_\+payloadlen}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_aa68c35c625c7a249620e340da077530d}\label{structnghttp2_1_1HttpClient_aa68c35c625c7a249620e340da077530d} 
+Client\+State {\bfseries state}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a7479784d68bcd86f9242d2b417b846a2}\label{structnghttp2_1_1HttpClient_a7479784d68bcd86f9242d2b417b846a2} 
+unsigned int {\bfseries upgrade\+\_\+response\+\_\+status\+\_\+code}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a88189a9c4e3cc775f5fabdf89f09bd22}\label{structnghttp2_1_1HttpClient_a88189a9c4e3cc775f5fabdf89f09bd22} 
+int {\bfseries fd}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a3b46853fd98f684fc9dccbcf13c69f40}\label{structnghttp2_1_1HttpClient_a3b46853fd98f684fc9dccbcf13c69f40} 
+bool {\bfseries upgrade\+\_\+response\+\_\+complete}
+\item 
+\Hypertarget{structnghttp2_1_1HttpClient_a974e1a30a0fb2fccdddad84de3e9d207}\label{structnghttp2_1_1HttpClient_a974e1a30a0fb2fccdddad84de3e9d207} 
+std\+::array$<$ uint8\+\_\+t, 128 $>$ {\bfseries settings\+\_\+payload}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/nghttp.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/nghttp.\+cc\end{DoxyCompactItemize}

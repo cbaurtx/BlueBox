@@ -1,0 +1,91 @@
+\doxysection{shrpx\+::Request Struct Reference}
+\hypertarget{structshrpx_1_1Request}{}\label{structshrpx_1_1Request}\index{shrpx::Request@{shrpx::Request}}
+
+
+Collaboration diagram for shrpx\+::Request\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=289pt]{structshrpx_1_1Request__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1Request_ae41551552a63942c64aa8e5b23252fe3}\label{structshrpx_1_1Request_ae41551552a63942c64aa8e5b23252fe3} 
+{\bfseries Request} (\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{Block\+Allocator}} \&balloc)
+\item 
+\Hypertarget{structshrpx_1_1Request_ad2ed4b796b12a0dd7161f1b81c062b84}\label{structshrpx_1_1Request_ad2ed4b796b12a0dd7161f1b81c062b84} 
+void {\bfseries consume} (size\+\_\+t len)
+\item 
+\Hypertarget{structshrpx_1_1Request_aab7999ea4572207e7f5187a355c68140}\label{structshrpx_1_1Request_aab7999ea4572207e7f5187a355c68140} 
+bool {\bfseries regular\+\_\+connect\+\_\+method} () const
+\item 
+\Hypertarget{structshrpx_1_1Request_a278c4aa29ab3ab33028066875044c056}\label{structshrpx_1_1Request_a278c4aa29ab3ab33028066875044c056} 
+bool {\bfseries extended\+\_\+connect\+\_\+method} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1Request_a497ce0db147cab22acc23371bf6ef881}\label{structshrpx_1_1Request_a497ce0db147cab22acc23371bf6ef881} 
+\mbox{\hyperlink{classshrpx_1_1FieldStore}{Field\+Store}} {\bfseries fs}
+\item 
+\Hypertarget{structshrpx_1_1Request_abfe4f743ce43252295de9b95095506ef}\label{structshrpx_1_1Request_abfe4f743ce43252295de9b95095506ef} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1Timestamp}{Timestamp}} $>$ {\bfseries tstamp}
+\item 
+\Hypertarget{structshrpx_1_1Request_a28c2888d3ce89050968e0d1e4c5fee16}\label{structshrpx_1_1Request_a28c2888d3ce89050968e0d1e4c5fee16} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries scheme}
+\item 
+\Hypertarget{structshrpx_1_1Request_a3b9035f08eff455167212caf760da10e}\label{structshrpx_1_1Request_a3b9035f08eff455167212caf760da10e} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries authority}
+\item 
+\Hypertarget{structshrpx_1_1Request_aa1a1b299bbcd4da2490aa5c56bc8dcb7}\label{structshrpx_1_1Request_aa1a1b299bbcd4da2490aa5c56bc8dcb7} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries path}
+\item 
+\Hypertarget{structshrpx_1_1Request_a36eca2418b199c1a5e6f0914f1070e77}\label{structshrpx_1_1Request_a36eca2418b199c1a5e6f0914f1070e77} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries orig\+\_\+authority}
+\item 
+\Hypertarget{structshrpx_1_1Request_af6b984a2bf25cc84048e69e832d5a2bf}\label{structshrpx_1_1Request_af6b984a2bf25cc84048e69e832d5a2bf} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries orig\+\_\+path}
+\item 
+\Hypertarget{structshrpx_1_1Request_a09ec1c3e444ae6ca6e9aef98219969cc}\label{structshrpx_1_1Request_a09ec1c3e444ae6ca6e9aef98219969cc} 
+int64\+\_\+t {\bfseries recv\+\_\+body\+\_\+length}
+\item 
+\Hypertarget{structshrpx_1_1Request_a462b579383349e9e8a67bf19a1f8b003}\label{structshrpx_1_1Request_a462b579383349e9e8a67bf19a1f8b003} 
+size\+\_\+t {\bfseries unconsumed\+\_\+body\+\_\+length}
+\item 
+\Hypertarget{structshrpx_1_1Request_aea7ee68b096dec431da6634fb0360b2f}\label{structshrpx_1_1Request_aea7ee68b096dec431da6634fb0360b2f} 
+int {\bfseries method}
+\item 
+\Hypertarget{structshrpx_1_1Request_af4299191f5b8830243d45bd00f30d34d}\label{structshrpx_1_1Request_af4299191f5b8830243d45bd00f30d34d} 
+int {\bfseries http\+\_\+major}
+\item 
+\Hypertarget{structshrpx_1_1Request_a708e2a346b556fe32fcdcc5757c73eb6}\label{structshrpx_1_1Request_a708e2a346b556fe32fcdcc5757c73eb6} 
+int {\bfseries http\+\_\+minor}
+\item 
+\Hypertarget{structshrpx_1_1Request_a2bf5f53ec179e7744ddc3b478b986be6}\label{structshrpx_1_1Request_a2bf5f53ec179e7744ddc3b478b986be6} 
+Connect\+Proto {\bfseries connect\+\_\+proto}
+\item 
+\Hypertarget{structshrpx_1_1Request_a5b401fb9eefda5f92f87e6b183282b3d}\label{structshrpx_1_1Request_a5b401fb9eefda5f92f87e6b183282b3d} 
+bool {\bfseries upgrade\+\_\+request}
+\item 
+\Hypertarget{structshrpx_1_1Request_a57724f1cf8675d95883e15f930bc16a5}\label{structshrpx_1_1Request_a57724f1cf8675d95883e15f930bc16a5} 
+bool {\bfseries http2\+\_\+upgrade\+\_\+seen}
+\item 
+\Hypertarget{structshrpx_1_1Request_ac4ee0ef0131d9769eb87e21458f5eec8}\label{structshrpx_1_1Request_ac4ee0ef0131d9769eb87e21458f5eec8} 
+bool {\bfseries connection\+\_\+close}
+\item 
+\Hypertarget{structshrpx_1_1Request_afb8bbbcbb7d7cb437bfe651fc0abfa48}\label{structshrpx_1_1Request_afb8bbbcbb7d7cb437bfe651fc0abfa48} 
+bool {\bfseries http2\+\_\+expect\+\_\+body}
+\item 
+\Hypertarget{structshrpx_1_1Request_ad3a224aa122ca307306c0b7cf7b479a5}\label{structshrpx_1_1Request_ad3a224aa122ca307306c0b7cf7b479a5} 
+bool {\bfseries no\+\_\+authority}
+\item 
+\Hypertarget{structshrpx_1_1Request_a89ea44e0639f49faf9d8ffb2aade9ebe}\label{structshrpx_1_1Request_a89ea44e0639f49faf9d8ffb2aade9ebe} 
+bool {\bfseries forwarded\+\_\+once}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+downstream.\+h\end{DoxyCompactItemize}

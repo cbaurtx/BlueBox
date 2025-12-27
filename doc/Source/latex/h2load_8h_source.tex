@@ -1,0 +1,527 @@
+\doxysection{h2load.\+h}
+\hypertarget{h2load_8h_source}{}\label{h2load_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/h2load.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/h2load.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2014\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ H2LOAD\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ H2LOAD\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_config.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <sys/types.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifdef\ HAVE\_SYS\_SOCKET\_H}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#\ \ include\ <sys/socket.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ HAVE\_SYS\_SOCKET\_H}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#ifdef\ HAVE\_NETDB\_H}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#\ \ include\ <netdb.h>}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ HAVE\_NETDB\_H}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <sys/un.h>}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ NGHTTP2\_NO\_SSIZE\_T}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#\ \ include\ <ngtcp2/ngtcp2.h>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#\ \ include\ <ngtcp2/ngtcp2\_crypto.h>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <ev.h>}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}ssl\_compat.h"{}}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#ifdef\ NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/options.h>}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/openssl/ssl.h>}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//\ !NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#\ \ include\ <openssl/ssl.h>}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#include\ "{}http2.h"{}}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#\ \ include\ "{}quic.h"{}}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#include\ "{}memchunk.h"{}}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#include\ "{}template.h"{}}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{using\ namespace\ }nghttp2;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{namespace\ }h2load\ \{}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ BACKOFF\_WRITE\_BUFFER\_THRES\ =\ 16\_k;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classh2load_1_1Session}{Session}};}
+\DoxyCodeLine{00079\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structh2load_1_1Worker}{Worker}};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{struct\ }Config\ \{}
+\DoxyCodeLine{00082\ \ \ std::vector<std::vector<nghttp2\_nv>>\ nva;}
+\DoxyCodeLine{00083\ \ \ std::vector<std::string>\ h1reqs;}
+\DoxyCodeLine{00084\ \ \ std::vector<std::chrono::steady\_clock::duration>\ timings;}
+\DoxyCodeLine{00085\ \ \ nghttp2::Headers\ custom\_headers;}
+\DoxyCodeLine{00086\ \ \ std::string\ scheme;}
+\DoxyCodeLine{00087\ \ \ std::string\ host;}
+\DoxyCodeLine{00088\ \ \ std::string\ connect\_to\_host;}
+\DoxyCodeLine{00089\ \ \ std::string\ ifile;}
+\DoxyCodeLine{00090\ \ \ std::string\ ciphers;}
+\DoxyCodeLine{00091\ \ \ std::string\ tls13\_ciphers;}
+\DoxyCodeLine{00092\ \ \ \textcolor{comment}{//\ supported\ groups\ (or\ curves).}}
+\DoxyCodeLine{00093\ \ \ std::string\ groups;}
+\DoxyCodeLine{00094\ \ \ \textcolor{comment}{//\ length\ of\ upload\ data}}
+\DoxyCodeLine{00095\ \ \ int64\_t\ data\_length;}
+\DoxyCodeLine{00096\ \ \ \textcolor{comment}{//\ memory\ mapped\ upload\ data}}
+\DoxyCodeLine{00097\ \ \ uint8\_t\ *data;}
+\DoxyCodeLine{00098\ \ \ addrinfo\ *addrs;}
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordtype}{size\_t}\ nreqs;}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{size\_t}\ nclients;}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{size\_t}\ nthreads;}
+\DoxyCodeLine{00102\ \ \ \textcolor{comment}{//\ The\ maximum\ number\ of\ concurrent\ streams\ per\ session.}}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{size\_t}\ max\_concurrent\_streams;}
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{size\_t}\ window\_bits;}
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{size\_t}\ connection\_window\_bits;}
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{size\_t}\ max\_frame\_size;}
+\DoxyCodeLine{00107\ \ \ \textcolor{comment}{//\ rate\ at\ which\ connections\ should\ be\ made}}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{size\_t}\ rate;}
+\DoxyCodeLine{00109\ \ \ ev\_tstamp\ rate\_period;}
+\DoxyCodeLine{00110\ \ \ \textcolor{comment}{//\ amount\ of\ time\ for\ main\ measurements\ in\ timing-\/based\ test}}
+\DoxyCodeLine{00111\ \ \ ev\_tstamp\ duration;}
+\DoxyCodeLine{00112\ \ \ \textcolor{comment}{//\ amount\ of\ time\ to\ wait\ before\ starting\ measurements\ in\ timing-\/based\ test}}
+\DoxyCodeLine{00113\ \ \ ev\_tstamp\ warm\_up\_time;}
+\DoxyCodeLine{00114\ \ \ \textcolor{comment}{//\ amount\ of\ time\ to\ wait\ for\ activity\ on\ a\ given\ connection}}
+\DoxyCodeLine{00115\ \ \ ev\_tstamp\ conn\_active\_timeout;}
+\DoxyCodeLine{00116\ \ \ \textcolor{comment}{//\ amount\ of\ time\ to\ wait\ after\ the\ last\ request\ is\ made\ on\ a\ connection}}
+\DoxyCodeLine{00117\ \ \ ev\_tstamp\ conn\_inactivity\_timeout;}
+\DoxyCodeLine{00118\ \ \ \textcolor{keyword}{enum}\ \{\ PROTO\_HTTP2,\ PROTO\_HTTP1\_1\ \}\ no\_tls\_proto;}
+\DoxyCodeLine{00119\ \ \ uint32\_t\ header\_table\_size;}
+\DoxyCodeLine{00120\ \ \ uint32\_t\ encoder\_header\_table\_size;}
+\DoxyCodeLine{00121\ \ \ \textcolor{comment}{//\ file\ descriptor\ for\ upload\ data}}
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{int}\ data\_fd;}
+\DoxyCodeLine{00123\ \ \ \textcolor{comment}{//\ file\ descriptor\ to\ write\ per-\/request\ stats\ to.}}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{int}\ log\_fd;}
+\DoxyCodeLine{00125\ \ \ \textcolor{comment}{//\ base\ file\ name\ of\ qlog\ output\ files}}
+\DoxyCodeLine{00126\ \ \ std::string\ qlog\_file\_base;}
+\DoxyCodeLine{00127\ \ \ uint16\_t\ port;}
+\DoxyCodeLine{00128\ \ \ uint16\_t\ default\_port;}
+\DoxyCodeLine{00129\ \ \ uint16\_t\ connect\_to\_port;}
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{bool}\ verbose;}
+\DoxyCodeLine{00131\ \ \ \textcolor{keywordtype}{bool}\ timing\_script;}
+\DoxyCodeLine{00132\ \ \ std::string\ base\_uri;}
+\DoxyCodeLine{00133\ \ \ \textcolor{comment}{//\ true\ if\ UNIX\ domain\ socket\ is\ used.\ \ In\ this\ case,\ base\_uri\ is}}
+\DoxyCodeLine{00134\ \ \ \textcolor{comment}{//\ not\ used\ in\ usual\ way.}}
+\DoxyCodeLine{00135\ \ \ \textcolor{keywordtype}{bool}\ base\_uri\_unix;}
+\DoxyCodeLine{00136\ \ \ \textcolor{comment}{//\ used\ when\ UNIX\ domain\ socket\ is\ used\ (base\_uri\_unix\ is\ true).}}
+\DoxyCodeLine{00137\ \ \ sockaddr\_un\ unix\_addr;}
+\DoxyCodeLine{00138\ \ \ \textcolor{comment}{//\ list\ of\ supported\ ALPN\ protocol\ strings\ in\ the\ order\ of}}
+\DoxyCodeLine{00139\ \ \ \textcolor{comment}{//\ preference.}}
+\DoxyCodeLine{00140\ \ \ std::vector<std::string>\ alpn\_list;}
+\DoxyCodeLine{00141\ \ \ \textcolor{comment}{//\ The\ number\ of\ request\ per\ second\ for\ each\ client.}}
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordtype}{double}\ rps;}
+\DoxyCodeLine{00143\ \ \ \textcolor{comment}{//\ Disables\ GSO\ for\ UDP\ connections.}}
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{bool}\ no\_udp\_gso;}
+\DoxyCodeLine{00145\ \ \ \textcolor{comment}{//\ The\ maximum\ UDP\ datagram\ payload\ size\ to\ send.}}
+\DoxyCodeLine{00146\ \ \ \textcolor{keywordtype}{size\_t}\ max\_udp\_payload\_size;}
+\DoxyCodeLine{00147\ \ \ \textcolor{comment}{//\ Enable\ ktls.}}
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordtype}{bool}\ ktls;}
+\DoxyCodeLine{00149\ \ \ \textcolor{comment}{//\ sni\ is\ the\ value\ sent\ in\ TLS\ SNI,\ overriding\ DNS\ name\ of\ the}}
+\DoxyCodeLine{00150\ \ \ \textcolor{comment}{//\ remote\ host.}}
+\DoxyCodeLine{00151\ \ \ std::string\ sni;}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ Config();}
+\DoxyCodeLine{00154\ \ \ \string~Config();}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordtype}{bool}\ is\_rate\_mode()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordtype}{bool}\ is\_timing\_based\_mode()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00158\ \ \ \textcolor{keywordtype}{bool}\ has\_base\_uri()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordtype}{bool}\ rps\_enabled()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00160\ \ \ \textcolor{keywordtype}{bool}\ is\_quic()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00161\ \};}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structh2load_1_1RequestStat}{RequestStat}}\ \{}
+\DoxyCodeLine{00164\ \ \ \textcolor{comment}{//\ time\ point\ when\ request\ was\ sent}}
+\DoxyCodeLine{00165\ \ \ std::chrono::steady\_clock::time\_point\ request\_time;}
+\DoxyCodeLine{00166\ \ \ \textcolor{comment}{//\ same,\ but\ in\ wall\ clock\ reference\ frame}}
+\DoxyCodeLine{00167\ \ \ std::chrono::system\_clock::time\_point\ request\_wall\_time;}
+\DoxyCodeLine{00168\ \ \ \textcolor{comment}{//\ time\ point\ when\ stream\ was\ closed}}
+\DoxyCodeLine{00169\ \ \ std::chrono::steady\_clock::time\_point\ stream\_close\_time;}
+\DoxyCodeLine{00170\ \ \ \textcolor{comment}{//\ upload\ data\ length\ sent\ so\ far}}
+\DoxyCodeLine{00171\ \ \ int64\_t\ data\_offset;}
+\DoxyCodeLine{00172\ \ \ \textcolor{comment}{//\ HTTP\ status\ code}}
+\DoxyCodeLine{00173\ \ \ \textcolor{keywordtype}{int}\ status;}
+\DoxyCodeLine{00174\ \ \ \textcolor{comment}{//\ true\ if\ stream\ was\ successfully\ closed.\ \ This\ means\ stream\ was}}
+\DoxyCodeLine{00175\ \ \ \textcolor{comment}{//\ not\ reset,\ but\ it\ does\ not\ mean\ HTTP\ level\ error\ (e.g.,\ 404).}}
+\DoxyCodeLine{00176\ \ \ \textcolor{keywordtype}{bool}\ completed;}
+\DoxyCodeLine{00177\ \};}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structh2load_1_1ClientStat}{ClientStat}}\ \{}
+\DoxyCodeLine{00180\ \ \ \textcolor{comment}{//\ time\ client\ started\ (i.e.,\ first\ connect\ starts)}}
+\DoxyCodeLine{00181\ \ \ std::chrono::steady\_clock::time\_point\ client\_start\_time;}
+\DoxyCodeLine{00182\ \ \ \textcolor{comment}{//\ time\ client\ end\ (i.e.,\ client\ somehow\ processed\ all\ requests\ it}}
+\DoxyCodeLine{00183\ \ \ \textcolor{comment}{//\ is\ responsible\ for,\ and\ disconnected)}}
+\DoxyCodeLine{00184\ \ \ std::chrono::steady\_clock::time\_point\ client\_end\_time;}
+\DoxyCodeLine{00185\ \ \ \textcolor{comment}{//\ The\ number\ of\ requests\ completed\ successful,\ but\ not\ necessarily}}
+\DoxyCodeLine{00186\ \ \ \textcolor{comment}{//\ means\ successful\ HTTP\ status\ code.}}
+\DoxyCodeLine{00187\ \ \ \textcolor{keywordtype}{size\_t}\ req\_success;}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \textcolor{comment}{//\ The\ following\ 3\ numbers\ are\ overwritten\ each\ time\ when\ connection}}
+\DoxyCodeLine{00190\ \ \ \textcolor{comment}{//\ is\ made.}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \textcolor{comment}{//\ time\ connect\ starts}}
+\DoxyCodeLine{00193\ \ \ std::chrono::steady\_clock::time\_point\ connect\_start\_time;}
+\DoxyCodeLine{00194\ \ \ \textcolor{comment}{//\ time\ to\ connect}}
+\DoxyCodeLine{00195\ \ \ std::chrono::steady\_clock::time\_point\ connect\_time;}
+\DoxyCodeLine{00196\ \ \ \textcolor{comment}{//\ time\ to\ first\ byte\ (TTFB)}}
+\DoxyCodeLine{00197\ \ \ std::chrono::steady\_clock::time\_point\ ttfb;}
+\DoxyCodeLine{00198\ \};}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structh2load_1_1SDStat}{SDStat}}\ \{}
+\DoxyCodeLine{00201\ \ \ \textcolor{comment}{//\ min,\ max,\ mean\ and\ sd\ (standard\ deviation)}}
+\DoxyCodeLine{00202\ \ \ \textcolor{keywordtype}{double}\ min,\ max,\ mean,\ sd;}
+\DoxyCodeLine{00203\ \ \ \textcolor{comment}{//\ percentage\ of\ samples\ inside\ mean\ -\//+\ sd}}
+\DoxyCodeLine{00204\ \ \ \textcolor{keywordtype}{double}\ within\_sd;}
+\DoxyCodeLine{00205\ \};}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structh2load_1_1SDStats}{SDStats}}\ \{}
+\DoxyCodeLine{00208\ \ \ \textcolor{comment}{//\ time\ for\ request}}
+\DoxyCodeLine{00209\ \ \ \mbox{\hyperlink{structh2load_1_1SDStat}{SDStat}}\ request;}
+\DoxyCodeLine{00210\ \ \ \textcolor{comment}{//\ time\ for\ connect}}
+\DoxyCodeLine{00211\ \ \ \mbox{\hyperlink{structh2load_1_1SDStat}{SDStat}}\ connect;}
+\DoxyCodeLine{00212\ \ \ \textcolor{comment}{//\ time\ to\ first\ byte\ (TTFB)}}
+\DoxyCodeLine{00213\ \ \ \mbox{\hyperlink{structh2load_1_1SDStat}{SDStat}}\ ttfb;}
+\DoxyCodeLine{00214\ \ \ \textcolor{comment}{//\ request\ per\ second\ for\ each\ client}}
+\DoxyCodeLine{00215\ \ \ \mbox{\hyperlink{structh2load_1_1SDStat}{SDStat}}\ rps;}
+\DoxyCodeLine{00216\ \};}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \textcolor{keyword}{struct\ }Stats\ \{}
+\DoxyCodeLine{00219\ \ \ Stats(\textcolor{keywordtype}{size\_t}\ req\_todo,\ \textcolor{keywordtype}{size\_t}\ nclients);}
+\DoxyCodeLine{00220\ \ \ \textcolor{comment}{//\ The\ total\ number\ of\ requests}}
+\DoxyCodeLine{00221\ \ \ \textcolor{keywordtype}{size\_t}\ req\_todo;}
+\DoxyCodeLine{00222\ \ \ \textcolor{comment}{//\ The\ number\ of\ requests\ issued\ so\ far}}
+\DoxyCodeLine{00223\ \ \ \textcolor{keywordtype}{size\_t}\ req\_started;}
+\DoxyCodeLine{00224\ \ \ \textcolor{comment}{//\ The\ number\ of\ requests\ finished}}
+\DoxyCodeLine{00225\ \ \ \textcolor{keywordtype}{size\_t}\ req\_done;}
+\DoxyCodeLine{00226\ \ \ \textcolor{comment}{//\ The\ number\ of\ requests\ completed\ successful,\ but\ not\ necessarily}}
+\DoxyCodeLine{00227\ \ \ \textcolor{comment}{//\ means\ successful\ HTTP\ status\ code.}}
+\DoxyCodeLine{00228\ \ \ \textcolor{keywordtype}{size\_t}\ req\_success;}
+\DoxyCodeLine{00229\ \ \ \textcolor{comment}{//\ The\ number\ of\ requests\ marked\ as\ success.\ \ HTTP\ status\ code\ is}}
+\DoxyCodeLine{00230\ \ \ \textcolor{comment}{//\ also\ considered\ as\ success.\ This\ is\ subset\ of\ req\_done.}}
+\DoxyCodeLine{00231\ \ \ \textcolor{keywordtype}{size\_t}\ req\_status\_success;}
+\DoxyCodeLine{00232\ \ \ \textcolor{comment}{//\ The\ number\ of\ requests\ failed.\ This\ is\ subset\ of\ req\_done.}}
+\DoxyCodeLine{00233\ \ \ \textcolor{keywordtype}{size\_t}\ req\_failed;}
+\DoxyCodeLine{00234\ \ \ \textcolor{comment}{//\ The\ number\ of\ requests\ failed\ due\ to\ network\ errors.\ This\ is}}
+\DoxyCodeLine{00235\ \ \ \textcolor{comment}{//\ subset\ of\ req\_failed.}}
+\DoxyCodeLine{00236\ \ \ \textcolor{keywordtype}{size\_t}\ req\_error;}
+\DoxyCodeLine{00237\ \ \ \textcolor{comment}{//\ The\ number\ of\ requests\ that\ failed\ due\ to\ timeout.}}
+\DoxyCodeLine{00238\ \ \ \textcolor{keywordtype}{size\_t}\ req\_timedout;}
+\DoxyCodeLine{00239\ \ \ \textcolor{comment}{//\ The\ number\ of\ bytes\ received\ on\ the\ "{}wire"{}.\ If\ SSL/TLS\ is\ used,}}
+\DoxyCodeLine{00240\ \ \ \textcolor{comment}{//\ this\ is\ the\ number\ of\ decrypted\ bytes\ the\ application\ received.}}
+\DoxyCodeLine{00241\ \ \ int64\_t\ bytes\_total;}
+\DoxyCodeLine{00242\ \ \ \textcolor{comment}{//\ The\ number\ of\ bytes\ received\ for\ header\ fields.\ \ This\ is}}
+\DoxyCodeLine{00243\ \ \ \textcolor{comment}{//\ compressed\ version.}}
+\DoxyCodeLine{00244\ \ \ int64\_t\ bytes\_head;}
+\DoxyCodeLine{00245\ \ \ \textcolor{comment}{//\ The\ number\ of\ bytes\ received\ for\ header\ fields\ after\ they\ are}}
+\DoxyCodeLine{00246\ \ \ \textcolor{comment}{//\ decompressed.}}
+\DoxyCodeLine{00247\ \ \ int64\_t\ bytes\_head\_decomp;}
+\DoxyCodeLine{00248\ \ \ \textcolor{comment}{//\ The\ number\ of\ bytes\ received\ in\ DATA\ frame.}}
+\DoxyCodeLine{00249\ \ \ int64\_t\ bytes\_body;}
+\DoxyCodeLine{00250\ \ \ \textcolor{comment}{//\ The\ number\ of\ each\ HTTP\ status\ category,\ status[i]\ is\ status\ code}}
+\DoxyCodeLine{00251\ \ \ \textcolor{comment}{//\ in\ the\ range\ [i*100,\ (i+1)*100).}}
+\DoxyCodeLine{00252\ \ \ std::array<size\_t,\ 6>\ status;}
+\DoxyCodeLine{00253\ \ \ \textcolor{comment}{//\ The\ statistics\ per\ request}}
+\DoxyCodeLine{00254\ \ \ std::vector<RequestStat>\ req\_stats;}
+\DoxyCodeLine{00255\ \ \ \textcolor{comment}{//\ The\ statistics\ per\ client}}
+\DoxyCodeLine{00256\ \ \ std::vector<ClientStat>\ client\_stats;}
+\DoxyCodeLine{00257\ \ \ \textcolor{comment}{//\ The\ number\ of\ UDP\ datagrams\ received.}}
+\DoxyCodeLine{00258\ \ \ \textcolor{keywordtype}{size\_t}\ udp\_dgram\_recv;}
+\DoxyCodeLine{00259\ \ \ \textcolor{comment}{//\ The\ number\ of\ UDP\ datagrams\ sent.}}
+\DoxyCodeLine{00260\ \ \ \textcolor{keywordtype}{size\_t}\ udp\_dgram\_sent;}
+\DoxyCodeLine{00261\ \};}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \textcolor{keyword}{enum}\ ClientState\ \{\ CLIENT\_IDLE,\ CLIENT\_CONNECTED\ \};}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \textcolor{comment}{//\ This\ type\ tells\ whether\ the\ client\ is\ in\ warmup\ phase\ or\ not\ or\ is\ over}}
+\DoxyCodeLine{00266\ \textcolor{keyword}{enum\ class}\ Phase\ \{}
+\DoxyCodeLine{00267\ \ \ INITIAL\_IDLE,\ \ \textcolor{comment}{//\ Initial\ idle\ state\ before\ warm-\/up\ phase}}
+\DoxyCodeLine{00268\ \ \ WARM\_UP,\ \ \ \ \ \ \ \textcolor{comment}{//\ Warm\ up\ phase\ when\ no\ measurements\ are\ done}}
+\DoxyCodeLine{00269\ \ \ MAIN\_DURATION,\ \textcolor{comment}{//\ Main\ measurement\ phase;\ if\ timing-\/based}}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ test\ is\ not\ run,\ this\ is\ the\ default\ phase}}
+\DoxyCodeLine{00271\ \ \ DURATION\_OVER\ \ \textcolor{comment}{//\ This\ phase\ occurs\ after\ the\ measurements\ are\ over}}
+\DoxyCodeLine{00272\ \};}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structh2load_1_1Client}{Client}};}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \textcolor{comment}{//\ We\ use\ reservoir\ sampling\ method}}
+\DoxyCodeLine{00277\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structh2load_1_1Sampling}{Sampling}}\ \{}
+\DoxyCodeLine{00278\ \ \ \textcolor{comment}{//\ maximum\ number\ of\ samples}}
+\DoxyCodeLine{00279\ \ \ \textcolor{keywordtype}{size\_t}\ max\_samples;}
+\DoxyCodeLine{00280\ \ \ \textcolor{comment}{//\ number\ of\ samples\ seen,\ including\ discarded\ samples.}}
+\DoxyCodeLine{00281\ \ \ \textcolor{keywordtype}{size\_t}\ n;}
+\DoxyCodeLine{00282\ \};}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \textcolor{keyword}{struct\ }Worker\ \{}
+\DoxyCodeLine{00285\ \ \ MemchunkPool\ mcpool;}
+\DoxyCodeLine{00286\ \ \ std::mt19937\ randgen;}
+\DoxyCodeLine{00287\ \ \ \mbox{\hyperlink{structh2load_1_1Stats}{Stats}}\ stats;}
+\DoxyCodeLine{00288\ \ \ \mbox{\hyperlink{structh2load_1_1Sampling}{Sampling}}\ request\_times\_smp;}
+\DoxyCodeLine{00289\ \ \ \mbox{\hyperlink{structh2load_1_1Sampling}{Sampling}}\ client\_smp;}
+\DoxyCodeLine{00290\ \ \ \textcolor{keyword}{struct\ }ev\_loop\ *loop;}
+\DoxyCodeLine{00291\ \ \ SSL\_CTX\ *ssl\_ctx;}
+\DoxyCodeLine{00292\ \ \ \mbox{\hyperlink{structh2load_1_1Config}{Config}}\ *config;}
+\DoxyCodeLine{00293\ \ \ \textcolor{keywordtype}{size\_t}\ progress\_interval;}
+\DoxyCodeLine{00294\ \ \ uint32\_t\ id;}
+\DoxyCodeLine{00295\ \ \ \textcolor{keywordtype}{bool}\ tls\_info\_report\_done;}
+\DoxyCodeLine{00296\ \ \ \textcolor{keywordtype}{bool}\ app\_info\_report\_done;}
+\DoxyCodeLine{00297\ \ \ \textcolor{keywordtype}{size\_t}\ nconns\_made;}
+\DoxyCodeLine{00298\ \ \ \textcolor{comment}{//\ number\ of\ clients\ this\ worker\ handles}}
+\DoxyCodeLine{00299\ \ \ \textcolor{keywordtype}{size\_t}\ nclients;}
+\DoxyCodeLine{00300\ \ \ \textcolor{comment}{//\ number\ of\ requests\ each\ client\ issues}}
+\DoxyCodeLine{00301\ \ \ \textcolor{keywordtype}{size\_t}\ nreqs\_per\_client;}
+\DoxyCodeLine{00302\ \ \ \textcolor{comment}{//\ at\ most\ nreqs\_rem\ clients\ get\ an\ extra\ request}}
+\DoxyCodeLine{00303\ \ \ \textcolor{keywordtype}{size\_t}\ nreqs\_rem;}
+\DoxyCodeLine{00304\ \ \ \textcolor{keywordtype}{size\_t}\ rate;}
+\DoxyCodeLine{00305\ \ \ \textcolor{comment}{//\ maximum\ number\ of\ samples\ in\ this\ worker\ thread}}
+\DoxyCodeLine{00306\ \ \ \textcolor{keywordtype}{size\_t}\ max\_samples;}
+\DoxyCodeLine{00307\ \ \ ev\_timer\ timeout\_watcher;}
+\DoxyCodeLine{00308\ \ \ \textcolor{comment}{//\ The\ next\ client\ ID\ this\ worker\ assigns}}
+\DoxyCodeLine{00309\ \ \ uint32\_t\ next\_client\_id;}
+\DoxyCodeLine{00310\ \ \ \textcolor{comment}{//\ Keeps\ track\ of\ the\ current\ phase\ (for\ timing-\/based\ experiment)\ for\ the}}
+\DoxyCodeLine{00311\ \ \ \textcolor{comment}{//\ worker}}
+\DoxyCodeLine{00312\ \ \ Phase\ current\_phase;}
+\DoxyCodeLine{00313\ \ \ \textcolor{comment}{//\ We\ need\ to\ keep\ track\ of\ the\ clients\ in\ order\ to\ stop\ them\ when\ needed}}
+\DoxyCodeLine{00314\ \ \ std::vector<Client\ *>\ clients;}
+\DoxyCodeLine{00315\ \ \ \textcolor{comment}{//\ This\ is\ only\ active\ when\ there\ is\ not\ a\ bounded\ number\ of\ requests}}
+\DoxyCodeLine{00316\ \ \ \textcolor{comment}{//\ specified}}
+\DoxyCodeLine{00317\ \ \ ev\_timer\ duration\_watcher;}
+\DoxyCodeLine{00318\ \ \ ev\_timer\ warmup\_watcher;}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ Worker(uint32\_t\ \textcolor{keywordtype}{id},\ SSL\_CTX\ *ssl\_ctx,\ \textcolor{keywordtype}{size\_t}\ nreq\_todo,\ \textcolor{keywordtype}{size\_t}\ nclients,}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ rate,\ \textcolor{keywordtype}{size\_t}\ max\_samples,\ \mbox{\hyperlink{structh2load_1_1Config}{Config}}\ *config);}
+\DoxyCodeLine{00322\ \ \ \string~Worker();}
+\DoxyCodeLine{00323\ \ \ Worker(Worker\ \&\&o)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00324\ \ \ \textcolor{keywordtype}{void}\ run();}
+\DoxyCodeLine{00325\ \ \ \textcolor{keywordtype}{void}\ sample\_req\_stat(\mbox{\hyperlink{structh2load_1_1RequestStat}{RequestStat}}\ *req\_stat);}
+\DoxyCodeLine{00326\ \ \ \textcolor{keywordtype}{void}\ sample\_client\_stat(\mbox{\hyperlink{structh2load_1_1ClientStat}{ClientStat}}\ *cstat);}
+\DoxyCodeLine{00327\ \ \ \textcolor{keywordtype}{void}\ report\_progress();}
+\DoxyCodeLine{00328\ \ \ \textcolor{keywordtype}{void}\ report\_rate\_progress();}
+\DoxyCodeLine{00329\ \ \ \textcolor{comment}{//\ This\ function\ calls\ the\ destructors\ of\ all\ the\ clients.}}
+\DoxyCodeLine{00330\ \ \ \textcolor{keywordtype}{void}\ stop\_all\_clients();}
+\DoxyCodeLine{00331\ \ \ \textcolor{comment}{//\ This\ function\ frees\ a\ client\ from\ the\ list\ of\ clients\ for\ this\ Worker.}}
+\DoxyCodeLine{00332\ \ \ \textcolor{keywordtype}{void}\ free\_client(\mbox{\hyperlink{structh2load_1_1Client}{Client}}\ *);}
+\DoxyCodeLine{00333\ \};}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00335\ \textcolor{keyword}{struct\ }Stream\ \{}
+\DoxyCodeLine{00336\ \ \ \mbox{\hyperlink{structh2load_1_1RequestStat}{RequestStat}}\ req\_stat;}
+\DoxyCodeLine{00337\ \ \ \textcolor{keywordtype}{int}\ status\_success;}
+\DoxyCodeLine{00338\ \ \ Stream();}
+\DoxyCodeLine{00339\ \};}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \textcolor{keyword}{struct\ }Client\ \{}
+\DoxyCodeLine{00342\ \ \ DefaultMemchunks\ wb;}
+\DoxyCodeLine{00343\ \ \ std::unordered\_map<int32\_t,\ Stream>\ streams;}
+\DoxyCodeLine{00344\ \ \ \mbox{\hyperlink{structh2load_1_1ClientStat}{ClientStat}}\ cstat;}
+\DoxyCodeLine{00345\ \ \ std::unique\_ptr<Session>\ session;}
+\DoxyCodeLine{00346\ \ \ ev\_io\ wev;}
+\DoxyCodeLine{00347\ \ \ ev\_io\ rev;}
+\DoxyCodeLine{00348\ \ \ std::function<int(Client\ \&)>\ readfn,\ writefn;}
+\DoxyCodeLine{00349\ \ \ \mbox{\hyperlink{structh2load_1_1Worker}{Worker}}\ *worker;}
+\DoxyCodeLine{00350\ \ \ SSL\ *ssl;}
+\DoxyCodeLine{00351\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00352\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00353\ \ \ \ \ ngtcp2\_crypto\_conn\_ref\ conn\_ref;}
+\DoxyCodeLine{00354\ \ \ \ \ ev\_timer\ pkt\_timer;}
+\DoxyCodeLine{00355\ \ \ \ \ ngtcp2\_conn\ *conn;}
+\DoxyCodeLine{00356\ \ \ \ \ ngtcp2\_ccerr\ last\_error;}
+\DoxyCodeLine{00357\ \ \ \ \ \textcolor{keywordtype}{bool}\ close\_requested;}
+\DoxyCodeLine{00358\ \ \ \ \ FILE\ *qlog\_file;}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ send\_blocked;}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ num\_blocked;}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ num\_blocked\_sent;}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ remote\_addr;}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *data;}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ datalen;}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ gso\_size;}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \}\ blocked[2];}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ std::unique\_ptr<uint8\_t[]>\ data;}
+\DoxyCodeLine{00371\ \ \ \ \ \}\ tx;}
+\DoxyCodeLine{00372\ \ \ \}\ quic;}
+\DoxyCodeLine{00373\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00374\ \ \ ev\_timer\ request\_timeout\_watcher;}
+\DoxyCodeLine{00375\ \ \ addrinfo\ *next\_addr;}
+\DoxyCodeLine{00376\ \ \ \textcolor{comment}{//\ Address\ for\ the\ current\ address.\ \ When\ try\_new\_connection()\ is}}
+\DoxyCodeLine{00377\ \ \ \textcolor{comment}{//\ used\ and\ current\_addr\ is\ not\ nullptr,\ it\ is\ used\ instead\ of}}
+\DoxyCodeLine{00378\ \ \ \textcolor{comment}{//\ trying\ next\ address\ though\ next\_addr.\ \ To\ try\ new\ address,\ set}}
+\DoxyCodeLine{00379\ \ \ \textcolor{comment}{//\ nullptr\ to\ current\_addr\ before\ calling\ connect().}}
+\DoxyCodeLine{00380\ \ \ addrinfo\ *current\_addr;}
+\DoxyCodeLine{00381\ \ \ \textcolor{keywordtype}{size\_t}\ reqidx;}
+\DoxyCodeLine{00382\ \ \ ClientState\ state;}
+\DoxyCodeLine{00383\ \ \ \textcolor{comment}{//\ The\ number\ of\ requests\ this\ client\ has\ to\ issue.}}
+\DoxyCodeLine{00384\ \ \ \textcolor{keywordtype}{size\_t}\ req\_todo;}
+\DoxyCodeLine{00385\ \ \ \textcolor{comment}{//\ The\ number\ of\ requests\ left\ to\ issue}}
+\DoxyCodeLine{00386\ \ \ \textcolor{keywordtype}{size\_t}\ req\_left;}
+\DoxyCodeLine{00387\ \ \ \textcolor{comment}{//\ The\ number\ of\ requests\ currently\ have\ started,\ but\ not\ abandoned}}
+\DoxyCodeLine{00388\ \ \ \textcolor{comment}{//\ or\ finished.}}
+\DoxyCodeLine{00389\ \ \ \textcolor{keywordtype}{size\_t}\ req\_inflight;}
+\DoxyCodeLine{00390\ \ \ \textcolor{comment}{//\ The\ number\ of\ requests\ this\ client\ has\ issued\ so\ far.}}
+\DoxyCodeLine{00391\ \ \ \textcolor{keywordtype}{size\_t}\ req\_started;}
+\DoxyCodeLine{00392\ \ \ \textcolor{comment}{//\ The\ number\ of\ requests\ this\ client\ has\ done\ so\ far.}}
+\DoxyCodeLine{00393\ \ \ \textcolor{keywordtype}{size\_t}\ req\_done;}
+\DoxyCodeLine{00394\ \ \ \textcolor{comment}{//\ The\ client\ id\ per\ worker}}
+\DoxyCodeLine{00395\ \ \ uint32\_t\ id;}
+\DoxyCodeLine{00396\ \ \ \textcolor{keywordtype}{int}\ fd;}
+\DoxyCodeLine{00397\ \ \ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ local\_addr;}
+\DoxyCodeLine{00398\ \ \ ev\_timer\ conn\_active\_watcher;}
+\DoxyCodeLine{00399\ \ \ ev\_timer\ conn\_inactivity\_watcher;}
+\DoxyCodeLine{00400\ \ \ std::string\ selected\_proto;}
+\DoxyCodeLine{00401\ \ \ \textcolor{keywordtype}{bool}\ new\_connection\_requested;}
+\DoxyCodeLine{00402\ \ \ \textcolor{comment}{//\ true\ if\ the\ current\ connection\ will\ be\ closed,\ and\ no\ more\ new}}
+\DoxyCodeLine{00403\ \ \ \textcolor{comment}{//\ request\ cannot\ be\ processed.}}
+\DoxyCodeLine{00404\ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{final};}
+\DoxyCodeLine{00405\ \ \ \textcolor{comment}{//\ rps\_watcher\ is\ a\ timer\ to\ invoke\ callback\ periodically\ to}}
+\DoxyCodeLine{00406\ \ \ \textcolor{comment}{//\ generate\ a\ new\ request.}}
+\DoxyCodeLine{00407\ \ \ ev\_timer\ rps\_watcher;}
+\DoxyCodeLine{00408\ \ \ \textcolor{comment}{//\ The\ timestamp\ that\ starts\ the\ period\ which\ contributes\ to\ the}}
+\DoxyCodeLine{00409\ \ \ \textcolor{comment}{//\ next\ request\ generation.}}
+\DoxyCodeLine{00410\ \ \ std::chrono::steady\_clock::time\_point\ rps\_duration\_started;}
+\DoxyCodeLine{00411\ \ \ \textcolor{comment}{//\ The\ number\ of\ requests\ allowed\ by\ rps,\ but\ limited\ by\ stream}}
+\DoxyCodeLine{00412\ \ \ \textcolor{comment}{//\ concurrency.}}
+\DoxyCodeLine{00413\ \ \ \textcolor{keywordtype}{size\_t}\ rps\_req\_pending;}
+\DoxyCodeLine{00414\ \ \ \textcolor{comment}{//\ The\ number\ of\ in-\/flight\ streams.\ \ req\_inflight\ has\ similar\ value}}
+\DoxyCodeLine{00415\ \ \ \textcolor{comment}{//\ but\ it\ only\ measures\ requests\ made\ during\ Phase::MAIN\_DURATION.}}
+\DoxyCodeLine{00416\ \ \ \textcolor{comment}{//\ rps\_req\_inflight\ measures\ the\ number\ of\ requests\ in\ all\ phases,}}
+\DoxyCodeLine{00417\ \ \ \textcolor{comment}{//\ and\ it\ is\ only\ used\ if\ -\/-\/rps\ is\ given.}}
+\DoxyCodeLine{00418\ \ \ \textcolor{keywordtype}{size\_t}\ rps\_req\_inflight;}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ \ \ \textcolor{keyword}{enum}\ \{\ ERR\_CONNECT\_FAIL\ =\ -\/100\ \};}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \ \ Client(uint32\_t\ \textcolor{keywordtype}{id},\ \mbox{\hyperlink{structh2load_1_1Worker}{Worker}}\ *worker,\ \textcolor{keywordtype}{size\_t}\ req\_todo);}
+\DoxyCodeLine{00423\ \ \ \string~Client();}
+\DoxyCodeLine{00424\ \ \ \textcolor{keywordtype}{int}\ make\_socket(addrinfo\ *addr);}
+\DoxyCodeLine{00425\ \ \ \textcolor{keywordtype}{int}\ connect();}
+\DoxyCodeLine{00426\ \ \ \textcolor{keywordtype}{void}\ disconnect();}
+\DoxyCodeLine{00427\ \ \ \textcolor{keywordtype}{void}\ fail();}
+\DoxyCodeLine{00428\ \ \ \textcolor{comment}{//\ Call\ this\ function\ when\ do\_read()\ returns\ -\/1.\ \ This\ function}}
+\DoxyCodeLine{00429\ \ \ \textcolor{comment}{//\ tries\ to\ connect\ to\ the\ remote\ host\ again\ if\ it\ is\ requested.\ \ If}}
+\DoxyCodeLine{00430\ \ \ \textcolor{comment}{//\ so,\ this\ function\ returns\ 0,\ and\ this\ object\ should\ be\ retained.}}
+\DoxyCodeLine{00431\ \ \ \textcolor{comment}{//\ Otherwise,\ this\ function\ returns\ -\/1,\ and\ this\ object\ should\ be}}
+\DoxyCodeLine{00432\ \ \ \textcolor{comment}{//\ deleted.}}
+\DoxyCodeLine{00433\ \ \ \textcolor{keywordtype}{int}\ try\_again\_or\_fail();}
+\DoxyCodeLine{00434\ \ \ \textcolor{keywordtype}{void}\ timeout();}
+\DoxyCodeLine{00435\ \ \ \textcolor{keywordtype}{void}\ restart\_timeout();}
+\DoxyCodeLine{00436\ \ \ \textcolor{keywordtype}{int}\ submit\_request();}
+\DoxyCodeLine{00437\ \ \ \textcolor{keywordtype}{void}\ process\_request\_failure();}
+\DoxyCodeLine{00438\ \ \ \textcolor{keywordtype}{void}\ process\_timedout\_streams();}
+\DoxyCodeLine{00439\ \ \ \textcolor{keywordtype}{void}\ process\_abandoned\_streams();}
+\DoxyCodeLine{00440\ \ \ \textcolor{keywordtype}{void}\ report\_tls\_info();}
+\DoxyCodeLine{00441\ \ \ \textcolor{keywordtype}{void}\ report\_app\_info();}
+\DoxyCodeLine{00442\ \ \ \textcolor{keywordtype}{void}\ terminate\_session();}
+\DoxyCodeLine{00443\ \ \ \textcolor{comment}{//\ Asks\ client\ to\ create\ new\ connection,\ instead\ of\ just\ fail.}}
+\DoxyCodeLine{00444\ \ \ \textcolor{keywordtype}{void}\ try\_new\_connection();}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \ \ \textcolor{keywordtype}{int}\ do\_read();}
+\DoxyCodeLine{00447\ \ \ \textcolor{keywordtype}{int}\ do\_write();}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00449\ \ \ \textcolor{comment}{//\ low-\/level\ I/O\ callback\ functions\ called\ by\ do\_read/do\_write}}
+\DoxyCodeLine{00450\ \ \ \textcolor{keywordtype}{int}\ connected();}
+\DoxyCodeLine{00451\ \ \ \textcolor{keywordtype}{int}\ read\_clear();}
+\DoxyCodeLine{00452\ \ \ \textcolor{keywordtype}{int}\ write\_clear();}
+\DoxyCodeLine{00453\ \ \ \textcolor{keywordtype}{int}\ tls\_handshake();}
+\DoxyCodeLine{00454\ \ \ \textcolor{keywordtype}{int}\ read\_tls();}
+\DoxyCodeLine{00455\ \ \ \textcolor{keywordtype}{int}\ write\_tls();}
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00457\ \ \ \textcolor{keywordtype}{int}\ on\_read(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00458\ \ \ \textcolor{keywordtype}{int}\ on\_write();}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00460\ \ \ \textcolor{keywordtype}{int}\ connection\_made();}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00462\ \ \ \textcolor{keywordtype}{void}\ on\_request(int32\_t\ stream\_id);}
+\DoxyCodeLine{00463\ \ \ \textcolor{keywordtype}{void}\ on\_header(int32\_t\ stream\_id,\ \textcolor{keyword}{const}\ uint8\_t\ *name,\ \textcolor{keywordtype}{size\_t}\ namelen,}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *value,\ \textcolor{keywordtype}{size\_t}\ valuelen);}
+\DoxyCodeLine{00465\ \ \ \textcolor{keywordtype}{void}\ on\_status\_code(int32\_t\ stream\_id,\ uint16\_t\ status);}
+\DoxyCodeLine{00466\ \ \ \textcolor{comment}{//\ |success|\ ==\ true\ means\ that\ the\ request/response\ was\ exchanged}}
+\DoxyCodeLine{00467\ \ \ \textcolor{comment}{//\ |successfully,\ but\ it\ does\ not\ mean\ response\ carried\ successful}}
+\DoxyCodeLine{00468\ \ \ \textcolor{comment}{//\ |HTTP\ status\ code.}}
+\DoxyCodeLine{00469\ \ \ \textcolor{keywordtype}{void}\ on\_stream\_close(int32\_t\ stream\_id,\ \textcolor{keywordtype}{bool}\ success,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{final}\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00470\ \ \ \textcolor{comment}{//\ Returns\ RequestStat\ for\ |stream\_id|.\ \ This\ function\ must\ be}}
+\DoxyCodeLine{00471\ \ \ \textcolor{comment}{//\ called\ after\ on\_request(stream\_id),\ and\ before}}
+\DoxyCodeLine{00472\ \ \ \textcolor{comment}{//\ on\_stream\_close(stream\_id,\ ...).\ \ Otherwise,\ this\ will\ return}}
+\DoxyCodeLine{00473\ \ \ \textcolor{comment}{//\ nullptr.}}
+\DoxyCodeLine{00474\ \ \ \mbox{\hyperlink{structh2load_1_1RequestStat}{RequestStat}}\ *get\_req\_stat(int32\_t\ stream\_id);}
+\DoxyCodeLine{00475\ }
+\DoxyCodeLine{00476\ \ \ \textcolor{keywordtype}{void}\ record\_request\_time(\mbox{\hyperlink{structh2load_1_1RequestStat}{RequestStat}}\ *req\_stat);}
+\DoxyCodeLine{00477\ \ \ \textcolor{keywordtype}{void}\ record\_connect\_start\_time();}
+\DoxyCodeLine{00478\ \ \ \textcolor{keywordtype}{void}\ record\_connect\_time();}
+\DoxyCodeLine{00479\ \ \ \textcolor{keywordtype}{void}\ record\_ttfb();}
+\DoxyCodeLine{00480\ \ \ \textcolor{keywordtype}{void}\ clear\_connect\_times();}
+\DoxyCodeLine{00481\ \ \ \textcolor{keywordtype}{void}\ record\_client\_start\_time();}
+\DoxyCodeLine{00482\ \ \ \textcolor{keywordtype}{void}\ record\_client\_end\_time();}
+\DoxyCodeLine{00483\ }
+\DoxyCodeLine{00484\ \ \ \textcolor{keywordtype}{void}\ signal\_write();}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00486\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00487\ \ \ \textcolor{comment}{//\ QUIC}}
+\DoxyCodeLine{00488\ \ \ \textcolor{keywordtype}{int}\ quic\_init(\textcolor{keyword}{const}\ sockaddr\ *local\_addr,\ socklen\_t\ local\_addrlen,}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ sockaddr\ *remote\_addr,\ socklen\_t\ remote\_addrlen);}
+\DoxyCodeLine{00490\ \ \ \textcolor{keywordtype}{void}\ quic\_free();}
+\DoxyCodeLine{00491\ \ \ \textcolor{keywordtype}{int}\ read\_quic();}
+\DoxyCodeLine{00492\ \ \ \textcolor{keywordtype}{int}\ write\_quic();}
+\DoxyCodeLine{00493\ \ \ \textcolor{keywordtype}{int}\ write\_udp(\textcolor{keyword}{const}\ sockaddr\ *addr,\ socklen\_t\ addrlen,\ \textcolor{keyword}{const}\ uint8\_t\ *data,}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ datalen,\ \textcolor{keywordtype}{size\_t}\ gso\_size);}
+\DoxyCodeLine{00495\ \ \ \textcolor{keywordtype}{void}\ on\_send\_blocked(\textcolor{keyword}{const}\ ngtcp2\_addr\ \&remote\_addr,\ \textcolor{keyword}{const}\ uint8\_t\ *data,}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ datalen,\ \textcolor{keywordtype}{size\_t}\ gso\_size);}
+\DoxyCodeLine{00497\ \ \ \textcolor{keywordtype}{int}\ send\_blocked\_packet();}
+\DoxyCodeLine{00498\ \ \ \textcolor{keywordtype}{void}\ quic\_close\_connection();}
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00500\ \ \ \textcolor{keywordtype}{int}\ quic\_handshake\_completed();}
+\DoxyCodeLine{00501\ \ \ \textcolor{keywordtype}{int}\ quic\_recv\_stream\_data(uint32\_t\ flags,\ int64\_t\ stream\_id,}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ datalen);}
+\DoxyCodeLine{00503\ \ \ \textcolor{keywordtype}{int}\ quic\_acked\_stream\_data\_offset(int64\_t\ stream\_id,\ \textcolor{keywordtype}{size\_t}\ datalen);}
+\DoxyCodeLine{00504\ \ \ \textcolor{keywordtype}{int}\ quic\_stream\_close(int64\_t\ stream\_id,\ uint64\_t\ app\_error\_code);}
+\DoxyCodeLine{00505\ \ \ \textcolor{keywordtype}{int}\ quic\_stream\_reset(int64\_t\ stream\_id,\ uint64\_t\ app\_error\_code);}
+\DoxyCodeLine{00506\ \ \ \textcolor{keywordtype}{int}\ quic\_stream\_stop\_sending(int64\_t\ stream\_id,\ uint64\_t\ app\_error\_code);}
+\DoxyCodeLine{00507\ \ \ \textcolor{keywordtype}{int}\ quic\_extend\_max\_local\_streams();}
+\DoxyCodeLine{00508\ \ \ \textcolor{keywordtype}{int}\ quic\_extend\_max\_stream\_data(int64\_t\ stream\_id);}
+\DoxyCodeLine{00509\ }
+\DoxyCodeLine{00510\ \ \ \textcolor{keywordtype}{int}\ quic\_write\_client\_handshake(ngtcp2\_encryption\_level\ level,}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ datalen);}
+\DoxyCodeLine{00512\ \ \ \textcolor{keywordtype}{int}\ quic\_pkt\_timeout();}
+\DoxyCodeLine{00513\ \ \ \textcolor{keywordtype}{void}\ quic\_restart\_pkt\_timer();}
+\DoxyCodeLine{00514\ \ \ \textcolor{keywordtype}{void}\ quic\_write\_qlog(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ datalen);}
+\DoxyCodeLine{00515\ \ \ \textcolor{keywordtype}{int}\ quic\_make\_http3\_session();}
+\DoxyCodeLine{00516\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00517\ \};}
+\DoxyCodeLine{00518\ }
+\DoxyCodeLine{00519\ \}\ \textcolor{comment}{//\ namespace\ h2load}}
+\DoxyCodeLine{00520\ }
+\DoxyCodeLine{00521\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ H2LOAD\_H}}
+
+\end{DoxyCode}

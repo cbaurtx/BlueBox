@@ -1,0 +1,9 @@
+<map id="yyalloc" name="yyalloc">
+<area shape="rect" id="Node000001" title=" " alt="" coords="35,301,97,328"/>
+<area shape="rect" id="Node000002" href="$unionYYSTYPE.html" title=" " alt="" coords="24,203,108,229"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="68,244,69,302,63,301,64,247"/>
+<area shape="rect" id="Node000003" href="$structnode.html" title=" " alt="" coords="41,104,91,131"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="67,144,69,203,63,202,65,149"/>
+<area shape="rect" id="Node000004" href="$structnghttp2__pq__entry.html" title=" " alt="" coords="5,5,127,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="66,45,69,104,63,104,66,50"/>
+</map>

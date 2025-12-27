@@ -1,0 +1,56 @@
+\doxysection{nghttp2\+\_\+data\+\_\+aux\+\_\+data Struct Reference}
+\hypertarget{structnghttp2__data__aux__data}{}\label{structnghttp2__data__aux__data}\index{nghttp2\_data\_aux\_data@{nghttp2\_data\_aux\_data}}
+
+
+Collaboration diagram for nghttp2\+\_\+data\+\_\+aux\+\_\+data\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structnghttp2__data__aux__data__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structnghttp2__data__provider__wrap}{nghttp2\+\_\+data\+\_\+provider\+\_\+wrap}} \mbox{\hyperlink{structnghttp2__data__aux__data_a52a20c719f0fd4ad00bd2e334c6da63f}{dpw}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structnghttp2__data__aux__data_aac523cd519ccd6fb0a191daab57b8672}{flags}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structnghttp2__data__aux__data_a901ee735532886dcaeb10e5fb3744013}{eof}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structnghttp2__data__aux__data_ab9fbc97d956ff1feb0b1bc5b24c4d7eb}{no\+\_\+copy}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-variable-members}
+\Hypertarget{structnghttp2__data__aux__data_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structnghttp2__data__aux__data_a52a20c719f0fd4ad00bd2e334c6da63f}\index{nghttp2\_data\_aux\_data@{nghttp2\_data\_aux\_data}!dpw@{dpw}}
+\index{dpw@{dpw}!nghttp2\_data\_aux\_data@{nghttp2\_data\_aux\_data}}
+\doxysubsubsection{\texorpdfstring{dpw}{dpw}}
+{\footnotesize\ttfamily \label{structnghttp2__data__aux__data_a52a20c719f0fd4ad00bd2e334c6da63f} 
+\mbox{\hyperlink{structnghttp2__data__provider__wrap}{nghttp2\+\_\+data\+\_\+provider\+\_\+wrap}} nghttp2\+\_\+data\+\_\+aux\+\_\+data\+::dpw}
+
+The data to be sent for this DATA frame. \Hypertarget{structnghttp2__data__aux__data_a901ee735532886dcaeb10e5fb3744013}\index{nghttp2\_data\_aux\_data@{nghttp2\_data\_aux\_data}!eof@{eof}}
+\index{eof@{eof}!nghttp2\_data\_aux\_data@{nghttp2\_data\_aux\_data}}
+\doxysubsubsection{\texorpdfstring{eof}{eof}}
+{\footnotesize\ttfamily \label{structnghttp2__data__aux__data_a901ee735532886dcaeb10e5fb3744013} 
+uint8\+\_\+t nghttp2\+\_\+data\+\_\+aux\+\_\+data\+::eof}
+
+The flag to indicate whether EOF was reached or not. Initially \texorpdfstring{$\vert$}{|}eof\texorpdfstring{$\vert$}{|} is 0. It becomes 1 after all data were read. \Hypertarget{structnghttp2__data__aux__data_aac523cd519ccd6fb0a191daab57b8672}\index{nghttp2\_data\_aux\_data@{nghttp2\_data\_aux\_data}!flags@{flags}}
+\index{flags@{flags}!nghttp2\_data\_aux\_data@{nghttp2\_data\_aux\_data}}
+\doxysubsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily \label{structnghttp2__data__aux__data_aac523cd519ccd6fb0a191daab57b8672} 
+uint8\+\_\+t nghttp2\+\_\+data\+\_\+aux\+\_\+data\+::flags}
+
+The flags of DATA frame. We use separate flags here and \doxylink{structnghttp2__data}{nghttp2\+\_\+data} frame. The latter contains flags actually sent to peer. This \texorpdfstring{$\vert$}{|}flags\texorpdfstring{$\vert$}{|} may contain NGHTTP2\+\_\+\+FLAG\+\_\+\+END\+\_\+\+STREAM and only when \texorpdfstring{$\vert$}{|}eof\texorpdfstring{$\vert$}{|} becomes nonzero, flags in \doxylink{structnghttp2__data}{nghttp2\+\_\+data} has NGHTTP2\+\_\+\+FLAG\+\_\+\+END\+\_\+\+STREAM set. \Hypertarget{structnghttp2__data__aux__data_ab9fbc97d956ff1feb0b1bc5b24c4d7eb}\index{nghttp2\_data\_aux\_data@{nghttp2\_data\_aux\_data}!no\_copy@{no\_copy}}
+\index{no\_copy@{no\_copy}!nghttp2\_data\_aux\_data@{nghttp2\_data\_aux\_data}}
+\doxysubsubsection{\texorpdfstring{no\_copy}{no\_copy}}
+{\footnotesize\ttfamily \label{structnghttp2__data__aux__data_ab9fbc97d956ff1feb0b1bc5b24c4d7eb} 
+uint8\+\_\+t nghttp2\+\_\+data\+\_\+aux\+\_\+data\+::no\+\_\+copy}
+
+The flag to indicate that NGHTTP2\+\_\+\+DATA\+\_\+\+FLAG\+\_\+\+NO\+\_\+\+COPY is used. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/lib/nghttp2\+\_\+outbound\+\_\+item.\+h\end{DoxyCompactItemize}

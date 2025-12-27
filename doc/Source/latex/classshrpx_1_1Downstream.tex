@@ -1,0 +1,352 @@
+\doxysection{shrpx\+::Downstream Class Reference}
+\hypertarget{classshrpx_1_1Downstream}{}\label{classshrpx_1_1Downstream}\index{shrpx::Downstream@{shrpx::Downstream}}
+
+
+Collaboration diagram for shrpx\+::Downstream\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{classshrpx_1_1Downstream__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a53900b4738d058c327425239f72f0f37}\label{classshrpx_1_1Downstream_a53900b4738d058c327425239f72f0f37} 
+enum \{ {\bfseries EVENT\+\_\+\+ERROR} = 0x1
+, {\bfseries EVENT\+\_\+\+TIMEOUT} = 0x2
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a19783e1ad7857bc31274562d1d07b0f3}\label{classshrpx_1_1Downstream_a19783e1ad7857bc31274562d1d07b0f3} 
+{\bfseries Downstream} (\mbox{\hyperlink{classshrpx_1_1Upstream}{Upstream}} \texorpdfstring{$\ast$}{*}upstream, Memchunk\+Pool \texorpdfstring{$\ast$}{*}mcpool, int64\+\_\+t stream\+\_\+id)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a9acd892976baa1f7c0534c00bff13cf4}\label{classshrpx_1_1Downstream_a9acd892976baa1f7c0534c00bff13cf4} 
+void {\bfseries reset\+\_\+upstream} (\mbox{\hyperlink{classshrpx_1_1Upstream}{Upstream}} \texorpdfstring{$\ast$}{*}upstream)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_aecfd9ec1bbcfa03714a2b74a6b8dc724}\label{classshrpx_1_1Downstream_aecfd9ec1bbcfa03714a2b74a6b8dc724} 
+\mbox{\hyperlink{classshrpx_1_1Upstream}{Upstream}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+upstream} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a06c20862fca2ab05ff9882bd1145f5f2}\label{classshrpx_1_1Downstream_a06c20862fca2ab05ff9882bd1145f5f2} 
+void {\bfseries set\+\_\+stream\+\_\+id} (int64\+\_\+t stream\+\_\+id)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_afad51e21f51357ca8967908e648ccb3c}\label{classshrpx_1_1Downstream_afad51e21f51357ca8967908e648ccb3c} 
+int64\+\_\+t {\bfseries get\+\_\+stream\+\_\+id} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_aefde899a2d30e7d4dda2c4b03b976c43}\label{classshrpx_1_1Downstream_aefde899a2d30e7d4dda2c4b03b976c43} 
+void {\bfseries set\+\_\+assoc\+\_\+stream\+\_\+id} (int64\+\_\+t stream\+\_\+id)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a9fce3c987442210210d87573dde8d713}\label{classshrpx_1_1Downstream_a9fce3c987442210210d87573dde8d713} 
+int64\+\_\+t {\bfseries get\+\_\+assoc\+\_\+stream\+\_\+id} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_addff5affcffd99482cfc2d6e5b04d6f2}\label{classshrpx_1_1Downstream_addff5affcffd99482cfc2d6e5b04d6f2} 
+void {\bfseries pause\+\_\+read} (IOCtrl\+Reason reason)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a466692422e508c4eff13719683091abd}\label{classshrpx_1_1Downstream_a466692422e508c4eff13719683091abd} 
+int {\bfseries resume\+\_\+read} (IOCtrl\+Reason reason, size\+\_\+t consumed)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a685b80373c0f1a793232598dbdc4058a}\label{classshrpx_1_1Downstream_a685b80373c0f1a793232598dbdc4058a} 
+void {\bfseries force\+\_\+resume\+\_\+read} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_ac09ed969cb50bd5861595299235a9347}\label{classshrpx_1_1Downstream_ac09ed969cb50bd5861595299235a9347} 
+void {\bfseries set\+\_\+downstream\+\_\+stream\+\_\+id} (int64\+\_\+t stream\+\_\+id)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a15484ec2b5072453d852a8b1d24058d9}\label{classshrpx_1_1Downstream_a15484ec2b5072453d852a8b1d24058d9} 
+int64\+\_\+t {\bfseries get\+\_\+downstream\+\_\+stream\+\_\+id} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a531d72b60edaa6bc9fe7afc3052388bd}\label{classshrpx_1_1Downstream_a531d72b60edaa6bc9fe7afc3052388bd} 
+int {\bfseries attach\+\_\+downstream\+\_\+connection} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{Downstream\+Connection}} $>$ dconn)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a7f6c1d14114a9680695bc94ae398f19e}\label{classshrpx_1_1Downstream_a7f6c1d14114a9680695bc94ae398f19e} 
+void {\bfseries detach\+\_\+downstream\+\_\+connection} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_aa4462a0eddff719f44e3998c3bdf520a}\label{classshrpx_1_1Downstream_aa4462a0eddff719f44e3998c3bdf520a} 
+\mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{Downstream\+Connection}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+downstream\+\_\+connection} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a035c081587d75818b92b37f8945e2f1d}\label{classshrpx_1_1Downstream_a035c081587d75818b92b37f8945e2f1d} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{Downstream\+Connection}} $>$ {\bfseries pop\+\_\+downstream\+\_\+connection} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a2e8e232a0d4d60ba4f0bc8d9dfae2c4b}\label{classshrpx_1_1Downstream_a2e8e232a0d4d60ba4f0bc8d9dfae2c4b} 
+bool {\bfseries request\+\_\+buf\+\_\+full} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a221a7f9dff6b7a7c6ea01c9095807618}\label{classshrpx_1_1Downstream_a221a7f9dff6b7a7c6ea01c9095807618} 
+void {\bfseries check\+\_\+upgrade\+\_\+fulfilled\+\_\+http1} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a8c22e9f3c0a0f35749323eeff0ff8813}\label{classshrpx_1_1Downstream_a8c22e9f3c0a0f35749323eeff0ff8813} 
+void {\bfseries check\+\_\+upgrade\+\_\+fulfilled\+\_\+http2} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a7fb566c89eaa70b89ed35a50abcf9a9d}\label{classshrpx_1_1Downstream_a7fb566c89eaa70b89ed35a50abcf9a9d} 
+bool {\bfseries get\+\_\+upgraded} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_af122b74b2f497be70e920528853b2530}\label{classshrpx_1_1Downstream_af122b74b2f497be70e920528853b2530} 
+void {\bfseries inspect\+\_\+http2\+\_\+request} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a50f3dae5737650061522da9cd36b1482}\label{classshrpx_1_1Downstream_a50f3dae5737650061522da9cd36b1482} 
+void {\bfseries inspect\+\_\+http1\+\_\+request} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a50d51d36abdff574ff5e975f954834af}\label{classshrpx_1_1Downstream_a50d51d36abdff574ff5e975f954834af} 
+bool {\bfseries get\+\_\+http2\+\_\+upgrade\+\_\+request} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a3ffe27f3660e55f88dec4f8e62c2fb96}\label{classshrpx_1_1Downstream_a3ffe27f3660e55f88dec4f8e62c2fb96} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries get\+\_\+http2\+\_\+settings} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a709808a377c4306a5bb3dfe436765c37}\label{classshrpx_1_1Downstream_a709808a377c4306a5bb3dfe436765c37} 
+const \mbox{\hyperlink{structRequest}{Request}} \& {\bfseries request} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a7be31627399569a62da5f61e6168530a}\label{classshrpx_1_1Downstream_a7be31627399569a62da5f61e6168530a} 
+\mbox{\hyperlink{structRequest}{Request}} \& {\bfseries request} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a6f062665929369d9a7c14b25edc376e2}\label{classshrpx_1_1Downstream_a6f062665929369d9a7c14b25edc376e2} 
+size\+\_\+t {\bfseries count\+\_\+crumble\+\_\+request\+\_\+cookie} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a54ea9232b215c702c08b2f54bcdef44c}\label{classshrpx_1_1Downstream_a54ea9232b215c702c08b2f54bcdef44c} 
+void {\bfseries crumble\+\_\+request\+\_\+cookie} (std\+::vector$<$ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\+\_\+nv}} $>$ \&nva)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a4acc5c1c42379d9c846b373db1ea8c19}\label{classshrpx_1_1Downstream_a4acc5c1c42379d9c846b373db1ea8c19} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries assemble\+\_\+request\+\_\+cookie} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a7dc7138fcbeb52483f5c27dc32c0d970}\label{classshrpx_1_1Downstream_a7dc7138fcbeb52483f5c27dc32c0d970} 
+void {\bfseries set\+\_\+request\+\_\+start\+\_\+time} (std\+::chrono\+::high\+\_\+resolution\+\_\+clock\+::time\+\_\+point time)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a6582da3a5e24543f3e7195afb1775548}\label{classshrpx_1_1Downstream_a6582da3a5e24543f3e7195afb1775548} 
+const std\+::chrono\+::high\+\_\+resolution\+\_\+clock\+::time\+\_\+point \& {\bfseries get\+\_\+request\+\_\+start\+\_\+time} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a876963bfbf64d82c1c8a951e5962e7f2}\label{classshrpx_1_1Downstream_a876963bfbf64d82c1c8a951e5962e7f2} 
+int {\bfseries push\+\_\+request\+\_\+headers} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a94dabde104a5ae232b2288fdb6577bde}\label{classshrpx_1_1Downstream_a94dabde104a5ae232b2288fdb6577bde} 
+bool {\bfseries get\+\_\+chunked\+\_\+request} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a7be0699d32d7fa0b39e2071d6343bdab}\label{classshrpx_1_1Downstream_a7be0699d32d7fa0b39e2071d6343bdab} 
+void {\bfseries set\+\_\+chunked\+\_\+request} (bool f)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a31a0077b68e2390b0399b2b688254539}\label{classshrpx_1_1Downstream_a31a0077b68e2390b0399b2b688254539} 
+int {\bfseries push\+\_\+upload\+\_\+data\+\_\+chunk} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t datalen)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_ad48beddaf8c6be857a054c019f11f658}\label{classshrpx_1_1Downstream_ad48beddaf8c6be857a054c019f11f658} 
+int {\bfseries end\+\_\+upload\+\_\+data} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a1446ea2526284fde66f81b5522b32d0b}\label{classshrpx_1_1Downstream_a1446ea2526284fde66f81b5522b32d0b} 
+bool {\bfseries validate\+\_\+request\+\_\+recv\+\_\+body\+\_\+length} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a02a6c62daab810cc2b1e9c0d40e0ea4e}\label{classshrpx_1_1Downstream_a02a6c62daab810cc2b1e9c0d40e0ea4e} 
+void {\bfseries set\+\_\+request\+\_\+downstream\+\_\+host} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&host)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a411665ea7c337c127de7e3709046efcf}\label{classshrpx_1_1Downstream_a411665ea7c337c127de7e3709046efcf} 
+bool {\bfseries expect\+\_\+response\+\_\+body} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a373a4219cc07f273685ddf2d9a4c1fd4}\label{classshrpx_1_1Downstream_a373a4219cc07f273685ddf2d9a4c1fd4} 
+bool {\bfseries expect\+\_\+response\+\_\+trailer} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_aa46eaf08e65693c5284ee0f41455497a}\label{classshrpx_1_1Downstream_aa46eaf08e65693c5284ee0f41455497a} 
+void {\bfseries set\+\_\+request\+\_\+state} (Downstream\+State state)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_abe0d10ec8e6462685dfe523c62cf4285}\label{classshrpx_1_1Downstream_abe0d10ec8e6462685dfe523c62cf4285} 
+Downstream\+State {\bfseries get\+\_\+request\+\_\+state} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a016e480c88431c0e1eb4d32c530a50e9}\label{classshrpx_1_1Downstream_a016e480c88431c0e1eb4d32c530a50e9} 
+Default\+Memchunks \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+request\+\_\+buf} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_ae90b19c9952ef4647d8cb2c50be327ab}\label{classshrpx_1_1Downstream_ae90b19c9952ef4647d8cb2c50be327ab} 
+void {\bfseries set\+\_\+request\+\_\+pending} (bool f)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_ad8493910f9f9517d44363200802ab5c6}\label{classshrpx_1_1Downstream_ad8493910f9f9517d44363200802ab5c6} 
+bool {\bfseries get\+\_\+request\+\_\+pending} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a705c2bcd75e02778b6e1ee13bf7ec192}\label{classshrpx_1_1Downstream_a705c2bcd75e02778b6e1ee13bf7ec192} 
+void {\bfseries set\+\_\+request\+\_\+header\+\_\+sent} (bool f)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_acf277ce2d99ac3e7d74d3f9326b05c97}\label{classshrpx_1_1Downstream_acf277ce2d99ac3e7d74d3f9326b05c97} 
+bool {\bfseries get\+\_\+request\+\_\+header\+\_\+sent} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_af19da50cbd94ac9f34e8d468758e6976}\label{classshrpx_1_1Downstream_af19da50cbd94ac9f34e8d468758e6976} 
+bool {\bfseries request\+\_\+submission\+\_\+ready} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_af2e0a2196b2d04b83a39f12d3235f977}\label{classshrpx_1_1Downstream_af2e0a2196b2d04b83a39f12d3235f977} 
+Default\+Memchunks \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+blocked\+\_\+request\+\_\+buf} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a0a4be408decaad2640c25072d218422f}\label{classshrpx_1_1Downstream_a0a4be408decaad2640c25072d218422f} 
+bool {\bfseries get\+\_\+blocked\+\_\+request\+\_\+data\+\_\+eof} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a44784af2dd8e13d0d254a0314ad6fcc9}\label{classshrpx_1_1Downstream_a44784af2dd8e13d0d254a0314ad6fcc9} 
+void {\bfseries set\+\_\+blocked\+\_\+request\+\_\+data\+\_\+eof} (bool f)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a8d82e8c9e2935ee013f74e913dd99255}\label{classshrpx_1_1Downstream_a8d82e8c9e2935ee013f74e913dd99255} 
+const \mbox{\hyperlink{structshrpx_1_1Response}{Response}} \& {\bfseries response} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a6106e0843dc58cfee16e82f3a1d3888d}\label{classshrpx_1_1Downstream_a6106e0843dc58cfee16e82f3a1d3888d} 
+\mbox{\hyperlink{structshrpx_1_1Response}{Response}} \& {\bfseries response} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a93e4d23090f12b6fd69c742bbd1e0d5d}\label{classshrpx_1_1Downstream_a93e4d23090f12b6fd69c742bbd1e0d5d} 
+void {\bfseries rewrite\+\_\+location\+\_\+response\+\_\+header} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&upstream\+\_\+scheme)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a9fc610fa0cb1a355eee82a4fe161788e}\label{classshrpx_1_1Downstream_a9fc610fa0cb1a355eee82a4fe161788e} 
+bool {\bfseries get\+\_\+chunked\+\_\+response} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a5c27ecc9d10f29b17a7433db53e8bafc}\label{classshrpx_1_1Downstream_a5c27ecc9d10f29b17a7433db53e8bafc} 
+void {\bfseries set\+\_\+chunked\+\_\+response} (bool f)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_aee8f99d6e3f98f7671857cf1da9978fa}\label{classshrpx_1_1Downstream_aee8f99d6e3f98f7671857cf1da9978fa} 
+void {\bfseries set\+\_\+response\+\_\+state} (Downstream\+State state)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a921048138a8eed9d1060c19489a8bf9e}\label{classshrpx_1_1Downstream_a921048138a8eed9d1060c19489a8bf9e} 
+Downstream\+State {\bfseries get\+\_\+response\+\_\+state} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a1c555bc1b3a31010168b5911a6bab837}\label{classshrpx_1_1Downstream_a1c555bc1b3a31010168b5911a6bab837} 
+Default\+Memchunks \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+response\+\_\+buf} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a80b34726b8051c49ae01582cb3f68c64}\label{classshrpx_1_1Downstream_a80b34726b8051c49ae01582cb3f68c64} 
+bool {\bfseries response\+\_\+buf\+\_\+full} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_ab95802fef1bcf304dc5319a9d1521d93}\label{classshrpx_1_1Downstream_ab95802fef1bcf304dc5319a9d1521d93} 
+bool {\bfseries validate\+\_\+response\+\_\+recv\+\_\+body\+\_\+length} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a2db029a097b4df85dafff3fbcdcdced0}\label{classshrpx_1_1Downstream_a2db029a097b4df85dafff3fbcdcdced0} 
+uint32\+\_\+t {\bfseries get\+\_\+response\+\_\+rst\+\_\+stream\+\_\+error\+\_\+code} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a418e9c4497e4ac7090551dcce8be06cc}\label{classshrpx_1_1Downstream_a418e9c4497e4ac7090551dcce8be06cc} 
+void {\bfseries set\+\_\+response\+\_\+rst\+\_\+stream\+\_\+error\+\_\+code} (uint32\+\_\+t error\+\_\+code)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a281d4d675450ea532e77762768bc34da}\label{classshrpx_1_1Downstream_a281d4d675450ea532e77762768bc34da} 
+void {\bfseries inspect\+\_\+http1\+\_\+response} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_aabd51c3d65330b02a9311be0b9f22bf0}\label{classshrpx_1_1Downstream_aabd51c3d65330b02a9311be0b9f22bf0} 
+void {\bfseries reset\+\_\+response} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_af64b5778dcd0450f76c8a44c950709f4}\label{classshrpx_1_1Downstream_af64b5778dcd0450f76c8a44c950709f4} 
+bool {\bfseries get\+\_\+non\+\_\+final\+\_\+response} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a5e249c685260f98a6b520054a07c0aed}\label{classshrpx_1_1Downstream_a5e249c685260f98a6b520054a07c0aed} 
+bool {\bfseries supports\+\_\+non\+\_\+final\+\_\+response} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_abdba0365eb737242f7418269611593e2}\label{classshrpx_1_1Downstream_abdba0365eb737242f7418269611593e2} 
+void {\bfseries set\+\_\+expect\+\_\+final\+\_\+response} (bool f)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a012e2769a9a3504ddb5c7efd47938167}\label{classshrpx_1_1Downstream_a012e2769a9a3504ddb5c7efd47938167} 
+bool {\bfseries get\+\_\+expect\+\_\+final\+\_\+response} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_aa5cfe5fafd5604438b2718c243cae84c}\label{classshrpx_1_1Downstream_aa5cfe5fafd5604438b2718c243cae84c} 
+int {\bfseries on\+\_\+read} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a0d1f12b3ada72a2b0f11f17d5ae35109}\label{classshrpx_1_1Downstream_a0d1f12b3ada72a2b0f11f17d5ae35109} 
+void {\bfseries repeat\+\_\+header\+\_\+timer} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a69c89235304f5c774287d9344765f710}\label{classshrpx_1_1Downstream_a69c89235304f5c774287d9344765f710} 
+void {\bfseries stop\+\_\+header\+\_\+timer} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_aeea208602183b2c604849a616138affa}\label{classshrpx_1_1Downstream_aeea208602183b2c604849a616138affa} 
+void {\bfseries reset\+\_\+upstream\+\_\+rtimer} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_aefe847bb68aa6d594857b772557b7e27}\label{classshrpx_1_1Downstream_aefe847bb68aa6d594857b772557b7e27} 
+void {\bfseries reset\+\_\+upstream\+\_\+wtimer} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a4f3f6825d3bc6fe20c70a23a1243f0ab}\label{classshrpx_1_1Downstream_a4f3f6825d3bc6fe20c70a23a1243f0ab} 
+void {\bfseries ensure\+\_\+upstream\+\_\+wtimer} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a55b2d0fc47c3a969f98c0542fcd1b4e8}\label{classshrpx_1_1Downstream_a55b2d0fc47c3a969f98c0542fcd1b4e8} 
+void {\bfseries disable\+\_\+upstream\+\_\+rtimer} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a7dc6e1c0d365bbd10f55c6f1cd5ddf0f}\label{classshrpx_1_1Downstream_a7dc6e1c0d365bbd10f55c6f1cd5ddf0f} 
+void {\bfseries disable\+\_\+upstream\+\_\+wtimer} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_aa071c9f8f8d6da3d28463fec81659189}\label{classshrpx_1_1Downstream_aa071c9f8f8d6da3d28463fec81659189} 
+void {\bfseries reset\+\_\+downstream\+\_\+rtimer} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a7d042eb8fee49708698563d195267125}\label{classshrpx_1_1Downstream_a7d042eb8fee49708698563d195267125} 
+void {\bfseries reset\+\_\+downstream\+\_\+wtimer} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a620830ced3d33957083dba723730da0e}\label{classshrpx_1_1Downstream_a620830ced3d33957083dba723730da0e} 
+void {\bfseries ensure\+\_\+downstream\+\_\+wtimer} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a68e13b1b79bd46efa67f9cfc46c7e85d}\label{classshrpx_1_1Downstream_a68e13b1b79bd46efa67f9cfc46c7e85d} 
+void {\bfseries disable\+\_\+downstream\+\_\+rtimer} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_ad4313894425fccca0aa80fbb4f500275}\label{classshrpx_1_1Downstream_ad4313894425fccca0aa80fbb4f500275} 
+void {\bfseries disable\+\_\+downstream\+\_\+wtimer} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_ac241ea934ea90f6853cc82bd9ccce0f7}\label{classshrpx_1_1Downstream_ac241ea934ea90f6853cc82bd9ccce0f7} 
+bool {\bfseries accesslog\+\_\+ready} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a55331852ec7aa809b018a3a5fadcfda2}\label{classshrpx_1_1Downstream_a55331852ec7aa809b018a3a5fadcfda2} 
+void {\bfseries add\+\_\+retry} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_af008ba4e93a080d778f335eae0b06327}\label{classshrpx_1_1Downstream_af008ba4e93a080d778f335eae0b06327} 
+bool {\bfseries no\+\_\+more\+\_\+retry} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a921f74118d7bb953590501579be8429b}\label{classshrpx_1_1Downstream_a921f74118d7bb953590501579be8429b} 
+Dispatch\+State {\bfseries get\+\_\+dispatch\+\_\+state} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_addacdec46ddd334445585e9e1b853a8c}\label{classshrpx_1_1Downstream_addacdec46ddd334445585e9e1b853a8c} 
+void {\bfseries set\+\_\+dispatch\+\_\+state} (Dispatch\+State s)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_ae25de839f8164604bd1ec589e8d3b51e}\label{classshrpx_1_1Downstream_ae25de839f8164604bd1ec589e8d3b51e} 
+void {\bfseries attach\+\_\+blocked\+\_\+link} (\mbox{\hyperlink{structshrpx_1_1BlockedLink}{Blocked\+Link}} \texorpdfstring{$\ast$}{*}l)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a189e777c3228b7f406d51f70dcd7011e}\label{classshrpx_1_1Downstream_a189e777c3228b7f406d51f70dcd7011e} 
+\mbox{\hyperlink{structshrpx_1_1BlockedLink}{Blocked\+Link}} \texorpdfstring{$\ast$}{*} {\bfseries detach\+\_\+blocked\+\_\+link} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a10356ca4047cafc3375bdfaee2583f74}\label{classshrpx_1_1Downstream_a10356ca4047cafc3375bdfaee2583f74} 
+bool {\bfseries can\+\_\+detach\+\_\+downstream\+\_\+connection} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a2932a7a8ae6a47a8ce8b49037430cc62}\label{classshrpx_1_1Downstream_a2932a7a8ae6a47a8ce8b49037430cc62} 
+Default\+Memchunks {\bfseries pop\+\_\+response\+\_\+buf} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_aad55115f5da95b05e6f7ab39a858c654}\label{classshrpx_1_1Downstream_aad55115f5da95b05e6f7ab39a858c654} 
+\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{Block\+Allocator}} \& {\bfseries get\+\_\+block\+\_\+allocator} ()
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a4e832547e534f2b2f7459d7fdf77ffd2}\label{classshrpx_1_1Downstream_a4e832547e534f2b2f7459d7fdf77ffd2} 
+void {\bfseries add\+\_\+rcbuf} (\mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\+\_\+rcbuf}} \texorpdfstring{$\ast$}{*}rcbuf)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_ae9fba8b743ab4d34782513db3561f222}\label{classshrpx_1_1Downstream_ae9fba8b743ab4d34782513db3561f222} 
+void {\bfseries set\+\_\+downstream\+\_\+addr\+\_\+group} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1DownstreamAddrGroup}{Downstream\+Addr\+Group}} $>$ \&group)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_ae14ef06bda8fcbb105df616dee27e4d5}\label{classshrpx_1_1Downstream_ae14ef06bda8fcbb105df616dee27e4d5} 
+void {\bfseries set\+\_\+addr} (const \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{Downstream\+Addr}} \texorpdfstring{$\ast$}{*}addr)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a430c8c11aa9b6a466247c0b98f44cd48}\label{classshrpx_1_1Downstream_a430c8c11aa9b6a466247c0b98f44cd48} 
+const \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{Downstream\+Addr}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+addr} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a648f328cc3dc776570f783be47657d2f}\label{classshrpx_1_1Downstream_a648f328cc3dc776570f783be47657d2f} 
+void {\bfseries set\+\_\+accesslog\+\_\+written} (bool f)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a00f03814b42d14439690138b8d4b5aa3}\label{classshrpx_1_1Downstream_a00f03814b42d14439690138b8d4b5aa3} 
+uint32\+\_\+t {\bfseries find\+\_\+affinity\+\_\+cookie} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&name)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_affe16e376ce7a8542045b0caed4859d0}\label{classshrpx_1_1Downstream_affe16e376ce7a8542045b0caed4859d0} 
+void {\bfseries renew\+\_\+affinity\+\_\+cookie} (uint32\+\_\+t h)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a7ce74d3641946e7532e8423e055a655a}\label{classshrpx_1_1Downstream_a7ce74d3641946e7532e8423e055a655a} 
+uint32\+\_\+t {\bfseries get\+\_\+affinity\+\_\+cookie\+\_\+to\+\_\+send} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_adb24607e2ab4c597762d4cab13f58672}\label{classshrpx_1_1Downstream_adb24607e2ab4c597762d4cab13f58672} 
+void {\bfseries set\+\_\+ws\+\_\+key} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&key)
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a7f74d35fce835457e9eb9879f07caaed}\label{classshrpx_1_1Downstream_a7f74d35fce835457e9eb9879f07caaed} 
+bool {\bfseries get\+\_\+expect\+\_\+100\+\_\+continue} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a1cd985ca231ddfa06e31f39c006442fa}\label{classshrpx_1_1Downstream_a1cd985ca231ddfa06e31f39c006442fa} 
+bool {\bfseries get\+\_\+stop\+\_\+reading} () const
+\item 
+\Hypertarget{classshrpx_1_1Downstream_ae0c2063230e541ca981db617fd222639}\label{classshrpx_1_1Downstream_ae0c2063230e541ca981db617fd222639} 
+void {\bfseries set\+\_\+stop\+\_\+reading} (bool f)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1Downstream_ad882e71c73cb1d86d8c74427ec1ac526}\label{classshrpx_1_1Downstream_ad882e71c73cb1d86d8c74427ec1ac526} 
+Downstream \texorpdfstring{$\ast$}{*} {\bfseries dlnext}
+\item 
+\Hypertarget{classshrpx_1_1Downstream_ab006eab1822f26d6d11c49bafffcaedc}\label{classshrpx_1_1Downstream_ab006eab1822f26d6d11c49bafffcaedc} 
+Downstream \texorpdfstring{$\ast$}{*} {\bfseries dlprev}
+\item 
+\Hypertarget{classshrpx_1_1Downstream_a17ca66244a8b8e485a326427486c9ff1}\label{classshrpx_1_1Downstream_a17ca66244a8b8e485a326427486c9ff1} 
+int64\+\_\+t {\bfseries response\+\_\+sent\+\_\+body\+\_\+length}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+downstream.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+downstream.\+cc\end{DoxyCompactItemize}

@@ -1,0 +1,149 @@
+\chapter{fgmp }
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2mrbgems_2mruby-bigint_2README-fgmp}{}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2mrbgems_2mruby-bigint_2README-fgmp}\index{fgmp@{fgmp}}
+\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2mrbgems_2mruby-bigint_2README-fgmp_autotoc_md513}%
+\Hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2mrbgems_2mruby-bigint_2README-fgmp_autotoc_md513}%
+
+
+FGMP is a public domain implementation of a subset of the GNU gmp library with the same API.
+
+WELCOME TO FGMP.
+
+FGMP is a public domain implementation of a subset of the GNU gmp library with the same API.
+
+For instance, you can link the following trivial program with either this code, or libgmp.\+a and get the same results.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}gmp.h"{}}}
+\DoxyCodeLine{main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ MP\_INT\ a;\ MP\_INT\ b;\ MP\_INT\ c;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ mpz\_init\_set\_ui(\&a,1);\ mpz\_init\_set\_ui(\&b,2);\ mpz\_init(\&c);}
+\DoxyCodeLine{\ \ \ \ mpz\_add(\&c,\&a,\&b);}
+\DoxyCodeLine{\ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n\%s\(\backslash\)n"{}},\ mpz\_get\_str(NULL,10,\&c));}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+FGMP is really in the public domain. You can do whatever you want with it.
+
+I wrote FGMP so that we would all have access to a (truly free) implementation of this subset of the API of GNU libgmp. I encourage everyone to distribute this as widely as possible.
+
+If you need more documentation, I suggest you look at the file gmp.\+texi which is included with the GNU gmp library.
+
+You can send me bug reports, implementations of missing functions, flames and rants by Email.
+
+Any submissions of new code to be integrated into fgmp must also be placed in the public domain (For the particularly dense, you can release a new fgmp yourself under different licensing terms. This is a condition for including a submission in a release of FGMP that I personally prepare).
+
+Mark Henderson \href{mailto:markh@wimsey.bc.ca}{\texttt{markh@wimsey.\+bc.\+ca}}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2mrbgems_2mruby-bigint_2README-fgmp_autotoc_md514}{}\doxysection{\texorpdfstring{This is the fifth BETA release. 1.\+0b5}{This is the fifth BETA release. 1.\+0b5}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2mrbgems_2mruby-bigint_2README-fgmp_autotoc_md514}
+I hearby place this file and all of FGMP in the public domain.
+
+Thanks to Paul Rouse \href{mailto:par@r-cube.demon.co.uk}{\texttt{par@r-\/cube.\+demon.\+co.\+uk}} for changes to get fgmp to work on a 286 MS-\/\+DOS compiler, the functions mpz\+\_\+sqrt and mpz\+\_\+sqrtrem, plus other general bug fixes.
+
+Thanks also to Erick Gallesio \href{mailto:eg@kaolin.unice.fr}{\texttt{eg@kaolin.\+unice.\+fr}} for a fix to mpz\+\_\+init\+\_\+set\+\_\+str
+
+Define B64 if your "{}long"{} type is 64 bits. Otherwise we assume 32 bit longs. (The 64-\/bit version hasn\textquotesingle{}t been tested enough)
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Platforms:}
+\DoxyCodeLine{Linux\ 0.99\ (gcc)}
+\DoxyCodeLine{IBM\ RS6000/AIX\ 3.2\ (IBM\ xlc\ compiler\ and\ gcc\ 2.3)}
+\DoxyCodeLine{Sun\ OS\ 4.1,\ Sun\ 3/4}
+\DoxyCodeLine{DEC\ Alpha\ OSF/1\ (only\ lightly\ tested,\ 64\ bit\ longs\ do\ make\ a\ difference,}
+\DoxyCodeLine{\ \ \ \ thanks\ to\ DEC\ for\ providing\ access\ via\ axposf.pa.dec.com).\ Define\ B64}
+\DoxyCodeLine{\ \ \ \ for\ this\ platform}
+\DoxyCodeLine{MS-\/DOS\ 286\ C\ compiler\ (see\ credits\ above)}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2mrbgems_2mruby-bigint_2README-fgmp_autotoc_md515}{}\doxysection{\texorpdfstring{Some differences between gmp and fgmp}{Some differences between gmp and fgmp}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2mrbgems_2mruby-bigint_2README-fgmp_autotoc_md515}
+
+\begin{DoxyEnumerate}
+\item fgmp is considerably slower than gmp
+\item fgmp does not implement the following\+:
+\begin{DoxyItemize}
+\item all mpq\+\_\+\texorpdfstring{$\ast$}{*}
+\item internal mpn\+\_\+\texorpdfstring{$\ast$}{*} functions
+\item mpz\+\_\+perfect\+\_\+square\+\_\+p
+\item mpz\+\_\+inp\+\_\+raw, mpz\+\_\+out\+\_\+raw
+\item mp\+\_\+set\+\_\+memory\+\_\+functions, mpz\+\_\+out\+\_\+str, mpz\+\_\+inp\+\_\+str
+\end{DoxyItemize}
+\item fgmp implements the following in addition to the routines in GNU gmp. {\ttfamily int mpz\+\_\+jacobi(\+MP\+\_\+\+INT \texorpdfstring{$\ast$}{*}a, MP\+\_\+\+INT \texorpdfstring{$\ast$}{*}b)}
+\begin{DoxyItemize}
+\item finds the jacobi symbol (a/b)
+\end{DoxyItemize}
+\item mpz\+\_\+sizeinbase often overestimates the exact value
+\item To convert your gmp based program to fgmp (subject to the above)
+\end{DoxyEnumerate}
+\begin{DoxyItemize}
+\item recompile your source. Make sure to include the gmp.\+h file included with fgmp rather than that included with gmp. (The point is to recompile all files which include gmp.\+h)
+\item link with gmp.\+o instead of libgmp.\+a
+\end{DoxyItemize}
+
+Here\textquotesingle{}s a complete sorted list of function implemented in fgmp\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\_mpz\_realloc}
+\DoxyCodeLine{mpz\_abs}
+\DoxyCodeLine{mpz\_add}
+\DoxyCodeLine{mpz\_add\_ui}
+\DoxyCodeLine{mpz\_and}
+\DoxyCodeLine{mpz\_clear}
+\DoxyCodeLine{mpz\_cmp}
+\DoxyCodeLine{mpz\_cmp\_si}
+\DoxyCodeLine{mpz\_cmp\_ui}
+\DoxyCodeLine{mpz\_div}
+\DoxyCodeLine{mpz\_div\_2exp}
+\DoxyCodeLine{mpz\_div\_ui}
+\DoxyCodeLine{mpz\_divmod}
+\DoxyCodeLine{mpz\_divmod\_ui}
+\DoxyCodeLine{mpz\_fac\_ui}
+\DoxyCodeLine{mpz\_gcd}
+\DoxyCodeLine{mpz\_gcdext}
+\DoxyCodeLine{mpz\_get\_si}
+\DoxyCodeLine{mpz\_get\_str}
+\DoxyCodeLine{mpz\_get\_ui}
+\DoxyCodeLine{mpz\_init}
+\DoxyCodeLine{mpz\_init\_set}
+\DoxyCodeLine{mpz\_init\_set\_si}
+\DoxyCodeLine{mpz\_init\_set\_str}
+\DoxyCodeLine{mpz\_init\_set\_ui}
+\DoxyCodeLine{mpz\_jacobi}
+\DoxyCodeLine{mpz\_mdiv}
+\DoxyCodeLine{mpz\_mdiv\_ui}
+\DoxyCodeLine{mpz\_mdivmod}
+\DoxyCodeLine{mpz\_mdivmod\_ui}
+\DoxyCodeLine{mpz\_mmod}
+\DoxyCodeLine{mpz\_mmod\_ui}
+\DoxyCodeLine{mpz\_mod}
+\DoxyCodeLine{mpz\_mod\_2exp}
+\DoxyCodeLine{mpz\_mod\_ui}
+\DoxyCodeLine{mpz\_mul}
+\DoxyCodeLine{mpz\_mul\_2exp}
+\DoxyCodeLine{mpz\_mul\_ui}
+\DoxyCodeLine{mpz\_neg}
+\DoxyCodeLine{mpz\_or}
+\DoxyCodeLine{mpz\_pow\_ui}
+\DoxyCodeLine{mpz\_powm}
+\DoxyCodeLine{mpz\_powm\_ui}
+\DoxyCodeLine{mpz\_probab\_prime\_p}
+\DoxyCodeLine{mpz\_random}
+\DoxyCodeLine{mpz\_random2}
+\DoxyCodeLine{mpz\_set}
+\DoxyCodeLine{mpz\_set\_si}
+\DoxyCodeLine{mpz\_set\_str}
+\DoxyCodeLine{mpz\_set\_ui}
+\DoxyCodeLine{mpz\_size}
+\DoxyCodeLine{mpz\_sizeinbase}
+\DoxyCodeLine{mpz\_sqrt}
+\DoxyCodeLine{mpz\_sqrtrem}
+\DoxyCodeLine{mpz\_sub}
+\DoxyCodeLine{mpz\_sub\_ui}
+\DoxyCodeLine{mpz\_xor}
+
+\end{DoxyCode}
+ 

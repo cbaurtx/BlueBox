@@ -1,0 +1,79 @@
+\doxysection{mrb\+\_\+debug\+\_\+context Struct Reference}
+\hypertarget{structmrb__debug__context}{}\label{structmrb__debug__context}\index{mrb\_debug\_context@{mrb\_debug\_context}}
+
+
+Collaboration diagram for mrb\+\_\+debug\+\_\+context\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structmrb__debug__context__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structmrb__debug__context_af4b28f810e00b6f8d7f7db3f98dede86}\label{structmrb__debug__context_af4b28f810e00b6f8d7f7db3f98dede86} 
+const struct \mbox{\hyperlink{structmrb__irep}{mrb\+\_\+irep}} \texorpdfstring{$\ast$}{*} {\bfseries root\+\_\+irep}
+\item 
+\Hypertarget{structmrb__debug__context_a0a43245997411b24f7ba62bde7f6b8f6}\label{structmrb__debug__context_a0a43245997411b24f7ba62bde7f6b8f6} 
+const struct \mbox{\hyperlink{structmrb__irep}{mrb\+\_\+irep}} \texorpdfstring{$\ast$}{*} {\bfseries irep}
+\item 
+\Hypertarget{structmrb__debug__context_ad8340fd77b48f4fe2bcd538b9501b0f4}\label{structmrb__debug__context_ad8340fd77b48f4fe2bcd538b9501b0f4} 
+const \mbox{\hyperlink{mruby_8h_a9ecf6ce1e2166ff92259de77767bd930}{mrb\+\_\+code}} \texorpdfstring{$\ast$}{*} {\bfseries pc}
+\item 
+\Hypertarget{structmrb__debug__context_a23eab15bdc76b04d5bdd8a5ffcd7b2ff}\label{structmrb__debug__context_a23eab15bdc76b04d5bdd8a5ffcd7b2ff} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \texorpdfstring{$\ast$}{*} {\bfseries regs}
+\item 
+\Hypertarget{structmrb__debug__context_ae6779e55035a8513581a77dcbcea7f0a}\label{structmrb__debug__context_ae6779e55035a8513581a77dcbcea7f0a} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries prvfile}
+\item 
+\Hypertarget{structmrb__debug__context_ac078f85b409ea895f4b496190cfcc4a7}\label{structmrb__debug__context_ac078f85b409ea895f4b496190cfcc4a7} 
+int32\+\_\+t {\bfseries prvline}
+\item 
+\Hypertarget{structmrb__debug__context_a14eef888699c3508ffa726e88c885216}\label{structmrb__debug__context_a14eef888699c3508ffa726e88c885216} 
+\mbox{\hyperlink{structmrb__callinfo}{mrb\+\_\+callinfo}} \texorpdfstring{$\ast$}{*} {\bfseries prvci}
+\item 
+\Hypertarget{structmrb__debug__context_aeda4315ddab287b54cedcb399dc87e15}\label{structmrb__debug__context_aeda4315ddab287b54cedcb399dc87e15} 
+mrdb\+\_\+exemode {\bfseries xm}
+\item 
+\Hypertarget{structmrb__debug__context_a889af306f477381c85765330f2123f97}\label{structmrb__debug__context_a889af306f477381c85765330f2123f97} 
+mrdb\+\_\+exephase {\bfseries xphase}
+\item 
+\Hypertarget{structmrb__debug__context_a71e70d478daf0da1eb54d01f51965a06}\label{structmrb__debug__context_a71e70d478daf0da1eb54d01f51965a06} 
+mrdb\+\_\+brkmode {\bfseries bm}
+\item 
+\Hypertarget{structmrb__debug__context_a032b2c6a4a5752ddcec171c549b7e410}\label{structmrb__debug__context_a032b2c6a4a5752ddcec171c549b7e410} 
+int16\+\_\+t {\bfseries bmi}
+\item 
+\Hypertarget{structmrb__debug__context_a76cdd5732dc04304d48b82cefc86d8aa}\label{structmrb__debug__context_a76cdd5732dc04304d48b82cefc86d8aa} 
+uint16\+\_\+t {\bfseries ccnt}
+\item 
+\Hypertarget{structmrb__debug__context_a219d97b4d7ee1fdfd3ebd63b514b7250}\label{structmrb__debug__context_a219d97b4d7ee1fdfd3ebd63b514b7250} 
+uint16\+\_\+t {\bfseries scnt}
+\item 
+\Hypertarget{structmrb__debug__context_a88bacb969c0116d3ba6daf2e5aba1f09}\label{structmrb__debug__context_a88bacb969c0116d3ba6daf2e5aba1f09} 
+\mbox{\hyperlink{structmrb__debug__breakpoint}{mrb\+\_\+debug\+\_\+breakpoint}} {\bfseries bp} \mbox{[}MAX\+\_\+\+BREAKPOINT\mbox{]}
+\item 
+\Hypertarget{structmrb__debug__context_a30cb655325ee99afba925bc26c094dbb}\label{structmrb__debug__context_a30cb655325ee99afba925bc26c094dbb} 
+uint32\+\_\+t {\bfseries bpnum}
+\item 
+\Hypertarget{structmrb__debug__context_a26ec9b488b69dbfe548277a5b67b1560}\label{structmrb__debug__context_a26ec9b488b69dbfe548277a5b67b1560} 
+int32\+\_\+t {\bfseries next\+\_\+bpno}
+\item 
+\Hypertarget{structmrb__debug__context_a7cfe14b5e4060fa88f5c13944a290478}\label{structmrb__debug__context_a7cfe14b5e4060fa88f5c13944a290478} 
+int32\+\_\+t {\bfseries method\+\_\+bpno}
+\item 
+\Hypertarget{structmrb__debug__context_a2e4d83e2ab3267bc3691daf62a1d8547}\label{structmrb__debug__context_a2e4d83e2ab3267bc3691daf62a1d8547} 
+int32\+\_\+t {\bfseries stopped\+\_\+bpno}
+\item 
+\Hypertarget{structmrb__debug__context_aebe4496c133e58820dcf99999e4dfee8}\label{structmrb__debug__context_aebe4496c133e58820dcf99999e4dfee8} 
+\mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries is\+Cfunc}
+\item 
+\Hypertarget{structmrb__debug__context_ab1d20c83ba036f5ba025f54cdf662adc}\label{structmrb__debug__context_ab1d20c83ba036f5ba025f54cdf662adc} 
+mrdb\+\_\+exemode(\texorpdfstring{$\ast$}{*} {\bfseries break\+\_\+hook} )(\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structmrb__debug__context}{mrb\+\_\+debug\+\_\+context}} \texorpdfstring{$\ast$}{*}dbg)
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/bin-\/debugger/tools/mrdb/mrdb.\+h\end{DoxyCompactItemize}

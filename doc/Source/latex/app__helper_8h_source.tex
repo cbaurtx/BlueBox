@@ -1,0 +1,101 @@
+\doxysection{app\+\_\+helper.\+h}
+\hypertarget{app__helper_8h_source}{}\label{app__helper_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/app\_helper.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/app\_helper.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ APP\_HELPER\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ APP\_HELPER\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_config.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <cinttypes>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#ifdef\ HAVE\_SYS\_TIME\_H}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#\ \ include\ <sys/time.h>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ HAVE\_SYS\_TIME\_H}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <poll.h>}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{namespace\ }nghttp2\ \{}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{int}\ verbose\_on\_header\_callback(nghttp2\_session\ *session,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ nghttp2\_frame\ *frame,\ \textcolor{keyword}{const}\ uint8\_t\ *name,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ namelen,\ \textcolor{keyword}{const}\ uint8\_t\ *value,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ valuelen,\ uint8\_t\ flags,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{int}\ verbose\_on\_frame\_recv\_callback(nghttp2\_session\ *session,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ nghttp2\_frame\ *frame,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{int}\ verbose\_on\_invalid\_frame\_recv\_callback(nghttp2\_session\ *session,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ nghttp2\_frame\ *frame,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ lib\_error\_code,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keywordtype}{int}\ verbose\_on\_frame\_send\_callback(nghttp2\_session\ *session,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ nghttp2\_frame\ *frame,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{int}\ verbose\_on\_data\_chunk\_recv\_callback(nghttp2\_session\ *session,\ uint8\_t\ flags,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,\ \textcolor{keyword}{const}\ uint8\_t\ *data,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keywordtype}{int}\ verbose\_error\_callback(nghttp2\_session\ *session,\ \textcolor{keywordtype}{int}\ lib\_error\_code,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *msg,\ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{comment}{//\ Returns\ difference\ between\ |a|\ and\ |b|\ in\ milliseconds,\ assuming}}
+\DoxyCodeLine{00067\ \textcolor{comment}{//\ |a|\ is\ more\ recent\ than\ |b|.}}
+\DoxyCodeLine{00068\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ TimePo\textcolor{keywordtype}{int}>}
+\DoxyCodeLine{00069\ std::chrono::milliseconds\ time\_delta(\textcolor{keyword}{const}\ TimePoint\ \&a,\ \textcolor{keyword}{const}\ TimePoint\ \&b)\ \{}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordflow}{return}\ std::chrono::duration\_cast<std::chrono::milliseconds>(a\ -\/\ b);}
+\DoxyCodeLine{00071\ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{comment}{//\ Resets\ timer}}
+\DoxyCodeLine{00074\ \textcolor{keywordtype}{void}\ reset\_timer();}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{comment}{//\ Returns\ the\ duration\ since\ timer\ reset.}}
+\DoxyCodeLine{00077\ std::chrono::milliseconds\ get\_timer();}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{comment}{//\ Returns\ current\ time\ point.}}
+\DoxyCodeLine{00080\ std::chrono::steady\_clock::time\_point\ get\_time();}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keywordtype}{void}\ print\_timer();}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{comment}{//\ Setting\ true\ will\ print\ characters\ with\ ANSI\ color\ escape\ codes}}
+\DoxyCodeLine{00085\ \textcolor{comment}{//\ when\ printing\ HTTP2\ frames.\ This\ function\ changes\ a\ static}}
+\DoxyCodeLine{00086\ \textcolor{comment}{//\ variable.}}
+\DoxyCodeLine{00087\ \textcolor{keywordtype}{void}\ set\_color\_output(\textcolor{keywordtype}{bool}\ f);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{comment}{//\ Set\ output\ file\ when\ printing\ HTTP2\ frames.\ By\ default,\ stdout\ is}}
+\DoxyCodeLine{00090\ \textcolor{comment}{//\ used.}}
+\DoxyCodeLine{00091\ \textcolor{keywordtype}{void}\ set\_output(FILE\ *file);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \}\ \textcolor{comment}{//\ namespace\ nghttp2}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ APP\_HELPER\_H}}
+
+\end{DoxyCode}

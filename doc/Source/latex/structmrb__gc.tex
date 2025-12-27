@@ -1,0 +1,82 @@
+\doxysection{mrb\+\_\+gc Struct Reference}
+\hypertarget{structmrb__gc}{}\label{structmrb__gc}\index{mrb\_gc@{mrb\_gc}}
+
+
+Collaboration diagram for mrb\+\_\+gc\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{structmrb__gc__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structmrb__gc_a6b0049f475b98342e68b0f40513a210e}\label{structmrb__gc_a6b0049f475b98342e68b0f40513a210e} 
+struct \mbox{\hyperlink{structmrb__heap__page}{mrb\+\_\+heap\+\_\+page}} \texorpdfstring{$\ast$}{*} {\bfseries heaps}
+\item 
+\Hypertarget{structmrb__gc_a00e57434b8eb4e39271721e1ce8cae61}\label{structmrb__gc_a00e57434b8eb4e39271721e1ce8cae61} 
+struct \mbox{\hyperlink{structmrb__heap__page}{mrb\+\_\+heap\+\_\+page}} \texorpdfstring{$\ast$}{*} {\bfseries free\+\_\+heaps}
+\item 
+\Hypertarget{structmrb__gc_a6daa9620d0260d41f1e5862510bfec0a}\label{structmrb__gc_a6daa9620d0260d41f1e5862510bfec0a} 
+struct \mbox{\hyperlink{structmrb__heap__page}{mrb\+\_\+heap\+\_\+page}} \texorpdfstring{$\ast$}{*} {\bfseries sweeps}
+\item 
+\Hypertarget{structmrb__gc_afaeaf119e5a13670cc14ac06c41ec0a6}\label{structmrb__gc_afaeaf119e5a13670cc14ac06c41ec0a6} 
+struct \mbox{\hyperlink{structRBasic}{RBasic}} \texorpdfstring{$\ast$}{*} {\bfseries gray\+\_\+list}
+\item 
+\Hypertarget{structmrb__gc_a512c0226aae745a6b4568db666958d91}\label{structmrb__gc_a512c0226aae745a6b4568db666958d91} 
+struct \mbox{\hyperlink{structRBasic}{RBasic}} \texorpdfstring{$\ast$}{*} {\bfseries atomic\+\_\+gray\+\_\+list}
+\item 
+\Hypertarget{structmrb__gc_a661834ef6923231b6b90966004567d5f}\label{structmrb__gc_a661834ef6923231b6b90966004567d5f} 
+size\+\_\+t {\bfseries live}
+\item 
+\Hypertarget{structmrb__gc_ac32fe569d3c74255229bfc7678bd6e86}\label{structmrb__gc_ac32fe569d3c74255229bfc7678bd6e86} 
+size\+\_\+t {\bfseries live\+\_\+after\+\_\+mark}
+\item 
+\Hypertarget{structmrb__gc_a1043c658dbe3661b1514b80bb8673a27}\label{structmrb__gc_a1043c658dbe3661b1514b80bb8673a27} 
+size\+\_\+t {\bfseries threshold}
+\item 
+\Hypertarget{structmrb__gc_afe493f607ebd484d7dec8b42729ebe75}\label{structmrb__gc_afe493f607ebd484d7dec8b42729ebe75} 
+size\+\_\+t {\bfseries oldgen\+\_\+threshold}
+\item 
+\Hypertarget{structmrb__gc_a146b605a28c666cff345e6a1bdf22817}\label{structmrb__gc_a146b605a28c666cff345e6a1bdf22817} 
+mrb\+\_\+gc\+\_\+state {\bfseries state}
+\item 
+\Hypertarget{structmrb__gc_a7039976c80e0993da78b6ab97de81e28}\label{structmrb__gc_a7039976c80e0993da78b6ab97de81e28} 
+int {\bfseries interval\+\_\+ratio}
+\item 
+\Hypertarget{structmrb__gc_a8669db926dd1a0d6fe736efce579d66f}\label{structmrb__gc_a8669db926dd1a0d6fe736efce579d66f} 
+int {\bfseries step\+\_\+ratio}
+\item 
+\Hypertarget{structmrb__gc_a02f12661cb31001bee4e4b03ed76e995}\label{structmrb__gc_a02f12661cb31001bee4e4b03ed76e995} 
+int {\bfseries current\+\_\+white\+\_\+part}\+:2
+\item 
+\Hypertarget{structmrb__gc_ab1c29a4eed164606d2656885b77586b5}\label{structmrb__gc_ab1c29a4eed164606d2656885b77586b5} 
+\mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries iterating}\+:1
+\item 
+\Hypertarget{structmrb__gc_a1b08461a6da4e7d9db0a522104308b65}\label{structmrb__gc_a1b08461a6da4e7d9db0a522104308b65} 
+\mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries disabled}\+:1
+\item 
+\Hypertarget{structmrb__gc_a34dc2bfb9940b2ff01f58b47ace08b81}\label{structmrb__gc_a34dc2bfb9940b2ff01f58b47ace08b81} 
+\mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries generational}\+:1
+\item 
+\Hypertarget{structmrb__gc_a17d7fd659c4c3a6d69719a509f4518e9}\label{structmrb__gc_a17d7fd659c4c3a6d69719a509f4518e9} 
+\mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries full}\+:1
+\item 
+\Hypertarget{structmrb__gc_ae3703495373dae6c8453634839d82616}\label{structmrb__gc_ae3703495373dae6c8453634839d82616} 
+\mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries out\+\_\+of\+\_\+memory}\+:1
+\item 
+\Hypertarget{structmrb__gc_a930fa9292f41dfc0e1870308a239bda5}\label{structmrb__gc_a930fa9292f41dfc0e1870308a239bda5} 
+struct \mbox{\hyperlink{structRBasic}{RBasic}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} {\bfseries arena}
+\item 
+\Hypertarget{structmrb__gc_a74d4be1edd149126d0f1b986bdb8cafc}\label{structmrb__gc_a74d4be1edd149126d0f1b986bdb8cafc} 
+int {\bfseries arena\+\_\+capa}
+\item 
+\Hypertarget{structmrb__gc_a59aadfa749fab8b69ed282f5512ab56e}\label{structmrb__gc_a59aadfa749fab8b69ed282f5512ab56e} 
+int {\bfseries arena\+\_\+idx}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/\mbox{\hyperlink{gc_8h}{gc.\+h}}\end{DoxyCompactItemize}

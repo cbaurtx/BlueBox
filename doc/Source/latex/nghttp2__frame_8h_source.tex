@@ -1,0 +1,624 @@
+\doxysection{nghttp2\+\_\+frame.\+h}
+\hypertarget{nghttp2__frame_8h_source}{}\label{nghttp2__frame_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_frame.h@{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_frame.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_FRAME\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ NGHTTP2\_FRAME\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifdef\ HAVE\_CONFIG\_H}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ \ include\ <config.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_CONFIG\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_hd.h"{}}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_buf.h"{}}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ NGHTTP2\_STREAM\_ID\_MASK\ ((1u\ <<\ 31)\ -\/\ 1)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ NGHTTP2\_PRI\_GROUP\_ID\_MASK\ ((1u\ <<\ 31)\ -\/\ 1)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ NGHTTP2\_PRIORITY\_MASK\ ((1u\ <<\ 31)\ -\/\ 1)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ NGHTTP2\_WINDOW\_SIZE\_INCREMENT\_MASK\ ((1u\ <<\ 31)\ -\/\ 1)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ NGHTTP2\_SETTINGS\_ID\_MASK\ ((1\ <<\ 24)\ -\/\ 1)}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{comment}{/*\ The\ number\ of\ bytes\ of\ frame\ header.\ */}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ NGHTTP2\_FRAME\_HDLEN\ 9}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ NGHTTP2\_MAX\_FRAME\_SIZE\_MAX\ ((1\ <<\ 24)\ -\/\ 1)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ NGHTTP2\_MAX\_FRAME\_SIZE\_MIN\ (1\ <<\ 14)}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ NGHTTP2\_MAX\_PAYLOADLEN\ 16384}}
+\DoxyCodeLine{00049\ \textcolor{comment}{/*\ The\ one\ frame\ buffer\ length\ for\ transmission.\ \ We\ may\ use\ several\ of}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ \ \ them\ to\ support\ CONTINUATION.\ \ To\ account\ for\ Pad\ Length\ field,\ we}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ \ \ allocate\ extra\ 1\ byte,\ which\ saves\ extra\ large\ memcopying.\ */}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ NGHTTP2\_FRAMEBUF\_CHUNKLEN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\ \ (NGHTTP2\_FRAME\_HDLEN\ +\ 1\ +\ NGHTTP2\_MAX\_PAYLOADLEN)}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{/*\ The\ default\ length\ of\ DATA\ frame\ payload.\ */}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ NGHTTP2\_DATA\_PAYLOADLEN\ NGHTTP2\_MAX\_FRAME\_SIZE\_MIN}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{/*\ Maximum\ headers\ block\ size\ to\ send,\ calculated\ using}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ \ \ nghttp2\_hd\_deflate\_bound().\ \ This\ is\ the\ default\ value,\ and\ can\ be}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ \ \ overridden\ by\ nghttp2\_option\_set\_max\_send\_header\_block\_length().\ */}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ NGHTTP2\_MAX\_HEADERSLEN\ 65536}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{/*\ The\ number\ of\ bytes\ for\ each\ SETTINGS\ entry\ */}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ NGHTTP2\_FRAME\_SETTINGS\_ENTRY\_LENGTH\ 6}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{comment}{/*\ Length\ of\ priority\ related\ fields\ in\ HEADERS/PRIORITY\ frames\ */}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ NGHTTP2\_PRIORITY\_SPECLEN\ 5}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{comment}{/*\ Maximum\ length\ of\ padding\ in\ bytes.\ */}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ NGHTTP2\_MAX\_PADLEN\ 256}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{comment}{/*\ Union\ of\ extension\ frame\ payload\ */}}
+\DoxyCodeLine{00073\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00074\ \ \ \mbox{\hyperlink{structnghttp2__ext__altsvc}{nghttp2\_ext\_altsvc}}\ altsvc;}
+\DoxyCodeLine{00075\ \ \ \mbox{\hyperlink{structnghttp2__ext__origin}{nghttp2\_ext\_origin}}\ origin;}
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{structnghttp2__ext__priority__update}{nghttp2\_ext\_priority\_update}}\ priority\_update;}
+\DoxyCodeLine{00077\ \}\ \mbox{\hyperlink{unionnghttp2__ext__frame__payload}{nghttp2\_ext\_frame\_payload}};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_pack\_frame\_hd(uint8\_t\ *buf,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ *hd);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_unpack\_frame\_hd(\mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ *hd,\ \textcolor{keyword}{const}\ uint8\_t\ *buf);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00087\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_hd\_init(\mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ *hd,\ \textcolor{keywordtype}{size\_t}\ length,\ uint8\_t\ type,}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ flags,\ int32\_t\ stream\_id);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00095\ \textcolor{keywordtype}{size\_t}\ nghttp2\_frame\_priority\_len(uint8\_t\ flags);}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00101\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_pack\_priority\_spec(uint8\_t\ *buf,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__priority__spec}{nghttp2\_priority\_spec}}\ *pri\_spec);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00110\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_unpack\_priority\_spec(\mbox{\hyperlink{structnghttp2__priority__spec}{nghttp2\_priority\_spec}}\ *pri\_spec,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *payload);}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ *\ Returns\ the\ offset\ from\ the\ HEADERS\ frame\ payload\ where\ the}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ *\ compressed\ header\ block\ starts.\ The\ frame\ payload\ does\ not\ include}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ *\ frame\ header.}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00118\ \textcolor{keywordtype}{size\_t}\ nghttp2\_frame\_headers\_payload\_nv\_offset(\mbox{\hyperlink{structnghttp2__headers}{nghttp2\_headers}}\ *frame);}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ *\ Packs\ HEADERS\ frame\ |frame|\ in\ wire\ format\ and\ store\ it\ in\ |bufs|.}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ *\ This\ function\ expands\ |bufs|\ as\ necessary\ to\ store\ frame.}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ *\ The\ caller\ must\ make\ sure\ that\ nghttp2\_bufs\_reset(bufs)\ is\ called}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ *\ before\ calling\ this\ function.}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ *\ frame-\/>hd.length\ is\ assigned\ after\ length\ is\ determined\ during}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ *\ packing\ process.\ \ CONTINUATION\ frames\ are\ also\ serialized\ in\ this}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ *\ function.\ This\ function\ does\ not\ handle\ padding.}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ returns\ one\ of\ the}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ *\ following\ negative\ error\ codes:}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_HEADER\_COMP}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ *\ \ \ \ \ The\ deflate\ operation\ failed.}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00139\ \textcolor{keywordtype}{int}\ nghttp2\_frame\_pack\_headers(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \mbox{\hyperlink{structnghttp2__headers}{nghttp2\_headers}}\ *frame,}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ *deflater);}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ *\ Unpacks\ HEADERS\ frame\ byte\ sequence\ into\ |frame|.\ \ This\ function}}
+\DoxyCodeLine{00144\ \textcolor{comment}{\ *\ only\ unapcks\ bytes\ that\ come\ before\ name/value\ header\ block\ and}}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ *\ after\ possible\ Pad\ Length\ field.}}
+\DoxyCodeLine{00146\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00147\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_unpack\_headers\_payload(\mbox{\hyperlink{structnghttp2__headers}{nghttp2\_headers}}\ *frame,}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *payload);}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00151\ \textcolor{comment}{\ *\ Packs\ PRIORITY\ frame\ |frame|\ in\ wire\ format\ and\ store\ it\ in}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ *\ |bufs|.}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00154\ \textcolor{comment}{\ *\ The\ caller\ must\ make\ sure\ that\ nghttp2\_bufs\_reset(bufs)\ is\ called}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ *\ before\ calling\ this\ function.}}
+\DoxyCodeLine{00156\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00157\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_pack\_priority(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \mbox{\hyperlink{structnghttp2__priority}{nghttp2\_priority}}\ *frame);}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00160\ \textcolor{comment}{\ *\ Unpacks\ PRIORITY\ wire\ format\ into\ |frame|.}}
+\DoxyCodeLine{00161\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00162\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_unpack\_priority\_payload(\mbox{\hyperlink{structnghttp2__priority}{nghttp2\_priority}}\ *frame,}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *payload);}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ *\ Packs\ RST\_STREAM\ frame\ |frame|\ in\ wire\ frame\ format\ and\ store\ it\ in}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ *\ |bufs|.}}
+\DoxyCodeLine{00168\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00169\ \textcolor{comment}{\ *\ The\ caller\ must\ make\ sure\ that\ nghttp2\_bufs\_reset(bufs)\ is\ called}}
+\DoxyCodeLine{00170\ \textcolor{comment}{\ *\ before\ calling\ this\ function.}}
+\DoxyCodeLine{00171\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00172\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_pack\_rst\_stream(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__rst__stream}{nghttp2\_rst\_stream}}\ *frame);}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00176\ \textcolor{comment}{\ *\ Unpacks\ RST\_STREAM\ frame\ byte\ sequence\ into\ |frame|.}}
+\DoxyCodeLine{00177\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00178\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_unpack\_rst\_stream\_payload(\mbox{\hyperlink{structnghttp2__rst__stream}{nghttp2\_rst\_stream}}\ *frame,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *payload);}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00182\ \textcolor{comment}{\ *\ Packs\ SETTINGS\ frame\ |frame|\ in\ wire\ format\ and\ store\ it\ in}}
+\DoxyCodeLine{00183\ \textcolor{comment}{\ *\ |bufs|.}}
+\DoxyCodeLine{00184\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00185\ \textcolor{comment}{\ *\ The\ caller\ must\ make\ sure\ that\ nghttp2\_bufs\_reset(bufs)\ is\ called}}
+\DoxyCodeLine{00186\ \textcolor{comment}{\ *\ before\ calling\ this\ function.}}
+\DoxyCodeLine{00187\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00188\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ returns\ one\ of\ the}}
+\DoxyCodeLine{00189\ \textcolor{comment}{\ *\ following\ negative\ error\ codes:}}
+\DoxyCodeLine{00190\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00191\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_FRAME\_SIZE\_ERROR}}
+\DoxyCodeLine{00192\ \textcolor{comment}{\ *\ \ \ \ \ The\ length\ of\ the\ frame\ is\ too\ large.}}
+\DoxyCodeLine{00193\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00194\ \textcolor{keywordtype}{int}\ nghttp2\_frame\_pack\_settings(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \mbox{\hyperlink{structnghttp2__settings}{nghttp2\_settings}}\ *frame);}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00197\ \textcolor{comment}{\ *\ Packs\ the\ |iv|,\ which\ includes\ |niv|\ entries,\ in\ the\ |buf|,}}
+\DoxyCodeLine{00198\ \textcolor{comment}{\ *\ assuming\ the\ |buf|\ has\ at\ least\ 8\ *\ |niv|\ bytes.}}
+\DoxyCodeLine{00199\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00200\ \textcolor{comment}{\ *\ Returns\ the\ number\ of\ bytes\ written\ into\ the\ |buf|.}}
+\DoxyCodeLine{00201\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00202\ \textcolor{keywordtype}{size\_t}\ nghttp2\_frame\_pack\_settings\_payload(uint8\_t\ *buf,}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__settings__entry}{nghttp2\_settings\_entry}}\ *iv,}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ niv);}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_unpack\_settings\_entry(\mbox{\hyperlink{structnghttp2__settings__entry}{nghttp2\_settings\_entry}}\ *iv,}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *payload);}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00210\ \textcolor{comment}{\ *\ Initializes\ payload\ of\ frame-\/>settings.\ \ The\ |frame|\ takes}}
+\DoxyCodeLine{00211\ \textcolor{comment}{\ *\ ownership\ of\ |iv|.}}
+\DoxyCodeLine{00212\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00213\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_unpack\_settings\_payload(\mbox{\hyperlink{structnghttp2__settings}{nghttp2\_settings}}\ *frame,}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__settings__entry}{nghttp2\_settings\_entry}}\ *iv,}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ niv);}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00218\ \textcolor{comment}{\ *\ Unpacks\ SETTINGS\ payload\ into\ |*iv\_ptr|.\ The\ number\ of\ entries\ are}}
+\DoxyCodeLine{00219\ \textcolor{comment}{\ *\ assigned\ to\ the\ |*niv\_ptr|.\ This\ function\ allocates\ enough\ memory}}
+\DoxyCodeLine{00220\ \textcolor{comment}{\ *\ to\ store\ the\ result\ in\ |*iv\_ptr|.\ The\ caller\ is\ responsible\ to\ free}}
+\DoxyCodeLine{00221\ \textcolor{comment}{\ *\ |*iv\_ptr|\ after\ its\ use.}}
+\DoxyCodeLine{00222\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00223\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00224\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00225\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00226\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00227\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00228\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00229\ \textcolor{keywordtype}{int}\ nghttp2\_frame\_unpack\_settings\_payload2(\mbox{\hyperlink{structnghttp2__settings__entry}{nghttp2\_settings\_entry}}\ **iv\_ptr,}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ *niv\_ptr,}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *payload,}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ payloadlen,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00235\ \textcolor{comment}{\ *\ Packs\ PUSH\_PROMISE\ frame\ |frame|\ in\ wire\ format\ and\ store\ it\ in}}
+\DoxyCodeLine{00236\ \textcolor{comment}{\ *\ |bufs|.\ \ This\ function\ expands\ |bufs|\ as\ necessary\ to\ store}}
+\DoxyCodeLine{00237\ \textcolor{comment}{\ *\ frame.}}
+\DoxyCodeLine{00238\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00239\ \textcolor{comment}{\ *\ The\ caller\ must\ make\ sure\ that\ nghttp2\_bufs\_reset(bufs)\ is\ called}}
+\DoxyCodeLine{00240\ \textcolor{comment}{\ *\ before\ calling\ this\ function.}}
+\DoxyCodeLine{00241\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00242\ \textcolor{comment}{\ *\ frame-\/>hd.length\ is\ assigned\ after\ length\ is\ determined\ during}}
+\DoxyCodeLine{00243\ \textcolor{comment}{\ *\ packing\ process.\ \ CONTINUATION\ frames\ are\ also\ serialized\ in\ this}}
+\DoxyCodeLine{00244\ \textcolor{comment}{\ *\ function.\ This\ function\ does\ not\ handle\ padding.}}
+\DoxyCodeLine{00245\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00246\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ returns\ one\ of\ the}}
+\DoxyCodeLine{00247\ \textcolor{comment}{\ *\ following\ negative\ error\ codes:}}
+\DoxyCodeLine{00248\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00249\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_HEADER\_COMP}}
+\DoxyCodeLine{00250\ \textcolor{comment}{\ *\ \ \ \ \ The\ deflate\ operation\ failed.}}
+\DoxyCodeLine{00251\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00252\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00253\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00254\ \textcolor{keywordtype}{int}\ nghttp2\_frame\_pack\_push\_promise(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__push__promise}{nghttp2\_push\_promise}}\ *frame,}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ *deflater);}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00259\ \textcolor{comment}{\ *\ Unpacks\ PUSH\_PROMISE\ frame\ byte\ sequence\ into\ |frame|.\ \ This}}
+\DoxyCodeLine{00260\ \textcolor{comment}{\ *\ function\ only\ unapcks\ bytes\ that\ come\ before\ name/value\ header}}
+\DoxyCodeLine{00261\ \textcolor{comment}{\ *\ block\ and\ after\ possible\ Pad\ Length\ field.}}
+\DoxyCodeLine{00262\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00263\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_unpack\_push\_promise\_payload(\mbox{\hyperlink{structnghttp2__push__promise}{nghttp2\_push\_promise}}\ *frame,}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *payload);}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00267\ \textcolor{comment}{\ *\ Packs\ PING\ frame\ |frame|\ in\ wire\ format\ and\ store\ it\ in}}
+\DoxyCodeLine{00268\ \textcolor{comment}{\ *\ |bufs|.}}
+\DoxyCodeLine{00269\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00270\ \textcolor{comment}{\ *\ The\ caller\ must\ make\ sure\ that\ nghttp2\_bufs\_reset(bufs)\ is\ called}}
+\DoxyCodeLine{00271\ \textcolor{comment}{\ *\ before\ calling\ this\ function.}}
+\DoxyCodeLine{00272\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00273\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_pack\_ping(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \mbox{\hyperlink{structnghttp2__ping}{nghttp2\_ping}}\ *frame);}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00276\ \textcolor{comment}{\ *\ Unpacks\ PING\ wire\ format\ into\ |frame|.}}
+\DoxyCodeLine{00277\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00278\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_unpack\_ping\_payload(\mbox{\hyperlink{structnghttp2__ping}{nghttp2\_ping}}\ *frame,}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *payload);}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00282\ \textcolor{comment}{\ *\ Packs\ GOAWAY\ frame\ |frame|\ in\ wire\ format\ and\ store\ it\ in\ |bufs|.}}
+\DoxyCodeLine{00283\ \textcolor{comment}{\ *\ This\ function\ expands\ |bufs|\ as\ necessary\ to\ store\ frame.}}
+\DoxyCodeLine{00284\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00285\ \textcolor{comment}{\ *\ The\ caller\ must\ make\ sure\ that\ nghttp2\_bufs\_reset(bufs)\ is\ called}}
+\DoxyCodeLine{00286\ \textcolor{comment}{\ *\ before\ calling\ this\ function.}}
+\DoxyCodeLine{00287\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00288\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00289\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00290\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00291\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00292\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00293\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_FRAME\_SIZE\_ERROR}}
+\DoxyCodeLine{00294\ \textcolor{comment}{\ *\ \ \ \ \ The\ length\ of\ the\ frame\ is\ too\ large.}}
+\DoxyCodeLine{00295\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00296\ \textcolor{keywordtype}{int}\ nghttp2\_frame\_pack\_goaway(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \mbox{\hyperlink{structnghttp2__goaway}{nghttp2\_goaway}}\ *frame);}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00299\ \textcolor{comment}{\ *\ Unpacks\ GOAWAY\ wire\ format\ into\ |frame|.\ \ The\ |payload|\ of\ length}}
+\DoxyCodeLine{00300\ \textcolor{comment}{\ *\ |payloadlen|\ contains\ first\ 8\ bytes\ of\ payload.\ \ The}}
+\DoxyCodeLine{00301\ \textcolor{comment}{\ *\ |var\_gift\_payload|\ of\ length\ |var\_gift\_payloadlen|\ contains}}
+\DoxyCodeLine{00302\ \textcolor{comment}{\ *\ remaining\ payload\ and\ its\ buffer\ is\ gifted\ to\ the\ function\ and\ then}}
+\DoxyCodeLine{00303\ \textcolor{comment}{\ *\ |frame|.\ \ The\ |var\_gift\_payloadlen|\ must\ be\ freed\ by}}
+\DoxyCodeLine{00304\ \textcolor{comment}{\ *\ nghttp2\_frame\_goaway\_free().}}
+\DoxyCodeLine{00305\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00306\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_unpack\_goaway\_payload(\mbox{\hyperlink{structnghttp2__goaway}{nghttp2\_goaway}}\ *frame,}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *payload,}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *var\_gift\_payload,}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ var\_gift\_payloadlen);}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00312\ \textcolor{comment}{\ *\ Unpacks\ GOAWAY\ wire\ format\ into\ |frame|.\ \ This\ function\ only\ exists}}
+\DoxyCodeLine{00313\ \textcolor{comment}{\ *\ for\ unit\ test.\ \ After\ allocating\ buffer\ for\ debug\ data,\ this}}
+\DoxyCodeLine{00314\ \textcolor{comment}{\ *\ function\ internally\ calls\ nghttp2\_frame\_unpack\_goaway\_payload().}}
+\DoxyCodeLine{00315\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00316\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00317\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00318\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00319\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00320\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00321\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00322\ \textcolor{keywordtype}{int}\ nghttp2\_frame\_unpack\_goaway\_payload2(\mbox{\hyperlink{structnghttp2__goaway}{nghttp2\_goaway}}\ *frame,}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *payload,}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ payloadlen,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00327\ \textcolor{comment}{\ *\ Packs\ WINDOW\_UPDATE\ frame\ |frame|\ in\ wire\ frame\ format\ and\ store\ it}}
+\DoxyCodeLine{00328\ \textcolor{comment}{\ *\ in\ |bufs|.}}
+\DoxyCodeLine{00329\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00330\ \textcolor{comment}{\ *\ The\ caller\ must\ make\ sure\ that\ nghttp2\_bufs\_reset(bufs)\ is\ called}}
+\DoxyCodeLine{00331\ \textcolor{comment}{\ *\ before\ calling\ this\ function.}}
+\DoxyCodeLine{00332\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00333\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_pack\_window\_update(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__window__update}{nghttp2\_window\_update}}\ *frame);}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00337\ \textcolor{comment}{\ *\ Unpacks\ WINDOW\_UPDATE\ frame\ byte\ sequence\ into\ |frame|.}}
+\DoxyCodeLine{00338\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00339\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_unpack\_window\_update\_payload(\mbox{\hyperlink{structnghttp2__window__update}{nghttp2\_window\_update}}\ *frame,}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *payload);}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00343\ \textcolor{comment}{\ *\ Packs\ ALTSVC\ frame\ |frame|\ in\ wire\ frame\ format\ and\ store\ it\ in}}
+\DoxyCodeLine{00344\ \textcolor{comment}{\ *\ |bufs|.}}
+\DoxyCodeLine{00345\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00346\ \textcolor{comment}{\ *\ The\ caller\ must\ make\ sure\ that\ nghttp2\_bufs\_reset(bufs)\ is\ called}}
+\DoxyCodeLine{00347\ \textcolor{comment}{\ *\ before\ calling\ this\ function.}}
+\DoxyCodeLine{00348\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00349\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_pack\_altsvc(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \mbox{\hyperlink{structnghttp2__extension}{nghttp2\_extension}}\ *ext);}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00352\ \textcolor{comment}{\ *\ Unpacks\ ALTSVC\ wire\ format\ into\ |frame|.\ \ The\ |payload|\ of}}
+\DoxyCodeLine{00353\ \textcolor{comment}{\ *\ |payloadlen|\ bytes\ contains\ frame\ payload.\ \ This\ function\ assumes}}
+\DoxyCodeLine{00354\ \textcolor{comment}{\ *\ that\ frame-\/>payload\ points\ to\ the\ nghttp2\_ext\_altsvc\ object.}}
+\DoxyCodeLine{00355\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00356\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_unpack\_altsvc\_payload(\mbox{\hyperlink{structnghttp2__extension}{nghttp2\_extension}}\ *frame,}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ origin\_len,\ uint8\_t\ *payload,}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ payloadlen);}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00361\ \textcolor{comment}{\ *\ Unpacks\ ALTSVC\ wire\ format\ into\ |frame|.\ \ This\ function\ only\ exists}}
+\DoxyCodeLine{00362\ \textcolor{comment}{\ *\ for\ unit\ test.\ \ After\ allocating\ buffer\ for\ fields,\ this\ function}}
+\DoxyCodeLine{00363\ \textcolor{comment}{\ *\ internally\ calls\ nghttp2\_frame\_unpack\_altsvc\_payload().}}
+\DoxyCodeLine{00364\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00365\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00366\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00367\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00368\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00369\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00370\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_FRAME\_SIZE\_ERROR}}
+\DoxyCodeLine{00371\ \textcolor{comment}{\ *\ \ \ \ \ The\ payload\ is\ too\ small.}}
+\DoxyCodeLine{00372\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00373\ \textcolor{keywordtype}{int}\ nghttp2\_frame\_unpack\_altsvc\_payload2(\mbox{\hyperlink{structnghttp2__extension}{nghttp2\_extension}}\ *frame,}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *payload,}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ payloadlen,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00378\ \textcolor{comment}{\ *\ Packs\ ORIGIN\ frame\ |frame|\ in\ wire\ frame\ format\ and\ store\ it\ in}}
+\DoxyCodeLine{00379\ \textcolor{comment}{\ *\ |bufs|.}}
+\DoxyCodeLine{00380\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00381\ \textcolor{comment}{\ *\ The\ caller\ must\ make\ sure\ that\ nghttp2\_bufs\_reset(bufs)\ is\ called}}
+\DoxyCodeLine{00382\ \textcolor{comment}{\ *\ before\ calling\ this\ function.}}
+\DoxyCodeLine{00383\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00384\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00385\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00386\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00387\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_FRAME\_SIZE\_ERROR}}
+\DoxyCodeLine{00388\ \textcolor{comment}{\ *\ \ \ \ \ The\ length\ of\ the\ frame\ is\ too\ large.}}
+\DoxyCodeLine{00389\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00390\ \textcolor{keywordtype}{int}\ nghttp2\_frame\_pack\_origin(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \mbox{\hyperlink{structnghttp2__extension}{nghttp2\_extension}}\ *ext);}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00392\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00393\ \textcolor{comment}{\ *\ Unpacks\ ORIGIN\ wire\ format\ into\ |frame|.\ \ The\ |payload|\ of\ length}}
+\DoxyCodeLine{00394\ \textcolor{comment}{\ *\ |payloadlen|\ contains\ the\ frame\ payload.}}
+\DoxyCodeLine{00395\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00396\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00397\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00398\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00399\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00400\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00401\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_FRAME\_SIZE\_ERROR}}
+\DoxyCodeLine{00402\ \textcolor{comment}{\ *\ \ \ \ \ The\ payload\ is\ too\ small.}}
+\DoxyCodeLine{00403\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00404\ \textcolor{keywordtype}{int}\ nghttp2\_frame\_unpack\_origin\_payload(\mbox{\hyperlink{structnghttp2__extension}{nghttp2\_extension}}\ *frame,}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *payload,}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ payloadlen,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00408\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00409\ \textcolor{comment}{\ *\ Packs\ PRIORITY\_UPDATE\ frame\ |frame|\ in\ wire\ frame\ format\ and\ store}}
+\DoxyCodeLine{00410\ \textcolor{comment}{\ *\ it\ in\ |bufs|.}}
+\DoxyCodeLine{00411\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00412\ \textcolor{comment}{\ *\ The\ caller\ must\ make\ sure\ that\ nghttp2\_bufs\_reset(bufs)\ is\ called}}
+\DoxyCodeLine{00413\ \textcolor{comment}{\ *\ before\ calling\ this\ function.}}
+\DoxyCodeLine{00414\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00415\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_pack\_priority\_update(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__extension}{nghttp2\_extension}}\ *ext);}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00419\ \textcolor{comment}{\ *\ Unpacks\ PRIORITY\_UPDATE\ wire\ format\ into\ |frame|.\ \ The\ |payload|\ of}}
+\DoxyCodeLine{00420\ \textcolor{comment}{\ *\ |payloadlen|\ bytes\ contains\ frame\ payload.\ \ This\ function\ assumes}}
+\DoxyCodeLine{00421\ \textcolor{comment}{\ *\ that\ frame-\/>payload\ points\ to\ the\ nghttp2\_ext\_priority\_update}}
+\DoxyCodeLine{00422\ \textcolor{comment}{\ *\ object.}}
+\DoxyCodeLine{00423\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00424\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_unpack\_priority\_update\_payload(\mbox{\hyperlink{structnghttp2__extension}{nghttp2\_extension}}\ *frame,}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *payload,}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ payloadlen);}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00429\ \textcolor{comment}{\ *\ Initializes\ HEADERS\ frame\ |frame|\ with\ given\ values.\ \ |frame|\ takes}}
+\DoxyCodeLine{00430\ \textcolor{comment}{\ *\ ownership\ of\ |nva|,\ so\ caller\ must\ not\ free\ it.\ If\ |stream\_id|\ is}}
+\DoxyCodeLine{00431\ \textcolor{comment}{\ *\ not\ assigned\ yet,\ it\ must\ be\ -\/1.}}
+\DoxyCodeLine{00432\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00433\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_headers\_init(\mbox{\hyperlink{structnghttp2__headers}{nghttp2\_headers}}\ *frame,\ uint8\_t\ flags,}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,\ nghttp2\_headers\_category\ cat,}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__priority__spec}{nghttp2\_priority\_spec}}\ *pri\_spec,}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,\ \textcolor{keywordtype}{size\_t}\ nvlen);}
+\DoxyCodeLine{00437\ }
+\DoxyCodeLine{00438\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_headers\_free(\mbox{\hyperlink{structnghttp2__headers}{nghttp2\_headers}}\ *frame,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_priority\_init(\mbox{\hyperlink{structnghttp2__priority}{nghttp2\_priority}}\ *frame,\ int32\_t\ stream\_id,}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__priority__spec}{nghttp2\_priority\_spec}}\ *pri\_spec);}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_priority\_free(\mbox{\hyperlink{structnghttp2__priority}{nghttp2\_priority}}\ *frame);}
+\DoxyCodeLine{00444\ }
+\DoxyCodeLine{00445\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_rst\_stream\_init(\mbox{\hyperlink{structnghttp2__rst__stream}{nghttp2\_rst\_stream}}\ *frame,\ int32\_t\ stream\_id,}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ error\_code);}
+\DoxyCodeLine{00447\ }
+\DoxyCodeLine{00448\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_rst\_stream\_free(\mbox{\hyperlink{structnghttp2__rst__stream}{nghttp2\_rst\_stream}}\ *frame);}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00450\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00451\ \textcolor{comment}{\ *\ Initializes\ PUSH\_PROMISE\ frame\ |frame|\ with\ given\ values.\ \ |frame|}}
+\DoxyCodeLine{00452\ \textcolor{comment}{\ *\ takes\ ownership\ of\ |nva|,\ so\ caller\ must\ not\ free\ it.}}
+\DoxyCodeLine{00453\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00454\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_push\_promise\_init(\mbox{\hyperlink{structnghttp2__push__promise}{nghttp2\_push\_promise}}\ *frame,\ uint8\_t\ flags,}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ promised\_stream\_id,}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,\ \textcolor{keywordtype}{size\_t}\ nvlen);}
+\DoxyCodeLine{00458\ }
+\DoxyCodeLine{00459\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_push\_promise\_free(\mbox{\hyperlink{structnghttp2__push__promise}{nghttp2\_push\_promise}}\ *frame,}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00462\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00463\ \textcolor{comment}{\ *\ Initializes\ SETTINGS\ frame\ |frame|\ with\ given\ values.\ |frame|\ takes}}
+\DoxyCodeLine{00464\ \textcolor{comment}{\ *\ ownership\ of\ |iv|,\ so\ caller\ must\ not\ free\ it.\ The\ |flags|\ are}}
+\DoxyCodeLine{00465\ \textcolor{comment}{\ *\ bitwise-\/OR\ of\ one\ or\ more\ of\ nghttp2\_settings\_flag.}}
+\DoxyCodeLine{00466\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00467\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_settings\_init(\mbox{\hyperlink{structnghttp2__settings}{nghttp2\_settings}}\ *frame,\ uint8\_t\ flags,}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__settings__entry}{nghttp2\_settings\_entry}}\ *iv,\ \textcolor{keywordtype}{size\_t}\ niv);}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00470\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_settings\_free(\mbox{\hyperlink{structnghttp2__settings}{nghttp2\_settings}}\ *frame,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00472\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00473\ \textcolor{comment}{\ *\ Initializes\ PING\ frame\ |frame|\ with\ given\ values.\ If\ the}}
+\DoxyCodeLine{00474\ \textcolor{comment}{\ *\ |opqeue\_data|\ is\ not\ NULL,\ it\ must\ point\ to\ 8\ bytes\ memory\ region}}
+\DoxyCodeLine{00475\ \textcolor{comment}{\ *\ of\ data.\ The\ data\ pointed\ by\ |opaque\_data|\ is\ copied.\ It\ can\ be}}
+\DoxyCodeLine{00476\ \textcolor{comment}{\ *\ NULL.\ In\ this\ case,\ 8\ bytes\ NULL\ is\ used.}}
+\DoxyCodeLine{00477\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00478\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_ping\_init(\mbox{\hyperlink{structnghttp2__ping}{nghttp2\_ping}}\ *frame,\ uint8\_t\ flags,}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *opque\_data);}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_ping\_free(\mbox{\hyperlink{structnghttp2__ping}{nghttp2\_ping}}\ *frame);}
+\DoxyCodeLine{00482\ }
+\DoxyCodeLine{00483\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00484\ \textcolor{comment}{\ *\ Initializes\ GOAWAY\ frame\ |frame|\ with\ given\ values.\ On\ success,}}
+\DoxyCodeLine{00485\ \textcolor{comment}{\ *\ this\ function\ takes\ ownership\ of\ |opaque\_data|,\ so\ caller\ must\ not}}
+\DoxyCodeLine{00486\ \textcolor{comment}{\ *\ free\ it.\ If\ the\ |opaque\_data\_len|\ is\ 0,\ opaque\_data\ could\ be\ NULL.}}
+\DoxyCodeLine{00487\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00488\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_goaway\_init(\mbox{\hyperlink{structnghttp2__goaway}{nghttp2\_goaway}}\ *frame,\ int32\_t\ last\_stream\_id,}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ error\_code,\ uint8\_t\ *opaque\_data,}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ opaque\_data\_len);}
+\DoxyCodeLine{00491\ }
+\DoxyCodeLine{00492\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_goaway\_free(\mbox{\hyperlink{structnghttp2__goaway}{nghttp2\_goaway}}\ *frame,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00493\ }
+\DoxyCodeLine{00494\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_window\_update\_init(\mbox{\hyperlink{structnghttp2__window__update}{nghttp2\_window\_update}}\ *frame,}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ flags,\ int32\_t\ stream\_id,}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ window\_size\_increment);}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_window\_update\_free(\mbox{\hyperlink{structnghttp2__window__update}{nghttp2\_window\_update}}\ *frame);}
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00500\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_extension\_init(\mbox{\hyperlink{structnghttp2__extension}{nghttp2\_extension}}\ *frame,\ uint8\_t\ type,}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ flags,\ int32\_t\ stream\_id,}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *payload);}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00504\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_extension\_free(\mbox{\hyperlink{structnghttp2__extension}{nghttp2\_extension}}\ *frame);}
+\DoxyCodeLine{00505\ }
+\DoxyCodeLine{00506\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00507\ \textcolor{comment}{\ *\ Initializes\ ALTSVC\ frame\ |frame|\ with\ given\ values.\ \ This\ function}}
+\DoxyCodeLine{00508\ \textcolor{comment}{\ *\ assumes\ that\ frame-\/>payload\ points\ to\ nghttp2\_ext\_altsvc\ object.}}
+\DoxyCodeLine{00509\ \textcolor{comment}{\ *\ Also\ |origin|\ and\ |field\_value|\ are\ allocated\ in\ single\ buffer,}}
+\DoxyCodeLine{00510\ \textcolor{comment}{\ *\ starting\ |origin|.\ \ On\ success,\ this\ function\ takes\ ownership\ of}}
+\DoxyCodeLine{00511\ \textcolor{comment}{\ *\ |origin|,\ so\ caller\ must\ not\ free\ it.}}
+\DoxyCodeLine{00512\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00513\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_altsvc\_init(\mbox{\hyperlink{structnghttp2__extension}{nghttp2\_extension}}\ *frame,\ int32\_t\ stream\_id,}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *origin,\ \textcolor{keywordtype}{size\_t}\ origin\_len,}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *field\_value,\ \textcolor{keywordtype}{size\_t}\ field\_value\_len);}
+\DoxyCodeLine{00516\ }
+\DoxyCodeLine{00517\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00518\ \textcolor{comment}{\ *\ Frees\ up\ resources\ under\ |frame|.\ \ This\ function\ does\ not\ free}}
+\DoxyCodeLine{00519\ \textcolor{comment}{\ *\ nghttp2\_ext\_altsvc\ object\ pointed\ by\ frame-\/>payload.\ \ This\ function}}
+\DoxyCodeLine{00520\ \textcolor{comment}{\ *\ only\ frees\ origin\ pointed\ by\ nghttp2\_ext\_altsvc.origin.\ \ Therefore,}}
+\DoxyCodeLine{00521\ \textcolor{comment}{\ *\ other\ fields\ must\ be\ allocated\ in\ the\ same\ buffer\ with\ origin.}}
+\DoxyCodeLine{00522\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00523\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_altsvc\_free(\mbox{\hyperlink{structnghttp2__extension}{nghttp2\_extension}}\ *frame,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00526\ \textcolor{comment}{\ *\ Initializes\ ORIGIN\ frame\ |frame|\ with\ given\ values.\ \ This\ function}}
+\DoxyCodeLine{00527\ \textcolor{comment}{\ *\ assumes\ that\ frame-\/>payload\ points\ to\ nghttp2\_ext\_origin\ object.}}
+\DoxyCodeLine{00528\ \textcolor{comment}{\ *\ Also\ |ov|\ and\ the\ memory\ pointed\ by\ the\ field\ of\ its\ elements\ are}}
+\DoxyCodeLine{00529\ \textcolor{comment}{\ *\ allocated\ in\ single\ buffer,\ starting\ with\ |ov|.\ \ On\ success,\ this}}
+\DoxyCodeLine{00530\ \textcolor{comment}{\ *\ function\ takes\ ownership\ of\ |ov|,\ so\ caller\ must\ not\ free\ it.}}
+\DoxyCodeLine{00531\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00532\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_origin\_init(\mbox{\hyperlink{structnghttp2__extension}{nghttp2\_extension}}\ *frame,}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__origin__entry}{nghttp2\_origin\_entry}}\ *ov,\ \textcolor{keywordtype}{size\_t}\ nov);}
+\DoxyCodeLine{00534\ }
+\DoxyCodeLine{00535\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00536\ \textcolor{comment}{\ *\ Frees\ up\ resources\ under\ |frame|.\ \ This\ function\ does\ not\ free}}
+\DoxyCodeLine{00537\ \textcolor{comment}{\ *\ nghttp2\_ext\_origin\ object\ pointed\ by\ frame-\/>payload.\ \ This\ function}}
+\DoxyCodeLine{00538\ \textcolor{comment}{\ *\ only\ frees\ nghttp2\_ext\_origin.ov.\ \ Therefore,\ other\ fields\ must\ be}}
+\DoxyCodeLine{00539\ \textcolor{comment}{\ *\ allocated\ in\ the\ same\ buffer\ with\ ov.}}
+\DoxyCodeLine{00540\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00541\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_origin\_free(\mbox{\hyperlink{structnghttp2__extension}{nghttp2\_extension}}\ *frame,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00542\ }
+\DoxyCodeLine{00543\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00544\ \textcolor{comment}{\ *\ Initializes\ PRIORITY\_UPDATE\ frame\ |frame|\ with\ given\ values.\ \ This}}
+\DoxyCodeLine{00545\ \textcolor{comment}{\ *\ function\ assumes\ that\ frame-\/>payload\ points\ to}}
+\DoxyCodeLine{00546\ \textcolor{comment}{\ *\ nghttp2\_ext\_priority\_update\ object.\ \ On\ success,\ this\ function}}
+\DoxyCodeLine{00547\ \textcolor{comment}{\ *\ takes\ ownership\ of\ |field\_value|,\ so\ caller\ must\ not\ free\ it.}}
+\DoxyCodeLine{00548\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00549\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_priority\_update\_init(\mbox{\hyperlink{structnghttp2__extension}{nghttp2\_extension}}\ *frame,}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,\ uint8\_t\ *field\_value,}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ field\_value\_len);}
+\DoxyCodeLine{00552\ }
+\DoxyCodeLine{00553\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00554\ \textcolor{comment}{\ *\ Frees\ up\ resources\ under\ |frame|.\ \ This\ function\ does\ not\ free}}
+\DoxyCodeLine{00555\ \textcolor{comment}{\ *\ nghttp2\_ext\_priority\_update\ object\ pointed\ by\ frame-\/>payload.\ \ This}}
+\DoxyCodeLine{00556\ \textcolor{comment}{\ *\ function\ only\ frees\ field\_value\ pointed\ by}}
+\DoxyCodeLine{00557\ \textcolor{comment}{\ *\ nghttp2\_ext\_priority\_update.field\_value.}}
+\DoxyCodeLine{00558\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00559\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_priority\_update\_free(\mbox{\hyperlink{structnghttp2__extension}{nghttp2\_extension}}\ *frame,}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00562\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00563\ \textcolor{comment}{\ *\ Returns\ the\ number\ of\ padding\ bytes\ after\ payload.\ \ The\ total}}
+\DoxyCodeLine{00564\ \textcolor{comment}{\ *\ padding\ length\ is\ given\ in\ the\ |padlen|.\ \ The\ returned\ value\ does}}
+\DoxyCodeLine{00565\ \textcolor{comment}{\ *\ not\ include\ the\ Pad\ Length\ field.\ \ If\ |padlen|\ is\ 0,\ this\ function}}
+\DoxyCodeLine{00566\ \textcolor{comment}{\ *\ returns\ 0,\ regardless\ of\ frame-\/>hd.flags.}}
+\DoxyCodeLine{00567\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00568\ \textcolor{keywordtype}{size\_t}\ nghttp2\_frame\_trail\_padlen(\mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame,\ \textcolor{keywordtype}{size\_t}\ padlen);}
+\DoxyCodeLine{00569\ }
+\DoxyCodeLine{00570\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_data\_init(\mbox{\hyperlink{structnghttp2__data}{nghttp2\_data}}\ *frame,\ uint8\_t\ flags,}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id);}
+\DoxyCodeLine{00572\ }
+\DoxyCodeLine{00573\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_data\_free(\mbox{\hyperlink{structnghttp2__data}{nghttp2\_data}}\ *frame);}
+\DoxyCodeLine{00574\ }
+\DoxyCodeLine{00575\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00576\ \textcolor{comment}{\ *\ Makes\ copy\ of\ |iv|\ and\ return\ the\ copy.\ The\ |niv|\ is\ the\ number\ of}}
+\DoxyCodeLine{00577\ \textcolor{comment}{\ *\ entries\ in\ |iv|.\ This\ function\ returns\ the\ pointer\ to\ the\ copy\ if}}
+\DoxyCodeLine{00578\ \textcolor{comment}{\ *\ it\ succeeds,\ or\ NULL.}}
+\DoxyCodeLine{00579\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00580\ \mbox{\hyperlink{structnghttp2__settings__entry}{nghttp2\_settings\_entry}}\ *nghttp2\_frame\_iv\_copy(\textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__settings__entry}{nghttp2\_settings\_entry}}\ *iv,}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ niv,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00582\ }
+\DoxyCodeLine{00583\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00584\ \textcolor{comment}{\ *\ Sorts\ the\ |nva|\ in\ ascending\ order\ of\ name\ and\ value.\ If\ names\ are}}
+\DoxyCodeLine{00585\ \textcolor{comment}{\ *\ equivalent,\ sort\ them\ by\ value.}}
+\DoxyCodeLine{00586\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00587\ \textcolor{keywordtype}{void}\ nghttp2\_nv\_array\_sort(\mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,\ \textcolor{keywordtype}{size\_t}\ nvlen);}
+\DoxyCodeLine{00588\ }
+\DoxyCodeLine{00589\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00590\ \textcolor{comment}{\ *\ Copies\ name/value\ pairs\ from\ |nva|,\ which\ contains\ |nvlen|\ pairs,}}
+\DoxyCodeLine{00591\ \textcolor{comment}{\ *\ to\ |*nva\_ptr|,\ which\ is\ dynamically\ allocated\ so\ that\ all\ items\ can}}
+\DoxyCodeLine{00592\ \textcolor{comment}{\ *\ be\ stored.\ \ The\ resultant\ name\ and\ value\ in\ nghttp2\_nv\ are}}
+\DoxyCodeLine{00593\ \textcolor{comment}{\ *\ guaranteed\ to\ be\ NULL-\/terminated\ even\ if\ the\ input\ is\ not}}
+\DoxyCodeLine{00594\ \textcolor{comment}{\ *\ null-\/terminated.}}
+\DoxyCodeLine{00595\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00596\ \textcolor{comment}{\ *\ The\ |*nva\_ptr|\ must\ be\ freed\ using\ nghttp2\_nv\_array\_del().}}
+\DoxyCodeLine{00597\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00598\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00599\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00600\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00601\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00602\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00603\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00604\ \textcolor{keywordtype}{int}\ nghttp2\_nv\_array\_copy(\mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ **nva\_ptr,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nvlen,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00606\ }
+\DoxyCodeLine{00607\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00608\ \textcolor{comment}{\ *\ Returns\ nonzero\ if\ the\ name/value\ pair\ |a|\ equals\ to\ |b|.\ The\ name}}
+\DoxyCodeLine{00609\ \textcolor{comment}{\ *\ is\ compared\ in\ case-\/sensitive,\ because\ we\ ensure\ that\ this\ function}}
+\DoxyCodeLine{00610\ \textcolor{comment}{\ *\ is\ called\ after\ the\ name\ is\ lower-\/cased.}}
+\DoxyCodeLine{00611\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00612\ \textcolor{keywordtype}{int}\ nghttp2\_nv\_equal(\textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *b);}
+\DoxyCodeLine{00613\ }
+\DoxyCodeLine{00614\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00615\ \textcolor{comment}{\ *\ Frees\ |nva|.}}
+\DoxyCodeLine{00616\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00617\ \textcolor{keywordtype}{void}\ nghttp2\_nv\_array\_del(\mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00618\ }
+\DoxyCodeLine{00619\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00620\ \textcolor{comment}{\ *\ Checks\ that\ the\ |iv|,\ which\ includes\ |niv|\ entries,\ does\ not\ have}}
+\DoxyCodeLine{00621\ \textcolor{comment}{\ *\ invalid\ values.}}
+\DoxyCodeLine{00622\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00623\ \textcolor{comment}{\ *\ This\ function\ returns\ nonzero\ if\ it\ succeeds,\ or\ 0.}}
+\DoxyCodeLine{00624\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00625\ \textcolor{keywordtype}{int}\ nghttp2\_iv\_check(\textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__settings__entry}{nghttp2\_settings\_entry}}\ *iv,\ \textcolor{keywordtype}{size\_t}\ niv);}
+\DoxyCodeLine{00626\ }
+\DoxyCodeLine{00627\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00628\ \textcolor{comment}{\ *\ Sets\ Pad\ Length\ field\ and\ flags\ and\ adjusts\ frame\ header\ position}}
+\DoxyCodeLine{00629\ \textcolor{comment}{\ *\ of\ each\ buffers\ in\ |bufs|.\ \ The\ number\ of\ padding\ is\ given\ in\ the}}
+\DoxyCodeLine{00630\ \textcolor{comment}{\ *\ |padlen|\ including\ Pad\ Length\ field.\ \ The\ |hd|\ is\ the\ frame\ header}}
+\DoxyCodeLine{00631\ \textcolor{comment}{\ *\ for\ the\ serialized\ data.\ \ This\ function\ fills\ zeros\ padding\ region}}
+\DoxyCodeLine{00632\ \textcolor{comment}{\ *\ unless\ framehd\_only\ is\ nonzero.}}
+\DoxyCodeLine{00633\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00634\ \textcolor{keywordtype}{void}\ nghttp2\_frame\_add\_pad(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ *hd,}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ padlen,\ \textcolor{keywordtype}{int}\ framehd\_only);}
+\DoxyCodeLine{00636\ }
+\DoxyCodeLine{00637\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_FRAME\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

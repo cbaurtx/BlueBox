@@ -1,0 +1,42 @@
+\doxysection{nghttp2\+\_\+data Struct Reference}
+\hypertarget{structnghttp2__data}{}\label{structnghttp2__data}\index{nghttp2\_data@{nghttp2\_data}}
+
+
+{\ttfamily \#include $<$nghttp2.\+h$>$}
+
+
+
+Collaboration diagram for nghttp2\+\_\+data\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=174pt]{structnghttp2__data__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnghttp2__data_ac0566a59c547a34e93dc7055aa9641cf}\label{structnghttp2__data_ac0566a59c547a34e93dc7055aa9641cf} 
+\mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\+\_\+frame\+\_\+hd}} {\bfseries hd}
+\item 
+size\+\_\+t \mbox{\hyperlink{structnghttp2__data_aedeca7a578e83207e237ed41f84112c4}{padlen}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The DATA frame. The received data is delivered via \+:type\+:{\ttfamily nghttp2\+\_\+on\+\_\+data\+\_\+chunk\+\_\+recv\+\_\+callback}. 
+
+\label{doc-variable-members}
+\Hypertarget{structnghttp2__data_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structnghttp2__data_aedeca7a578e83207e237ed41f84112c4}\index{nghttp2\_data@{nghttp2\_data}!padlen@{padlen}}
+\index{padlen@{padlen}!nghttp2\_data@{nghttp2\_data}}
+\doxysubsubsection{\texorpdfstring{padlen}{padlen}}
+{\footnotesize\ttfamily \label{structnghttp2__data_aedeca7a578e83207e237ed41f84112c4} 
+size\+\_\+t nghttp2\+\_\+data\+::padlen}
+
+The length of the padding in this frame. This includes PAD\+\_\+\+HIGH and PAD\+\_\+\+LOW. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/lib/includes/nghttp2/nghttp2.\+h\end{DoxyCompactItemize}

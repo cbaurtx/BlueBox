@@ -1,0 +1,19 @@
+<map id="nghttp2::Stream" name="nghttp2::Stream">
+<area shape="rect" id="Node000001" title=" " alt="" coords="507,263,621,289"/>
+<area shape="rect" id="Node000002" href="$structnghttp2_1_1BlockAllocator.html" title=" " alt="" coords="249,85,406,112"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="360,119,547,261,542,263,358,124"/>
+<area shape="rect" id="Node000003" href="$structnghttp2_1_1MemBlock.html" title=" " alt="" coords="5,53,140,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="154,74,251,87,246,90,156,79"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="49,37,57,29,72,27,86,29,95,35,98,44,94,54,89,52,92,44,91,38,84,34,73,32,60,34,54,39"/>
+<area shape="rect" id="Node000004" href="$structnghttp2_1_1RequestHeader.html" title=" " alt="" coords="246,236,409,263"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="424,258,509,269,504,270,424,263"/>
+<area shape="rect" id="Node000005" href="$classnghttp2_1_1StringRef.html" title=" " alt="" coords="9,236,136,263"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="151,247,247,248,243,251,153,252"/>
+<area shape="rect" id="Node000006" href="$structnghttp2__rcbuf.html" title=" " alt="" coords="22,419,123,445"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="138,434,182,427,202,418,220,405,231,390,235,375,232,343,229,310,233,293,244,276,262,265,266,262,248,279,238,295,234,311,238,343,240,376,235,392,224,409,205,422,184,432,139,439"/>
+<area shape="rect" id="Node000007" href="$classnghttp2_1_1Http2Handler.html" title=" " alt="" coords="253,289,402,316"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="417,299,483,293,516,289,511,291,483,299,418,305"/>
+<area shape="rect" id="Node000008" href="$structnghttp2_1_1FileEntry.html" title=" " alt="" coords="265,409,390,436"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="365,399,482,328,541,291,546,289,484,333,367,404"/>
+<area shape="poly" id="edge9_Node000008_Node000008" title=" " alt="" coords="303,392,311,385,327,383,342,385,352,391,354,401,350,411,346,407,349,400,347,394,340,390,327,388,313,390,305,396"/>
+</map>

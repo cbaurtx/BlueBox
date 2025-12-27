@@ -1,0 +1,67 @@
+\doxysection{nghttp2\+::Sessions Class Reference}
+\hypertarget{classnghttp2_1_1Sessions}{}\label{classnghttp2_1_1Sessions}\index{nghttp2::Sessions@{nghttp2::Sessions}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_a52c35f48f036cb3672aa2c36b3bd6b14}\label{classnghttp2_1_1Sessions_a52c35f48f036cb3672aa2c36b3bd6b14} 
+{\bfseries Sessions} (\mbox{\hyperlink{classnghttp2_1_1HttpServer}{Http\+Server}} \texorpdfstring{$\ast$}{*}sv, struct ev\+\_\+loop \texorpdfstring{$\ast$}{*}loop, const \mbox{\hyperlink{structnghttp2_1_1Config}{Config}} \texorpdfstring{$\ast$}{*}config, SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*}ssl\+\_\+ctx)
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_ab66a047267adc13d0825664244fba32b}\label{classnghttp2_1_1Sessions_ab66a047267adc13d0825664244fba32b} 
+void {\bfseries add\+\_\+handler} (\mbox{\hyperlink{classnghttp2_1_1Http2Handler}{Http2\+Handler}} \texorpdfstring{$\ast$}{*}handler)
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_af7534b3c5a51251407e910eb70148435}\label{classnghttp2_1_1Sessions_af7534b3c5a51251407e910eb70148435} 
+void {\bfseries remove\+\_\+handler} (\mbox{\hyperlink{classnghttp2_1_1Http2Handler}{Http2\+Handler}} \texorpdfstring{$\ast$}{*}handler)
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_a00d9e8848c97e2d6ece36101e59777c7}\label{classnghttp2_1_1Sessions_a00d9e8848c97e2d6ece36101e59777c7} 
+SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+ssl\+\_\+ctx} () const
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_aaec863b05e723249a128ff7994d14124}\label{classnghttp2_1_1Sessions_aaec863b05e723249a128ff7994d14124} 
+SSL \texorpdfstring{$\ast$}{*} {\bfseries ssl\+\_\+session\+\_\+new} (int fd)
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_a4b0dcbae2d1cdc377a93e031639a4645}\label{classnghttp2_1_1Sessions_a4b0dcbae2d1cdc377a93e031639a4645} 
+const \mbox{\hyperlink{structnghttp2_1_1Config}{Config}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+config} () const
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_a4246b1470bf6200a72e993432c536d64}\label{classnghttp2_1_1Sessions_a4246b1470bf6200a72e993432c536d64} 
+struct ev\+\_\+loop \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+loop} () const
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_a7fd656e6e257a570a335ff150cc455ac}\label{classnghttp2_1_1Sessions_a7fd656e6e257a570a335ff150cc455ac} 
+int64\+\_\+t {\bfseries get\+\_\+next\+\_\+session\+\_\+id} ()
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_a2dfbd104f44ceac211cbc84a146e5dd0}\label{classnghttp2_1_1Sessions_a2dfbd104f44ceac211cbc84a146e5dd0} 
+const \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\+\_\+session\+\_\+callbacks}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+callbacks} () const
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_a85f362ce2da53770a20d560cb3f5cb56}\label{classnghttp2_1_1Sessions_a85f362ce2da53770a20d560cb3f5cb56} 
+const \mbox{\hyperlink{structnghttp2__option}{nghttp2\+\_\+option}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+option} () const
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_ab473fc0cf1f35a708c563ea4741c6561}\label{classnghttp2_1_1Sessions_ab473fc0cf1f35a708c563ea4741c6561} 
+void {\bfseries accept\+\_\+connection} (int fd)
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_a26e0bd1d9e16df7e0f8c183f70cbeb93}\label{classnghttp2_1_1Sessions_a26e0bd1d9e16df7e0f8c183f70cbeb93} 
+void {\bfseries update\+\_\+cached\+\_\+date} ()
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_a51e7f2c1fad350d491e22eac43ebda98}\label{classnghttp2_1_1Sessions_a51e7f2c1fad350d491e22eac43ebda98} 
+const std\+::string \& {\bfseries get\+\_\+cached\+\_\+date} ()
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_a379a69dd92d56fca542f08d728e22859}\label{classnghttp2_1_1Sessions_a379a69dd92d56fca542f08d728e22859} 
+\mbox{\hyperlink{structnghttp2_1_1FileEntry}{File\+Entry}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+cached\+\_\+fd} (const std\+::string \&path)
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_acfa4cbeb8bf411af8478e08564569045}\label{classnghttp2_1_1Sessions_acfa4cbeb8bf411af8478e08564569045} 
+\mbox{\hyperlink{structnghttp2_1_1FileEntry}{File\+Entry}} \texorpdfstring{$\ast$}{*} {\bfseries cache\+\_\+fd} (const std\+::string \&path, const \mbox{\hyperlink{structnghttp2_1_1FileEntry}{File\+Entry}} \&ent)
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_a79fc3d25d112c24b1e4b8ecb71bd08cb}\label{classnghttp2_1_1Sessions_a79fc3d25d112c24b1e4b8ecb71bd08cb} 
+void {\bfseries release\+\_\+fd} (\mbox{\hyperlink{structnghttp2_1_1FileEntry}{File\+Entry}} \texorpdfstring{$\ast$}{*}target)
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_a2db8dee654c953c5c9e1c5ee932cb24e}\label{classnghttp2_1_1Sessions_a2db8dee654c953c5c9e1c5ee932cb24e} 
+void {\bfseries release\+\_\+unused\+\_\+fd} ()
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_a543ed7ca3827eb6eba630811a5727ca6}\label{classnghttp2_1_1Sessions_a543ed7ca3827eb6eba630811a5727ca6} 
+const \mbox{\hyperlink{classnghttp2_1_1HttpServer}{Http\+Server}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+server} () const
+\item 
+\Hypertarget{classnghttp2_1_1Sessions_ad40c6436b6f0d35d69f91a55fd47aba3}\label{classnghttp2_1_1Sessions_ad40c6436b6f0d35d69f91a55fd47aba3} 
+bool {\bfseries handlers\+\_\+empty} () const
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/Http\+Server.\+cc\end{DoxyCompactItemize}

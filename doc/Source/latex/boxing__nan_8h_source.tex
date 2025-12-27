@@ -1,0 +1,161 @@
+\doxysection{boxing\+\_\+nan.\+h}
+\hypertarget{boxing__nan_8h_source}{}\label{boxing__nan_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/boxing\_nan.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/boxing\_nan.h}}
+\mbox{\hyperlink{boxing__nan_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_BOXING\_NAN\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_BOXING\_NAN\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifdef\ MRB\_USE\_FLOAT32}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#\ error\ -\/-\/-\/-\/>>\ MRB\_NAN\_BOXING\ and\ MRB\_USE\_FLOAT32\ conflict\ <<-\/-\/-\/-\/}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifdef\ MRB\_NO\_FLOAT}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#\ error\ -\/-\/-\/-\/>>\ MRB\_NAN\_BOXING\ and\ MRB\_NO\_FLOAT\ conflict\ <<-\/-\/-\/-\/}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ MRB\_FIXNUM\_MIN\ INT32\_MIN}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ MRB\_FIXNUM\_MAX\ INT32\_MAX}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{enum}\ mrb\_nanbox\_tt\_inline\ \{}
+\DoxyCodeLine{00022\ \ \ MRB\_NANBOX\_TT\_OBJECT\ =\ 0,}
+\DoxyCodeLine{00023\ \ \ MRB\_NANBOX\_TT\_INTEGER\ =\ 1,}
+\DoxyCodeLine{00024\ \ \ MRB\_NANBOX\_TT\_MISC\ =\ 2,}
+\DoxyCodeLine{00025\ \ \ MRB\_NANBOX\_TT\_CPTR\ =\ 3,}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{/*\ value\ representation\ by\ nan-\/boxing:}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ \ \ float\ :\ SEEEEEEE\ EEEEFFFF\ FFFFFFFF\ FFFFFFFF\ FFFFFFFF\ FFFFFFFF\ FFFFFFFF\ FFFFFFFF}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ \ \ +/-\/inf:\ S1111111\ 11110000\ 00000000\ 00000000\ 00000000\ 00000000\ 00000000\ 00000000}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ \ \ nan\ \ \ :\ 01111111\ 11111000\ 00000000\ 00000000\ 00000000\ 00000000\ 00000000\ 00000000}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ \ \ int\ \ \ :\ 01111111\ 11111001\ 00000000\ 00000000\ IIIIIIII\ IIIIIIII\ IIIIIIII\ IIIIIIII}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ \ \ sym\ \ \ :\ 01111111\ 11111110\ 00000000\ 00TTTTTT\ SSSSSSSS\ SSSSSSSS\ SSSSSSSS\ SSSSSSSS}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ \ \ misc\ \ :\ 01111111\ 11111110\ 00000000\ 00TTTTTT\ 00000000\ 00000000\ 00000000\ 0000MMMM}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ \ \ object:\ 01111111\ 11111100\ PPPPPPPP\ PPPPPPPP\ PPPPPPPP\ PPPPPPPP\ PPPPPPPP\ PPPPPP00}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ \ \ cptr\ \ :\ 01111111\ 11111111\ PPPPPPPP\ PPPPPPPP\ PPPPPPPP\ PPPPPPPP\ PPPPPPPP\ PPPPPPPP}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ *\ Stored\ as\ O\ =\ R\ +\ 0x8004000000000000,\ retrieved\ as\ R\ =\ O\ -\/\ 0x8004000000000000.}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ *\ This\ makes\ pointers\ have\ all\ zeros\ in\ the\ top\ 32\ bits.}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00040\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \{}
+\DoxyCodeLine{00041\ \ \ uint64\_t\ u;}
+\DoxyCodeLine{00042\ \}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ mrb\_float}
+\DoxyCodeLine{00045\ mrb\_nan\_boxing\_value\_float(\mbox{\hyperlink{structmrb__value}{mrb\_value}}\ v)}
+\DoxyCodeLine{00046\ \{}
+\DoxyCodeLine{00047\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00048\ \ \ \ \ mrb\_float\ f;}
+\DoxyCodeLine{00049\ \ \ \ \ uint64\_t\ u;}
+\DoxyCodeLine{00050\ \ \ \}\ x;}
+\DoxyCodeLine{00051\ \ \ x.u\ =\ v.u\ -\/\ 0x8004000000000000;}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordflow}{return}\ x.f;}
+\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ SET\_FLOAT\_VALUE(mrb,r,f)\ do\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ union\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\ \ \ \ mrb\_float\ f;\ \(\backslash\)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\ \ \ \ uint64\_t\ u;\ \(\backslash\)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\ \ \}\ float\_uint\_union;\ \(\backslash\)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\ \ if\ ((f)\ !=\ (f))\ \{\ }\textcolor{comment}{/*\ NaN\ */}\textcolor{preprocessor}{\ \(\backslash\)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\ \ \ \ float\_uint\_union.u\ =\ 0x7ff8000000000000UL;\ \(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\ \ \ \ float\_uint\_union.f\ =\ (f);\ \(\backslash\)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\ \ r.u\ =\ float\_uint\_union.u\ +\ 0x8004000000000000;\ \(\backslash\)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\}\ while(0)}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ mrb\_float\_p(o)\ (((uint64\_t)((o).u)\&0xfffc000000000000)\ !=\ 0)}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRInteger}{RInteger}}\ \{}
+\DoxyCodeLine{00072\ \ \ MRB\_OBJECT\_HEADER;}
+\DoxyCodeLine{00073\ \ \ mrb\_int\ i;}
+\DoxyCodeLine{00074\ \};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ mrb\_nb\_tt(o)\ ((enum\ mrb\_nanbox\_tt\_inline)((uint32\_t)((o).u>>48)\&3))}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\_INLINE}}\ \textcolor{keyword}{enum}\ mrb\_vtype}
+\DoxyCodeLine{00079\ mrb\_type(\mbox{\hyperlink{structmrb__value}{mrb\_value}}\ o)}
+\DoxyCodeLine{00080\ \{}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordflow}{if}\ (mrb\_float\_p(o))\ \textcolor{keywordflow}{return}\ MRB\_TT\_FLOAT;}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ int64\_t\ u\ =\ o.u;}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordflow}{switch}\ (mrb\_nb\_tt(o))\ \{}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordflow}{case}\ MRB\_NANBOX\_TT\_OBJECT:\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordflow}{if}\ (u\ ==\ 0)\ \textcolor{keywordflow}{return}\ MRB\_TT\_FALSE;}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordflow}{return}\ ((\textcolor{keyword}{struct}\ \mbox{\hyperlink{structRBasic}{RBasic}}*)(uintptr\_t)u)-\/>tt;}
+\DoxyCodeLine{00088\ \ \ \}}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordflow}{case}\ MRB\_NANBOX\_TT\_INTEGER:}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{return}\ MRB\_TT\_INTEGER;}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordflow}{case}\ MRB\_NANBOX\_TT\_MISC:}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{enum}\ mrb\_vtype)((uint32\_t)(o.u\ >>\ 32)\ \&\ 0x1f);}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordflow}{case}\ MRB\_NANBOX\_TT\_CPTR:}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{return}\ MRB\_TT\_CPTR;}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{comment}{/*\ never\ happen\ */}}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{return}\ MRB\_TT\_FLOAT;}
+\DoxyCodeLine{00098\ \ \ \}}
+\DoxyCodeLine{00099\ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ NANBOX\_SET\_MISC\_VALUE(r,t,i)\ NANBOX\_SET\_VALUE(r,\ MRB\_NANBOX\_TT\_MISC,\ ((uint64\_t)(t)<<32)\ |\ (i))}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ mrb\_float(o)\ mrb\_nan\_boxing\_value\_float(o)}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#ifdef\ MRB\_INT64}}
+\DoxyCodeLine{00105\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\#ifdef\ MRB\_32BIT}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\#define\ mrb\_fixnum(o)\ \ ((mrb\_int)((intptr\_t)0xffffffffffff\&((o).u))|(((o).u\ \&\ 0x800000000000)?0xffff000000000000:0))}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\#else}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\#define\ mrb\_fixnum(o)\ \ ((mrb\_int)(int32\_t)((o).u))}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\#endif}}
+\DoxyCodeLine{00111\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ mrb\_fixnum(o)\ \ ((mrb\_int)(int32\_t)((o).u))}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ mrb\_int}
+\DoxyCodeLine{00116\ mrb\_nan\_boxing\_value\_int(\mbox{\hyperlink{structmrb__value}{mrb\_value}}\ v)}
+\DoxyCodeLine{00117\ \{}
+\DoxyCodeLine{00118\ \ \ uint64\_t\ u\ =\ v.u;}
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordflow}{if}\ (mrb\_nb\_tt(v)==MRB\_NANBOX\_TT\_OBJECT)\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRInteger}{RInteger}}\ *p\ =\ (\textcolor{keyword}{struct\ }\mbox{\hyperlink{structRInteger}{RInteger}}*)(uintptr\_t)u;}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{return}\ p-\/>i;}
+\DoxyCodeLine{00122\ \ \ \}}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordflow}{return}\ mrb\_fixnum(v);}
+\DoxyCodeLine{00124\ \}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ mrb\_integer(o)\ mrb\_nan\_boxing\_value\_int(o)}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ mrb\_fixnum(o)\ \ ((mrb\_int)(((uintptr\_t)0xffffffff)\&((o).u)))}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#define\ mrb\_integer(o)\ mrb\_fixnum(o)}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#define\ mrb\_symbol(o)\ \ ((mrb\_sym)((uintptr\_t)0xffffffff)\&((o).u))}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#define\ mrb\_ptr(o)\ \ \ \ \ ((void*)(uintptr\_t)(o).u)}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#define\ mrb\_cptr(o)\ \ \ \ ((void*)(uintptr\_t)(0xffffffffffffULL\&(o).u))}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#define\ NANBOX\_SET\_VALUE(o,\ tt,\ v)\ do\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\ \ (o).u\ =\ ((uint64\_t)(tt)<<48)\ |\ ((uint64\_t)(v));\ \(\backslash\)}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\}\ while\ (0)}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#define\ SET\_NIL\_VALUE(r)\ ((r).u\ =\ 0)}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ SET\_FALSE\_VALUE(r)\ NANBOX\_SET\_MISC\_VALUE(r,\ MRB\_TT\_FALSE,\ 1)}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#define\ SET\_TRUE\_VALUE(r)\ NANBOX\_SET\_MISC\_VALUE(r,\ MRB\_TT\_TRUE,\ 1)}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ SET\_BOOL\_VALUE(r,b)\ NANBOX\_SET\_MISC\_VALUE(r,\ (b)\ ?\ MRB\_TT\_TRUE\ :\ MRB\_TT\_FALSE,\ 1)}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#ifdef\ MRB\_INT64}}
+\DoxyCodeLine{00143\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_boxing\_int\_value(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ mrb\_int);}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#define\ SET\_INT\_VALUE(mrb,\ r,\ n)\ ((r)\ =\ mrb\_boxing\_int\_value(mrb,\ n))}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#define\ SET\_INT\_VALUE(mrb,\ r,\ n)\ SET\_FIXNUM\_VALUE(r,\ n)}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ SET\_FIXNUM\_VALUE(r,n)\ NANBOX\_SET\_VALUE(r,\ MRB\_NANBOX\_TT\_INTEGER,\ (uint32\_t)(n))}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#define\ SET\_SYM\_VALUE(r,v)\ NANBOX\_SET\_MISC\_VALUE(r,\ MRB\_TT\_SYMBOL,\ (uint32\_t)(v))}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ SET\_OBJ\_VALUE(r,v)\ do\ \{(r).u\ =\ (uint64\_t)(uintptr\_t)(v);\}\ while\ (0)}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ SET\_CPTR\_VALUE(mrb,r,v)\ NANBOX\_SET\_VALUE(r,\ MRB\_NANBOX\_TT\_CPTR,\ (uint64\_t)(uintptr\_t)(v)\ \&\ 0x0000ffffffffffffULL)}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ SET\_UNDEF\_VALUE(r)\ NANBOX\_SET\_MISC\_VALUE(r,\ MRB\_TT\_UNDEF,\ 4)}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ mrb\_immediate\_p(o)\ ((mrb\_float\_p(o)\ ||\ mrb\_nb\_tt(o)\ !=\ MRB\_NANBOX\_TT\_OBJECT)\ ||\ (o).u\ ==\ 0)}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#define\ mrb\_nil\_p(o)\ \ ((o).u\ ==\ 0)}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ mrb\_false\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_FALSE\ ||\ (o).u\ ==\ 0)}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#define\ mrb\_fixnum\_p(o)\ (!mrb\_float\_p(o)\ \&\&\ mrb\_nb\_tt(o)==MRB\_NANBOX\_TT\_INTEGER)}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_BOXING\_NAN\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

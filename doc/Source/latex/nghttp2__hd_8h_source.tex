@@ -1,0 +1,448 @@
+\doxysection{nghttp2\+\_\+hd.\+h}
+\hypertarget{nghttp2__hd_8h_source}{}\label{nghttp2__hd_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_hd.h@{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_hd.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2013\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_HD\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ NGHTTP2\_HD\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifdef\ HAVE\_CONFIG\_H}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ \ include\ <config.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_CONFIG\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_hd\_huffman.h"{}}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_buf.h"{}}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_mem.h"{}}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_rcbuf.h"{}}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ NGHTTP2\_HD\_DEFAULT\_MAX\_BUFFER\_SIZE\ NGHTTP2\_DEFAULT\_HEADER\_TABLE\_SIZE}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ NGHTTP2\_HD\_ENTRY\_OVERHEAD\ 32}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{comment}{/*\ The\ maximum\ length\ of\ one\ name/value\ pair.\ \ This\ is\ the\ sum\ of\ the}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ length\ of\ name\ and\ value.\ \ This\ is\ not\ specified\ by\ the\ spec.\ We}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ just\ chose\ the\ arbitrary\ size\ */}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ NGHTTP2\_HD\_MAX\_NV\ 65536}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{/*\ Default\ size\ of\ maximum\ table\ buffer\ size\ for\ encoder.\ Even\ if}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ \ \ remote\ decoder\ notifies\ larger\ buffer\ size\ for\ its\ decoding,}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ \ \ encoder\ only\ uses\ the\ memory\ up\ to\ this\ value.\ */}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ NGHTTP2\_HD\_DEFAULT\_MAX\_DEFLATE\_BUFFER\_SIZE\ (1\ <<\ 12)}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{/*\ Exported\ for\ unit\ test\ */}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ NGHTTP2\_STATIC\_TABLE\_LENGTH\ 61}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{/*\ Generated\ by\ genlibtokenlookup.py\ */}}
+\DoxyCodeLine{00056\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00057\ \ \ NGHTTP2\_TOKEN\_\_AUTHORITY\ =\ 0,}
+\DoxyCodeLine{00058\ \ \ NGHTTP2\_TOKEN\_\_METHOD\ =\ 1,}
+\DoxyCodeLine{00059\ \ \ NGHTTP2\_TOKEN\_\_PATH\ =\ 3,}
+\DoxyCodeLine{00060\ \ \ NGHTTP2\_TOKEN\_\_SCHEME\ =\ 5,}
+\DoxyCodeLine{00061\ \ \ NGHTTP2\_TOKEN\_\_STATUS\ =\ 7,}
+\DoxyCodeLine{00062\ \ \ NGHTTP2\_TOKEN\_ACCEPT\_CHARSET\ =\ 14,}
+\DoxyCodeLine{00063\ \ \ NGHTTP2\_TOKEN\_ACCEPT\_ENCODING\ =\ 15,}
+\DoxyCodeLine{00064\ \ \ NGHTTP2\_TOKEN\_ACCEPT\_LANGUAGE\ =\ 16,}
+\DoxyCodeLine{00065\ \ \ NGHTTP2\_TOKEN\_ACCEPT\_RANGES\ =\ 17,}
+\DoxyCodeLine{00066\ \ \ NGHTTP2\_TOKEN\_ACCEPT\ =\ 18,}
+\DoxyCodeLine{00067\ \ \ NGHTTP2\_TOKEN\_ACCESS\_CONTROL\_ALLOW\_ORIGIN\ =\ 19,}
+\DoxyCodeLine{00068\ \ \ NGHTTP2\_TOKEN\_AGE\ =\ 20,}
+\DoxyCodeLine{00069\ \ \ NGHTTP2\_TOKEN\_ALLOW\ =\ 21,}
+\DoxyCodeLine{00070\ \ \ NGHTTP2\_TOKEN\_AUTHORIZATION\ =\ 22,}
+\DoxyCodeLine{00071\ \ \ NGHTTP2\_TOKEN\_CACHE\_CONTROL\ =\ 23,}
+\DoxyCodeLine{00072\ \ \ NGHTTP2\_TOKEN\_CONTENT\_DISPOSITION\ =\ 24,}
+\DoxyCodeLine{00073\ \ \ NGHTTP2\_TOKEN\_CONTENT\_ENCODING\ =\ 25,}
+\DoxyCodeLine{00074\ \ \ NGHTTP2\_TOKEN\_CONTENT\_LANGUAGE\ =\ 26,}
+\DoxyCodeLine{00075\ \ \ NGHTTP2\_TOKEN\_CONTENT\_LENGTH\ =\ 27,}
+\DoxyCodeLine{00076\ \ \ NGHTTP2\_TOKEN\_CONTENT\_LOCATION\ =\ 28,}
+\DoxyCodeLine{00077\ \ \ NGHTTP2\_TOKEN\_CONTENT\_RANGE\ =\ 29,}
+\DoxyCodeLine{00078\ \ \ NGHTTP2\_TOKEN\_CONTENT\_TYPE\ =\ 30,}
+\DoxyCodeLine{00079\ \ \ NGHTTP2\_TOKEN\_COOKIE\ =\ 31,}
+\DoxyCodeLine{00080\ \ \ NGHTTP2\_TOKEN\_DATE\ =\ 32,}
+\DoxyCodeLine{00081\ \ \ NGHTTP2\_TOKEN\_ETAG\ =\ 33,}
+\DoxyCodeLine{00082\ \ \ NGHTTP2\_TOKEN\_EXPECT\ =\ 34,}
+\DoxyCodeLine{00083\ \ \ NGHTTP2\_TOKEN\_EXPIRES\ =\ 35,}
+\DoxyCodeLine{00084\ \ \ NGHTTP2\_TOKEN\_FROM\ =\ 36,}
+\DoxyCodeLine{00085\ \ \ NGHTTP2\_TOKEN\_HOST\ =\ 37,}
+\DoxyCodeLine{00086\ \ \ NGHTTP2\_TOKEN\_IF\_MATCH\ =\ 38,}
+\DoxyCodeLine{00087\ \ \ NGHTTP2\_TOKEN\_IF\_MODIFIED\_SINCE\ =\ 39,}
+\DoxyCodeLine{00088\ \ \ NGHTTP2\_TOKEN\_IF\_NONE\_MATCH\ =\ 40,}
+\DoxyCodeLine{00089\ \ \ NGHTTP2\_TOKEN\_IF\_RANGE\ =\ 41,}
+\DoxyCodeLine{00090\ \ \ NGHTTP2\_TOKEN\_IF\_UNMODIFIED\_SINCE\ =\ 42,}
+\DoxyCodeLine{00091\ \ \ NGHTTP2\_TOKEN\_LAST\_MODIFIED\ =\ 43,}
+\DoxyCodeLine{00092\ \ \ NGHTTP2\_TOKEN\_LINK\ =\ 44,}
+\DoxyCodeLine{00093\ \ \ NGHTTP2\_TOKEN\_LOCATION\ =\ 45,}
+\DoxyCodeLine{00094\ \ \ NGHTTP2\_TOKEN\_MAX\_FORWARDS\ =\ 46,}
+\DoxyCodeLine{00095\ \ \ NGHTTP2\_TOKEN\_PROXY\_AUTHENTICATE\ =\ 47,}
+\DoxyCodeLine{00096\ \ \ NGHTTP2\_TOKEN\_PROXY\_AUTHORIZATION\ =\ 48,}
+\DoxyCodeLine{00097\ \ \ NGHTTP2\_TOKEN\_RANGE\ =\ 49,}
+\DoxyCodeLine{00098\ \ \ NGHTTP2\_TOKEN\_REFERER\ =\ 50,}
+\DoxyCodeLine{00099\ \ \ NGHTTP2\_TOKEN\_REFRESH\ =\ 51,}
+\DoxyCodeLine{00100\ \ \ NGHTTP2\_TOKEN\_RETRY\_AFTER\ =\ 52,}
+\DoxyCodeLine{00101\ \ \ NGHTTP2\_TOKEN\_SERVER\ =\ 53,}
+\DoxyCodeLine{00102\ \ \ NGHTTP2\_TOKEN\_SET\_COOKIE\ =\ 54,}
+\DoxyCodeLine{00103\ \ \ NGHTTP2\_TOKEN\_STRICT\_TRANSPORT\_SECURITY\ =\ 55,}
+\DoxyCodeLine{00104\ \ \ NGHTTP2\_TOKEN\_TRANSFER\_ENCODING\ =\ 56,}
+\DoxyCodeLine{00105\ \ \ NGHTTP2\_TOKEN\_USER\_AGENT\ =\ 57,}
+\DoxyCodeLine{00106\ \ \ NGHTTP2\_TOKEN\_VARY\ =\ 58,}
+\DoxyCodeLine{00107\ \ \ NGHTTP2\_TOKEN\_VIA\ =\ 59,}
+\DoxyCodeLine{00108\ \ \ NGHTTP2\_TOKEN\_WWW\_AUTHENTICATE\ =\ 60,}
+\DoxyCodeLine{00109\ \ \ NGHTTP2\_TOKEN\_TE,}
+\DoxyCodeLine{00110\ \ \ NGHTTP2\_TOKEN\_CONNECTION,}
+\DoxyCodeLine{00111\ \ \ NGHTTP2\_TOKEN\_KEEP\_ALIVE,}
+\DoxyCodeLine{00112\ \ \ NGHTTP2\_TOKEN\_PROXY\_CONNECTION,}
+\DoxyCodeLine{00113\ \ \ NGHTTP2\_TOKEN\_UPGRADE,}
+\DoxyCodeLine{00114\ \ \ NGHTTP2\_TOKEN\_\_PROTOCOL,}
+\DoxyCodeLine{00115\ \ \ NGHTTP2\_TOKEN\_PRIORITY,}
+\DoxyCodeLine{00116\ \}\ nghttp2\_token;}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__hd__entry}{nghttp2\_hd\_entry}};}
+\DoxyCodeLine{00119\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__hd__entry}{nghttp2\_hd\_entry}}\ \mbox{\hyperlink{structnghttp2__hd__entry}{nghttp2\_hd\_entry}};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00122\ \ \ \textcolor{comment}{/*\ The\ buffer\ containing\ header\ field\ name.\ \ NULL-\/termination\ is}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ \ \ \ \ guaranteed.\ */}}
+\DoxyCodeLine{00124\ \ \ \mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ *name;}
+\DoxyCodeLine{00125\ \ \ \textcolor{comment}{/*\ The\ buffer\ containing\ header\ field\ value.\ \ NULL-\/termination\ is}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ \ \ \ \ guaranteed.\ */}}
+\DoxyCodeLine{00127\ \ \ \mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ *value;}
+\DoxyCodeLine{00128\ \ \ \textcolor{comment}{/*\ nghttp2\_token\ value\ for\ name.\ \ It\ could\ be\ -\/1\ if\ we\ have\ no\ token}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ \ \ \ \ for\ that\ header\ field\ name.\ */}}
+\DoxyCodeLine{00130\ \ \ int32\_t\ token;}
+\DoxyCodeLine{00131\ \ \ \textcolor{comment}{/*\ Bitwise\ OR\ of\ one\ or\ more\ of\ nghttp2\_nv\_flag.\ */}}
+\DoxyCodeLine{00132\ \ \ uint8\_t\ flags;}
+\DoxyCodeLine{00133\ \}\ \mbox{\hyperlink{structnghttp2__hd__nv}{nghttp2\_hd\_nv}};}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__hd__entry}{nghttp2\_hd\_entry}}\ \{}
+\DoxyCodeLine{00136\ \ \ \textcolor{comment}{/*\ The\ header\ field\ name/value\ pair\ */}}
+\DoxyCodeLine{00137\ \ \ \mbox{\hyperlink{structnghttp2__hd__nv}{nghttp2\_hd\_nv}}\ nv;}
+\DoxyCodeLine{00138\ \ \ \textcolor{comment}{/*\ This\ is\ solely\ for\ nghttp2\_hd\_\{deflate,inflate\}\_get\_table\_entry}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ \ \ \ \ APIs\ to\ keep\ backward\ compatibility.\ */}}
+\DoxyCodeLine{00140\ \ \ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ cnv;}
+\DoxyCodeLine{00141\ \ \ \textcolor{comment}{/*\ The\ next\ entry\ which\ shares\ same\ bucket\ in\ hash\ table.\ */}}
+\DoxyCodeLine{00142\ \ \ \mbox{\hyperlink{structnghttp2__hd__entry}{nghttp2\_hd\_entry}}\ *next;}
+\DoxyCodeLine{00143\ \ \ \textcolor{comment}{/*\ The\ sequence\ number.\ \ We\ will\ increment\ it\ by\ one\ whenever\ we}}
+\DoxyCodeLine{00144\ \textcolor{comment}{\ \ \ \ \ store\ nghttp2\_hd\_entry\ to\ dynamic\ header\ table.\ */}}
+\DoxyCodeLine{00145\ \ \ uint32\_t\ seq;}
+\DoxyCodeLine{00146\ \ \ \textcolor{comment}{/*\ The\ hash\ value\ for\ header\ name\ (nv.name).\ */}}
+\DoxyCodeLine{00147\ \ \ uint32\_t\ hash;}
+\DoxyCodeLine{00148\ \};}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{comment}{/*\ The\ entry\ used\ for\ static\ header\ table.\ */}}
+\DoxyCodeLine{00151\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00152\ \ \ \mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ name;}
+\DoxyCodeLine{00153\ \ \ \mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ value;}
+\DoxyCodeLine{00154\ \ \ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ cnv;}
+\DoxyCodeLine{00155\ \ \ int32\_t\ token;}
+\DoxyCodeLine{00156\ \ \ uint32\_t\ hash;}
+\DoxyCodeLine{00157\ \}\ \mbox{\hyperlink{structnghttp2__hd__static__entry}{nghttp2\_hd\_static\_entry}};}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00160\ \ \ \mbox{\hyperlink{structnghttp2__hd__entry}{nghttp2\_hd\_entry}}\ **buffer;}
+\DoxyCodeLine{00161\ \ \ \textcolor{keywordtype}{size\_t}\ mask;}
+\DoxyCodeLine{00162\ \ \ \textcolor{keywordtype}{size\_t}\ first;}
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordtype}{size\_t}\ len;}
+\DoxyCodeLine{00164\ \}\ \mbox{\hyperlink{structnghttp2__hd__ringbuf}{nghttp2\_hd\_ringbuf}};}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00167\ \ \ NGHTTP2\_HD\_OPCODE\_NONE,}
+\DoxyCodeLine{00168\ \ \ NGHTTP2\_HD\_OPCODE\_INDEXED,}
+\DoxyCodeLine{00169\ \ \ NGHTTP2\_HD\_OPCODE\_NEWNAME,}
+\DoxyCodeLine{00170\ \ \ NGHTTP2\_HD\_OPCODE\_INDNAME}
+\DoxyCodeLine{00171\ \}\ nghttp2\_hd\_opcode;}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00174\ \ \ NGHTTP2\_HD\_STATE\_EXPECT\_TABLE\_SIZE,}
+\DoxyCodeLine{00175\ \ \ NGHTTP2\_HD\_STATE\_INFLATE\_START,}
+\DoxyCodeLine{00176\ \ \ NGHTTP2\_HD\_STATE\_OPCODE,}
+\DoxyCodeLine{00177\ \ \ NGHTTP2\_HD\_STATE\_READ\_TABLE\_SIZE,}
+\DoxyCodeLine{00178\ \ \ NGHTTP2\_HD\_STATE\_READ\_INDEX,}
+\DoxyCodeLine{00179\ \ \ NGHTTP2\_HD\_STATE\_NEWNAME\_CHECK\_NAMELEN,}
+\DoxyCodeLine{00180\ \ \ NGHTTP2\_HD\_STATE\_NEWNAME\_READ\_NAMELEN,}
+\DoxyCodeLine{00181\ \ \ NGHTTP2\_HD\_STATE\_NEWNAME\_READ\_NAMEHUFF,}
+\DoxyCodeLine{00182\ \ \ NGHTTP2\_HD\_STATE\_NEWNAME\_READ\_NAME,}
+\DoxyCodeLine{00183\ \ \ NGHTTP2\_HD\_STATE\_CHECK\_VALUELEN,}
+\DoxyCodeLine{00184\ \ \ NGHTTP2\_HD\_STATE\_READ\_VALUELEN,}
+\DoxyCodeLine{00185\ \ \ NGHTTP2\_HD\_STATE\_READ\_VALUEHUFF,}
+\DoxyCodeLine{00186\ \ \ NGHTTP2\_HD\_STATE\_READ\_VALUE}
+\DoxyCodeLine{00187\ \}\ nghttp2\_hd\_inflate\_state;}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00190\ \ \ NGHTTP2\_HD\_WITH\_INDEXING,}
+\DoxyCodeLine{00191\ \ \ NGHTTP2\_HD\_WITHOUT\_INDEXING,}
+\DoxyCodeLine{00192\ \ \ NGHTTP2\_HD\_NEVER\_INDEXING}
+\DoxyCodeLine{00193\ \}\ nghttp2\_hd\_indexing\_mode;}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00196\ \ \ \textcolor{comment}{/*\ dynamic\ header\ table\ */}}
+\DoxyCodeLine{00197\ \ \ \mbox{\hyperlink{structnghttp2__hd__ringbuf}{nghttp2\_hd\_ringbuf}}\ hd\_table;}
+\DoxyCodeLine{00198\ \ \ \textcolor{comment}{/*\ Memory\ allocator\ */}}
+\DoxyCodeLine{00199\ \ \ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem;}
+\DoxyCodeLine{00200\ \ \ \textcolor{comment}{/*\ Abstract\ buffer\ size\ of\ hd\_table\ as\ described\ in\ the\ spec.\ This}}
+\DoxyCodeLine{00201\ \textcolor{comment}{\ \ \ \ \ is\ the\ sum\ of\ length\ of\ name/value\ in\ hd\_table\ +}}
+\DoxyCodeLine{00202\ \textcolor{comment}{\ \ \ \ \ NGHTTP2\_HD\_ENTRY\_OVERHEAD\ bytes\ overhead\ per\ each\ entry.\ */}}
+\DoxyCodeLine{00203\ \ \ \textcolor{keywordtype}{size\_t}\ hd\_table\_bufsize;}
+\DoxyCodeLine{00204\ \ \ \textcolor{comment}{/*\ The\ effective\ header\ table\ size.\ */}}
+\DoxyCodeLine{00205\ \ \ \textcolor{keywordtype}{size\_t}\ hd\_table\_bufsize\_max;}
+\DoxyCodeLine{00206\ \ \ \textcolor{comment}{/*\ Next\ sequence\ number\ for\ nghttp2\_hd\_entry\ */}}
+\DoxyCodeLine{00207\ \ \ uint32\_t\ next\_seq;}
+\DoxyCodeLine{00208\ \ \ \textcolor{comment}{/*\ If\ inflate/deflate\ error\ occurred,\ this\ value\ is\ set\ to\ 1\ and}}
+\DoxyCodeLine{00209\ \textcolor{comment}{\ \ \ \ \ further\ invocation\ of\ inflate/deflate\ will\ fail\ with}}
+\DoxyCodeLine{00210\ \textcolor{comment}{\ \ \ \ \ NGHTTP2\_ERR\_HEADER\_COMP.\ */}}
+\DoxyCodeLine{00211\ \ \ uint8\_t\ bad;}
+\DoxyCodeLine{00212\ \}\ \mbox{\hyperlink{structnghttp2__hd__context}{nghttp2\_hd\_context}};}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#define\ HD\_MAP\_SIZE\ 128}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00217\ \ \ \mbox{\hyperlink{structnghttp2__hd__entry}{nghttp2\_hd\_entry}}\ *table[HD\_MAP\_SIZE];}
+\DoxyCodeLine{00218\ \}\ \mbox{\hyperlink{structnghttp2__hd__map}{nghttp2\_hd\_map}};}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ \{}
+\DoxyCodeLine{00221\ \ \ \mbox{\hyperlink{structnghttp2__hd__context}{nghttp2\_hd\_context}}\ ctx;}
+\DoxyCodeLine{00222\ \ \ \mbox{\hyperlink{structnghttp2__hd__map}{nghttp2\_hd\_map}}\ map;}
+\DoxyCodeLine{00223\ \ \ \textcolor{comment}{/*\ The\ upper\ limit\ of\ the\ header\ table\ size\ the\ deflater\ accepts.\ */}}
+\DoxyCodeLine{00224\ \ \ \textcolor{keywordtype}{size\_t}\ deflate\_hd\_table\_bufsize\_max;}
+\DoxyCodeLine{00225\ \ \ \textcolor{comment}{/*\ Minimum\ header\ table\ size\ notified\ in\ the\ next\ context\ update\ */}}
+\DoxyCodeLine{00226\ \ \ \textcolor{keywordtype}{size\_t}\ min\_hd\_table\_bufsize\_max;}
+\DoxyCodeLine{00227\ \ \ \textcolor{comment}{/*\ If\ nonzero,\ send\ header\ table\ size\ using\ encoding\ context\ update}}
+\DoxyCodeLine{00228\ \textcolor{comment}{\ \ \ \ \ in\ the\ next\ deflate\ process\ */}}
+\DoxyCodeLine{00229\ \ \ uint8\_t\ notify\_table\_size\_change;}
+\DoxyCodeLine{00230\ \};}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}}\ \{}
+\DoxyCodeLine{00233\ \ \ \mbox{\hyperlink{structnghttp2__hd__context}{nghttp2\_hd\_context}}\ ctx;}
+\DoxyCodeLine{00234\ \ \ \textcolor{comment}{/*\ Stores\ current\ state\ of\ huffman\ decoding\ */}}
+\DoxyCodeLine{00235\ \ \ \mbox{\hyperlink{structnghttp2__hd__huff__decode__context}{nghttp2\_hd\_huff\_decode\_context}}\ huff\_decode\_ctx;}
+\DoxyCodeLine{00236\ \ \ \textcolor{comment}{/*\ header\ buffer\ */}}
+\DoxyCodeLine{00237\ \ \ \mbox{\hyperlink{structnghttp2__buf}{nghttp2\_buf}}\ namebuf,\ valuebuf;}
+\DoxyCodeLine{00238\ \ \ \mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ *namercbuf,\ *valuercbuf;}
+\DoxyCodeLine{00239\ \ \ \textcolor{comment}{/*\ Pointer\ to\ the\ name/value\ pair\ which\ are\ used\ in\ the\ current}}
+\DoxyCodeLine{00240\ \textcolor{comment}{\ \ \ \ \ header\ emission.\ */}}
+\DoxyCodeLine{00241\ \ \ \mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ *nv\_name\_keep,\ *nv\_value\_keep;}
+\DoxyCodeLine{00242\ \ \ \textcolor{comment}{/*\ The\ number\ of\ bytes\ to\ read\ */}}
+\DoxyCodeLine{00243\ \ \ \textcolor{keywordtype}{size\_t}\ left;}
+\DoxyCodeLine{00244\ \ \ \textcolor{comment}{/*\ The\ index\ in\ indexed\ repr\ or\ indexed\ name\ */}}
+\DoxyCodeLine{00245\ \ \ \textcolor{keywordtype}{size\_t}\ index;}
+\DoxyCodeLine{00246\ \ \ \textcolor{comment}{/*\ The\ maximum\ header\ table\ size\ the\ inflater\ supports.\ This\ is\ the}}
+\DoxyCodeLine{00247\ \textcolor{comment}{\ \ \ \ \ same\ value\ transmitted\ in\ SETTINGS\_HEADER\_TABLE\_SIZE\ */}}
+\DoxyCodeLine{00248\ \ \ \textcolor{keywordtype}{size\_t}\ settings\_hd\_table\_bufsize\_max;}
+\DoxyCodeLine{00249\ \ \ \textcolor{comment}{/*\ Minimum\ header\ table\ size\ set\ by\ nghttp2\_hd\_inflate\_change\_table\_size\ */}}
+\DoxyCodeLine{00250\ \ \ \textcolor{keywordtype}{size\_t}\ min\_hd\_table\_bufsize\_max;}
+\DoxyCodeLine{00251\ \ \ \textcolor{comment}{/*\ The\ number\ of\ next\ shift\ to\ decode\ integer\ */}}
+\DoxyCodeLine{00252\ \ \ \textcolor{keywordtype}{size\_t}\ shift;}
+\DoxyCodeLine{00253\ \ \ nghttp2\_hd\_opcode\ opcode;}
+\DoxyCodeLine{00254\ \ \ nghttp2\_hd\_inflate\_state\ state;}
+\DoxyCodeLine{00255\ \ \ \textcolor{comment}{/*\ nonzero\ if\ string\ is\ huffman\ encoded\ */}}
+\DoxyCodeLine{00256\ \ \ uint8\_t\ huffman\_encoded;}
+\DoxyCodeLine{00257\ \ \ \textcolor{comment}{/*\ nonzero\ if\ deflater\ requires\ that\ current\ entry\ is\ indexed\ */}}
+\DoxyCodeLine{00258\ \ \ uint8\_t\ index\_required;}
+\DoxyCodeLine{00259\ \ \ \textcolor{comment}{/*\ nonzero\ if\ deflater\ requires\ that\ current\ entry\ must\ not\ be}}
+\DoxyCodeLine{00260\ \textcolor{comment}{\ \ \ \ \ indexed\ */}}
+\DoxyCodeLine{00261\ \ \ uint8\_t\ no\_index;}
+\DoxyCodeLine{00262\ \};}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00265\ \textcolor{comment}{\ *\ Initializes\ the\ |ent|\ members.\ \ The\ reference\ counts\ of\ nv-\/>name}}
+\DoxyCodeLine{00266\ \textcolor{comment}{\ *\ and\ nv-\/>value\ are\ increased\ by\ one\ for\ each.}}
+\DoxyCodeLine{00267\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00268\ \textcolor{keywordtype}{void}\ nghttp2\_hd\_entry\_init(\mbox{\hyperlink{structnghttp2__hd__entry}{nghttp2\_hd\_entry}}\ *ent,\ \mbox{\hyperlink{structnghttp2__hd__nv}{nghttp2\_hd\_nv}}\ *nv);}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00271\ \textcolor{comment}{\ *\ This\ function\ decreases\ the\ reference\ counts\ of\ nv-\/>name\ and}}
+\DoxyCodeLine{00272\ \textcolor{comment}{\ *\ nv-\/>value.}}
+\DoxyCodeLine{00273\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00274\ \textcolor{keywordtype}{void}\ nghttp2\_hd\_entry\_free(\mbox{\hyperlink{structnghttp2__hd__entry}{nghttp2\_hd\_entry}}\ *ent);}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00277\ \textcolor{comment}{\ *\ Initializes\ |deflater|\ for\ deflating\ name/values\ pairs.}}
+\DoxyCodeLine{00278\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00279\ \textcolor{comment}{\ *\ The\ encoder\ only\ uses\ up\ to}}
+\DoxyCodeLine{00280\ \textcolor{comment}{\ *\ NGHTTP2\_HD\_DEFAULT\_MAX\_DEFLATE\_BUFFER\_SIZE\ bytes\ for\ header\ table}}
+\DoxyCodeLine{00281\ \textcolor{comment}{\ *\ even\ if\ the\ larger\ value\ is\ specified\ later\ in}}
+\DoxyCodeLine{00282\ \textcolor{comment}{\ *\ nghttp2\_hd\_change\_table\_size().}}
+\DoxyCodeLine{00283\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00284\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00285\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00286\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00287\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00288\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00289\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00290\ \textcolor{keywordtype}{int}\ nghttp2\_hd\_deflate\_init(\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ *deflater,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00293\ \textcolor{comment}{\ *\ Initializes\ |deflater|\ for\ deflating\ name/values\ pairs.}}
+\DoxyCodeLine{00294\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00295\ \textcolor{comment}{\ *\ The\ encoder\ only\ uses\ up\ to\ |max\_deflate\_dynamic\_table\_size|\ bytes}}
+\DoxyCodeLine{00296\ \textcolor{comment}{\ *\ for\ header\ table\ even\ if\ the\ larger\ value\ is\ specified\ later\ in}}
+\DoxyCodeLine{00297\ \textcolor{comment}{\ *\ nghttp2\_hd\_change\_table\_size().}}
+\DoxyCodeLine{00298\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00299\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00300\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00301\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00302\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00303\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00304\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00305\ \textcolor{keywordtype}{int}\ nghttp2\_hd\_deflate\_init2(\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ *deflater,}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ max\_deflate\_dynamic\_table\_size,}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00310\ \textcolor{comment}{\ *\ Deallocates\ any\ resources\ allocated\ for\ |deflater|.}}
+\DoxyCodeLine{00311\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00312\ \textcolor{keywordtype}{void}\ nghttp2\_hd\_deflate\_free(\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ *deflater);}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00315\ \textcolor{comment}{\ *\ Deflates\ the\ |nva|,\ which\ has\ the\ |nvlen|\ name/value\ pairs,\ into}}
+\DoxyCodeLine{00316\ \textcolor{comment}{\ *\ the\ |bufs|.}}
+\DoxyCodeLine{00317\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00318\ \textcolor{comment}{\ *\ This\ function\ expands\ |bufs|\ as\ necessary\ to\ store\ the\ result.\ If}}
+\DoxyCodeLine{00319\ \textcolor{comment}{\ *\ buffers\ is\ full\ and\ the\ process\ still\ requires\ more\ space,\ this}}
+\DoxyCodeLine{00320\ \textcolor{comment}{\ *\ function\ fails\ and\ returns\ NGHTTP2\_ERR\_HEADER\_COMP.}}
+\DoxyCodeLine{00321\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00322\ \textcolor{comment}{\ *\ After\ this\ function\ returns,\ it\ is\ safe\ to\ delete\ the\ |nva|.}}
+\DoxyCodeLine{00323\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00324\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00325\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00326\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00327\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00328\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00329\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_HEADER\_COMP}}
+\DoxyCodeLine{00330\ \textcolor{comment}{\ *\ \ \ \ \ Deflation\ process\ has\ failed.}}
+\DoxyCodeLine{00331\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_BUFFER\_ERROR}}
+\DoxyCodeLine{00332\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ buffer\ space.}}
+\DoxyCodeLine{00333\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00334\ \textcolor{keywordtype}{int}\ nghttp2\_hd\_deflate\_hd\_bufs(\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ *deflater,}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nvlen);}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00339\ \textcolor{comment}{\ *\ Initializes\ |inflater|\ for\ inflating\ name/values\ pairs.}}
+\DoxyCodeLine{00340\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00341\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00342\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00343\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00344\ \textcolor{comment}{\ *\ :enum:`NGHTTP2\_ERR\_NOMEM`}}
+\DoxyCodeLine{00345\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00346\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00347\ \textcolor{keywordtype}{int}\ nghttp2\_hd\_inflate\_init(\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}}\ *inflater,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00350\ \textcolor{comment}{\ *\ Deallocates\ any\ resources\ allocated\ for\ |inflater|.}}
+\DoxyCodeLine{00351\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00352\ \textcolor{keywordtype}{void}\ nghttp2\_hd\_inflate\_free(\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}}\ *inflater);}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00355\ \textcolor{comment}{\ *\ Similar\ to\ nghttp2\_hd\_inflate\_hd(),\ but\ this\ takes\ nghttp2\_hd\_nv}}
+\DoxyCodeLine{00356\ \textcolor{comment}{\ *\ instead\ of\ nghttp2\_nv\ as\ output\ parameter\ |nv\_out|.\ \ Other\ than}}
+\DoxyCodeLine{00357\ \textcolor{comment}{\ *\ that\ return\ values\ and\ semantics\ are\ the\ same\ as}}
+\DoxyCodeLine{00358\ \textcolor{comment}{\ *\ nghttp2\_hd\_inflate\_hd().}}
+\DoxyCodeLine{00359\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00360\ nghttp2\_ssize\ nghttp2\_hd\_inflate\_hd\_nv(\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}}\ *inflater,}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__hd__nv}{nghttp2\_hd\_nv}}\ *nv\_out,}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *inflate\_flags,\ \textcolor{keyword}{const}\ uint8\_t\ *in,}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ inlen,\ \textcolor{keywordtype}{int}\ in\_final);}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \textcolor{comment}{/*\ For\ unittesting\ purpose\ */}}
+\DoxyCodeLine{00366\ \textcolor{keywordtype}{int}\ nghttp2\_hd\_emit\_indname\_block(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \textcolor{keywordtype}{size\_t}\ index,}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nv,\ \textcolor{keywordtype}{int}\ indexing\_mode);}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \textcolor{comment}{/*\ For\ unittesting\ purpose\ */}}
+\DoxyCodeLine{00370\ \textcolor{keywordtype}{int}\ nghttp2\_hd\_emit\_newname\_block(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nv,}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ indexing\_mode);}
+\DoxyCodeLine{00372\ }
+\DoxyCodeLine{00373\ \textcolor{comment}{/*\ For\ unittesting\ purpose\ */}}
+\DoxyCodeLine{00374\ \textcolor{keywordtype}{int}\ nghttp2\_hd\_emit\_table\_size(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \textcolor{keywordtype}{size\_t}\ table\_size);}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ \textcolor{comment}{/*\ For\ unittesting\ purpose\ */}}
+\DoxyCodeLine{00377\ \mbox{\hyperlink{structnghttp2__hd__nv}{nghttp2\_hd\_nv}}\ nghttp2\_hd\_table\_get(\mbox{\hyperlink{structnghttp2__hd__context}{nghttp2\_hd\_context}}\ *context,\ \textcolor{keywordtype}{size\_t}\ index);}
+\DoxyCodeLine{00378\ }
+\DoxyCodeLine{00379\ \textcolor{comment}{/*\ For\ unittesting\ purpose\ */}}
+\DoxyCodeLine{00380\ nghttp2\_ssize\ nghttp2\_hd\_decode\_length(uint32\_t\ *res,\ \textcolor{keywordtype}{size\_t}\ *shift\_ptr,}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *fin,\ uint32\_t\ initial,\ \textcolor{keywordtype}{size\_t}\ shift,}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *in,\ uint8\_t\ *last,}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ prefix);}
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00385\ \textcolor{comment}{/*\ Huffman\ encoding/decoding\ functions\ */}}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00387\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00388\ \textcolor{comment}{\ *\ Counts\ the\ required\ bytes\ to\ encode\ |src|\ with\ length\ |len|.}}
+\DoxyCodeLine{00389\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00390\ \textcolor{comment}{\ *\ This\ function\ returns\ the\ number\ of\ required\ bytes\ to\ encode\ given}}
+\DoxyCodeLine{00391\ \textcolor{comment}{\ *\ data,\ including\ padding\ of\ prefix\ of\ terminal\ symbol\ code.\ This}}
+\DoxyCodeLine{00392\ \textcolor{comment}{\ *\ function\ always\ succeeds.}}
+\DoxyCodeLine{00393\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00394\ \textcolor{keywordtype}{size\_t}\ nghttp2\_hd\_huff\_encode\_count(\textcolor{keyword}{const}\ uint8\_t\ *src,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00397\ \textcolor{comment}{\ *\ Encodes\ the\ given\ data\ |src|\ with\ length\ |srclen|\ to\ the\ |bufs|.}}
+\DoxyCodeLine{00398\ \textcolor{comment}{\ *\ This\ function\ expands\ extra\ buffers\ in\ |bufs|\ if\ necessary.}}
+\DoxyCodeLine{00399\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00400\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00401\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00402\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00403\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00404\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00405\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_BUFFER\_ERROR}}
+\DoxyCodeLine{00406\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ buffer\ space.}}
+\DoxyCodeLine{00407\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00408\ \textcolor{keywordtype}{int}\ nghttp2\_hd\_huff\_encode(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \textcolor{keyword}{const}\ uint8\_t\ *src,}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ srclen);}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \textcolor{keywordtype}{void}\ nghttp2\_hd\_huff\_decode\_context\_init(\mbox{\hyperlink{structnghttp2__hd__huff__decode__context}{nghttp2\_hd\_huff\_decode\_context}}\ *ctx);}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00413\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00414\ \textcolor{comment}{\ *\ Decodes\ the\ given\ data\ |src|\ with\ length\ |srclen|.\ \ The\ |ctx|\ must}}
+\DoxyCodeLine{00415\ \textcolor{comment}{\ *\ be\ initialized\ by\ nghttp2\_hd\_huff\_decode\_context\_init().\ The\ result}}
+\DoxyCodeLine{00416\ \textcolor{comment}{\ *\ will\ be\ written\ to\ |buf|.\ \ This\ function\ assumes\ that\ |buf|\ has\ the}}
+\DoxyCodeLine{00417\ \textcolor{comment}{\ *\ enough\ room\ to\ store\ the\ decoded\ byte\ string.}}
+\DoxyCodeLine{00418\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00419\ \textcolor{comment}{\ *\ The\ caller\ must\ set\ the\ |fin|\ to\ nonzero\ if\ the\ given\ input\ is\ the}}
+\DoxyCodeLine{00420\ \textcolor{comment}{\ *\ final\ block.}}
+\DoxyCodeLine{00421\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00422\ \textcolor{comment}{\ *\ This\ function\ returns\ the\ number\ of\ read\ bytes\ from\ the\ |in|.}}
+\DoxyCodeLine{00423\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00424\ \textcolor{comment}{\ *\ If\ this\ function\ fails,\ it\ returns\ one\ of\ the\ following\ negative}}
+\DoxyCodeLine{00425\ \textcolor{comment}{\ *\ return\ codes:}}
+\DoxyCodeLine{00426\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00427\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00428\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00429\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_HEADER\_COMP}}
+\DoxyCodeLine{00430\ \textcolor{comment}{\ *\ \ \ \ \ Decoding\ process\ has\ failed.}}
+\DoxyCodeLine{00431\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00432\ nghttp2\_ssize\ nghttp2\_hd\_huff\_decode(\mbox{\hyperlink{structnghttp2__hd__huff__decode__context}{nghttp2\_hd\_huff\_decode\_context}}\ *ctx,}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__buf}{nghttp2\_buf}}\ *buf,\ \textcolor{keyword}{const}\ uint8\_t\ *src,}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ srclen,\ \textcolor{keywordtype}{int}\ fin);}
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00436\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00437\ \textcolor{comment}{\ *\ nghttp2\_hd\_huff\_decode\_failure\_state\ returns\ nonzero\ if\ |ctx|}}
+\DoxyCodeLine{00438\ \textcolor{comment}{\ *\ indicates\ that\ huffman\ decoding\ context\ is\ in\ failure\ state.}}
+\DoxyCodeLine{00439\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00440\ \textcolor{keywordtype}{int}\ nghttp2\_hd\_huff\_decode\_failure\_state(\mbox{\hyperlink{structnghttp2__hd__huff__decode__context}{nghttp2\_hd\_huff\_decode\_context}}\ *ctx);}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_HD\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

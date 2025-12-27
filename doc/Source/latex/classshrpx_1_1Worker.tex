@@ -1,0 +1,83 @@
+\doxysection{shrpx\+::Worker Class Reference}
+\hypertarget{classshrpx_1_1Worker}{}\label{classshrpx_1_1Worker}\index{shrpx::Worker@{shrpx::Worker}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1Worker_a81886ca5386c7b625ef6be0893b3b511}\label{classshrpx_1_1Worker_a81886ca5386c7b625ef6be0893b3b511} 
+{\bfseries Worker} (struct ev\+\_\+loop \texorpdfstring{$\ast$}{*}loop, SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*}sv\+\_\+ssl\+\_\+ctx, SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*}cl\+\_\+ssl\+\_\+ctx, SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*}tls\+\_\+session\+\_\+cache\+\_\+memcached\+\_\+ssl\+\_\+ctx, \mbox{\hyperlink{classshrpx_1_1tls_1_1CertLookupTree}{tls\+::\+Cert\+Lookup\+Tree}} \texorpdfstring{$\ast$}{*}cert\+\_\+tree, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1TicketKeys}{Ticket\+Keys}} $>$ \&ticket\+\_\+keys, \mbox{\hyperlink{classshrpx_1_1ConnectionHandler}{Connection\+Handler}} \texorpdfstring{$\ast$}{*}conn\+\_\+handler, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1DownstreamConfig}{Downstream\+Config}} $>$ downstreamconf)
+\item 
+\Hypertarget{classshrpx_1_1Worker_a203faabed4b172200528ff2d3fd116a8}\label{classshrpx_1_1Worker_a203faabed4b172200528ff2d3fd116a8} 
+void {\bfseries run\+\_\+async} ()
+\item 
+\Hypertarget{classshrpx_1_1Worker_a564466d955ffc8a51ab527d97526b7a1}\label{classshrpx_1_1Worker_a564466d955ffc8a51ab527d97526b7a1} 
+void {\bfseries wait} ()
+\item 
+\Hypertarget{classshrpx_1_1Worker_a6628e33d51fa36d441fe0c395db0f1f6}\label{classshrpx_1_1Worker_a6628e33d51fa36d441fe0c395db0f1f6} 
+void {\bfseries process\+\_\+events} ()
+\item 
+\Hypertarget{classshrpx_1_1Worker_a52e8c7ff531d83e564323ea85328b3d5}\label{classshrpx_1_1Worker_a52e8c7ff531d83e564323ea85328b3d5} 
+void {\bfseries send} (\mbox{\hyperlink{structshrpx_1_1WorkerEvent}{Worker\+Event}} event)
+\item 
+\Hypertarget{classshrpx_1_1Worker_a1c38fbfee5ffe6ae1d6c0878c2621a89}\label{classshrpx_1_1Worker_a1c38fbfee5ffe6ae1d6c0878c2621a89} 
+\mbox{\hyperlink{classshrpx_1_1tls_1_1CertLookupTree}{tls\+::\+Cert\+Lookup\+Tree}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+cert\+\_\+lookup\+\_\+tree} () const
+\item 
+\Hypertarget{classshrpx_1_1Worker_a78c6afd34c356c84a60bb0a449a8b2d8}\label{classshrpx_1_1Worker_a78c6afd34c356c84a60bb0a449a8b2d8} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1TicketKeys}{Ticket\+Keys}} $>$ {\bfseries get\+\_\+ticket\+\_\+keys} ()
+\item 
+\Hypertarget{classshrpx_1_1Worker_a02748d9e980b4eb5dcce067ff089b8b9}\label{classshrpx_1_1Worker_a02748d9e980b4eb5dcce067ff089b8b9} 
+void {\bfseries set\+\_\+ticket\+\_\+keys} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1TicketKeys}{Ticket\+Keys}} $>$ ticket\+\_\+keys)
+\item 
+\Hypertarget{classshrpx_1_1Worker_a2015e100ba837c01d83bab408c9a8133}\label{classshrpx_1_1Worker_a2015e100ba837c01d83bab408c9a8133} 
+\mbox{\hyperlink{structshrpx_1_1WorkerStat}{Worker\+Stat}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+worker\+\_\+stat} ()
+\item 
+\Hypertarget{classshrpx_1_1Worker_a34900dc28d1ee3732a6283347f67a24b}\label{classshrpx_1_1Worker_a34900dc28d1ee3732a6283347f67a24b} 
+struct ev\+\_\+loop \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+loop} () const
+\item 
+\Hypertarget{classshrpx_1_1Worker_ae846b636651219edca71b249c6916d39}\label{classshrpx_1_1Worker_ae846b636651219edca71b249c6916d39} 
+SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+sv\+\_\+ssl\+\_\+ctx} () const
+\item 
+\Hypertarget{classshrpx_1_1Worker_a8b8ba55d3ab886cc5c0a6475fe864726}\label{classshrpx_1_1Worker_a8b8ba55d3ab886cc5c0a6475fe864726} 
+SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+cl\+\_\+ssl\+\_\+ctx} () const
+\item 
+\Hypertarget{classshrpx_1_1Worker_afc45910afbee2212474122dda0968995}\label{classshrpx_1_1Worker_afc45910afbee2212474122dda0968995} 
+void {\bfseries set\+\_\+graceful\+\_\+shutdown} (bool f)
+\item 
+\Hypertarget{classshrpx_1_1Worker_a8b6ac239d160548675772c7f2347b20a}\label{classshrpx_1_1Worker_a8b6ac239d160548675772c7f2347b20a} 
+bool {\bfseries get\+\_\+graceful\+\_\+shutdown} () const
+\item 
+\Hypertarget{classshrpx_1_1Worker_aff0feff18a04c9b7e3e7c27a3960f829}\label{classshrpx_1_1Worker_aff0feff18a04c9b7e3e7c27a3960f829} 
+Memchunk\+Pool \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+mcpool} ()
+\item 
+\Hypertarget{classshrpx_1_1Worker_af03cf187cb9f4e5802efc8aac0460b97}\label{classshrpx_1_1Worker_af03cf187cb9f4e5802efc8aac0460b97} 
+void {\bfseries schedule\+\_\+clear\+\_\+mcpool} ()
+\item 
+\Hypertarget{classshrpx_1_1Worker_ab4bba9a5fc070df2ce4a027398605db9}\label{classshrpx_1_1Worker_ab4bba9a5fc070df2ce4a027398605db9} 
+\mbox{\hyperlink{classshrpx_1_1MemcachedDispatcher}{Memcached\+Dispatcher}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+session\+\_\+cache\+\_\+memcached\+\_\+dispatcher} ()
+\item 
+\Hypertarget{classshrpx_1_1Worker_a5342d907197b3318ab12155388c3a737}\label{classshrpx_1_1Worker_a5342d907197b3318ab12155388c3a737} 
+std\+::mt19937 \& {\bfseries get\+\_\+randgen} ()
+\item 
+\Hypertarget{classshrpx_1_1Worker_a572635c12476bddd539debdea9d4fd58}\label{classshrpx_1_1Worker_a572635c12476bddd539debdea9d4fd58} 
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1DownstreamAddrGroup}{Downstream\+Addr\+Group}} $>$ $>$ \& {\bfseries get\+\_\+downstream\+\_\+addr\+\_\+groups} ()
+\item 
+\Hypertarget{classshrpx_1_1Worker_a9a4c48617c020c78ecff55f653aadd27}\label{classshrpx_1_1Worker_a9a4c48617c020c78ecff55f653aadd27} 
+\mbox{\hyperlink{classshrpx_1_1ConnectBlocker}{Connect\+Blocker}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+connect\+\_\+blocker} () const
+\item 
+\Hypertarget{classshrpx_1_1Worker_aab6191825b838b36c00140671c5a589b}\label{classshrpx_1_1Worker_aab6191825b838b36c00140671c5a589b} 
+const \mbox{\hyperlink{structshrpx_1_1DownstreamConfig}{Downstream\+Config}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+downstream\+\_\+config} () const
+\item 
+\Hypertarget{classshrpx_1_1Worker_a1e62c693dae907ff28b809e9d68df7d7}\label{classshrpx_1_1Worker_a1e62c693dae907ff28b809e9d68df7d7} 
+void {\bfseries replace\+\_\+downstream\+\_\+config} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1DownstreamConfig}{Downstream\+Config}} $>$ downstreamconf)
+\item 
+\Hypertarget{classshrpx_1_1Worker_ac82c5b0d80f707044620f4a58e6dde8d}\label{classshrpx_1_1Worker_ac82c5b0d80f707044620f4a58e6dde8d} 
+\mbox{\hyperlink{classshrpx_1_1ConnectionHandler}{Connection\+Handler}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+connection\+\_\+handler} () const
+\item 
+\Hypertarget{classshrpx_1_1Worker_aeca6ad8989324508d5c30908336765f9}\label{classshrpx_1_1Worker_aeca6ad8989324508d5c30908336765f9} 
+\mbox{\hyperlink{classshrpx_1_1DNSTracker}{DNSTracker}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+dns\+\_\+tracker} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+worker.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+worker.\+cc\end{DoxyCompactItemize}

@@ -1,0 +1,3 @@
+#! /bin/bash
+export ADF_PATH="/opt/esp32/esp-adf"
+. /opt/esp32/esp-adf/esp-idf/export.sh

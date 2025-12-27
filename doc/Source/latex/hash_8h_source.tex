@@ -1,0 +1,233 @@
+\doxysection{hash.\+h}
+\hypertarget{hash_8h_source}{}\label{hash_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/hash.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/hash.h}}
+\mbox{\hyperlink{hash_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_HASH\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_HASH\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{common_8h}{common.h}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00015\ \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\_BEGIN\_DECL}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{/*\ offset\ of\ \`{}iv`\ must\ be\ 3\ words\ */}}
+\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRHash}{RHash}}\ \{}
+\DoxyCodeLine{00019\ \ \ MRB\_OBJECT\_HEADER;}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifdef\ MRB\_64BIT}}
+\DoxyCodeLine{00021\ \ \ uint32\_t\ size;}
+\DoxyCodeLine{00022\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structiv__tbl}{iv\_tbl}}\ *iv;}
+\DoxyCodeLine{00023\ \ \ uint32\_t\ ea\_capa;}
+\DoxyCodeLine{00024\ \ \ uint32\_t\ ea\_n\_used;}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structiv__tbl}{iv\_tbl}}\ *iv;}
+\DoxyCodeLine{00027\ \ \ uint32\_t\ size;}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00029\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhash__entry}{hash\_entry}}\ *ea;}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhash__table}{hash\_table}}\ *ht;}
+\DoxyCodeLine{00032\ \ \ \}\ hsh;}
+\DoxyCodeLine{00033\ \};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ mrb\_hash\_ptr(v)\ \ \ \ ((struct\ RHash*)(mrb\_ptr(v)))}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ mrb\_hash\_value(p)\ \ mrb\_obj\_value((void*)(p))}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_hash\_new\_capa(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ mrb\_int\ capa);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ Initializes\ a\ new\ hash.}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ *\ \ \ \ \ \ Hash.new}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ *\ @return\ The\ initialized\ hash.}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00050\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_hash\_new(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ *\ Sets\ a\ keys\ and\ values\ to\ hashes.}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ *\ \ \ \ \ \ hash[key]\ =\ val}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *\ @param\ hash\ The\ target\ hash.}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *\ @param\ key\ The\ key\ to\ set.}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *\ @param\ val\ The\ value\ to\ set.}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ *\ @return\ The\ value.}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00065\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{void}\ mrb\_hash\_set(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ hash,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ key,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ val);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ *\ Gets\ a\ value\ from\ a\ key.\ If\ the\ key\ is\ not\ found,\ the\ default\ of\ the}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *\ hash\ is\ used.}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ *\ \ \ \ \ hash[key]}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *\ @param\ hash\ The\ target\ hash.}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ *\ @param\ key\ The\ key\ to\ get.}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ *\ @return\ The\ found\ value.}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00080\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_hash\_get(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ hash,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ key);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ *\ Gets\ a\ value\ from\ a\ key.\ If\ the\ key\ is\ not\ found,\ the\ default\ parameter\ is}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ *\ used.}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ *\ \ \ \ \ hash.key?(key)\ ?\ hash[key]\ :\ def}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ *\ @param\ hash\ The\ target\ hash.}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ *\ @param\ key\ The\ key\ to\ get.}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ *\ @param\ def\ The\ default\ value.}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ *\ @return\ The\ found\ value.}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00096\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_hash\_fetch(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ hash,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ key,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ def);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ *\ Deletes\ hash\ key\ and\ value\ pair.}}
+\DoxyCodeLine{00100\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ *\ \ \ \ \ hash.delete(key)}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ *\ @param\ hash\ The\ target\ hash.}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ *\ @param\ key\ The\ key\ to\ delete.}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ *\ @return\ The\ deleted\ value.\ This\ value\ is\ not\ protected\ from\ GC.\ Use\ \`{}mrb\_gc\_protect()`\ if\ necessary.}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00110\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_hash\_delete\_key(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ hash,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ key);}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ *\ Gets\ an\ array\ of\ keys.}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ *\ \ \ \ \ hash.keys}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ *\ @param\ hash\ The\ target\ hash.}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ *\ @return\ An\ array\ with\ the\ keys\ of\ the\ hash.}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00123\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_hash\_keys(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ hash);}
+\DoxyCodeLine{00124\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ *\ Check\ if\ the\ hash\ has\ the\ key.}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ *\ \ \ \ \ hash.key?(key)}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ *\ @param\ hash\ The\ target\ hash.}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ *\ @param\ key\ The\ key\ to\ check\ existence.}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ *\ @return\ True\ if\ the\ hash\ has\ the\ key}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00136\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ mrb\_bool\ mrb\_hash\_key\_p(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ hash,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ key);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ *\ Check\ if\ the\ hash\ is\ empty}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00141\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ *\ \ \ \ \ hash.empty?}}
+\DoxyCodeLine{00144\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00146\ \textcolor{comment}{\ *\ @param\ self\ The\ target\ hash.}}
+\DoxyCodeLine{00147\ \textcolor{comment}{\ *\ @return\ True\ if\ the\ hash\ is\ empty,\ false\ otherwise.}}
+\DoxyCodeLine{00148\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00149\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ mrb\_bool\ mrb\_hash\_empty\_p(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ self);}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ *\ Gets\ an\ array\ of\ values.}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00154\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00156\ \textcolor{comment}{\ *\ \ \ \ \ hash.values}}
+\DoxyCodeLine{00157\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00158\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ *\ @param\ hash\ The\ target\ hash.}}
+\DoxyCodeLine{00160\ \textcolor{comment}{\ *\ @return\ An\ array\ with\ the\ values\ of\ the\ hash.}}
+\DoxyCodeLine{00161\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00162\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_hash\_values(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ hash);}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ *\ Clears\ the\ hash.}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00168\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00169\ \textcolor{comment}{\ *\ \ \ \ \ hash.clear}}
+\DoxyCodeLine{00170\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00171\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00172\ \textcolor{comment}{\ *\ @param\ hash\ The\ target\ hash.}}
+\DoxyCodeLine{00173\ \textcolor{comment}{\ *\ @return\ The\ hash}}
+\DoxyCodeLine{00174\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00175\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_hash\_clear(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ hash);}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00178\ \textcolor{comment}{\ *\ Get\ hash\ size.}}
+\DoxyCodeLine{00179\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00180\ \textcolor{comment}{\ *\ Equivalent\ to:}}
+\DoxyCodeLine{00181\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00182\ \textcolor{comment}{\ *\ \ \ \ \ \ hash.size}}
+\DoxyCodeLine{00183\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00184\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00185\ \textcolor{comment}{\ *\ @param\ hash\ The\ target\ hash.}}
+\DoxyCodeLine{00186\ \textcolor{comment}{\ *\ @return\ The\ hash\ size.}}
+\DoxyCodeLine{00187\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00188\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ mrb\_int\ mrb\_hash\_size(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ hash);}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00191\ \textcolor{comment}{\ *\ Copies\ the\ hash.\ This\ function\ does\ NOT\ copy\ the\ instance\ variables}}
+\DoxyCodeLine{00192\ \textcolor{comment}{\ *\ (except\ for\ the\ default\ value).\ Use\ mrb\_obj\_dup()\ to\ copy\ the\ instance}}
+\DoxyCodeLine{00193\ \textcolor{comment}{\ *\ variables\ as\ well.}}
+\DoxyCodeLine{00194\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00195\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00196\ \textcolor{comment}{\ *\ @param\ hash\ The\ target\ hash.}}
+\DoxyCodeLine{00197\ \textcolor{comment}{\ *\ @return\ The\ copy\ of\ the\ hash}}
+\DoxyCodeLine{00198\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00199\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_hash\_dup(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ hash);}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00202\ \textcolor{comment}{\ *\ Merges\ two\ hashes.\ The\ first\ hash\ will\ be\ modified\ by\ the}}
+\DoxyCodeLine{00203\ \textcolor{comment}{\ *\ second\ hash.}}
+\DoxyCodeLine{00204\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00205\ \textcolor{comment}{\ *\ @param\ mrb\ The\ mruby\ state\ reference.}}
+\DoxyCodeLine{00206\ \textcolor{comment}{\ *\ @param\ hash1\ The\ target\ hash.}}
+\DoxyCodeLine{00207\ \textcolor{comment}{\ *\ @param\ hash2\ Updating\ hash}}
+\DoxyCodeLine{00208\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00209\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{void}\ mrb\_hash\_merge(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ hash1,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ hash2);}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#define\ RHASH(hash)\ ((struct\ RHash*)(mrb\_ptr(hash)))}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#define\ MRB\_HASH\_IB\_BIT\_BIT\ \ \ \ \ \ \ \ \ 5}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#define\ MRB\_HASH\_AR\_EA\_CAPA\_BIT\ \ \ \ \ 5}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\#define\ MRB\_HASH\_IB\_BIT\_SHIFT\ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#define\ MRB\_HASH\_AR\_EA\_CAPA\_SHIFT\ \ \ 0}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\#define\ MRB\_HASH\_AR\_EA\_N\_USED\_SHIFT\ MRB\_HASH\_AR\_EA\_CAPA\_BIT}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\#define\ MRB\_HASH\_SIZE\_FLAGS\_SHIFT\ \ \ (MRB\_HASH\_AR\_EA\_CAPA\_BIT\ *\ 2)}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#define\ MRB\_HASH\_IB\_BIT\_MASK\ \ \ \ \ \ \ \ ((1\ <<\ MRB\_HASH\_IB\_BIT\_BIT)\ -\/\ 1)}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#define\ MRB\_HASH\_AR\_EA\_CAPA\_MASK\ \ \ \ ((1\ <<\ MRB\_HASH\_AR\_EA\_CAPA\_BIT)\ -\/\ 1)}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#define\ MRB\_HASH\_AR\_EA\_N\_USED\_MASK\ \ (MRB\_HASH\_AR\_EA\_CAPA\_MASK\ <<\ MRB\_HASH\_AR\_EA\_N\_USED\_SHIFT)}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#define\ MRB\_HASH\_DEFAULT\ \ \ \ \ \ \ \ \ \ \ \ (1\ <<\ (MRB\_HASH\_SIZE\_FLAGS\_SHIFT\ +\ 0))}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#define\ MRB\_HASH\_PROC\_DEFAULT\ \ \ \ \ \ \ (1\ <<\ (MRB\_HASH\_SIZE\_FLAGS\_SHIFT\ +\ 1))}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#define\ MRB\_HASH\_HT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ <<\ (MRB\_HASH\_SIZE\_FLAGS\_SHIFT\ +\ 2))}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#define\ MRB\_RHASH\_DEFAULT\_P(hash)\ (RHASH(hash)-\/>flags\ \&\ MRB\_HASH\_DEFAULT)}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#define\ MRB\_RHASH\_PROCDEFAULT\_P(hash)\ (RHASH(hash)-\/>flags\ \&\ MRB\_HASH\_PROC\_DEFAULT)}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \textcolor{comment}{/*\ return\ non\ zero\ to\ break\ the\ loop\ */}}
+\DoxyCodeLine{00229\ \textcolor{keyword}{typedef}\ int\ (mrb\_hash\_foreach\_func)(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ key,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ val,\ \textcolor{keywordtype}{void}\ *data);}
+\DoxyCodeLine{00230\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{void}\ mrb\_hash\_foreach(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRHash}{RHash}}\ *hash,\ mrb\_hash\_foreach\_func\ *func,\ \textcolor{keywordtype}{void}\ *p);}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \mbox{\hyperlink{common_8h_a7e9674ff871a8abbcaf9ba23fa4b72d3}{MRB\_END\_DECL}}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_HASH\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

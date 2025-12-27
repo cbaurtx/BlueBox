@@ -1,0 +1,88 @@
+\doxysection{urlparse.\+h}
+\hypertarget{urlparse_8h_source}{}\label{urlparse_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/urlparse/urlparse.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/urlparse/urlparse.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ urlparse}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2024\ urlparse\ contributors}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2023\ sfparse\ contributors}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2019\ nghttp3\ contributors}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2015\ nghttp2\ contributors}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifndef\ URLPARSE\_H}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ URLPARSE\_H}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{/*\ Define\ WIN32\ when\ build\ target\ is\ Win32\ API\ (borrowed\ from}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ \ \ libcurl)\ */}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#if\ (defined(\_WIN32)\ ||\ defined(\_\_WIN32\_\_))\ \&\&\ !defined(WIN32)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#\ \ define\ WIN32}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ (defined(\_WIN32)\ ||\ defined(\_\_WIN32\_\_))\ \&\&\ !defined(WIN32)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00038\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ defined(\_\_cplusplus)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#if\ defined(\_MSC\_VER)\ \&\&\ (\_MSC\_VER\ <\ 1800)}}
+\DoxyCodeLine{00042\ \textcolor{comment}{/*\ MSVC\ <\ 2013\ does\ not\ have\ inttypes.h\ because\ it\ is\ not\ C99}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ compliant.\ \ See\ compiler\ macros\ and\ version\ number\ in}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ https://sourceforge.net/p/predef/wiki/Compilers/\ */}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#\ \ include\ <stdint.h>}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ !(defined(\_MSC\_VER)\ \&\&\ (\_MSC\_VER\ <\ 1800))\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#\ \ include\ <inttypes.h>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !(defined(\_MSC\_VER)\ \&\&\ (\_MSC\_VER\ <\ 1800))\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <sys/types.h>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ URLPARSE\_ERR\_PARSE\ -\/1}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ urlparse\_url\_fields\ \{}
+\DoxyCodeLine{00069\ \ \ URLPARSE\_SCHEMA\ =\ 0,}
+\DoxyCodeLine{00073\ \ \ URLPARSE\_HOST\ =\ 1,}
+\DoxyCodeLine{00077\ \ \ URLPARSE\_PORT\ =\ 2,}
+\DoxyCodeLine{00081\ \ \ URLPARSE\_PATH\ =\ 3,}
+\DoxyCodeLine{00085\ \ \ URLPARSE\_QUERY\ =\ 4,}
+\DoxyCodeLine{00089\ \ \ URLPARSE\_FRAGMENT\ =\ 5,}
+\DoxyCodeLine{00093\ \ \ URLPARSE\_USERINFO\ =\ 6,}
+\DoxyCodeLine{00097\ \ \ URLPARSE\_MAX\ =\ 7}
+\DoxyCodeLine{00098\ \}\ urlparse\_url\_fields;}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00106\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structurlparse__url}{urlparse\_url}}\ \{}
+\DoxyCodeLine{00111\ \ \ uint16\_t\ \mbox{\hyperlink{structurlparse__url_a0fc51133f42830a7da5c81b5ba3170d7}{field\_set}};}
+\DoxyCodeLine{00119\ \ \ uint16\_t\ \mbox{\hyperlink{structurlparse__url_abc8cf1eeff44b3dc991a946fb04d1378}{port}};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00134\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00138\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structurlparse__url_a0611ce363c793b78f3f054acc18c37d3}{off}};}
+\DoxyCodeLine{00142\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structurlparse__url_a9d04e7e4bb7fa412d0ab8a6d86f4f6f7}{len}};}
+\DoxyCodeLine{00146\ \ \ \}\ \mbox{\hyperlink{structurlparse__url_a6174e20ea2c02c4def7e22af7a0cd912}{field\_data}}[URLPARSE\_MAX];}
+\DoxyCodeLine{00147\ \}\ \mbox{\hyperlink{structurlparse__url}{urlparse\_url}};}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00163\ \textcolor{keywordtype}{int}\ urlparse\_parse\_url(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *url,\ \textcolor{keywordtype}{size\_t}\ urllen,\ \textcolor{keywordtype}{int}\ is\_connect,}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structurlparse__url}{urlparse\_url}}\ *u);}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00167\ \}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ defined(\_\_cplusplus)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !defined(URLPARSE\_H)\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

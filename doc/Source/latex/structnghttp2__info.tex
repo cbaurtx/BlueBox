@@ -1,0 +1,54 @@
+\doxysection{nghttp2\+\_\+info Struct Reference}
+\hypertarget{structnghttp2__info}{}\label{structnghttp2__info}\index{nghttp2\_info@{nghttp2\_info}}
+
+
+{\ttfamily \#include $<$nghttp2.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structnghttp2__info_a5358b2cf2726087d859d09e3eea2eda4}{age}}
+\item 
+int \mbox{\hyperlink{structnghttp2__info_a383770f7b4eab00a0553e8db16037c72}{version\+\_\+num}}
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structnghttp2__info_aaa4ff4d7f2ba92225f55cffc5a3de506}{version\+\_\+str}}
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structnghttp2__info_a07fa310425dc24617a071a7ab0925084}{proto\+\_\+str}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This struct is what {\ttfamily nghttp2\+\_\+version()} returns. It holds information about the particular nghttp2 version. 
+
+\label{doc-variable-members}
+\Hypertarget{structnghttp2__info_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structnghttp2__info_a5358b2cf2726087d859d09e3eea2eda4}\index{nghttp2\_info@{nghttp2\_info}!age@{age}}
+\index{age@{age}!nghttp2\_info@{nghttp2\_info}}
+\doxysubsubsection{\texorpdfstring{age}{age}}
+{\footnotesize\ttfamily \label{structnghttp2__info_a5358b2cf2726087d859d09e3eea2eda4} 
+int nghttp2\+\_\+info\+::age}
+
+Age of this struct. This instance of nghttp2 sets it to \+:macro\+:{\ttfamily NGHTTP2\+\_\+\+VERSION\+\_\+\+AGE} but a future version may bump it and add more struct fields at the bottom \Hypertarget{structnghttp2__info_a07fa310425dc24617a071a7ab0925084}\index{nghttp2\_info@{nghttp2\_info}!proto\_str@{proto\_str}}
+\index{proto\_str@{proto\_str}!nghttp2\_info@{nghttp2\_info}}
+\doxysubsubsection{\texorpdfstring{proto\_str}{proto\_str}}
+{\footnotesize\ttfamily \label{structnghttp2__info_a07fa310425dc24617a071a7ab0925084} 
+const char\texorpdfstring{$\ast$}{*} nghttp2\+\_\+info\+::proto\+\_\+str}
+
+points to the \+:macro\+:{\ttfamily NGHTTP2\+\_\+\+PROTO\+\_\+\+VERSION\+\_\+\+ID} string this instance implements (since age ==1) \Hypertarget{structnghttp2__info_a383770f7b4eab00a0553e8db16037c72}\index{nghttp2\_info@{nghttp2\_info}!version\_num@{version\_num}}
+\index{version\_num@{version\_num}!nghttp2\_info@{nghttp2\_info}}
+\doxysubsubsection{\texorpdfstring{version\_num}{version\_num}}
+{\footnotesize\ttfamily \label{structnghttp2__info_a383770f7b4eab00a0553e8db16037c72} 
+int nghttp2\+\_\+info\+::version\+\_\+num}
+
+the \+:macro\+:{\ttfamily NGHTTP2\+\_\+\+VERSION\+\_\+\+NUM} number (since age ==1) \Hypertarget{structnghttp2__info_aaa4ff4d7f2ba92225f55cffc5a3de506}\index{nghttp2\_info@{nghttp2\_info}!version\_str@{version\_str}}
+\index{version\_str@{version\_str}!nghttp2\_info@{nghttp2\_info}}
+\doxysubsubsection{\texorpdfstring{version\_str}{version\_str}}
+{\footnotesize\ttfamily \label{structnghttp2__info_aaa4ff4d7f2ba92225f55cffc5a3de506} 
+const char\texorpdfstring{$\ast$}{*} nghttp2\+\_\+info\+::version\+\_\+str}
+
+points to the \+:macro\+:{\ttfamily NGHTTP2\+\_\+\+VERSION} string (since age ==1) 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/lib/includes/nghttp2/nghttp2.\+h\end{DoxyCompactItemize}

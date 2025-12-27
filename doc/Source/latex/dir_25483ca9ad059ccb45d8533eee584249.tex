@@ -1,0 +1,35 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+esp-\/dsp/examples/azure\+\_\+board\+\_\+apps Directory Reference}
+\hypertarget{dir_25483ca9ad059ccb45d8533eee584249}{}\label{dir_25483ca9ad059ccb45d8533eee584249}\index{managed\_components/espressif\_\_esp-\/dsp/examples/azure\_board\_apps Directory Reference@{managed\_components/espressif\_\_esp-\/dsp/examples/azure\_board\_apps Directory Reference}}
+Directory dependency graph for azure\+\_\+board\+\_\+apps\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=349pt]{dir_25483ca9ad059ccb45d8533eee584249_dep}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_25483ca9ad059ccb45d8533eee584249_autotoc_md121}{}\doxysubsection{\texorpdfstring{ESP-\/\+DSP ESP32-\/\+Azure IoT kit demo applications}{ESP-\/\+DSP ESP32-\/\+Azure IoT kit demo applications}}\label{dir_25483ca9ad059ccb45d8533eee584249_autotoc_md121}
+The demo applications are developed for ESP32-\/\+Azure IoT kit development board and are demonstrating usage of matrices with ESP-\/\+DPS Mat class, Kalman filter and basic 3D projection with matrices\hypertarget{dir_25483ca9ad059ccb45d8533eee584249_autotoc_md122}{}\doxysubsubsection{\texorpdfstring{\href{apps/3d_graphics}{\texttt{3D Graphics demo}}}{\href{apps/3d_graphics}{\texttt{3D Graphics demo}}}}\label{dir_25483ca9ad059ccb45d8533eee584249_autotoc_md122}
+
+\begin{DoxyItemize}
+\item a simple rotation of a selected 3D objects is shown on the display
+\item demonstrating usage the Mat class, matrices and operations with matrices
+\end{DoxyItemize}
+
+  \hypertarget{dir_25483ca9ad059ccb45d8533eee584249_autotoc_md123}{}\doxysubsubsection{\texorpdfstring{\href{apps/kalman_filter/}{\texttt{Kalman filter demo}}}{\href{apps/kalman_filter/}{\texttt{Kalman filter demo}}}}\label{dir_25483ca9ad059ccb45d8533eee584249_autotoc_md123}
+
+\begin{DoxyItemize}
+\item a selected 3D object is following movements of the development board with IMU sensors
+\item the sensors outputs are processed by the Kalman filter
+\item demonstrating usage the Mat class, matrices, operations with matrices and Kalman filter
+\end{DoxyItemize}
+
+  \hypertarget{dir_25483ca9ad059ccb45d8533eee584249_autotoc_md124}{}\doxysubsubsection{\texorpdfstring{\href{graphics/img_to_3d_matrix/example/}{\texttt{3D graphics}}}{\href{graphics/img_to_3d_matrix/example/}{\texttt{3D graphics}}}}\label{dir_25483ca9ad059ccb45d8533eee584249_autotoc_md124}
+Simple 3D graphics is used in the both demos, to display the 3D on the monochromatic display. The Graphics is using transformation matrices to rotate, scale and translate (move) 3D objects, to show the matrix calculation capabilities of the ESP-\/\+DSP repository.\hypertarget{dir_25483ca9ad059ccb45d8533eee584249_autotoc_md125}{}\doxysubsection{\texorpdfstring{Used components}{Used components}}\label{dir_25483ca9ad059ccb45d8533eee584249_autotoc_md125}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/espressif/esp-dsp}{\texttt{ESP-\/\+DSP}}\+: matrices, Mat class, Kalman filter
+\item \href{https://github.com/espressif/esp-bsp}{\texttt{ESP-\/\+BSP}}\+: ESP32-\/\+Azure IoT kit 
+\end{DoxyItemize}

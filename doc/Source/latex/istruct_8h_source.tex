@@ -1,0 +1,47 @@
+\doxysection{istruct.\+h}
+\hypertarget{istruct_8h_source}{}\label{istruct_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/istruct.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/istruct.h}}
+\mbox{\hyperlink{istruct_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_ISTRUCT\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_ISTRUCT\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{common_8h}{common.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{string_8h}{string.h}}>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00018\ \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\_BEGIN\_DECL}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ ISTRUCT\_DATA\_SIZE\ (sizeof(void*)\ *\ 3)}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRIStruct}{RIStruct}}\ \{}
+\DoxyCodeLine{00023\ \ \ MRB\_OBJECT\_HEADER;}
+\DoxyCodeLine{00024\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00025\ \ \ \ \ intptr\_t\ inline\_alignment[3];}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{char}\ inline\_data[\mbox{\hyperlink{istruct_8h_a27579fb766859feddd6fd4a45ca46168}{ISTRUCT\_DATA\_SIZE}}];}
+\DoxyCodeLine{00027\ \ \ \};}
+\DoxyCodeLine{00028\ \};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ RISTRUCT(obj)\ \ \ \ \ \ \ \ \ ((struct\ RIStruct*)(mrb\_ptr(obj)))}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ ISTRUCT\_PTR(obj)\ \ \ \ \ \ (RISTRUCT(obj)-\/>inline\_data)}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\_INLINE}}\ mrb\_int\ mrb\_istruct\_size()}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{istruct_8h_a27579fb766859feddd6fd4a45ca46168}{ISTRUCT\_DATA\_SIZE}};}
+\DoxyCodeLine{00036\ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\_INLINE}}\ \textcolor{keywordtype}{void}*\ mrb\_istruct\_ptr(\mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \textcolor{keywordtype}{object})}
+\DoxyCodeLine{00039\ \{}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordflow}{return}\ ISTRUCT\_PTR(\textcolor{keywordtype}{object});}
+\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\_INLINE}}\ \textcolor{keywordtype}{void}\ mrb\_istruct\_copy(\mbox{\hyperlink{structmrb__value}{mrb\_value}}\ dest,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ src)}
+\DoxyCodeLine{00044\ \{}
+\DoxyCodeLine{00045\ \ \ memcpy(ISTRUCT\_PTR(dest),\ ISTRUCT\_PTR(src),\ \mbox{\hyperlink{istruct_8h_a27579fb766859feddd6fd4a45ca46168}{ISTRUCT\_DATA\_SIZE}});}
+\DoxyCodeLine{00046\ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \mbox{\hyperlink{common_8h_a7e9674ff871a8abbcaf9ba23fa4b72d3}{MRB\_END\_DECL}}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ MRUBY\_ISTRUCT\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

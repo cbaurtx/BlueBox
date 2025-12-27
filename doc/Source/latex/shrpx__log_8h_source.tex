@@ -1,0 +1,324 @@
+\doxysection{shrpx\+\_\+log.\+h}
+\hypertarget{shrpx__log_8h_source}{}\label{shrpx__log_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_log.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_log.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_LOG\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_LOG\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <sys/types.h>}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}shrpx\_log\_config.h"{}}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ "{}tls.h"{}}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ "{}template.h"{}}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ "{}util.h"{}}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{using\ namespace\ }nghttp2;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ ENABLE\_LOG\ 1}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ LOG\_ENABLED(SEVERITY)\ (ENABLE\_LOG\ \&\&\ shrpx::Log::log\_enabled(SEVERITY))}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#ifdef\ \_\_FILE\_NAME\_\_}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#\ \ define\ NGHTTP2\_FILE\_NAME\ \_\_FILE\_NAME\_\_}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//\ !\_\_FILE\_NAME\_\_}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#\ \ define\ NGHTTP2\_FILE\_NAME\ \_\_FILE\_\_}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !\_\_FILE\_NAME\_\_}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ LOG(SEVERITY)\ shrpx::Log(SEVERITY,\ NGHTTP2\_FILE\_NAME,\ \_\_LINE\_\_)}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{//\ Listener\ log}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ LLOG(SEVERITY,\ LISTEN)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\ \ (shrpx::Log(SEVERITY,\ NGHTTP2\_FILE\_NAME,\ \_\_LINE\_\_)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\ \ \ <<\ "{}[LISTEN:"{}\ <<\ LISTEN\ <<\ "{}]\ "{})}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{comment}{//\ Worker\ log}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ WLOG(SEVERITY,\ WORKER)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ (shrpx::Log(SEVERITY,\ NGHTTP2\_FILE\_NAME,\ \_\_LINE\_\_)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ \ <<\ "{}[WORKER:"{}\ <<\ WORKER\ <<\ "{}]\ "{})}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{//\ ClientHandler\ log}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ CLOG(SEVERITY,\ CLIENT\_HANDLER)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\ \ (shrpx::Log(SEVERITY,\ NGHTTP2\_FILE\_NAME,\ \_\_LINE\_\_)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\ \ \ <<\ "{}[CLIENT\_HANDLER:"{}\ <<\ CLIENT\_HANDLER\ <<\ "{}]\ "{})}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ Upstream\ log}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ ULOG(SEVERITY,\ UPSTREAM)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\ \ (shrpx::Log(SEVERITY,\ NGHTTP2\_FILE\_NAME,\ \_\_LINE\_\_)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\ \ \ <<\ "{}[UPSTREAM:"{}\ <<\ UPSTREAM\ <<\ "{}]\ "{})}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{comment}{//\ Downstream\ log}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ DLOG(SEVERITY,\ DOWNSTREAM)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ (shrpx::Log(SEVERITY,\ NGHTTP2\_FILE\_NAME,\ \_\_LINE\_\_)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\ \ \ <<\ "{}[DOWNSTREAM:"{}\ <<\ DOWNSTREAM\ <<\ "{}]\ "{})}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{comment}{//\ Downstream\ connection\ log}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ DCLOG(SEVERITY,\ DCONN)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\ \ (shrpx::Log(SEVERITY,\ NGHTTP2\_FILE\_NAME,\ \_\_LINE\_\_)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\ \ \ <<\ "{}[DCONN:"{}\ <<\ DCONN\ <<\ "{}]\ "{})}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{comment}{//\ Downstream\ HTTP2\ session\ log}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ SSLOG(SEVERITY,\ HTTP2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\ \ (shrpx::Log(SEVERITY,\ NGHTTP2\_FILE\_NAME,\ \_\_LINE\_\_)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\ \ \ <<\ "{}[DHTTP2:"{}\ <<\ HTTP2\ <<\ "{}]\ "{})}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{comment}{//\ Memcached\ connection\ log}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ MCLOG(SEVERITY,\ MCONN)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\ \ (shrpx::Log(SEVERITY,\ NGHTTP2\_FILE\_NAME,\ \_\_LINE\_\_)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\ \ \ <<\ "{}[MCONN:"{}\ <<\ MCONN\ <<\ "{}]\ "{})}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}};}
+\DoxyCodeLine{00098\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}};}
+\DoxyCodeLine{00099\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1LoggingConfig}{LoggingConfig}};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{keyword}{enum}\ SeverityLevel\ \{\ INFO,\ NOTICE,\ WARN,\ ERROR,\ FATAL\ \};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{keyword}{using\ }LogBuffer\ =\ std::array<uint8\_t,\ 4\_k>;}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keyword}{class\ }Log\ \{}
+\DoxyCodeLine{00106\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00107\ \ \ Log(\textcolor{keywordtype}{int}\ severity,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filename,\ \textcolor{keywordtype}{int}\ linenum);}
+\DoxyCodeLine{00108\ \ \ \string~Log();}
+\DoxyCodeLine{00109\ \ \ Log\ \&operator<<(\textcolor{keyword}{const}\ std::string\ \&s);}
+\DoxyCodeLine{00110\ \ \ Log\ \&operator<<(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *s);}
+\DoxyCodeLine{00111\ \ \ Log\ \&operator<<(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&s);}
+\DoxyCodeLine{00112\ \ \ Log\ \&operator<<(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1ImmutableString}{ImmutableString}}\ \&s);}
+\DoxyCodeLine{00113\ \ \ Log\ \&operator<<(\textcolor{keywordtype}{short}\ n)\ \{\ \textcolor{keywordflow}{return}\ *this\ <<\ static\_cast<long\ long>(n);\ \}}
+\DoxyCodeLine{00114\ \ \ Log\ \&operator<<(\textcolor{keywordtype}{int}\ n)\ \{\ \textcolor{keywordflow}{return}\ *this\ <<\ static\_cast<long\ long>(n);\ \}}
+\DoxyCodeLine{00115\ \ \ Log\ \&operator<<(\textcolor{keywordtype}{long}\ n)\ \{\ \textcolor{keywordflow}{return}\ *this\ <<\ static\_cast<long\ long>(n);\ \}}
+\DoxyCodeLine{00116\ \ \ Log\ \&operator<<(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ n);}
+\DoxyCodeLine{00117\ \ \ Log\ \&operator<<(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ n)\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{return}\ *this\ <<\ static\_cast<unsigned\ long\ long>(n);}
+\DoxyCodeLine{00119\ \ \ \}}
+\DoxyCodeLine{00120\ \ \ Log\ \&operator<<(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ n)\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{return}\ *this\ <<\ static\_cast<unsigned\ long\ long>(n);}
+\DoxyCodeLine{00122\ \ \ \}}
+\DoxyCodeLine{00123\ \ \ Log\ \&operator<<(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ n)\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordflow}{return}\ *this\ <<\ static\_cast<unsigned\ long\ long>(n);}
+\DoxyCodeLine{00125\ \ \ \}}
+\DoxyCodeLine{00126\ \ \ Log\ \&operator<<(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ n);}
+\DoxyCodeLine{00127\ \ \ Log\ \&operator<<(\textcolor{keywordtype}{float}\ n)\ \{\ \textcolor{keywordflow}{return}\ *this\ <<\ static\_cast<double>(n);\ \}}
+\DoxyCodeLine{00128\ \ \ Log\ \&operator<<(\textcolor{keywordtype}{double}\ n);}
+\DoxyCodeLine{00129\ \ \ Log\ \&operator<<(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ n);}
+\DoxyCodeLine{00130\ \ \ Log\ \&operator<<(\textcolor{keywordtype}{bool}\ n);}
+\DoxyCodeLine{00131\ \ \ Log\ \&operator<<(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *p);}
+\DoxyCodeLine{00132\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ Log\ \&operator<<(\textcolor{keyword}{const}\ std::shared\_ptr<T>\ \&ptr)\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this}\ <<\ ptr.get();}
+\DoxyCodeLine{00134\ \ \ \}}
+\DoxyCodeLine{00135\ \ \ Log\ \&operator<<(\textcolor{keywordtype}{void}\ (*func)(Log\ \&log))\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ func(*\textcolor{keyword}{this});}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00138\ \ \ \}}
+\DoxyCodeLine{00139\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ InputIt>\ \textcolor{keywordtype}{void}\ write\_seq(InputIt\ first,\ InputIt\ last)\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordflow}{if}\ (full\_)\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00142\ \ \ \ \ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keyword}{auto}\ d\ =\ std::distance(first,\ last);}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{auto}\ n\ =\ std::min(wleft(),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(d));}
+\DoxyCodeLine{00146\ \ \ \ \ last\_\ =\ std::copy(first,\ first\ +\ n,\ last\_);}
+\DoxyCodeLine{00147\ \ \ \ \ update\_full();}
+\DoxyCodeLine{00148\ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ \textcolor{keywordtype}{void}\ write\_hex(T\ n)\ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{if}\ (full\_)\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00153\ \ \ \ \ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordflow}{if}\ (n\ ==\ 0)\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (wleft()\ <\ 4\ \textcolor{comment}{/*\ for\ "{}0x00"{}\ */})\ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ full\_\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ *last\_++\ =\ \textcolor{charliteral}{'0'};}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ *last\_++\ =\ \textcolor{charliteral}{'x'};}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ *last\_++\ =\ \textcolor{charliteral}{'0'};}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ *last\_++\ =\ \textcolor{charliteral}{'0'};}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ update\_full();}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00166\ \ \ \ \ \}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nlen\ =\ 0;}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ t\ =\ n;\ t;\ t\ >>=\ 8,\ ++nlen)}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ ;}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ nlen\ *=\ 2;}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordflow}{if}\ (wleft()\ <\ 2\ \textcolor{comment}{/*\ for\ "{}0x"{}\ */}\ +\ nlen)\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ full\_\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00177\ \ \ \ \ \}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ *last\_++\ =\ \textcolor{charliteral}{'0'};}
+\DoxyCodeLine{00180\ \ \ \ \ *last\_++\ =\ \textcolor{charliteral}{'x'};}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ last\_\ +=\ nlen;}
+\DoxyCodeLine{00183\ \ \ \ \ update\_full();}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ last\_\ -\/\ 1;}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keywordflow}{for}\ (;\ n;\ n\ >>=\ 8)\ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ uint8\_t\ b\ =\ n\ \&\ 0xff;}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ *p-\/-\/\ =\ util::LOWER\_XDIGITS[b\ \&\ 0xf];}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ *p-\/-\/\ =\ util::LOWER\_XDIGITS[b\ >>\ 4];}
+\DoxyCodeLine{00190\ \ \ \ \ \}}
+\DoxyCodeLine{00191\ \ \ \}}
+\DoxyCodeLine{00192\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ set\_severity\_level(\textcolor{keywordtype}{int}\ severity);}
+\DoxyCodeLine{00193\ \ \ \textcolor{comment}{//\ Returns\ the\ severity\ level\ by\ |name|.\ \ Returns\ -\/1\ if\ |name|\ is}}
+\DoxyCodeLine{00194\ \ \ \textcolor{comment}{//\ unknown.}}
+\DoxyCodeLine{00195\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ get\_severity\_level\_by\_name(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&name);}
+\DoxyCodeLine{00196\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ log\_enabled(\textcolor{keywordtype}{int}\ severity)\ \{\ \textcolor{keywordflow}{return}\ severity\ >=\ severity\_thres\_;\ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00199\ \ \ \ \ fmt\_dec\ =\ 0x00,}
+\DoxyCodeLine{00200\ \ \ \ \ fmt\_hex\ =\ 0x01,}
+\DoxyCodeLine{00201\ \ \ \};}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \textcolor{keywordtype}{void}\ set\_flags(\textcolor{keywordtype}{int}\ flags)\ \{\ flags\_\ =\ flags;\ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00206\ \ \ \textcolor{keywordtype}{size\_t}\ rleft()\ \{\ \textcolor{keywordflow}{return}\ last\_\ -\/\ begin\_;\ \}}
+\DoxyCodeLine{00207\ \ \ \textcolor{keywordtype}{size\_t}\ wleft()\ \{\ \textcolor{keywordflow}{return}\ end\_\ -\/\ last\_;\ \}}
+\DoxyCodeLine{00208\ \ \ \textcolor{keywordtype}{void}\ update\_full()\ \{\ full\_\ =\ last\_\ ==\ end\_;\ \}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ LogBuffer\ \&buf\_;}
+\DoxyCodeLine{00211\ \ \ uint8\_t\ *begin\_;}
+\DoxyCodeLine{00212\ \ \ uint8\_t\ *end\_;}
+\DoxyCodeLine{00213\ \ \ uint8\_t\ *last\_;}
+\DoxyCodeLine{00214\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filename\_;}
+\DoxyCodeLine{00215\ \ \ uint32\_t\ flags\_;}
+\DoxyCodeLine{00216\ \ \ \textcolor{keywordtype}{int}\ severity\_;}
+\DoxyCodeLine{00217\ \ \ \textcolor{keywordtype}{int}\ linenum\_;}
+\DoxyCodeLine{00218\ \ \ \textcolor{keywordtype}{bool}\ full\_;}
+\DoxyCodeLine{00219\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ severity\_thres\_;}
+\DoxyCodeLine{00220\ \};}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \textcolor{keyword}{namespace\ }log\ \{}
+\DoxyCodeLine{00223\ \textcolor{keywordtype}{void}\ hex(\mbox{\hyperlink{classshrpx_1_1Log}{Log}}\ \&log);}
+\DoxyCodeLine{00224\ \textcolor{keywordtype}{void}\ dec(\mbox{\hyperlink{classshrpx_1_1Log}{Log}}\ \&log);}
+\DoxyCodeLine{00225\ \}\ \textcolor{comment}{//\ namespace\ log}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#define\ TTY\_HTTP\_HD\ (log\_config()-\/>errorlog\_tty\ ?\ "{}\(\backslash\)033[1;34m"{}\ :\ "{}"{})}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#define\ TTY\_RST\ (log\_config()-\/>errorlog\_tty\ ?\ "{}\(\backslash\)033[0m"{}\ :\ "{}"{})}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \textcolor{keyword}{enum\ class}\ LogFragmentType\ \{}
+\DoxyCodeLine{00231\ \ \ NONE,}
+\DoxyCodeLine{00232\ \ \ LITERAL,}
+\DoxyCodeLine{00233\ \ \ REMOTE\_ADDR,}
+\DoxyCodeLine{00234\ \ \ TIME\_LOCAL,}
+\DoxyCodeLine{00235\ \ \ TIME\_ISO8601,}
+\DoxyCodeLine{00236\ \ \ REQUEST,}
+\DoxyCodeLine{00237\ \ \ STATUS,}
+\DoxyCodeLine{00238\ \ \ BODY\_BYTES\_SENT,}
+\DoxyCodeLine{00239\ \ \ HTTP,}
+\DoxyCodeLine{00240\ \ \ AUTHORITY,}
+\DoxyCodeLine{00241\ \ \ REMOTE\_PORT,}
+\DoxyCodeLine{00242\ \ \ SERVER\_PORT,}
+\DoxyCodeLine{00243\ \ \ REQUEST\_TIME,}
+\DoxyCodeLine{00244\ \ \ PID,}
+\DoxyCodeLine{00245\ \ \ ALPN,}
+\DoxyCodeLine{00246\ \ \ TLS\_CIPHER,}
+\DoxyCodeLine{00247\ \ \ SSL\_CIPHER\ =\ TLS\_CIPHER,}
+\DoxyCodeLine{00248\ \ \ TLS\_PROTOCOL,}
+\DoxyCodeLine{00249\ \ \ SSL\_PROTOCOL\ =\ TLS\_PROTOCOL,}
+\DoxyCodeLine{00250\ \ \ TLS\_SESSION\_ID,}
+\DoxyCodeLine{00251\ \ \ SSL\_SESSION\_ID\ =\ TLS\_SESSION\_ID,}
+\DoxyCodeLine{00252\ \ \ TLS\_SESSION\_REUSED,}
+\DoxyCodeLine{00253\ \ \ SSL\_SESSION\_REUSED\ =\ TLS\_SESSION\_REUSED,}
+\DoxyCodeLine{00254\ \ \ TLS\_SNI,}
+\DoxyCodeLine{00255\ \ \ TLS\_CLIENT\_FINGERPRINT\_SHA1,}
+\DoxyCodeLine{00256\ \ \ TLS\_CLIENT\_FINGERPRINT\_SHA256,}
+\DoxyCodeLine{00257\ \ \ TLS\_CLIENT\_ISSUER\_NAME,}
+\DoxyCodeLine{00258\ \ \ TLS\_CLIENT\_SERIAL,}
+\DoxyCodeLine{00259\ \ \ TLS\_CLIENT\_SUBJECT\_NAME,}
+\DoxyCodeLine{00260\ \ \ BACKEND\_HOST,}
+\DoxyCodeLine{00261\ \ \ BACKEND\_PORT,}
+\DoxyCodeLine{00262\ \ \ METHOD,}
+\DoxyCodeLine{00263\ \ \ PATH,}
+\DoxyCodeLine{00264\ \ \ PATH\_WITHOUT\_QUERY,}
+\DoxyCodeLine{00265\ \ \ PROTOCOL\_VERSION,}
+\DoxyCodeLine{00266\ \};}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \textcolor{keyword}{struct\ }LogFragment\ \{}
+\DoxyCodeLine{00269\ \ \ LogFragment(LogFragmentType\ type,\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ value\ =\ \textcolor{stringliteral}{"{}"{}}\_sr)}
+\DoxyCodeLine{00270\ \ \ \ \ :\ type(type),\ value(std::move(value))\ \{\}}
+\DoxyCodeLine{00271\ \ \ LogFragmentType\ type;}
+\DoxyCodeLine{00272\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ value;}
+\DoxyCodeLine{00273\ \};}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1LogSpec}{LogSpec}}\ \{}
+\DoxyCodeLine{00276\ \ \ \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream;}
+\DoxyCodeLine{00277\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ remote\_addr;}
+\DoxyCodeLine{00278\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ alpn;}
+\DoxyCodeLine{00279\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ sni;}
+\DoxyCodeLine{00280\ \ \ SSL\ *ssl;}
+\DoxyCodeLine{00281\ \ \ std::chrono::high\_resolution\_clock::time\_point\ request\_end\_time;}
+\DoxyCodeLine{00282\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ remote\_port;}
+\DoxyCodeLine{00283\ \ \ uint16\_t\ server\_port;}
+\DoxyCodeLine{00284\ \ \ pid\_t\ pid;}
+\DoxyCodeLine{00285\ \};}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \textcolor{keywordtype}{void}\ upstream\_accesslog(\textcolor{keyword}{const}\ std::vector<LogFragment>\ \&lf,}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1LogSpec}{LogSpec}}\ \&lgsp);}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \textcolor{keywordtype}{int}\ reopen\_log\_files(\textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1LoggingConfig}{LoggingConfig}}\ \&loggingconf);}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \textcolor{comment}{//\ Logs\ message\ when\ process\ whose\ pid\ is\ |pid|\ and\ exist\ status\ is}}
+\DoxyCodeLine{00293\ \textcolor{comment}{//\ |rstatus|\ exited.\ \ The\ |msg|\ is\ prepended\ to\ the\ log\ message.}}
+\DoxyCodeLine{00294\ \textcolor{keywordtype}{void}\ log\_chld(pid\_t\ pid,\ \textcolor{keywordtype}{int}\ rstatus,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *msg);}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \textcolor{keywordtype}{void}\ redirect\_stderr\_to\_errorlog(\textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1LoggingConfig}{LoggingConfig}}\ \&loggingconf);}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \textcolor{comment}{//\ Makes\ internal\ copy\ of\ stderr\ (and\ possibly\ stdout\ in\ the\ future),}}
+\DoxyCodeLine{00299\ \textcolor{comment}{//\ which\ is\ then\ used\ as\ pointer\ to\ /dev/stderr\ or\ /proc/self/fd/2}}
+\DoxyCodeLine{00300\ \textcolor{keywordtype}{void}\ store\_original\_fds();}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \textcolor{comment}{//\ Restores\ the\ original\ stderr\ that\ was\ stored\ with\ copy\_original\_fds}}
+\DoxyCodeLine{00303\ \textcolor{comment}{//\ Used\ just\ before\ execv}}
+\DoxyCodeLine{00304\ \textcolor{keywordtype}{void}\ restore\_original\_fds();}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \textcolor{comment}{//\ Closes\ |fd|\ which\ was\ returned\ by\ open\_log\_file\ (see\ below)}}
+\DoxyCodeLine{00307\ \textcolor{comment}{//\ and\ sets\ it\ to\ -\/1.\ In\ the\ case\ that\ |fd|\ points\ to\ stdout\ or}}
+\DoxyCodeLine{00308\ \textcolor{comment}{//\ stderr,\ or\ is\ -\/1,\ the\ descriptor\ is\ not\ closed\ (but\ still\ set\ to\ -\/1).}}
+\DoxyCodeLine{00309\ \textcolor{keywordtype}{void}\ close\_log\_file(\textcolor{keywordtype}{int}\ \&fd);}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \textcolor{comment}{//\ Opens\ |path|\ with\ O\_APPEND\ enabled.\ \ If\ file\ does\ not\ exist,\ it\ is}}
+\DoxyCodeLine{00312\ \textcolor{comment}{//\ created\ first.\ \ This\ function\ returns\ file\ descriptor\ referring\ the}}
+\DoxyCodeLine{00313\ \textcolor{comment}{//\ opened\ file\ if\ it\ succeeds,\ or\ -\/1.}}
+\DoxyCodeLine{00314\ \textcolor{keywordtype}{int}\ open\_log\_file(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_LOG\_H}}
+
+\end{DoxyCode}

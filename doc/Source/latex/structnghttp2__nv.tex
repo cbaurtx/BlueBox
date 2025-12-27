@@ -1,0 +1,62 @@
+\doxysection{nghttp2\+\_\+nv Struct Reference}
+\hypertarget{structnghttp2__nv}{}\label{structnghttp2__nv}\index{nghttp2\_nv@{nghttp2\_nv}}
+
+
+{\ttfamily \#include $<$nghttp2.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structnghttp2__nv_ac61036540dc19ab1b57287272c683796}{name}}
+\item 
+uint8\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structnghttp2__nv_aa7674407e2de3b708a396f93743bab25}{value}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structnghttp2__nv_a50ae119cd6f0e9ed2ed1b48d0bdb50f3}{namelen}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structnghttp2__nv_a5a0ef70abf34a0a5b6555b566e984294}{valuelen}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structnghttp2__nv_a178942cf2d9457d9a4f2885323e268d7}{flags}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The name/value pair, which mainly used to represent header fields. 
+
+\label{doc-variable-members}
+\Hypertarget{structnghttp2__nv_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structnghttp2__nv_a178942cf2d9457d9a4f2885323e268d7}\index{nghttp2\_nv@{nghttp2\_nv}!flags@{flags}}
+\index{flags@{flags}!nghttp2\_nv@{nghttp2\_nv}}
+\doxysubsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily \label{structnghttp2__nv_a178942cf2d9457d9a4f2885323e268d7} 
+uint8\+\_\+t nghttp2\+\_\+nv\+::flags}
+
+Bitwise OR of one or more of \+:type\+:{\ttfamily nghttp2\+\_\+nv\+\_\+flag}. \Hypertarget{structnghttp2__nv_ac61036540dc19ab1b57287272c683796}\index{nghttp2\_nv@{nghttp2\_nv}!name@{name}}
+\index{name@{name}!nghttp2\_nv@{nghttp2\_nv}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily \label{structnghttp2__nv_ac61036540dc19ab1b57287272c683796} 
+uint8\+\_\+t\texorpdfstring{$\ast$}{*} nghttp2\+\_\+nv\+::name}
+
+The \texorpdfstring{$\vert$}{|}name\texorpdfstring{$\vert$}{|} byte string. If this struct is presented from library (e.\+g., \+:type\+:{\ttfamily nghttp2\+\_\+on\+\_\+frame\+\_\+recv\+\_\+callback}), \texorpdfstring{$\vert$}{|}name\texorpdfstring{$\vert$}{|} is guaranteed to be NULL-\/terminated. For some callbacks (\+:type\+:{\ttfamily nghttp2\+\_\+before\+\_\+frame\+\_\+send\+\_\+callback}, \+:type\+:{\ttfamily nghttp2\+\_\+on\+\_\+frame\+\_\+send\+\_\+callback}, and \+:type\+:{\ttfamily nghttp2\+\_\+on\+\_\+frame\+\_\+not\+\_\+send\+\_\+callback}), it may not be NULL-\/terminated if header field is passed from application with the flag \+:enum\+:{\ttfamily nghttp2\+\_\+nv\+\_\+flag.\+NGHTTP2\+\_\+\+NV\+\_\+\+FLAG\+\_\+\+NO\+\_\+\+COPY\+\_\+\+NAME}). When application is constructing this struct, \texorpdfstring{$\vert$}{|}name\texorpdfstring{$\vert$}{|} is not required to be NULL-\/terminated. \Hypertarget{structnghttp2__nv_a50ae119cd6f0e9ed2ed1b48d0bdb50f3}\index{nghttp2\_nv@{nghttp2\_nv}!namelen@{namelen}}
+\index{namelen@{namelen}!nghttp2\_nv@{nghttp2\_nv}}
+\doxysubsubsection{\texorpdfstring{namelen}{namelen}}
+{\footnotesize\ttfamily \label{structnghttp2__nv_a50ae119cd6f0e9ed2ed1b48d0bdb50f3} 
+size\+\_\+t nghttp2\+\_\+nv\+::namelen}
+
+The length of the \texorpdfstring{$\vert$}{|}name\texorpdfstring{$\vert$}{|}, excluding terminating NULL. \Hypertarget{structnghttp2__nv_aa7674407e2de3b708a396f93743bab25}\index{nghttp2\_nv@{nghttp2\_nv}!value@{value}}
+\index{value@{value}!nghttp2\_nv@{nghttp2\_nv}}
+\doxysubsubsection{\texorpdfstring{value}{value}}
+{\footnotesize\ttfamily \label{structnghttp2__nv_aa7674407e2de3b708a396f93743bab25} 
+uint8\+\_\+t\texorpdfstring{$\ast$}{*} nghttp2\+\_\+nv\+::value}
+
+The \texorpdfstring{$\vert$}{|}value\texorpdfstring{$\vert$}{|} byte string. If this struct is presented from library (e.\+g., \+:type\+:{\ttfamily nghttp2\+\_\+on\+\_\+frame\+\_\+recv\+\_\+callback}), \texorpdfstring{$\vert$}{|}value\texorpdfstring{$\vert$}{|} is guaranteed to be NULL-\/terminated. For some callbacks (\+:type\+:{\ttfamily nghttp2\+\_\+before\+\_\+frame\+\_\+send\+\_\+callback}, \+:type\+:{\ttfamily nghttp2\+\_\+on\+\_\+frame\+\_\+send\+\_\+callback}, and \+:type\+:{\ttfamily nghttp2\+\_\+on\+\_\+frame\+\_\+not\+\_\+send\+\_\+callback}), it may not be NULL-\/terminated if header field is passed from application with the flag \+:enum\+:{\ttfamily nghttp2\+\_\+nv\+\_\+flag.\+NGHTTP2\+\_\+\+NV\+\_\+\+FLAG\+\_\+\+NO\+\_\+\+COPY\+\_\+\+VALUE}). When application is constructing this struct, \texorpdfstring{$\vert$}{|}value\texorpdfstring{$\vert$}{|} is not required to be NULL-\/terminated. \Hypertarget{structnghttp2__nv_a5a0ef70abf34a0a5b6555b566e984294}\index{nghttp2\_nv@{nghttp2\_nv}!valuelen@{valuelen}}
+\index{valuelen@{valuelen}!nghttp2\_nv@{nghttp2\_nv}}
+\doxysubsubsection{\texorpdfstring{valuelen}{valuelen}}
+{\footnotesize\ttfamily \label{structnghttp2__nv_a5a0ef70abf34a0a5b6555b566e984294} 
+size\+\_\+t nghttp2\+\_\+nv\+::valuelen}
+
+The length of the \texorpdfstring{$\vert$}{|}value\texorpdfstring{$\vert$}{|}, excluding terminating NULL. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/lib/includes/nghttp2/nghttp2.\+h\end{DoxyCompactItemize}

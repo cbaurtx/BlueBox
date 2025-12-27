@@ -1,0 +1,77 @@
+\doxysection{shrpx\+::Live\+Check Class Reference}
+\hypertarget{classshrpx_1_1LiveCheck}{}\label{classshrpx_1_1LiveCheck}\index{shrpx::LiveCheck@{shrpx::LiveCheck}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_a7ba6897ba2b319597f22157ac6b40516}\label{classshrpx_1_1LiveCheck_a7ba6897ba2b319597f22157ac6b40516} 
+{\bfseries Live\+Check} (struct ev\+\_\+loop \texorpdfstring{$\ast$}{*}loop, SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*}ssl\+\_\+ctx, \mbox{\hyperlink{classshrpx_1_1Worker}{Worker}} \texorpdfstring{$\ast$}{*}worker, \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{Downstream\+Addr}} \texorpdfstring{$\ast$}{*}addr, std\+::mt19937 \&gen)
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_a9f4edb393177a087fc9f1b13c0b54ad6}\label{classshrpx_1_1LiveCheck_a9f4edb393177a087fc9f1b13c0b54ad6} 
+void {\bfseries disconnect} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_a43719c8c92fb93b327c82066906fe3f6}\label{classshrpx_1_1LiveCheck_a43719c8c92fb93b327c82066906fe3f6} 
+void {\bfseries on\+\_\+success} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_af9c25815d5547aae25ab36def6ac5579}\label{classshrpx_1_1LiveCheck_af9c25815d5547aae25ab36def6ac5579} 
+void {\bfseries on\+\_\+failure} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_a77c1d71edc08a34e0f8b215ed0e5c4fc}\label{classshrpx_1_1LiveCheck_a77c1d71edc08a34e0f8b215ed0e5c4fc} 
+int {\bfseries initiate\+\_\+connection} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_ac57b8dcbbc1238bec4afa28ba833056c}\label{classshrpx_1_1LiveCheck_ac57b8dcbbc1238bec4afa28ba833056c} 
+void {\bfseries schedule} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_a37ad7512d1d4ba68be2b5df87831dd95}\label{classshrpx_1_1LiveCheck_a37ad7512d1d4ba68be2b5df87831dd95} 
+int {\bfseries noop} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_a1ecfc7ba1b0c0c46b490f4e8827c14e6}\label{classshrpx_1_1LiveCheck_a1ecfc7ba1b0c0c46b490f4e8827c14e6} 
+int {\bfseries connected} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_a380ee58002773d25970240e68a89cc85}\label{classshrpx_1_1LiveCheck_a380ee58002773d25970240e68a89cc85} 
+int {\bfseries tls\+\_\+handshake} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_afb8327ffa1f4952beefe0d251fa80ce2}\label{classshrpx_1_1LiveCheck_afb8327ffa1f4952beefe0d251fa80ce2} 
+int {\bfseries read\+\_\+tls} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_a0754984b9520be44d350271158e7a0eb}\label{classshrpx_1_1LiveCheck_a0754984b9520be44d350271158e7a0eb} 
+int {\bfseries write\+\_\+tls} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_ae46a3ce9a264c6f26677de58c29aafb7}\label{classshrpx_1_1LiveCheck_ae46a3ce9a264c6f26677de58c29aafb7} 
+int {\bfseries read\+\_\+clear} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_a8c923b4e46167d3c66577937150aa04d}\label{classshrpx_1_1LiveCheck_a8c923b4e46167d3c66577937150aa04d} 
+int {\bfseries write\+\_\+clear} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_a0b1cc6c2663d3404263c00550fcaf203}\label{classshrpx_1_1LiveCheck_a0b1cc6c2663d3404263c00550fcaf203} 
+int {\bfseries do\+\_\+read} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_aa36b6bf5d70dff280689d6890035adf0}\label{classshrpx_1_1LiveCheck_aa36b6bf5d70dff280689d6890035adf0} 
+int {\bfseries do\+\_\+write} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_ad89ee9b3c1603b6f7bb02ec5a7a6e6b7}\label{classshrpx_1_1LiveCheck_ad89ee9b3c1603b6f7bb02ec5a7a6e6b7} 
+int {\bfseries on\+\_\+read} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_a07bddd5fb3162fe038625df57b3fabd6}\label{classshrpx_1_1LiveCheck_a07bddd5fb3162fe038625df57b3fabd6} 
+int {\bfseries on\+\_\+write} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_aa36b95a2fe13564eabccf3579a433209}\label{classshrpx_1_1LiveCheck_aa36b95a2fe13564eabccf3579a433209} 
+int {\bfseries connection\+\_\+made} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_aaa002f481786ca3af5257f0fbb24f8f7}\label{classshrpx_1_1LiveCheck_aaa002f481786ca3af5257f0fbb24f8f7} 
+void {\bfseries start\+\_\+settings\+\_\+timer} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_a2a864d8f887b05626120043fbba9b47c}\label{classshrpx_1_1LiveCheck_a2a864d8f887b05626120043fbba9b47c} 
+void {\bfseries stop\+\_\+settings\+\_\+timer} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_a54ce8ca6affda3539051108ebbfe7ecc}\label{classshrpx_1_1LiveCheck_a54ce8ca6affda3539051108ebbfe7ecc} 
+void {\bfseries settings\+\_\+ack\+\_\+received} ()
+\item 
+\Hypertarget{classshrpx_1_1LiveCheck_a5b06a92337c7d4d81c7bc66bce771862}\label{classshrpx_1_1LiveCheck_a5b06a92337c7d4d81c7bc66bce771862} 
+void {\bfseries signal\+\_\+write} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+live\+\_\+check.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+live\+\_\+check.\+cc\end{DoxyCompactItemize}

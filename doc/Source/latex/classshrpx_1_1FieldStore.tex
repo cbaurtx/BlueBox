@@ -1,0 +1,89 @@
+\doxysection{shrpx\+::Field\+Store Class Reference}
+\hypertarget{classshrpx_1_1FieldStore}{}\label{classshrpx_1_1FieldStore}\index{shrpx::FieldStore@{shrpx::FieldStore}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a9d5705ab930134388f3c1163c808fe3d}\label{classshrpx_1_1FieldStore_a9d5705ab930134388f3c1163c808fe3d} 
+{\bfseries Field\+Store} (\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{Block\+Allocator}} \&balloc, size\+\_\+t headers\+\_\+initial\+\_\+capacity)
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a24f13c40ffb708fbdccf426abbfd685b}\label{classshrpx_1_1FieldStore_a24f13c40ffb708fbdccf426abbfd685b} 
+const Header\+Refs \& {\bfseries headers} () const
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a6137806d043f9c5be7473fa613e29a47}\label{classshrpx_1_1FieldStore_a6137806d043f9c5be7473fa613e29a47} 
+const Header\+Refs \& {\bfseries trailers} () const
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a510173d417a94503dc0d0b3931cb55f8}\label{classshrpx_1_1FieldStore_a510173d417a94503dc0d0b3931cb55f8} 
+Header\+Refs \& {\bfseries headers} ()
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a157ff186606047fe29bac4f849095642}\label{classshrpx_1_1FieldStore_a157ff186606047fe29bac4f849095642} 
+Header\+Refs \& {\bfseries trailers} ()
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_ac73f3a27f5dde9c4eb1f5aee1b618891}\label{classshrpx_1_1FieldStore_ac73f3a27f5dde9c4eb1f5aee1b618891} 
+const void {\bfseries add\+\_\+extra\+\_\+buffer\+\_\+size} (size\+\_\+t n)
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_ac471b742f173aceb8008242f9c095150}\label{classshrpx_1_1FieldStore_ac471b742f173aceb8008242f9c095150} 
+size\+\_\+t {\bfseries buffer\+\_\+size} () const
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a057bf84a318929dc44823081643764e6}\label{classshrpx_1_1FieldStore_a057bf84a318929dc44823081643764e6} 
+size\+\_\+t {\bfseries num\+\_\+fields} () const
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_ab02f9033b109036bbfa9829857807d20}\label{classshrpx_1_1FieldStore_ab02f9033b109036bbfa9829857807d20} 
+const Header\+Refs\+::value\+\_\+type \texorpdfstring{$\ast$}{*} {\bfseries header} (int32\+\_\+t token) const
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a8a63a689006af5501628c09955115117}\label{classshrpx_1_1FieldStore_a8a63a689006af5501628c09955115117} 
+Header\+Refs\+::value\+\_\+type \texorpdfstring{$\ast$}{*} {\bfseries header} (int32\+\_\+t token)
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a105a68be3310516dd6710a9269a74d2d}\label{classshrpx_1_1FieldStore_a105a68be3310516dd6710a9269a74d2d} 
+const Header\+Refs\+::value\+\_\+type \texorpdfstring{$\ast$}{*} {\bfseries header} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&name) const
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a8f56e23388171955bfe0b1a9729b0bec}\label{classshrpx_1_1FieldStore_a8f56e23388171955bfe0b1a9729b0bec} 
+void {\bfseries add\+\_\+header\+\_\+token} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&name, const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&value, bool no\+\_\+index, int32\+\_\+t token)
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a88023786bed7d2723f26dfbde0715f40}\label{classshrpx_1_1FieldStore_a88023786bed7d2723f26dfbde0715f40} 
+void {\bfseries alloc\+\_\+add\+\_\+header\+\_\+name} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&name)
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a1c81a049e43a118663fed75c88542856}\label{classshrpx_1_1FieldStore_a1c81a049e43a118663fed75c88542856} 
+void {\bfseries append\+\_\+last\+\_\+header\+\_\+key} (const char \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a8a0ebb52bec5aed378c0e0b5b5e1cb5a}\label{classshrpx_1_1FieldStore_a8a0ebb52bec5aed378c0e0b5b5e1cb5a} 
+void {\bfseries append\+\_\+last\+\_\+header\+\_\+value} (const char \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a881b4ea3f621abba07873d81e82473e0}\label{classshrpx_1_1FieldStore_a881b4ea3f621abba07873d81e82473e0} 
+bool {\bfseries header\+\_\+key\+\_\+prev} () const
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a3b669c373550111ef1d4842c43a4c736}\label{classshrpx_1_1FieldStore_a3b669c373550111ef1d4842c43a4c736} 
+int {\bfseries parse\+\_\+content\+\_\+length} ()
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_aba73ba6a5e761e4f3c671aaa0b56bc6b}\label{classshrpx_1_1FieldStore_aba73ba6a5e761e4f3c671aaa0b56bc6b} 
+void {\bfseries clear\+\_\+headers} ()
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a56a9a379107043ca34548471427f63cd}\label{classshrpx_1_1FieldStore_a56a9a379107043ca34548471427f63cd} 
+void {\bfseries add\+\_\+trailer\+\_\+token} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&name, const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&value, bool no\+\_\+index, int32\+\_\+t token)
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_acf04d62b474ff728d216a2820c91ee19}\label{classshrpx_1_1FieldStore_acf04d62b474ff728d216a2820c91ee19} 
+void {\bfseries alloc\+\_\+add\+\_\+trailer\+\_\+name} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&name)
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a61f82ce29d7a9c8700c44f572c86de7a}\label{classshrpx_1_1FieldStore_a61f82ce29d7a9c8700c44f572c86de7a} 
+void {\bfseries append\+\_\+last\+\_\+trailer\+\_\+key} (const char \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a902566d7c2af78a0b936705d7ccecbfb}\label{classshrpx_1_1FieldStore_a902566d7c2af78a0b936705d7ccecbfb} 
+void {\bfseries append\+\_\+last\+\_\+trailer\+\_\+value} (const char \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a253dc758674fd06946fc29a5624960fb}\label{classshrpx_1_1FieldStore_a253dc758674fd06946fc29a5624960fb} 
+bool {\bfseries trailer\+\_\+key\+\_\+prev} () const
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_a532b95d82b9cc0a1e90e8694d882dbe1}\label{classshrpx_1_1FieldStore_a532b95d82b9cc0a1e90e8694d882dbe1} 
+void {\bfseries erase\+\_\+content\+\_\+length\+\_\+and\+\_\+transfer\+\_\+encoding} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1FieldStore_af8b145d4575e1fdf0178588f16c0068b}\label{classshrpx_1_1FieldStore_af8b145d4575e1fdf0178588f16c0068b} 
+int64\+\_\+t {\bfseries content\+\_\+length}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+downstream.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+downstream.\+cc\end{DoxyCompactItemize}

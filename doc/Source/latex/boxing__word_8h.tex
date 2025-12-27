@@ -1,0 +1,733 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/boxing\+\_\+word.h File Reference}
+\hypertarget{boxing__word_8h}{}\label{boxing__word_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/boxing\_word.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/boxing\_word.h}}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structRInteger}{RInteger}}
+\item 
+struct \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}
+\item 
+union \mbox{\hyperlink{unionmrb__value__}{mrb\+\_\+value\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{boxing__word_8h_a3acc3f4c100aac8bfae475390d83b429}\label{boxing__word_8h_a3acc3f4c100aac8bfae475390d83b429} 
+\#define {\bfseries MRB\+\_\+\+FIXNUM\+\_\+\+SHIFT}~WORDBOX\+\_\+\+FIXNUM\+\_\+\+SHIFT
+\item 
+\Hypertarget{boxing__word_8h_a2201cd1ecb8f1cc86222219ec9252c60}\label{boxing__word_8h_a2201cd1ecb8f1cc86222219ec9252c60} 
+\#define {\bfseries MRB\+\_\+\+SYMBOL\+\_\+\+SHIFT}~WORDBOX\+\_\+\+SYMBOL\+\_\+\+SHIFT
+\item 
+\Hypertarget{boxing__word_8h_a459c179db794b46971de0ee89dbf73c2}\label{boxing__word_8h_a459c179db794b46971de0ee89dbf73c2} 
+\#define {\bfseries MRB\+\_\+\+FIXNUM\+\_\+\+MIN}~(INT32\+\_\+\+MIN$>$$>$MRB\+\_\+\+FIXNUM\+\_\+\+SHIFT)
+\item 
+\Hypertarget{boxing__word_8h_aa5c999cb0b5deb37415b35ed83c621d5}\label{boxing__word_8h_aa5c999cb0b5deb37415b35ed83c621d5} 
+\#define {\bfseries MRB\+\_\+\+FIXNUM\+\_\+\+MAX}~(INT32\+\_\+\+MAX$>$$>$MRB\+\_\+\+FIXNUM\+\_\+\+SHIFT)
+\item 
+\Hypertarget{boxing__word_8h_ada051fa2d7bbe44d3451be16903b3db9}\label{boxing__word_8h_ada051fa2d7bbe44d3451be16903b3db9} 
+\#define {\bfseries WORDBOX\+\_\+\+FIXNUM\+\_\+\+BIT\+\_\+\+POS}~1
+\item 
+\Hypertarget{boxing__word_8h_abab50bd6cae443c8a29c72a3ec16f695}\label{boxing__word_8h_abab50bd6cae443c8a29c72a3ec16f695} 
+\#define {\bfseries WORDBOX\+\_\+\+FIXNUM\+\_\+\+SHIFT}~WORDBOX\+\_\+\+FIXNUM\+\_\+\+BIT\+\_\+\+POS
+\item 
+\Hypertarget{boxing__word_8h_ac127a47d2c48fd5da9caaa6bcac5b380}\label{boxing__word_8h_ac127a47d2c48fd5da9caaa6bcac5b380} 
+\#define {\bfseries WORDBOX\+\_\+\+FIXNUM\+\_\+\+FLAG}~(1 $<$$<$ (WORDBOX\+\_\+\+FIXNUM\+\_\+\+BIT\+\_\+\+POS -\/ 1))
+\item 
+\Hypertarget{boxing__word_8h_a4751be17c7b5e5480c9a3c169cebaa28}\label{boxing__word_8h_a4751be17c7b5e5480c9a3c169cebaa28} 
+\#define {\bfseries WORDBOX\+\_\+\+FIXNUM\+\_\+\+MASK}~((1 $<$$<$ WORDBOX\+\_\+\+FIXNUM\+\_\+\+BIT\+\_\+\+POS) -\/ 1)
+\item 
+\Hypertarget{boxing__word_8h_a59c67bd2317571ddaaaadd21bedc8b60}\label{boxing__word_8h_a59c67bd2317571ddaaaadd21bedc8b60} 
+\#define {\bfseries WORDBOX\+\_\+\+FLOAT\+\_\+\+FLAG}~2
+\item 
+\Hypertarget{boxing__word_8h_a9461891da93f0a5d65f60b379fb92c39}\label{boxing__word_8h_a9461891da93f0a5d65f60b379fb92c39} 
+\#define {\bfseries WORDBOX\+\_\+\+FLOAT\+\_\+\+MASK}~3
+\item 
+\Hypertarget{boxing__word_8h_a37865779af90646c869ac6357111209c}\label{boxing__word_8h_a37865779af90646c869ac6357111209c} 
+\#define {\bfseries WORDBOX\+\_\+\+SYMBOL\+\_\+\+SHIFT}~5
+\item 
+\Hypertarget{boxing__word_8h_a4326d9d1ad8801234d63132288ebd937}\label{boxing__word_8h_a4326d9d1ad8801234d63132288ebd937} 
+\#define {\bfseries WORDBOX\+\_\+\+SYMBOL\+\_\+\+FLAG}~0x1c
+\item 
+\Hypertarget{boxing__word_8h_a6dfcc46dc8563f9b7dbf99f2b684b17d}\label{boxing__word_8h_a6dfcc46dc8563f9b7dbf99f2b684b17d} 
+\#define {\bfseries WORDBOX\+\_\+\+SYMBOL\+\_\+\+MASK}~0x1f
+\item 
+\Hypertarget{boxing__word_8h_a57b593aae11718c7d477512ea4640052}\label{boxing__word_8h_a57b593aae11718c7d477512ea4640052} 
+\#define {\bfseries WORDBOX\+\_\+\+IMMEDIATE\+\_\+\+MASK}~0x07
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_aeb3a530dd09723ec7c5ed45626c4bcac}{WORDBOX\+\_\+\+SET\+\_\+\+SHIFT\+\_\+\+VALUE}}(o,  n,  v)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_ae9723131b0838ba18b733b4dd1b52bad}{WORDBOX\+\_\+\+SHIFT\+\_\+\+VALUE\+\_\+P}}(o,  n)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a581323d924b00c1353399f08f594c587}{WORDBOX\+\_\+\+OBJ\+\_\+\+TYPE\+\_\+P}}(o,  n)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_acc2a0c519d221a7cf64b6e27b9ac5bce}{mrb\+\_\+immediate\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_ac58a157d237912b8aca1a6ac375ffed7}{mrb\+\_\+ptr}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a14b6e98eb05bec03ba475ff40b813e48}{mrb\+\_\+cptr}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a3a546658545e3950ec2f9151809fde9d}{mrb\+\_\+float}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a812ed4f02cfe7ca092db451253b93d5a}{mrb\+\_\+fixnum}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a8cce27f0aaf5b1b1fb3567eb793e900c}{mrb\+\_\+integer}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a82850c723b1e5545aac6e3caee3cbef8}{mrb\+\_\+symbol}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_aab05a1d7ef1e1c99a1019cea50a4aeaa}{mrb\+\_\+bool}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_aec9c48670db54f8935fd0ef8b27ce604}{mrb\+\_\+fixnum\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a664d202da985b1d53d8baea2e2fa7cc1}{mrb\+\_\+integer\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a6d97d24af71adcbedc80d2fb44ea17d8}{mrb\+\_\+symbol\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_ab3f01d970b0026d35ea83dc3148ca736}{mrb\+\_\+undef\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_aeaaec3b3bc883275bd836e4a649b9fa7}{mrb\+\_\+nil\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a75870285165d5bd59d783326b2a7b5aa}{mrb\+\_\+false\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_ad20ce757f75b080b1aeb2ad6760159ee}{mrb\+\_\+true\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_ad87200f5e4dec1ca2fb51efecc1be330}{mrb\+\_\+float\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_aa98cc9214b02a3b3d448829ca67205e4}{mrb\+\_\+array\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a4d0818f455d8802b01b7ef17a0a84d73}{mrb\+\_\+string\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_aed78232f70cd5a0a79362b11a0706140}{mrb\+\_\+hash\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a7f896d789bb569632911033827c8edb4}{mrb\+\_\+cptr\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a42135a731c03d177551af1f7cf7ceca7}{mrb\+\_\+exception\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_aa0561506b5e6f11822f067f871152a24}{mrb\+\_\+free\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_af3561b4091c407404887e103b3248257}{mrb\+\_\+object\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a33c429b0e68f5509c63df27bb61c375f}{mrb\+\_\+class\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a2e63e70f89a6daaa0bb7ca6ddb6c4f65}{mrb\+\_\+module\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_afb2434d1c70bbf91a1ec3129a45ad1a8}{mrb\+\_\+iclass\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_aeb87b9c1c4de59178733eb9e3c7b493a}{mrb\+\_\+sclass\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_af411012cc3be87c43fedc66e428a17be}{mrb\+\_\+proc\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_afc24ce70d24cb99ec57b417d5a770e5c}{mrb\+\_\+range\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a16eaf8e332e5fc7aec2f11b2330f8bea}{mrb\+\_\+env\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_ae3b035a99bd365d92ef41a4fd99dcf73}{mrb\+\_\+data\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a6a83f3140ef3d06c4ba33a0e3fb37d93}{mrb\+\_\+fiber\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_aedb1216d33b124589cbd6a495ca135a1}{mrb\+\_\+istruct\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a01407635a62011c06ba5fb1ac97246c0}{mrb\+\_\+break\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a1e59d04d44f55f328416817888cf68d0}{SET\+\_\+\+FLOAT\+\_\+\+VALUE}}(mrb,  r,  v)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a4c0619427b4decdcc9e35db69a70a9cf}{SET\+\_\+\+CPTR\+\_\+\+VALUE}}(mrb,  r,  v)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a060d0ac93a91e3afcd86ce29d851805b}{SET\+\_\+\+UNDEF\+\_\+\+VALUE}}(r)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a78c64b38ae2bd8b6ad25e4b7c65ce625}{SET\+\_\+\+NIL\+\_\+\+VALUE}}(r)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a8a34ad641c70870bafb1a60465f59d82}{SET\+\_\+\+FALSE\+\_\+\+VALUE}}(r)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a7619e7048ba35b65366eabf0530c297d}{SET\+\_\+\+TRUE\+\_\+\+VALUE}}(r)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_af9bdd9e3451f2e274be4e60a488995b9}{SET\+\_\+\+BOOL\+\_\+\+VALUE}}(r,  b)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a066d94421211504bdff0369d7c7b693b}{SET\+\_\+\+INT\+\_\+\+VALUE}}(mrb,  r,  n)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_af29be5e2d270629f63d46eccae7bfd8b}{SET\+\_\+\+FIXNUM\+\_\+\+VALUE}}(r,  n)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_aa88c407c38736fb8d78b7bb59f4e379d}{SET\+\_\+\+SYM\+\_\+\+VALUE}}(r,  n)
+\item 
+\#define \mbox{\hyperlink{boxing__word_8h_a6a0d2f3cb083066f330bacac2a23bcb2}{SET\+\_\+\+OBJ\+\_\+\+VALUE}}(r,  v)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{boxing__word_8h_a5cb4862509707bfa2d62fa4ad0701f5a}\label{boxing__word_8h_a5cb4862509707bfa2d62fa4ad0701f5a} 
+typedef struct mrb\+\_\+value {\bfseries mrb\+\_\+value}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{boxing__word_8h_af8be5de6e97bb5db9530049d272eaf2d}\label{boxing__word_8h_af8be5de6e97bb5db9530049d272eaf2d} 
+enum {\bfseries mrb\+\_\+special\+\_\+consts} \{ {\bfseries MRB\+\_\+\+Qnil} = 0
+, {\bfseries MRB\+\_\+\+Qfalse} = 4
+, {\bfseries MRB\+\_\+\+Qtrue} = 12
+, {\bfseries MRB\+\_\+\+Qundef} = 20
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{boxing__word_8h_ac8c806e2fe07e83d5d177a17de4f5d30}\label{boxing__word_8h_ac8c806e2fe07e83d5d177a17de4f5d30} 
+{\bfseries mrb\+\_\+static\+\_\+assert} (sizeof(\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}})==sizeof(union \mbox{\hyperlink{unionmrb__value__}{mrb\+\_\+value\+\_\+}}))
+\item 
+\Hypertarget{boxing__word_8h_a3988654c44e77619eb75de0ea80ada52}\label{boxing__word_8h_a3988654c44e77619eb75de0ea80ada52} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+word\+\_\+boxing\+\_\+cptr\+\_\+value} (struct \mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{boxing__word_8h_afcf211f414a30b262fddad5377703982}\label{boxing__word_8h_afcf211f414a30b262fddad5377703982} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+word\+\_\+boxing\+\_\+float\+\_\+value} (struct \mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, mrb\+\_\+float)
+\item 
+\Hypertarget{boxing__word_8h_aecc096d207f787af6f16a35953458d72}\label{boxing__word_8h_aecc096d207f787af6f16a35953458d72} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+boxing\+\_\+int\+\_\+value} (struct \mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, mrb\+\_\+int)
+\item 
+\Hypertarget{boxing__word_8h_a71b6760e2c73c8ca1594110348343952}\label{boxing__word_8h_a71b6760e2c73c8ca1594110348343952} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} mrb\+\_\+float {\bfseries mrb\+\_\+word\+\_\+boxing\+\_\+value\+\_\+float} (\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} v)
+\item 
+\Hypertarget{boxing__word_8h_ab194417c7a152c1c2231025a1a060785}\label{boxing__word_8h_ab194417c7a152c1c2231025a1a060785} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} mrb\+\_\+int {\bfseries mrb\+\_\+integer\+\_\+func} (\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} o)
+\item 
+\Hypertarget{boxing__word_8h_afb7c8f2be97ac3ed67ca81094d2e9577}\label{boxing__word_8h_afb7c8f2be97ac3ed67ca81094d2e9577} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} enum mrb\+\_\+vtype {\bfseries mrb\+\_\+type} (\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} o)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item word boxing \doxylink{structmrb__value}{mrb\+\_\+value} definition
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-define-members}
+\Hypertarget{boxing__word_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{boxing__word_8h_aa98cc9214b02a3b3d448829ca67205e4}\index{boxing\_word.h@{boxing\_word.h}!mrb\_array\_p@{mrb\_array\_p}}
+\index{mrb\_array\_p@{mrb\_array\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_array\_p}{mrb\_array\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_aa98cc9214b02a3b3d448829ca67205e4} 
+\#define mrb\+\_\+array\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ ARRAY)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_aab05a1d7ef1e1c99a1019cea50a4aeaa}\index{boxing\_word.h@{boxing\_word.h}!mrb\_bool@{mrb\_bool}}
+\index{mrb\_bool@{mrb\_bool}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_bool}{mrb\_bool}}
+{\footnotesize\ttfamily \label{boxing__word_8h_aab05a1d7ef1e1c99a1019cea50a4aeaa} 
+\#define mrb\+\_\+bool(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((o).w\ \&\ \string~(uintptr\_t)MRB\_Qfalse)\ !=\ 0)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a01407635a62011c06ba5fb1ac97246c0}\index{boxing\_word.h@{boxing\_word.h}!mrb\_break\_p@{mrb\_break\_p}}
+\index{mrb\_break\_p@{mrb\_break\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_break\_p}{mrb\_break\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a01407635a62011c06ba5fb1ac97246c0} 
+\#define mrb\+\_\+break\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ BREAK)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a33c429b0e68f5509c63df27bb61c375f}\index{boxing\_word.h@{boxing\_word.h}!mrb\_class\_p@{mrb\_class\_p}}
+\index{mrb\_class\_p@{mrb\_class\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_class\_p}{mrb\_class\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a33c429b0e68f5509c63df27bb61c375f} 
+\#define mrb\+\_\+class\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ CLASS)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a14b6e98eb05bec03ba475ff40b813e48}\index{boxing\_word.h@{boxing\_word.h}!mrb\_cptr@{mrb\_cptr}}
+\index{mrb\_cptr@{mrb\_cptr}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_cptr}{mrb\_cptr}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a14b6e98eb05bec03ba475ff40b813e48} 
+\#define mrb\+\_\+cptr(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_val\_union(o).vp-\/>p}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a7f896d789bb569632911033827c8edb4}\index{boxing\_word.h@{boxing\_word.h}!mrb\_cptr\_p@{mrb\_cptr\_p}}
+\index{mrb\_cptr\_p@{mrb\_cptr\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_cptr\_p}{mrb\_cptr\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a7f896d789bb569632911033827c8edb4} 
+\#define mrb\+\_\+cptr\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ CPTR)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_ae3b035a99bd365d92ef41a4fd99dcf73}\index{boxing\_word.h@{boxing\_word.h}!mrb\_data\_p@{mrb\_data\_p}}
+\index{mrb\_data\_p@{mrb\_data\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_data\_p}{mrb\_data\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_ae3b035a99bd365d92ef41a4fd99dcf73} 
+\#define mrb\+\_\+data\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ DATA)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a16eaf8e332e5fc7aec2f11b2330f8bea}\index{boxing\_word.h@{boxing\_word.h}!mrb\_env\_p@{mrb\_env\_p}}
+\index{mrb\_env\_p@{mrb\_env\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_env\_p}{mrb\_env\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a16eaf8e332e5fc7aec2f11b2330f8bea} 
+\#define mrb\+\_\+env\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ ENV)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a42135a731c03d177551af1f7cf7ceca7}\index{boxing\_word.h@{boxing\_word.h}!mrb\_exception\_p@{mrb\_exception\_p}}
+\index{mrb\_exception\_p@{mrb\_exception\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_exception\_p}{mrb\_exception\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a42135a731c03d177551af1f7cf7ceca7} 
+\#define mrb\+\_\+exception\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ EXCEPTION)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a75870285165d5bd59d783326b2a7b5aa}\index{boxing\_word.h@{boxing\_word.h}!mrb\_false\_p@{mrb\_false\_p}}
+\index{mrb\_false\_p@{mrb\_false\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_false\_p}{mrb\_false\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a75870285165d5bd59d783326b2a7b5aa} 
+\#define mrb\+\_\+false\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((o).w\ ==\ MRB\_Qfalse)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a6a83f3140ef3d06c4ba33a0e3fb37d93}\index{boxing\_word.h@{boxing\_word.h}!mrb\_fiber\_p@{mrb\_fiber\_p}}
+\index{mrb\_fiber\_p@{mrb\_fiber\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_fiber\_p}{mrb\_fiber\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a6a83f3140ef3d06c4ba33a0e3fb37d93} 
+\#define mrb\+\_\+fiber\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ FIBER)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a812ed4f02cfe7ca092db451253b93d5a}\index{boxing\_word.h@{boxing\_word.h}!mrb\_fixnum@{mrb\_fixnum}}
+\index{mrb\_fixnum@{mrb\_fixnum}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_fixnum}{mrb\_fixnum}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a812ed4f02cfe7ca092db451253b93d5a} 
+\#define mrb\+\_\+fixnum(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_int)(((intptr\_t)(o).w)\ >>\ WORDBOX\_FIXNUM\_SHIFT)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_aec9c48670db54f8935fd0ef8b27ce604}\index{boxing\_word.h@{boxing\_word.h}!mrb\_fixnum\_p@{mrb\_fixnum\_p}}
+\index{mrb\_fixnum\_p@{mrb\_fixnum\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_fixnum\_p}{mrb\_fixnum\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_aec9c48670db54f8935fd0ef8b27ce604} 
+\#define mrb\+\_\+fixnum\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_SHIFT\_VALUE\_P(o,\ FIXNUM)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a3a546658545e3950ec2f9151809fde9d}\index{boxing\_word.h@{boxing\_word.h}!mrb\_float@{mrb\_float}}
+\index{mrb\_float@{mrb\_float}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_float}{mrb\_float}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a3a546658545e3950ec2f9151809fde9d} 
+\#define mrb\+\_\+float(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_word\_boxing\_value\_float(o)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_ad87200f5e4dec1ca2fb51efecc1be330}\index{boxing\_word.h@{boxing\_word.h}!mrb\_float\_p@{mrb\_float\_p}}
+\index{mrb\_float\_p@{mrb\_float\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_float\_p}{mrb\_float\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_ad87200f5e4dec1ca2fb51efecc1be330} 
+\#define mrb\+\_\+float\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_SHIFT\_VALUE\_P(o,\ FLOAT)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_aa0561506b5e6f11822f067f871152a24}\index{boxing\_word.h@{boxing\_word.h}!mrb\_free\_p@{mrb\_free\_p}}
+\index{mrb\_free\_p@{mrb\_free\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_free\_p}{mrb\_free\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_aa0561506b5e6f11822f067f871152a24} 
+\#define mrb\+\_\+free\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ FREE)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_aed78232f70cd5a0a79362b11a0706140}\index{boxing\_word.h@{boxing\_word.h}!mrb\_hash\_p@{mrb\_hash\_p}}
+\index{mrb\_hash\_p@{mrb\_hash\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_hash\_p}{mrb\_hash\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_aed78232f70cd5a0a79362b11a0706140} 
+\#define mrb\+\_\+hash\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ HASH)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_afb2434d1c70bbf91a1ec3129a45ad1a8}\index{boxing\_word.h@{boxing\_word.h}!mrb\_iclass\_p@{mrb\_iclass\_p}}
+\index{mrb\_iclass\_p@{mrb\_iclass\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_iclass\_p}{mrb\_iclass\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_afb2434d1c70bbf91a1ec3129a45ad1a8} 
+\#define mrb\+\_\+iclass\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ ICLASS)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_acc2a0c519d221a7cf64b6e27b9ac5bce}\index{boxing\_word.h@{boxing\_word.h}!mrb\_immediate\_p@{mrb\_immediate\_p}}
+\index{mrb\_immediate\_p@{mrb\_immediate\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_immediate\_p}{mrb\_immediate\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_acc2a0c519d221a7cf64b6e27b9ac5bce} 
+\#define mrb\+\_\+immediate\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((o).w\ \&\ WORDBOX\_IMMEDIATE\_MASK\ ||\ (o).w\ ==\ MRB\_Qnil)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a8cce27f0aaf5b1b1fb3567eb793e900c}\index{boxing\_word.h@{boxing\_word.h}!mrb\_integer@{mrb\_integer}}
+\index{mrb\_integer@{mrb\_integer}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_integer}{mrb\_integer}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a8cce27f0aaf5b1b1fb3567eb793e900c} 
+\#define mrb\+\_\+integer(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_integer\_func(o)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a664d202da985b1d53d8baea2e2fa7cc1}\index{boxing\_word.h@{boxing\_word.h}!mrb\_integer\_p@{mrb\_integer\_p}}
+\index{mrb\_integer\_p@{mrb\_integer\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_integer\_p}{mrb\_integer\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a664d202da985b1d53d8baea2e2fa7cc1} 
+\#define mrb\+\_\+integer\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(WORDBOX\_SHIFT\_VALUE\_P(o,\ FIXNUM)||WORDBOX\_OBJ\_TYPE\_P(o,\ INTEGER))}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_aedb1216d33b124589cbd6a495ca135a1}\index{boxing\_word.h@{boxing\_word.h}!mrb\_istruct\_p@{mrb\_istruct\_p}}
+\index{mrb\_istruct\_p@{mrb\_istruct\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_istruct\_p}{mrb\_istruct\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_aedb1216d33b124589cbd6a495ca135a1} 
+\#define mrb\+\_\+istruct\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ ISTRUCT)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a2e63e70f89a6daaa0bb7ca6ddb6c4f65}\index{boxing\_word.h@{boxing\_word.h}!mrb\_module\_p@{mrb\_module\_p}}
+\index{mrb\_module\_p@{mrb\_module\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_module\_p}{mrb\_module\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a2e63e70f89a6daaa0bb7ca6ddb6c4f65} 
+\#define mrb\+\_\+module\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ MODULE)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_aeaaec3b3bc883275bd836e4a649b9fa7}\index{boxing\_word.h@{boxing\_word.h}!mrb\_nil\_p@{mrb\_nil\_p}}
+\index{mrb\_nil\_p@{mrb\_nil\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_nil\_p}{mrb\_nil\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_aeaaec3b3bc883275bd836e4a649b9fa7} 
+\#define mrb\+\_\+nil\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((o).w\ ==\ MRB\_Qnil)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_af3561b4091c407404887e103b3248257}\index{boxing\_word.h@{boxing\_word.h}!mrb\_object\_p@{mrb\_object\_p}}
+\index{mrb\_object\_p@{mrb\_object\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_object\_p}{mrb\_object\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_af3561b4091c407404887e103b3248257} 
+\#define mrb\+\_\+object\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ OBJECT)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_af411012cc3be87c43fedc66e428a17be}\index{boxing\_word.h@{boxing\_word.h}!mrb\_proc\_p@{mrb\_proc\_p}}
+\index{mrb\_proc\_p@{mrb\_proc\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_proc\_p}{mrb\_proc\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_af411012cc3be87c43fedc66e428a17be} 
+\#define mrb\+\_\+proc\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ PROC)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_ac58a157d237912b8aca1a6ac375ffed7}\index{boxing\_word.h@{boxing\_word.h}!mrb\_ptr@{mrb\_ptr}}
+\index{mrb\_ptr@{mrb\_ptr}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_ptr}{mrb\_ptr}}
+{\footnotesize\ttfamily \label{boxing__word_8h_ac58a157d237912b8aca1a6ac375ffed7} 
+\#define mrb\+\_\+ptr(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_val\_union(o).p}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_afc24ce70d24cb99ec57b417d5a770e5c}\index{boxing\_word.h@{boxing\_word.h}!mrb\_range\_p@{mrb\_range\_p}}
+\index{mrb\_range\_p@{mrb\_range\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_range\_p}{mrb\_range\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_afc24ce70d24cb99ec57b417d5a770e5c} 
+\#define mrb\+\_\+range\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ RANGE)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_aeb87b9c1c4de59178733eb9e3c7b493a}\index{boxing\_word.h@{boxing\_word.h}!mrb\_sclass\_p@{mrb\_sclass\_p}}
+\index{mrb\_sclass\_p@{mrb\_sclass\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_sclass\_p}{mrb\_sclass\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_aeb87b9c1c4de59178733eb9e3c7b493a} 
+\#define mrb\+\_\+sclass\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ SCLASS)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a4d0818f455d8802b01b7ef17a0a84d73}\index{boxing\_word.h@{boxing\_word.h}!mrb\_string\_p@{mrb\_string\_p}}
+\index{mrb\_string\_p@{mrb\_string\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_string\_p}{mrb\_string\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a4d0818f455d8802b01b7ef17a0a84d73} 
+\#define mrb\+\_\+string\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_OBJ\_TYPE\_P(o,\ STRING)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a82850c723b1e5545aac6e3caee3cbef8}\index{boxing\_word.h@{boxing\_word.h}!mrb\_symbol@{mrb\_symbol}}
+\index{mrb\_symbol@{mrb\_symbol}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_symbol}{mrb\_symbol}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a82850c723b1e5545aac6e3caee3cbef8} 
+\#define mrb\+\_\+symbol(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\mbox{\hyperlink{classmrb__sym}{mrb\_sym}})(((o).w)\ >>\ WORDBOX\_SYMBOL\_SHIFT)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a6d97d24af71adcbedc80d2fb44ea17d8}\index{boxing\_word.h@{boxing\_word.h}!mrb\_symbol\_p@{mrb\_symbol\_p}}
+\index{mrb\_symbol\_p@{mrb\_symbol\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_symbol\_p}{mrb\_symbol\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a6d97d24af71adcbedc80d2fb44ea17d8} 
+\#define mrb\+\_\+symbol\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_SHIFT\_VALUE\_P(o,\ SYMBOL)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_ad20ce757f75b080b1aeb2ad6760159ee}\index{boxing\_word.h@{boxing\_word.h}!mrb\_true\_p@{mrb\_true\_p}}
+\index{mrb\_true\_p@{mrb\_true\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_true\_p}{mrb\_true\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_ad20ce757f75b080b1aeb2ad6760159ee} 
+\#define mrb\+\_\+true\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((o).w\ ==\ MRB\_Qtrue)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_ab3f01d970b0026d35ea83dc3148ca736}\index{boxing\_word.h@{boxing\_word.h}!mrb\_undef\_p@{mrb\_undef\_p}}
+\index{mrb\_undef\_p@{mrb\_undef\_p}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_undef\_p}{mrb\_undef\_p}}
+{\footnotesize\ttfamily \label{boxing__word_8h_ab3f01d970b0026d35ea83dc3148ca736} 
+\#define mrb\+\_\+undef\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((o).w\ ==\ MRB\_Qundef)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_af9bdd9e3451f2e274be4e60a488995b9}\index{boxing\_word.h@{boxing\_word.h}!SET\_BOOL\_VALUE@{SET\_BOOL\_VALUE}}
+\index{SET\_BOOL\_VALUE@{SET\_BOOL\_VALUE}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{SET\_BOOL\_VALUE}{SET\_BOOL\_VALUE}}
+{\footnotesize\ttfamily \label{boxing__word_8h_af9bdd9e3451f2e274be4e60a488995b9} 
+\#define SET\+\_\+\+BOOL\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{r}{, }\item[{}]{b}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((b)\ ?\ SET\_TRUE\_VALUE(r)\ :\ SET\_FALSE\_VALUE(r))}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a4c0619427b4decdcc9e35db69a70a9cf}\index{boxing\_word.h@{boxing\_word.h}!SET\_CPTR\_VALUE@{SET\_CPTR\_VALUE}}
+\index{SET\_CPTR\_VALUE@{SET\_CPTR\_VALUE}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{SET\_CPTR\_VALUE}{SET\_CPTR\_VALUE}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a4c0619427b4decdcc9e35db69a70a9cf} 
+\#define SET\+\_\+\+CPTR\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{r}{, }\item[{}]{v}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((r)\ =\ mrb\_word\_boxing\_cptr\_value(mrb,\ v))}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a8a34ad641c70870bafb1a60465f59d82}\index{boxing\_word.h@{boxing\_word.h}!SET\_FALSE\_VALUE@{SET\_FALSE\_VALUE}}
+\index{SET\_FALSE\_VALUE@{SET\_FALSE\_VALUE}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{SET\_FALSE\_VALUE}{SET\_FALSE\_VALUE}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a8a34ad641c70870bafb1a60465f59d82} 
+\#define SET\+\_\+\+FALSE\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{r}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((r).w\ =\ MRB\_Qfalse)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_af29be5e2d270629f63d46eccae7bfd8b}\index{boxing\_word.h@{boxing\_word.h}!SET\_FIXNUM\_VALUE@{SET\_FIXNUM\_VALUE}}
+\index{SET\_FIXNUM\_VALUE@{SET\_FIXNUM\_VALUE}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{SET\_FIXNUM\_VALUE}{SET\_FIXNUM\_VALUE}}
+{\footnotesize\ttfamily \label{boxing__word_8h_af29be5e2d270629f63d46eccae7bfd8b} 
+\#define SET\+\_\+\+FIXNUM\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{r}{, }\item[{}]{n}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_SET\_SHIFT\_VALUE(r,\ FIXNUM,\ n)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a1e59d04d44f55f328416817888cf68d0}\index{boxing\_word.h@{boxing\_word.h}!SET\_FLOAT\_VALUE@{SET\_FLOAT\_VALUE}}
+\index{SET\_FLOAT\_VALUE@{SET\_FLOAT\_VALUE}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{SET\_FLOAT\_VALUE}{SET\_FLOAT\_VALUE}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a1e59d04d44f55f328416817888cf68d0} 
+\#define SET\+\_\+\+FLOAT\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{r}{, }\item[{}]{v}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((r)\ =\ mrb\_word\_boxing\_float\_value(mrb,\ v))}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a066d94421211504bdff0369d7c7b693b}\index{boxing\_word.h@{boxing\_word.h}!SET\_INT\_VALUE@{SET\_INT\_VALUE}}
+\index{SET\_INT\_VALUE@{SET\_INT\_VALUE}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{SET\_INT\_VALUE}{SET\_INT\_VALUE}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a066d94421211504bdff0369d7c7b693b} 
+\#define SET\+\_\+\+INT\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{r}{, }\item[{}]{n}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((r)\ =\ mrb\_boxing\_int\_value(mrb,\ n))}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a78c64b38ae2bd8b6ad25e4b7c65ce625}\index{boxing\_word.h@{boxing\_word.h}!SET\_NIL\_VALUE@{SET\_NIL\_VALUE}}
+\index{SET\_NIL\_VALUE@{SET\_NIL\_VALUE}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{SET\_NIL\_VALUE}{SET\_NIL\_VALUE}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a78c64b38ae2bd8b6ad25e4b7c65ce625} 
+\#define SET\+\_\+\+NIL\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{r}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((r).w\ =\ MRB\_Qnil)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a6a0d2f3cb083066f330bacac2a23bcb2}\index{boxing\_word.h@{boxing\_word.h}!SET\_OBJ\_VALUE@{SET\_OBJ\_VALUE}}
+\index{SET\_OBJ\_VALUE@{SET\_OBJ\_VALUE}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{SET\_OBJ\_VALUE}{SET\_OBJ\_VALUE}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a6a0d2f3cb083066f330bacac2a23bcb2} 
+\#define SET\+\_\+\+OBJ\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{r}{, }\item[{}]{v}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((r).w\ =\ (uintptr\_t)(v))}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_aa88c407c38736fb8d78b7bb59f4e379d}\index{boxing\_word.h@{boxing\_word.h}!SET\_SYM\_VALUE@{SET\_SYM\_VALUE}}
+\index{SET\_SYM\_VALUE@{SET\_SYM\_VALUE}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{SET\_SYM\_VALUE}{SET\_SYM\_VALUE}}
+{\footnotesize\ttfamily \label{boxing__word_8h_aa88c407c38736fb8d78b7bb59f4e379d} 
+\#define SET\+\_\+\+SYM\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{r}{, }\item[{}]{n}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WORDBOX\_SET\_SHIFT\_VALUE(r,\ SYMBOL,\ n)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a7619e7048ba35b65366eabf0530c297d}\index{boxing\_word.h@{boxing\_word.h}!SET\_TRUE\_VALUE@{SET\_TRUE\_VALUE}}
+\index{SET\_TRUE\_VALUE@{SET\_TRUE\_VALUE}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{SET\_TRUE\_VALUE}{SET\_TRUE\_VALUE}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a7619e7048ba35b65366eabf0530c297d} 
+\#define SET\+\_\+\+TRUE\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{r}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((r).w\ =\ MRB\_Qtrue)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a060d0ac93a91e3afcd86ce29d851805b}\index{boxing\_word.h@{boxing\_word.h}!SET\_UNDEF\_VALUE@{SET\_UNDEF\_VALUE}}
+\index{SET\_UNDEF\_VALUE@{SET\_UNDEF\_VALUE}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{SET\_UNDEF\_VALUE}{SET\_UNDEF\_VALUE}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a060d0ac93a91e3afcd86ce29d851805b} 
+\#define SET\+\_\+\+UNDEF\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{r}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((r).w\ =\ MRB\_Qundef)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_a581323d924b00c1353399f08f594c587}\index{boxing\_word.h@{boxing\_word.h}!WORDBOX\_OBJ\_TYPE\_P@{WORDBOX\_OBJ\_TYPE\_P}}
+\index{WORDBOX\_OBJ\_TYPE\_P@{WORDBOX\_OBJ\_TYPE\_P}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{WORDBOX\_OBJ\_TYPE\_P}{WORDBOX\_OBJ\_TYPE\_P}}
+{\footnotesize\ttfamily \label{boxing__word_8h_a581323d924b00c1353399f08f594c587} 
+\#define WORDBOX\+\_\+\+OBJ\+\_\+\+TYPE\+\_\+P(\begin{DoxyParamCaption}\item[{}]{o}{, }\item[{}]{n}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ (!mrb\_immediate\_p(o)\ \&\&\ mrb\_val\_union(o).bp-\/>tt\ ==\ MRB\_TT\_\#\#n)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_aeb3a530dd09723ec7c5ed45626c4bcac}\index{boxing\_word.h@{boxing\_word.h}!WORDBOX\_SET\_SHIFT\_VALUE@{WORDBOX\_SET\_SHIFT\_VALUE}}
+\index{WORDBOX\_SET\_SHIFT\_VALUE@{WORDBOX\_SET\_SHIFT\_VALUE}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{WORDBOX\_SET\_SHIFT\_VALUE}{WORDBOX\_SET\_SHIFT\_VALUE}}
+{\footnotesize\ttfamily \label{boxing__word_8h_aeb3a530dd09723ec7c5ed45626c4bcac} 
+\#define WORDBOX\+\_\+\+SET\+\_\+\+SHIFT\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{o}{, }\item[{}]{n}{, }\item[{}]{v}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ ((o).w\ =\ (((uintptr\_t)(v))\ <<\ WORDBOX\_\#\#n\#\#\_SHIFT)\ |\ WORDBOX\_\#\#n\#\#\_FLAG)}
+
+\end{DoxyCode}
+\Hypertarget{boxing__word_8h_ae9723131b0838ba18b733b4dd1b52bad}\index{boxing\_word.h@{boxing\_word.h}!WORDBOX\_SHIFT\_VALUE\_P@{WORDBOX\_SHIFT\_VALUE\_P}}
+\index{WORDBOX\_SHIFT\_VALUE\_P@{WORDBOX\_SHIFT\_VALUE\_P}!boxing\_word.h@{boxing\_word.h}}
+\doxysubsubsection{\texorpdfstring{WORDBOX\_SHIFT\_VALUE\_P}{WORDBOX\_SHIFT\_VALUE\_P}}
+{\footnotesize\ttfamily \label{boxing__word_8h_ae9723131b0838ba18b733b4dd1b52bad} 
+\#define WORDBOX\+\_\+\+SHIFT\+\_\+\+VALUE\+\_\+P(\begin{DoxyParamCaption}\item[{}]{o}{, }\item[{}]{n}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ (((o).w\ \&\ WORDBOX\_\#\#n\#\#\_MASK)\ ==\ WORDBOX\_\#\#n\#\#\_FLAG)}
+
+\end{DoxyCode}

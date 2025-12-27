@@ -1,0 +1,32 @@
+\doxysection{shrpx\+::Rate\+Limit Class Reference}
+\hypertarget{classshrpx_1_1RateLimit}{}\label{classshrpx_1_1RateLimit}\index{shrpx::RateLimit@{shrpx::RateLimit}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1RateLimit_a3de928ef00596871e7fbda086d9d6539}\label{classshrpx_1_1RateLimit_a3de928ef00596871e7fbda086d9d6539} 
+{\bfseries Rate\+Limit} (struct ev\+\_\+loop \texorpdfstring{$\ast$}{*}loop, ev\+\_\+io \texorpdfstring{$\ast$}{*}w, size\+\_\+t rate, size\+\_\+t burst, \mbox{\hyperlink{structConnection}{Connection}} \texorpdfstring{$\ast$}{*}conn=nullptr)
+\item 
+\Hypertarget{classshrpx_1_1RateLimit_a2e49fb44a10692b86bd52ac626fc6afc}\label{classshrpx_1_1RateLimit_a2e49fb44a10692b86bd52ac626fc6afc} 
+size\+\_\+t {\bfseries avail} () const
+\item 
+\Hypertarget{classshrpx_1_1RateLimit_a734b3cc0239c68dd730375db63895f2f}\label{classshrpx_1_1RateLimit_a734b3cc0239c68dd730375db63895f2f} 
+void {\bfseries drain} (size\+\_\+t n)
+\item 
+\Hypertarget{classshrpx_1_1RateLimit_ac8a23e56b1ba4891a299f86a2ffaf983}\label{classshrpx_1_1RateLimit_ac8a23e56b1ba4891a299f86a2ffaf983} 
+void {\bfseries regen} ()
+\item 
+\Hypertarget{classshrpx_1_1RateLimit_ad616d5ed1bc1e1d3685f418ab4f3739d}\label{classshrpx_1_1RateLimit_ad616d5ed1bc1e1d3685f418ab4f3739d} 
+void {\bfseries startw} ()
+\item 
+\Hypertarget{classshrpx_1_1RateLimit_a8430d16cb485b950d75989075595e4c0}\label{classshrpx_1_1RateLimit_a8430d16cb485b950d75989075595e4c0} 
+void {\bfseries stopw} ()
+\item 
+\Hypertarget{classshrpx_1_1RateLimit_aceb4163b82e050b8ee7f515b551fe698}\label{classshrpx_1_1RateLimit_aceb4163b82e050b8ee7f515b551fe698} 
+void {\bfseries handle\+\_\+tls\+\_\+pending\+\_\+read} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+rate\+\_\+limit.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+rate\+\_\+limit.\+cc\end{DoxyCompactItemize}

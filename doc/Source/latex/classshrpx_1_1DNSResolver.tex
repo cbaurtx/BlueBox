@@ -1,0 +1,53 @@
+\doxysection{shrpx\+::DNSResolver Class Reference}
+\hypertarget{classshrpx_1_1DNSResolver}{}\label{classshrpx_1_1DNSResolver}\index{shrpx::DNSResolver@{shrpx::DNSResolver}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1DNSResolver_a67df6798d560449602be45bf4265b2b0}\label{classshrpx_1_1DNSResolver_a67df6798d560449602be45bf4265b2b0} 
+{\bfseries DNSResolver} (struct ev\+\_\+loop \texorpdfstring{$\ast$}{*}loop)
+\item 
+\Hypertarget{classshrpx_1_1DNSResolver_a44b85bc22c8e708f54c01f72750490e2}\label{classshrpx_1_1DNSResolver_a44b85bc22c8e708f54c01f72750490e2} 
+int {\bfseries resolve} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&name, int family)
+\item 
+\Hypertarget{classshrpx_1_1DNSResolver_a4de3cdefc0f52246f13483e3b44320fa}\label{classshrpx_1_1DNSResolver_a4de3cdefc0f52246f13483e3b44320fa} 
+DNSResolver\+Status {\bfseries get\+\_\+status} (\mbox{\hyperlink{structnghttp2_1_1Address}{Address}} \texorpdfstring{$\ast$}{*}result) const
+\item 
+\Hypertarget{classshrpx_1_1DNSResolver_a01f5ccadc913837165d25e2eb3ac6edc}\label{classshrpx_1_1DNSResolver_a01f5ccadc913837165d25e2eb3ac6edc} 
+void {\bfseries set\+\_\+complete\+\_\+cb} (Complete\+Cb cb)
+\item 
+\Hypertarget{classshrpx_1_1DNSResolver_a1520831323a2d84dd4ef4d6c3c9bd481}\label{classshrpx_1_1DNSResolver_a1520831323a2d84dd4ef4d6c3c9bd481} 
+Complete\+Cb {\bfseries get\+\_\+complete\+\_\+cb} () const
+\item 
+\Hypertarget{classshrpx_1_1DNSResolver_a8b9b62a569bb01592393ce9b7bea4c25}\label{classshrpx_1_1DNSResolver_a8b9b62a569bb01592393ce9b7bea4c25} 
+int {\bfseries on\+\_\+read} (int fd)
+\item 
+\Hypertarget{classshrpx_1_1DNSResolver_a987f733c57e9f2a4643a5318ba7d2e05}\label{classshrpx_1_1DNSResolver_a987f733c57e9f2a4643a5318ba7d2e05} 
+int {\bfseries on\+\_\+write} (int fd)
+\item 
+\Hypertarget{classshrpx_1_1DNSResolver_a4cae1a4ab61b95128b63a1207ea5e99b}\label{classshrpx_1_1DNSResolver_a4cae1a4ab61b95128b63a1207ea5e99b} 
+int {\bfseries on\+\_\+timeout} ()
+\item 
+\Hypertarget{classshrpx_1_1DNSResolver_a371a8ab1238a85d22291536033202607}\label{classshrpx_1_1DNSResolver_a371a8ab1238a85d22291536033202607} 
+void {\bfseries on\+\_\+result} (int status, ares\+\_\+addrinfo \texorpdfstring{$\ast$}{*}result)
+\item 
+\Hypertarget{classshrpx_1_1DNSResolver_a0a739dc135c9c47e996eef661834f8fb}\label{classshrpx_1_1DNSResolver_a0a739dc135c9c47e996eef661834f8fb} 
+void {\bfseries reset\+\_\+timeout} ()
+\item 
+\Hypertarget{classshrpx_1_1DNSResolver_a1a05d8796f8c8818fa8de1fadb046630}\label{classshrpx_1_1DNSResolver_a1a05d8796f8c8818fa8de1fadb046630} 
+void {\bfseries start\+\_\+rev} (int fd)
+\item 
+\Hypertarget{classshrpx_1_1DNSResolver_a22e10799338a465cdeb870e07e1a24cb}\label{classshrpx_1_1DNSResolver_a22e10799338a465cdeb870e07e1a24cb} 
+void {\bfseries stop\+\_\+rev} (int fd)
+\item 
+\Hypertarget{classshrpx_1_1DNSResolver_a2de757276d445a4ac16cb8445a6af443}\label{classshrpx_1_1DNSResolver_a2de757276d445a4ac16cb8445a6af443} 
+void {\bfseries start\+\_\+wev} (int fd)
+\item 
+\Hypertarget{classshrpx_1_1DNSResolver_ac89234bfb13d1f6b28d17db0ebed67a5}\label{classshrpx_1_1DNSResolver_ac89234bfb13d1f6b28d17db0ebed67a5} 
+void {\bfseries stop\+\_\+wev} (int fd)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+dns\+\_\+resolver.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+dns\+\_\+resolver.\+cc\end{DoxyCompactItemize}

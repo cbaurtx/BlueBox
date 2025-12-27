@@ -1,0 +1,21 @@
+<map id="nghttp2_hd_deflater" name="nghttp2_hd_deflater">
+<area shape="rect" id="Node000001" title=" " alt="" coords="183,523,319,549"/>
+<area shape="rect" id="Node000002" href="$structnghttp2__hd__context.html" title=" " alt="" coords="126,424,261,451"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="210,462,246,523,241,522,207,466"/>
+<area shape="rect" id="Node000003" href="$structnghttp2__hd__ringbuf.html" title=" " alt="" coords="5,323,137,349"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,358,137,398,173,423,168,424,134,402,92,363"/>
+<area shape="rect" id="Node000004" href="$structnghttp2__hd__entry.html" title=" " alt="" coords="130,224,252,251"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="163,263,89,324,85,320,165,258"/>
+<area shape="poly" id="edge7_Node000004_Node000004" title=" " alt="" coords="267,228,278,237,270,246,254,249,251,244,268,241,273,237,268,233"/>
+<area shape="rect" id="Node000009" href="$structnghttp2__hd__map.html" title=" " alt="" coords="251,373,368,400"/>
+<area shape="poly" id="edge10_Node000009_Node000004" title=" " alt="" coords="216,258,247,287,276,321,306,373,301,373,272,324,243,291,216,263"/>
+<area shape="rect" id="Node000005" href="$structnghttp2__hd__nv.html" title=" " alt="" coords="78,125,184,152"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="147,163,186,223,181,224,147,168"/>
+<area shape="rect" id="Node000006" href="$structnghttp2__rcbuf.html" title=" " alt="" coords="81,5,181,32"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="131,45,134,125,128,125,131,51"/>
+<area shape="rect" id="Node000007" href="$structnghttp2__nv.html" title=" " alt="" coords="208,125,294,152"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="234,168,201,225,196,222,236,163"/>
+<area shape="rect" id="Node000008" href="$structnghttp2__mem.html" title=" " alt="" coords="161,323,261,349"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="205,362,205,374,197,425,192,422,199,373,202,367"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="301,414,258,524,254,521,297,416"/>
+</map>

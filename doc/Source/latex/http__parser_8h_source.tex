@@ -1,0 +1,452 @@
+\doxysection{http\+\_\+parser.\+h}
+\hypertarget{http__parser_8h_source}{}\label{http__parser_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/urlparse/http-\/parser/http\_parser.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/urlparse/http-\/parser/http\_parser.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Copyright\ Joyent,\ Inc.\ and\ other\ Node\ contributors.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ copy}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ to}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ deal\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ the}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ and/or}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifndef\ http\_parser\_h}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ http\_parser\_h}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00024\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{/*\ Also\ update\ SONAME\ in\ the\ Makefile\ whenever\ you\ change\ these.\ */}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ HTTP\_PARSER\_VERSION\_MAJOR\ 2}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ HTTP\_PARSER\_VERSION\_MINOR\ 9}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ HTTP\_PARSER\_VERSION\_PATCH\ 4}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#if\ defined(\_WIN32)\ \&\&\ !defined(\_\_MINGW32\_\_)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\ \ (!defined(\_MSC\_VER)\ ||\ \_MSC\_VER<1600)\ \&\&\ !defined(\_\_WINE\_\_)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <BaseTsd.h>}}
+\DoxyCodeLine{00036\ \textcolor{keyword}{typedef}\ \_\_int8\ int8\_t;}
+\DoxyCodeLine{00037\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \_\_int8\ uint8\_t;}
+\DoxyCodeLine{00038\ \textcolor{keyword}{typedef}\ \_\_int16\ int16\_t;}
+\DoxyCodeLine{00039\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \_\_int16\ uint16\_t;}
+\DoxyCodeLine{00040\ \textcolor{keyword}{typedef}\ \_\_int32\ int32\_t;}
+\DoxyCodeLine{00041\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \_\_int32\ uint32\_t;}
+\DoxyCodeLine{00042\ \textcolor{keyword}{typedef}\ \_\_int64\ int64\_t;}
+\DoxyCodeLine{00043\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \_\_int64\ uint64\_t;}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#elif\ (defined(\_\_sun)\ ||\ defined(\_\_sun\_\_))\ \&\&\ defined(\_\_SunOS\_5\_9)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ <sys/inttypes.h>}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{/*\ Compile\ with\ -\/DHTTP\_PARSER\_STRICT=0\ to\ make\ less\ checks,\ but\ run}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ *\ faster}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#ifndef\ HTTP\_PARSER\_STRICT}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#\ define\ HTTP\_PARSER\_STRICT\ 1}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{/*\ Maximium\ header\ size\ allowed.\ If\ the\ macro\ is\ not\ defined}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ *\ before\ including\ this\ header\ then\ the\ default\ is\ used.\ To}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ *\ change\ the\ maximum\ header\ size,\ define\ the\ macro\ in\ the\ build}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *\ environment\ (e.g.\ -\/DHTTP\_MAX\_HEADER\_SIZE=<value>).\ To\ remove}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *\ the\ effective\ limit\ on\ the\ size\ of\ the\ header,\ define\ the\ macro}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *\ to\ a\ very\ large\ number\ (e.g.\ -\/DHTTP\_MAX\_HEADER\_SIZE=0x7fffffff)}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#ifndef\ HTTP\_MAX\_HEADER\_SIZE}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#\ define\ HTTP\_MAX\_HEADER\_SIZE\ (80*1024)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhttp__parser}{http\_parser}}\ \mbox{\hyperlink{structhttp__parser}{http\_parser}};}
+\DoxyCodeLine{00069\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhttp__parser__settings}{http\_parser\_settings}}\ \mbox{\hyperlink{structhttp__parser__settings}{http\_parser\_settings}};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{comment}{/*\ Callbacks\ should\ return\ non-\/zero\ to\ indicate\ an\ error.\ The\ parser\ will}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ *\ then\ halt\ execution.}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ *\ The\ one\ exception\ is\ on\_headers\_complete.\ In\ a\ HTTP\_RESPONSE\ parser}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *\ returning\ '1'\ from\ on\_headers\_complete\ will\ tell\ the\ parser\ that\ it}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ *\ should\ not\ expect\ a\ body.\ This\ is\ used\ when\ receiving\ a\ response\ to\ a}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ *\ HEAD\ request\ which\ may\ contain\ 'Content-\/Length'\ or\ 'Transfer-\/Encoding:}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ *\ chunked'\ headers\ that\ indicate\ the\ presence\ of\ a\ body.}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ *\ Returning\ \`{}2`\ from\ on\_headers\_complete\ will\ tell\ parser\ that\ it\ should\ not}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ *\ expect\ neither\ a\ body\ nor\ any\ futher\ responses\ on\ this\ connection.\ This\ is}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ *\ useful\ for\ handling\ responses\ to\ a\ CONNECT\ request\ which\ may\ not\ contain}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ *\ \`{}Upgrade`\ or\ \`{}Connection:\ upgrade`\ headers.}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ *\ http\_data\_cb\ does\ not\ return\ data\ chunks.\ It\ will\ be\ called\ arbitrarily}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ *\ many\ times\ for\ each\ string.\ E.G.\ you\ might\ get\ 10\ callbacks\ for\ "{}on\_url"{}}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ *\ each\ providing\ just\ a\ few\ characters\ more\ data.}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00090\ \textcolor{keyword}{typedef}\ int\ (*http\_data\_cb)\ (\mbox{\hyperlink{structhttp__parser}{http\_parser}}*,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *at,\ \textcolor{keywordtype}{size\_t}\ length);}
+\DoxyCodeLine{00091\ \textcolor{keyword}{typedef}\ int\ (*http\_cb)\ (\mbox{\hyperlink{structhttp__parser}{http\_parser}}*);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{comment}{/*\ Status\ Codes\ */}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ HTTP\_STATUS\_MAP(XX)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\ \ XX(100,\ CONTINUE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Continue)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\ \ XX(101,\ SWITCHING\_PROTOCOLS,\ \ \ \ \ \ \ \ \ \ \ \ \ Switching\ Protocols)\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\ \ XX(102,\ PROCESSING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Processing)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\ \ XX(200,\ OK,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OK)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\ \ XX(201,\ CREATED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Created)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\ \ XX(202,\ ACCEPTED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Accepted)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\ \ XX(203,\ NON\_AUTHORITATIVE\_INFORMATION,\ \ \ Non-\/Authoritative\ Information)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\ \ XX(204,\ NO\_CONTENT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ No\ Content)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\ \ XX(205,\ RESET\_CONTENT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Reset\ Content)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\ \ XX(206,\ PARTIAL\_CONTENT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Partial\ Content)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\ \ XX(207,\ MULTI\_STATUS,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Multi-\/Status)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\ \ XX(208,\ ALREADY\_REPORTED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Already\ Reported)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\ \ XX(226,\ IM\_USED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IM\ Used)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\ \ XX(300,\ MULTIPLE\_CHOICES,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Multiple\ Choices)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\ \ XX(301,\ MOVED\_PERMANENTLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Moved\ Permanently)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\ \ XX(302,\ FOUND,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Found)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\ \ XX(303,\ SEE\_OTHER,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ See\ Other)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\ \ XX(304,\ NOT\_MODIFIED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Not\ Modified)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\ \ XX(305,\ USE\_PROXY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Use\ Proxy)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\ \ XX(307,\ TEMPORARY\_REDIRECT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ Temporary\ Redirect)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\ \ XX(308,\ PERMANENT\_REDIRECT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ Permanent\ Redirect)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\ \ XX(400,\ BAD\_REQUEST,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Bad\ Request)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\ \ XX(401,\ UNAUTHORIZED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Unauthorized)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\ \ XX(402,\ PAYMENT\_REQUIRED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Payment\ Required)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\ \ XX(403,\ FORBIDDEN,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Forbidden)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\ \ XX(404,\ NOT\_FOUND,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Not\ Found)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\ \ XX(405,\ METHOD\_NOT\_ALLOWED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ Method\ Not\ Allowed)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\ \ XX(406,\ NOT\_ACCEPTABLE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Not\ Acceptable)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\ \ XX(407,\ PROXY\_AUTHENTICATION\_REQUIRED,\ \ \ Proxy\ Authentication\ Required)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\ \ XX(408,\ REQUEST\_TIMEOUT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Request\ Timeout)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\ \ XX(409,\ CONFLICT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Conflict)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\ \ XX(410,\ GONE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Gone)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\ \ XX(411,\ LENGTH\_REQUIRED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Length\ Required)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\ \ XX(412,\ PRECONDITION\_FAILED,\ \ \ \ \ \ \ \ \ \ \ \ \ Precondition\ Failed)\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\ \ XX(413,\ PAYLOAD\_TOO\_LARGE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Payload\ Too\ Large)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\ \ XX(414,\ URI\_TOO\_LONG,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ URI\ Too\ Long)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\ \ XX(415,\ UNSUPPORTED\_MEDIA\_TYPE,\ \ \ \ \ \ \ \ \ \ Unsupported\ Media\ Type)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\ \ XX(416,\ RANGE\_NOT\_SATISFIABLE,\ \ \ \ \ \ \ \ \ \ \ Range\ Not\ Satisfiable)\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\ \ XX(417,\ EXPECTATION\_FAILED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ Expectation\ Failed)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\ \ XX(421,\ MISDIRECTED\_REQUEST,\ \ \ \ \ \ \ \ \ \ \ \ \ Misdirected\ Request)\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\ \ XX(422,\ UNPROCESSABLE\_ENTITY,\ \ \ \ \ \ \ \ \ \ \ \ Unprocessable\ Entity)\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\ \ XX(423,\ LOCKED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Locked)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\ \ XX(424,\ FAILED\_DEPENDENCY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Failed\ Dependency)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\ \ XX(426,\ UPGRADE\_REQUIRED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Upgrade\ Required)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\ \ XX(428,\ PRECONDITION\_REQUIRED,\ \ \ \ \ \ \ \ \ \ \ Precondition\ Required)\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\ \ XX(429,\ TOO\_MANY\_REQUESTS,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Too\ Many\ Requests)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\ \ XX(431,\ REQUEST\_HEADER\_FIELDS\_TOO\_LARGE,\ Request\ Header\ Fields\ Too\ Large)\ \(\backslash\)}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\ \ XX(451,\ UNAVAILABLE\_FOR\_LEGAL\_REASONS,\ \ \ Unavailable\ For\ Legal\ Reasons)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\ \ XX(500,\ INTERNAL\_SERVER\_ERROR,\ \ \ \ \ \ \ \ \ \ \ Internal\ Server\ Error)\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\ \ XX(501,\ NOT\_IMPLEMENTED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Not\ Implemented)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\ \ XX(502,\ BAD\_GATEWAY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Bad\ Gateway)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\ \ XX(503,\ SERVICE\_UNAVAILABLE,\ \ \ \ \ \ \ \ \ \ \ \ \ Service\ Unavailable)\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\ \ XX(504,\ GATEWAY\_TIMEOUT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Gateway\ Timeout)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\ \ XX(505,\ HTTP\_VERSION\_NOT\_SUPPORTED,\ \ \ \ \ \ HTTP\ Version\ Not\ Supported)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\ \ XX(506,\ VARIANT\_ALSO\_NEGOTIATES,\ \ \ \ \ \ \ \ \ Variant\ Also\ Negotiates)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\ \ XX(507,\ INSUFFICIENT\_STORAGE,\ \ \ \ \ \ \ \ \ \ \ \ Insufficient\ Storage)\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\ \ XX(508,\ LOOP\_DETECTED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Loop\ Detected)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\ \ XX(510,\ NOT\_EXTENDED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Not\ Extended)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\ \ XX(511,\ NETWORK\_AUTHENTICATION\_REQUIRED,\ Network\ Authentication\ Required)\ \(\backslash\)}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{}}
+\DoxyCodeLine{00156\ \textcolor{keyword}{enum}\ http\_status}
+\DoxyCodeLine{00157\ \ \ \{}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#define\ XX(num,\ name,\ string)\ HTTP\_STATUS\_\#\#name\ =\ num,}}
+\DoxyCodeLine{00159\ \ \ HTTP\_STATUS\_MAP(XX)}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#undef\ XX}}
+\DoxyCodeLine{00161\ \ \ \};}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{comment}{/*\ Request\ Methods\ */}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ HTTP\_METHOD\_MAP(XX)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\ \ XX(0,\ \ DELETE,\ \ \ \ \ \ DELETE)\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\ \ XX(1,\ \ GET,\ \ \ \ \ \ \ \ \ GET)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\ \ XX(2,\ \ HEAD,\ \ \ \ \ \ \ \ HEAD)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\ \ XX(3,\ \ POST,\ \ \ \ \ \ \ \ POST)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\ \ XX(4,\ \ PUT,\ \ \ \ \ \ \ \ \ PUT)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\ \ }\textcolor{comment}{/*\ pathological\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\ \ XX(5,\ \ CONNECT,\ \ \ \ \ CONNECT)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\ \ XX(6,\ \ OPTIONS,\ \ \ \ \ OPTIONS)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\ \ XX(7,\ \ TRACE,\ \ \ \ \ \ \ TRACE)\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\ \ }\textcolor{comment}{/*\ WebDAV\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\ \ XX(8,\ \ COPY,\ \ \ \ \ \ \ \ COPY)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\ \ XX(9,\ \ LOCK,\ \ \ \ \ \ \ \ LOCK)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\ \ XX(10,\ MKCOL,\ \ \ \ \ \ \ MKCOL)\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\ \ XX(11,\ MOVE,\ \ \ \ \ \ \ \ MOVE)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\ \ XX(12,\ PROPFIND,\ \ \ \ PROPFIND)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\ \ XX(13,\ PROPPATCH,\ \ \ PROPPATCH)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\ \ XX(14,\ SEARCH,\ \ \ \ \ \ SEARCH)\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\ \ XX(15,\ UNLOCK,\ \ \ \ \ \ UNLOCK)\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\ \ XX(16,\ BIND,\ \ \ \ \ \ \ \ BIND)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\ \ XX(17,\ REBIND,\ \ \ \ \ \ REBIND)\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\ \ XX(18,\ UNBIND,\ \ \ \ \ \ UNBIND)\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\ \ XX(19,\ ACL,\ \ \ \ \ \ \ \ \ ACL)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\ \ }\textcolor{comment}{/*\ subversion\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\ \ XX(20,\ REPORT,\ \ \ \ \ \ REPORT)\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\ \ XX(21,\ MKACTIVITY,\ \ MKACTIVITY)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\ \ XX(22,\ CHECKOUT,\ \ \ \ CHECKOUT)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\ \ XX(23,\ MERGE,\ \ \ \ \ \ \ MERGE)\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\ \ }\textcolor{comment}{/*\ upnp\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\ \ XX(24,\ MSEARCH,\ \ \ \ \ M-\/SEARCH)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\ \ XX(25,\ NOTIFY,\ \ \ \ \ \ NOTIFY)\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\ \ XX(26,\ SUBSCRIBE,\ \ \ SUBSCRIBE)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\ \ XX(27,\ UNSUBSCRIBE,\ UNSUBSCRIBE)\ \ \(\backslash\)}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\ \ }\textcolor{comment}{/*\ RFC-\/5789\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\ \ XX(28,\ PATCH,\ \ \ \ \ \ \ PATCH)\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\ \ XX(29,\ PURGE,\ \ \ \ \ \ \ PURGE)\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\ \ }\textcolor{comment}{/*\ CalDAV\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\ \ XX(30,\ MKCALENDAR,\ \ MKCALENDAR)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\ \ }\textcolor{comment}{/*\ RFC-\/2068,\ section\ 19.6.1.2\ */}\textcolor{preprocessor}{\ \ \(\backslash\)}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\ \ XX(31,\ LINK,\ \ \ \ \ \ \ \ LINK)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\ \ XX(32,\ UNLINK,\ \ \ \ \ \ UNLINK)\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\ \ }\textcolor{comment}{/*\ icecast\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\ \ XX(33,\ SOURCE,\ \ \ \ \ \ SOURCE)\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{}}
+\DoxyCodeLine{00209\ \textcolor{keyword}{enum}\ http\_method}
+\DoxyCodeLine{00210\ \ \ \{}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#define\ XX(num,\ name,\ string)\ HTTP\_\#\#name\ =\ num,}}
+\DoxyCodeLine{00212\ \ \ HTTP\_METHOD\_MAP(XX)}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#undef\ XX}}
+\DoxyCodeLine{00214\ \ \ \};}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \textcolor{keyword}{enum}\ http\_parser\_type\ \{\ HTTP\_REQUEST,\ HTTP\_RESPONSE,\ HTTP\_BOTH\ \};}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{comment}{/*\ Flag\ values\ for\ http\_parser.flags\ field\ */}}
+\DoxyCodeLine{00221\ \textcolor{keyword}{enum}\ flags}
+\DoxyCodeLine{00222\ \ \ \{\ F\_CHUNKED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 0}
+\DoxyCodeLine{00223\ \ \ ,\ F\_CONNECTION\_KEEP\_ALIVE\ =\ 1\ <<\ 1}
+\DoxyCodeLine{00224\ \ \ ,\ F\_CONNECTION\_CLOSE\ \ \ \ \ \ =\ 1\ <<\ 2}
+\DoxyCodeLine{00225\ \ \ ,\ F\_CONNECTION\_UPGRADE\ \ \ \ =\ 1\ <<\ 3}
+\DoxyCodeLine{00226\ \ \ ,\ F\_TRAILING\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 4}
+\DoxyCodeLine{00227\ \ \ ,\ F\_UPGRADE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 5}
+\DoxyCodeLine{00228\ \ \ ,\ F\_SKIPBODY\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 6}
+\DoxyCodeLine{00229\ \ \ ,\ F\_CONTENTLENGTH\ \ \ \ \ \ \ \ \ =\ 1\ <<\ 7}
+\DoxyCodeLine{00230\ \ \ \};}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{comment}{/*\ Map\ for\ errno-\/related\ constants}}
+\DoxyCodeLine{00234\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00235\ \textcolor{comment}{\ *\ The\ provided\ argument\ should\ be\ a\ macro\ that\ takes\ 2\ arguments.}}
+\DoxyCodeLine{00236\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#define\ HTTP\_ERRNO\_MAP(XX)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\ \ }\textcolor{comment}{/*\ No\ error\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\ \ XX(OK,\ "{}success"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\ \ }\textcolor{comment}{/*\ Callback-\/related\ errors\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\ \ XX(CB\_message\_begin,\ "{}the\ on\_message\_begin\ callback\ failed"{})\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\ \ XX(CB\_url,\ "{}the\ on\_url\ callback\ failed"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\ \ XX(CB\_header\_field,\ "{}the\ on\_header\_field\ callback\ failed"{})\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\ \ XX(CB\_header\_value,\ "{}the\ on\_header\_value\ callback\ failed"{})\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\ \ XX(CB\_headers\_complete,\ "{}the\ on\_headers\_complete\ callback\ failed"{})\ \(\backslash\)}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\ \ XX(CB\_body,\ "{}the\ on\_body\ callback\ failed"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\ \ XX(CB\_message\_complete,\ "{}the\ on\_message\_complete\ callback\ failed"{})\ \(\backslash\)}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\ \ XX(CB\_status,\ "{}the\ on\_status\ callback\ failed"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\ \ XX(CB\_chunk\_header,\ "{}the\ on\_chunk\_header\ callback\ failed"{})\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\ \ XX(CB\_chunk\_complete,\ "{}the\ on\_chunk\_complete\ callback\ failed"{})\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\ \ }\textcolor{comment}{/*\ Parsing-\/related\ errors\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\ \ XX(INVALID\_EOF\_STATE,\ "{}stream\ ended\ at\ an\ unexpected\ time"{})\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\ \ XX(HEADER\_OVERFLOW,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\ \ \ \ \ "{}too\ many\ header\ bytes\ seen;\ overflow\ detected"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\ \ XX(CLOSED\_CONNECTION,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\ \ \ \ \ "{}data\ received\ after\ completed\ connection:\ close\ message"{})\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\ \ XX(INVALID\_VERSION,\ "{}invalid\ HTTP\ version"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\ \ XX(INVALID\_STATUS,\ "{}invalid\ HTTP\ status\ code"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\ \ XX(INVALID\_METHOD,\ "{}invalid\ HTTP\ method"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\ \ XX(INVALID\_URL,\ "{}invalid\ URL"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\ \ XX(INVALID\_HOST,\ "{}invalid\ host"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\ \ XX(INVALID\_PORT,\ "{}invalid\ port"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\ \ XX(INVALID\_PATH,\ "{}invalid\ path"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\ \ XX(INVALID\_QUERY\_STRING,\ "{}invalid\ query\ string"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\ \ XX(INVALID\_FRAGMENT,\ "{}invalid\ fragment"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\ \ XX(LF\_EXPECTED,\ "{}LF\ character\ expected"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\ \ XX(INVALID\_HEADER\_TOKEN,\ "{}invalid\ character\ in\ header"{})\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\ \ XX(INVALID\_CONTENT\_LENGTH,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\ \ \ \ \ "{}invalid\ character\ in\ content-\/length\ header"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\ \ XX(UNEXPECTED\_CONTENT\_LENGTH,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\ \ \ \ \ "{}unexpected\ content-\/length\ header"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\ \ XX(INVALID\_CHUNK\_SIZE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\ \ \ \ \ "{}invalid\ character\ in\ chunk\ size\ header"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\ \ XX(INVALID\_CONSTANT,\ "{}invalid\ constant\ string"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\ \ XX(INVALID\_INTERNAL\_STATE,\ "{}encountered\ unexpected\ internal\ state"{})\(\backslash\)}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\ \ XX(STRICT,\ "{}strict\ mode\ assertion\ failed"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\ \ XX(PAUSED,\ "{}parser\ is\ paused"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\ \ XX(UNKNOWN,\ "{}an\ unknown\ error\ occurred"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\ \ XX(INVALID\_TRANSFER\_ENCODING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\ \ \ \ \ "{}request\ has\ invalid\ transfer-\/encoding"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{}}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \textcolor{comment}{/*\ Define\ HPE\_*\ values\ for\ each\ errno\ value\ above\ */}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#define\ HTTP\_ERRNO\_GEN(n,\ s)\ HPE\_\#\#n,}}
+\DoxyCodeLine{00287\ \textcolor{keyword}{enum}\ http\_errno\ \{}
+\DoxyCodeLine{00288\ \ \ HTTP\_ERRNO\_MAP(HTTP\_ERRNO\_GEN)}
+\DoxyCodeLine{00289\ \};}
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#undef\ HTTP\_ERRNO\_GEN}}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \textcolor{comment}{/*\ Get\ an\ http\_errno\ value\ from\ an\ http\_parser\ */}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\#define\ HTTP\_PARSER\_ERRNO(p)\ \ \ \ \ \ \ \ \ \ \ \ ((enum\ http\_errno)\ (p)-\/>http\_errno)}}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhttp__parser}{http\_parser}}\ \{}
+\DoxyCodeLine{00299\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structhttp__parser_ac6c327558547d55eb64a8aea1310cc2e}{type}}\ :\ 2;\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ enum\ http\_parser\_type\ */}}
+\DoxyCodeLine{00300\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ flags\ :\ 8;\ \ \ \ \ \ \ \textcolor{comment}{/*\ F\_*\ values\ from\ 'flags'\ enum;\ semi-\/public\ */}}
+\DoxyCodeLine{00301\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ state\ :\ 7;\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ enum\ state\ from\ http\_parser.c\ */}}
+\DoxyCodeLine{00302\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ header\_state\ :\ 7;\ \textcolor{comment}{/*\ enum\ header\_state\ from\ http\_parser.c\ */}}
+\DoxyCodeLine{00303\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index\ :\ 5;\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ index\ into\ current\ matcher\ */}}
+\DoxyCodeLine{00304\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ uses\_transfer\_encoding\ :\ 1;\ \textcolor{comment}{/*\ Transfer-\/Encoding\ header\ is\ present\ */}}
+\DoxyCodeLine{00305\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ allow\_chunked\_length\ :\ 1;\ \textcolor{comment}{/*\ Allow\ headers\ with\ both}}
+\DoxyCodeLine{00306\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ \`{}Content-\/Length`\ and}}
+\DoxyCodeLine{00307\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ \`{}Transfer-\/Encoding:\ chunked`\ set\ */}}
+\DoxyCodeLine{00308\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ lenient\_http\_headers\ :\ 1;}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \ \ uint32\_t\ nread;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ \#\ bytes\ read\ in\ various\ scenarios\ */}}
+\DoxyCodeLine{00311\ \ \ uint64\_t\ content\_length;\ \textcolor{comment}{/*\ \#\ bytes\ in\ body.\ \`{}(uint64\_t)\ -\/1`\ (all\ bits\ one)}}
+\DoxyCodeLine{00312\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ if\ no\ Content-\/Length\ header.}}
+\DoxyCodeLine{00313\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00316\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structhttp__parser_ac994a4a8268652f5ce82de5bde5c3f9d}{http\_major}};}
+\DoxyCodeLine{00317\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ http\_minor;}
+\DoxyCodeLine{00318\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ status\_code\ :\ 16;\ \textcolor{comment}{/*\ responses\ only\ */}}
+\DoxyCodeLine{00319\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ method\ :\ 8;\ \ \ \ \ \ \ \textcolor{comment}{/*\ requests\ only\ */}}
+\DoxyCodeLine{00320\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ http\_errno\ :\ 7;}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \textcolor{comment}{/*\ 1\ =\ Upgrade\ header\ was\ present\ and\ the\ parser\ has\ exited\ because\ of\ that.}}
+\DoxyCodeLine{00323\ \textcolor{comment}{\ \ \ *\ 0\ =\ No\ upgrade\ header\ present.}}
+\DoxyCodeLine{00324\ \textcolor{comment}{\ \ \ *\ Should\ be\ checked\ when\ http\_parser\_execute()\ returns\ in\ addition\ to}}
+\DoxyCodeLine{00325\ \textcolor{comment}{\ \ \ *\ error\ checking.}}
+\DoxyCodeLine{00326\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00327\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ upgrade\ :\ 1;}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00330\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structhttp__parser_a7e87ce57b97f60f1fdb7039a8ecb0bca}{data}};\ \textcolor{comment}{/*\ A\ pointer\ to\ get\ hook\ to\ the\ "{}connection"{}\ or\ "{}socket"{}\ object\ */}}
+\DoxyCodeLine{00331\ \};}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhttp__parser__settings}{http\_parser\_settings}}\ \{}
+\DoxyCodeLine{00335\ \ \ http\_cb\ \ \ \ \ \ on\_message\_begin;}
+\DoxyCodeLine{00336\ \ \ http\_data\_cb\ on\_url;}
+\DoxyCodeLine{00337\ \ \ http\_data\_cb\ on\_status;}
+\DoxyCodeLine{00338\ \ \ http\_data\_cb\ on\_header\_field;}
+\DoxyCodeLine{00339\ \ \ http\_data\_cb\ on\_header\_value;}
+\DoxyCodeLine{00340\ \ \ http\_cb\ \ \ \ \ \ on\_headers\_complete;}
+\DoxyCodeLine{00341\ \ \ http\_data\_cb\ on\_body;}
+\DoxyCodeLine{00342\ \ \ http\_cb\ \ \ \ \ \ on\_message\_complete;}
+\DoxyCodeLine{00343\ \ \ \textcolor{comment}{/*\ When\ on\_chunk\_header\ is\ called,\ the\ current\ chunk\ length\ is\ stored}}
+\DoxyCodeLine{00344\ \textcolor{comment}{\ \ \ *\ in\ parser-\/>content\_length.}}
+\DoxyCodeLine{00345\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00346\ \ \ http\_cb\ \ \ \ \ \ on\_chunk\_header;}
+\DoxyCodeLine{00347\ \ \ http\_cb\ \ \ \ \ \ on\_chunk\_complete;}
+\DoxyCodeLine{00348\ \};}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \textcolor{keyword}{enum}\ http\_parser\_url\_fields}
+\DoxyCodeLine{00352\ \ \ \{\ UF\_SCHEMA\ \ \ \ \ \ \ \ \ \ \ =\ 0}
+\DoxyCodeLine{00353\ \ \ ,\ UF\_HOST\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1}
+\DoxyCodeLine{00354\ \ \ ,\ UF\_PORT\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 2}
+\DoxyCodeLine{00355\ \ \ ,\ UF\_PATH\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 3}
+\DoxyCodeLine{00356\ \ \ ,\ UF\_QUERY\ \ \ \ \ \ \ \ \ \ \ \ =\ 4}
+\DoxyCodeLine{00357\ \ \ ,\ UF\_FRAGMENT\ \ \ \ \ \ \ \ \ =\ 5}
+\DoxyCodeLine{00358\ \ \ ,\ UF\_USERINFO\ \ \ \ \ \ \ \ \ =\ 6}
+\DoxyCodeLine{00359\ \ \ ,\ UF\_MAX\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 7}
+\DoxyCodeLine{00360\ \ \ \};}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \textcolor{comment}{/*\ Result\ structure\ for\ http\_parser\_parse\_url().}}
+\DoxyCodeLine{00364\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00365\ \textcolor{comment}{\ *\ Callers\ should\ index\ into\ field\_data[]\ with\ UF\_*\ values\ iff\ field\_set}}
+\DoxyCodeLine{00366\ \textcolor{comment}{\ *\ has\ the\ relevant\ (1\ <<\ UF\_*)\ bit\ set.\ As\ a\ courtesy\ to\ clients\ (and}}
+\DoxyCodeLine{00367\ \textcolor{comment}{\ *\ because\ we\ probably\ have\ padding\ left\ over),\ we\ convert\ any\ port\ to}}
+\DoxyCodeLine{00368\ \textcolor{comment}{\ *\ a\ uint16\_t.}}
+\DoxyCodeLine{00369\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00370\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhttp__parser__url}{http\_parser\_url}}\ \{}
+\DoxyCodeLine{00371\ \ \ uint16\_t\ field\_set;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Bitmask\ of\ (1\ <<\ UF\_*)\ values\ */}}
+\DoxyCodeLine{00372\ \ \ uint16\_t\ port;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Converted\ UF\_PORT\ string\ */}}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00375\ \ \ \ \ uint16\_t\ off;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Offset\ into\ buffer\ in\ which\ field\ starts\ */}}
+\DoxyCodeLine{00376\ \ \ \ \ uint16\_t\ len;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Length\ of\ run\ in\ buffer\ */}}
+\DoxyCodeLine{00377\ \ \ \}\ field\_data[UF\_MAX];}
+\DoxyCodeLine{00378\ \};}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00381\ \textcolor{comment}{/*\ Returns\ the\ library\ version.\ Bits\ 16-\/23\ contain\ the\ major\ version\ number,}}
+\DoxyCodeLine{00382\ \textcolor{comment}{\ *\ bits\ 8-\/15\ the\ minor\ version\ number\ and\ bits\ 0-\/7\ the\ patch\ level.}}
+\DoxyCodeLine{00383\ \textcolor{comment}{\ *\ Usage\ example:}}
+\DoxyCodeLine{00384\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00385\ \textcolor{comment}{\ *\ \ \ unsigned\ long\ version\ =\ http\_parser\_version();}}
+\DoxyCodeLine{00386\ \textcolor{comment}{\ *\ \ \ unsigned\ major\ =\ (version\ >>\ 16)\ \&\ 255;}}
+\DoxyCodeLine{00387\ \textcolor{comment}{\ *\ \ \ unsigned\ minor\ =\ (version\ >>\ 8)\ \&\ 255;}}
+\DoxyCodeLine{00388\ \textcolor{comment}{\ *\ \ \ unsigned\ patch\ =\ version\ \&\ 255;}}
+\DoxyCodeLine{00389\ \textcolor{comment}{\ *\ \ \ printf("{}http\_parser\ v\%u.\%u.\%u\(\backslash\)n"{},\ major,\ minor,\ patch);}}
+\DoxyCodeLine{00390\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00391\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ http\_parser\_version(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \textcolor{keywordtype}{void}\ http\_parser\_init(\mbox{\hyperlink{structhttp__parser}{http\_parser}}\ *parser,\ \textcolor{keyword}{enum}\ http\_parser\_type\ type);}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ \textcolor{comment}{/*\ Initialize\ http\_parser\_settings\ members\ to\ 0}}
+\DoxyCodeLine{00397\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00398\ \textcolor{keywordtype}{void}\ http\_parser\_settings\_init(\mbox{\hyperlink{structhttp__parser__settings}{http\_parser\_settings}}\ *settings);}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ }
+\DoxyCodeLine{00401\ \textcolor{comment}{/*\ Executes\ the\ parser.\ Returns\ number\ of\ parsed\ bytes.\ Sets}}
+\DoxyCodeLine{00402\ \textcolor{comment}{\ *\ \`{}parser-\/>http\_errno`\ on\ error.\ */}}
+\DoxyCodeLine{00403\ \textcolor{keywordtype}{size\_t}\ http\_parser\_execute(\mbox{\hyperlink{structhttp__parser}{http\_parser}}\ *parser,}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhttp__parser__settings}{http\_parser\_settings}}\ *settings,}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *data,}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00408\ }
+\DoxyCodeLine{00409\ \textcolor{comment}{/*\ If\ http\_should\_keep\_alive()\ in\ the\ on\_headers\_complete\ or}}
+\DoxyCodeLine{00410\ \textcolor{comment}{\ *\ on\_message\_complete\ callback\ returns\ 0,\ then\ this\ should\ be}}
+\DoxyCodeLine{00411\ \textcolor{comment}{\ *\ the\ last\ message\ on\ the\ connection.}}
+\DoxyCodeLine{00412\ \textcolor{comment}{\ *\ If\ you\ are\ the\ server,\ respond\ with\ the\ "{}Connection:\ close"{}\ header.}}
+\DoxyCodeLine{00413\ \textcolor{comment}{\ *\ If\ you\ are\ the\ client,\ close\ the\ connection.}}
+\DoxyCodeLine{00414\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00415\ \textcolor{keywordtype}{int}\ http\_should\_keep\_alive(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhttp__parser}{http\_parser}}\ *parser);}
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00417\ \textcolor{comment}{/*\ Returns\ a\ string\ version\ of\ the\ HTTP\ method.\ */}}
+\DoxyCodeLine{00418\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *http\_method\_str(\textcolor{keyword}{enum}\ http\_method\ m);}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ \textcolor{comment}{/*\ Returns\ a\ string\ version\ of\ the\ HTTP\ status\ code.\ */}}
+\DoxyCodeLine{00421\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *http\_status\_str(\textcolor{keyword}{enum}\ http\_status\ s);}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ \textcolor{comment}{/*\ Return\ a\ string\ name\ of\ the\ given\ error\ */}}
+\DoxyCodeLine{00424\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *http\_errno\_name(\textcolor{keyword}{enum}\ http\_errno\ err);}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \textcolor{comment}{/*\ Return\ a\ string\ description\ of\ the\ given\ error\ */}}
+\DoxyCodeLine{00427\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *http\_errno\_description(\textcolor{keyword}{enum}\ http\_errno\ err);}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \textcolor{comment}{/*\ Initialize\ all\ http\_parser\_url\ members\ to\ 0\ */}}
+\DoxyCodeLine{00430\ \textcolor{keywordtype}{void}\ http\_parser\_url\_init(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structhttp__parser__url}{http\_parser\_url}}\ *u);}
+\DoxyCodeLine{00431\ }
+\DoxyCodeLine{00432\ \textcolor{comment}{/*\ Parse\ a\ URL;\ return\ nonzero\ on\ failure\ */}}
+\DoxyCodeLine{00433\ \textcolor{keywordtype}{int}\ http\_parser\_parse\_url(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{size\_t}\ buflen,}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ is\_connect,}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structhttp__parser__url}{http\_parser\_url}}\ *u);}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \textcolor{comment}{/*\ Pause\ or\ un-\/pause\ the\ parser;\ a\ nonzero\ value\ pauses\ */}}
+\DoxyCodeLine{00438\ \textcolor{keywordtype}{void}\ http\_parser\_pause(\mbox{\hyperlink{structhttp__parser}{http\_parser}}\ *parser,\ \textcolor{keywordtype}{int}\ paused);}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \textcolor{comment}{/*\ Checks\ if\ this\ is\ the\ final\ chunk\ of\ the\ body.\ */}}
+\DoxyCodeLine{00441\ \textcolor{keywordtype}{int}\ http\_body\_is\_final(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhttp__parser}{http\_parser}}\ *parser);}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \textcolor{comment}{/*\ Change\ the\ maximum\ header\ size\ provided\ at\ compile\ time.\ */}}
+\DoxyCodeLine{00444\ \textcolor{keywordtype}{void}\ http\_parser\_set\_max\_header\_size(uint32\_t\ size);}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00447\ \}}
+\DoxyCodeLine{00448\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00449\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

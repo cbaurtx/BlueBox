@@ -1,0 +1,159 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/irep.h File Reference}
+\hypertarget{irep_8h}{}\label{irep_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/irep.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/irep.h}}
+{\ttfamily \#include "{}common.\+h"{}}\newline
+{\ttfamily \#include $<$mruby/compile.\+h$>$}\newline
+Include dependency graph for irep.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{irep_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{irep_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structmrb__pool__value}{mrb\+\_\+pool\+\_\+value}}
+\item 
+struct \mbox{\hyperlink{structmrb__irep__catch__handler}{mrb\+\_\+irep\+\_\+catch\+\_\+handler}}
+\item 
+struct \mbox{\hyperlink{structmrb__irep}{mrb\+\_\+irep}}
+\item 
+struct \mbox{\hyperlink{structmrb__insn__data}{mrb\+\_\+insn\+\_\+data}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{irep_8h_a3471366e3af15c72756233861b9a330a}\label{irep_8h_a3471366e3af15c72756233861b9a330a} 
+\#define {\bfseries IREP\+\_\+\+TT\+\_\+\+NFLAG}~1       /\texorpdfstring{$\ast$}{*} number (non string) flag \texorpdfstring{$\ast$}{*}/
+\item 
+\Hypertarget{irep_8h_a7c6005b1fd283d8394e37f6969bb0f1f}\label{irep_8h_a7c6005b1fd283d8394e37f6969bb0f1f} 
+\#define {\bfseries IREP\+\_\+\+TT\+\_\+\+SFLAG}~2       /\texorpdfstring{$\ast$}{*} static string flag \texorpdfstring{$\ast$}{*}/
+\item 
+\Hypertarget{irep_8h_a4c092d30dfbab67919b9880c0ff8f640}\label{irep_8h_a4c092d30dfbab67919b9880c0ff8f640} 
+\#define {\bfseries MRB\+\_\+\+ISEQ\+\_\+\+NO\+\_\+\+FREE}~1
+\item 
+\Hypertarget{irep_8h_a896abd401a3e83d658617aa79e7d0c5c}\label{irep_8h_a896abd401a3e83d658617aa79e7d0c5c} 
+\#define {\bfseries MRB\+\_\+\+IREP\+\_\+\+NO\+\_\+\+FREE}~2
+\item 
+\Hypertarget{irep_8h_a84c2300bb359d409032856f6a6c4ed6b}\label{irep_8h_a84c2300bb359d409032856f6a6c4ed6b} 
+\#define {\bfseries MRB\+\_\+\+IREP\+\_\+\+STATIC}~(MRB\+\_\+\+ISEQ\+\_\+\+NO\+\_\+\+FREE \texorpdfstring{$\vert$}{|} MRB\+\_\+\+IREP\+\_\+\+NO\+\_\+\+FREE)
+\item 
+\#define \mbox{\hyperlink{irep_8h_a7e239a45f088d3ab310e033f6ea76346}{mrb\+\_\+irep\+\_\+catch\+\_\+handler\+\_\+pack}}(n,  v)
+\item 
+\#define \mbox{\hyperlink{irep_8h_ae11e4b3817780cd692b6631bc42cf2e4}{mrb\+\_\+irep\+\_\+catch\+\_\+handler\+\_\+unpack}}(v)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{irep_8h_a593f2c4fbcdba27b649aecafc96d1a92}\label{irep_8h_a593f2c4fbcdba27b649aecafc96d1a92} 
+typedef struct mrb\+\_\+pool\+\_\+value {\bfseries mrb\+\_\+pool\+\_\+value}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{irep_8h_ad3d57b021c4c2292cb2f5f7f2c4241d8}{irep\+\_\+pool\+\_\+type}} \{ \newline
+{\bfseries IREP\+\_\+\+TT\+\_\+\+STR} = 0
+, {\bfseries IREP\+\_\+\+TT\+\_\+\+SSTR} = 2
+, {\bfseries IREP\+\_\+\+TT\+\_\+\+INT32} = 1
+, {\bfseries IREP\+\_\+\+TT\+\_\+\+INT64} = 3
+, \newline
+{\bfseries IREP\+\_\+\+TT\+\_\+\+BIGINT} = 7
+, {\bfseries IREP\+\_\+\+TT\+\_\+\+FLOAT} = 5
+ \}
+\item 
+\Hypertarget{irep_8h_ac6796f010203d9082aa08c633189dddc}\label{irep_8h_ac6796f010203d9082aa08c633189dddc} 
+enum {\bfseries mrb\+\_\+catch\+\_\+type} \{ {\bfseries MRB\+\_\+\+CATCH\+\_\+\+RESCUE} = 0
+, {\bfseries MRB\+\_\+\+CATCH\+\_\+\+ENSURE} = 1
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{irep_8h_aa061e778d1a69a2ce5b4c03abb0789c1}\label{irep_8h_aa061e778d1a69a2ce5b4c03abb0789c1} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__irep}{mrb\+\_\+irep}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+add\+\_\+irep} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{irep_8h_ae475539d91a851dccce4d9e4aa5fa1ee}{mrb\+\_\+load\+\_\+irep}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, const uint8\+\_\+t \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{irep_8h_a2b81f8471b1135ef6d540f74de43751a}\label{irep_8h_a2b81f8471b1135ef6d540f74de43751a} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+load\+\_\+irep\+\_\+buf} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, const void \texorpdfstring{$\ast$}{*}, size\+\_\+t)
+\item 
+\Hypertarget{irep_8h_acaeeeb6eb7564fe3395af705eac1f403}\label{irep_8h_acaeeeb6eb7564fe3395af705eac1f403} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+load\+\_\+irep\+\_\+cxt} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{irep_8h_a05451b7cc82b1c4616c74165534bedee}\label{irep_8h_a05451b7cc82b1c4616c74165534bedee} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+load\+\_\+irep\+\_\+buf\+\_\+cxt} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, const void \texorpdfstring{$\ast$}{*}, size\+\_\+t, \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{irep_8h_a1ac7debaaca8a99b56e555b4e924d0ee}\label{irep_8h_a1ac7debaaca8a99b56e555b4e924d0ee} 
+void {\bfseries mrb\+\_\+irep\+\_\+incref} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structmrb__irep}{mrb\+\_\+irep}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{irep_8h_a0b3af99c307914bfe65454feeb6483a7}\label{irep_8h_a0b3af99c307914bfe65454feeb6483a7} 
+void {\bfseries mrb\+\_\+irep\+\_\+decref} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structmrb__irep}{mrb\+\_\+irep}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{irep_8h_a76b8759a446ff685706c5624ccae5a20}\label{irep_8h_a76b8759a446ff685706c5624ccae5a20} 
+void {\bfseries mrb\+\_\+irep\+\_\+cutref} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structmrb__irep}{mrb\+\_\+irep}} \texorpdfstring{$\ast$}{*})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item \doxylink{structmrb__irep}{mrb\+\_\+irep} structure
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-define-members}
+\Hypertarget{irep_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{irep_8h_a7e239a45f088d3ab310e033f6ea76346}\index{irep.h@{irep.h}!mrb\_irep\_catch\_handler\_pack@{mrb\_irep\_catch\_handler\_pack}}
+\index{mrb\_irep\_catch\_handler\_pack@{mrb\_irep\_catch\_handler\_pack}!irep.h@{irep.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_irep\_catch\_handler\_pack}{mrb\_irep\_catch\_handler\_pack}}
+{\footnotesize\ttfamily \label{irep_8h_a7e239a45f088d3ab310e033f6ea76346} 
+\#define mrb\+\_\+irep\+\_\+catch\+\_\+handler\+\_\+pack(\begin{DoxyParamCaption}\item[{}]{n}{, }\item[{}]{v}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{uint32\_to\_bin(n,\ v)}
+
+\end{DoxyCode}
+\Hypertarget{irep_8h_ae11e4b3817780cd692b6631bc42cf2e4}\index{irep.h@{irep.h}!mrb\_irep\_catch\_handler\_unpack@{mrb\_irep\_catch\_handler\_unpack}}
+\index{mrb\_irep\_catch\_handler\_unpack@{mrb\_irep\_catch\_handler\_unpack}!irep.h@{irep.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_irep\_catch\_handler\_unpack}{mrb\_irep\_catch\_handler\_unpack}}
+{\footnotesize\ttfamily \label{irep_8h_ae11e4b3817780cd692b6631bc42cf2e4} 
+\#define mrb\+\_\+irep\+\_\+catch\+\_\+handler\+\_\+unpack(\begin{DoxyParamCaption}\item[{}]{v}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{bin\_to\_uint32(v)}
+
+\end{DoxyCode}
+
+
+\label{doc-enum-members}
+\Hypertarget{irep_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{irep_8h_ad3d57b021c4c2292cb2f5f7f2c4241d8}\index{irep.h@{irep.h}!irep\_pool\_type@{irep\_pool\_type}}
+\index{irep\_pool\_type@{irep\_pool\_type}!irep.h@{irep.h}}
+\doxysubsubsection{\texorpdfstring{irep\_pool\_type}{irep\_pool\_type}}
+{\footnotesize\ttfamily \label{irep_8h_ad3d57b021c4c2292cb2f5f7f2c4241d8} 
+enum \mbox{\hyperlink{irep_8h_ad3d57b021c4c2292cb2f5f7f2c4241d8}{irep\+\_\+pool\+\_\+type}}}
+
+Compiled mruby scripts. 
+
+\label{doc-func-members}
+\Hypertarget{irep_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{irep_8h_ae475539d91a851dccce4d9e4aa5fa1ee}\index{irep.h@{irep.h}!mrb\_load\_irep@{mrb\_load\_irep}}
+\index{mrb\_load\_irep@{mrb\_load\_irep}!irep.h@{irep.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_load\_irep()}{mrb\_load\_irep()}}
+{\footnotesize\ttfamily \label{irep_8h_ae475539d91a851dccce4d9e4aa5fa1ee} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+load\+\_\+irep (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{bin}{}\end{DoxyParamCaption})}
+
+load mruby bytecode functions Please note! Currently due to interactions with the GC calling these functions will leak one \doxylink{structRProc}{RProc} object per function call. To prevent this save the current memory arena before calling and restore the arena right after, like so int ai = mrb\+\_\+gc\+\_\+arena\+\_\+save(mrb); \doxylink{structmrb__value}{mrb\+\_\+value} status = mrb\+\_\+load\+\_\+irep(mrb, buffer); mrb\+\_\+gc\+\_\+arena\+\_\+restore(mrb, ai); 

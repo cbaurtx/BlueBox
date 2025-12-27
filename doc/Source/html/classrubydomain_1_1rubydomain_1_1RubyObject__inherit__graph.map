@@ -1,0 +1,15 @@
+<map id="rubydomain.rubydomain.RubyObject" name="rubydomain.rubydomain.RubyObject">
+<area shape="rect" id="Node000001" title=" " alt="" coords="179,139,373,181"/>
+<area shape="rect" id="Node000003" href="$classrubydomain_1_1rubydomain_1_1RubyClasslike.html" title=" " alt="" coords="421,5,615,48"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="314,127,363,91,420,58,449,47,444,50,422,62,366,96,317,131"/>
+<area shape="rect" id="Node000004" href="$classrubydomain_1_1rubydomain_1_1RubyClassmember.html" title=" " alt="" coords="421,72,615,115"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="369,132,440,114,435,116,371,137"/>
+<area shape="rect" id="Node000005" href="$classrubydomain_1_1rubydomain_1_1RubyEverywhere.html" title=" " alt="" coords="421,139,615,181"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="388,157,423,159,418,161,389,163"/>
+<area shape="rect" id="Node000006" href="$classrubydomain_1_1rubydomain_1_1RubyGloballevel.html" title=" " alt="" coords="421,205,615,248"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="370,183,440,204,435,205,370,189"/>
+<area shape="rect" id="Node000007" href="$classrubydomain_1_1rubydomain_1_1RubyModulelevel.html" title=" " alt="" coords="421,272,615,315"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="317,189,366,224,422,258,449,272,444,271,420,262,363,229,315,194"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,147,131,173"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,157,180,159,176,161,147,163"/>
+</map>

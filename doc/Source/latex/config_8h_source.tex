@@ -1,0 +1,41 @@
+\doxysection{config.\+h}
+\hypertarget{config_8h_source}{}\label{config_8h_source}\index{managed\_components/espressif\_\_nghttp/port/private\_include/config.h@{managed\_components/espressif\_\_nghttp/port/private\_include/config.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_HAVE\_CONFIG\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_HAVE\_CONFIG\_H\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ \_U\_}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ SIZEOF\_INT\_P\ 2}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}stdio.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}stdlib.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{string_8h}{string.h}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{/*\ Define\ to\ 1\ if\ you\ have\ the\ \`{}clock\_gettime'\ function.\ */}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ HAVE\_CLOCK\_GETTIME\ 1}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{/*\ Define\ to\ 1\ if\ you\ have\ the\ <time.h>\ header\ file.\ */}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ HAVE\_TIME\_H\ 1}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#if\ (!defined(nghttp\_unlikely))}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ nghttp\_unlikely(Expression)\ !!(Expression)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ nghttp\_ASSERT(Expression)\ do\{if\ (!(Expression))\ printf("{}\%d\(\backslash\)n"{},\ \_\_LINE\_\_);\}while(0)}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ CU\_ASSERT(a)\ nghttp\_ASSERT(a)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ CU\_ASSERT\_FATAL(a)\ nghttp\_ASSERT(a)}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ NGHTTP\_PLATFORM\_HTONS(\_n)\ \ ((uint16\_t)((((\_n)\ \&\ 0xff)\ <<\ 8)\ |\ (((\_n)\ >>\ 8)\ \&\ 0xff)))}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ NGHTTP\_PLATFORM\_HTONL(\_n)\ \ ((uint32\_t)(\ (((\_n)\ \&\ 0xff)\ <<\ 24)\ |\ (((\_n)\ \&\ 0xff00)\ <<\ 8)\ |\ (((\_n)\ >>\ 8)\ \ \&\ 0xff00)\ |\ (((\_n)\ >>\ 24)\ \&\ 0xff)\ ))}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ htons(x)\ NGHTTP\_PLATFORM\_HTONS(x)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ ntohs(x)\ NGHTTP\_PLATFORM\_HTONS(x)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ htonl(x)\ NGHTTP\_PLATFORM\_HTONL(x)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ ntohl(x)\ NGHTTP\_PLATFORM\_HTONL(x)}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ \_\_HAVE\_CONFIG\_H\_}}
+
+\end{DoxyCode}

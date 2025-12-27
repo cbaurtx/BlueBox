@@ -1,0 +1,186 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/hash.h File Reference}
+\hypertarget{hash_8h}{}\label{hash_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/hash.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/hash.h}}
+{\ttfamily \#include "{}common.\+h"{}}\newline
+Include dependency graph for hash.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{hash_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structRHash}{RHash}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{hash_8h_ae99b121b87b60d2ad1571d4c8b04c9ef}{mrb\+\_\+hash\+\_\+ptr}}(v)
+\item 
+\#define \mbox{\hyperlink{hash_8h_ac1d8a50ae1bcea5ea05f42d961c3d1de}{mrb\+\_\+hash\+\_\+value}}(p)
+\item 
+\#define \mbox{\hyperlink{hash_8h_a44d5b5c5a43d7b38d739cb1622b965be}{RHASH}}(hash)
+\item 
+\Hypertarget{hash_8h_abb13f8b98eab61b8f120f5c8ad1e2fb2}\label{hash_8h_abb13f8b98eab61b8f120f5c8ad1e2fb2} 
+\#define {\bfseries MRB\+\_\+\+HASH\+\_\+\+IB\+\_\+\+BIT\+\_\+\+BIT}~5
+\item 
+\Hypertarget{hash_8h_a1b35b7bbfd0c5a699d86861add12a8c0}\label{hash_8h_a1b35b7bbfd0c5a699d86861add12a8c0} 
+\#define {\bfseries MRB\+\_\+\+HASH\+\_\+\+AR\+\_\+\+EA\+\_\+\+CAPA\+\_\+\+BIT}~5
+\item 
+\Hypertarget{hash_8h_a67b58b67a0f1d9939edb01df4b5bd1e5}\label{hash_8h_a67b58b67a0f1d9939edb01df4b5bd1e5} 
+\#define {\bfseries MRB\+\_\+\+HASH\+\_\+\+IB\+\_\+\+BIT\+\_\+\+SHIFT}~0
+\item 
+\Hypertarget{hash_8h_ae3e1383f493e63a944483662688d7b48}\label{hash_8h_ae3e1383f493e63a944483662688d7b48} 
+\#define {\bfseries MRB\+\_\+\+HASH\+\_\+\+AR\+\_\+\+EA\+\_\+\+CAPA\+\_\+\+SHIFT}~0
+\item 
+\Hypertarget{hash_8h_a2b0fb96270d848aa439592f9b61cc31e}\label{hash_8h_a2b0fb96270d848aa439592f9b61cc31e} 
+\#define {\bfseries MRB\+\_\+\+HASH\+\_\+\+AR\+\_\+\+EA\+\_\+\+N\+\_\+\+USED\+\_\+\+SHIFT}~MRB\+\_\+\+HASH\+\_\+\+AR\+\_\+\+EA\+\_\+\+CAPA\+\_\+\+BIT
+\item 
+\Hypertarget{hash_8h_a9f7c77f4ac49327bfcc389473338809e}\label{hash_8h_a9f7c77f4ac49327bfcc389473338809e} 
+\#define {\bfseries MRB\+\_\+\+HASH\+\_\+\+SIZE\+\_\+\+FLAGS\+\_\+\+SHIFT}~(MRB\+\_\+\+HASH\+\_\+\+AR\+\_\+\+EA\+\_\+\+CAPA\+\_\+\+BIT \texorpdfstring{$\ast$}{*} 2)
+\item 
+\Hypertarget{hash_8h_aec90e5b7ab90b2504a69687f89921eaf}\label{hash_8h_aec90e5b7ab90b2504a69687f89921eaf} 
+\#define {\bfseries MRB\+\_\+\+HASH\+\_\+\+IB\+\_\+\+BIT\+\_\+\+MASK}~((1 $<$$<$ MRB\+\_\+\+HASH\+\_\+\+IB\+\_\+\+BIT\+\_\+\+BIT) -\/ 1)
+\item 
+\Hypertarget{hash_8h_a1e31fd4bc15aedb9b93ef224a8b296cd}\label{hash_8h_a1e31fd4bc15aedb9b93ef224a8b296cd} 
+\#define {\bfseries MRB\+\_\+\+HASH\+\_\+\+AR\+\_\+\+EA\+\_\+\+CAPA\+\_\+\+MASK}~((1 $<$$<$ MRB\+\_\+\+HASH\+\_\+\+AR\+\_\+\+EA\+\_\+\+CAPA\+\_\+\+BIT) -\/ 1)
+\item 
+\Hypertarget{hash_8h_a31c8e951df4bdf94c520852d93469e47}\label{hash_8h_a31c8e951df4bdf94c520852d93469e47} 
+\#define {\bfseries MRB\+\_\+\+HASH\+\_\+\+AR\+\_\+\+EA\+\_\+\+N\+\_\+\+USED\+\_\+\+MASK}~(MRB\+\_\+\+HASH\+\_\+\+AR\+\_\+\+EA\+\_\+\+CAPA\+\_\+\+MASK $<$$<$ MRB\+\_\+\+HASH\+\_\+\+AR\+\_\+\+EA\+\_\+\+N\+\_\+\+USED\+\_\+\+SHIFT)
+\item 
+\Hypertarget{hash_8h_a1a94db6dfdd4e2f86f708f3800966a0b}\label{hash_8h_a1a94db6dfdd4e2f86f708f3800966a0b} 
+\#define {\bfseries MRB\+\_\+\+HASH\+\_\+\+DEFAULT}~(1 $<$$<$ (MRB\+\_\+\+HASH\+\_\+\+SIZE\+\_\+\+FLAGS\+\_\+\+SHIFT + 0))
+\item 
+\Hypertarget{hash_8h_a179ed7afc9dcb36d71c825d8b18f99d8}\label{hash_8h_a179ed7afc9dcb36d71c825d8b18f99d8} 
+\#define {\bfseries MRB\+\_\+\+HASH\+\_\+\+PROC\+\_\+\+DEFAULT}~(1 $<$$<$ (MRB\+\_\+\+HASH\+\_\+\+SIZE\+\_\+\+FLAGS\+\_\+\+SHIFT + 1))
+\item 
+\Hypertarget{hash_8h_ab80349feefcc4912105642a47fa59085}\label{hash_8h_ab80349feefcc4912105642a47fa59085} 
+\#define {\bfseries MRB\+\_\+\+HASH\+\_\+\+HT}~(1 $<$$<$ (MRB\+\_\+\+HASH\+\_\+\+SIZE\+\_\+\+FLAGS\+\_\+\+SHIFT + 2))
+\item 
+\#define \mbox{\hyperlink{hash_8h_a23d5acc9d5ce14952ce838bbbea80d97}{MRB\+\_\+\+RHASH\+\_\+\+DEFAULT\+\_\+P}}(hash)
+\item 
+\#define \mbox{\hyperlink{hash_8h_ae0b4a9b0eb83f6b6ebbe8110eb42c9d8}{MRB\+\_\+\+RHASH\+\_\+\+PROCDEFAULT\+\_\+P}}(hash)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{hash_8h_aa287cf32bd62f98d5b5c9c7579509750}\label{hash_8h_aa287cf32bd62f98d5b5c9c7579509750} 
+typedef int {\bfseries mrb\+\_\+hash\+\_\+foreach\+\_\+func}(\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} key, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} val, void \texorpdfstring{$\ast$}{*}data)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{hash_8h_a3d7a68e1be2a4591d0907522d6101aeb}\label{hash_8h_a3d7a68e1be2a4591d0907522d6101aeb} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+hash\+\_\+new\+\_\+capa} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, mrb\+\_\+int capa)
+\item 
+\Hypertarget{hash_8h_ae22041dc7e8bfbbbe1e8cd43185154e4}\label{hash_8h_ae22041dc7e8bfbbbe1e8cd43185154e4} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+hash\+\_\+new} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb)
+\item 
+\Hypertarget{hash_8h_a4937ac7c9ae6fba4eaeab0859ce0bb22}\label{hash_8h_a4937ac7c9ae6fba4eaeab0859ce0bb22} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+hash\+\_\+set} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} hash, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} key, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} val)
+\item 
+\Hypertarget{hash_8h_a0fc3b1c8f7c6a1a062010129190ce46d}\label{hash_8h_a0fc3b1c8f7c6a1a062010129190ce46d} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+hash\+\_\+get} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} hash, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} key)
+\item 
+\Hypertarget{hash_8h_a5d3cb7e471000adb5b5f46c805556a74}\label{hash_8h_a5d3cb7e471000adb5b5f46c805556a74} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+hash\+\_\+fetch} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} hash, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} key, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} def)
+\item 
+\Hypertarget{hash_8h_ac9f89c770b628427e9cfa353895d20a9}\label{hash_8h_ac9f89c770b628427e9cfa353895d20a9} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+hash\+\_\+delete\+\_\+key} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} hash, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} key)
+\item 
+\Hypertarget{hash_8h_a18cfb1b1fe26b1b82ac961dbeedaff3c}\label{hash_8h_a18cfb1b1fe26b1b82ac961dbeedaff3c} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+hash\+\_\+keys} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} hash)
+\item 
+\Hypertarget{hash_8h_a17435d3be27bdea01d46dc2900a5e251}\label{hash_8h_a17435d3be27bdea01d46dc2900a5e251} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries mrb\+\_\+hash\+\_\+key\+\_\+p} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} hash, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} key)
+\item 
+\Hypertarget{hash_8h_a448418b5f1495d2eb3701b7a5d4e4b47}\label{hash_8h_a448418b5f1495d2eb3701b7a5d4e4b47} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries mrb\+\_\+hash\+\_\+empty\+\_\+p} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} self)
+\item 
+\Hypertarget{hash_8h_ad27a3ef338f2dbf38dfd69f8bef0db48}\label{hash_8h_ad27a3ef338f2dbf38dfd69f8bef0db48} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+hash\+\_\+values} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} hash)
+\item 
+\Hypertarget{hash_8h_adbc8f013c8465cb2b67277da28480aa0}\label{hash_8h_adbc8f013c8465cb2b67277da28480aa0} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+hash\+\_\+clear} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} hash)
+\item 
+\Hypertarget{hash_8h_ab3210e3f244df7edc1720413abe7a3fa}\label{hash_8h_ab3210e3f244df7edc1720413abe7a3fa} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} mrb\+\_\+int {\bfseries mrb\+\_\+hash\+\_\+size} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} hash)
+\item 
+\Hypertarget{hash_8h_aefcbd83c68813db5605e281ba8c7c9ec}\label{hash_8h_aefcbd83c68813db5605e281ba8c7c9ec} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+hash\+\_\+dup} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} hash)
+\item 
+\Hypertarget{hash_8h_a025c49e692c8ad375981e9666de9a5c9}\label{hash_8h_a025c49e692c8ad375981e9666de9a5c9} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+hash\+\_\+merge} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} hash1, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} hash2)
+\item 
+\Hypertarget{hash_8h_ab1bb470ea6f9d7f9dfb433235fcee168}\label{hash_8h_ab1bb470ea6f9d7f9dfb433235fcee168} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+hash\+\_\+foreach} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structRHash}{RHash}} \texorpdfstring{$\ast$}{*}hash, mrb\+\_\+hash\+\_\+foreach\+\_\+func \texorpdfstring{$\ast$}{*}func, void \texorpdfstring{$\ast$}{*}p)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item Hash class
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-define-members}
+\Hypertarget{hash_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{hash_8h_ae99b121b87b60d2ad1571d4c8b04c9ef}\index{hash.h@{hash.h}!mrb\_hash\_ptr@{mrb\_hash\_ptr}}
+\index{mrb\_hash\_ptr@{mrb\_hash\_ptr}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_hash\_ptr}{mrb\_hash\_ptr}}
+{\footnotesize\ttfamily \label{hash_8h_ae99b121b87b60d2ad1571d4c8b04c9ef} 
+\#define mrb\+\_\+hash\+\_\+ptr(\begin{DoxyParamCaption}\item[{}]{v}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\textcolor{keyword}{struct\ }\mbox{\hyperlink{structRHash}{RHash}}*)(mrb\_ptr(v)))}
+
+\end{DoxyCode}
+\Hypertarget{hash_8h_ac1d8a50ae1bcea5ea05f42d961c3d1de}\index{hash.h@{hash.h}!mrb\_hash\_value@{mrb\_hash\_value}}
+\index{mrb\_hash\_value@{mrb\_hash\_value}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_hash\_value}{mrb\_hash\_value}}
+{\footnotesize\ttfamily \label{hash_8h_ac1d8a50ae1bcea5ea05f42d961c3d1de} 
+\#define mrb\+\_\+hash\+\_\+value(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_obj\_value((\textcolor{keywordtype}{void}*)(p))}
+
+\end{DoxyCode}
+\Hypertarget{hash_8h_a23d5acc9d5ce14952ce838bbbea80d97}\index{hash.h@{hash.h}!MRB\_RHASH\_DEFAULT\_P@{MRB\_RHASH\_DEFAULT\_P}}
+\index{MRB\_RHASH\_DEFAULT\_P@{MRB\_RHASH\_DEFAULT\_P}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_RHASH\_DEFAULT\_P}{MRB\_RHASH\_DEFAULT\_P}}
+{\footnotesize\ttfamily \label{hash_8h_a23d5acc9d5ce14952ce838bbbea80d97} 
+\#define MRB\+\_\+\+RHASH\+\_\+\+DEFAULT\+\_\+P(\begin{DoxyParamCaption}\item[{}]{hash}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(RHASH(hash)-\/>flags\ \&\ MRB\_HASH\_DEFAULT)}
+
+\end{DoxyCode}
+\Hypertarget{hash_8h_ae0b4a9b0eb83f6b6ebbe8110eb42c9d8}\index{hash.h@{hash.h}!MRB\_RHASH\_PROCDEFAULT\_P@{MRB\_RHASH\_PROCDEFAULT\_P}}
+\index{MRB\_RHASH\_PROCDEFAULT\_P@{MRB\_RHASH\_PROCDEFAULT\_P}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_RHASH\_PROCDEFAULT\_P}{MRB\_RHASH\_PROCDEFAULT\_P}}
+{\footnotesize\ttfamily \label{hash_8h_ae0b4a9b0eb83f6b6ebbe8110eb42c9d8} 
+\#define MRB\+\_\+\+RHASH\+\_\+\+PROCDEFAULT\+\_\+P(\begin{DoxyParamCaption}\item[{}]{hash}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(RHASH(hash)-\/>flags\ \&\ MRB\_HASH\_PROC\_DEFAULT)}
+
+\end{DoxyCode}
+\Hypertarget{hash_8h_a44d5b5c5a43d7b38d739cb1622b965be}\index{hash.h@{hash.h}!RHASH@{RHASH}}
+\index{RHASH@{RHASH}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{RHASH}{RHASH}}
+{\footnotesize\ttfamily \label{hash_8h_a44d5b5c5a43d7b38d739cb1622b965be} 
+\#define RHASH(\begin{DoxyParamCaption}\item[{}]{hash}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\textcolor{keyword}{struct\ }\mbox{\hyperlink{structRHash}{RHash}}*)(mrb\_ptr(hash)))}
+
+\end{DoxyCode}

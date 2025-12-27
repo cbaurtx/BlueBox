@@ -1,0 +1,78 @@
+\doxysection{nghttp2\+\_\+hd\+\_\+huffman.\+h}
+\hypertarget{nghttp2__hd__huffman_8h_source}{}\label{nghttp2__hd__huffman_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_hd\_huffman.h@{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_hd\_huffman.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2013\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_HD\_HUFFMAN\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ NGHTTP2\_HD\_HUFFMAN\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifdef\ HAVE\_CONFIG\_H}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ \ include\ <config.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_CONFIG\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00035\ \ \ \textcolor{comment}{/*\ FSA\ accepts\ this\ state\ as\ the\ end\ of\ huffman\ encoding}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ \ \ \ sequence.\ */}}
+\DoxyCodeLine{00037\ \ \ NGHTTP2\_HUFF\_ACCEPTED\ =\ 1\ <<\ 14,}
+\DoxyCodeLine{00038\ \ \ \textcolor{comment}{/*\ This\ state\ emits\ symbol\ */}}
+\DoxyCodeLine{00039\ \ \ NGHTTP2\_HUFF\_SYM\ =\ 1\ <<\ 15,}
+\DoxyCodeLine{00040\ \}\ nghttp2\_huff\_decode\_flag;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00043\ \ \ \textcolor{comment}{/*\ fstate\ is\ the\ current\ huffman\ decoding\ state,\ which\ is\ actually}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ \ the\ node\ ID\ of\ internal\ huffman\ tree\ with}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ \ \ \ \ nghttp2\_huff\_decode\_flag\ OR-\/ed.\ \ We\ have\ 257\ leaf\ nodes,\ but\ they}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ \ \ are\ identical\ to\ root\ node\ other\ than\ emitting\ a\ symbol,\ so\ we}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ \ have\ 256\ internal\ nodes\ [1..255],\ inclusive.\ \ The\ node\ ID\ 256\ is}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ \ \ \ \ a\ special\ node\ and\ it\ is\ a\ terminal\ state\ that\ means\ decoding}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ \ \ \ \ failed.\ */}}
+\DoxyCodeLine{00050\ \ \ uint16\_t\ fstate;}
+\DoxyCodeLine{00051\ \ \ \textcolor{comment}{/*\ symbol\ if\ NGHTTP2\_HUFF\_SYM\ flag\ set\ */}}
+\DoxyCodeLine{00052\ \ \ uint8\_t\ sym;}
+\DoxyCodeLine{00053\ \}\ \mbox{\hyperlink{structnghttp2__huff__decode}{nghttp2\_huff\_decode}};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{structnghttp2__huff__decode}{nghttp2\_huff\_decode}}\ huff\_decode\_table\_type[16];}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00058\ \ \ \textcolor{comment}{/*\ fstate\ is\ the\ current\ huffman\ decoding\ state.\ */}}
+\DoxyCodeLine{00059\ \ \ uint16\_t\ fstate;}
+\DoxyCodeLine{00060\ \}\ \mbox{\hyperlink{structnghttp2__hd__huff__decode__context}{nghttp2\_hd\_huff\_decode\_context}};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00063\ \ \ \textcolor{comment}{/*\ The\ number\ of\ bits\ in\ this\ code\ */}}
+\DoxyCodeLine{00064\ \ \ uint32\_t\ nbits;}
+\DoxyCodeLine{00065\ \ \ \textcolor{comment}{/*\ Huffman\ code\ aligned\ to\ LSB\ */}}
+\DoxyCodeLine{00066\ \ \ uint32\_t\ code;}
+\DoxyCodeLine{00067\ \}\ \mbox{\hyperlink{structnghttp2__huff__sym}{nghttp2\_huff\_sym}};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__huff__sym}{nghttp2\_huff\_sym}}\ huff\_sym\_table[];}
+\DoxyCodeLine{00070\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__huff__decode}{nghttp2\_huff\_decode}}\ huff\_decode\_table[][16];}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_HD\_HUFFMAN\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

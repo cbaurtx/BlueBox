@@ -1,0 +1,21 @@
+<map id="h2load::Client" name="h2load::Client">
+<area shape="rect" id="Node000001" title=" " alt="" coords="643,134,744,161"/>
+<area shape="rect" id="Node000002" href="$structnghttp2_1_1Memchunks.html" title=" " alt="" coords="385,39,528,82"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="543,75,620,99,677,134,671,133,618,104,543,80"/>
+<area shape="rect" id="Node000003" href="$structh2load_1_1ClientStat.html" title=" " alt="" coords="394,106,519,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="534,126,645,141,640,142,534,131"/>
+<area shape="rect" id="Node000004" href="$structh2load_1_1Worker.html" title=" " alt="" coords="402,158,510,185"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="526,174,572,174,619,170,657,162,662,160,619,175,572,180,526,180"/>
+<area shape="rect" id="Node000005" href="$structnghttp2_1_1Pool.html" title=" " alt="" coords="5,27,215,54"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="229,26,265,29,300,36,333,49,363,68,375,86,376,106,377,125,387,143,405,158,400,157,383,146,372,126,371,106,370,88,359,72,330,54,298,41,264,34,231,31"/>
+<area shape="rect" id="Node000006" href="$structh2load_1_1Stats.html" title=" " alt="" coords="61,82,159,109"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="174,90,265,97,315,106,362,122,375,132,386,142,414,157,409,157,383,147,371,136,359,127,313,111,265,102,175,95"/>
+<area shape="rect" id="Node000007" href="$structh2load_1_1Sampling.html" title=" " alt="" coords="49,158,171,185"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="186,169,404,169,400,173,187,174"/>
+<area shape="rect" id="Node000008" href="$structh2load_1_1Config.html" title=" " alt="" coords="57,213,163,239"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="177,220,265,212,360,198,414,186,419,184,361,203,266,218,178,225"/>
+<area shape="rect" id="Node000009" href="$structnghttp2_1_1Address.html" title=" " alt="" coords="396,253,516,279"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="523,245,570,228,618,205,650,182,676,162,681,160,653,186,620,210,573,232,524,250"/>
+<area shape="rect" id="Node000010" href="$unionnghttp2_1_1sockaddr__union.html" title=" " alt="" coords="28,267,192,294"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="208,280,360,277,393,276,398,275,361,282,208,286"/>
+</map>

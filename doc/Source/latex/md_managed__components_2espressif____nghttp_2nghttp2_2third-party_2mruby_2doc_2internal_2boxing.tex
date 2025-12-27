@@ -1,0 +1,55 @@
+\chapter{Boxing }
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2boxing}{}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2boxing}\index{Boxing@{Boxing}}
+\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2boxing_autotoc_md393}%
+\Hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2boxing_autotoc_md393}%
+
+
+The mruby objects and data are represented by C data type {\ttfamily \doxylink{structmrb__value}{mrb\+\_\+value}}. There are three options how to pack the data values in the {\ttfamily \doxylink{structmrb__value}{mrb\+\_\+value}}.
+
+
+\begin{DoxyItemize}
+\item Word Boxing
+\item NaN Boxing
+\item No Boxing
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2boxing_autotoc_md394}{}\doxysection{\texorpdfstring{Word Boxing}{Word Boxing}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2boxing_autotoc_md394}
+Word boxing packs the Ruby data in a word, which is a natural integer size that equals to the size of pointers ({\ttfamily intptr\+\_\+t}). Word boxing can be specified by {\ttfamily MRB\+\_\+\+WORD\+\_\+\+BOXING}, and it\textquotesingle{}s default configuration for most platforms.
+
+Some values (called immediate values, e.\+g. integers, booleans, symbols, etc.) are directly packed in the word. The other data types are represented by pointers to the heap allocated structures.
+
+The Word boxing packing bit patterns are like following\+:
+
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Types  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Bit Pattern  \\
+object  &{\ttfamily xxxxxxxx xxxxxxxx xxxxxxxx xxxxx000}  \\
+fixnum  &{\ttfamily xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxx1}  \\
+nil  &{\ttfamily 00000000 00000000 00000000 00000000}  \\
+true  &{\ttfamily 00000000 00000000 00000000 00001100}  \\
+false  &{\ttfamily 00000000 00000000 00000000 00000100}  \\
+undef  &{\ttfamily 00000000 00000000 00000000 00010100}  \\
+symbol  &{\ttfamily xxxxxxxx xxxxxxxx xxxxxxxx xxxxxx10}  \\
+\end{DoxyTable}
+
+
+On 64-\/bit platforms (unless {\ttfamily MRB\+\_\+\+WORDBOX\+\_\+\+NO\+\_\+\+FLOAT\+\_\+\+TRUNCATE}), float values are also packed in the {\ttfamily \doxylink{structmrb__value}{mrb\+\_\+value}}. In that case, we drop least significant 2 bits from mantissa. If you need full precision for floating-\/point numbers, define {\ttfamily MRB\+\_\+\+WORDBOX\+\_\+\+NO\+\_\+\+FLOAT\+\_\+\+TRUNCATE}.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2boxing_autotoc_md395}{}\doxysection{\texorpdfstring{NaN Boxing}{NaN Boxing}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2boxing_autotoc_md395}
+NaN boxing packs the Ruby data in a floating-\/point numbers, which represent NaN (Not a Number) values. Under IEEE753 definitions every value that exponent is all set are considered as NaN. That means NaN can represent {\ttfamily 2\texorpdfstring{$^\wedge$}{\string^}51} values. NaN boxing is a teaching to pack the values in those NaN representation. In theory, 64 bit pointers are too big to fit in NaN, but practically most OS use only 48 bits at most for pointers (except for some OS e.\+g. Solaris).
+
+The NaN boxing packing bit patterns are like following\+:
+
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Types  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Bit Pattern  \\
+float  &{\ttfamily SEEEEEEE EEEEFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF}  \\
++/-\/inf  &{\ttfamily S1111111 11110000 00000000 00000000 00000000 00000000 00000000 00000000}  \\
+nan  &{\ttfamily 01111111 11111000 00000000 00000000 00000000 00000000 00000000 00000000}  \\
+fixnum  &{\ttfamily 01111111 11111001 00000000 00000000 IIIIIIII IIIIIIII IIIIIIII IIIIIIII}  \\
+symbol  &{\ttfamily 01111111 11111110 00000000 00000000 SSSSSSSS SSSSSSSS SSSSSSSS SSSSSSSS}  \\
+misc  &{\ttfamily 01111111 11111111 00000000 00000000 00000000 00000000 00TTTTTT 0000MMMM}  \\
+object  &{\ttfamily 01111111 11111100 PPPPPPPP PPPPPPPP PPPPPPPP PPPPPPPP PPPPPPPP PPPPPP00}  \\
+ptr  &{\ttfamily 01111111 11111100 PPPPPPPP PPPPPPPP PPPPPPPP PPPPPPPP PPPPPPPP PPPPPP01}  \\
+nil  &{\ttfamily 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000}  \\
+\end{DoxyTable}
+
+
+The object values appear far more frequently than floating-\/point numbers, so we offset the value so that object pointers are unchanged. This technique is called "{}favor pointer"{}.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2boxing_autotoc_md396}{}\doxysection{\texorpdfstring{No Boxing}{No Boxing}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2boxing_autotoc_md396}
+No boxing represents {\ttfamily \doxylink{structmrb__value}{mrb\+\_\+value}} by the C struct with {\ttfamily type} and the value union. This is the most portable (but inefficient) representation. No boxing can be specified by {\ttfamily MRB\+\_\+\+NO\+\_\+\+BOXING}, and it\textquotesingle{}s default for debugging configuration (e.\+g. {\ttfamily host-\/debug}). 

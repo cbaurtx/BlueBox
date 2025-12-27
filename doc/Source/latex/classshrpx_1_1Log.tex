@@ -1,0 +1,100 @@
+\doxysection{shrpx\+::Log Class Reference}
+\hypertarget{classshrpx_1_1Log}{}\label{classshrpx_1_1Log}\index{shrpx::Log@{shrpx::Log}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1Log_a038565a9522f65684f3761a70f6568c6}\label{classshrpx_1_1Log_a038565a9522f65684f3761a70f6568c6} 
+enum \{ {\bfseries fmt\+\_\+dec} = 0x00
+, {\bfseries fmt\+\_\+hex} = 0x01
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1Log_aa5796bdc2f97b39e79d1459758569c93}\label{classshrpx_1_1Log_aa5796bdc2f97b39e79d1459758569c93} 
+{\bfseries Log} (int severity, const char \texorpdfstring{$\ast$}{*}filename, int linenum)
+\item 
+\Hypertarget{classshrpx_1_1Log_a024658c48aa5aa1b782d34b2e27811aa}\label{classshrpx_1_1Log_a024658c48aa5aa1b782d34b2e27811aa} 
+Log \& {\bfseries operator$<$$<$} (const std\+::string \&s)
+\item 
+\Hypertarget{classshrpx_1_1Log_a1510bfd82c511b2ea01901b5da12941d}\label{classshrpx_1_1Log_a1510bfd82c511b2ea01901b5da12941d} 
+Log \& {\bfseries operator$<$$<$} (const char \texorpdfstring{$\ast$}{*}s)
+\item 
+\Hypertarget{classshrpx_1_1Log_a63bc4dd15baaeaa926ee8cbb0d8169f6}\label{classshrpx_1_1Log_a63bc4dd15baaeaa926ee8cbb0d8169f6} 
+Log \& {\bfseries operator$<$$<$} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&s)
+\item 
+\Hypertarget{classshrpx_1_1Log_a7178ea96e30a41c16ffa63a57fae2c6f}\label{classshrpx_1_1Log_a7178ea96e30a41c16ffa63a57fae2c6f} 
+Log \& {\bfseries operator$<$$<$} (const \mbox{\hyperlink{classnghttp2_1_1ImmutableString}{Immutable\+String}} \&s)
+\item 
+\Hypertarget{classshrpx_1_1Log_a749b810ff7a6842b33f39eecab523ddd}\label{classshrpx_1_1Log_a749b810ff7a6842b33f39eecab523ddd} 
+Log \& {\bfseries operator$<$$<$} (short n)
+\item 
+\Hypertarget{classshrpx_1_1Log_a27a37d74f7b889a7627da7bdcc8a219b}\label{classshrpx_1_1Log_a27a37d74f7b889a7627da7bdcc8a219b} 
+Log \& {\bfseries operator$<$$<$} (int n)
+\item 
+\Hypertarget{classshrpx_1_1Log_a9243fe35d2879492d5ab4c059773a735}\label{classshrpx_1_1Log_a9243fe35d2879492d5ab4c059773a735} 
+Log \& {\bfseries operator$<$$<$} (long n)
+\item 
+\Hypertarget{classshrpx_1_1Log_ae43f6c4217f4946edd1ef59717cfcd67}\label{classshrpx_1_1Log_ae43f6c4217f4946edd1ef59717cfcd67} 
+Log \& {\bfseries operator$<$$<$} (long long n)
+\item 
+\Hypertarget{classshrpx_1_1Log_ac9e424da6820989d9720edfa49362e0f}\label{classshrpx_1_1Log_ac9e424da6820989d9720edfa49362e0f} 
+Log \& {\bfseries operator$<$$<$} (unsigned short n)
+\item 
+\Hypertarget{classshrpx_1_1Log_a1a61ebacde449b663f9ede13522e8270}\label{classshrpx_1_1Log_a1a61ebacde449b663f9ede13522e8270} 
+Log \& {\bfseries operator$<$$<$} (unsigned int n)
+\item 
+\Hypertarget{classshrpx_1_1Log_a3c3c3bd002984c314e2272a5e0aa1fa5}\label{classshrpx_1_1Log_a3c3c3bd002984c314e2272a5e0aa1fa5} 
+Log \& {\bfseries operator$<$$<$} (unsigned long n)
+\item 
+\Hypertarget{classshrpx_1_1Log_ad386d2e88901dc1a6c3b71cb78e4e69d}\label{classshrpx_1_1Log_ad386d2e88901dc1a6c3b71cb78e4e69d} 
+Log \& {\bfseries operator$<$$<$} (unsigned long long n)
+\item 
+\Hypertarget{classshrpx_1_1Log_a5ca977fa5d41e36904431d9230da2d03}\label{classshrpx_1_1Log_a5ca977fa5d41e36904431d9230da2d03} 
+Log \& {\bfseries operator$<$$<$} (float n)
+\item 
+\Hypertarget{classshrpx_1_1Log_ae4cb89ff7fa7cc3ff8e8812fa7b0971e}\label{classshrpx_1_1Log_ae4cb89ff7fa7cc3ff8e8812fa7b0971e} 
+Log \& {\bfseries operator$<$$<$} (double n)
+\item 
+\Hypertarget{classshrpx_1_1Log_a87a3e95f1249385744b62d50c7c1d9e6}\label{classshrpx_1_1Log_a87a3e95f1249385744b62d50c7c1d9e6} 
+Log \& {\bfseries operator$<$$<$} (long double n)
+\item 
+\Hypertarget{classshrpx_1_1Log_a5683b855588f1e79f0dde51c1d5f0227}\label{classshrpx_1_1Log_a5683b855588f1e79f0dde51c1d5f0227} 
+Log \& {\bfseries operator$<$$<$} (bool n)
+\item 
+\Hypertarget{classshrpx_1_1Log_a4501707d231d64d3b58c59f641f5001f}\label{classshrpx_1_1Log_a4501707d231d64d3b58c59f641f5001f} 
+Log \& {\bfseries operator$<$$<$} (const void \texorpdfstring{$\ast$}{*}p)
+\item 
+\Hypertarget{classshrpx_1_1Log_aef8f42cc62ca48a7e8c76a2db1ffa738}\label{classshrpx_1_1Log_aef8f42cc62ca48a7e8c76a2db1ffa738} 
+{\footnotesize template$<$typename T$>$ }\\Log \& {\bfseries operator$<$$<$} (const std\+::shared\+\_\+ptr$<$ T $>$ \&ptr)
+\item 
+\Hypertarget{classshrpx_1_1Log_a9222186657173714602901a427b61af0}\label{classshrpx_1_1Log_a9222186657173714602901a427b61af0} 
+Log \& {\bfseries operator$<$$<$} (void(\texorpdfstring{$\ast$}{*}func)(Log \&log))
+\item 
+\Hypertarget{classshrpx_1_1Log_a74dd5803bb5fb6b249f3beb1032a1402}\label{classshrpx_1_1Log_a74dd5803bb5fb6b249f3beb1032a1402} 
+{\footnotesize template$<$typename Input\+It$>$ }\\void {\bfseries write\+\_\+seq} (Input\+It first, Input\+It last)
+\item 
+\Hypertarget{classshrpx_1_1Log_acb778e6b15d0ad0c59d3eb66dbd458d5}\label{classshrpx_1_1Log_acb778e6b15d0ad0c59d3eb66dbd458d5} 
+{\footnotesize template$<$typename T$>$ }\\void {\bfseries write\+\_\+hex} (T n)
+\item 
+\Hypertarget{classshrpx_1_1Log_a28e6a55a43d4c3dc4a2f4895f2d445e5}\label{classshrpx_1_1Log_a28e6a55a43d4c3dc4a2f4895f2d445e5} 
+void {\bfseries set\+\_\+flags} (int flags)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1Log_ac020485d5ef746f0efa622c036e18e0f}\label{classshrpx_1_1Log_ac020485d5ef746f0efa622c036e18e0f} 
+static void {\bfseries set\+\_\+severity\+\_\+level} (int severity)
+\item 
+\Hypertarget{classshrpx_1_1Log_ad209d79f3bfb61422082611f8a780650}\label{classshrpx_1_1Log_ad209d79f3bfb61422082611f8a780650} 
+static int {\bfseries get\+\_\+severity\+\_\+level\+\_\+by\+\_\+name} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&name)
+\item 
+\Hypertarget{classshrpx_1_1Log_afe10e5ee19895808e6169c5d9be09757}\label{classshrpx_1_1Log_afe10e5ee19895808e6169c5d9be09757} 
+static bool {\bfseries log\+\_\+enabled} (int severity)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+log.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+log.\+cc\end{DoxyCompactItemize}

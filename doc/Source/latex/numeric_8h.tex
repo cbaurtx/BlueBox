@@ -1,0 +1,235 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/numeric.h File Reference}
+\hypertarget{numeric_8h}{}\label{numeric_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/numeric.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/numeric.h}}
+{\ttfamily \#include "{}common.\+h"{}}\newline
+Include dependency graph for numeric.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{numeric_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{numeric_8h_a8c8b0dd0bf3192b95ab49bedbec095bd}{TYPED\+\_\+\+POSFIXABLE}}(f,  t)
+\item 
+\#define \mbox{\hyperlink{numeric_8h_a7efa3975549cd6671004b31714a318cd}{TYPED\+\_\+\+NEGFIXABLE}}(f,  t)
+\item 
+\#define \mbox{\hyperlink{numeric_8h_a74ecf73604740d24ce945df818e55293}{TYPED\+\_\+\+FIXABLE}}(f,  t)
+\item 
+\#define \mbox{\hyperlink{numeric_8h_ab1d19f87c12c61fe8c0048c1f81055c6}{POSFIXABLE}}(f)
+\item 
+\#define \mbox{\hyperlink{numeric_8h_ab1d46d187c4953f84fab360264c888f9}{NEGFIXABLE}}(f)
+\item 
+\#define \mbox{\hyperlink{numeric_8h_ac493d4e1ca36d6a84215aad4e6ea1b4d}{FIXABLE}}(f)
+\item 
+\#define \mbox{\hyperlink{numeric_8h_aef6df859a578753621e3cdc82c9e33f6}{FIXABLE\+\_\+\+FLOAT}}(f)
+\item 
+\#define \mbox{\hyperlink{numeric_8h_ac3b62df16e1887ee520443c674013b32}{mrb\+\_\+num\+\_\+plus}}(mrb,  x,  y)
+\item 
+\#define \mbox{\hyperlink{numeric_8h_a8e80d1c1e3233cf0804384273861be09}{mrb\+\_\+num\+\_\+minus}}(mrb,  x,  y)
+\item 
+\#define \mbox{\hyperlink{numeric_8h_af08333f3e6f8492d21a196c44ac82ad2}{mrb\+\_\+fixnum\+\_\+to\+\_\+str}}(mrb,  x,  base)
+\item 
+\#define \mbox{\hyperlink{numeric_8h_a447121dcab4275b7839a56082b7a1ab8}{\+\_\+\+\_\+has\+\_\+builtin}}(x)
+\item 
+\Hypertarget{numeric_8h_af81791e9e7d04e5a781b9ab47ef28e5a}\label{numeric_8h_af81791e9e7d04e5a781b9ab47ef28e5a} 
+\#define {\bfseries MRB\+\_\+\+INT\+\_\+\+OVERFLOW\+\_\+\+MASK}~((mrb\+\_\+uint)1 $<$$<$ (MRB\+\_\+\+INT\+\_\+\+BIT -\/ 1))
+\item 
+\Hypertarget{numeric_8h_ab1e1b08b62641f02edc1bd66c431b59f}\label{numeric_8h_ab1e1b08b62641f02edc1bd66c431b59f} 
+\#define {\bfseries MRB\+\_\+\+FLT\+\_\+\+RADIX}~FLT\+\_\+\+RADIX
+\item 
+\Hypertarget{numeric_8h_aec477bd2923bf7a79184d07e1382d00e}\label{numeric_8h_aec477bd2923bf7a79184d07e1382d00e} 
+\#define {\bfseries MRB\+\_\+\+FLT\+\_\+\+MANT\+\_\+\+DIG}~DBL\+\_\+\+MANT\+\_\+\+DIG
+\item 
+\Hypertarget{numeric_8h_a7169c80a4fd550eb11719ef797c4b22b}\label{numeric_8h_a7169c80a4fd550eb11719ef797c4b22b} 
+\#define {\bfseries MRB\+\_\+\+FLT\+\_\+\+EPSILON}~DBL\+\_\+\+EPSILON
+\item 
+\Hypertarget{numeric_8h_a775d9555bb598205c29dc4c6780a80a4}\label{numeric_8h_a775d9555bb598205c29dc4c6780a80a4} 
+\#define {\bfseries MRB\+\_\+\+FLT\+\_\+\+DIG}~DBL\+\_\+\+DIG
+\item 
+\Hypertarget{numeric_8h_a096ec98b46700938eea077c2f0fdaa7b}\label{numeric_8h_a096ec98b46700938eea077c2f0fdaa7b} 
+\#define {\bfseries MRB\+\_\+\+FLT\+\_\+\+MIN\+\_\+\+EXP}~DBL\+\_\+\+MIN\+\_\+\+EXP
+\item 
+\Hypertarget{numeric_8h_a8269cbf3511dd1694d22c78b6f55b6e5}\label{numeric_8h_a8269cbf3511dd1694d22c78b6f55b6e5} 
+\#define {\bfseries MRB\+\_\+\+FLT\+\_\+\+MIN}~DBL\+\_\+\+MIN
+\item 
+\Hypertarget{numeric_8h_a67b64cf8255ce5a3d4665ebe7055412d}\label{numeric_8h_a67b64cf8255ce5a3d4665ebe7055412d} 
+\#define {\bfseries MRB\+\_\+\+FLT\+\_\+\+MIN\+\_\+10\+\_\+\+EXP}~DBL\+\_\+\+MIN\+\_\+10\+\_\+\+EXP
+\item 
+\Hypertarget{numeric_8h_a924881840b38f75173992250b3e9a98d}\label{numeric_8h_a924881840b38f75173992250b3e9a98d} 
+\#define {\bfseries MRB\+\_\+\+FLT\+\_\+\+MAX\+\_\+\+EXP}~DBL\+\_\+\+MAX\+\_\+\+EXP
+\item 
+\Hypertarget{numeric_8h_a4098152a82a49cd7448d03e1a4700cf0}\label{numeric_8h_a4098152a82a49cd7448d03e1a4700cf0} 
+\#define {\bfseries MRB\+\_\+\+FLT\+\_\+\+MAX}~DBL\+\_\+\+MAX
+\item 
+\Hypertarget{numeric_8h_a1989fe3f5692ce909057601ac3142210}\label{numeric_8h_a1989fe3f5692ce909057601ac3142210} 
+\#define {\bfseries MRB\+\_\+\+FLT\+\_\+\+MAX\+\_\+10\+\_\+\+EXP}~DBL\+\_\+\+MAX\+\_\+10\+\_\+\+EXP
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{numeric_8h_ae9ef73ffc238452e2406146abb4e6d20}\label{numeric_8h_ae9ef73ffc238452e2406146abb4e6d20} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+num\+\_\+add} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} x, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} y)
+\item 
+\Hypertarget{numeric_8h_abb425b0597c446dc364fbeb2873ddfd7}\label{numeric_8h_abb425b0597c446dc364fbeb2873ddfd7} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+num\+\_\+sub} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} x, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} y)
+\item 
+\Hypertarget{numeric_8h_a1413963c069a72551c82253a40d72898}\label{numeric_8h_a1413963c069a72551c82253a40d72898} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+num\+\_\+mul} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} x, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} y)
+\item 
+\Hypertarget{numeric_8h_a785115f6a582c40fc9abf65f18bbc005}\label{numeric_8h_a785115f6a582c40fc9abf65f18bbc005} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+integer\+\_\+to\+\_\+str} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} x, mrb\+\_\+int base)
+\item 
+\Hypertarget{numeric_8h_adda0b4d90e124128534eb1a15c94b881}\label{numeric_8h_adda0b4d90e124128534eb1a15c94b881} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} char \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+int\+\_\+to\+\_\+cstr} (char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t len, mrb\+\_\+int n, mrb\+\_\+int base)
+\item 
+\Hypertarget{numeric_8h_a435eb45f3bf28705474f1f3be3710cab}\label{numeric_8h_a435eb45f3bf28705474f1f3be3710cab} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+float\+\_\+to\+\_\+integer} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} val)
+\item 
+\Hypertarget{numeric_8h_ab48de4df8964f9398a9f9d4341dbac25}\label{numeric_8h_ab48de4df8964f9398a9f9d4341dbac25} 
+mrb\+\_\+float {\bfseries mrb\+\_\+div\+\_\+float} (mrb\+\_\+float x, mrb\+\_\+float y)
+\item 
+\Hypertarget{numeric_8h_a1e0eaf5a8f1c0f03669ddc3aa6cf2389}\label{numeric_8h_a1e0eaf5a8f1c0f03669ddc3aa6cf2389} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+float\+\_\+to\+\_\+str} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} x, const char \texorpdfstring{$\ast$}{*}fmt)
+\item 
+\Hypertarget{numeric_8h_ab99c6eb4932696a10cde2d82b62d41d3}\label{numeric_8h_ab99c6eb4932696a10cde2d82b62d41d3} 
+int {\bfseries mrb\+\_\+format\+\_\+float} (mrb\+\_\+float f, char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t buf\+\_\+size, char fmt, int prec, char sign)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item Numeric, Integer, Float class
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-define-members}
+\Hypertarget{numeric_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{numeric_8h_a447121dcab4275b7839a56082b7a1ab8}\index{numeric.h@{numeric.h}!\_\_has\_builtin@{\_\_has\_builtin}}
+\index{\_\_has\_builtin@{\_\_has\_builtin}!numeric.h@{numeric.h}}
+\doxysubsubsection{\texorpdfstring{\_\_has\_builtin}{\_\_has\_builtin}}
+{\footnotesize\ttfamily \label{numeric_8h_a447121dcab4275b7839a56082b7a1ab8} 
+\#define \+\_\+\+\_\+has\+\_\+builtin(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{0}
+
+\end{DoxyCode}
+\Hypertarget{numeric_8h_ac493d4e1ca36d6a84215aad4e6ea1b4d}\index{numeric.h@{numeric.h}!FIXABLE@{FIXABLE}}
+\index{FIXABLE@{FIXABLE}!numeric.h@{numeric.h}}
+\doxysubsubsection{\texorpdfstring{FIXABLE}{FIXABLE}}
+{\footnotesize\ttfamily \label{numeric_8h_ac493d4e1ca36d6a84215aad4e6ea1b4d} 
+\#define FIXABLE(\begin{DoxyParamCaption}\item[{}]{f}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TYPED\_FIXABLE(f,mrb\_int)}
+
+\end{DoxyCode}
+\Hypertarget{numeric_8h_aef6df859a578753621e3cdc82c9e33f6}\index{numeric.h@{numeric.h}!FIXABLE\_FLOAT@{FIXABLE\_FLOAT}}
+\index{FIXABLE\_FLOAT@{FIXABLE\_FLOAT}!numeric.h@{numeric.h}}
+\doxysubsubsection{\texorpdfstring{FIXABLE\_FLOAT}{FIXABLE\_FLOAT}}
+{\footnotesize\ttfamily \label{numeric_8h_aef6df859a578753621e3cdc82c9e33f6} 
+\#define FIXABLE\+\_\+\+FLOAT(\begin{DoxyParamCaption}\item[{}]{f}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TYPED\_FIXABLE(f,mrb\_float)}
+
+\end{DoxyCode}
+\Hypertarget{numeric_8h_af08333f3e6f8492d21a196c44ac82ad2}\index{numeric.h@{numeric.h}!mrb\_fixnum\_to\_str@{mrb\_fixnum\_to\_str}}
+\index{mrb\_fixnum\_to\_str@{mrb\_fixnum\_to\_str}!numeric.h@{numeric.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_fixnum\_to\_str}{mrb\_fixnum\_to\_str}}
+{\footnotesize\ttfamily \label{numeric_8h_af08333f3e6f8492d21a196c44ac82ad2} 
+\#define mrb\+\_\+fixnum\+\_\+to\+\_\+str(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{x}{, }\item[{}]{base}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_integer\_to\_str(mrb,\ x,\ base)}
+
+\end{DoxyCode}
+\Hypertarget{numeric_8h_a8e80d1c1e3233cf0804384273861be09}\index{numeric.h@{numeric.h}!mrb\_num\_minus@{mrb\_num\_minus}}
+\index{mrb\_num\_minus@{mrb\_num\_minus}!numeric.h@{numeric.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_num\_minus}{mrb\_num\_minus}}
+{\footnotesize\ttfamily \label{numeric_8h_a8e80d1c1e3233cf0804384273861be09} 
+\#define mrb\+\_\+num\+\_\+minus(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{x}{, }\item[{}]{y}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_num\_sub(mrb,\ x,\ y)}
+
+\end{DoxyCode}
+\Hypertarget{numeric_8h_ac3b62df16e1887ee520443c674013b32}\index{numeric.h@{numeric.h}!mrb\_num\_plus@{mrb\_num\_plus}}
+\index{mrb\_num\_plus@{mrb\_num\_plus}!numeric.h@{numeric.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_num\_plus}{mrb\_num\_plus}}
+{\footnotesize\ttfamily \label{numeric_8h_ac3b62df16e1887ee520443c674013b32} 
+\#define mrb\+\_\+num\+\_\+plus(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{x}{, }\item[{}]{y}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_num\_add(mrb,\ x,\ y)}
+
+\end{DoxyCode}
+\Hypertarget{numeric_8h_ab1d46d187c4953f84fab360264c888f9}\index{numeric.h@{numeric.h}!NEGFIXABLE@{NEGFIXABLE}}
+\index{NEGFIXABLE@{NEGFIXABLE}!numeric.h@{numeric.h}}
+\doxysubsubsection{\texorpdfstring{NEGFIXABLE}{NEGFIXABLE}}
+{\footnotesize\ttfamily \label{numeric_8h_ab1d46d187c4953f84fab360264c888f9} 
+\#define NEGFIXABLE(\begin{DoxyParamCaption}\item[{}]{f}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TYPED\_NEGFIXABLE(f,mrb\_int)}
+
+\end{DoxyCode}
+\Hypertarget{numeric_8h_ab1d19f87c12c61fe8c0048c1f81055c6}\index{numeric.h@{numeric.h}!POSFIXABLE@{POSFIXABLE}}
+\index{POSFIXABLE@{POSFIXABLE}!numeric.h@{numeric.h}}
+\doxysubsubsection{\texorpdfstring{POSFIXABLE}{POSFIXABLE}}
+{\footnotesize\ttfamily \label{numeric_8h_ab1d19f87c12c61fe8c0048c1f81055c6} 
+\#define POSFIXABLE(\begin{DoxyParamCaption}\item[{}]{f}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{numeric_8h_a8c8b0dd0bf3192b95ab49bedbec095bd}{TYPED\_POSFIXABLE}}(f,mrb\_int)}
+
+\end{DoxyCode}
+\Hypertarget{numeric_8h_a74ecf73604740d24ce945df818e55293}\index{numeric.h@{numeric.h}!TYPED\_FIXABLE@{TYPED\_FIXABLE}}
+\index{TYPED\_FIXABLE@{TYPED\_FIXABLE}!numeric.h@{numeric.h}}
+\doxysubsubsection{\texorpdfstring{TYPED\_FIXABLE}{TYPED\_FIXABLE}}
+{\footnotesize\ttfamily \label{numeric_8h_a74ecf73604740d24ce945df818e55293} 
+\#define TYPED\+\_\+\+FIXABLE(\begin{DoxyParamCaption}\item[{}]{f}{, }\item[{}]{t}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\mbox{\hyperlink{numeric_8h_a8c8b0dd0bf3192b95ab49bedbec095bd}{TYPED\_POSFIXABLE}}(f,t)\ \&\&\ TYPED\_NEGFIXABLE(f,t))}
+
+\end{DoxyCode}
+\Hypertarget{numeric_8h_a7efa3975549cd6671004b31714a318cd}\index{numeric.h@{numeric.h}!TYPED\_NEGFIXABLE@{TYPED\_NEGFIXABLE}}
+\index{TYPED\_NEGFIXABLE@{TYPED\_NEGFIXABLE}!numeric.h@{numeric.h}}
+\doxysubsubsection{\texorpdfstring{TYPED\_NEGFIXABLE}{TYPED\_NEGFIXABLE}}
+{\footnotesize\ttfamily \label{numeric_8h_a7efa3975549cd6671004b31714a318cd} 
+\#define TYPED\+\_\+\+NEGFIXABLE(\begin{DoxyParamCaption}\item[{}]{f}{, }\item[{}]{t}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((f)\ >=\ (t)MRB\_FIXNUM\_MIN)}
+
+\end{DoxyCode}
+\Hypertarget{numeric_8h_a8c8b0dd0bf3192b95ab49bedbec095bd}\index{numeric.h@{numeric.h}!TYPED\_POSFIXABLE@{TYPED\_POSFIXABLE}}
+\index{TYPED\_POSFIXABLE@{TYPED\_POSFIXABLE}!numeric.h@{numeric.h}}
+\doxysubsubsection{\texorpdfstring{TYPED\_POSFIXABLE}{TYPED\_POSFIXABLE}}
+{\footnotesize\ttfamily \label{numeric_8h_a8c8b0dd0bf3192b95ab49bedbec095bd} 
+\#define TYPED\+\_\+\+POSFIXABLE(\begin{DoxyParamCaption}\item[{}]{f}{, }\item[{}]{t}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((f)\ <=\ (t)MRB\_FIXNUM\_MAX)}
+
+\end{DoxyCode}
+Numeric class and it\textquotesingle{}s sub-\/classes.
+
+Integer and Float 

@@ -1,0 +1,76 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/method Directory Reference}
+\hypertarget{dir_1c6e9ef9e59f0febb3c37159e352d25b}{}\label{dir_1c6e9ef9e59f0febb3c37159e352d25b}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/method Directory Reference@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/method Directory Reference}}
+Directory dependency graph for mruby-\/method\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{dir_1c6e9ef9e59f0febb3c37159e352d25b_dep}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_1dc3d9ad414e8c385d07f7789b7b603f}{src}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_1c6e9ef9e59f0febb3c37159e352d25b_autotoc_md528}{}\doxysubsection{\texorpdfstring{mruby-\/method}{mruby-\/method}}\label{dir_1c6e9ef9e59f0febb3c37159e352d25b_autotoc_md528}
+An implementation of class {\bfseries{Method}} and {\bfseries{Unbound\+Method}} for mruby
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{p\ Enumerable.instance\_method(:find\_all).source\_location}
+\DoxyCodeLine{\#=>\ ["{}mruby/mruby/mrblib/enum.rb"{},\ 148]}
+
+\end{DoxyCode}
+\hypertarget{dir_1c6e9ef9e59f0febb3c37159e352d25b_autotoc_md529}{}\doxysubsection{\texorpdfstring{Note}{Note}}\label{dir_1c6e9ef9e59f0febb3c37159e352d25b_autotoc_md529}
+You need to enable debug option in your build configuration to use {\ttfamily source\+\_\+location} method in this gem, for example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{MRuby::Build.new\ do\ |conf|}
+\DoxyCodeLine{\ \ conf.enable\_debug}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+\hypertarget{dir_1c6e9ef9e59f0febb3c37159e352d25b_autotoc_md530}{}\doxysubsection{\texorpdfstring{Supported Methods}{Supported Methods}}\label{dir_1c6e9ef9e59f0febb3c37159e352d25b_autotoc_md530}
+\hypertarget{dir_1c6e9ef9e59f0febb3c37159e352d25b_autotoc_md531}{}\doxysubsubsection{\texorpdfstring{Kernel}{Kernel}}\label{dir_1c6e9ef9e59f0febb3c37159e352d25b_autotoc_md531}
+
+\begin{DoxyItemize}
+\item {\ttfamily Kernel\#method}
+\item {\ttfamily Kernel\#singleton\+\_\+method}
+\end{DoxyItemize}\hypertarget{dir_1c6e9ef9e59f0febb3c37159e352d25b_autotoc_md532}{}\doxysubsubsection{\texorpdfstring{Module}{Module}}\label{dir_1c6e9ef9e59f0febb3c37159e352d25b_autotoc_md532}
+
+\begin{DoxyItemize}
+\item {\ttfamily Module\#instance\+\_\+method}
+\end{DoxyItemize}\hypertarget{dir_1c6e9ef9e59f0febb3c37159e352d25b_autotoc_md533}{}\doxysubsubsection{\texorpdfstring{Method class}{Method class}}\label{dir_1c6e9ef9e59f0febb3c37159e352d25b_autotoc_md533}
+
+\begin{DoxyItemize}
+\item {\ttfamily Method\#name}
+\item {\ttfamily Method\#call}
+\item {\ttfamily Method\#super\+\_\+method}
+\item {\ttfamily Method\#arity}
+\item {\ttfamily Method\#unbind}
+\item {\ttfamily Method\#\mbox{[}\mbox{]}}
+\item {\ttfamily Method\#owner}
+\item {\ttfamily Method\#receiver}
+\item {\ttfamily Method\#parameters}
+\item {\ttfamily Method\#source\+\_\+location}
+\item {\ttfamily Method\#to\+\_\+proc}
+\end{DoxyItemize}\hypertarget{dir_1c6e9ef9e59f0febb3c37159e352d25b_autotoc_md534}{}\doxysubsubsection{\texorpdfstring{Unbound\+Method class}{Unbound\+Method class}}\label{dir_1c6e9ef9e59f0febb3c37159e352d25b_autotoc_md534}
+
+\begin{DoxyItemize}
+\item {\ttfamily Unbound\+Method\#name}
+\item {\ttfamily Unbound\+Method\#bind}
+\item {\ttfamily Unbound\+Method\#super\+\_\+method}
+\item {\ttfamily Unbound\+Method\#arity}
+\item {\ttfamily Unbound\+Method\#owner}
+\item {\ttfamily Unbound\+Method\#parameters}
+\item {\ttfamily Unbound\+Method\#source\+\_\+location}
+\end{DoxyItemize}\hypertarget{dir_1c6e9ef9e59f0febb3c37159e352d25b_autotoc_md535}{}\doxysubsection{\texorpdfstring{See also}{See also}}\label{dir_1c6e9ef9e59f0febb3c37159e352d25b_autotoc_md535}
+
+\begin{DoxyItemize}
+\item \href{https://ruby-doc.org/core-2.3.3/Method.html}{\texttt{https\+://ruby-\/doc.\+org/core-\/2.\+3.\+3/\+Method.\+html}}
+\item \href{https://ruby-doc.org/core-2.3.3/UnboundMethod.html}{\texttt{https\+://ruby-\/doc.\+org/core-\/2.\+3.\+3/\+Unbound\+Method.\+html}} 
+\end{DoxyItemize}

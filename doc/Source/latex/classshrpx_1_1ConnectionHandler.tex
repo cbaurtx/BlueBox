@@ -1,0 +1,131 @@
+\doxysection{shrpx\+::Connection\+Handler Class Reference}
+\hypertarget{classshrpx_1_1ConnectionHandler}{}\label{classshrpx_1_1ConnectionHandler}\index{shrpx::ConnectionHandler@{shrpx::ConnectionHandler}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a77aa482a6f0eb60ffe4892cab8268d26}\label{classshrpx_1_1ConnectionHandler_a77aa482a6f0eb60ffe4892cab8268d26} 
+{\bfseries Connection\+Handler} (struct ev\+\_\+loop \texorpdfstring{$\ast$}{*}loop, std\+::mt19937 \&gen)
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a17eeeec002372bdc7f1dedfe7c74cc09}\label{classshrpx_1_1ConnectionHandler_a17eeeec002372bdc7f1dedfe7c74cc09} 
+int {\bfseries handle\+\_\+connection} (int fd, sockaddr \texorpdfstring{$\ast$}{*}addr, int addrlen, const \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{Upstream\+Addr}} \texorpdfstring{$\ast$}{*}faddr)
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_aa0dc1843a255ded325a5139307e47b73}\label{classshrpx_1_1ConnectionHandler_aa0dc1843a255ded325a5139307e47b73} 
+int {\bfseries create\+\_\+single\+\_\+worker} ()
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a22889e8301235c2a86d8cd6ba5c20cad}\label{classshrpx_1_1ConnectionHandler_a22889e8301235c2a86d8cd6ba5c20cad} 
+int {\bfseries create\+\_\+worker\+\_\+thread} (size\+\_\+t num)
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a4e235c5e8c60831b1a5254fc815d1a07}\label{classshrpx_1_1ConnectionHandler_a4e235c5e8c60831b1a5254fc815d1a07} 
+void {\bfseries set\+\_\+ticket\+\_\+keys\+\_\+to\+\_\+worker} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1TicketKeys}{Ticket\+Keys}} $>$ \&ticket\+\_\+keys)
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a4aa76dc7d3a328b6dcfce8a8aa965ba1}\label{classshrpx_1_1ConnectionHandler_a4aa76dc7d3a328b6dcfce8a8aa965ba1} 
+void {\bfseries worker\+\_\+reopen\+\_\+log\+\_\+files} ()
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a6e0d7b64211eb1844fc2fd5ba99b9bdc}\label{classshrpx_1_1ConnectionHandler_a6e0d7b64211eb1844fc2fd5ba99b9bdc} 
+void {\bfseries set\+\_\+ticket\+\_\+keys} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1TicketKeys}{Ticket\+Keys}} $>$ ticket\+\_\+keys)
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_acd2f0d9adc6b1c8c18fd9bb3732448f0}\label{classshrpx_1_1ConnectionHandler_acd2f0d9adc6b1c8c18fd9bb3732448f0} 
+const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1TicketKeys}{Ticket\+Keys}} $>$ \& {\bfseries get\+\_\+ticket\+\_\+keys} () const
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_ab281c61d287dc7b0f4472620c55d9932}\label{classshrpx_1_1ConnectionHandler_ab281c61d287dc7b0f4472620c55d9932} 
+struct ev\+\_\+loop \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+loop} () const
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_abb55c6d78870f42032514065e5e4b450}\label{classshrpx_1_1ConnectionHandler_abb55c6d78870f42032514065e5e4b450} 
+\mbox{\hyperlink{classshrpx_1_1Worker}{Worker}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+single\+\_\+worker} () const
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_ad413fb2b0f3e5cb7db100bcb619fbbca}\label{classshrpx_1_1ConnectionHandler_ad413fb2b0f3e5cb7db100bcb619fbbca} 
+void {\bfseries add\+\_\+acceptor} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classshrpx_1_1AcceptHandler}{Accept\+Handler}} $>$ h)
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_aa47c844000e721d431b4dde664d40a9e}\label{classshrpx_1_1ConnectionHandler_aa47c844000e721d431b4dde664d40a9e} 
+void {\bfseries delete\+\_\+acceptor} ()
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_aeac812ec079d167e246f1423bf286084}\label{classshrpx_1_1ConnectionHandler_aeac812ec079d167e246f1423bf286084} 
+void {\bfseries enable\+\_\+acceptor} ()
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_ad8b892ef8462037db73f8ef3ad3d3414}\label{classshrpx_1_1ConnectionHandler_ad8b892ef8462037db73f8ef3ad3d3414} 
+void {\bfseries disable\+\_\+acceptor} ()
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_ac630e45c738cd2d35de1b9a91f531278}\label{classshrpx_1_1ConnectionHandler_ac630e45c738cd2d35de1b9a91f531278} 
+void {\bfseries sleep\+\_\+acceptor} (ev\+\_\+tstamp t)
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a89eb159bb69f6d4937125f80d3f260a9}\label{classshrpx_1_1ConnectionHandler_a89eb159bb69f6d4937125f80d3f260a9} 
+void {\bfseries accept\+\_\+pending\+\_\+connection} ()
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_ae6c30c035174c7180dda10c3dcccb634}\label{classshrpx_1_1ConnectionHandler_ae6c30c035174c7180dda10c3dcccb634} 
+void {\bfseries graceful\+\_\+shutdown\+\_\+worker} ()
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_af66abcc38071212cc541483fe3efc91f}\label{classshrpx_1_1ConnectionHandler_af66abcc38071212cc541483fe3efc91f} 
+void {\bfseries set\+\_\+graceful\+\_\+shutdown} (bool f)
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a2afc5a983ee2e05c7d9cf8952cacf613}\label{classshrpx_1_1ConnectionHandler_a2afc5a983ee2e05c7d9cf8952cacf613} 
+bool {\bfseries get\+\_\+graceful\+\_\+shutdown} () const
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_ac5b30cb91c38cb063dafa073af2b6f42}\label{classshrpx_1_1ConnectionHandler_ac5b30cb91c38cb063dafa073af2b6f42} 
+void {\bfseries join\+\_\+worker} ()
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a31f471921c089af4fd231dc323d26c17}\label{classshrpx_1_1ConnectionHandler_a31f471921c089af4fd231dc323d26c17} 
+void {\bfseries cancel\+\_\+ocsp\+\_\+update} ()
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_ac0cc6822687462640fb7e59865180e0f}\label{classshrpx_1_1ConnectionHandler_ac0cc6822687462640fb7e59865180e0f} 
+int {\bfseries start\+\_\+ocsp\+\_\+update} (const char \texorpdfstring{$\ast$}{*}cert\+\_\+file)
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_abbc49a2dc7ed353414f6a78868c9b9ff}\label{classshrpx_1_1ConnectionHandler_abbc49a2dc7ed353414f6a78868c9b9ff} 
+void {\bfseries read\+\_\+ocsp\+\_\+chunk} ()
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a4e48b613f7dde7f9fb7775d71ecd2189}\label{classshrpx_1_1ConnectionHandler_a4e48b613f7dde7f9fb7775d71ecd2189} 
+void {\bfseries handle\+\_\+ocsp\+\_\+complete} ()
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a6539b18398ba4ef1dd9df24b8d88fe9b}\label{classshrpx_1_1ConnectionHandler_a6539b18398ba4ef1dd9df24b8d88fe9b} 
+void {\bfseries reset\+\_\+ocsp} ()
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a4170657cf7064c1cd77ee7201303f355}\label{classshrpx_1_1ConnectionHandler_a4170657cf7064c1cd77ee7201303f355} 
+void {\bfseries proceed\+\_\+next\+\_\+cert\+\_\+ocsp} ()
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a0218132f80e1673488a35ed4230a7c6f}\label{classshrpx_1_1ConnectionHandler_a0218132f80e1673488a35ed4230a7c6f} 
+void {\bfseries set\+\_\+tls\+\_\+ticket\+\_\+key\+\_\+memcached\+\_\+dispatcher} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classshrpx_1_1MemcachedDispatcher}{Memcached\+Dispatcher}} $>$ dispatcher)
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a2caab88ee05a657a9e8eea5c265ee433}\label{classshrpx_1_1ConnectionHandler_a2caab88ee05a657a9e8eea5c265ee433} 
+\mbox{\hyperlink{classshrpx_1_1MemcachedDispatcher}{Memcached\+Dispatcher}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+tls\+\_\+ticket\+\_\+key\+\_\+memcached\+\_\+dispatcher} () const
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_aa3b3eabc0af5ccca59048c9ba3919624}\label{classshrpx_1_1ConnectionHandler_aa3b3eabc0af5ccca59048c9ba3919624} 
+void {\bfseries on\+\_\+tls\+\_\+ticket\+\_\+key\+\_\+network\+\_\+error} (ev\+\_\+timer \texorpdfstring{$\ast$}{*}w)
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a387db7359d42988ea2ba0a94442cdd41}\label{classshrpx_1_1ConnectionHandler_a387db7359d42988ea2ba0a94442cdd41} 
+void {\bfseries on\+\_\+tls\+\_\+ticket\+\_\+key\+\_\+not\+\_\+found} (ev\+\_\+timer \texorpdfstring{$\ast$}{*}w)
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_ac39031e502f916483bf2f91d7542fdb2}\label{classshrpx_1_1ConnectionHandler_ac39031e502f916483bf2f91d7542fdb2} 
+void {\bfseries on\+\_\+tls\+\_\+ticket\+\_\+key\+\_\+get\+\_\+success} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1TicketKeys}{Ticket\+Keys}} $>$ \&ticket\+\_\+keys, ev\+\_\+timer \texorpdfstring{$\ast$}{*}w)
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a4efb5a14812a81ee55b3890fc560b759}\label{classshrpx_1_1ConnectionHandler_a4efb5a14812a81ee55b3890fc560b759} 
+void {\bfseries schedule\+\_\+next\+\_\+tls\+\_\+ticket\+\_\+key\+\_\+memcached\+\_\+get} (ev\+\_\+timer \texorpdfstring{$\ast$}{*}w)
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a43f01bc30475575691a7fc5b0eb9068c}\label{classshrpx_1_1ConnectionHandler_a43f01bc30475575691a7fc5b0eb9068c} 
+SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*} {\bfseries create\+\_\+tls\+\_\+ticket\+\_\+key\+\_\+memcached\+\_\+ssl\+\_\+ctx} ()
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_aa14d4714f50fb9d58f5b62a9b7055d3a}\label{classshrpx_1_1ConnectionHandler_aa14d4714f50fb9d58f5b62a9b7055d3a} 
+SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+ssl\+\_\+ctx} (size\+\_\+t idx) const
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_ad71883175a90d9dcada0e0f4a8f1b3ac}\label{classshrpx_1_1ConnectionHandler_ad71883175a90d9dcada0e0f4a8f1b3ac} 
+const std\+::vector$<$ SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*} $>$ \& {\bfseries get\+\_\+indexed\+\_\+ssl\+\_\+ctx} (size\+\_\+t idx) const
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a49fd818be7c44ddb959dcbc0cd506d2f}\label{classshrpx_1_1ConnectionHandler_a49fd818be7c44ddb959dcbc0cd506d2f} 
+void {\bfseries send\+\_\+replace\+\_\+downstream} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1DownstreamConfig}{Downstream\+Config}} $>$ \&downstreamconf)
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_aa1b047ea3954c9dfb7e4767aa2bb322c}\label{classshrpx_1_1ConnectionHandler_aa1b047ea3954c9dfb7e4767aa2bb322c} 
+void {\bfseries send\+\_\+serial\+\_\+event} (\mbox{\hyperlink{structshrpx_1_1SerialEvent}{Serial\+Event}} ev)
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_ae862ca67083eb1eed8f192c8fa454db2}\label{classshrpx_1_1ConnectionHandler_ae862ca67083eb1eed8f192c8fa454db2} 
+void {\bfseries handle\+\_\+serial\+\_\+event} ()
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a4afa82d1e856aafbd2257576e0375776}\label{classshrpx_1_1ConnectionHandler_a4afa82d1e856aafbd2257576e0375776} 
+void {\bfseries worker\+\_\+replace\+\_\+downstream} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1DownstreamConfig}{Downstream\+Config}} $>$ downstreamconf)
+\item 
+\Hypertarget{classshrpx_1_1ConnectionHandler_a7ed6cce8cce4df26f66c11cf0a503c7a}\label{classshrpx_1_1ConnectionHandler_a7ed6cce8cce4df26f66c11cf0a503c7a} 
+void {\bfseries set\+\_\+enable\+\_\+acceptor\+\_\+on\+\_\+ocsp\+\_\+completion} (bool f)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+connection\+\_\+handler.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+connection\+\_\+handler.\+cc\end{DoxyCompactItemize}

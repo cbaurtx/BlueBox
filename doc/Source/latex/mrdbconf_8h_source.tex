@@ -1,0 +1,30 @@
+\doxysection{mrdbconf.\+h}
+\hypertarget{mrdbconf_8h_source}{}\label{mrdbconf_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/bin-\/debugger/tools/mrdb/mrdbconf.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/bin-\/debugger/tools/mrdb/mrdbconf.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ mrdbconf.h\ -\/\ mruby\ debugger\ configuration}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**}}
+\DoxyCodeLine{00004\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ MRDBCONF\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ MRDBCONF\_H}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ MRB\_USE\_DEBUG\_HOOK}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#\ error\ mruby-\/bin-\/debugger\ need\ 'MRB\_USE\_DEBUG\_HOOK'\ in\ your\ build\ configuration}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifdef\ MRB\_NO\_STDIO}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#\ error\ mruby-\/bin-\/debugger\ conflicts\ 'MRB\_NO\_STDIO'\ in\ your\ build\ configuration}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{/*\ configuration\ options:\ */}}
+\DoxyCodeLine{00018\ \textcolor{comment}{/*\ maximum\ size\ for\ command\ buffer\ */}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ MAX\_COMMAND\_LINE\ 1024}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{/*\ maximum\ number\ of\ setable\ breakpoint\ */}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ MAX\_BREAKPOINT\ 5}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

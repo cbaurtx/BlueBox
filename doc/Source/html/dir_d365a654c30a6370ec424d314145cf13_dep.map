@@ -1,0 +1,14 @@
+<map id="managed_components/espressif__nghttp/nghttp2/third&#45;party" name="managed_components/espressif__nghttp/nghttp2/third&#45;party">
+<area shape="rect" id="node2" href="dir_a751cff038502cf36796791fd6ea90fe.html" title="llhttp" alt="" coords="141,64,190,91"/>
+<area shape="rect" id="node3" href="dir_4a0084ee008364f63e38d9949a84d0ce.html" title="mruby" alt="" coords="227,139,285,165"/>
+<area shape="poly" id="edge1" href="dir_000192_000235.html" alt="" coords="182,89,231,129,226,129,180,94"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000192_000235.html" title="2" alt="" coords="228,112,235,128"/>
+<area shape="rect" id="node4" href="dir_efc3d0a136386add3ec4f1e1c9425c76.html" title="neverbleed" alt="" coords="214,64,298,91"/>
+<area shape="poly" id="edge2" href="dir_000295_000235.html" alt="" coords="258,89,258,124,254,122,254,93"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000295_000235.html" title="2" alt="" coords="261,112,268,128"/>
+<area shape="rect" id="node5" href="dir_7a299fc58a715819cc6c0a8a56e40133.html" title="urlparse" alt="" coords="322,64,390,91"/>
+<area shape="poly" id="edge3" href="dir_000406_000235.html" alt="" coords="341,90,287,132,285,127,336,92"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000406_000235.html" title="12" alt="" coords="286,126,300,142"/>
+<area shape="rect" id="clust2" href="dir_d365a654c30a6370ec424d314145cf13.html" alt="" coords="27,53,400,176"/>
+<area shape="rect" id="clust1" href="dir_f5d6b1fa1b969a5a23fe8a389f280561.html" title="nghttp2" alt="" coords="16,16,411,187"/>
+</map>

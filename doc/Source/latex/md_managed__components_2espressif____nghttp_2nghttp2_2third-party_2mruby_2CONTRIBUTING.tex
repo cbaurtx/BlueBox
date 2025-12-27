@@ -1,0 +1,148 @@
+\chapter{How to contribute }
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING}{}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING}\index{How to contribute@{How to contribute}}
+\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md263}%
+\Hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md263}%
+
+
+mruby is an open-\/source project which is looking forward to each contribution. Contributors agree to license their contribution(s) under MIT license.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md264}{}\doxysection{\texorpdfstring{Your Pull Request}{Your Pull Request}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md264}
+To make it easy to review and understand your change please keep the following things in mind before submitting your pull request\+:
+
+
+\begin{DoxyItemize}
+\item Work on the latest possible state of {\bfseries{mruby/master}}
+\item Create a branch which is dedicated to your change
+\item Test your changes before creating a pull request ({\ttfamily rake test})
+\item If possible write a test case which confirms your change
+\item Don\textquotesingle{}t mix several features or bug-\/fixes in one pull request
+\item Create a meaningful commit message
+\item Explain your change (i.\+e. with a link to the issue you are fixing)
+\item Use mrbgem to provide non ISO features (classes, modules and methods) unless you have a special reason to implement them in the core
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md265}{}\doxysection{\texorpdfstring{pre-\/commit}{pre-\/commit}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md265}
+A framework for managing and maintaining multi-\/language {\ttfamily pre-\/commit} hooks. {\ttfamily pre-\/commit} can be \href{https://pre-commit.com/\#installation}{\texttt{installed}} with {\ttfamily pip}, {\ttfamily curl}, {\ttfamily brew} or {\ttfamily conda}.
+
+You need to first install {\ttfamily pre-\/commit} and then install the {\ttfamily pre-\/commit} hooks with {\ttfamily pre-\/commit install}. Now {\ttfamily pre-\/commit} will run automatically on git commit!
+
+It\textquotesingle{}s usually a good idea to run the hooks against all the files when adding new hooks (usually {\ttfamily pre-\/commit} will only run on the changed files during git hooks). Use {\ttfamily pre-\/commit run -\/-\/all-\/files} to check all files.
+
+To run a single hook use {\ttfamily pre-\/commit run -\/-\/all-\/files \texorpdfstring{$<$}{<}hook\+\_\+id\texorpdfstring{$>$}{>}}
+
+To update use {\ttfamily pre-\/commit autoupdate}
+
+Sometimes you might need to skip one or more hooks which can be done with the {\ttfamily SKIP} environment variable.
+
+{\ttfamily \$ SKIP=yamllint git commit -\/m "{}foo"{}}
+
+For convenience, we have added {\ttfamily pre-\/commit run -\/-\/all-\/files}, {\ttfamily pre-\/commit install} and {\ttfamily pre-\/commit autoupdate} to both the Makefile and the Rakefile. Run them with\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily make check} or {\ttfamily rake check}
+\item {\ttfamily make checkinstall} or {\ttfamily rake checkinstall}
+\item {\ttfamily make checkupdate} or {\ttfamily rake checkupdate}
+\end{DoxyItemize}
+
+To configure {\ttfamily pre-\/commit} you can modify the config file \href{.pre-commit-config.yaml}{\texttt{.pre-\/commit-\/config.\+yaml}}. We use \href{.github/workflows/lint.yml}{\texttt{Git\+Hub Actions}} to run {\ttfamily pre-\/commit} on every pull request.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md266}{}\doxysubsection{\texorpdfstring{pre-\/commit quick links}{pre-\/commit quick links}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md266}
+
+\begin{DoxyItemize}
+\item \href{https://pre-commit.com/\#quick-start}{\texttt{Quick start}}
+\item \href{https://pre-commit.com/\#usage}{\texttt{Usage}}
+\item \href{https://pre-commit.com/\#pre-commit-autoupdate}{\texttt{pre-\/commit autoupdate}}
+\item \href{https://pre-commit.com/\#temporarily-disabling-hooks}{\texttt{Temporarily disabling hooks}}
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md267}{}\doxysection{\texorpdfstring{Docker}{Docker}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md267}
+We have both a {\ttfamily Dockerfile} and {\ttfamily docker-\/compose.\+yml} files in the repository root. You can run these with the command line or use \href{https://www.docker.com/products/docker-desktop/}{\texttt{Docker Desktop}}.
+
+The Docker image is running Debian bullseye with Ruby and Python installed. You can build the Docker image with\+:
+
+{\ttfamily \$ docker-\/compose build test}
+
+So far we just have one service\+: {\ttfamily test}. Running the default {\ttfamily docker-\/compose} command will create the Docker image, spin up a container and then build and run all mruby tests.
+
+The default {\ttfamily docker-\/compose} command is\+:
+
+{\ttfamily \$ docker-\/compose -\/p mruby run test}
+
+You can also use Make or Rake to run the default {\ttfamily docker-\/compose} command from above\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily make composetest}
+\item {\ttfamily rake composetest}
+\end{DoxyItemize}
+
+List your Docker images with\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ docker\ images}
+\DoxyCodeLine{REPOSITORY\ \ \ TAG\ \ \ \ \ \ \ IMAGE\ ID\ \ \ \ \ \ \ CREATED\ \ \ \ \ \ \ \ \ \ SIZE}
+\DoxyCodeLine{mruby-\/test\ \ \ latest\ \ \ \ ec60f9536948\ \ \ 29\ seconds\ ago\ \ \ 1.29GB}
+
+\end{DoxyCode}
+
+
+You can also run any custom {\ttfamily docker-\/compose} command which will override the default. For example to run {\ttfamily pre-\/commit run -\/-\/all-\/files} type\+:
+
+{\ttfamily \$ docker-\/compose -\/p mruby run test pre-\/commit run -\/-\/all-\/files}
+
+For convenience, you can also run {\ttfamily pre-\/commit} with\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily make composecheck}
+\item {\ttfamily rake composecheck}
+\end{DoxyItemize}
+
+The bonus of running {\ttfamily pre-\/commit} with {\ttfamily docker-\/compose} is that you won\textquotesingle{}t need to install {\ttfamily pre-\/commit} and the hooks on your local machine. And that also means you won\textquotesingle{}t need to install {\ttfamily brew}, {\ttfamily conda} or {\ttfamily pip}.
+
+Note limitation\+: currently running {\ttfamily pre-\/commit} with {\ttfamily docker-\/compose} we skip the {\ttfamily check-\/executables-\/have-\/shebangs} hook.
+
+Two more examples of custom {\ttfamily docker-\/compose} commands are\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \$ docker-\/compose -\/p mruby run test ls}
+\item {\ttfamily \$ docker-\/compose -\/p mruby run test rake doc\+:api}
+\end{DoxyItemize}
+
+If you want to test using a different {\ttfamily docker-\/compose} YAML config file you can use the {\ttfamily -\/f} flag\+:
+
+{\ttfamily \$ docker-\/compose -\/p mruby -\/f docker-\/compose.\+test.\+yml run test}
+
+
+\begin{DoxyItemize}
+\item \href{https://docs.docker.com/compose/}{\texttt{https\+://docs.\+docker.\+com/compose/}}
+\item \href{https://docs.docker.com/engine/reference/commandline/cli/}{\texttt{https\+://docs.\+docker.\+com/engine/reference/commandline/cli/}}
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md268}{}\doxysection{\texorpdfstring{Spell Checking}{Spell Checking}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md268}
+We are using {\ttfamily pre-\/commit} to run \href{https://github.com/codespell-project/codespell}{\texttt{codespell}} to check code for common misspellings. We have a small custom dictionary file \href{codespell.txt}{\texttt{codespell.\+txt}}.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md269}{}\doxysection{\texorpdfstring{Coding conventions}{Coding conventions}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md269}
+How to style your C and Ruby code which you want to submit.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md270}{}\doxysubsection{\texorpdfstring{C code}{C code}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md270}
+The core part (parser, bytecode-\/interpreter, core-\/lib, etc.) of mruby is written in the C programming language. Please note the following hints for your C code\+:\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md271}{}\doxysubsubsection{\texorpdfstring{Comply with C99 (ISO/\+IEC 9899\+:1999)}{Comply with C99 (ISO/\+IEC 9899\+:1999)}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md271}
+mruby should be highly portable to other systems and compilers. For this it is recommended to keep your code as close as possible to the C99 standard (\href{http://www.open-std.org/jtc1/sc22/WG14/www/docs/n1256.pdf}{\texttt{http\+://www.\+open-\/std.\+org/jtc1/sc22/\+WG14/www/docs/n1256.\+pdf}}).
+
+Visual C++ is also an important target for mruby (supported version is 2013 or later). For this reason features that are not supported by Visual C++ may not be used (e.\+g. {\ttfamily z} of {\ttfamily strftime()}).
+
+NOTE\+: Old GCC requires {\ttfamily -\/std=gnu99} option to enable C99 support.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md272}{}\doxysubsubsection{\texorpdfstring{Reduce library dependencies to a minimum}{Reduce library dependencies to a minimum}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md272}
+The dependencies to libraries should be kept to an absolute minimum. This increases the portability but makes it also easier to cut away parts of mruby on-\/demand.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md273}{}\doxysubsubsection{\texorpdfstring{Insert a break after the function return value\+:}{Insert a break after the function return value\+:}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md273}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}}
+\DoxyCodeLine{main(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md274}{}\doxysubsection{\texorpdfstring{Ruby code}{Ruby code}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md274}
+Parts of the standard library of mruby are written in the Ruby programming language itself. Please note the following hints for your Ruby code\+:\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md275}{}\doxysubsubsection{\texorpdfstring{Comply with the Ruby standard (ISO/\+IEC 30170\+:2012)}{Comply with the Ruby standard (ISO/\+IEC 30170\+:2012)}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md275}
+mruby is currently targeting to execute Ruby code which complies to ISO/\+IEC 30170\+:2012 (\href{https://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=59579}{\texttt{https\+://www.\+iso.\+org/iso/iso\+\_\+catalogue/catalogue\+\_\+tc/catalogue\+\_\+detail.\+htm?csnumber=59579}}), unless there\textquotesingle{}s a clear reason, e.\+g. the latest Ruby has changed behavior from ISO.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md276}{}\doxysection{\texorpdfstring{Building documentation}{Building documentation}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md276}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md277}{}\doxysubsection{\texorpdfstring{mruby API}{mruby API}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md277}
+
+\begin{DoxyItemize}
+\item \href{https://yardoc.org/}{\texttt{YARD}} -\/ YARD is a documentation generation tool for the Ruby programming language
+\item \href{https://rubygems.org/gems/yard-mruby}{\texttt{yard-\/mruby}} -\/ Document mruby sources with YARD
+\item \href{https://rubygems.org/gems/yard-coderay}{\texttt{yard-\/coderay}} -\/ Adds coderay syntax highlighting to YARD docs
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md278}{}\doxysubsection{\texorpdfstring{C API}{C API}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2CONTRIBUTING_autotoc_md278}
+
+\begin{DoxyItemize}
+\item \href{https://www.doxygen.nl/}{\texttt{Doxygen}} -\/ Generate documentation from source code
+\item \href{https://graphviz.org/}{\texttt{Graphviz}} -\/ Graphviz is open source graph visualization software 
+\end{DoxyItemize}

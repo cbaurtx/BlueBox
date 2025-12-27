@@ -1,0 +1,122 @@
+\doxysection{irep.\+h}
+\hypertarget{irep_8h_source}{}\label{irep_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/irep.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/irep.h}}
+\mbox{\hyperlink{irep_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_IREP\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_IREP\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{common_8h}{common.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{compile_8h}{mruby/compile.h}}>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00016\ \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\_BEGIN\_DECL}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{irep_8h_ad3d57b021c4c2292cb2f5f7f2c4241d8}{irep\_pool\_type}}\ \{}
+\DoxyCodeLine{00019\ \ \ IREP\_TT\_STR\ \ \ =\ 0,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ string\ (need\ free)\ */}}
+\DoxyCodeLine{00020\ \ \ IREP\_TT\_SSTR\ \ =\ 2,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ string\ (static)\ */}}
+\DoxyCodeLine{00021\ \ \ IREP\_TT\_INT32\ =\ 1,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 32bit\ integer\ */}}
+\DoxyCodeLine{00022\ \ \ IREP\_TT\_INT64\ =\ 3,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 64bit\ integer\ */}}
+\DoxyCodeLine{00023\ \ \ IREP\_TT\_BIGINT\ =\ 7,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ big\ integer\ (not\ yet\ supported)\ */}}
+\DoxyCodeLine{00024\ \ \ IREP\_TT\_FLOAT\ =\ 5,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ float\ (double/float)\ */}}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ IREP\_TT\_NFLAG\ 1\ \ \ \ \ \ \ }\textcolor{comment}{/*\ number\ (non\ string)\ flag\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ IREP\_TT\_SFLAG\ 2\ \ \ \ \ \ \ }\textcolor{comment}{/*\ static\ string\ flag\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__pool__value}{mrb\_pool\_value}}\ \{}
+\DoxyCodeLine{00031\ \ \ uint32\_t\ tt;\ \ \ \ \ \textcolor{comment}{/*\ packed\ type\ and\ length\ (for\ string)\ */}}
+\DoxyCodeLine{00032\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str;}
+\DoxyCodeLine{00034\ \ \ \ \ int32\_t\ i32;}
+\DoxyCodeLine{00035\ \ \ \ \ int64\_t\ i64;}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#ifndef\ MRB\_NO\_FLOAT}}
+\DoxyCodeLine{00037\ \ \ \ \ mrb\_float\ f;}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00039\ \ \ \}\ u;}
+\DoxyCodeLine{00040\ \}\ \mbox{\hyperlink{structmrb__pool__value}{mrb\_pool\_value}};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{enum}\ mrb\_catch\_type\ \{}
+\DoxyCodeLine{00043\ \ \ MRB\_CATCH\_RESCUE\ =\ 0,}
+\DoxyCodeLine{00044\ \ \ MRB\_CATCH\_ENSURE\ =\ 1,}
+\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__irep__catch__handler}{mrb\_irep\_catch\_handler}}\ \{}
+\DoxyCodeLine{00048\ \ \ uint8\_t\ type;\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ enum\ mrb\_catch\_type\ */}}
+\DoxyCodeLine{00049\ \ \ uint8\_t\ begin[4];\ \ \ \ \ \textcolor{comment}{/*\ The\ starting\ address\ to\ match\ the\ handler.\ Includes\ this.\ */}}
+\DoxyCodeLine{00050\ \ \ uint8\_t\ end[4];\ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ endpoint\ address\ that\ matches\ the\ handler.\ Not\ Includes\ this.\ */}}
+\DoxyCodeLine{00051\ \ \ uint8\_t\ target[4];\ \ \ \ \textcolor{comment}{/*\ The\ address\ to\ jump\ to\ if\ a\ match\ is\ made.\ */}}
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{/*\ Program\ data\ array\ struct\ */}}
+\DoxyCodeLine{00055\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__irep}{mrb\_irep}}\ \{}
+\DoxyCodeLine{00056\ \ \ uint16\_t\ nlocals;\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Number\ of\ local\ variables\ */}}
+\DoxyCodeLine{00057\ \ \ uint16\_t\ nregs;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Number\ of\ register\ variables\ */}}
+\DoxyCodeLine{00058\ \ \ uint16\_t\ clen;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Number\ of\ catch\ handlers\ */}}
+\DoxyCodeLine{00059\ \ \ uint8\_t\ flags;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{mruby_8h_a9ecf6ce1e2166ff92259de77767bd930}{mrb\_code}}\ *iseq;}
+\DoxyCodeLine{00062\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ \ \ *\ A\ catch\ handler\ table\ is\ placed\ after\ the\ iseq\ entity.}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ \ \ *\ The\ reason\ it\ doesn't\ add\ fields\ to\ the\ structure\ is\ to\ keep\ the\ mrb\_irep\ structure\ from\ bloating.}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ \ *\ The\ catch\ handler\ table\ can\ be\ obtained\ with\ \`{}mrb\_irep\_catch\_handler\_table(irep)`.}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00067\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structmrb__pool__value}{mrb\_pool\_value}}\ *pool;}
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}}\ *syms;}
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__irep}{mrb\_irep}}\ *\ \textcolor{keyword}{const}\ *reps;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}}\ *lv;}
+\DoxyCodeLine{00072\ \ \ \textcolor{comment}{/*\ debug\ info\ */}}
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__irep__debug__info}{mrb\_irep\_debug\_info}}*\ debug\_info;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ uint32\_t\ ilen;}
+\DoxyCodeLine{00076\ \ \ uint16\_t\ plen,\ slen;}
+\DoxyCodeLine{00077\ \ \ uint16\_t\ rlen;}
+\DoxyCodeLine{00078\ \ \ uint16\_t\ refcnt;}
+\DoxyCodeLine{00079\ \};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ MRB\_ISEQ\_NO\_FREE\ 1}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ MRB\_IREP\_NO\_FREE\ 2}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ MRB\_IREP\_STATIC\ \ (MRB\_ISEQ\_NO\_FREE\ |\ MRB\_IREP\_NO\_FREE)}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}\ *mrb\_add\_irep(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{comment}{/*\ @param\ [const\ uint8\_t*]\ irep\ code,\ expected\ as\ a\ literal\ */}}
+\DoxyCodeLine{00098\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \mbox{\hyperlink{irep_8h_ae475539d91a851dccce4d9e4aa5fa1ee}{mrb\_load\_irep}}(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{const}\ uint8\_t*);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ *\ @param\ [const\ void*]\ irep\ code}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ *\ @param\ [size\_t]\ size\ of\ irep\ buffer.}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00104\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_load\_irep\_buf(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*,\ \textcolor{keywordtype}{size\_t});}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{comment}{/*\ @param\ [const\ uint8\_t*]\ irep\ code,\ expected\ as\ a\ literal\ */}}
+\DoxyCodeLine{00107\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_load\_irep\_cxt(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{const}\ uint8\_t*,\ \mbox{\hyperlink{structmrb__ccontext}{mrb\_ccontext}}*);}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ *\ @param\ [const\ void*]\ irep\ code}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ *\ @param\ [size\_t]\ size\ of\ irep\ buffer.}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00113\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_load\_irep\_buf\_cxt(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*,\ \textcolor{keywordtype}{size\_t},\ \mbox{\hyperlink{structmrb__ccontext}{mrb\_ccontext}}*);}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__insn__data}{mrb\_insn\_data}}\ \{}
+\DoxyCodeLine{00116\ \ \ uint8\_t\ insn;}
+\DoxyCodeLine{00117\ \ \ uint32\_t\ a;}
+\DoxyCodeLine{00118\ \ \ uint16\_t\ b;}
+\DoxyCodeLine{00119\ \ \ uint16\_t\ c;}
+\DoxyCodeLine{00120\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{mruby_8h_a9ecf6ce1e2166ff92259de77767bd930}{mrb\_code}}\ *addr;}
+\DoxyCodeLine{00121\ \};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ mrb\_irep\_catch\_handler\_pack(n,\ v)\ \ \ uint32\_to\_bin(n,\ v)}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ mrb\_irep\_catch\_handler\_unpack(v)\ \ \ \ bin\_to\_uint32(v)}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{keywordtype}{void}\ mrb\_irep\_incref(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}*);}
+\DoxyCodeLine{00127\ \textcolor{keywordtype}{void}\ mrb\_irep\_decref(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}*);}
+\DoxyCodeLine{00128\ \textcolor{keywordtype}{void}\ mrb\_irep\_cutref(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}*);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \mbox{\hyperlink{common_8h_a7e9674ff871a8abbcaf9ba23fa4b72d3}{MRB\_END\_DECL}}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_IREP\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,580 @@
+\doxysection{munit.\+h}
+\hypertarget{tests_2munit_2munit_8h_source}{}\label{tests_2munit_2munit_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/tests/munit/munit.h@{managed\_components/espressif\_\_nghttp/nghttp2/tests/munit/munit.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ µnit\ Testing\ Framework}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2013-\/2017\ Evan\ Nemerson\ <evan@nemerson.com>}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ obtaining\ a\ copy\ of\ this\ software\ and\ associated\ documentation}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ files\ (the\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ restriction,\ including\ without\ limitation\ the\ rights\ to\ use,\ copy,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ and/or\ sell\ copies}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ SOFTWARE.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ MUNIT\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ MUNIT\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <stdarg.h>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ MUNIT\_VERSION(major,\ minor,\ revision)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\ \ (((major)\ <<\ 16)\ |\ ((minor)\ <<\ 8)\ |\ (revision))}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ MUNIT\_CURRENT\_VERSION\ MUNIT\_VERSION(0,\ 4,\ 1)}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#if\ defined(\_MSC\_VER)\ \&\&\ (\_MSC\_VER\ <\ 1600)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#\ \ define\ munit\_int8\_t\ \_\_int8}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#\ \ define\ munit\_uint8\_t\ unsigned\ \_\_int8}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#\ \ define\ munit\_int16\_t\ \_\_int16}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#\ \ define\ munit\_uint16\_t\ unsigned\ \_\_int16}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#\ \ define\ munit\_int32\_t\ \_\_int32}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#\ \ define\ munit\_uint32\_t\ unsigned\ \_\_int32}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#\ \ define\ munit\_int64\_t\ \_\_int64}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#\ \ define\ munit\_uint64\_t\ unsigned\ \_\_int64}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#\ \ include\ <stdint.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#\ \ define\ munit\_int8\_t\ int8\_t}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#\ \ define\ munit\_uint8\_t\ uint8\_t}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#\ \ define\ munit\_int16\_t\ int16\_t}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#\ \ define\ munit\_uint16\_t\ uint16\_t}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#\ \ define\ munit\_int32\_t\ int32\_t}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#\ \ define\ munit\_uint32\_t\ uint32\_t}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#\ \ define\ munit\_int64\_t\ int64\_t}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#\ \ define\ munit\_uint64\_t\ uint64\_t}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#if\ defined(\_MSC\_VER)\ \&\&\ (\_MSC\_VER\ <\ 1800)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#\ \ if\ !defined(PRIi8)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#\ \ \ \ define\ PRIi8\ "{}i"{}}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#\ \ if\ !defined(PRIi16)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#\ \ \ \ define\ PRIi16\ "{}i"{}}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#\ \ if\ !defined(PRIi32)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#\ \ \ \ define\ PRIi32\ "{}i"{}}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#\ \ if\ !defined(PRIi64)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#\ \ \ \ define\ PRIi64\ "{}I64i"{}}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#\ \ if\ !defined(PRId8)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#\ \ \ \ define\ PRId8\ "{}d"{}}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#\ \ if\ !defined(PRId16)}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#\ \ \ \ define\ PRId16\ "{}d"{}}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#\ \ if\ !defined(PRId32)}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#\ \ \ \ define\ PRId32\ "{}d"{}}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#\ \ if\ !defined(PRId64)}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#\ \ \ \ define\ PRId64\ "{}I64d"{}}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#\ \ if\ !defined(PRIx8)}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#\ \ \ \ define\ PRIx8\ "{}x"{}}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#\ \ if\ !defined(PRIx16)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#\ \ \ \ define\ PRIx16\ "{}x"{}}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#\ \ if\ !defined(PRIx32)}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#\ \ \ \ define\ PRIx32\ "{}x"{}}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#\ \ if\ !defined(PRIx64)}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#\ \ \ \ define\ PRIx64\ "{}I64x"{}}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#\ \ if\ !defined(PRIu8)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#\ \ \ \ define\ PRIu8\ "{}u"{}}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#\ \ if\ !defined(PRIu16)}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#\ \ \ \ define\ PRIu16\ "{}u"{}}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#\ \ if\ !defined(PRIu32)}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#\ \ \ \ define\ PRIu32\ "{}u"{}}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#\ \ if\ !defined(PRIu64)}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#\ \ \ \ define\ PRIu64\ "{}I64u"{}}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#\ \ include\ <inttypes.h>}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#if\ !defined(munit\_bool)}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#\ \ if\ defined(bool)}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#\ \ \ \ define\ munit\_bool\ bool}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#\ \ elif\ defined(\_\_STDC\_VERSION\_\_)\ \&\&\ (\_\_STDC\_VERSION\_\_\ >=\ 199901L)}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#\ \ \ \ define\ munit\_bool\ \_Bool}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#\ \ else}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#\ \ \ \ define\ munit\_bool\ int}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#if\ defined(\_\_cplusplus)}}
+\DoxyCodeLine{00123\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#if\ defined(\_\_GNUC\_\_)}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_LIKELY(expr)\ (\_\_builtin\_expect((expr),\ 1))}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_UNLIKELY(expr)\ (\_\_builtin\_expect((expr),\ 0))}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_UNUSED\ \_\_attribute\_\_((\_\_unused\_\_))}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_LIKELY(expr)\ (expr)}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_UNLIKELY(expr)\ (expr)}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_UNUSED}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#if\ !defined(\_WIN32)}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_SIZE\_MODIFIER\ "{}z"{}}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_CHAR\_MODIFIER\ "{}hh"{}}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_SHORT\_MODIFIER\ "{}h"{}}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#\ \ if\ defined(\_M\_X64)\ ||\ defined(\_\_amd64\_\_)}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#\ \ \ \ define\ MUNIT\_SIZE\_MODIFIER\ "{}I64"{}}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#\ \ else}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#\ \ \ \ define\ MUNIT\_SIZE\_MODIFIER\ "{}"{}}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_CHAR\_MODIFIER\ "{}"{}}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_SHORT\_MODIFIER\ "{}"{}}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#if\ defined(\_\_STDC\_VERSION\_\_)\ \&\&\ \_\_STDC\_VERSION\_\_\ >=\ 201112L}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_NO\_RETURN\ \_Noreturn}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#elif\ defined(\_\_GNUC\_\_)}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_NO\_RETURN\ \_\_attribute\_\_((\_\_noreturn\_\_))}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#elif\ defined(\_MSC\_VER)}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_NO\_RETURN\ \_\_declspec(noreturn)}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_NO\_RETURN}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#if\ defined(\_MSC\_VER)\ \&\&\ (\_MSC\_VER\ >=\ 1500)}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_PUSH\_DISABLE\_MSVC\_C4127\_\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\ \ \ \ \_\_pragma(warning(push))\ \_\_pragma(warning(disable\ :\ 4127))}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_POP\_DISABLE\_MSVC\_C4127\_\ \_\_pragma(warning(pop))}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_PUSH\_DISABLE\_MSVC\_C4127\_}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_POP\_DISABLE\_MSVC\_C4127\_}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00170\ \ \ MUNIT\_LOG\_DEBUG,}
+\DoxyCodeLine{00171\ \ \ MUNIT\_LOG\_INFO,}
+\DoxyCodeLine{00172\ \ \ MUNIT\_LOG\_WARNING,}
+\DoxyCodeLine{00173\ \ \ MUNIT\_LOG\_ERROR}
+\DoxyCodeLine{00174\ \}\ MunitLogLevel;}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#if\ defined(\_\_GNUC\_\_)\ \&\&\ !defined(\_\_MINGW32\_\_)}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_PRINTF(string\_index,\ first\_to\_check)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\ \ \ \ \_\_attribute\_\_((format(printf,\ string\_index,\ first\_to\_check)))}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#\ \ define\ MUNIT\_PRINTF(string\_index,\ first\_to\_check)}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ MUNIT\_PRINTF(4,\ 5)}
+\DoxyCodeLine{00184\ void\ munit\_logf\_ex(MunitLogLevel\ level,\ const\ \textcolor{keywordtype}{char}\ *filename,\ \textcolor{keywordtype}{int}\ line,}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\ \textcolor{keywordtype}{char}\ *format,\ ...);}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#define\ munit\_logf(level,\ format,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\ \ munit\_logf\_ex(level,\ \_\_FILE\_\_,\ \_\_LINE\_\_,\ format,\ \_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#define\ munit\_log(level,\ msg)\ munit\_logf(level,\ "{}\%s"{},\ msg)}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ MUNIT\_NO\_RETURN}
+\DoxyCodeLine{00193\ MUNIT\_PRINTF(3,\ 4)}
+\DoxyCodeLine{00194\ void\ munit\_errorf\_ex(const\ \textcolor{keywordtype}{char}\ *filename,\ \textcolor{keywordtype}{int}\ line,\ const\ \textcolor{keywordtype}{char}\ *format,\ ...);}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#define\ munit\_errorf(format,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\ \ munit\_errorf\_ex(\_\_FILE\_\_,\ \_\_LINE\_\_,\ format,\ \_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#define\ munit\_error(msg)\ munit\_errorf("{}\%s"{},\ msg)}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#define\ munit\_assert(expr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\ \ \ \ if\ (!MUNIT\_LIKELY(expr))\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\ \ \ \ \ \ munit\_error("{}assertion\ failed:\ "{}\ \#expr);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\ \ \ \ MUNIT\_PUSH\_DISABLE\_MSVC\_C4127\_\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\ \ \}\ while\ (0)\ MUNIT\_POP\_DISABLE\_MSVC\_C4127\_}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#define\ munit\_assert\_true(expr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\ \ \ \ if\ (!MUNIT\_LIKELY(expr))\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\ \ \ \ \ \ munit\_error("{}assertion\ failed:\ "{}\ \#expr\ "{}\ is\ not\ true"{});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\ \ \ \ MUNIT\_PUSH\_DISABLE\_MSVC\_C4127\_\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\ \ \}\ while\ (0)\ MUNIT\_POP\_DISABLE\_MSVC\_C4127\_}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\#define\ munit\_assert\_false(expr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\ \ \ \ if\ (!MUNIT\_LIKELY(!(expr)))\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\ \ \ \ \ \ munit\_error("{}assertion\ failed:\ "{}\ \#expr\ "{}\ is\ not\ false"{});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\ \ \ \ MUNIT\_PUSH\_DISABLE\_MSVC\_C4127\_\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\ \ \}\ while\ (0)\ MUNIT\_POP\_DISABLE\_MSVC\_C4127\_}}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#define\ munit\_assert\_type\_full(prefix,\ suffix,\ T,\ fmt,\ a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\ \ \ \ T\ munit\_tmp\_a\_\ =\ (a);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\ \ \ \ T\ munit\_tmp\_b\_\ =\ (b);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\ \ \ \ if\ (!(munit\_tmp\_a\_\ op\ munit\_tmp\_b\_))\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\ \ \ \ \ \ munit\_errorf("{}assertion\ failed:\ \%s\ \%s\ \%s\ ("{}\ prefix\ "{}\%"{}\ fmt\ suffix\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}\ \%s\ "{}\ prefix\ "{}\%"{}\ fmt\ suffix\ "{})"{},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#a,\ \#op,\ \#b,\ munit\_tmp\_a\_,\ \#op,\ munit\_tmp\_b\_);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\ \ \ \ MUNIT\_PUSH\_DISABLE\_MSVC\_C4127\_\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\ \ \}\ while\ (0)\ MUNIT\_POP\_DISABLE\_MSVC\_C4127\_}}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#define\ munit\_assert\_type(T,\ fmt,\ a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\ \ munit\_assert\_type\_full("{}"{},\ "{}"{},\ T,\ fmt,\ a,\ op,\ b)}}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#define\ munit\_assert\_char(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\ \ munit\_assert\_type\_full("{}'\(\backslash\)\(\backslash\)x"{},\ "{}'"{},\ char,\ "{}02"{}\ MUNIT\_CHAR\_MODIFIER\ "{}x"{},\ a,\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ op,\ b)}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#define\ munit\_assert\_uchar(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\ \ munit\_assert\_type\_full("{}'\(\backslash\)\(\backslash\)x"{},\ "{}'"{},\ unsigned\ char,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}02"{}\ MUNIT\_CHAR\_MODIFIER\ "{}x"{},\ a,\ op,\ b)}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#define\ munit\_assert\_short(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\ \ munit\_assert\_type(short,\ MUNIT\_SHORT\_MODIFIER\ "{}d"{},\ a,\ op,\ b)}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#define\ munit\_assert\_ushort(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\ \ munit\_assert\_type(unsigned\ short,\ MUNIT\_SHORT\_MODIFIER\ "{}u"{},\ a,\ op,\ b)}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#define\ munit\_assert\_int(a,\ op,\ b)\ munit\_assert\_type(int,\ "{}d"{},\ a,\ op,\ b)}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\#define\ munit\_assert\_uint(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\ \ munit\_assert\_type(unsigned\ int,\ "{}u"{},\ a,\ op,\ b)}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#define\ munit\_assert\_long(a,\ op,\ b)\ munit\_assert\_type(long\ int,\ "{}ld"{},\ a,\ op,\ b)}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#define\ munit\_assert\_ulong(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\ \ munit\_assert\_type(unsigned\ long\ int,\ "{}lu"{},\ a,\ op,\ b)}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\#define\ munit\_assert\_llong(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\ \ munit\_assert\_type(long\ long\ int,\ "{}lld"{},\ a,\ op,\ b)}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#define\ munit\_assert\_ullong(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\ \ munit\_assert\_type(unsigned\ long\ long\ int,\ "{}llu"{},\ a,\ op,\ b)}}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\#define\ munit\_assert\_size(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\ \ munit\_assert\_type(size\_t,\ MUNIT\_SIZE\_MODIFIER\ "{}u"{},\ a,\ op,\ b)}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\#define\ munit\_assert\_ssize(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\ \ munit\_assert\_type(ssize\_t,\ MUNIT\_SIZE\_MODIFIER\ "{}d"{},\ a,\ op,\ b)}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#define\ munit\_assert\_float(a,\ op,\ b)\ munit\_assert\_type(float,\ "{}f"{},\ a,\ op,\ b)}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#define\ munit\_assert\_double(a,\ op,\ b)\ munit\_assert\_type(double,\ "{}g"{},\ a,\ op,\ b)}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#define\ munit\_assert\_ptr(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\ \ munit\_assert\_type(const\ void\ *,\ "{}p"{},\ a,\ op,\ b)}}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\#define\ munit\_assert\_int8(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\ \ munit\_assert\_type(munit\_int8\_t,\ PRIi8,\ a,\ op,\ b)}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#define\ munit\_assert\_uint8(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\ \ munit\_assert\_type(munit\_uint8\_t,\ PRIu8,\ a,\ op,\ b)}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\#define\ munit\_assert\_int16(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\ \ munit\_assert\_type(munit\_int16\_t,\ PRIi16,\ a,\ op,\ b)}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\#define\ munit\_assert\_uint16(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\ \ munit\_assert\_type(munit\_uint16\_t,\ PRIu16,\ a,\ op,\ b)}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\#define\ munit\_assert\_int32(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\ \ munit\_assert\_type(munit\_int32\_t,\ PRIi32,\ a,\ op,\ b)}}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\#define\ munit\_assert\_uint32(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\ \ munit\_assert\_type(munit\_uint32\_t,\ PRIu32,\ a,\ op,\ b)}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\#define\ munit\_assert\_int64(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\ \ munit\_assert\_type(munit\_int64\_t,\ PRIi64,\ a,\ op,\ b)}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#define\ munit\_assert\_uint64(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\ \ munit\_assert\_type(munit\_uint64\_t,\ PRIu64,\ a,\ op,\ b)}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\#define\ munit\_assert\_ptrdiff(a,\ op,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\ \ munit\_assert\_type(ptrdiff\_t,\ "{}td"{},\ a,\ op,\ b)}}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#define\ munit\_assert\_enum(T,\ a,\ op,\ b)\ munit\_assert\_type(T,\ "{}d"{},\ a,\ op,\ b)}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#define\ munit\_assert\_double\_equal(a,\ b,\ precision)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\ \ \ \ const\ double\ munit\_tmp\_a\_\ =\ (a);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\ \ \ \ const\ double\ munit\_tmp\_b\_\ =\ (b);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\ \ \ \ const\ double\ munit\_tmp\_diff\_\ =\ ((munit\_tmp\_a\_\ -\/\ munit\_tmp\_b\_)\ <\ 0)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ -\/(munit\_tmp\_a\_\ -\/\ munit\_tmp\_b\_)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ (munit\_tmp\_a\_\ -\/\ munit\_tmp\_b\_);\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\ \ \ \ if\ (MUNIT\_UNLIKELY(munit\_tmp\_diff\_\ >\ 1e-\/\#\#precision))\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\ \ \ \ \ \ munit\_errorf("{}assertion\ failed:\ \%s\ ==\ \%s\ (\%0."{}\ \#precision\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}g\ ==\ \%0."{}\ \#precision\ "{}g)"{},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#a,\ \#b,\ munit\_tmp\_a\_,\ munit\_tmp\_b\_);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\ \ \ \ MUNIT\_PUSH\_DISABLE\_MSVC\_C4127\_\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\ \ \}\ while\ (0)\ MUNIT\_POP\_DISABLE\_MSVC\_C4127\_}}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{string_8h}{string.h}}>}}
+\DoxyCodeLine{00309\ \textcolor{preprocessor}{\#define\ munit\_assert\_string\_equal(a,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00311\ \textcolor{preprocessor}{\ \ \ \ const\ char\ *munit\_tmp\_a\_\ =\ a;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\ \ \ \ const\ char\ *munit\_tmp\_b\_\ =\ b;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00313\ \textcolor{preprocessor}{\ \ \ \ if\ (MUNIT\_UNLIKELY(strcmp(munit\_tmp\_a\_,\ munit\_tmp\_b\_)\ !=\ 0))\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\ \ \ \ \ \ munit\_hexdump\_diff(stderr,\ munit\_tmp\_a\_,\ strlen(munit\_tmp\_a\_),\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00315\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ munit\_tmp\_b\_,\ strlen(munit\_tmp\_b\_));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\ \ \ \ \ \ munit\_errorf("{}assertion\ failed:\ string\ \%s\ ==\ \%s\ (\(\backslash\)"{}\%s\(\backslash\)"{}\ ==\ \(\backslash\)"{}\%s\(\backslash\)"{})"{},\ \#a,\ \(\backslash\)}}
+\DoxyCodeLine{00317\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#b,\ munit\_tmp\_a\_,\ munit\_tmp\_b\_);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00318\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\ \ \ \ MUNIT\_PUSH\_DISABLE\_MSVC\_C4127\_\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\ \ \}\ while\ (0)\ MUNIT\_POP\_DISABLE\_MSVC\_C4127\_}}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#define\ munit\_assert\_string\_not\_equal(a,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\ \ \ \ const\ char\ *munit\_tmp\_a\_\ =\ a;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\ \ \ \ const\ char\ *munit\_tmp\_b\_\ =\ b;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\ \ \ \ if\ (MUNIT\_UNLIKELY(strcmp(munit\_tmp\_a\_,\ munit\_tmp\_b\_)\ ==\ 0))\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\ \ \ \ \ \ munit\_errorf("{}assertion\ failed:\ string\ \%s\ !=\ \%s\ (\(\backslash\)"{}\%s\(\backslash\)"{}\ ==\ \(\backslash\)"{}\%s\(\backslash\)"{})"{},\ \#a,\ \(\backslash\)}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#b,\ munit\_tmp\_a\_,\ munit\_tmp\_b\_);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\ \ \ \ MUNIT\_PUSH\_DISABLE\_MSVC\_C4127\_\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00331\ \textcolor{preprocessor}{\ \ \}\ while\ (0)\ MUNIT\_POP\_DISABLE\_MSVC\_C4127\_}}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\#define\ munit\_assert\_memory\_equal(size,\ a,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00335\ \textcolor{preprocessor}{\ \ \ \ const\ unsigned\ char\ *munit\_tmp\_a\_\ =\ (const\ unsigned\ char\ *)(a);\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00336\ \textcolor{preprocessor}{\ \ \ \ const\ unsigned\ char\ *munit\_tmp\_b\_\ =\ (const\ unsigned\ char\ *)(b);\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\ \ \ \ const\ size\_t\ munit\_tmp\_size\_\ =\ (size);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\ \ \ \ if\ (MUNIT\_UNLIKELY(memcmp(munit\_tmp\_a\_,\ munit\_tmp\_b\_,\ munit\_tmp\_size\_))\ !=\ \(\backslash\)}}
+\DoxyCodeLine{00339\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ 0)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\ \ \ \ \ \ size\_t\ munit\_tmp\_pos\_;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00341\ \textcolor{preprocessor}{\ \ \ \ \ \ for\ (munit\_tmp\_pos\_\ =\ 0;\ munit\_tmp\_pos\_\ <\ munit\_tmp\_size\_;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ munit\_tmp\_pos\_++)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00343\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (munit\_tmp\_a\_[munit\_tmp\_pos\_]\ !=\ munit\_tmp\_b\_[munit\_tmp\_pos\_])\ \{\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00344\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ munit\_hexdump\_diff(stderr,\ munit\_tmp\_a\_,\ size,\ munit\_tmp\_b\_,\ size);\ \ \(\backslash\)}}
+\DoxyCodeLine{00345\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ munit\_errorf("{}assertion\ failed:\ memory\ \%s\ ==\ \%s,\ at\ offset\ "{}\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00346\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}\%"{}\ MUNIT\_SIZE\_MODIFIER\ "{}u"{},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00347\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#a,\ \#b,\ munit\_tmp\_pos\_);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00348\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ break;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00350\ \textcolor{preprocessor}{\ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00351\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00352\ \textcolor{preprocessor}{\ \ \ \ MUNIT\_PUSH\_DISABLE\_MSVC\_C4127\_\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00353\ \textcolor{preprocessor}{\ \ \}\ while\ (0)\ MUNIT\_POP\_DISABLE\_MSVC\_C4127\_}}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \textcolor{preprocessor}{\#define\ munit\_assert\_memn\_equal(a,\ a\_size,\ b,\ b\_size)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00356\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00357\ \textcolor{preprocessor}{\ \ \ \ const\ unsigned\ char\ *munit\_tmp\_a\_\ =\ (const\ unsigned\ char\ *)(a);\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00358\ \textcolor{preprocessor}{\ \ \ \ const\ unsigned\ char\ *munit\_tmp\_b\_\ =\ (const\ unsigned\ char\ *)(b);\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00359\ \textcolor{preprocessor}{\ \ \ \ const\ size\_t\ munit\_tmp\_a\_size\_\ =\ (a\_size);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00360\ \textcolor{preprocessor}{\ \ \ \ const\ size\_t\ munit\_tmp\_b\_size\_\ =\ (b\_size);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00361\ \textcolor{preprocessor}{\ \ \ \ if\ (MUNIT\_UNLIKELY(munit\_tmp\_a\_size\_\ !=\ munit\_tmp\_b\_size\_)\ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00362\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ MUNIT\_UNLIKELY(munit\_tmp\_a\_size\_\ \&\&\ memcmp(munit\_tmp\_a\_,\ munit\_tmp\_b\_,\ \(\backslash\)}}
+\DoxyCodeLine{00363\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ munit\_tmp\_a\_size\_))\ !=\ 0)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\ \ \ \ \ \ munit\_hexdump\_diff(stderr,\ munit\_tmp\_a\_,\ munit\_tmp\_a\_size\_,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00365\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ munit\_tmp\_b\_,\ munit\_tmp\_b\_size\_);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00366\ \textcolor{preprocessor}{\ \ \ \ \ \ munit\_errorf("{}assertion\ failed:\ memory\ \%s\ ==\ \%s"{},\ \#a,\ \#b);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00367\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00368\ \textcolor{preprocessor}{\ \ \ \ MUNIT\_PUSH\_DISABLE\_MSVC\_C4127\_\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00369\ \textcolor{preprocessor}{\ \ \}\ while\ (0)\ MUNIT\_POP\_DISABLE\_MSVC\_C4127\_}}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \textcolor{preprocessor}{\#define\ munit\_assert\_memory\_not\_equal(size,\ a,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00373\ \textcolor{preprocessor}{\ \ \ \ const\ unsigned\ char\ *munit\_tmp\_a\_\ =\ (const\ unsigned\ char\ *)(a);\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00374\ \textcolor{preprocessor}{\ \ \ \ const\ unsigned\ char\ *munit\_tmp\_b\_\ =\ (const\ unsigned\ char\ *)(b);\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00375\ \textcolor{preprocessor}{\ \ \ \ const\ size\_t\ munit\_tmp\_size\_\ =\ (size);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00376\ \textcolor{preprocessor}{\ \ \ \ if\ (MUNIT\_UNLIKELY(memcmp(munit\_tmp\_a\_,\ munit\_tmp\_b\_,\ munit\_tmp\_size\_))\ ==\ \(\backslash\)}}
+\DoxyCodeLine{00377\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ 0)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00378\ \textcolor{preprocessor}{\ \ \ \ \ \ munit\_errorf("{}assertion\ failed:\ memory\ \%s\ !=\ \%s\ (\%zu\ bytes)"{},\ \#a,\ \#b,\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00379\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ munit\_tmp\_size\_);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00380\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00381\ \textcolor{preprocessor}{\ \ \ \ MUNIT\_PUSH\_DISABLE\_MSVC\_C4127\_\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00382\ \textcolor{preprocessor}{\ \ \}\ while\ (0)\ MUNIT\_POP\_DISABLE\_MSVC\_C4127\_}}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \textcolor{preprocessor}{\#define\ munit\_assert\_ptr\_equal(a,\ b)\ munit\_assert\_ptr(a,\ ==,\ b)}}
+\DoxyCodeLine{00385\ \textcolor{preprocessor}{\#define\ munit\_assert\_ptr\_not\_equal(a,\ b)\ munit\_assert\_ptr(a,\ !=,\ b)}}
+\DoxyCodeLine{00386\ \textcolor{preprocessor}{\#define\ munit\_assert\_null(ptr)\ munit\_assert\_ptr(ptr,\ ==,\ NULL)}}
+\DoxyCodeLine{00387\ \textcolor{preprocessor}{\#define\ munit\_assert\_not\_null(ptr)\ munit\_assert\_ptr(ptr,\ !=,\ NULL)}}
+\DoxyCodeLine{00388\ \textcolor{preprocessor}{\#define\ munit\_assert\_ptr\_null(ptr)\ munit\_assert\_ptr(ptr,\ ==,\ NULL)}}
+\DoxyCodeLine{00389\ \textcolor{preprocessor}{\#define\ munit\_assert\_ptr\_not\_null(ptr)\ munit\_assert\_ptr(ptr,\ !=,\ NULL)}}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \textcolor{comment}{/***\ Memory\ allocation\ ***/}}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \textcolor{keywordtype}{void}\ *munit\_malloc\_ex(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filename,\ \textcolor{keywordtype}{int}\ line,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \textcolor{preprocessor}{\#define\ munit\_malloc(size)\ munit\_malloc\_ex(\_\_FILE\_\_,\ \_\_LINE\_\_,\ (size))}}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00397\ \textcolor{preprocessor}{\#define\ munit\_new(type)\ ((type\ *)munit\_malloc(sizeof(type)))}}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ \textcolor{preprocessor}{\#define\ munit\_calloc(nmemb,\ size)\ munit\_malloc((nmemb)\ *\ (size))}}
+\DoxyCodeLine{00400\ }
+\DoxyCodeLine{00401\ \textcolor{preprocessor}{\#define\ munit\_newa(type,\ nmemb)\ ((type\ *)munit\_calloc((nmemb),\ sizeof(type)))}}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00403\ \textcolor{comment}{/***\ Random\ number\ generation\ ***/}}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \textcolor{keywordtype}{void}\ munit\_rand\_seed(munit\_uint32\_t\ seed);}
+\DoxyCodeLine{00406\ munit\_uint32\_t\ munit\_rand\_uint32(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00407\ \textcolor{keywordtype}{int}\ munit\_rand\_int\_range(\textcolor{keywordtype}{int}\ min,\ \textcolor{keywordtype}{int}\ max);}
+\DoxyCodeLine{00408\ \textcolor{keywordtype}{double}\ munit\_rand\_double(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00409\ \textcolor{keywordtype}{void}\ munit\_rand\_memory(\textcolor{keywordtype}{size\_t}\ size,\ munit\_uint8\_t\ *buffer);}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \textcolor{comment}{/***\ Tests\ and\ Suites\ ***/}}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00413\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00414\ \ \ \textcolor{comment}{/*\ Test\ successful\ */}}
+\DoxyCodeLine{00415\ \ \ MUNIT\_OK,}
+\DoxyCodeLine{00416\ \ \ \textcolor{comment}{/*\ Test\ failed\ */}}
+\DoxyCodeLine{00417\ \ \ MUNIT\_FAIL,}
+\DoxyCodeLine{00418\ \ \ \textcolor{comment}{/*\ Test\ was\ skipped\ */}}
+\DoxyCodeLine{00419\ \ \ MUNIT\_SKIP,}
+\DoxyCodeLine{00420\ \ \ \textcolor{comment}{/*\ Test\ failed\ due\ to\ circumstances\ not\ intended\ to\ be\ tested}}
+\DoxyCodeLine{00421\ \textcolor{comment}{\ \ \ *\ (things\ like\ network\ errors,\ invalid\ parameter\ value,\ failure\ to}}
+\DoxyCodeLine{00422\ \textcolor{comment}{\ \ \ *\ allocate\ memory\ in\ the\ test\ harness,\ etc.).\ */}}
+\DoxyCodeLine{00423\ \ \ MUNIT\_ERROR}
+\DoxyCodeLine{00424\ \}\ MunitResult;}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00427\ \ \ \textcolor{keywordtype}{char}\ *name;}
+\DoxyCodeLine{00428\ \ \ \textcolor{keywordtype}{char}\ **values;}
+\DoxyCodeLine{00429\ \}\ \mbox{\hyperlink{structMunitParameterEnum}{MunitParameterEnum}};}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00431\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00432\ \ \ \textcolor{keywordtype}{char}\ *name;}
+\DoxyCodeLine{00433\ \ \ \textcolor{keywordtype}{char}\ *value;}
+\DoxyCodeLine{00434\ \}\ \mbox{\hyperlink{structMunitParameter}{MunitParameter}};}
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00436\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *munit\_parameters\_get(\textcolor{keyword}{const}\ \mbox{\hyperlink{structMunitParameter}{MunitParameter}}\ params[],}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key);}
+\DoxyCodeLine{00438\ }
+\DoxyCodeLine{00439\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00440\ \ \ MUNIT\_TEST\_OPTION\_NONE\ =\ 0,}
+\DoxyCodeLine{00441\ \ \ MUNIT\_TEST\_OPTION\_SINGLE\_ITERATION\ =\ 1\ <<\ 0,}
+\DoxyCodeLine{00442\ \ \ MUNIT\_TEST\_OPTION\_TODO\ =\ 1\ <<\ 1}
+\DoxyCodeLine{00443\ \}\ MunitTestOptions;}
+\DoxyCodeLine{00444\ }
+\DoxyCodeLine{00445\ \textcolor{keyword}{typedef}\ MunitResult\ (*MunitTestFunc)(\textcolor{keyword}{const}\ \mbox{\hyperlink{structMunitParameter}{MunitParameter}}\ params[],}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data\_or\_fixture);}
+\DoxyCodeLine{00447\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ *(*MunitTestSetup)(\textcolor{keyword}{const}\ \mbox{\hyperlink{structMunitParameter}{MunitParameter}}\ params[],\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{00448\ \textcolor{keyword}{typedef}\ void\ (*MunitTestTearDown)(\textcolor{keywordtype}{void}\ *fixture);}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00450\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00451\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name;}
+\DoxyCodeLine{00452\ \ \ MunitTestFunc\ test;}
+\DoxyCodeLine{00453\ \ \ MunitTestSetup\ setup;}
+\DoxyCodeLine{00454\ \ \ MunitTestTearDown\ tear\_down;}
+\DoxyCodeLine{00455\ \ \ MunitTestOptions\ options;}
+\DoxyCodeLine{00456\ \ \ \mbox{\hyperlink{structMunitParameterEnum}{MunitParameterEnum}}\ *parameters;}
+\DoxyCodeLine{00457\ \}\ \mbox{\hyperlink{structMunitTest}{MunitTest}};}
+\DoxyCodeLine{00458\ }
+\DoxyCodeLine{00459\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{\ MUNIT\_SUITE\_OPTION\_NONE\ =\ 0\ \}\ MunitSuiteOptions;}
+\DoxyCodeLine{00460\ }
+\DoxyCodeLine{00461\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structMunitSuite__}{MunitSuite\_}}\ MunitSuite;}
+\DoxyCodeLine{00462\ }
+\DoxyCodeLine{00463\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structMunitSuite__}{MunitSuite\_}}\ \{}
+\DoxyCodeLine{00464\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *prefix;}
+\DoxyCodeLine{00465\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structMunitTest}{MunitTest}}\ *tests;}
+\DoxyCodeLine{00466\ \ \ \textcolor{keyword}{const}\ MunitSuite\ *suites;}
+\DoxyCodeLine{00467\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ iterations;}
+\DoxyCodeLine{00468\ \ \ MunitSuiteOptions\ options;}
+\DoxyCodeLine{00469\ \};}
+\DoxyCodeLine{00470\ }
+\DoxyCodeLine{00471\ \textcolor{keywordtype}{int}\ munit\_suite\_main(\textcolor{keyword}{const}\ MunitSuite\ *suite,\ \textcolor{keywordtype}{void}\ *user\_data,\ \textcolor{keywordtype}{int}\ argc,}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\textcolor{keyword}{const}\ *argv);}
+\DoxyCodeLine{00473\ }
+\DoxyCodeLine{00474\ \textcolor{comment}{/*\ Note:\ I'm\ not\ very\ happy\ with\ this\ API;\ it's\ likely\ to\ change\ if\ I}}
+\DoxyCodeLine{00475\ \textcolor{comment}{\ *\ figure\ out\ something\ better.\ \ Suggestions\ welcome.\ */}}
+\DoxyCodeLine{00476\ }
+\DoxyCodeLine{00477\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structMunitArgument__}{MunitArgument\_}}\ MunitArgument;}
+\DoxyCodeLine{00478\ }
+\DoxyCodeLine{00479\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structMunitArgument__}{MunitArgument\_}}\ \{}
+\DoxyCodeLine{00480\ \ \ \textcolor{keywordtype}{char}\ *name;}
+\DoxyCodeLine{00481\ \ \ munit\_bool\ (*parse\_argument)(\textcolor{keyword}{const}\ MunitSuite\ *suite,\ \textcolor{keywordtype}{void}\ *user\_data,}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *arg,\ \textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ *\textcolor{keyword}{const}\ *argv);}
+\DoxyCodeLine{00483\ \ \ void\ (*write\_help)(\textcolor{keyword}{const}\ MunitArgument\ *argument,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{00484\ \};}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00486\ \textcolor{keywordtype}{int}\ munit\_suite\_main\_custom(\textcolor{keyword}{const}\ MunitSuite\ *suite,\ \textcolor{keywordtype}{void}\ *user\_data,\ \textcolor{keywordtype}{int}\ argc,}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\textcolor{keyword}{const}\ *argv,\ \textcolor{keyword}{const}\ MunitArgument\ arguments[]);}
+\DoxyCodeLine{00488\ }
+\DoxyCodeLine{00489\ \textcolor{preprocessor}{\#if\ defined(MUNIT\_ENABLE\_ASSERT\_ALIASES)}}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00491\ \textcolor{preprocessor}{\#\ \ define\ assert\_true(expr)\ munit\_assert\_true(expr)}}
+\DoxyCodeLine{00492\ \textcolor{preprocessor}{\#\ \ define\ assert\_false(expr)\ munit\_assert\_false(expr)}}
+\DoxyCodeLine{00493\ \textcolor{preprocessor}{\#\ \ define\ assert\_char(a,\ op,\ b)\ munit\_assert\_char(a,\ op,\ b)}}
+\DoxyCodeLine{00494\ \textcolor{preprocessor}{\#\ \ define\ assert\_uchar(a,\ op,\ b)\ munit\_assert\_uchar(a,\ op,\ b)}}
+\DoxyCodeLine{00495\ \textcolor{preprocessor}{\#\ \ define\ assert\_short(a,\ op,\ b)\ munit\_assert\_short(a,\ op,\ b)}}
+\DoxyCodeLine{00496\ \textcolor{preprocessor}{\#\ \ define\ assert\_ushort(a,\ op,\ b)\ munit\_assert\_ushort(a,\ op,\ b)}}
+\DoxyCodeLine{00497\ \textcolor{preprocessor}{\#\ \ define\ assert\_int(a,\ op,\ b)\ munit\_assert\_int(a,\ op,\ b)}}
+\DoxyCodeLine{00498\ \textcolor{preprocessor}{\#\ \ define\ assert\_uint(a,\ op,\ b)\ munit\_assert\_uint(a,\ op,\ b)}}
+\DoxyCodeLine{00499\ \textcolor{preprocessor}{\#\ \ define\ assert\_long(a,\ op,\ b)\ munit\_assert\_long(a,\ op,\ b)}}
+\DoxyCodeLine{00500\ \textcolor{preprocessor}{\#\ \ define\ assert\_ulong(a,\ op,\ b)\ munit\_assert\_ulong(a,\ op,\ b)}}
+\DoxyCodeLine{00501\ \textcolor{preprocessor}{\#\ \ define\ assert\_llong(a,\ op,\ b)\ munit\_assert\_llong(a,\ op,\ b)}}
+\DoxyCodeLine{00502\ \textcolor{preprocessor}{\#\ \ define\ assert\_ullong(a,\ op,\ b)\ munit\_assert\_ullong(a,\ op,\ b)}}
+\DoxyCodeLine{00503\ \textcolor{preprocessor}{\#\ \ define\ assert\_size(a,\ op,\ b)\ munit\_assert\_size(a,\ op,\ b)}}
+\DoxyCodeLine{00504\ \textcolor{preprocessor}{\#\ \ define\ assert\_ssize(a,\ op,\ b)\ munit\_assert\_ssize(a,\ op,\ b)}}
+\DoxyCodeLine{00505\ \textcolor{preprocessor}{\#\ \ define\ assert\_float(a,\ op,\ b)\ munit\_assert\_float(a,\ op,\ b)}}
+\DoxyCodeLine{00506\ \textcolor{preprocessor}{\#\ \ define\ assert\_double(a,\ op,\ b)\ munit\_assert\_double(a,\ op,\ b)}}
+\DoxyCodeLine{00507\ \textcolor{preprocessor}{\#\ \ define\ assert\_ptr(a,\ op,\ b)\ munit\_assert\_ptr(a,\ op,\ b)}}
+\DoxyCodeLine{00508\ }
+\DoxyCodeLine{00509\ \textcolor{preprocessor}{\#\ \ define\ assert\_int8(a,\ op,\ b)\ munit\_assert\_int8(a,\ op,\ b)}}
+\DoxyCodeLine{00510\ \textcolor{preprocessor}{\#\ \ define\ assert\_uint8(a,\ op,\ b)\ munit\_assert\_uint8(a,\ op,\ b)}}
+\DoxyCodeLine{00511\ \textcolor{preprocessor}{\#\ \ define\ assert\_int16(a,\ op,\ b)\ munit\_assert\_int16(a,\ op,\ b)}}
+\DoxyCodeLine{00512\ \textcolor{preprocessor}{\#\ \ define\ assert\_uint16(a,\ op,\ b)\ munit\_assert\_uint16(a,\ op,\ b)}}
+\DoxyCodeLine{00513\ \textcolor{preprocessor}{\#\ \ define\ assert\_int32(a,\ op,\ b)\ munit\_assert\_int32(a,\ op,\ b)}}
+\DoxyCodeLine{00514\ \textcolor{preprocessor}{\#\ \ define\ assert\_uint32(a,\ op,\ b)\ munit\_assert\_uint32(a,\ op,\ b)}}
+\DoxyCodeLine{00515\ \textcolor{preprocessor}{\#\ \ define\ assert\_int64(a,\ op,\ b)\ munit\_assert\_int64(a,\ op,\ b)}}
+\DoxyCodeLine{00516\ \textcolor{preprocessor}{\#\ \ define\ assert\_uint64(a,\ op,\ b)\ munit\_assert\_uint64(a,\ op,\ b)}}
+\DoxyCodeLine{00517\ }
+\DoxyCodeLine{00518\ \textcolor{preprocessor}{\#\ \ define\ assert\_ptrdiff(a,\ op,\ b)\ munit\_assert\_ptrdiff(a,\ op,\ b)}}
+\DoxyCodeLine{00519\ }
+\DoxyCodeLine{00520\ \textcolor{preprocessor}{\#\ \ define\ assert\_enum(T,\ a,\ op,\ b)\ munit\_assert\_enum(T,\ a,\ op,\ b)}}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ \textcolor{preprocessor}{\#\ \ define\ assert\_double\_equal(a,\ b,\ precision)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00523\ \textcolor{preprocessor}{\ \ \ \ munit\_assert\_double\_equal(a,\ b,\ precision)}}
+\DoxyCodeLine{00524\ \textcolor{preprocessor}{\#\ \ define\ assert\_string\_equal(a,\ b)\ munit\_assert\_string\_equal(a,\ b)}}
+\DoxyCodeLine{00525\ \textcolor{preprocessor}{\#\ \ define\ assert\_string\_not\_equal(a,\ b)\ munit\_assert\_string\_not\_equal(a,\ b)}}
+\DoxyCodeLine{00526\ \textcolor{preprocessor}{\#\ \ define\ assert\_memory\_equal(size,\ a,\ b)\ munit\_assert\_memory\_equal(size,\ a,\ b)}}
+\DoxyCodeLine{00527\ \textcolor{preprocessor}{\#\ \ define\ assert\_memn\_equal(a,\ a\_size,\ b,\ b\_size)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00528\ \textcolor{preprocessor}{\ \ \ \ munit\_assert\_memn\_equal(a,\ a\_size,\ b,\ b\_size)}}
+\DoxyCodeLine{00529\ \textcolor{preprocessor}{\#\ \ define\ assert\_memory\_not\_equal(size,\ a,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00530\ \textcolor{preprocessor}{\ \ \ \ munit\_assert\_memory\_not\_equal(size,\ a,\ b)}}
+\DoxyCodeLine{00531\ \textcolor{preprocessor}{\#\ \ define\ assert\_ptr\_equal(a,\ b)\ munit\_assert\_ptr\_equal(a,\ b)}}
+\DoxyCodeLine{00532\ \textcolor{preprocessor}{\#\ \ define\ assert\_ptr\_not\_equal(a,\ b)\ munit\_assert\_ptr\_not\_equal(a,\ b)}}
+\DoxyCodeLine{00533\ \textcolor{preprocessor}{\#\ \ define\ assert\_ptr\_null(ptr)\ munit\_assert\_null\_equal(ptr)}}
+\DoxyCodeLine{00534\ \textcolor{preprocessor}{\#\ \ define\ assert\_ptr\_not\_null(ptr)\ munit\_assert\_not\_null(ptr)}}
+\DoxyCodeLine{00535\ }
+\DoxyCodeLine{00536\ \textcolor{preprocessor}{\#\ \ define\ assert\_null(ptr)\ munit\_assert\_null(ptr)}}
+\DoxyCodeLine{00537\ \textcolor{preprocessor}{\#\ \ define\ assert\_not\_null(ptr)\ munit\_assert\_not\_null(ptr)}}
+\DoxyCodeLine{00538\ }
+\DoxyCodeLine{00539\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ defined(MUNIT\_ENABLE\_ASSERT\_ALIASES)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00540\ }
+\DoxyCodeLine{00541\ \textcolor{preprocessor}{\#define\ munit\_void\_test\_decl(func)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00542\ \textcolor{preprocessor}{\ \ void\ func(void);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00543\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00544\ \textcolor{preprocessor}{\ \ static\ inline\ MunitResult\ wrap\_\#\#func(const\ MunitParameter\ params[],\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00545\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ void\ *fixture)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00546\ \textcolor{preprocessor}{\ \ \ \ (void)params;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00547\ \textcolor{preprocessor}{\ \ \ \ (void)fixture;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00548\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00549\ \textcolor{preprocessor}{\ \ \ \ func();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00550\ \textcolor{preprocessor}{\ \ \ \ return\ MUNIT\_OK;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00551\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00552\ }
+\DoxyCodeLine{00553\ \textcolor{preprocessor}{\#define\ munit\_void\_test(func)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00554\ \textcolor{preprocessor}{\ \ \{"{}/"{}\ \#func,\ wrap\_\#\#func,\ NULL,\ NULL,\ MUNIT\_TEST\_OPTION\_NONE,\ NULL\}}}
+\DoxyCodeLine{00555\ }
+\DoxyCodeLine{00556\ \textcolor{preprocessor}{\#define\ munit\_test\_end()\ \{NULL,\ NULL,\ NULL,\ NULL,\ MUNIT\_TEST\_OPTION\_NONE,\ NULL\}}}
+\DoxyCodeLine{00557\ }
+\DoxyCodeLine{00558\ \textcolor{keywordtype}{int}\ munit\_hexdump(FILE\ *fp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ datalen);}
+\DoxyCodeLine{00559\ }
+\DoxyCodeLine{00560\ \textcolor{keywordtype}{int}\ munit\_hexdump\_diff(FILE\ *fp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *a,\ \textcolor{keywordtype}{size\_t}\ alen,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *b,}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ blen);}
+\DoxyCodeLine{00562\ }
+\DoxyCodeLine{00563\ \textcolor{preprocessor}{\#if\ defined(\_\_cplusplus)}}
+\DoxyCodeLine{00564\ \}}
+\DoxyCodeLine{00565\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00566\ }
+\DoxyCodeLine{00567\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !defined(MUNIT\_H)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00568\ }
+\DoxyCodeLine{00569\ \textcolor{preprocessor}{\#if\ defined(MUNIT\_ENABLE\_ASSERT\_ALIASES)}}
+\DoxyCodeLine{00570\ \textcolor{preprocessor}{\#if\ defined(assert)}}
+\DoxyCodeLine{00571\ \textcolor{preprocessor}{\#\ \ undef\ assert}}
+\DoxyCodeLine{00572\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00573\ \textcolor{preprocessor}{\#define\ assert(expr)\ munit\_assert(expr)}}
+\DoxyCodeLine{00574\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

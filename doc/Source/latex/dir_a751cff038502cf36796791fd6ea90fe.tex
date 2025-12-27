@@ -1,0 +1,327 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/llhttp Directory Reference}
+\hypertarget{dir_a751cff038502cf36796791fd6ea90fe}{}\label{dir_a751cff038502cf36796791fd6ea90fe}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/llhttp Directory Reference@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/llhttp Directory Reference}}
+Directory dependency graph for llhttp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{dir_a751cff038502cf36796791fd6ea90fe_dep}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_78f3f26d6f17fb4cc900d1a270a89728}{include}}
+\item 
+directory \mbox{\hyperlink{dir_3112e4d21d0b179942cb9ef5bc54b629}{src}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md213}{}\doxysubsection{\texorpdfstring{llhttp}{llhttp}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md213}
+\href{https://github.com/nodejs/llhttp/actions?query=workflow\%3ACI}{\texttt{}}
+
+Port of \href{https://github.com/nodejs/http-parser}{\texttt{http\+\_\+parser}} to \href{https://github.com/nodejs/llparse}{\texttt{llparse}}.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md214}{}\doxysubsection{\texorpdfstring{Why?}{Why?}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md214}
+Let\textquotesingle{}s face it, \href{https://github.com/nodejs/http-parser}{\texttt{http\+\_\+parser}} is practically unmaintainable. Even introduction of a single new method results in a significant code churn.
+
+This project aims to\+:
+
+
+\begin{DoxyItemize}
+\item Make it maintainable
+\item Verifiable
+\item Improving benchmarks where possible
+\end{DoxyItemize}
+
+More details in \href{https://youtu.be/x3k_5Mi66sY}{\texttt{Fedor Indutny\textquotesingle{}s talk at JSConf EU 2019}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md215}{}\doxysubsection{\texorpdfstring{How?}{How?}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md215}
+Over time, different approaches for improving \href{https://github.com/nodejs/http-parser}{\texttt{http\+\_\+parser}}\textquotesingle{}s code base were tried. However, all of them failed due to resulting significant performance degradation.
+
+This project is a port of \href{https://github.com/nodejs/http-parser}{\texttt{http\+\_\+parser}} to Type\+Script. \href{https://github.com/nodejs/llparse}{\texttt{llparse}} is used to generate the output C source file, which could be compiled and linked with the embedder\textquotesingle{}s program (like \href{https://github.com/nodejs/node}{\texttt{Node.\+js}}).\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md216}{}\doxysubsection{\texorpdfstring{Performance}{Performance}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md216}
+So far llhttp outperforms \doxylink{structhttp__parser}{http\+\_\+parser}\+:
+
+
+\begin{DoxyTable}{5}{}{}{1}
+\SetCell{bg=\tableheadbgcolor,font=\bfseries}&\SetCell{r,bg=\tableheadbgcolor,font=\bfseries}input size  &\SetCell{r,bg=\tableheadbgcolor,font=\bfseries}bandwidth  &\SetCell{r,bg=\tableheadbgcolor,font=\bfseries}reqs/sec  &\SetCell{r,bg=\tableheadbgcolor,font=\bfseries}time  \\
+{\bfseries{llhttp}}  &\SetCell{r}8192.\+00 mb  &\SetCell{r}1777.\+24 mb/s  &\SetCell{r}3583799.\+39 req/sec  &\SetCell{r}4.\+61 s  \\
+{\bfseries{\doxylink{structhttp__parser}{http\+\_\+parser}}}  &\SetCell{r}8192.\+00 mb  &\SetCell{r}694.\+66 mb/s  &\SetCell{r}1406180.\+33 req/sec  &\SetCell{r}11.\+79 s  \\
+\end{DoxyTable}
+
+
+llhttp is faster by approximately {\bfseries{156\%}}.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md217}{}\doxysubsection{\texorpdfstring{Maintenance}{Maintenance}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md217}
+llhttp project has about 1400 lines of Type\+Script code describing the parser itself and around 450 lines of C code and headers providing the helper methods. The whole \href{https://github.com/nodejs/http-parser}{\texttt{http\+\_\+parser}} is implemented in approximately 2500 lines of C, and 436 lines of headers.
+
+All optimizations and multi-\/character matching in llhttp are generated automatically, and thus doesn\textquotesingle{}t add any extra maintenance cost. On the contrary, most of \doxylink{structhttp__parser}{http\+\_\+parser}\textquotesingle{}s code is hand-\/optimized and unrolled. Instead describing "{}how"{} it should parse the HTTP requests/responses, a maintainer should implement the new features in \href{https://github.com/nodejs/http-parser}{\texttt{http\+\_\+parser}} cautiously, considering possible performance degradation and manually optimizing the new code.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md218}{}\doxysubsection{\texorpdfstring{Verification}{Verification}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md218}
+The state machine graph is encoded explicitly in llhttp. The \href{https://github.com/nodejs/llparse}{\texttt{llparse}} automatically checks the graph for absence of loops and correct reporting of the input ranges (spans) like header names and values. In the future, additional checks could be performed to get even stricter verification of the llhttp.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md219}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md219}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}stdio.h"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}llhttp.h"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{string_8h}{string.h}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ handle\_on\_message\_complete(llhttp\_t*\ parser)\ \{}
+\DoxyCodeLine{\ \ \ \ fprintf(stdout,\ \textcolor{stringliteral}{"{}Message\ completed!\(\backslash\)n"{}});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()\ \{}
+\DoxyCodeLine{\ \ \ \ llhttp\_t\ parser;}
+\DoxyCodeLine{\ \ \ \ llhttp\_settings\_t\ settings;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*Initialize\ user\ callbacks\ and\ settings\ */}}
+\DoxyCodeLine{\ \ \ \ llhttp\_settings\_init(\&settings);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*Set\ user\ callback\ */}}
+\DoxyCodeLine{\ \ \ \ settings.on\_message\_complete\ =\ handle\_on\_message\_complete;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*Initialize\ the\ parser\ in\ HTTP\_BOTH\ mode,\ meaning\ that\ it\ will\ select\ between}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ *HTTP\_REQUEST\ and\ HTTP\_RESPONSE\ parsing\ automatically\ while\ reading\ the\ first}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ *input.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ */}}
+\DoxyCodeLine{\ \ \ \ llhttp\_init(\&parser,\ HTTP\_BOTH,\ \&settings);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*Parse\ request!\ */}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ request\ =\ \textcolor{stringliteral}{"{}GET\ /\ HTTP/1.1\(\backslash\)r\(\backslash\)n\(\backslash\)r\(\backslash\)n"{}};}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ request\_len\ =\ strlen(request);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{enum}\ llhttp\_errno\ err\ =\ llhttp\_execute(\&parser,\ request,\ request\_len);}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (err\ ==\ HPE\_OK)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ fprintf(stdout,\ \textcolor{stringliteral}{"{}Successfully\ parsed!\(\backslash\)n"{}});}
+\DoxyCodeLine{\ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Parse\ error:\ \%s\ \%s\(\backslash\)n"{}},\ llhttp\_errno\_name(err),\ parser.reason);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ For more information on API usage, please refer to \href{https://github.com/nodejs/llhttp/blob/main/src/native/api.h}{\texttt{src/native/api.\+h}}.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md220}{}\doxysubsection{\texorpdfstring{API}{API}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md220}
+\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md221}{}\doxysubsubsection{\texorpdfstring{llhttp\+\_\+settings\+\_\+t}{llhttp\+\_\+settings\+\_\+t}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md221}
+The settings object contains a list of callbacks that the parser will invoke.
+
+The following callbacks can return {\ttfamily 0} (proceed normally), {\ttfamily -\/1} (error) or {\ttfamily HPE\+\_\+\+PAUSED} (pause the parser)\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily on\+\_\+message\+\_\+begin}\+: Invoked when a new request/response starts.
+\item {\ttfamily on\+\_\+message\+\_\+complete}\+: Invoked when a request/response has been completedly parsed.
+\item {\ttfamily on\+\_\+url\+\_\+complete}\+: Invoked after the URL has been parsed.
+\item {\ttfamily on\+\_\+method\+\_\+complete}\+: Invoked after the HTTP method has been parsed.
+\item {\ttfamily on\+\_\+version\+\_\+complete}\+: Invoked after the HTTP version has been parsed.
+\item {\ttfamily on\+\_\+status\+\_\+complete}\+: Invoked after the status code has been parsed.
+\item {\ttfamily on\+\_\+header\+\_\+field\+\_\+complete}\+: Invoked after a header name has been parsed.
+\item {\ttfamily on\+\_\+header\+\_\+value\+\_\+complete}\+: Invoked after a header value has been parsed.
+\item {\ttfamily on\+\_\+chunk\+\_\+header}\+: Invoked after a new chunk is started. The current chunk length is stored in {\ttfamily parser-\/\texorpdfstring{$>$}{>}content\+\_\+length}.
+\item {\ttfamily on\+\_\+chunk\+\_\+extension\+\_\+name\+\_\+complete}\+: Invoked after a chunk extension name is started.
+\item {\ttfamily on\+\_\+chunk\+\_\+extension\+\_\+value\+\_\+complete}\+: Invoked after a chunk extension value is started.
+\item {\ttfamily on\+\_\+chunk\+\_\+complete}\+: Invoked after a new chunk is received.
+\item {\ttfamily on\+\_\+reset}\+: Invoked after {\ttfamily on\+\_\+message\+\_\+complete} and before {\ttfamily on\+\_\+message\+\_\+begin} when a new message is received on the same parser. This is not invoked for the first message of the parser.
+\end{DoxyItemize}
+
+The following callbacks can return {\ttfamily 0} (proceed normally), {\ttfamily -\/1} (error) or {\ttfamily HPE\+\_\+\+USER} (error from the callback)\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily on\+\_\+url}\+: Invoked when another character of the URL is received.
+\item {\ttfamily on\+\_\+status}\+: Invoked when another character of the status is received.
+\item {\ttfamily on\+\_\+method}\+: Invoked when another character of the method is received. When parser is created with {\ttfamily HTTP\+\_\+\+BOTH} and the input is a response, this also invoked for the sequence {\ttfamily HTTP/} of the first message.
+\item {\ttfamily on\+\_\+version}\+: Invoked when another character of the version is received.
+\item {\ttfamily on\+\_\+header\+\_\+field}\+: Invoked when another character of a header name is received.
+\item {\ttfamily on\+\_\+header\+\_\+value}\+: Invoked when another character of a header value is received.
+\item {\ttfamily on\+\_\+chunk\+\_\+extension\+\_\+name}\+: Invoked when another character of a chunk extension name is received.
+\item {\ttfamily on\+\_\+chunk\+\_\+extension\+\_\+value}\+: Invoked when another character of a extension value is received.
+\end{DoxyItemize}
+
+The callback {\ttfamily on\+\_\+headers\+\_\+complete}, invoked when headers are completed, can return\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily 0}\+: Proceed normally.
+\item {\ttfamily 1}\+: Assume that request/response has no body, and proceed to parsing the next message.
+\item {\ttfamily 2}\+: Assume absence of body (as above) and make {\ttfamily llhttp\+\_\+execute()} return {\ttfamily HPE\+\_\+\+PAUSED\+\_\+\+UPGRADE}.
+\item {\ttfamily -\/1}\+: Error
+\item {\ttfamily HPE\+\_\+\+PAUSED}\+: Pause the parser.
+\end{DoxyItemize}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md222}{}\doxysubsubsection{\texorpdfstring{{\ttfamily void llhttp\+\_\+init(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, llhttp\+\_\+type\+\_\+t type, const llhttp\+\_\+settings\+\_\+t\texorpdfstring{$\ast$}{*} settings)}}{{\ttfamily void llhttp\+\_\+init(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, llhttp\+\_\+type\+\_\+t type, const llhttp\+\_\+settings\+\_\+t\texorpdfstring{$\ast$}{*} settings)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md222}
+Initialize the parser with specific type and user settings.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md223}{}\doxysubsubsection{\texorpdfstring{{\ttfamily uint8\+\_\+t llhttp\+\_\+get\+\_\+type(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}{{\ttfamily uint8\+\_\+t llhttp\+\_\+get\+\_\+type(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md223}
+Returns the type of the parser.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md224}{}\doxysubsubsection{\texorpdfstring{{\ttfamily uint8\+\_\+t llhttp\+\_\+get\+\_\+http\+\_\+major(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}{{\ttfamily uint8\+\_\+t llhttp\+\_\+get\+\_\+http\+\_\+major(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md224}
+Returns the major version of the HTTP protocol of the current request/response.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md225}{}\doxysubsubsection{\texorpdfstring{{\ttfamily uint8\+\_\+t llhttp\+\_\+get\+\_\+http\+\_\+minor(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}{{\ttfamily uint8\+\_\+t llhttp\+\_\+get\+\_\+http\+\_\+minor(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md225}
+Returns the minor version of the HTTP protocol of the current request/response.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md226}{}\doxysubsubsection{\texorpdfstring{{\ttfamily uint8\+\_\+t llhttp\+\_\+get\+\_\+method(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}{{\ttfamily uint8\+\_\+t llhttp\+\_\+get\+\_\+method(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md226}
+Returns the method of the current request.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md227}{}\doxysubsubsection{\texorpdfstring{{\ttfamily int llhttp\+\_\+get\+\_\+status\+\_\+code(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}{{\ttfamily int llhttp\+\_\+get\+\_\+status\+\_\+code(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md227}
+Returns the method of the current response.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md228}{}\doxysubsubsection{\texorpdfstring{{\ttfamily uint8\+\_\+t llhttp\+\_\+get\+\_\+upgrade(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}{{\ttfamily uint8\+\_\+t llhttp\+\_\+get\+\_\+upgrade(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md228}
+Returns {\ttfamily 1} if request includes the {\ttfamily \doxylink{structConnection}{Connection}\+: upgrade} header.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md229}{}\doxysubsubsection{\texorpdfstring{{\ttfamily void llhttp\+\_\+reset(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}{{\ttfamily void llhttp\+\_\+reset(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md229}
+Reset an already initialized parser back to the start state, preserving the existing parser type, callback settings, user data, and lenient flags.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md230}{}\doxysubsubsection{\texorpdfstring{{\ttfamily void llhttp\+\_\+settings\+\_\+init(llhttp\+\_\+settings\+\_\+t\texorpdfstring{$\ast$}{*} settings)}}{{\ttfamily void llhttp\+\_\+settings\+\_\+init(llhttp\+\_\+settings\+\_\+t\texorpdfstring{$\ast$}{*} settings)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md230}
+Initialize the settings object.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md231}{}\doxysubsubsection{\texorpdfstring{{\ttfamily llhttp\+\_\+errno\+\_\+t llhttp\+\_\+execute(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, const char\texorpdfstring{$\ast$}{*} data, size\+\_\+t len)}}{{\ttfamily llhttp\+\_\+errno\+\_\+t llhttp\+\_\+execute(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, const char\texorpdfstring{$\ast$}{*} data, size\+\_\+t len)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md231}
+Parse full or partial request/response, invoking user callbacks along the way.
+
+If any of {\ttfamily llhttp\+\_\+data\+\_\+cb} returns errno not equal to {\ttfamily HPE\+\_\+\+OK} -\/ the parsing interrupts, and such errno is returned from {\ttfamily llhttp\+\_\+execute()}. If {\ttfamily HPE\+\_\+\+PAUSED} was used as a errno, the execution can be resumed with {\ttfamily llhttp\+\_\+resume()} call.
+
+In a special case of CONNECT/\+Upgrade request/response {\ttfamily HPE\+\_\+\+PAUSED\+\_\+\+UPGRADE} is returned after fully parsing the request/response. If the user wishes to continue parsing, they need to invoke {\ttfamily llhttp\+\_\+resume\+\_\+after\+\_\+upgrade()}.
+
+{\bfseries{if this function ever returns a non-\/pause type error, it will continue to return the same error upon each successive call up until {\ttfamily llhttp\+\_\+init()} is called.}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md232}{}\doxysubsubsection{\texorpdfstring{{\ttfamily llhttp\+\_\+errno\+\_\+t llhttp\+\_\+finish(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}{{\ttfamily llhttp\+\_\+errno\+\_\+t llhttp\+\_\+finish(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md232}
+This method should be called when the other side has no further bytes to send (e.\+g. shutdown of readable side of the TCP connection.)
+
+Requests without {\ttfamily Content-\/\+Length} and other messages might require treating all incoming bytes as the part of the body, up to the last byte of the connection.
+
+This method will invoke {\ttfamily on\+\_\+message\+\_\+complete()} callback if the request was terminated safely. Otherwise a error code would be returned.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md233}{}\doxysubsubsection{\texorpdfstring{{\ttfamily int llhttp\+\_\+message\+\_\+needs\+\_\+eof(const llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}{{\ttfamily int llhttp\+\_\+message\+\_\+needs\+\_\+eof(const llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md233}
+Returns {\ttfamily 1} if the incoming message is parsed until the last byte, and has to be completed by calling {\ttfamily llhttp\+\_\+finish()} on EOF.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md234}{}\doxysubsubsection{\texorpdfstring{{\ttfamily int llhttp\+\_\+should\+\_\+keep\+\_\+alive(const llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}{{\ttfamily int llhttp\+\_\+should\+\_\+keep\+\_\+alive(const llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md234}
+Returns {\ttfamily 1} if there might be any other messages following the last that was successfully parsed.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md235}{}\doxysubsubsection{\texorpdfstring{{\ttfamily void llhttp\+\_\+pause(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}{{\ttfamily void llhttp\+\_\+pause(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md235}
+Make further calls of {\ttfamily llhttp\+\_\+execute()} return {\ttfamily HPE\+\_\+\+PAUSED} and set appropriate error reason.
+
+{\bfseries{Do not call this from user callbacks! User callbacks must return {\ttfamily HPE\+\_\+\+PAUSED} if pausing is required.}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md236}{}\doxysubsubsection{\texorpdfstring{{\ttfamily void llhttp\+\_\+resume(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}{{\ttfamily void llhttp\+\_\+resume(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md236}
+Might be called to resume the execution after the pause in user\textquotesingle{}s callback.
+
+See {\ttfamily llhttp\+\_\+execute()} above for details.
+
+{\bfseries{Call this only if {\ttfamily llhttp\+\_\+execute()} returns {\ttfamily HPE\+\_\+\+PAUSED}.}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md237}{}\doxysubsubsection{\texorpdfstring{{\ttfamily void llhttp\+\_\+resume\+\_\+after\+\_\+upgrade(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}{{\ttfamily void llhttp\+\_\+resume\+\_\+after\+\_\+upgrade(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md237}
+Might be called to resume the execution after the pause in user\textquotesingle{}s callback. See {\ttfamily llhttp\+\_\+execute()} above for details.
+
+{\bfseries{Call this only if {\ttfamily llhttp\+\_\+execute()} returns {\ttfamily HPE\+\_\+\+PAUSED\+\_\+\+UPGRADE}}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md238}{}\doxysubsubsection{\texorpdfstring{{\ttfamily llhttp\+\_\+errno\+\_\+t llhttp\+\_\+get\+\_\+errno(const llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}{{\ttfamily llhttp\+\_\+errno\+\_\+t llhttp\+\_\+get\+\_\+errno(const llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md238}
+Returns the latest error.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md239}{}\doxysubsubsection{\texorpdfstring{{\ttfamily const char\texorpdfstring{$\ast$}{*} llhttp\+\_\+get\+\_\+error\+\_\+reason(const llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}{{\ttfamily const char\texorpdfstring{$\ast$}{*} llhttp\+\_\+get\+\_\+error\+\_\+reason(const llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md239}
+Returns the verbal explanation of the latest returned error.
+
+{\bfseries{User callback should set error reason when returning the error. See {\ttfamily llhttp\+\_\+set\+\_\+error\+\_\+reason()} for details.}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md240}{}\doxysubsubsection{\texorpdfstring{{\ttfamily void llhttp\+\_\+set\+\_\+error\+\_\+reason(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, const char\texorpdfstring{$\ast$}{*} reason)}}{{\ttfamily void llhttp\+\_\+set\+\_\+error\+\_\+reason(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, const char\texorpdfstring{$\ast$}{*} reason)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md240}
+Assign verbal description to the returned error. Must be called in user callbacks right before returning the errno.
+
+{\bfseries{{\ttfamily HPE\+\_\+\+USER} error code might be useful in user callbacks.}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md241}{}\doxysubsubsection{\texorpdfstring{{\ttfamily const char\texorpdfstring{$\ast$}{*} llhttp\+\_\+get\+\_\+error\+\_\+pos(const llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}{{\ttfamily const char\texorpdfstring{$\ast$}{*} llhttp\+\_\+get\+\_\+error\+\_\+pos(const llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md241}
+Returns the pointer to the last parsed byte before the returned error. The pointer is relative to the {\ttfamily data} argument of {\ttfamily llhttp\+\_\+execute()}.
+
+{\bfseries{This method might be useful for counting the number of parsed bytes.}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md242}{}\doxysubsubsection{\texorpdfstring{{\ttfamily const char\texorpdfstring{$\ast$}{*} llhttp\+\_\+errno\+\_\+name(llhttp\+\_\+errno\+\_\+t err)}}{{\ttfamily const char\texorpdfstring{$\ast$}{*} llhttp\+\_\+errno\+\_\+name(llhttp\+\_\+errno\+\_\+t err)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md242}
+Returns textual name of error code.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md243}{}\doxysubsubsection{\texorpdfstring{{\ttfamily const char\texorpdfstring{$\ast$}{*} llhttp\+\_\+method\+\_\+name(llhttp\+\_\+method\+\_\+t method)}}{{\ttfamily const char\texorpdfstring{$\ast$}{*} llhttp\+\_\+method\+\_\+name(llhttp\+\_\+method\+\_\+t method)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md243}
+Returns textual name of HTTP method.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md244}{}\doxysubsubsection{\texorpdfstring{{\ttfamily const char\texorpdfstring{$\ast$}{*} llhttp\+\_\+status\+\_\+name(llhttp\+\_\+status\+\_\+t status)}}{{\ttfamily const char\texorpdfstring{$\ast$}{*} llhttp\+\_\+status\+\_\+name(llhttp\+\_\+status\+\_\+t status)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md244}
+Returns textual name of HTTP status.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md245}{}\doxysubsubsection{\texorpdfstring{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+headers(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+headers(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md245}
+Enables/disables lenient header value parsing (disabled by default). Lenient parsing disables header value token checks, extending llhttp\textquotesingle{}s protocol support to highly non-\/compliant clients/server.
+
+No {\ttfamily HPE\+\_\+\+INVALID\+\_\+\+HEADER\+\_\+\+TOKEN} will be raised for incorrect header values when lenient parsing is "{}on"{}.
+
+{\bfseries{Enabling this flag can pose a security issue since you will be exposed to request smuggling attacks. USE WITH CAUTION!}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md246}{}\doxysubsubsection{\texorpdfstring{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+chunked\+\_\+length(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+chunked\+\_\+length(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md246}
+Enables/disables lenient handling of conflicting {\ttfamily Transfer-\/\+Encoding} and {\ttfamily Content-\/\+Length} headers (disabled by default).
+
+Normally {\ttfamily llhttp} would error when {\ttfamily Transfer-\/\+Encoding} is present in conjunction with {\ttfamily Content-\/\+Length}.
+
+This error is important to prevent HTTP request smuggling, but may be less desirable for small number of cases involving legacy servers.
+
+{\bfseries{Enabling this flag can pose a security issue since you will be exposed to request smuggling attacks. USE WITH CAUTION!}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md247}{}\doxysubsubsection{\texorpdfstring{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+keep\+\_\+alive(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+keep\+\_\+alive(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md247}
+Enables/disables lenient handling of {\ttfamily \doxylink{structConnection}{Connection}\+: close} and HTTP/1.\+0 requests responses.
+
+Normally {\ttfamily llhttp} would error the HTTP request/response after the request/response with {\ttfamily \doxylink{structConnection}{Connection}\+: close} and {\ttfamily Content-\/\+Length}.
+
+This is important to prevent cache poisoning attacks, but might interact badly with outdated and insecure clients.
+
+With this flag the extra request/response will be parsed normally.
+
+{\bfseries{Enabling this flag can pose a security issue since you will be exposed to poisoning attacks. USE WITH CAUTION!}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md248}{}\doxysubsubsection{\texorpdfstring{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+transfer\+\_\+encoding(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+transfer\+\_\+encoding(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md248}
+Enables/disables lenient handling of {\ttfamily Transfer-\/\+Encoding} header.
+
+Normally {\ttfamily llhttp} would error when a {\ttfamily Transfer-\/\+Encoding} has {\ttfamily chunked} value and another value after it (either in a single header or in multiple headers whose value are internally joined using {\ttfamily , }).
+
+This is mandated by the spec to reliably determine request body size and thus avoid request smuggling.
+
+With this flag the extra value will be parsed normally.
+
+{\bfseries{Enabling this flag can pose a security issue since you will be exposed to request smuggling attacks. USE WITH CAUTION!}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md249}{}\doxysubsubsection{\texorpdfstring{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+version(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+version(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md249}
+Enables/disables lenient handling of HTTP version.
+
+Normally {\ttfamily llhttp} would error when the HTTP version in the request or status line is not {\ttfamily 0.\+9}, {\ttfamily 1.\+0}, {\ttfamily 1.\+1} or {\ttfamily 2.\+0}. With this flag the extra value will be parsed normally.
+
+{\bfseries{Enabling this flag can pose a security issue since you will allow unsupported HTTP versions. USE WITH CAUTION!}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md250}{}\doxysubsubsection{\texorpdfstring{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+data\+\_\+after\+\_\+close(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+data\+\_\+after\+\_\+close(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md250}
+Enables/disables lenient handling of additional data received after a message ends and keep-\/alive is disabled.
+
+Normally {\ttfamily llhttp} would error when additional unexpected data is received if the message contains the {\ttfamily \doxylink{structConnection}{Connection}} header with {\ttfamily close} value. With this flag the extra data will discarded without throwing an error.
+
+{\bfseries{Enabling this flag can pose a security issue since you will be exposed to poisoning attacks. USE WITH CAUTION!}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md251}{}\doxysubsubsection{\texorpdfstring{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+optional\+\_\+lf\+\_\+after\+\_\+cr(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+optional\+\_\+lf\+\_\+after\+\_\+cr(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md251}
+Enables/disables lenient handling of incomplete CRLF sequences.
+
+Normally {\ttfamily llhttp} would error when a CR is not followed by LF when terminating the request line, the status line, the headers or a chunk header. With this flag only a CR is required to terminate such sections.
+
+{\bfseries{Enabling this flag can pose a security issue since you will be exposed to request smuggling attacks. USE WITH CAUTION!}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md252}{}\doxysubsubsection{\texorpdfstring{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+optional\+\_\+cr\+\_\+before\+\_\+lf(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+optional\+\_\+cr\+\_\+before\+\_\+lf(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md252}
+Enables/disables lenient handling of line separators.
+
+Normally {\ttfamily llhttp} would error when a LF is not preceded by CR when terminating the request line, the status line, the headers, a chunk header or a chunk data. With this flag only a LF is required to terminate such sections.
+
+{\bfseries{Enabling this flag can pose a security issue since you will be exposed to request smuggling attacks. USE WITH CAUTION!}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md253}{}\doxysubsubsection{\texorpdfstring{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+optional\+\_\+crlf\+\_\+after\+\_\+chunk(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+optional\+\_\+crlf\+\_\+after\+\_\+chunk(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md253}
+Enables/disables lenient handling of chunks not separated via CRLF.
+
+Normally {\ttfamily llhttp} would error when after a chunk data a CRLF is missing before starting a new chunk. With this flag the new chunk can start immediately after the previous one.
+
+{\bfseries{Enabling this flag can pose a security issue since you will be exposed to request smuggling attacks. USE WITH CAUTION!}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md254}{}\doxysubsubsection{\texorpdfstring{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+spaces\+\_\+after\+\_\+chunk\+\_\+size(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}{{\ttfamily void llhttp\+\_\+set\+\_\+lenient\+\_\+spaces\+\_\+after\+\_\+chunk\+\_\+size(llhttp\+\_\+t\texorpdfstring{$\ast$}{*} parser, int enabled)}}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md254}
+Enables/disables lenient handling of spaces after chunk size.
+
+Normally {\ttfamily llhttp} would error when after a chunk size is followed by one or more spaces are present instead of a CRLF or {\ttfamily ;}. With this flag this check is disabled.
+
+{\bfseries{Enabling this flag can pose a security issue since you will be exposed to request smuggling attacks. USE WITH CAUTION!}}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md255}{}\doxysubsection{\texorpdfstring{Build Instructions}{Build Instructions}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md255}
+Make sure you have \href{https://nodejs.org/}{\texttt{Node.\+js}}, npm and npx installed. Then under project directory run\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ ci}
+\DoxyCodeLine{make}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md257}{}\doxysubsubsection{\texorpdfstring{Bindings to other languages}{Bindings to other languages}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md257}
+
+\begin{DoxyItemize}
+\item Lua\+: \href{https://github.com/MunifTanjim/llhttp.lua}{\texttt{Munif\+Tanjim/llhttp.\+lua}}
+\item Python\+: \href{https://github.com/pallas/pyllhttp}{\texttt{pallas/pyllhttp}}
+\item Ruby\+: \href{https://github.com/metabahn/llhttp}{\texttt{metabahn/llhttp}}
+\item Rust\+: \href{https://github.com/JackLiar/rust-llhttp}{\texttt{Jack\+Liar/rust-\/llhttp}}
+\end{DoxyItemize}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md258}{}\doxysubsubsection{\texorpdfstring{Using with CMake}{Using with CMake}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md258}
+If you want to use this library in a CMake project as a shared library, you can use the snippet below.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FetchContent\_Declare(llhttp}
+\DoxyCodeLine{\ \ URL\ "{}https://github.com/nodejs/llhttp/archive/refs/tags/release/v8.1.0.tar.gz"{})}
+\DoxyCodeLine{}
+\DoxyCodeLine{FetchContent\_MakeAvailable(llhttp)}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Link\ with\ the\ llhttp\_shared\ target}
+\DoxyCodeLine{target\_link\_libraries(\$\{EXAMPLE\_PROJECT\_NAME\}\ \$\{PROJECT\_LIBRARIES\}\ llhttp\_shared\ \$\{PROJECT\_NAME\})}
+
+\end{DoxyCode}
+
+
+If you want to use this library in a CMake project as a static library, you can set some cache variables first.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FetchContent\_Declare(llhttp}
+\DoxyCodeLine{\ \ URL\ "{}https://github.com/nodejs/llhttp/archive/refs/tags/release/v8.1.0.tar.gz"{})}
+\DoxyCodeLine{}
+\DoxyCodeLine{set(BUILD\_SHARED\_LIBS\ OFF\ CACHE\ INTERNAL\ "{}"{})}
+\DoxyCodeLine{set(BUILD\_STATIC\_LIBS\ ON\ CACHE\ INTERNAL\ "{}"{})}
+\DoxyCodeLine{FetchContent\_MakeAvailable(llhttp)}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Link\ with\ the\ llhttp\_static\ target}
+\DoxyCodeLine{target\_link\_libraries(\$\{EXAMPLE\_PROJECT\_NAME\}\ \$\{PROJECT\_LIBRARIES\}\ llhttp\_static\ \$\{PROJECT\_NAME\})}
+
+\end{DoxyCode}
+
+
+{\itshape Note that using the git repo directly (e.\+g., via a git repo url and tag) will not work with Fetch\+Content\+\_\+\+Declare because \href{./CMakeLists.txt}{\texttt{CMake\+Lists.\+txt}} requires string replacements (e.\+g., \`{}\+\_\+\+RELEASE}\`{}) before it will build.\+\_\+\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md259}{}\doxysubsection{\texorpdfstring{Building on Windows}{Building on Windows}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md259}
+\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md260}{}\doxysubsubsection{\texorpdfstring{Installation}{Installation}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md260}
+
+\begin{DoxyItemize}
+\item {\ttfamily choco install git}
+\item {\ttfamily choco install \doxylink{structnode}{node}}
+\item {\ttfamily choco install llvm} (or install the {\ttfamily C++ Clang tools for Windows} optional package from the Visual Studio 2019 installer)
+\item {\ttfamily choco install make} (or if you have Min\+GW, it comes bundled)
+\end{DoxyItemize}
+\begin{DoxyEnumerate}
+\item Ensure that {\ttfamily Clang} and {\ttfamily make} are in your system path.
+\item Using Git Bash, clone the repo to your preferred location.
+\item Cd into the cloned directory and run {\ttfamily npm ci}
+\item Run {\ttfamily make}
+\item Your {\ttfamily repo/build} directory should now have {\ttfamily libllhttp.\+a} and {\ttfamily libllhttp.\+so} static and dynamic libraries.
+\item When building your executable, you can link to these libraries. Make sure to set the build folder as an include path when building so you can reference the declarations in {\ttfamily repo/build/llhttp.\+h}.
+\end{DoxyEnumerate}\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md261}{}\doxysubsubsection{\texorpdfstring{A simple example on linking with the library\+:}{A simple example on linking with the library\+:}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md261}
+Assuming you have an executable {\ttfamily main.\+cpp} in your current working directory, you would run\+: {\ttfamily clang++ -\/Os -\/g3 -\/Wall -\/Wextra -\/Wno-\/unused-\/parameter -\/I/path/to/llhttp/build main.\+cpp /path/to/llhttp/build/libllhttp.a -\/o main.\+exe}.
+
+If you are getting {\ttfamily unresolved external symbol} linker errors you are likely attempting to build {\ttfamily llhttp.\+c} without linking it with object files from {\ttfamily api.\+c} and {\ttfamily http.\+c}.\hypertarget{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md262}{}\doxysubsubsubsection{\texorpdfstring{LICENSE}{LICENSE}}\label{dir_a751cff038502cf36796791fd6ea90fe_autotoc_md262}
+This software is licensed under the MIT License.
+
+Copyright Fedor Indutny, 2018.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "{}\+Software"{}), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions\+:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "{}\+AS IS"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 

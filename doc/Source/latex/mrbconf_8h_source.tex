@@ -1,0 +1,249 @@
+\doxysection{mrbconf.\+h}
+\hypertarget{mrbconf_8h_source}{}\label{mrbconf_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mrbconf.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mrbconf.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ mrbconf.h\ -\/\ mruby\ core\ configuration}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ See\ Copyright\ Notice\ in\ mruby.h}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBYCONF\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBYCONF\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{comment}{/*\ architecture\ selection:\ */}}
+\DoxyCodeLine{00011\ \textcolor{comment}{/*\ specify\ -\/DMRB\_32BIT\ or\ -\/DMRB\_64BIT\ to\ override\ */}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#if\ !defined(MRB\_32BIT)\ \&\&\ !defined(MRB\_64BIT)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#if\ UINT64\_MAX\ ==\ SIZE\_MAX}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ MRB\_64BIT}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ MRB\_32BIT}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#if\ defined(MRB\_32BIT)\ \&\&\ defined(MRB\_64BIT)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#error\ Cannot\ build\ for\ 32\ and\ 64\ bit\ architecture\ at\ the\ same\ time}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{comment}{/*\ configuration\ options:\ */}}
+\DoxyCodeLine{00025\ \textcolor{comment}{/*\ add\ -\/DMRB\_USE\_FLOAT32\ to\ use\ float\ instead\ of\ double\ for\ floating-\/point\ numbers\ */}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\#define\ MRB\_USE\_FLOAT32}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{/*\ exclude\ floating-\/point\ numbers\ */}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\#define\ MRB\_NO\_FLOAT}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{/*\ obsolete\ configuration\ */}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#if\ defined(MRB\_USE\_FLOAT)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#\ define\ MRB\_USE\_FLOAT32}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{/*\ obsolete\ configuration\ */}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#if\ defined(MRB\_WITHOUT\_FLOAT)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#\ define\ MRB\_NO\_FLOAT}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#if\ defined(MRB\_USE\_FLOAT32)\ \&\&\ defined(MRB\_NO\_FLOAT)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#error\ Cannot\ define\ MRB\_USE\_FLOAT32\ and\ MRB\_NO\_FLOAT\ at\ the\ same\ time}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{/*\ add\ -\/DMRB\_NO\_METHOD\_CACHE\ to\ disable\ method\ cache\ to\ save\ memory\ */}}
+\DoxyCodeLine{00046\ \textcolor{comment}{//\#define\ MRB\_NO\_METHOD\_CACHE}}
+\DoxyCodeLine{00047\ \textcolor{comment}{/*\ size\ of\ the\ method\ cache\ (need\ to\ be\ the\ power\ of\ 2)\ */}}
+\DoxyCodeLine{00048\ \textcolor{comment}{//\#define\ MRB\_METHOD\_CACHE\_SIZE\ (1<<8)}}
+\DoxyCodeLine{00049\ \textcolor{comment}{//\#define\ MRB\_USE\_INLINE\_METHOD\_CACHE}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{comment}{/*\ add\ -\/DMRB\_USE\_METHOD\_T\_STRUCT\ on\ machines\ that\ use\ higher\ bits\ of\ function\ pointers\ */}}
+\DoxyCodeLine{00052\ \textcolor{comment}{/*\ no\ MRB\_USE\_METHOD\_T\_STRUCT\ requires\ highest\ 2\ bits\ of\ function\ pointers\ to\ be\ zero\ */}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#ifndef\ MRB\_USE\_METHOD\_T\_STRUCT}}
+\DoxyCodeLine{00054\ \ \ \textcolor{comment}{//\ can't\ use\ highest\ 2\ bits\ of\ function\ pointers\ at\ least\ on\ 32bit}}
+\DoxyCodeLine{00055\ \ \ \textcolor{comment}{//\ Windows\ and\ 32bit\ Linux.}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#\ ifdef\ MRB\_32BIT}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#\ \ \ define\ MRB\_USE\_METHOD\_T\_STRUCT}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{comment}{/*\ define\ on\ big\ endian\ machines;\ used\ by\ MRB\_NAN\_BOXING,\ etc.\ */}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#ifndef\ MRB\_ENDIAN\_BIG}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#\ if\ (defined(BYTE\_ORDER)\ \&\&\ defined(BIG\_ENDIAN)\ \&\&\ BYTE\_ORDER\ ==\ BIG\_ENDIAN)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\ \ \ \ \ (defined(\_\_BYTE\_ORDER\_\_)\ \&\&\ defined(\_\_ORDER\_BIG\_ENDIAN\_\_)\ \&\&\ \_\_BYTE\_ORDER\_\_\ ==\ \_\_ORDER\_BIG\_ENDIAN\_\_)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#\ \ define\ MRB\_ENDIAN\_BIG}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{comment}{/*\ represent\ mrb\_value\ in\ boxed\ double;\ conflict\ with\ MRB\_USE\_FLOAT32\ and\ MRB\_NO\_FLOAT\ */}}
+\DoxyCodeLine{00070\ \textcolor{comment}{//\#define\ MRB\_NAN\_BOXING}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{comment}{/*\ represent\ mrb\_value\ as\ a\ word\ (natural\ unit\ of\ data\ for\ the\ processor)\ */}}
+\DoxyCodeLine{00073\ \textcolor{comment}{//\#define\ MRB\_WORD\_BOXING}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{comment}{/*\ represent\ mrb\_value\ as\ a\ struct;\ occupies\ 2\ words\ */}}
+\DoxyCodeLine{00076\ \textcolor{comment}{//\#define\ MRB\_NO\_BOXING}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{comment}{/*\ if\ no\ specific\ boxing\ type\ is\ chosen\ */}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#if\ !defined(MRB\_NAN\_BOXING)\ \&\&\ !defined(MRB\_WORD\_BOXING)\ \&\&\ !defined(MRB\_NO\_BOXING)}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#\ define\ MRB\_WORD\_BOXING}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{comment}{/*\ if\ defined\ mruby\ allocates\ Float\ objects\ in\ the\ heap\ to\ keep\ full\ precision\ if\ needed\ */}}
+\DoxyCodeLine{00084\ \textcolor{comment}{//\#define\ MRB\_WORDBOX\_NO\_FLOAT\_TRUNCATE}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{comment}{/*\ add\ -\/DMRB\_INT32\ to\ use\ 32bit\ integer\ for\ mrb\_int;\ conflict\ with\ MRB\_INT64;}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ \ \ Default\ for\ 32-\/bit\ CPU\ mode.\ */}}
+\DoxyCodeLine{00088\ \textcolor{comment}{//\#define\ MRB\_INT32}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{comment}{/*\ add\ -\/DMRB\_INT64\ to\ use\ 64bit\ integer\ for\ mrb\_int;\ conflict\ with\ MRB\_INT32;}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ \ \ Default\ for\ 64-\/bit\ CPU\ mode\ (unless\ using\ MRB\_NAN\_BOXING).\ */}}
+\DoxyCodeLine{00092\ \textcolor{comment}{//\#define\ MRB\_INT64}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{comment}{/*\ if\ no\ specific\ integer\ type\ is\ chosen\ */}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#if\ !defined(MRB\_INT32)\ \&\&\ !defined(MRB\_INT64)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#\ if\ defined(MRB\_64BIT)\ \&\&\ !defined(MRB\_NAN\_BOXING)}}
+\DoxyCodeLine{00097\ \textcolor{comment}{/*\ Use\ 64bit\ integers\ on\ 64bit\ architecture\ (without\ MRB\_NAN\_BOXING)\ */}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#\ \ define\ MRB\_INT64}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#\ else}}
+\DoxyCodeLine{00100\ \textcolor{comment}{/*\ Otherwise\ use\ 32bit\ integers\ */}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#\ \ define\ MRB\_INT32}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{comment}{/*\ call\ malloc\_trim(0)\ from\ mrb\_full\_gc()\ */}}
+\DoxyCodeLine{00106\ \textcolor{comment}{//\#define\ MRB\_USE\_MALLOC\_TRIM}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{comment}{/*\ string\ class\ to\ handle\ UTF-\/8\ encoding\ */}}
+\DoxyCodeLine{00109\ \textcolor{comment}{//\#define\ MRB\_UTF8\_STRING}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{comment}{/*\ maximum\ length\ of\ strings\ */}}
+\DoxyCodeLine{00112\ \textcolor{comment}{/*\ the\ default\ value\ is\ 1MB\ */}}
+\DoxyCodeLine{00113\ \textcolor{comment}{/*\ set\ this\ value\ to\ zero\ to\ skip\ the\ check\ */}}
+\DoxyCodeLine{00114\ \textcolor{comment}{//\#define\ MRB\_STR\_LENGTH\_MAX\ 1048576}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{comment}{/*\ maximum\ length\ of\ arrays\ */}}
+\DoxyCodeLine{00117\ \textcolor{comment}{/*\ the\ default\ value\ is\ 2**17\ entries\ */}}
+\DoxyCodeLine{00118\ \textcolor{comment}{/*\ set\ this\ value\ to\ zero\ to\ skip\ the\ check\ */}}
+\DoxyCodeLine{00119\ \textcolor{comment}{//\#define\ MRB\_ARY\_LENGTH\_MAX\ 131072}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{comment}{/*\ argv\ max\ size\ in\ mrb\_funcall\ */}}
+\DoxyCodeLine{00122\ \textcolor{comment}{//\#define\ MRB\_FUNCALL\_ARGC\_MAX\ 16}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{comment}{/*\ number\ of\ object\ per\ heap\ page\ */}}
+\DoxyCodeLine{00125\ \textcolor{comment}{//\#define\ MRB\_HEAP\_PAGE\_SIZE\ 1024}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{comment}{/*\ define\ if\ your\ platform\ does\ not\ support\ etext,\ edata\ */}}
+\DoxyCodeLine{00128\ \textcolor{comment}{//\#define\ MRB\_NO\_DEFAULT\_RO\_DATA\_P}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{comment}{/*\ define\ if\ your\ platform\ supports\ etext,\ edata\ */}}
+\DoxyCodeLine{00131\ \textcolor{comment}{//\#define\ MRB\_USE\_RO\_DATA\_P\_ETEXT}}
+\DoxyCodeLine{00132\ \textcolor{comment}{/*\ use\ MRB\_USE\_ETEXT\_RO\_DATA\_P\ by\ default\ on\ Linux\ */}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#if\ (defined(\_\_linux\_\_)\ \&\&\ !defined(\_\_KERNEL\_\_))}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#define\ MRB\_USE\_ETEXT\_RO\_DATA\_P}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{comment}{/*\ you\ can\ provide\ and\ use\ mrb\_ro\_data\_p()\ for\ your\ platform.}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ \ \ prototype\ is\ \`{}mrb\_bool\ mrb\_ro\_data\_p(const\ char\ *ptr)`\ */}}
+\DoxyCodeLine{00139\ \textcolor{comment}{//\#define\ MRB\_USE\_CUSTOM\_RO\_DATA\_P}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{comment}{/*\ turn\ off\ generational\ GC\ by\ default\ */}}
+\DoxyCodeLine{00142\ \textcolor{comment}{//\#define\ MRB\_GC\_TURN\_OFF\_GENERATIONAL}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{comment}{/*\ default\ size\ of\ khash\ table\ bucket\ */}}
+\DoxyCodeLine{00145\ \textcolor{comment}{//\#define\ KHASH\_DEFAULT\_SIZE\ 32}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \textcolor{comment}{/*\ allocated\ memory\ address\ alignment\ */}}
+\DoxyCodeLine{00148\ \textcolor{comment}{//\#define\ POOL\_ALIGNMENT\ 4}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{comment}{/*\ page\ size\ of\ memory\ pool\ */}}
+\DoxyCodeLine{00151\ \textcolor{comment}{//\#define\ POOL\_PAGE\_SIZE\ 16000}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{comment}{/*\ arena\ size\ */}}
+\DoxyCodeLine{00154\ \textcolor{comment}{//\#define\ MRB\_GC\_ARENA\_SIZE\ 100}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{comment}{/*\ fixed\ size\ GC\ arena\ */}}
+\DoxyCodeLine{00157\ \textcolor{comment}{//\#define\ MRB\_GC\_FIXED\_ARENA}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{comment}{/*\ state\ atexit\ stack\ size\ */}}
+\DoxyCodeLine{00160\ \textcolor{comment}{//\#define\ MRB\_FIXED\_STATE\_ATEXIT\_STACK\_SIZE\ 5}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{comment}{/*\ fixed\ size\ state\ atexit\ stack\ */}}
+\DoxyCodeLine{00163\ \textcolor{comment}{//\#define\ MRB\_FIXED\_STATE\_ATEXIT\_STACK}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{comment}{/*\ -\/DMRB\_NO\_XXXX\ to\ drop\ following\ features\ */}}
+\DoxyCodeLine{00166\ \textcolor{comment}{//\#define\ MRB\_NO\_STDIO\ /*\ use\ of\ stdio\ */}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{comment}{/*\ -\/DMRB\_USE\_XXXX\ to\ enable\ following\ features\ */}}
+\DoxyCodeLine{00169\ \textcolor{comment}{//\#define\ MRB\_USE\_DEBUG\_HOOK\ /*\ hooks\ for\ debugger\ */}}
+\DoxyCodeLine{00170\ \textcolor{comment}{//\#define\ MRB\_USE\_ALL\_SYMBOLS\ /*\ Symbol.all\_symbols\ */}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{comment}{/*\ obsolete\ configurations\ */}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#ifdef\ MRB\_METHOD\_T\_STRUCT}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#\ define\ MRB\_USE\_METHOD\_T\_STRUCT}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#if\ defined(DISABLE\_STDIO)\ ||\ defined(MRB\_DISABLE\_STDIO)}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#\ define\ MRB\_NO\_STDIO}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#if\ defined(MRB\_DISABLE\_DIRECT\_THREADING)\ ||\ defined(MRB\_NO\_DIRECT\_THREADING)}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#\ define\ MRB\_USE\_VM\_SWITCH\_DISPATCH}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_DEBUG)\ ||\ defined(MRB\_ENABLE\_DEBUG\_HOOK)}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#\ define\ MRB\_USE\_DEBUG\_HOOK}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#ifdef\ MRB\_ENABLE\_ALL\_SYMBOLS}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#\ define\ MRB\_USE\_ALL\_SYMBOLS}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#ifdef\ MRB\_ENABLE\_CXX\_ABI}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#\ define\ MRB\_USE\_CXX\_ABI}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#ifdef\ MRB\_ENABLE\_CXX\_EXCEPTION}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#\ define\ MRB\_USE\_CXX\_EXCEPTION}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \textcolor{comment}{/*\ end\ of\ configuration\ */}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#ifndef\ MRB\_NO\_STDIO}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#\ include\ <stdio.h>}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00202\ \textcolor{comment}{**\ mruby\ tuning\ profiles}}
+\DoxyCodeLine{00203\ \textcolor{comment}{**/}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \textcolor{comment}{/*\ A\ profile\ for\ micro\ controllers\ */}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#if\ defined(MRB\_CONSTRAINED\_BASELINE\_PROFILE)}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#\ ifndef\ MRB\_NO\_METHOD\_CACHE}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#\ \ define\ MRB\_NO\_METHOD\_CACHE}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#\ ifndef\ KHASH\_DEFAULT\_SIZE}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#\ \ define\ KHASH\_DEFAULT\_SIZE\ 16}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\#\ ifndef\ MRB\_HEAP\_PAGE\_SIZE}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#\ \ define\ MRB\_HEAP\_PAGE\_SIZE\ 256}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \textcolor{comment}{/*\ A\ profile\ for\ default\ mruby\ */}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#elif\ defined(MRB\_BASELINE\_PROFILE)}}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \textcolor{comment}{/*\ A\ profile\ for\ desktop\ computers\ or\ workstations;\ rich\ memory!\ */}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#elif\ defined(MRB\_MAIN\_PROFILE)}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#\ ifndef\ MRB\_METHOD\_CACHE\_SIZE}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#\ \ define\ MRB\_METHOD\_CACHE\_SIZE\ (1<<10)}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#\ ifndef\ MRB\_HEAP\_PAGE\_SIZE}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#\ \ define\ MRB\_HEAP\_PAGE\_SIZE\ 4096}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \textcolor{comment}{/*\ A\ profile\ for\ server;\ mruby\ vm\ is\ long\ life\ */}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#elif\ defined(MRB\_HIGH\_PROFILE)}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#\ ifndef\ MRB\_METHOD\_CACHE\_SIZE}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#\ \ define\ MRB\_METHOD\_CACHE\_SIZE\ (1<<12)}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#\ ifndef\ MRB\_HEAP\_PAGE\_SIZE}}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#\ \ define\ MRB\_HEAP\_PAGE\_SIZE\ 4096}}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBYCONF\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

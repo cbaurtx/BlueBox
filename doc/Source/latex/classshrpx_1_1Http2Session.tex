@@ -1,0 +1,230 @@
+\doxysection{shrpx\+::Http2\+Session Class Reference}
+\hypertarget{classshrpx_1_1Http2Session}{}\label{classshrpx_1_1Http2Session}\index{shrpx::Http2Session@{shrpx::Http2Session}}
+
+
+Collaboration diagram for shrpx\+::Http2\+Session\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{classshrpx_1_1Http2Session__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a4f1e6ee6b842ccee82896a097e9371da}\label{classshrpx_1_1Http2Session_a4f1e6ee6b842ccee82896a097e9371da} 
+using {\bfseries Read\+Buf} = \mbox{\hyperlink{structnghttp2_1_1Buffer}{Buffer}}$<$8\+\_\+k$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a9953b5a01782ad88ce343403b4381311}\label{classshrpx_1_1Http2Session_a9953b5a01782ad88ce343403b4381311} 
+{\bfseries Http2\+Session} (struct ev\+\_\+loop \texorpdfstring{$\ast$}{*}loop, SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*}ssl\+\_\+ctx, \mbox{\hyperlink{classshrpx_1_1Worker}{Worker}} \texorpdfstring{$\ast$}{*}worker, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1DownstreamAddrGroup}{Downstream\+Addr\+Group}} $>$ \&group, \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{Downstream\+Addr}} \texorpdfstring{$\ast$}{*}addr)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_ae8db6b53f82c1d50b67edc3f91ff0427}\label{classshrpx_1_1Http2Session_ae8db6b53f82c1d50b67edc3f91ff0427} 
+int {\bfseries disconnect} (bool hard=false)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a708bbcc55bea6b58e4f37765214d5856}\label{classshrpx_1_1Http2Session_a708bbcc55bea6b58e4f37765214d5856} 
+int {\bfseries initiate\+\_\+connection} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a0c1cf859f0b375d9409d6399fced4ec5}\label{classshrpx_1_1Http2Session_a0c1cf859f0b375d9409d6399fced4ec5} 
+int {\bfseries resolve\+\_\+name} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a1cb5d41f4bde1b17df35de65589b9cd7}\label{classshrpx_1_1Http2Session_a1cb5d41f4bde1b17df35de65589b9cd7} 
+void {\bfseries add\+\_\+downstream\+\_\+connection} (\mbox{\hyperlink{classshrpx_1_1Http2DownstreamConnection}{Http2\+Downstream\+Connection}} \texorpdfstring{$\ast$}{*}dconn)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a223dd3e711eb4a7d9f2e749c90dfa618}\label{classshrpx_1_1Http2Session_a223dd3e711eb4a7d9f2e749c90dfa618} 
+void {\bfseries remove\+\_\+downstream\+\_\+connection} (\mbox{\hyperlink{classshrpx_1_1Http2DownstreamConnection}{Http2\+Downstream\+Connection}} \texorpdfstring{$\ast$}{*}dconn)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a317a4d570132ed477cbe6e9486fe1412}\label{classshrpx_1_1Http2Session_a317a4d570132ed477cbe6e9486fe1412} 
+void {\bfseries remove\+\_\+stream\+\_\+data} (\mbox{\hyperlink{structshrpx_1_1StreamData}{Stream\+Data}} \texorpdfstring{$\ast$}{*}sd)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a7a340564bfd252e1273a20fb38adcb92}\label{classshrpx_1_1Http2Session_a7a340564bfd252e1273a20fb38adcb92} 
+int {\bfseries submit\+\_\+request} (\mbox{\hyperlink{classshrpx_1_1Http2DownstreamConnection}{Http2\+Downstream\+Connection}} \texorpdfstring{$\ast$}{*}dconn, const \mbox{\hyperlink{structnghttp2__nv}{nghttp2\+\_\+nv}} \texorpdfstring{$\ast$}{*}nva, size\+\_\+t nvlen, const \mbox{\hyperlink{structnghttp2__data__provider2}{nghttp2\+\_\+data\+\_\+provider2}} \texorpdfstring{$\ast$}{*}data\+\_\+prd)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a86609b0bc03b18da91399d9799b35288}\label{classshrpx_1_1Http2Session_a86609b0bc03b18da91399d9799b35288} 
+int {\bfseries submit\+\_\+rst\+\_\+stream} (int32\+\_\+t stream\+\_\+id, uint32\+\_\+t error\+\_\+code)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a3e58e10c0ef275db978b370f340f539d}\label{classshrpx_1_1Http2Session_a3e58e10c0ef275db978b370f340f539d} 
+int {\bfseries terminate\+\_\+session} (uint32\+\_\+t error\+\_\+code)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a045a0791593ca80db15d6e775b3b0c3c}\label{classshrpx_1_1Http2Session_a045a0791593ca80db15d6e775b3b0c3c} 
+\mbox{\hyperlink{structnghttp2__session}{nghttp2\+\_\+session}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+session} () const
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_ac75186651ac00ea2a8986d50f6770686}\label{classshrpx_1_1Http2Session_ac75186651ac00ea2a8986d50f6770686} 
+int {\bfseries resume\+\_\+data} (\mbox{\hyperlink{classshrpx_1_1Http2DownstreamConnection}{Http2\+Downstream\+Connection}} \texorpdfstring{$\ast$}{*}dconn)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_ac12b3bf8ada58eabcaaf3cd49ce204f5}\label{classshrpx_1_1Http2Session_ac12b3bf8ada58eabcaaf3cd49ce204f5} 
+int {\bfseries connection\+\_\+made} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a641c7fefb87e31de2d2871344cd5353d}\label{classshrpx_1_1Http2Session_a641c7fefb87e31de2d2871344cd5353d} 
+int {\bfseries do\+\_\+read} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a713b983c8c79da922109598c5b043eef}\label{classshrpx_1_1Http2Session_a713b983c8c79da922109598c5b043eef} 
+int {\bfseries do\+\_\+write} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a43a8f11e306a8c9b72c59bb391d3d4c6}\label{classshrpx_1_1Http2Session_a43a8f11e306a8c9b72c59bb391d3d4c6} 
+int {\bfseries on\+\_\+read} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t datalen)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_acadfb9352530fa76b053c31f4901e41b}\label{classshrpx_1_1Http2Session_acadfb9352530fa76b053c31f4901e41b} 
+int {\bfseries on\+\_\+write} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a305328ab46af27913446e240ac9d41bd}\label{classshrpx_1_1Http2Session_a305328ab46af27913446e240ac9d41bd} 
+int {\bfseries connected} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a620fb5313c1a8b1f17ea4893f267df82}\label{classshrpx_1_1Http2Session_a620fb5313c1a8b1f17ea4893f267df82} 
+int {\bfseries read\+\_\+clear} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a419a0e4dbd1719bcfc3404e260f1949d}\label{classshrpx_1_1Http2Session_a419a0e4dbd1719bcfc3404e260f1949d} 
+int {\bfseries write\+\_\+clear} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a7266fb6a4c1615d58d714b99ac83ad77}\label{classshrpx_1_1Http2Session_a7266fb6a4c1615d58d714b99ac83ad77} 
+int {\bfseries tls\+\_\+handshake} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_acd654c4105e13cb5943174a85c13848a}\label{classshrpx_1_1Http2Session_acd654c4105e13cb5943174a85c13848a} 
+int {\bfseries read\+\_\+tls} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_aa98c349ed48e8f456acd4cb8fed1f3aa}\label{classshrpx_1_1Http2Session_aa98c349ed48e8f456acd4cb8fed1f3aa} 
+int {\bfseries write\+\_\+tls} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_ab2e72e71b33cdcab4eeb16c5ed129e12}\label{classshrpx_1_1Http2Session_ab2e72e71b33cdcab4eeb16c5ed129e12} 
+int {\bfseries write\+\_\+void} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a378bdb964178eb698e0d4d39be0f42ec}\label{classshrpx_1_1Http2Session_a378bdb964178eb698e0d4d39be0f42ec} 
+int {\bfseries downstream\+\_\+read\+\_\+proxy} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t datalen)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_aaedecb03326ea28c46c1644f62fec48d}\label{classshrpx_1_1Http2Session_aaedecb03326ea28c46c1644f62fec48d} 
+int {\bfseries downstream\+\_\+connect\+\_\+proxy} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a9ef3b2c9d143a14869e2cbb518a43c20}\label{classshrpx_1_1Http2Session_a9ef3b2c9d143a14869e2cbb518a43c20} 
+int {\bfseries downstream\+\_\+read} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t datalen)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_aa90b207502e3aae7a62d9ce733f9efd9}\label{classshrpx_1_1Http2Session_aa90b207502e3aae7a62d9ce733f9efd9} 
+int {\bfseries downstream\+\_\+write} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a12c35f1a4cf414009fa1b8a6d2b423b5}\label{classshrpx_1_1Http2Session_a12c35f1a4cf414009fa1b8a6d2b423b5} 
+int {\bfseries noop} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a59fa883c246657f9c42dc9c7f944f199}\label{classshrpx_1_1Http2Session_a59fa883c246657f9c42dc9c7f944f199} 
+int {\bfseries read\+\_\+noop} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t datalen)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a68c6bc39da3e64bd0f9326d86f5f4809}\label{classshrpx_1_1Http2Session_a68c6bc39da3e64bd0f9326d86f5f4809} 
+int {\bfseries write\+\_\+noop} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a04ccd2ee824cdd7990efadc7dd7a11da}\label{classshrpx_1_1Http2Session_a04ccd2ee824cdd7990efadc7dd7a11da} 
+void {\bfseries signal\+\_\+write} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_ae74f23be4487dffa43bf8ab848f1032f}\label{classshrpx_1_1Http2Session_ae74f23be4487dffa43bf8ab848f1032f} 
+struct ev\+\_\+loop \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+loop} () const
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_adce5a816a40f7b227504d696f9594848}\label{classshrpx_1_1Http2Session_adce5a816a40f7b227504d696f9594848} 
+ev\+\_\+io \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+wev} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a6aa77a20d0125bb1553adc574425eb79}\label{classshrpx_1_1Http2Session_a6aa77a20d0125bb1553adc574425eb79} 
+Http2\+Session\+State {\bfseries get\+\_\+state} () const
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a9bcf377075d930b0cba8b7a7b7938c4a}\label{classshrpx_1_1Http2Session_a9bcf377075d930b0cba8b7a7b7938c4a} 
+void {\bfseries set\+\_\+state} (Http2\+Session\+State state)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a5002bd5c6d0b0023a1427d806bb7b252}\label{classshrpx_1_1Http2Session_a5002bd5c6d0b0023a1427d806bb7b252} 
+void {\bfseries start\+\_\+settings\+\_\+timer} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_ad7d2cead42e8181e801d4c87f651fbd4}\label{classshrpx_1_1Http2Session_ad7d2cead42e8181e801d4c87f651fbd4} 
+void {\bfseries stop\+\_\+settings\+\_\+timer} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_ae2494ef542d734d5bd5b46ea56159b73}\label{classshrpx_1_1Http2Session_ae2494ef542d734d5bd5b46ea56159b73} 
+SSL \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+ssl} () const
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a323bc7dc509e343011842cbff9f54381}\label{classshrpx_1_1Http2Session_a323bc7dc509e343011842cbff9f54381} 
+int {\bfseries consume} (int32\+\_\+t stream\+\_\+id, size\+\_\+t len)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a6dc0316945611e2afe3d761d54096323}\label{classshrpx_1_1Http2Session_a6dc0316945611e2afe3d761d54096323} 
+bool {\bfseries can\+\_\+push\+\_\+request} (const \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream) const
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a700e593341644664f05c9bee83287853}\label{classshrpx_1_1Http2Session_a700e593341644664f05c9bee83287853} 
+void {\bfseries start\+\_\+checking\+\_\+connection} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_aaefa56b0d7ce8aeb03c8b5f1a907b74e}\label{classshrpx_1_1Http2Session_aaefa56b0d7ce8aeb03c8b5f1a907b74e} 
+void {\bfseries reset\+\_\+connection\+\_\+check\+\_\+timer} (ev\+\_\+tstamp t)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a599d5657a0081d6ddb268ee40a43d613}\label{classshrpx_1_1Http2Session_a599d5657a0081d6ddb268ee40a43d613} 
+void {\bfseries reset\+\_\+connection\+\_\+check\+\_\+timer\+\_\+if\+\_\+not\+\_\+checking} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_abcab301a632b0b498aa0a85ea1eae346}\label{classshrpx_1_1Http2Session_abcab301a632b0b498aa0a85ea1eae346} 
+void {\bfseries connection\+\_\+alive} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a1c951a1e1821a59077f7a7c5372e4b83}\label{classshrpx_1_1Http2Session_a1c951a1e1821a59077f7a7c5372e4b83} 
+void {\bfseries set\+\_\+connection\+\_\+check\+\_\+state} (Connection\+Check state)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_af76be048014395b10d25646b5f85b33c}\label{classshrpx_1_1Http2Session_af76be048014395b10d25646b5f85b33c} 
+Connection\+Check {\bfseries get\+\_\+connection\+\_\+check\+\_\+state} () const
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_ad53d1c6b186b692aed29f2517a1b1ce2}\label{classshrpx_1_1Http2Session_ad53d1c6b186b692aed29f2517a1b1ce2} 
+bool {\bfseries should\+\_\+hard\+\_\+fail} () const
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_acd3f330ab71c407df57e8746bfc666a2}\label{classshrpx_1_1Http2Session_acd3f330ab71c407df57e8746bfc666a2} 
+void {\bfseries submit\+\_\+pending\+\_\+requests} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_af7c54cccf6254d3a125dffd847179b23}\label{classshrpx_1_1Http2Session_af7c54cccf6254d3a125dffd847179b23} 
+\mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{Downstream\+Addr}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+addr} () const
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a00ff45f57fa243b711607a7bcdf78bd7}\label{classshrpx_1_1Http2Session_a00ff45f57fa243b711607a7bcdf78bd7} 
+const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1DownstreamAddrGroup}{Downstream\+Addr\+Group}} $>$ \& {\bfseries get\+\_\+downstream\+\_\+addr\+\_\+group} () const
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_aabc1727ebe7d223ffd25b92f340873aa}\label{classshrpx_1_1Http2Session_aabc1727ebe7d223ffd25b92f340873aa} 
+int {\bfseries handle\+\_\+downstream\+\_\+push\+\_\+promise} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream, int32\+\_\+t promised\+\_\+stream\+\_\+id)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_af08ffbc9301e57e1644fe44eefdd91ba}\label{classshrpx_1_1Http2Session_af08ffbc9301e57e1644fe44eefdd91ba} 
+int {\bfseries handle\+\_\+downstream\+\_\+push\+\_\+promise\+\_\+complete} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream, \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}promised\+\_\+downstream)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a7656a0533e4c44cf6be3b10c9ab8b8f1}\label{classshrpx_1_1Http2Session_a7656a0533e4c44cf6be3b10c9ab8b8f1} 
+size\+\_\+t {\bfseries get\+\_\+num\+\_\+dconns} () const
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a69eefe0cf0749d68e9f9776c38024d14}\label{classshrpx_1_1Http2Session_a69eefe0cf0749d68e9f9776c38024d14} 
+void {\bfseries add\+\_\+to\+\_\+avail\+\_\+freelist} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_af3ccf2aa721e56f0c67299348840d494}\label{classshrpx_1_1Http2Session_af3ccf2aa721e56f0c67299348840d494} 
+void {\bfseries add\+\_\+to\+\_\+extra\+\_\+freelist} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a70bef21c65ba48c46d8aeff967f2003e}\label{classshrpx_1_1Http2Session_a70bef21c65ba48c46d8aeff967f2003e} 
+void {\bfseries remove\+\_\+from\+\_\+freelist} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a69246429916af4919323505809adb8ae}\label{classshrpx_1_1Http2Session_a69246429916af4919323505809adb8ae} 
+void {\bfseries exclude\+\_\+from\+\_\+scheduling} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a843246154b309287527d693d18cdba7e}\label{classshrpx_1_1Http2Session_a843246154b309287527d693d18cdba7e} 
+bool {\bfseries max\+\_\+concurrency\+\_\+reached} (size\+\_\+t extra=0) const
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a1f0acb90663aa4116c1980f39de2547d}\label{classshrpx_1_1Http2Session_a1f0acb90663aa4116c1980f39de2547d} 
+Default\+Memchunks \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+request\+\_\+buf} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a863043e133cb39ad6a6c324a14cc619e}\label{classshrpx_1_1Http2Session_a863043e133cb39ad6a6c324a14cc619e} 
+void {\bfseries on\+\_\+timeout} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_ade1686cba8aaca8b661dc3280b4d3865}\label{classshrpx_1_1Http2Session_ade1686cba8aaca8b661dc3280b4d3865} 
+void {\bfseries check\+\_\+retire} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_abfbfbeb94f7671654ca1cf8fa38a63bd}\label{classshrpx_1_1Http2Session_abfbfbeb94f7671654ca1cf8fa38a63bd} 
+const \mbox{\hyperlink{structnghttp2_1_1Address}{Address}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+raddr} () const
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_a45f42c19cb0324e29ac322ced9131cbc}\label{classshrpx_1_1Http2Session_a45f42c19cb0324e29ac322ced9131cbc} 
+void {\bfseries on\+\_\+settings\+\_\+received} (const \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\+\_\+frame}} \texorpdfstring{$\ast$}{*}frame)
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_ae5ae34f442d3a5457df7cefef5158e44}\label{classshrpx_1_1Http2Session_ae5ae34f442d3a5457df7cefef5158e44} 
+bool {\bfseries get\+\_\+allow\+\_\+connect\+\_\+proto} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_af5a008ded4d877244b89761babbf06a6}\label{classshrpx_1_1Http2Session_af5a008ded4d877244b89761babbf06a6} 
+Http2\+Session \texorpdfstring{$\ast$}{*} {\bfseries dlnext}
+\item 
+\Hypertarget{classshrpx_1_1Http2Session_aa2bfd55419645efa3816a0bd8400affe}\label{classshrpx_1_1Http2Session_aa2bfd55419645efa3816a0bd8400affe} 
+Http2\+Session \texorpdfstring{$\ast$}{*} {\bfseries dlprev}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+http2\+\_\+session.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+http2\+\_\+session.\+cc\end{DoxyCompactItemize}

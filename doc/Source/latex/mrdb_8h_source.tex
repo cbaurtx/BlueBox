@@ -1,0 +1,165 @@
+\doxysection{mrdb.\+h}
+\hypertarget{mrdb_8h_source}{}\label{mrdb_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/bin-\/debugger/tools/mrdb/mrdb.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/bin-\/debugger/tools/mrdb/mrdb.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ mrdb.h\ -\/\ mruby\ debugger}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**}}
+\DoxyCodeLine{00004\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ MRDB\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ MRDB\_H}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{mruby_8h}{mruby.h}}>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}mrdbconf.h"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ MAX\_COMMAND\_WORD\ (16)}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ debug\_command\_id\ \{}
+\DoxyCodeLine{00016\ \ \ DBGCMD\_RUN,}
+\DoxyCodeLine{00017\ \ \ DBGCMD\_CONTINUE,}
+\DoxyCodeLine{00018\ \ \ DBGCMD\_NEXT,}
+\DoxyCodeLine{00019\ \ \ DBGCMD\_STEP,}
+\DoxyCodeLine{00020\ \ \ DBGCMD\_BREAK,}
+\DoxyCodeLine{00021\ \ \ DBGCMD\_INFO\_BREAK,}
+\DoxyCodeLine{00022\ \ \ DBGCMD\_INFO\_LOCAL,}
+\DoxyCodeLine{00023\ \ \ DBGCMD\_WATCH,}
+\DoxyCodeLine{00024\ \ \ DBGCMD\_INFO\_WATCH,}
+\DoxyCodeLine{00025\ \ \ DBGCMD\_ENABLE,}
+\DoxyCodeLine{00026\ \ \ DBGCMD\_DISABLE,}
+\DoxyCodeLine{00027\ \ \ DBGCMD\_DELETE,}
+\DoxyCodeLine{00028\ \ \ DBGCMD\_PRINT,}
+\DoxyCodeLine{00029\ \ \ DBGCMD\_DISPLAY,}
+\DoxyCodeLine{00030\ \ \ DBGCMD\_INFO\_DISPLAY,}
+\DoxyCodeLine{00031\ \ \ DBGCMD\_DELETE\_DISPLAY,}
+\DoxyCodeLine{00032\ \ \ DBGCMD\_EVAL,}
+\DoxyCodeLine{00033\ \ \ DBGCMD\_BACKTRACE,}
+\DoxyCodeLine{00034\ \ \ DBGCMD\_LIST,}
+\DoxyCodeLine{00035\ \ \ DBGCMD\_HELP,}
+\DoxyCodeLine{00036\ \ \ DBGCMD\_QUIT,}
+\DoxyCodeLine{00037\ \ \ DBGCMD\_UNKNOWN}
+\DoxyCodeLine{00038\ \}\ debug\_command\_id;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ dbgcmd\_state\ \{}
+\DoxyCodeLine{00041\ \ \ DBGST\_CONTINUE,}
+\DoxyCodeLine{00042\ \ \ DBGST\_PROMPT,}
+\DoxyCodeLine{00043\ \ \ DBGST\_COMMAND\_ERROR,}
+\DoxyCodeLine{00044\ \ \ DBGST\_MAX,}
+\DoxyCodeLine{00045\ \ \ DBGST\_RESTART}
+\DoxyCodeLine{00046\ \}\ dbgcmd\_state;}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ mrdb\_exemode\ \{}
+\DoxyCodeLine{00049\ \ \ DBG\_INIT,}
+\DoxyCodeLine{00050\ \ \ DBG\_RUN,}
+\DoxyCodeLine{00051\ \ \ DBG\_STEP,}
+\DoxyCodeLine{00052\ \ \ DBG\_NEXT,}
+\DoxyCodeLine{00053\ \ \ DBG\_QUIT,}
+\DoxyCodeLine{00054\ \}\ mrdb\_exemode;}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ mrdb\_exephase\ \{}
+\DoxyCodeLine{00057\ \ \ DBG\_PHASE\_BEFORE\_RUN,}
+\DoxyCodeLine{00058\ \ \ DBG\_PHASE\_RUNNING,}
+\DoxyCodeLine{00059\ \ \ DBG\_PHASE\_AFTER\_RUN,}
+\DoxyCodeLine{00060\ \ \ DBG\_PHASE\_RESTART,}
+\DoxyCodeLine{00061\ \}\ mrdb\_exephase;}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ mrdb\_brkmode\ \{}
+\DoxyCodeLine{00064\ \ \ BRK\_INIT,}
+\DoxyCodeLine{00065\ \ \ BRK\_BREAK,}
+\DoxyCodeLine{00066\ \ \ BRK\_STEP,}
+\DoxyCodeLine{00067\ \ \ BRK\_NEXT,}
+\DoxyCodeLine{00068\ \ \ BRK\_QUIT,}
+\DoxyCodeLine{00069\ \}\ mrdb\_brkmode;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00072\ \ \ MRB\_DEBUG\_BPTYPE\_NONE,}
+\DoxyCodeLine{00073\ \ \ MRB\_DEBUG\_BPTYPE\_LINE,}
+\DoxyCodeLine{00074\ \ \ MRB\_DEBUG\_BPTYPE\_METHOD,}
+\DoxyCodeLine{00075\ \}\ mrb\_debug\_bptype;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__debug__linepoint}{mrb\_debug\_linepoint}}\ \{}
+\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *file;}
+\DoxyCodeLine{00079\ \ \ uint16\_t\ lineno;}
+\DoxyCodeLine{00080\ \}\ \mbox{\hyperlink{structmrb__debug__linepoint}{mrb\_debug\_linepoint}};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__debug__methodpoint}{mrb\_debug\_methodpoint}}\ \{}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *class\_name;}
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *method\_name;}
+\DoxyCodeLine{00085\ \}\ \mbox{\hyperlink{structmrb__debug__methodpoint}{mrb\_debug\_methodpoint}};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__debug__breakpoint}{mrb\_debug\_breakpoint}}\ \{}
+\DoxyCodeLine{00088\ \ \ uint32\_t\ bpno;}
+\DoxyCodeLine{00089\ \ \ uint8\_t\ enable;}
+\DoxyCodeLine{00090\ \ \ mrb\_debug\_bptype\ type;}
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{union\ }\mbox{\hyperlink{unionmrb__debug__breakpoint_1_1point}{point}}\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{structmrb__debug__linepoint}{mrb\_debug\_linepoint}}\ linepoint;}
+\DoxyCodeLine{00093\ \ \ \ \ \mbox{\hyperlink{structmrb__debug__methodpoint}{mrb\_debug\_methodpoint}}\ methodpoint;}
+\DoxyCodeLine{00094\ \ \ \}\ \mbox{\hyperlink{unionmrb__debug__breakpoint_1_1point}{point}};}
+\DoxyCodeLine{00095\ \}\ \mbox{\hyperlink{structmrb__debug__breakpoint}{mrb\_debug\_breakpoint}};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__debug__context}{mrb\_debug\_context}}\ \{}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__irep}{mrb\_irep}}\ *root\_irep;}
+\DoxyCodeLine{00099\ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__irep}{mrb\_irep}}\ *irep;}
+\DoxyCodeLine{00100\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{mruby_8h_a9ecf6ce1e2166ff92259de77767bd930}{mrb\_code}}\ *pc;}
+\DoxyCodeLine{00101\ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ *regs;}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *prvfile;}
+\DoxyCodeLine{00104\ \ \ int32\_t\ prvline;}
+\DoxyCodeLine{00105\ \ \ \mbox{\hyperlink{structmrb__callinfo}{mrb\_callinfo}}\ *prvci;}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ mrdb\_exemode\ xm;}
+\DoxyCodeLine{00108\ \ \ mrdb\_exephase\ xphase;}
+\DoxyCodeLine{00109\ \ \ mrdb\_brkmode\ bm;}
+\DoxyCodeLine{00110\ \ \ int16\_t\ bmi;}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ uint16\_t\ ccnt;}
+\DoxyCodeLine{00113\ \ \ uint16\_t\ scnt;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \mbox{\hyperlink{structmrb__debug__breakpoint}{mrb\_debug\_breakpoint}}\ bp[MAX\_BREAKPOINT];}
+\DoxyCodeLine{00116\ \ \ uint32\_t\ bpnum;}
+\DoxyCodeLine{00117\ \ \ int32\_t\ next\_bpno;}
+\DoxyCodeLine{00118\ \ \ int32\_t\ method\_bpno;}
+\DoxyCodeLine{00119\ \ \ int32\_t\ stopped\_bpno;}
+\DoxyCodeLine{00120\ \ \ mrb\_bool\ isCfunc;}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ mrdb\_exemode\ (*break\_hook)(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__debug__context}{mrb\_debug\_context}}\ *dbg);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \}\ \mbox{\hyperlink{structmrb__debug__context}{mrb\_debug\_context}};}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrdb__state}{mrdb\_state}}\ \{}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{char}\ *command;}
+\DoxyCodeLine{00128\ \ \ uint8\_t\ wcnt;}
+\DoxyCodeLine{00129\ \ \ uint8\_t\ pi;}
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{char}\ *words[MAX\_COMMAND\_WORD];}
+\DoxyCodeLine{00131\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *srcpath;}
+\DoxyCodeLine{00132\ \ \ uint32\_t\ print\_no;}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \mbox{\hyperlink{structmrb__debug__context}{mrb\_debug\_context}}\ *dbg;}
+\DoxyCodeLine{00135\ \}\ \mbox{\hyperlink{structmrdb__state}{mrdb\_state}};}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{keyword}{typedef}\ dbgcmd\_state\ (*debug\_command\_func)(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrdb__state}{mrdb\_state}}*);}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{comment}{/*\ cmdrun.c\ */}}
+\DoxyCodeLine{00140\ dbgcmd\_state\ dbgcmd\_run(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrdb__state}{mrdb\_state}}*);}
+\DoxyCodeLine{00141\ dbgcmd\_state\ dbgcmd\_continue(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrdb__state}{mrdb\_state}}*);}
+\DoxyCodeLine{00142\ dbgcmd\_state\ dbgcmd\_step(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrdb__state}{mrdb\_state}}*);}
+\DoxyCodeLine{00143\ dbgcmd\_state\ dbgcmd\_next(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrdb__state}{mrdb\_state}}*);}
+\DoxyCodeLine{00144\ \textcolor{comment}{/*\ cmdbreak.c\ */}}
+\DoxyCodeLine{00145\ dbgcmd\_state\ dbgcmd\_break(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrdb__state}{mrdb\_state}}*);}
+\DoxyCodeLine{00146\ dbgcmd\_state\ dbgcmd\_info\_break(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrdb__state}{mrdb\_state}}*);}
+\DoxyCodeLine{00147\ dbgcmd\_state\ dbgcmd\_info\_local(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrdb__state}{mrdb\_state}}*);}
+\DoxyCodeLine{00148\ dbgcmd\_state\ dbgcmd\_delete(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrdb__state}{mrdb\_state}}*);}
+\DoxyCodeLine{00149\ dbgcmd\_state\ dbgcmd\_enable(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrdb__state}{mrdb\_state}}*);}
+\DoxyCodeLine{00150\ dbgcmd\_state\ dbgcmd\_disable(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrdb__state}{mrdb\_state}}*);}
+\DoxyCodeLine{00151\ \textcolor{comment}{/*\ cmdprint.c\ */}}
+\DoxyCodeLine{00152\ dbgcmd\_state\ dbgcmd\_print(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrdb__state}{mrdb\_state}}*);}
+\DoxyCodeLine{00153\ dbgcmd\_state\ dbgcmd\_eval(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrdb__state}{mrdb\_state}}*);}
+\DoxyCodeLine{00154\ \textcolor{comment}{/*\ cmdmisc.c\ */}}
+\DoxyCodeLine{00155\ dbgcmd\_state\ dbgcmd\_list(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrdb__state}{mrdb\_state}}*);}
+\DoxyCodeLine{00156\ dbgcmd\_state\ dbgcmd\_help(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrdb__state}{mrdb\_state}}*);}
+\DoxyCodeLine{00157\ dbgcmd\_state\ dbgcmd\_quit(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrdb__state}{mrdb\_state}}*);}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

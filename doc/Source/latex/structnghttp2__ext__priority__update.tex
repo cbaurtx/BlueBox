@@ -1,0 +1,48 @@
+\doxysection{nghttp2\+\_\+ext\+\_\+priority\+\_\+update Struct Reference}
+\hypertarget{structnghttp2__ext__priority__update}{}\label{structnghttp2__ext__priority__update}\index{nghttp2\_ext\_priority\_update@{nghttp2\_ext\_priority\_update}}
+
+
+{\ttfamily \#include $<$nghttp2.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int32\+\_\+t \mbox{\hyperlink{structnghttp2__ext__priority__update_a3866d687c687b60e100b2c22214a5ed9}{stream\+\_\+id}}
+\item 
+uint8\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structnghttp2__ext__priority__update_a7c9ebfe957720f0622a868babc88092d}{field\+\_\+value}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structnghttp2__ext__priority__update_a74366eb33b694a41366031c2f135b97f}{field\+\_\+value\+\_\+len}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The payload of PRIORITY\+\_\+\+UPDATE frame. PRIORITY\+\_\+\+UPDATE frame is a non-\/critical extension to HTTP/2. If this frame is received, and {\ttfamily nghttp2\+\_\+option\+\_\+set\+\_\+user\+\_\+recv\+\_\+extension\+\_\+type()} is not set, and {\ttfamily nghttp2\+\_\+option\+\_\+set\+\_\+builtin\+\_\+recv\+\_\+extension\+\_\+type()} is set for \+:enum\+:{\ttfamily nghttp2\+\_\+frame\+\_\+type.\+NGHTTP2\+\_\+\+PRIORITY\+\_\+\+UPDATE}, {\ttfamily \doxylink{structnghttp2__extension_afee3a625ad00125c1064c4182afed9a1}{nghttp2\+\_\+extension.\+payload}} will point to this struct.
+
+It has the following members\+: 
+
+\label{doc-variable-members}
+\Hypertarget{structnghttp2__ext__priority__update_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structnghttp2__ext__priority__update_a7c9ebfe957720f0622a868babc88092d}\index{nghttp2\_ext\_priority\_update@{nghttp2\_ext\_priority\_update}!field\_value@{field\_value}}
+\index{field\_value@{field\_value}!nghttp2\_ext\_priority\_update@{nghttp2\_ext\_priority\_update}}
+\doxysubsubsection{\texorpdfstring{field\_value}{field\_value}}
+{\footnotesize\ttfamily \label{structnghttp2__ext__priority__update_a7c9ebfe957720f0622a868babc88092d} 
+uint8\+\_\+t\texorpdfstring{$\ast$}{*} nghttp2\+\_\+ext\+\_\+priority\+\_\+update\+::field\+\_\+value}
+
+The pointer to Priority field value. It is not necessarily NULL-\/terminated. \Hypertarget{structnghttp2__ext__priority__update_a74366eb33b694a41366031c2f135b97f}\index{nghttp2\_ext\_priority\_update@{nghttp2\_ext\_priority\_update}!field\_value\_len@{field\_value\_len}}
+\index{field\_value\_len@{field\_value\_len}!nghttp2\_ext\_priority\_update@{nghttp2\_ext\_priority\_update}}
+\doxysubsubsection{\texorpdfstring{field\_value\_len}{field\_value\_len}}
+{\footnotesize\ttfamily \label{structnghttp2__ext__priority__update_a74366eb33b694a41366031c2f135b97f} 
+size\+\_\+t nghttp2\+\_\+ext\+\_\+priority\+\_\+update\+::field\+\_\+value\+\_\+len}
+
+The length of the \+:member\+:{\ttfamily \doxylink{structnghttp2__ext__priority__update_a7c9ebfe957720f0622a868babc88092d}{field\+\_\+value}}. \Hypertarget{structnghttp2__ext__priority__update_a3866d687c687b60e100b2c22214a5ed9}\index{nghttp2\_ext\_priority\_update@{nghttp2\_ext\_priority\_update}!stream\_id@{stream\_id}}
+\index{stream\_id@{stream\_id}!nghttp2\_ext\_priority\_update@{nghttp2\_ext\_priority\_update}}
+\doxysubsubsection{\texorpdfstring{stream\_id}{stream\_id}}
+{\footnotesize\ttfamily \label{structnghttp2__ext__priority__update_a3866d687c687b60e100b2c22214a5ed9} 
+int32\+\_\+t nghttp2\+\_\+ext\+\_\+priority\+\_\+update\+::stream\+\_\+id}
+
+The stream ID of the stream whose priority is updated. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/lib/includes/nghttp2/nghttp2.\+h\end{DoxyCompactItemize}

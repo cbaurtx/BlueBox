@@ -1,0 +1,38 @@
+\doxysection{RArray Struct Reference}
+\hypertarget{structRArray}{}\label{structRArray}\index{RArray@{RArray}}
+
+
+Collaboration diagram for RArray\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{structRArray__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structRArray_a7393e4adfc361a288c126008b8800de4}\label{structRArray_a7393e4adfc361a288c126008b8800de4} 
+{\bfseries MRB\+\_\+\+OBJECT\+\_\+\+HEADER}
+\item 
+\Hypertarget{structRArray_af3324c0d77261f57360cf551d1a66fb0}\label{structRArray_af3324c0d77261f57360cf551d1a66fb0} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>struct \{\\
+\>\>mrb\_ssize {\bfseries len}\\
+\>\>union \{\\
+\>\>\>mrb\_ssize {\bfseries capa}\\
+\>\>\>\mbox{\hyperlink{structmrb__shared__array}{mrb\_shared\_array}} \texorpdfstring{$\ast$}{*} {\bfseries shared}\\
+\>\>\} {\bfseries aux}\\
+\>\>\mbox{\hyperlink{structmrb__value}{mrb\_value}} \texorpdfstring{$\ast$}{*} {\bfseries ptr}\\
+\>\} {\bfseries heap}\\
+\>\mbox{\hyperlink{structmrb__value}{mrb\_value}} {\bfseries ary} \mbox{[}MRB\_ARY\_EMBED\_LEN\_MAX\mbox{]}\\
+\} {\bfseries as}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/\mbox{\hyperlink{array_8h}{array.\+h}}\end{DoxyCompactItemize}

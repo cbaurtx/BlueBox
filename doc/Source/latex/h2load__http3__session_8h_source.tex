@@ -1,0 +1,90 @@
+\doxysection{h2load\+\_\+http3\+\_\+session.\+h}
+\hypertarget{h2load__http3__session_8h_source}{}\label{h2load__http3__session_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/h2load\_http3\_session.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/h2load\_http3\_session.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2019\ nghttp2\ contributors}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ H2LOAD\_HTTP3\_SESSION\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ H2LOAD\_HTTP3\_SESSION\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}h2load\_session.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <nghttp3/nghttp3.h>}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{namespace\ }h2load\ \{}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structh2load_1_1Client}{Client}};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{class\ }Http3Session\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classh2load_1_1Session}{Session}}\ \{}
+\DoxyCodeLine{00037\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00038\ \ \ Http3Session(\mbox{\hyperlink{structh2load_1_1Client}{Client}}\ *client);}
+\DoxyCodeLine{00039\ \ \ \textcolor{keyword}{virtual}\ \string~Http3Session();}
+\DoxyCodeLine{00040\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ on\_connect();}
+\DoxyCodeLine{00041\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ submit\_request();}
+\DoxyCodeLine{00042\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ on\_read(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00043\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ on\_write();}
+\DoxyCodeLine{00044\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ terminate();}
+\DoxyCodeLine{00045\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{size\_t}\ max\_concurrent\_streams();}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{int}\ init\_conn();}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{int}\ stream\_close(int64\_t\ stream\_id,\ uint64\_t\ app\_error\_code);}
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{int}\ end\_stream(int64\_t\ stream\_id);}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{void}\ recv\_data(int64\_t\ stream\_id,\ \textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ datalen);}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{void}\ consume(int64\_t\ stream\_id,\ \textcolor{keywordtype}{size\_t}\ nconsumed);}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{void}\ begin\_headers(int64\_t\ stream\_id);}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{void}\ recv\_header(int64\_t\ stream\_id,\ \textcolor{keyword}{const}\ nghttp3\_vec\ *name,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ nghttp3\_vec\ *value);}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{int}\ stop\_sending(int64\_t\ stream\_id,\ uint64\_t\ app\_error\_code);}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{int}\ reset\_stream(int64\_t\ stream\_id,\ uint64\_t\ app\_error\_code);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{int}\ close\_stream(int64\_t\ stream\_id,\ uint64\_t\ app\_error\_code);}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{int}\ shutdown\_stream\_read(int64\_t\ stream\_id);}
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{int}\ extend\_max\_local\_streams();}
+\DoxyCodeLine{00061\ \ \ int64\_t\ submit\_request\_internal();}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ ssize\_t\ read\_stream(uint32\_t\ flags,\ int64\_t\ stream\_id,\ \textcolor{keyword}{const}\ uint8\_t\ *data,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ datalen);}
+\DoxyCodeLine{00065\ \ \ ssize\_t\ write\_stream(int64\_t\ \&stream\_id,\ \textcolor{keywordtype}{int}\ \&fin,\ nghttp3\_vec\ *vec,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ veccnt);}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{void}\ block\_stream(int64\_t\ stream\_id);}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{int}\ unblock\_stream(int64\_t\ stream\_id);}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{void}\ shutdown\_stream\_write(int64\_t\ stream\_id);}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{int}\ add\_write\_offset(int64\_t\ stream\_id,\ \textcolor{keywordtype}{size\_t}\ ndatalen);}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{int}\ add\_ack\_offset(int64\_t\ stream\_id,\ \textcolor{keywordtype}{size\_t}\ datalen);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{void}\ read\_data(nghttp3\_vec\ *vec,\ \textcolor{keywordtype}{size\_t}\ veccnt,\ uint32\_t\ *pflags);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{structh2load_1_1Client}{Client}}\ *client\_;}
+\DoxyCodeLine{00077\ \ \ nghttp3\_conn\ *conn\_;}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{size\_t}\ npending\_request\_;}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{size\_t}\ reqidx\_;}
+\DoxyCodeLine{00080\ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \}\ \textcolor{comment}{//\ namespace\ h2load}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ H2LOAD\_HTTP3\_SESSION\_H}}
+
+\end{DoxyCode}

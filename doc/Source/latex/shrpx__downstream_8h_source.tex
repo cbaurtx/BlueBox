@@ -1,0 +1,639 @@
+\doxysection{shrpx\+\_\+downstream.\+h}
+\hypertarget{shrpx__downstream_8h_source}{}\label{shrpx__downstream_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_downstream.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_downstream.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_DOWNSTREAM\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_DOWNSTREAM\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <cinttypes>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <ev.h>}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#\ \ include\ <nghttp3/nghttp3.h>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}llhttp.h"{}}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}shrpx\_io\_control.h"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}shrpx\_log\_config.h"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}http2.h"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}memchunk.h"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}allocator.h"{}}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{using\ namespace\ }nghttp2;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1Upstream}{Upstream}};}
+\DoxyCodeLine{00058\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{DownstreamConnection}};}
+\DoxyCodeLine{00059\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1BlockedLink}{BlockedLink}};}
+\DoxyCodeLine{00060\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1DownstreamAddrGroup}{DownstreamAddrGroup}};}
+\DoxyCodeLine{00061\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{class\ }FieldStore\ \{}
+\DoxyCodeLine{00064\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00065\ \ \ FieldStore(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&balloc,\ \textcolor{keywordtype}{size\_t}\ headers\_initial\_capacity)}
+\DoxyCodeLine{00066\ \ \ \ \ :\ content\_length(-\/1),}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ balloc\_(balloc),}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ buffer\_size\_(0),}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ header\_key\_prev\_(\textcolor{keyword}{false}),}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ trailer\_key\_prev\_(\textcolor{keyword}{false})\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ headers\_.reserve(headers\_initial\_capacity);}
+\DoxyCodeLine{00072\ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \textcolor{keyword}{const}\ HeaderRefs\ \&headers()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ headers\_;\ \}}
+\DoxyCodeLine{00075\ \ \ \textcolor{keyword}{const}\ HeaderRefs\ \&trailers()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ trailers\_;\ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ HeaderRefs\ \&headers()\ \{\ \textcolor{keywordflow}{return}\ headers\_;\ \}}
+\DoxyCodeLine{00078\ \ \ HeaderRefs\ \&trailers()\ \{\ \textcolor{keywordflow}{return}\ trailers\_;\ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ add\_extra\_buffer\_size(\textcolor{keywordtype}{size\_t}\ n)\ \{\ buffer\_size\_\ +=\ n;\ \}}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{size\_t}\ buffer\_size()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ buffer\_size\_;\ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{size\_t}\ num\_fields()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ headers\_.size()\ +\ trailers\_.size();\ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \textcolor{comment}{//\ Returns\ pointer\ to\ the\ header\ field\ with\ the\ name\ |name|.\ \ If}}
+\DoxyCodeLine{00086\ \ \ \textcolor{comment}{//\ multiple\ header\ have\ |name|\ as\ name,\ return\ last\ occurrence\ from}}
+\DoxyCodeLine{00087\ \ \ \textcolor{comment}{//\ the\ beginning.\ \ If\ no\ such\ header\ is\ found,\ returns\ nullptr.}}
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{const}\ HeaderRefs::value\_type\ *header(int32\_t\ token)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00089\ \ \ HeaderRefs::value\_type\ *header(int32\_t\ token);}
+\DoxyCodeLine{00090\ \ \ \textcolor{comment}{//\ Returns\ pointer\ to\ the\ header\ field\ with\ the\ name\ |name|.\ \ If\ no}}
+\DoxyCodeLine{00091\ \ \ \textcolor{comment}{//\ such\ header\ is\ found,\ returns\ nullptr.}}
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{const}\ HeaderRefs::value\_type\ *header(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&name)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{void}\ add\_header\_token(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&name,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&value,}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ no\_index,\ int32\_t\ token);}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{comment}{//\ Adds\ header\ field\ name\ |name|.\ \ First,\ the\ copy\ of\ header\ field}}
+\DoxyCodeLine{00098\ \ \ \textcolor{comment}{//\ name\ pointed\ by\ name.c\_str()\ of\ length\ name.size()\ is\ made,\ and}}
+\DoxyCodeLine{00099\ \ \ \textcolor{comment}{//\ stored.}}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{void}\ alloc\_add\_header\_name(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&name);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{void}\ append\_last\_header\_key(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{void}\ append\_last\_header\_value(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{bool}\ header\_key\_prev()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ header\_key\_prev\_;\ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \textcolor{comment}{//\ Parses\ content-\/length,\ and\ records\ it\ in\ the\ field.\ \ If\ there\ are}}
+\DoxyCodeLine{00108\ \ \ \textcolor{comment}{//\ multiple\ Content-\/Length,\ returns\ -\/1.}}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{int}\ parse\_content\_length();}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \textcolor{comment}{//\ Empties\ headers.}}
+\DoxyCodeLine{00112\ \ \ \textcolor{keywordtype}{void}\ clear\_headers();}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordtype}{void}\ add\_trailer\_token(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&name,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&value,}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ no\_index,\ int32\_t\ token);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \textcolor{comment}{//\ Adds\ trailer\ field\ name\ |name|.\ \ First,\ the\ copy\ of\ trailer\ field}}
+\DoxyCodeLine{00118\ \ \ \textcolor{comment}{//\ name\ pointed\ by\ name.c\_str()\ of\ length\ name.size()\ is\ made,\ and}}
+\DoxyCodeLine{00119\ \ \ \textcolor{comment}{//\ stored.}}
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordtype}{void}\ alloc\_add\_trailer\_name(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&name);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{void}\ append\_last\_trailer\_key(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{void}\ append\_last\_trailer\_value(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{bool}\ trailer\_key\_prev()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ trailer\_key\_prev\_;\ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \textcolor{comment}{//\ erase\_content\_length\_and\_transfer\_encoding\ erases\ content-\/length}}
+\DoxyCodeLine{00128\ \ \ \textcolor{comment}{//\ and\ transfer-\/encoding\ header\ fields.}}
+\DoxyCodeLine{00129\ \ \ \textcolor{keywordtype}{void}\ erase\_content\_length\_and\_transfer\_encoding();}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \textcolor{comment}{//\ content-\/length,\ -\/1\ if\ it\ is\ unknown.}}
+\DoxyCodeLine{00132\ \ \ int64\_t\ content\_length;}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00135\ \ \ \mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&balloc\_;}
+\DoxyCodeLine{00136\ \ \ HeaderRefs\ headers\_;}
+\DoxyCodeLine{00137\ \ \ \textcolor{comment}{//\ trailer\ fields.\ \ For\ HTTP/1.1,\ trailer\ fields\ are\ only\ included}}
+\DoxyCodeLine{00138\ \ \ \textcolor{comment}{//\ with\ chunked\ encoding.\ \ For\ HTTP/2,\ there\ is\ no\ such\ limit.}}
+\DoxyCodeLine{00139\ \ \ HeaderRefs\ trailers\_;}
+\DoxyCodeLine{00140\ \ \ \textcolor{comment}{//\ Sum\ of\ the\ length\ of\ name\ and\ value\ in\ headers\_\ and\ trailers\_.}}
+\DoxyCodeLine{00141\ \ \ \textcolor{comment}{//\ This\ could\ also\ be\ increased\ by\ add\_extra\_buffer\_size()\ to\ take}}
+\DoxyCodeLine{00142\ \ \ \textcolor{comment}{//\ into\ account\ for\ request\ URI\ in\ case\ of\ HTTP/1.x\ request.}}
+\DoxyCodeLine{00143\ \ \ \textcolor{keywordtype}{size\_t}\ buffer\_size\_;}
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{bool}\ header\_key\_prev\_;}
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordtype}{bool}\ trailer\_key\_prev\_;}
+\DoxyCodeLine{00146\ \};}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{comment}{//\ Protocols\ allowed\ in\ HTTP/2\ :protocol\ header\ field.}}
+\DoxyCodeLine{00149\ \textcolor{keyword}{enum\ class}\ ConnectProto\ \{}
+\DoxyCodeLine{00150\ \ \ NONE,}
+\DoxyCodeLine{00151\ \ \ WEBSOCKET,}
+\DoxyCodeLine{00152\ \};}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{keyword}{struct\ }Request\ \{}
+\DoxyCodeLine{00155\ \ \ Request(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&balloc)}
+\DoxyCodeLine{00156\ \ \ \ \ :\ fs(balloc,\ 16),}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ recv\_body\_length(0),}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ unconsumed\_body\_length(0),}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ method(-\/1),}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ http\_major(1),}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ http\_minor(1),}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ connect\_proto(ConnectProto::NONE),}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ upgrade\_request(\textcolor{keyword}{false}),}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ http2\_upgrade\_seen(\textcolor{keyword}{false}),}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ connection\_close(\textcolor{keyword}{false}),}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ http2\_expect\_body(\textcolor{keyword}{false}),}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ no\_authority(\textcolor{keyword}{false}),}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ forwarded\_once(\textcolor{keyword}{false})\ \{\}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \textcolor{keywordtype}{void}\ consume(\textcolor{keywordtype}{size\_t}\ len)\ \{}
+\DoxyCodeLine{00171\ \ \ \ \ assert(unconsumed\_body\_length\ >=\ len);}
+\DoxyCodeLine{00172\ \ \ \ \ unconsumed\_body\_length\ -\/=\ len;}
+\DoxyCodeLine{00173\ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \textcolor{keywordtype}{bool}\ regular\_connect\_method()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordflow}{return}\ method\ ==\ HTTP\_CONNECT\ \&\&\ connect\_proto\ ==\ ConnectProto::NONE;}
+\DoxyCodeLine{00177\ \ \ \}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordtype}{bool}\ extended\_connect\_method()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordflow}{return}\ connect\_proto\ !=\ ConnectProto::NONE;}
+\DoxyCodeLine{00181\ \ \ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \mbox{\hyperlink{classshrpx_1_1FieldStore}{FieldStore}}\ fs;}
+\DoxyCodeLine{00184\ \ \ \textcolor{comment}{//\ Timestamp\ when\ all\ request\ header\ fields\ are\ received.}}
+\DoxyCodeLine{00185\ \ \ std::shared\_ptr<Timestamp>\ tstamp;}
+\DoxyCodeLine{00186\ \ \ \textcolor{comment}{//\ Request\ scheme.\ \ For\ HTTP/2,\ this\ is\ :scheme\ header\ field\ value.}}
+\DoxyCodeLine{00187\ \ \ \textcolor{comment}{//\ For\ HTTP/1.1,\ this\ is\ deduced\ from\ URI\ or\ connection.}}
+\DoxyCodeLine{00188\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ scheme;}
+\DoxyCodeLine{00189\ \ \ \textcolor{comment}{//\ Request\ authority.\ \ This\ is\ HTTP/2\ :authority\ header\ field\ value}}
+\DoxyCodeLine{00190\ \ \ \textcolor{comment}{//\ or\ host\ header\ field\ value.\ \ We\ may\ deduce\ it\ from\ absolute-\/form}}
+\DoxyCodeLine{00191\ \ \ \textcolor{comment}{//\ HTTP/1\ request.\ \ We\ also\ store\ authority-\/form\ HTTP/1\ request.}}
+\DoxyCodeLine{00192\ \ \ \textcolor{comment}{//\ This\ could\ be\ empty\ if\ request\ comes\ from\ HTTP/1.0\ without\ Host}}
+\DoxyCodeLine{00193\ \ \ \textcolor{comment}{//\ header\ field\ and\ origin-\/form.}}
+\DoxyCodeLine{00194\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ authority;}
+\DoxyCodeLine{00195\ \ \ \textcolor{comment}{//\ Request\ path,\ including\ query\ component.\ \ For\ HTTP/1.1,\ this\ is}}
+\DoxyCodeLine{00196\ \ \ \textcolor{comment}{//\ request-\/target.\ \ For\ HTTP/2,\ this\ is\ :path\ header\ field\ value.}}
+\DoxyCodeLine{00197\ \ \ \textcolor{comment}{//\ For\ CONNECT\ request,\ this\ is\ empty.}}
+\DoxyCodeLine{00198\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ path;}
+\DoxyCodeLine{00199\ \ \ \textcolor{comment}{//\ This\ is\ original\ authority\ which\ cannot\ be\ changed\ by\ per-\/pattern}}
+\DoxyCodeLine{00200\ \ \ \textcolor{comment}{//\ mruby\ script.}}
+\DoxyCodeLine{00201\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ orig\_authority;}
+\DoxyCodeLine{00202\ \ \ \textcolor{comment}{//\ This\ is\ original\ path\ which\ cannot\ be\ changed\ by\ per-\/pattern}}
+\DoxyCodeLine{00203\ \ \ \textcolor{comment}{//\ mruby\ script.}}
+\DoxyCodeLine{00204\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ orig\_path;}
+\DoxyCodeLine{00205\ \ \ \textcolor{comment}{//\ the\ length\ of\ request\ body\ received\ so\ far}}
+\DoxyCodeLine{00206\ \ \ int64\_t\ recv\_body\_length;}
+\DoxyCodeLine{00207\ \ \ \textcolor{comment}{//\ The\ number\ of\ bytes\ not\ consumed\ by\ the\ application\ yet.}}
+\DoxyCodeLine{00208\ \ \ \textcolor{keywordtype}{size\_t}\ unconsumed\_body\_length;}
+\DoxyCodeLine{00209\ \ \ \textcolor{keywordtype}{int}\ method;}
+\DoxyCodeLine{00210\ \ \ \textcolor{comment}{//\ HTTP\ major\ and\ minor\ version}}
+\DoxyCodeLine{00211\ \ \ \textcolor{keywordtype}{int}\ http\_major,\ http\_minor;}
+\DoxyCodeLine{00212\ \ \ \textcolor{comment}{//\ connect\_proto\ specified\ in\ HTTP/2\ :protocol\ pseudo\ header\ field}}
+\DoxyCodeLine{00213\ \ \ \textcolor{comment}{//\ which\ enables\ extended\ CONNECT\ method.\ \ This\ field\ is\ also\ set\ if}}
+\DoxyCodeLine{00214\ \ \ \textcolor{comment}{//\ WebSocket\ upgrade\ is\ requested\ in\ h1\ frontend\ for\ convenience.}}
+\DoxyCodeLine{00215\ \ \ ConnectProto\ connect\_proto;}
+\DoxyCodeLine{00216\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ the\ request\ is\ HTTP\ upgrade\ (HTTP\ Upgrade\ or}}
+\DoxyCodeLine{00217\ \ \ \textcolor{comment}{//\ CONNECT\ method).\ \ Upgrade\ to\ HTTP/2\ is\ excluded.\ \ For\ HTTP/2}}
+\DoxyCodeLine{00218\ \ \ \textcolor{comment}{//\ Upgrade,\ check\ get\_http2\_upgrade\_request().}}
+\DoxyCodeLine{00219\ \ \ \textcolor{keywordtype}{bool}\ upgrade\_request;}
+\DoxyCodeLine{00220\ \ \ \textcolor{comment}{//\ true\ if\ h2c\ is\ seen\ in\ Upgrade\ header\ field.}}
+\DoxyCodeLine{00221\ \ \ \textcolor{keywordtype}{bool}\ http2\_upgrade\_seen;}
+\DoxyCodeLine{00222\ \ \ \textcolor{keywordtype}{bool}\ connection\_close;}
+\DoxyCodeLine{00223\ \ \ \textcolor{comment}{//\ true\ if\ this\ is\ HTTP/2,\ and\ request\ body\ is\ expected.\ \ Note\ that}}
+\DoxyCodeLine{00224\ \ \ \textcolor{comment}{//\ we\ don't\ take\ into\ account\ HTTP\ method\ here.}}
+\DoxyCodeLine{00225\ \ \ \textcolor{keywordtype}{bool}\ http2\_expect\_body;}
+\DoxyCodeLine{00226\ \ \ \textcolor{comment}{//\ true\ if\ request\ does\ not\ have\ any\ information\ about\ authority.}}
+\DoxyCodeLine{00227\ \ \ \textcolor{comment}{//\ This\ happens\ when:\ For\ HTTP/2\ request,\ :authority\ is\ missing.}}
+\DoxyCodeLine{00228\ \ \ \textcolor{comment}{//\ For\ HTTP/1\ request,\ origin\ or\ asterisk\ form\ is\ used.}}
+\DoxyCodeLine{00229\ \ \ \textcolor{keywordtype}{bool}\ no\_authority;}
+\DoxyCodeLine{00230\ \ \ \textcolor{comment}{//\ true\ if\ backend\ selection\ is\ done\ for\ request\ once.}}
+\DoxyCodeLine{00231\ \ \ \textcolor{comment}{//\ orig\_authority\ and\ orig\_path\ have\ the\ authority\ and\ path\ which}}
+\DoxyCodeLine{00232\ \ \ \textcolor{comment}{//\ are\ used\ for\ the\ first\ backend\ selection.}}
+\DoxyCodeLine{00233\ \ \ \textcolor{keywordtype}{bool}\ forwarded\_once;}
+\DoxyCodeLine{00234\ \};}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \textcolor{keyword}{struct\ }Response\ \{}
+\DoxyCodeLine{00237\ \ \ Response(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&balloc)}
+\DoxyCodeLine{00238\ \ \ \ \ :\ fs(balloc,\ 32),}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ recv\_body\_length(0),}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ unconsumed\_body\_length(0),}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ http\_status(0),}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ http\_major(1),}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ http\_minor(1),}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ connection\_close(\textcolor{keyword}{false}),}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ headers\_only(\textcolor{keyword}{false})\ \{\}}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \textcolor{keywordtype}{void}\ consume(\textcolor{keywordtype}{size\_t}\ len)\ \{}
+\DoxyCodeLine{00248\ \ \ \ \ assert(unconsumed\_body\_length\ >=\ len);}
+\DoxyCodeLine{00249\ \ \ \ \ unconsumed\_body\_length\ -\/=\ len;}
+\DoxyCodeLine{00250\ \ \ \}}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \textcolor{comment}{//\ returns\ true\ if\ a\ resource\ denoted\ by\ scheme,\ authority,\ and\ path}}
+\DoxyCodeLine{00253\ \ \ \textcolor{comment}{//\ has\ already\ been\ pushed.}}
+\DoxyCodeLine{00254\ \ \ \textcolor{keywordtype}{bool}\ is\_resource\_pushed(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&scheme,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&authority,}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&path)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keywordflow}{if}\ (!pushed\_resources)\ \{}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00258\ \ \ \ \ \}}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordflow}{return}\ std::find(std::begin(*pushed\_resources),\ std::end(*pushed\_resources),}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::make\_tuple(scheme,\ authority,\ path))\ !=}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ std::end(*pushed\_resources);}
+\DoxyCodeLine{00262\ \ \ \}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \textcolor{comment}{//\ remember\ that\ a\ resource\ denoted\ by\ scheme,\ authority,\ and\ path}}
+\DoxyCodeLine{00265\ \ \ \textcolor{comment}{//\ is\ pushed.}}
+\DoxyCodeLine{00266\ \ \ \textcolor{keywordtype}{void}\ resource\_pushed(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&scheme,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&authority,}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&path)\ \{}
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keywordflow}{if}\ (!pushed\_resources)\ \{}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ pushed\_resources\ =\ std::make\_unique<}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ std::vector<std::tuple<StringRef,\ StringRef,\ StringRef>>>();}
+\DoxyCodeLine{00271\ \ \ \ \ \}}
+\DoxyCodeLine{00272\ \ \ \ \ pushed\_resources-\/>emplace\_back(scheme,\ authority,\ path);}
+\DoxyCodeLine{00273\ \ \ \}}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \mbox{\hyperlink{classshrpx_1_1FieldStore}{FieldStore}}\ fs;}
+\DoxyCodeLine{00276\ \ \ \textcolor{comment}{//\ array\ of\ the\ tuple\ of\ scheme,\ authority,\ and\ path\ of\ pushed}}
+\DoxyCodeLine{00277\ \ \ \textcolor{comment}{//\ resource.\ \ This\ is\ required\ because\ RFC\ 8297\ says\ that\ server}}
+\DoxyCodeLine{00278\ \ \ \textcolor{comment}{//\ typically\ includes\ header\ fields\ appeared\ in\ non-\/final\ response}}
+\DoxyCodeLine{00279\ \ \ \textcolor{comment}{//\ header\ fields\ in\ final\ response\ header\ fields.\ \ Without\ checking}}
+\DoxyCodeLine{00280\ \ \ \textcolor{comment}{//\ that\ a\ particular\ resource\ has\ already\ been\ pushed,\ or\ not,\ we}}
+\DoxyCodeLine{00281\ \ \ \textcolor{comment}{//\ end\ up\ pushing\ the\ same\ resource\ at\ least\ twice.\ \ It\ is\ unknown}}
+\DoxyCodeLine{00282\ \ \ \textcolor{comment}{//\ that\ we\ should\ use\ more\ complex\ data\ structure\ (e.g.,\ std::set)}}
+\DoxyCodeLine{00283\ \ \ \textcolor{comment}{//\ to\ find\ the\ resources\ faster.}}
+\DoxyCodeLine{00284\ \ \ std::unique\_ptr<std::vector<std::tuple<StringRef,\ StringRef,\ StringRef>>>}
+\DoxyCodeLine{00285\ \ \ \ \ pushed\_resources;}
+\DoxyCodeLine{00286\ \ \ \textcolor{comment}{//\ the\ length\ of\ response\ body\ received\ so\ far}}
+\DoxyCodeLine{00287\ \ \ int64\_t\ recv\_body\_length;}
+\DoxyCodeLine{00288\ \ \ \textcolor{comment}{//\ The\ number\ of\ bytes\ not\ consumed\ by\ the\ application\ yet.\ \ This\ is}}
+\DoxyCodeLine{00289\ \ \ \textcolor{comment}{//\ mainly\ for\ HTTP/2\ backend.}}
+\DoxyCodeLine{00290\ \ \ \textcolor{keywordtype}{size\_t}\ unconsumed\_body\_length;}
+\DoxyCodeLine{00291\ \ \ \textcolor{comment}{//\ HTTP\ status\ code}}
+\DoxyCodeLine{00292\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ http\_status;}
+\DoxyCodeLine{00293\ \ \ \textcolor{keywordtype}{int}\ http\_major,\ http\_minor;}
+\DoxyCodeLine{00294\ \ \ \textcolor{keywordtype}{bool}\ connection\_close;}
+\DoxyCodeLine{00295\ \ \ \textcolor{comment}{//\ true\ if\ response\ only\ consists\ of\ HEADERS,\ and\ it\ bears}}
+\DoxyCodeLine{00296\ \ \ \textcolor{comment}{//\ END\_STREAM.\ \ This\ is\ used\ to\ tell\ Http2Upstream\ that\ it\ can\ send}}
+\DoxyCodeLine{00297\ \ \ \textcolor{comment}{//\ response\ with\ single\ HEADERS\ with\ END\_STREAM\ flag\ only.}}
+\DoxyCodeLine{00298\ \ \ \textcolor{keywordtype}{bool}\ headers\_only;}
+\DoxyCodeLine{00299\ \};}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \textcolor{keyword}{enum\ class}\ DownstreamState\ \{}
+\DoxyCodeLine{00302\ \ \ INITIAL,}
+\DoxyCodeLine{00303\ \ \ HEADER\_COMPLETE,}
+\DoxyCodeLine{00304\ \ \ MSG\_COMPLETE,}
+\DoxyCodeLine{00305\ \ \ STREAM\_CLOSED,}
+\DoxyCodeLine{00306\ \ \ CONNECT\_FAIL,}
+\DoxyCodeLine{00307\ \ \ MSG\_RESET,}
+\DoxyCodeLine{00308\ \ \ \textcolor{comment}{//\ header\ contains\ invalid\ header\ field.\ \ We\ can\ safely\ send\ error}}
+\DoxyCodeLine{00309\ \ \ \textcolor{comment}{//\ response\ (502)\ to\ a\ client.}}
+\DoxyCodeLine{00310\ \ \ MSG\_BAD\_HEADER,}
+\DoxyCodeLine{00311\ \ \ \textcolor{comment}{//\ header\ fields\ in\ HTTP/1\ request\ exceed\ the\ configuration\ limit.}}
+\DoxyCodeLine{00312\ \ \ \textcolor{comment}{//\ This\ state\ is\ only\ transitioned\ from\ INITIAL\ state,\ and\ solely}}
+\DoxyCodeLine{00313\ \ \ \textcolor{comment}{//\ used\ to\ signal\ 431\ status\ code\ to\ the\ client.}}
+\DoxyCodeLine{00314\ \ \ HTTP1\_REQUEST\_HEADER\_TOO\_LARGE,}
+\DoxyCodeLine{00315\ \};}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \textcolor{keyword}{enum\ class}\ DispatchState\ \{}
+\DoxyCodeLine{00318\ \ \ NONE,}
+\DoxyCodeLine{00319\ \ \ PENDING,}
+\DoxyCodeLine{00320\ \ \ BLOCKED,}
+\DoxyCodeLine{00321\ \ \ ACTIVE,}
+\DoxyCodeLine{00322\ \ \ FAILURE,}
+\DoxyCodeLine{00323\ \};}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \textcolor{keyword}{class\ }Downstream\ \{}
+\DoxyCodeLine{00326\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00327\ \ \ Downstream(\mbox{\hyperlink{classshrpx_1_1Upstream}{Upstream}}\ *upstream,\ MemchunkPool\ *mcpool,\ int64\_t\ stream\_id);}
+\DoxyCodeLine{00328\ \ \ \string~Downstream();}
+\DoxyCodeLine{00329\ \ \ \textcolor{keywordtype}{void}\ reset\_upstream(\mbox{\hyperlink{classshrpx_1_1Upstream}{Upstream}}\ *upstream);}
+\DoxyCodeLine{00330\ \ \ \mbox{\hyperlink{classshrpx_1_1Upstream}{Upstream}}\ *get\_upstream()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00331\ \ \ \textcolor{keywordtype}{void}\ set\_stream\_id(int64\_t\ stream\_id);}
+\DoxyCodeLine{00332\ \ \ int64\_t\ get\_stream\_id()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00333\ \ \ \textcolor{keywordtype}{void}\ set\_assoc\_stream\_id(int64\_t\ stream\_id);}
+\DoxyCodeLine{00334\ \ \ int64\_t\ get\_assoc\_stream\_id()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00335\ \ \ \textcolor{keywordtype}{void}\ pause\_read(IOCtrlReason\ reason);}
+\DoxyCodeLine{00336\ \ \ \textcolor{keywordtype}{int}\ resume\_read(IOCtrlReason\ reason,\ \textcolor{keywordtype}{size\_t}\ consumed);}
+\DoxyCodeLine{00337\ \ \ \textcolor{keywordtype}{void}\ force\_resume\_read();}
+\DoxyCodeLine{00338\ \ \ \textcolor{comment}{//\ Set\ stream\ ID\ for\ downstream\ HTTP2\ connection.}}
+\DoxyCodeLine{00339\ \ \ \textcolor{keywordtype}{void}\ set\_downstream\_stream\_id(int64\_t\ stream\_id);}
+\DoxyCodeLine{00340\ \ \ int64\_t\ get\_downstream\_stream\_id()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \ \ \textcolor{keywordtype}{int}\ attach\_downstream\_connection(std::unique\_ptr<DownstreamConnection>\ dconn);}
+\DoxyCodeLine{00343\ \ \ \textcolor{keywordtype}{void}\ detach\_downstream\_connection();}
+\DoxyCodeLine{00344\ \ \ \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{DownstreamConnection}}\ *get\_downstream\_connection();}
+\DoxyCodeLine{00345\ \ \ \textcolor{comment}{//\ Returns\ dconn\_\ and\ nullifies\ dconn\_.}}
+\DoxyCodeLine{00346\ \ \ std::unique\_ptr<DownstreamConnection>\ pop\_downstream\_connection();}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ output\ buffer\ is\ full.\ If\ underlying\ dconn\_\ is}}
+\DoxyCodeLine{00349\ \ \ \textcolor{comment}{//\ NULL,\ this\ function\ always\ returns\ false.}}
+\DoxyCodeLine{00350\ \ \ \textcolor{keywordtype}{bool}\ request\_buf\_full();}
+\DoxyCodeLine{00351\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ upgrade\ (HTTP\ Upgrade\ or\ CONNECT)\ is\ succeeded\ in}}
+\DoxyCodeLine{00352\ \ \ \textcolor{comment}{//\ h1\ backend.\ \ This\ should\ not\ depend\ on\ inspect\_http1\_response().}}
+\DoxyCodeLine{00353\ \ \ \textcolor{keywordtype}{void}\ check\_upgrade\_fulfilled\_http1();}
+\DoxyCodeLine{00354\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ upgrade\ (HTTP\ Upgrade\ or\ CONNECT)\ is\ succeeded\ in}}
+\DoxyCodeLine{00355\ \ \ \textcolor{comment}{//\ h2\ backend.}}
+\DoxyCodeLine{00356\ \ \ \textcolor{keywordtype}{void}\ check\_upgrade\_fulfilled\_http2();}
+\DoxyCodeLine{00357\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ the\ upgrade\ is\ succeeded\ as\ a\ result\ of\ the\ call}}
+\DoxyCodeLine{00358\ \ \ \textcolor{comment}{//\ check\_upgrade\_fulfilled\_http*().\ \ HTTP/2\ Upgrade\ is\ excluded.}}
+\DoxyCodeLine{00359\ \ \ \textcolor{keywordtype}{bool}\ get\_upgraded()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00360\ \ \ \textcolor{comment}{//\ Inspects\ HTTP/2\ request.}}
+\DoxyCodeLine{00361\ \ \ \textcolor{keywordtype}{void}\ inspect\_http2\_request();}
+\DoxyCodeLine{00362\ \ \ \textcolor{comment}{//\ Inspects\ HTTP/1\ request.\ \ This\ checks\ whether\ the\ request\ is}}
+\DoxyCodeLine{00363\ \ \ \textcolor{comment}{//\ upgrade\ request\ and\ tranfer-\/encoding\ etc.}}
+\DoxyCodeLine{00364\ \ \ \textcolor{keywordtype}{void}\ inspect\_http1\_request();}
+\DoxyCodeLine{00365\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ the\ request\ is\ HTTP\ Upgrade\ for\ HTTP/2}}
+\DoxyCodeLine{00366\ \ \ \textcolor{keywordtype}{bool}\ get\_http2\_upgrade\_request()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00367\ \ \ \textcolor{comment}{//\ Returns\ the\ value\ of\ HTTP2-\/Settings\ request\ header\ field.}}
+\DoxyCodeLine{00368\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ get\_http2\_settings()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ \ \ \textcolor{comment}{//\ downstream\ request\ API}}
+\DoxyCodeLine{00371\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1Request}{Request}}\ \&request()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ req\_;\ \}}
+\DoxyCodeLine{00372\ \ \ \mbox{\hyperlink{structshrpx_1_1Request}{Request}}\ \&request()\ \{\ \textcolor{keywordflow}{return}\ req\_;\ \}}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \ \ \textcolor{comment}{//\ Count\ number\ of\ crumbled\ cookies}}
+\DoxyCodeLine{00375\ \ \ \textcolor{keywordtype}{size\_t}\ count\_crumble\_request\_cookie();}
+\DoxyCodeLine{00376\ \ \ \textcolor{comment}{//\ Crumbles\ (split\ cookie\ by\ "{};"{})\ in\ request\_headers\_\ and\ adds\ them}}
+\DoxyCodeLine{00377\ \ \ \textcolor{comment}{//\ in\ |nva|.\ \ Headers::no\_index\ is\ inherited.}}
+\DoxyCodeLine{00378\ \ \ \textcolor{keywordtype}{void}\ crumble\_request\_cookie(std::vector<nghttp2\_nv>\ \&nva);}
+\DoxyCodeLine{00379\ \ \ \textcolor{comment}{//\ Assembles\ request\ cookies.\ \ The\ opposite\ operation\ against}}
+\DoxyCodeLine{00380\ \ \ \textcolor{comment}{//\ crumble\_request\_cookie().}}
+\DoxyCodeLine{00381\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ assemble\_request\_cookie();}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00384\ \ \ set\_request\_start\_time(std::chrono::high\_resolution\_clock::time\_point\ time);}
+\DoxyCodeLine{00385\ \ \ \textcolor{keyword}{const}\ std::chrono::high\_resolution\_clock::time\_point\ \&}
+\DoxyCodeLine{00386\ \ \ get\_request\_start\_time()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00387\ \ \ \textcolor{keywordtype}{int}\ push\_request\_headers();}
+\DoxyCodeLine{00388\ \ \ \textcolor{keywordtype}{bool}\ get\_chunked\_request()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00389\ \ \ \textcolor{keywordtype}{void}\ set\_chunked\_request(\textcolor{keywordtype}{bool}\ f);}
+\DoxyCodeLine{00390\ \ \ \textcolor{keywordtype}{int}\ push\_upload\_data\_chunk(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ datalen);}
+\DoxyCodeLine{00391\ \ \ \textcolor{keywordtype}{int}\ end\_upload\_data();}
+\DoxyCodeLine{00392\ \ \ \textcolor{comment}{//\ Validates\ that\ received\ request\ body\ length\ and\ content-\/length}}
+\DoxyCodeLine{00393\ \ \ \textcolor{comment}{//\ matches.}}
+\DoxyCodeLine{00394\ \ \ \textcolor{keywordtype}{bool}\ validate\_request\_recv\_body\_length()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00395\ \ \ \textcolor{keywordtype}{void}\ set\_request\_downstream\_host(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&host);}
+\DoxyCodeLine{00396\ \ \ \textcolor{keywordtype}{bool}\ expect\_response\_body()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00397\ \ \ \textcolor{keywordtype}{bool}\ expect\_response\_trailer()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00398\ \ \ \textcolor{keywordtype}{void}\ set\_request\_state(DownstreamState\ state);}
+\DoxyCodeLine{00399\ \ \ DownstreamState\ get\_request\_state()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00400\ \ \ DefaultMemchunks\ *get\_request\_buf();}
+\DoxyCodeLine{00401\ \ \ \textcolor{keywordtype}{void}\ set\_request\_pending(\textcolor{keywordtype}{bool}\ f);}
+\DoxyCodeLine{00402\ \ \ \textcolor{keywordtype}{bool}\ get\_request\_pending()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00403\ \ \ \textcolor{keywordtype}{void}\ set\_request\_header\_sent(\textcolor{keywordtype}{bool}\ f);}
+\DoxyCodeLine{00404\ \ \ \textcolor{keywordtype}{bool}\ get\_request\_header\_sent()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00405\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ request\ is\ ready\ to\ be\ submitted\ to\ downstream.}}
+\DoxyCodeLine{00406\ \ \ \textcolor{comment}{//\ When\ sending\ pending\ request,\ get\_request\_pending()\ should\ be}}
+\DoxyCodeLine{00407\ \ \ \textcolor{comment}{//\ checked\ too\ because\ this\ function\ may\ return\ true\ when}}
+\DoxyCodeLine{00408\ \ \ \textcolor{comment}{//\ get\_request\_pending()\ returns\ false.}}
+\DoxyCodeLine{00409\ \ \ \textcolor{keywordtype}{bool}\ request\_submission\_ready()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \ \ DefaultMemchunks\ *get\_blocked\_request\_buf();}
+\DoxyCodeLine{00412\ \ \ \textcolor{keywordtype}{bool}\ get\_blocked\_request\_data\_eof()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00413\ \ \ \textcolor{keywordtype}{void}\ set\_blocked\_request\_data\_eof(\textcolor{keywordtype}{bool}\ f);}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \ \ \textcolor{comment}{//\ downstream\ response\ API}}
+\DoxyCodeLine{00416\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1Response}{Response}}\ \&response()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ resp\_;\ \}}
+\DoxyCodeLine{00417\ \ \ \mbox{\hyperlink{structshrpx_1_1Response}{Response}}\ \&response()\ \{\ \textcolor{keywordflow}{return}\ resp\_;\ \}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \ \ \textcolor{comment}{//\ Rewrites\ the\ location\ response\ header\ field.}}
+\DoxyCodeLine{00420\ \ \ \textcolor{keywordtype}{void}\ rewrite\_location\_response\_header(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&upstream\_scheme);}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \ \ \textcolor{keywordtype}{bool}\ get\_chunked\_response()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00423\ \ \ \textcolor{keywordtype}{void}\ set\_chunked\_response(\textcolor{keywordtype}{bool}\ f);}
+\DoxyCodeLine{00424\ }
+\DoxyCodeLine{00425\ \ \ \textcolor{keywordtype}{void}\ set\_response\_state(DownstreamState\ state);}
+\DoxyCodeLine{00426\ \ \ DownstreamState\ get\_response\_state()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00427\ \ \ DefaultMemchunks\ *get\_response\_buf();}
+\DoxyCodeLine{00428\ \ \ \textcolor{keywordtype}{bool}\ response\_buf\_full();}
+\DoxyCodeLine{00429\ \ \ \textcolor{comment}{//\ Validates\ that\ received\ response\ body\ length\ and\ content-\/length}}
+\DoxyCodeLine{00430\ \ \ \textcolor{comment}{//\ matches.}}
+\DoxyCodeLine{00431\ \ \ \textcolor{keywordtype}{bool}\ validate\_response\_recv\_body\_length()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00432\ \ \ uint32\_t\ get\_response\_rst\_stream\_error\_code()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00433\ \ \ \textcolor{keywordtype}{void}\ set\_response\_rst\_stream\_error\_code(uint32\_t\ error\_code);}
+\DoxyCodeLine{00434\ \ \ \textcolor{comment}{//\ Inspects\ HTTP/1\ response.\ \ This\ checks\ tranfer-\/encoding\ etc.}}
+\DoxyCodeLine{00435\ \ \ \textcolor{keywordtype}{void}\ inspect\_http1\_response();}
+\DoxyCodeLine{00436\ \ \ \textcolor{comment}{//\ Clears\ some\ of\ member\ variables\ for\ response.}}
+\DoxyCodeLine{00437\ \ \ \textcolor{keywordtype}{void}\ reset\_response();}
+\DoxyCodeLine{00438\ \ \ \textcolor{comment}{//\ True\ if\ the\ response\ is\ non-\/final\ (1xx\ status\ code).\ \ Note\ that}}
+\DoxyCodeLine{00439\ \ \ \textcolor{comment}{//\ if\ connection\ was\ upgraded,\ 101\ status\ code\ is\ treated\ as\ final.}}
+\DoxyCodeLine{00440\ \ \ \textcolor{keywordtype}{bool}\ get\_non\_final\_response()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00441\ \ \ \textcolor{comment}{//\ True\ if\ protocol\ version\ used\ by\ client\ supports\ non\ final}}
+\DoxyCodeLine{00442\ \ \ \textcolor{comment}{//\ response.\ \ Only\ HTTP/1.1\ and\ HTTP/2\ clients\ support\ it.}}
+\DoxyCodeLine{00443\ \ \ \textcolor{keywordtype}{bool}\ supports\_non\_final\_response()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00444\ \ \ \textcolor{keywordtype}{void}\ set\_expect\_final\_response(\textcolor{keywordtype}{bool}\ f);}
+\DoxyCodeLine{00445\ \ \ \textcolor{keywordtype}{bool}\ get\_expect\_final\_response()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00447\ \ \ \textcolor{comment}{//\ Call\ this\ method\ when\ there\ is\ incoming\ data\ in\ downstream}}
+\DoxyCodeLine{00448\ \ \ \textcolor{comment}{//\ connection.}}
+\DoxyCodeLine{00449\ \ \ \textcolor{keywordtype}{int}\ on\_read();}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00451\ \ \ \textcolor{keywordtype}{void}\ repeat\_header\_timer();}
+\DoxyCodeLine{00452\ \ \ \textcolor{keywordtype}{void}\ stop\_header\_timer();}
+\DoxyCodeLine{00453\ }
+\DoxyCodeLine{00454\ \ \ \textcolor{comment}{//\ Resets\ upstream\ read\ timer.\ \ If\ it\ is\ active,\ timeout\ value\ is}}
+\DoxyCodeLine{00455\ \ \ \textcolor{comment}{//\ reset.\ \ If\ it\ is\ not\ active,\ timer\ will\ be\ started.}}
+\DoxyCodeLine{00456\ \ \ \textcolor{keywordtype}{void}\ reset\_upstream\_rtimer();}
+\DoxyCodeLine{00457\ \ \ \textcolor{comment}{//\ Resets\ upstream\ write\ timer.\ If\ it\ is\ active,\ timeout\ value\ is}}
+\DoxyCodeLine{00458\ \ \ \textcolor{comment}{//\ reset.\ \ If\ it\ is\ not\ active,\ timer\ will\ be\ started.\ \ This}}
+\DoxyCodeLine{00459\ \ \ \textcolor{comment}{//\ function\ also\ resets\ read\ timer\ if\ it\ has\ been\ started.}}
+\DoxyCodeLine{00460\ \ \ \textcolor{keywordtype}{void}\ reset\_upstream\_wtimer();}
+\DoxyCodeLine{00461\ \ \ \textcolor{comment}{//\ Makes\ sure\ that\ upstream\ write\ timer\ is\ started.\ \ If\ it\ has\ been}}
+\DoxyCodeLine{00462\ \ \ \textcolor{comment}{//\ started,\ do\ nothing.\ \ Otherwise,\ write\ timer\ will\ be\ started.}}
+\DoxyCodeLine{00463\ \ \ \textcolor{keywordtype}{void}\ ensure\_upstream\_wtimer();}
+\DoxyCodeLine{00464\ \ \ \textcolor{comment}{//\ Disables\ upstream\ read\ timer.}}
+\DoxyCodeLine{00465\ \ \ \textcolor{keywordtype}{void}\ disable\_upstream\_rtimer();}
+\DoxyCodeLine{00466\ \ \ \textcolor{comment}{//\ Disables\ upstream\ write\ timer.}}
+\DoxyCodeLine{00467\ \ \ \textcolor{keywordtype}{void}\ disable\_upstream\_wtimer();}
+\DoxyCodeLine{00468\ }
+\DoxyCodeLine{00469\ \ \ \textcolor{comment}{//\ Downstream\ timer\ functions.\ \ They\ works\ in\ a\ similar\ way\ just}}
+\DoxyCodeLine{00470\ \ \ \textcolor{comment}{//\ like\ the\ upstream\ timer\ function.}}
+\DoxyCodeLine{00471\ \ \ \textcolor{keywordtype}{void}\ reset\_downstream\_rtimer();}
+\DoxyCodeLine{00472\ \ \ \textcolor{keywordtype}{void}\ reset\_downstream\_wtimer();}
+\DoxyCodeLine{00473\ \ \ \textcolor{keywordtype}{void}\ ensure\_downstream\_wtimer();}
+\DoxyCodeLine{00474\ \ \ \textcolor{keywordtype}{void}\ disable\_downstream\_rtimer();}
+\DoxyCodeLine{00475\ \ \ \textcolor{keywordtype}{void}\ disable\_downstream\_wtimer();}
+\DoxyCodeLine{00476\ }
+\DoxyCodeLine{00477\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ accesslog\ can\ be\ written\ for\ this\ downstream.}}
+\DoxyCodeLine{00478\ \ \ \textcolor{keywordtype}{bool}\ accesslog\_ready()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \ \ \textcolor{comment}{//\ Increment\ retry\ count}}
+\DoxyCodeLine{00481\ \ \ \textcolor{keywordtype}{void}\ add\_retry();}
+\DoxyCodeLine{00482\ \ \ \textcolor{comment}{//\ true\ if\ retry\ attempt\ should\ not\ be\ done.}}
+\DoxyCodeLine{00483\ \ \ \textcolor{keywordtype}{bool}\ no\_more\_retry()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00484\ }
+\DoxyCodeLine{00485\ \ \ DispatchState\ get\_dispatch\_state()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00486\ \ \ \textcolor{keywordtype}{void}\ set\_dispatch\_state(DispatchState\ s);}
+\DoxyCodeLine{00487\ }
+\DoxyCodeLine{00488\ \ \ \textcolor{keywordtype}{void}\ attach\_blocked\_link(\mbox{\hyperlink{structshrpx_1_1BlockedLink}{BlockedLink}}\ *l);}
+\DoxyCodeLine{00489\ \ \ \mbox{\hyperlink{structshrpx_1_1BlockedLink}{BlockedLink}}\ *detach\_blocked\_link();}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00491\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ downstream\_connection\ can\ be\ detached\ and\ reused.}}
+\DoxyCodeLine{00492\ \ \ \textcolor{keywordtype}{bool}\ can\_detach\_downstream\_connection()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00493\ }
+\DoxyCodeLine{00494\ \ \ DefaultMemchunks\ pop\_response\_buf();}
+\DoxyCodeLine{00495\ }
+\DoxyCodeLine{00496\ \ \ \mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&get\_block\_allocator();}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \ \ \textcolor{keywordtype}{void}\ add\_rcbuf(\mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ *rcbuf);}
+\DoxyCodeLine{00499\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00500\ \ \ \textcolor{keywordtype}{void}\ add\_rcbuf(nghttp3\_rcbuf\ *rcbuf);}
+\DoxyCodeLine{00501\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00502\ }
+\DoxyCodeLine{00503\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00504\ \ \ set\_downstream\_addr\_group(\textcolor{keyword}{const}\ std::shared\_ptr<DownstreamAddrGroup>\ \&group);}
+\DoxyCodeLine{00505\ \ \ \textcolor{keywordtype}{void}\ set\_addr(\textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}}\ *addr);}
+\DoxyCodeLine{00506\ }
+\DoxyCodeLine{00507\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}}\ *get\_addr()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00508\ }
+\DoxyCodeLine{00509\ \ \ \textcolor{keywordtype}{void}\ set\_accesslog\_written(\textcolor{keywordtype}{bool}\ f);}
+\DoxyCodeLine{00510\ }
+\DoxyCodeLine{00511\ \ \ \textcolor{comment}{//\ Finds\ affinity\ cookie\ from\ request\ header\ fields.\ \ The\ name\ of}}
+\DoxyCodeLine{00512\ \ \ \textcolor{comment}{//\ cookie\ is\ given\ in\ |name|.\ \ If\ an\ affinity\ cookie\ is\ found,\ it\ is}}
+\DoxyCodeLine{00513\ \ \ \textcolor{comment}{//\ assigned\ to\ a\ member\ function,\ and\ is\ returned.\ \ If\ it\ is\ not}}
+\DoxyCodeLine{00514\ \ \ \textcolor{comment}{//\ found,\ or\ is\ malformed,\ returns\ 0.}}
+\DoxyCodeLine{00515\ \ \ uint32\_t\ find\_affinity\_cookie(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&name);}
+\DoxyCodeLine{00516\ \ \ \textcolor{comment}{//\ Set\ |h|\ as\ affinity\ cookie.}}
+\DoxyCodeLine{00517\ \ \ \textcolor{keywordtype}{void}\ renew\_affinity\_cookie(uint32\_t\ h);}
+\DoxyCodeLine{00518\ \ \ \textcolor{comment}{//\ Returns\ affinity\ cookie\ to\ send.\ \ If\ it\ does\ not\ need\ to\ be\ sent,}}
+\DoxyCodeLine{00519\ \ \ \textcolor{comment}{//\ for\ example,\ because\ the\ value\ is\ retrieved\ from\ a\ request\ header}}
+\DoxyCodeLine{00520\ \ \ \textcolor{comment}{//\ field,\ returns\ 0.}}
+\DoxyCodeLine{00521\ \ \ uint32\_t\ get\_affinity\_cookie\_to\_send()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00522\ }
+\DoxyCodeLine{00523\ \ \ \textcolor{keywordtype}{void}\ set\_ws\_key(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&key);}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ \ \ \textcolor{keywordtype}{bool}\ get\_expect\_100\_continue()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00526\ }
+\DoxyCodeLine{00527\ \ \ \textcolor{keywordtype}{bool}\ get\_stop\_reading()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00528\ \ \ \textcolor{keywordtype}{void}\ set\_stop\_reading(\textcolor{keywordtype}{bool}\ f);}
+\DoxyCodeLine{00529\ }
+\DoxyCodeLine{00530\ \ \ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00531\ \ \ \ \ EVENT\_ERROR\ =\ 0x1,}
+\DoxyCodeLine{00532\ \ \ \ \ EVENT\_TIMEOUT\ =\ 0x2,}
+\DoxyCodeLine{00533\ \ \ \};}
+\DoxyCodeLine{00534\ }
+\DoxyCodeLine{00535\ \ \ Downstream\ *dlnext,\ *dlprev;}
+\DoxyCodeLine{00536\ }
+\DoxyCodeLine{00537\ \ \ \textcolor{comment}{//\ the\ length\ of\ response\ body\ sent\ to\ upstream\ client}}
+\DoxyCodeLine{00538\ \ \ int64\_t\ response\_sent\_body\_length;}
+\DoxyCodeLine{00539\ }
+\DoxyCodeLine{00540\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00541\ \ \ \mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ balloc\_;}
+\DoxyCodeLine{00542\ }
+\DoxyCodeLine{00543\ \ \ std::vector<nghttp2\_rcbuf\ *>\ rcbufs\_;}
+\DoxyCodeLine{00544\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00545\ \ \ std::vector<nghttp3\_rcbuf\ *>\ rcbufs3\_;}
+\DoxyCodeLine{00546\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00547\ }
+\DoxyCodeLine{00548\ \ \ \mbox{\hyperlink{structshrpx_1_1Request}{Request}}\ req\_;}
+\DoxyCodeLine{00549\ \ \ \mbox{\hyperlink{structshrpx_1_1Response}{Response}}\ resp\_;}
+\DoxyCodeLine{00550\ }
+\DoxyCodeLine{00551\ \ \ std::chrono::high\_resolution\_clock::time\_point\ request\_start\_time\_;}
+\DoxyCodeLine{00552\ }
+\DoxyCodeLine{00553\ \ \ \textcolor{comment}{//\ host\ we\ requested\ to\ downstream.\ \ This\ is\ used\ to\ rewrite}}
+\DoxyCodeLine{00554\ \ \ \textcolor{comment}{//\ location\ header\ field\ to\ decide\ the\ location\ should\ be\ rewritten}}
+\DoxyCodeLine{00555\ \ \ \textcolor{comment}{//\ or\ not.}}
+\DoxyCodeLine{00556\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ request\_downstream\_host\_;}
+\DoxyCodeLine{00557\ }
+\DoxyCodeLine{00558\ \ \ \textcolor{comment}{//\ Data\ arrived\ in\ frontend\ before\ sending\ header\ fields\ to\ backend}}
+\DoxyCodeLine{00559\ \ \ \textcolor{comment}{//\ are\ stored\ in\ this\ buffer.}}
+\DoxyCodeLine{00560\ \ \ DefaultMemchunks\ blocked\_request\_buf\_;}
+\DoxyCodeLine{00561\ \ \ DefaultMemchunks\ request\_buf\_;}
+\DoxyCodeLine{00562\ \ \ DefaultMemchunks\ response\_buf\_;}
+\DoxyCodeLine{00563\ }
+\DoxyCodeLine{00564\ \ \ \textcolor{comment}{//\ The\ Sec-\/WebSocket-\/Key\ field\ sent\ to\ the\ peer.\ \ This\ field\ is\ used}}
+\DoxyCodeLine{00565\ \ \ \textcolor{comment}{//\ if\ frontend\ uses\ RFC\ 8441\ WebSocket\ bootstrapping\ via\ HTTP/2.}}
+\DoxyCodeLine{00566\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ ws\_key\_;}
+\DoxyCodeLine{00567\ }
+\DoxyCodeLine{00568\ \ \ ev\_timer\ header\_timer\_;}
+\DoxyCodeLine{00569\ }
+\DoxyCodeLine{00570\ \ \ ev\_timer\ upstream\_rtimer\_;}
+\DoxyCodeLine{00571\ \ \ ev\_timer\ upstream\_wtimer\_;}
+\DoxyCodeLine{00572\ }
+\DoxyCodeLine{00573\ \ \ ev\_timer\ downstream\_rtimer\_;}
+\DoxyCodeLine{00574\ \ \ ev\_timer\ downstream\_wtimer\_;}
+\DoxyCodeLine{00575\ }
+\DoxyCodeLine{00576\ \ \ \mbox{\hyperlink{classshrpx_1_1Upstream}{Upstream}}\ *upstream\_;}
+\DoxyCodeLine{00577\ \ \ std::unique\_ptr<DownstreamConnection>\ dconn\_;}
+\DoxyCodeLine{00578\ }
+\DoxyCodeLine{00579\ \ \ \textcolor{comment}{//\ only\ used\ by\ HTTP/2\ upstream}}
+\DoxyCodeLine{00580\ \ \ \mbox{\hyperlink{structshrpx_1_1BlockedLink}{BlockedLink}}\ *blocked\_link\_;}
+\DoxyCodeLine{00581\ \ \ \textcolor{comment}{//\ The\ backend\ address\ used\ to\ fulfill\ this\ request.\ \ These\ are\ for}}
+\DoxyCodeLine{00582\ \ \ \textcolor{comment}{//\ logging\ purpose.}}
+\DoxyCodeLine{00583\ \ \ std::shared\_ptr<DownstreamAddrGroup>\ group\_;}
+\DoxyCodeLine{00584\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}}\ *addr\_;}
+\DoxyCodeLine{00585\ \ \ \textcolor{comment}{//\ How\ many\ times\ we\ tried\ in\ backend\ connection}}
+\DoxyCodeLine{00586\ \ \ \textcolor{keywordtype}{size\_t}\ num\_retry\_;}
+\DoxyCodeLine{00587\ \ \ \textcolor{comment}{//\ The\ stream\ ID\ in\ frontend\ connection}}
+\DoxyCodeLine{00588\ \ \ int64\_t\ stream\_id\_;}
+\DoxyCodeLine{00589\ \ \ \textcolor{comment}{//\ The\ associated\ stream\ ID\ in\ frontend\ connection\ if\ this\ is\ pushed}}
+\DoxyCodeLine{00590\ \ \ \textcolor{comment}{//\ stream.}}
+\DoxyCodeLine{00591\ \ \ int64\_t\ assoc\_stream\_id\_;}
+\DoxyCodeLine{00592\ \ \ \textcolor{comment}{//\ stream\ ID\ in\ backend\ connection}}
+\DoxyCodeLine{00593\ \ \ int64\_t\ downstream\_stream\_id\_;}
+\DoxyCodeLine{00594\ \ \ \textcolor{comment}{//\ RST\_STREAM\ error\_code\ from\ downstream\ HTTP2\ connection}}
+\DoxyCodeLine{00595\ \ \ uint32\_t\ response\_rst\_stream\_error\_code\_;}
+\DoxyCodeLine{00596\ \ \ \textcolor{comment}{//\ An\ affinity\ cookie\ value.}}
+\DoxyCodeLine{00597\ \ \ uint32\_t\ affinity\_cookie\_;}
+\DoxyCodeLine{00598\ \ \ \textcolor{comment}{//\ request\ state}}
+\DoxyCodeLine{00599\ \ \ DownstreamState\ request\_state\_;}
+\DoxyCodeLine{00600\ \ \ \textcolor{comment}{//\ response\ state}}
+\DoxyCodeLine{00601\ \ \ DownstreamState\ response\_state\_;}
+\DoxyCodeLine{00602\ \ \ \textcolor{comment}{//\ only\ used\ by\ HTTP/2\ upstream}}
+\DoxyCodeLine{00603\ \ \ DispatchState\ dispatch\_state\_;}
+\DoxyCodeLine{00604\ \ \ \textcolor{comment}{//\ true\ if\ the\ connection\ is\ upgraded\ (HTTP\ Upgrade\ or\ CONNECT),}}
+\DoxyCodeLine{00605\ \ \ \textcolor{comment}{//\ excluding\ upgrade\ to\ HTTP/2.}}
+\DoxyCodeLine{00606\ \ \ \textcolor{keywordtype}{bool}\ upgraded\_;}
+\DoxyCodeLine{00607\ \ \ \textcolor{comment}{//\ true\ if\ backend\ request\ uses\ chunked\ transfer-\/encoding}}
+\DoxyCodeLine{00608\ \ \ \textcolor{keywordtype}{bool}\ chunked\_request\_;}
+\DoxyCodeLine{00609\ \ \ \textcolor{comment}{//\ true\ if\ response\ to\ client\ uses\ chunked\ transfer-\/encoding}}
+\DoxyCodeLine{00610\ \ \ \textcolor{keywordtype}{bool}\ chunked\_response\_;}
+\DoxyCodeLine{00611\ \ \ \textcolor{comment}{//\ true\ if\ we\ have\ not\ got\ final\ response\ code}}
+\DoxyCodeLine{00612\ \ \ \textcolor{keywordtype}{bool}\ expect\_final\_response\_;}
+\DoxyCodeLine{00613\ \ \ \textcolor{comment}{//\ true\ if\ downstream\ request\ is\ pending\ because\ backend\ connection}}
+\DoxyCodeLine{00614\ \ \ \textcolor{comment}{//\ has\ not\ been\ established\ or\ should\ be\ checked\ before\ use;}}
+\DoxyCodeLine{00615\ \ \ \textcolor{comment}{//\ currently\ used\ only\ with\ HTTP/2\ connection.}}
+\DoxyCodeLine{00616\ \ \ \textcolor{keywordtype}{bool}\ request\_pending\_;}
+\DoxyCodeLine{00617\ \ \ \textcolor{comment}{//\ true\ if\ downstream\ request\ header\ is\ considered\ to\ be\ sent.}}
+\DoxyCodeLine{00618\ \ \ \textcolor{keywordtype}{bool}\ request\_header\_sent\_;}
+\DoxyCodeLine{00619\ \ \ \textcolor{comment}{//\ true\ if\ access.log\ has\ been\ written.}}
+\DoxyCodeLine{00620\ \ \ \textcolor{keywordtype}{bool}\ accesslog\_written\_;}
+\DoxyCodeLine{00621\ \ \ \textcolor{comment}{//\ true\ if\ affinity\ cookie\ is\ generated\ for\ this\ request.}}
+\DoxyCodeLine{00622\ \ \ \textcolor{keywordtype}{bool}\ new\_affinity\_cookie\_;}
+\DoxyCodeLine{00623\ \ \ \textcolor{comment}{//\ true\ if\ eof\ is\ received\ from\ client\ before\ sending\ header\ fields}}
+\DoxyCodeLine{00624\ \ \ \textcolor{comment}{//\ to\ backend.}}
+\DoxyCodeLine{00625\ \ \ \textcolor{keywordtype}{bool}\ blocked\_request\_data\_eof\_;}
+\DoxyCodeLine{00626\ \ \ \textcolor{comment}{//\ true\ if\ request\ contains\ "{}expect:\ 100-\/continue"{}\ header\ field.}}
+\DoxyCodeLine{00627\ \ \ \textcolor{keywordtype}{bool}\ expect\_100\_continue\_;}
+\DoxyCodeLine{00628\ \ \ \textcolor{keywordtype}{bool}\ stop\_reading\_;}
+\DoxyCodeLine{00629\ \};}
+\DoxyCodeLine{00630\ }
+\DoxyCodeLine{00631\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00632\ }
+\DoxyCodeLine{00633\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_DOWNSTREAM\_H}}
+
+\end{DoxyCode}

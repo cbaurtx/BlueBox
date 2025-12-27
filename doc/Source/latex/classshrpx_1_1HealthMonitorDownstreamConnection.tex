@@ -1,0 +1,221 @@
+\doxysection{shrpx\+::Health\+Monitor\+Downstream\+Connection Class Reference}
+\hypertarget{classshrpx_1_1HealthMonitorDownstreamConnection}{}\label{classshrpx_1_1HealthMonitorDownstreamConnection}\index{shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}}
+
+
+Inheritance diagram for shrpx\+::Health\+Monitor\+Downstream\+Connection\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{classshrpx_1_1HealthMonitorDownstreamConnection__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for shrpx\+::Health\+Monitor\+Downstream\+Connection\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classshrpx_1_1HealthMonitorDownstreamConnection__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1HealthMonitorDownstreamConnection_a3cc0e7aadfb6e7a0bfff4948c0d6a710}{attach\+\_\+downstream}} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+virtual void \mbox{\hyperlink{classshrpx_1_1HealthMonitorDownstreamConnection_a9461fddfdc48faf94cd41393ed4d4652}{detach\+\_\+downstream}} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1HealthMonitorDownstreamConnection_a988612350538158771560b189763ff33}{push\+\_\+request\+\_\+headers}} ()
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1HealthMonitorDownstreamConnection_a3b7f15741c36af9c80180cbc144fb46b}{push\+\_\+upload\+\_\+data\+\_\+chunk}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t datalen)
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1HealthMonitorDownstreamConnection_aa93f8ddaa7b1f9252921bcb8bca991b1}{end\+\_\+upload\+\_\+data}} ()
+\item 
+virtual void \mbox{\hyperlink{classshrpx_1_1HealthMonitorDownstreamConnection_a1ea271f5217fe16fe5f46794c708334c}{pause\+\_\+read}} (IOCtrl\+Reason reason)
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1HealthMonitorDownstreamConnection_a87c513c1c16408aeb1e7c0d23d4cb765}{resume\+\_\+read}} (IOCtrl\+Reason reason, size\+\_\+t consumed)
+\item 
+virtual void \mbox{\hyperlink{classshrpx_1_1HealthMonitorDownstreamConnection_a7b019d65b129b9765bb1d74f4b54c864}{force\+\_\+resume\+\_\+read}} ()
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1HealthMonitorDownstreamConnection_aef6b4606aa4a130e85d35ac95d8d8970}{on\+\_\+read}} ()
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1HealthMonitorDownstreamConnection_a2cd9d987a8d76059d6e5c679e6110b60}{on\+\_\+write}} ()
+\item 
+virtual void \mbox{\hyperlink{classshrpx_1_1HealthMonitorDownstreamConnection_a6894af7d2970052ae42329e47854d2b8}{on\+\_\+upstream\+\_\+change}} (\mbox{\hyperlink{classshrpx_1_1Upstream}{Upstream}} \texorpdfstring{$\ast$}{*}upstream)
+\item 
+virtual bool \mbox{\hyperlink{classshrpx_1_1HealthMonitorDownstreamConnection_a87b6e6a4e552b130e400dfc33b864616}{poolable}} () const
+\item 
+virtual const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1DownstreamAddrGroup}{Downstream\+Addr\+Group}} $>$ \& \mbox{\hyperlink{classshrpx_1_1HealthMonitorDownstreamConnection_ad1a9e07ffda6353da1d93fc88856fd0a}{get\+\_\+downstream\+\_\+addr\+\_\+group}} () const
+\item 
+virtual \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{Downstream\+Addr}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classshrpx_1_1HealthMonitorDownstreamConnection_affab16f862141c885fc33ecb9713e041}{get\+\_\+addr}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{shrpx\+::\+Downstream\+Connection}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual int {\bfseries on\+\_\+timeout} ()
+\item 
+void {\bfseries set\+\_\+client\+\_\+handler} (\mbox{\hyperlink{classshrpx_1_1ClientHandler}{Client\+Handler}} \texorpdfstring{$\ast$}{*}client\+\_\+handler)
+\item 
+\mbox{\hyperlink{classshrpx_1_1ClientHandler}{Client\+Handler}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+client\+\_\+handler} ()
+\item 
+\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+downstream} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{shrpx\+::\+Downstream\+Connection}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classshrpx_1_1ClientHandler}{Client\+Handler}} \texorpdfstring{$\ast$}{*} {\bfseries client\+\_\+handler\+\_\+}
+\item 
+\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*} {\bfseries downstream\+\_\+}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{classshrpx_1_1HealthMonitorDownstreamConnection_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classshrpx_1_1HealthMonitorDownstreamConnection_a3cc0e7aadfb6e7a0bfff4948c0d6a710}\index{shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}!attach\_downstream@{attach\_downstream}}
+\index{attach\_downstream@{attach\_downstream}!shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}}
+\doxysubsubsection{\texorpdfstring{attach\_downstream()}{attach\_downstream()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1HealthMonitorDownstreamConnection_a3cc0e7aadfb6e7a0bfff4948c0d6a710} 
+int shrpx\+::\+Health\+Monitor\+Downstream\+Connection\+::attach\+\_\+downstream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}}]{downstream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{shrpx\+::\+Downstream\+Connection}}.
+
+\Hypertarget{classshrpx_1_1HealthMonitorDownstreamConnection_a9461fddfdc48faf94cd41393ed4d4652}\index{shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}!detach\_downstream@{detach\_downstream}}
+\index{detach\_downstream@{detach\_downstream}!shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}}
+\doxysubsubsection{\texorpdfstring{detach\_downstream()}{detach\_downstream()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1HealthMonitorDownstreamConnection_a9461fddfdc48faf94cd41393ed4d4652} 
+void shrpx\+::\+Health\+Monitor\+Downstream\+Connection\+::detach\+\_\+downstream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}}]{downstream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{shrpx\+::\+Downstream\+Connection}}.
+
+\Hypertarget{classshrpx_1_1HealthMonitorDownstreamConnection_aa93f8ddaa7b1f9252921bcb8bca991b1}\index{shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}!end\_upload\_data@{end\_upload\_data}}
+\index{end\_upload\_data@{end\_upload\_data}!shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}}
+\doxysubsubsection{\texorpdfstring{end\_upload\_data()}{end\_upload\_data()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1HealthMonitorDownstreamConnection_aa93f8ddaa7b1f9252921bcb8bca991b1} 
+int shrpx\+::\+Health\+Monitor\+Downstream\+Connection\+::end\+\_\+upload\+\_\+data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{shrpx\+::\+Downstream\+Connection}}.
+
+\Hypertarget{classshrpx_1_1HealthMonitorDownstreamConnection_a7b019d65b129b9765bb1d74f4b54c864}\index{shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}!force\_resume\_read@{force\_resume\_read}}
+\index{force\_resume\_read@{force\_resume\_read}!shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}}
+\doxysubsubsection{\texorpdfstring{force\_resume\_read()}{force\_resume\_read()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1HealthMonitorDownstreamConnection_a7b019d65b129b9765bb1d74f4b54c864} 
+void shrpx\+::\+Health\+Monitor\+Downstream\+Connection\+::force\+\_\+resume\+\_\+read (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{shrpx\+::\+Downstream\+Connection}}.
+
+\Hypertarget{classshrpx_1_1HealthMonitorDownstreamConnection_affab16f862141c885fc33ecb9713e041}\index{shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}!get\_addr@{get\_addr}}
+\index{get\_addr@{get\_addr}!shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}}
+\doxysubsubsection{\texorpdfstring{get\_addr()}{get\_addr()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1HealthMonitorDownstreamConnection_affab16f862141c885fc33ecb9713e041} 
+\mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{Downstream\+Addr}} \texorpdfstring{$\ast$}{*} shrpx\+::\+Health\+Monitor\+Downstream\+Connection\+::get\+\_\+addr (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{shrpx\+::\+Downstream\+Connection}}.
+
+\Hypertarget{classshrpx_1_1HealthMonitorDownstreamConnection_ad1a9e07ffda6353da1d93fc88856fd0a}\index{shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}!get\_downstream\_addr\_group@{get\_downstream\_addr\_group}}
+\index{get\_downstream\_addr\_group@{get\_downstream\_addr\_group}!shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}}
+\doxysubsubsection{\texorpdfstring{get\_downstream\_addr\_group()}{get\_downstream\_addr\_group()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1HealthMonitorDownstreamConnection_ad1a9e07ffda6353da1d93fc88856fd0a} 
+const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1DownstreamAddrGroup}{Downstream\+Addr\+Group}} $>$ \& shrpx\+::\+Health\+Monitor\+Downstream\+Connection\+::get\+\_\+downstream\+\_\+addr\+\_\+group (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{shrpx\+::\+Downstream\+Connection}}.
+
+\Hypertarget{classshrpx_1_1HealthMonitorDownstreamConnection_aef6b4606aa4a130e85d35ac95d8d8970}\index{shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}!on\_read@{on\_read}}
+\index{on\_read@{on\_read}!shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}}
+\doxysubsubsection{\texorpdfstring{on\_read()}{on\_read()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1HealthMonitorDownstreamConnection_aef6b4606aa4a130e85d35ac95d8d8970} 
+int shrpx\+::\+Health\+Monitor\+Downstream\+Connection\+::on\+\_\+read (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{shrpx\+::\+Downstream\+Connection}}.
+
+\Hypertarget{classshrpx_1_1HealthMonitorDownstreamConnection_a6894af7d2970052ae42329e47854d2b8}\index{shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}!on\_upstream\_change@{on\_upstream\_change}}
+\index{on\_upstream\_change@{on\_upstream\_change}!shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}}
+\doxysubsubsection{\texorpdfstring{on\_upstream\_change()}{on\_upstream\_change()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1HealthMonitorDownstreamConnection_a6894af7d2970052ae42329e47854d2b8} 
+void shrpx\+::\+Health\+Monitor\+Downstream\+Connection\+::on\+\_\+upstream\+\_\+change (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1Upstream}{Upstream}} \texorpdfstring{$\ast$}{*}}]{upstream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{shrpx\+::\+Downstream\+Connection}}.
+
+\Hypertarget{classshrpx_1_1HealthMonitorDownstreamConnection_a2cd9d987a8d76059d6e5c679e6110b60}\index{shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}!on\_write@{on\_write}}
+\index{on\_write@{on\_write}!shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}}
+\doxysubsubsection{\texorpdfstring{on\_write()}{on\_write()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1HealthMonitorDownstreamConnection_a2cd9d987a8d76059d6e5c679e6110b60} 
+int shrpx\+::\+Health\+Monitor\+Downstream\+Connection\+::on\+\_\+write (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{shrpx\+::\+Downstream\+Connection}}.
+
+\Hypertarget{classshrpx_1_1HealthMonitorDownstreamConnection_a1ea271f5217fe16fe5f46794c708334c}\index{shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}!pause\_read@{pause\_read}}
+\index{pause\_read@{pause\_read}!shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}}
+\doxysubsubsection{\texorpdfstring{pause\_read()}{pause\_read()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1HealthMonitorDownstreamConnection_a1ea271f5217fe16fe5f46794c708334c} 
+void shrpx\+::\+Health\+Monitor\+Downstream\+Connection\+::pause\+\_\+read (\begin{DoxyParamCaption}\item[{IOCtrl\+Reason}]{reason}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{shrpx\+::\+Downstream\+Connection}}.
+
+\Hypertarget{classshrpx_1_1HealthMonitorDownstreamConnection_a87b6e6a4e552b130e400dfc33b864616}\index{shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}!poolable@{poolable}}
+\index{poolable@{poolable}!shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}}
+\doxysubsubsection{\texorpdfstring{poolable()}{poolable()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1HealthMonitorDownstreamConnection_a87b6e6a4e552b130e400dfc33b864616} 
+bool shrpx\+::\+Health\+Monitor\+Downstream\+Connection\+::poolable (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{shrpx\+::\+Downstream\+Connection}}.
+
+\Hypertarget{classshrpx_1_1HealthMonitorDownstreamConnection_a988612350538158771560b189763ff33}\index{shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}!push\_request\_headers@{push\_request\_headers}}
+\index{push\_request\_headers@{push\_request\_headers}!shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}}
+\doxysubsubsection{\texorpdfstring{push\_request\_headers()}{push\_request\_headers()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1HealthMonitorDownstreamConnection_a988612350538158771560b189763ff33} 
+int shrpx\+::\+Health\+Monitor\+Downstream\+Connection\+::push\+\_\+request\+\_\+headers (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{shrpx\+::\+Downstream\+Connection}}.
+
+\Hypertarget{classshrpx_1_1HealthMonitorDownstreamConnection_a3b7f15741c36af9c80180cbc144fb46b}\index{shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}!push\_upload\_data\_chunk@{push\_upload\_data\_chunk}}
+\index{push\_upload\_data\_chunk@{push\_upload\_data\_chunk}!shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}}
+\doxysubsubsection{\texorpdfstring{push\_upload\_data\_chunk()}{push\_upload\_data\_chunk()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1HealthMonitorDownstreamConnection_a3b7f15741c36af9c80180cbc144fb46b} 
+int shrpx\+::\+Health\+Monitor\+Downstream\+Connection\+::push\+\_\+upload\+\_\+data\+\_\+chunk (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{datalen}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{shrpx\+::\+Downstream\+Connection}}.
+
+\Hypertarget{classshrpx_1_1HealthMonitorDownstreamConnection_a87c513c1c16408aeb1e7c0d23d4cb765}\index{shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}!resume\_read@{resume\_read}}
+\index{resume\_read@{resume\_read}!shrpx::HealthMonitorDownstreamConnection@{shrpx::HealthMonitorDownstreamConnection}}
+\doxysubsubsection{\texorpdfstring{resume\_read()}{resume\_read()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1HealthMonitorDownstreamConnection_a87c513c1c16408aeb1e7c0d23d4cb765} 
+int shrpx\+::\+Health\+Monitor\+Downstream\+Connection\+::resume\+\_\+read (\begin{DoxyParamCaption}\item[{IOCtrl\+Reason}]{reason}{, }\item[{size\+\_\+t}]{consumed}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{shrpx\+::\+Downstream\+Connection}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+health\+\_\+monitor\+\_\+downstream\+\_\+connection.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+health\+\_\+monitor\+\_\+downstream\+\_\+connection.\+cc\end{DoxyCompactItemize}

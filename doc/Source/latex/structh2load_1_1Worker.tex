@@ -1,0 +1,122 @@
+\doxysection{h2load\+::Worker Struct Reference}
+\hypertarget{structh2load_1_1Worker}{}\label{structh2load_1_1Worker}\index{h2load::Worker@{h2load::Worker}}
+
+
+Collaboration diagram for h2load\+::Worker\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structh2load_1_1Worker__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structh2load_1_1Worker_a179154b41310b3fe567e702ec98819f5}\label{structh2load_1_1Worker_a179154b41310b3fe567e702ec98819f5} 
+{\bfseries Worker} (uint32\+\_\+t id, SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*}ssl\+\_\+ctx, size\+\_\+t nreq\+\_\+todo, size\+\_\+t nclients, size\+\_\+t rate, size\+\_\+t max\+\_\+samples, \mbox{\hyperlink{structh2load_1_1Config}{Config}} \texorpdfstring{$\ast$}{*}config)
+\item 
+\Hypertarget{structh2load_1_1Worker_a52886b43ac0bb201665e647581162b94}\label{structh2load_1_1Worker_a52886b43ac0bb201665e647581162b94} 
+{\bfseries Worker} (Worker \&\&o)=default
+\item 
+\Hypertarget{structh2load_1_1Worker_a0da7e5a551e1ce65eb2851ecdb9f422f}\label{structh2load_1_1Worker_a0da7e5a551e1ce65eb2851ecdb9f422f} 
+void {\bfseries run} ()
+\item 
+\Hypertarget{structh2load_1_1Worker_abcd861fb320811ea75a71ce83a498749}\label{structh2load_1_1Worker_abcd861fb320811ea75a71ce83a498749} 
+void {\bfseries sample\+\_\+req\+\_\+stat} (\mbox{\hyperlink{structh2load_1_1RequestStat}{Request\+Stat}} \texorpdfstring{$\ast$}{*}req\+\_\+stat)
+\item 
+\Hypertarget{structh2load_1_1Worker_a9810bfa7ed55ea45ee11a85e9d065829}\label{structh2load_1_1Worker_a9810bfa7ed55ea45ee11a85e9d065829} 
+void {\bfseries sample\+\_\+client\+\_\+stat} (\mbox{\hyperlink{structh2load_1_1ClientStat}{Client\+Stat}} \texorpdfstring{$\ast$}{*}cstat)
+\item 
+\Hypertarget{structh2load_1_1Worker_a5a557b836eb87d47ed46534ea1d6738f}\label{structh2load_1_1Worker_a5a557b836eb87d47ed46534ea1d6738f} 
+void {\bfseries report\+\_\+progress} ()
+\item 
+\Hypertarget{structh2load_1_1Worker_ad87d3d5ceaab84b6cefec6986eec8eb6}\label{structh2load_1_1Worker_ad87d3d5ceaab84b6cefec6986eec8eb6} 
+void {\bfseries report\+\_\+rate\+\_\+progress} ()
+\item 
+\Hypertarget{structh2load_1_1Worker_a29da8b9325f003ba680eedb82550e3cc}\label{structh2load_1_1Worker_a29da8b9325f003ba680eedb82550e3cc} 
+void {\bfseries stop\+\_\+all\+\_\+clients} ()
+\item 
+\Hypertarget{structh2load_1_1Worker_ab1f219decb18a74a7899673e884344c8}\label{structh2load_1_1Worker_ab1f219decb18a74a7899673e884344c8} 
+void {\bfseries free\+\_\+client} (\mbox{\hyperlink{structh2load_1_1Client}{Client}} \texorpdfstring{$\ast$}{*})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structh2load_1_1Worker_ab25401b30993302942df48f7234e0877}\label{structh2load_1_1Worker_ab25401b30993302942df48f7234e0877} 
+Memchunk\+Pool {\bfseries mcpool}
+\item 
+\Hypertarget{structh2load_1_1Worker_a90c158f32edf8fb6b22aaef4c078b858}\label{structh2load_1_1Worker_a90c158f32edf8fb6b22aaef4c078b858} 
+std\+::mt19937 {\bfseries randgen}
+\item 
+\Hypertarget{structh2load_1_1Worker_a64504cbfcbebd1af02a374af07da3999}\label{structh2load_1_1Worker_a64504cbfcbebd1af02a374af07da3999} 
+\mbox{\hyperlink{structh2load_1_1Stats}{Stats}} {\bfseries stats}
+\item 
+\Hypertarget{structh2load_1_1Worker_a7597c2c5a5b096aa062f4f1afe4240fd}\label{structh2load_1_1Worker_a7597c2c5a5b096aa062f4f1afe4240fd} 
+\mbox{\hyperlink{structh2load_1_1Sampling}{Sampling}} {\bfseries request\+\_\+times\+\_\+smp}
+\item 
+\Hypertarget{structh2load_1_1Worker_a3b70ad5993f58067e3645170e8d5275b}\label{structh2load_1_1Worker_a3b70ad5993f58067e3645170e8d5275b} 
+\mbox{\hyperlink{structh2load_1_1Sampling}{Sampling}} {\bfseries client\+\_\+smp}
+\item 
+\Hypertarget{structh2load_1_1Worker_a573e680665bd2b70ff2052c5da3c3668}\label{structh2load_1_1Worker_a573e680665bd2b70ff2052c5da3c3668} 
+struct ev\+\_\+loop \texorpdfstring{$\ast$}{*} {\bfseries loop}
+\item 
+\Hypertarget{structh2load_1_1Worker_a499c7e694e56a2315b2b09fd3e57aaf9}\label{structh2load_1_1Worker_a499c7e694e56a2315b2b09fd3e57aaf9} 
+SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*} {\bfseries ssl\+\_\+ctx}
+\item 
+\Hypertarget{structh2load_1_1Worker_aba87bda2243204468d070247bc7a3bad}\label{structh2load_1_1Worker_aba87bda2243204468d070247bc7a3bad} 
+\mbox{\hyperlink{structh2load_1_1Config}{Config}} \texorpdfstring{$\ast$}{*} {\bfseries config}
+\item 
+\Hypertarget{structh2load_1_1Worker_a179dcfe52b9b9ac649e088638a30bd53}\label{structh2load_1_1Worker_a179dcfe52b9b9ac649e088638a30bd53} 
+size\+\_\+t {\bfseries progress\+\_\+interval}
+\item 
+\Hypertarget{structh2load_1_1Worker_afc78e3156665d6602158ba27fef4bbc8}\label{structh2load_1_1Worker_afc78e3156665d6602158ba27fef4bbc8} 
+uint32\+\_\+t {\bfseries id}
+\item 
+\Hypertarget{structh2load_1_1Worker_a1122af39b939d322b8de7df6ea424d07}\label{structh2load_1_1Worker_a1122af39b939d322b8de7df6ea424d07} 
+bool {\bfseries tls\+\_\+info\+\_\+report\+\_\+done}
+\item 
+\Hypertarget{structh2load_1_1Worker_a4f6633fc0800de741322cdb6735aa279}\label{structh2load_1_1Worker_a4f6633fc0800de741322cdb6735aa279} 
+bool {\bfseries app\+\_\+info\+\_\+report\+\_\+done}
+\item 
+\Hypertarget{structh2load_1_1Worker_a1709ae835afbac4fd7819b8dafa5cc3f}\label{structh2load_1_1Worker_a1709ae835afbac4fd7819b8dafa5cc3f} 
+size\+\_\+t {\bfseries nconns\+\_\+made}
+\item 
+\Hypertarget{structh2load_1_1Worker_a2065a2617c8f691858ca21b0fb7e44ad}\label{structh2load_1_1Worker_a2065a2617c8f691858ca21b0fb7e44ad} 
+size\+\_\+t {\bfseries nclients}
+\item 
+\Hypertarget{structh2load_1_1Worker_acceb47b97ddebede79100c54a43d5e8b}\label{structh2load_1_1Worker_acceb47b97ddebede79100c54a43d5e8b} 
+size\+\_\+t {\bfseries nreqs\+\_\+per\+\_\+client}
+\item 
+\Hypertarget{structh2load_1_1Worker_a401bfeb82fe2dabfd35bb54f3560c576}\label{structh2load_1_1Worker_a401bfeb82fe2dabfd35bb54f3560c576} 
+size\+\_\+t {\bfseries nreqs\+\_\+rem}
+\item 
+\Hypertarget{structh2load_1_1Worker_a95a00975ae0db49b2929e18cbbffd749}\label{structh2load_1_1Worker_a95a00975ae0db49b2929e18cbbffd749} 
+size\+\_\+t {\bfseries rate}
+\item 
+\Hypertarget{structh2load_1_1Worker_a6b69fb2edd5f7cbcb982854c3ce79ef5}\label{structh2load_1_1Worker_a6b69fb2edd5f7cbcb982854c3ce79ef5} 
+size\+\_\+t {\bfseries max\+\_\+samples}
+\item 
+\Hypertarget{structh2load_1_1Worker_ae3035847caabd4a27cc7e8477cd623f7}\label{structh2load_1_1Worker_ae3035847caabd4a27cc7e8477cd623f7} 
+ev\+\_\+timer {\bfseries timeout\+\_\+watcher}
+\item 
+\Hypertarget{structh2load_1_1Worker_a1090b0b471511f019bf34fb4f238adef}\label{structh2load_1_1Worker_a1090b0b471511f019bf34fb4f238adef} 
+uint32\+\_\+t {\bfseries next\+\_\+client\+\_\+id}
+\item 
+\Hypertarget{structh2load_1_1Worker_a91e6962ba16b6a97b3f0c309befed4bd}\label{structh2load_1_1Worker_a91e6962ba16b6a97b3f0c309befed4bd} 
+Phase {\bfseries current\+\_\+phase}
+\item 
+\Hypertarget{structh2load_1_1Worker_aadb7f67726f68aa13b5c8b213928ba01}\label{structh2load_1_1Worker_aadb7f67726f68aa13b5c8b213928ba01} 
+std\+::vector$<$ \mbox{\hyperlink{structh2load_1_1Client}{Client}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries clients}
+\item 
+\Hypertarget{structh2load_1_1Worker_aa711aa31517e9145cf23f476bec32beb}\label{structh2load_1_1Worker_aa711aa31517e9145cf23f476bec32beb} 
+ev\+\_\+timer {\bfseries duration\+\_\+watcher}
+\item 
+\Hypertarget{structh2load_1_1Worker_ae8faf68cfc02bdd5ad02e43935c6714e}\label{structh2load_1_1Worker_ae8faf68cfc02bdd5ad02e43935c6714e} 
+ev\+\_\+timer {\bfseries warmup\+\_\+watcher}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/h2load.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/h2load.\+cc\end{DoxyCompactItemize}

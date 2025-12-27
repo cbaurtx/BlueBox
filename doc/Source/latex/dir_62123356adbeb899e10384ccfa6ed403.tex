@@ -1,0 +1,219 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/urlparse/http-\/parser Directory Reference}
+\hypertarget{dir_62123356adbeb899e10384ccfa6ed403}{}\label{dir_62123356adbeb899e10384ccfa6ed403}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/urlparse/http-\/parser Directory Reference@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/urlparse/http-\/parser Directory Reference}}
+Directory dependency graph for http-\/parser\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{dir_62123356adbeb899e10384ccfa6ed403_dep}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_3415fbaf7c430b64618ef26042dbf151}{contrib}}
+\item 
+directory \mbox{\hyperlink{dir_c3573fb491647f82495536bc66ab9e35}{fuzzers}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file {\bfseries http\+\_\+parser.\+h}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+http-\/parser is \href{https://github.com/nodejs/http-parser/issues/522}{\texttt{{\bfseries{not}} actively maintained}}. New projects and projects looking to migrate should consider \href{https://github.com/nodejs/llhttp}{\texttt{llhttp}}.
+
+\href{https://travis-ci.org/nodejs/http-parser}{\texttt{}}
+
+This is a parser for HTTP messages written in C. It parses both requests and responses. The parser is designed to be used in performance HTTP applications. It does not make any syscalls nor allocations, it does not buffer data, it can be interrupted at anytime. Depending on your architecture, it only requires about 40 bytes of data per message stream (in a web server that is per connection).
+
+Features\+:
+
+
+\begin{DoxyItemize}
+\item No dependencies
+\item Handles persistent streams (keep-\/alive).
+\item Decodes chunked encoding.
+\item Upgrade support
+\item Defends against buffer overflow attacks.
+\end{DoxyItemize}
+
+The parser extracts the following information from HTTP messages\+:
+
+
+\begin{DoxyItemize}
+\item Header fields and values
+\item Content-\/\+Length
+\item \doxylink{structRequest}{Request} method
+\item Response status code
+\item Transfer-\/\+Encoding
+\item HTTP version
+\item \doxylink{structRequest}{Request} URL
+\item Message body
+\end{DoxyItemize}\hypertarget{dir_62123356adbeb899e10384ccfa6ed403_autotoc_md575}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_62123356adbeb899e10384ccfa6ed403_autotoc_md575}
+One {\ttfamily \doxylink{structhttp__parser}{http\+\_\+parser}} object is used per TCP connection. Initialize the struct using {\ttfamily http\+\_\+parser\+\_\+init()} and set the callbacks. That might look something like this for a request parser\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structhttp__parser__settings}{http\_parser\_settings}}\ settings;}
+\DoxyCodeLine{settings.on\_url\ =\ my\_url\_callback;}
+\DoxyCodeLine{settings.on\_header\_field\ =\ my\_header\_field\_callback;}
+\DoxyCodeLine{\textcolor{comment}{/*\ ...\ */}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{structhttp__parser}{http\_parser}}\ *parser\ =\ malloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structhttp__parser}{http\_parser}}));}
+\DoxyCodeLine{http\_parser\_init(parser,\ HTTP\_REQUEST);}
+\DoxyCodeLine{parser-\/>data\ =\ my\_socket;}
+
+\end{DoxyCode}
+
+
+When data is received on the socket execute the parser and check for errors.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t}\ len\ =\ 80*1024,\ nparsed;}
+\DoxyCodeLine{\textcolor{keywordtype}{char}\ buf[len];}
+\DoxyCodeLine{ssize\_t\ recved;}
+\DoxyCodeLine{}
+\DoxyCodeLine{recved\ =\ recv(fd,\ buf,\ len,\ 0);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordflow}{if}\ (recved\ <\ 0)\ \{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*\ Handle\ error.\ */}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*\ Start\ up\ /\ continue\ the\ parser.}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ Note\ we\ pass\ recved==0\ to\ signal\ that\ EOF\ has\ been\ received.}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{nparsed\ =\ http\_parser\_execute(parser,\ \&settings,\ buf,\ recved);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordflow}{if}\ (parser-\/>upgrade)\ \{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*\ handle\ new\ protocol\ */}}
+\DoxyCodeLine{\}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (nparsed\ !=\ recved)\ \{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*\ Handle\ error.\ Usually\ just\ close\ the\ connection.\ */}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+{\ttfamily \doxylink{structhttp__parser}{http\+\_\+parser}} needs to know where the end of the stream is. For example, sometimes servers send responses without Content-\/\+Length and expect the client to consume input (for the body) until EOF. To tell {\ttfamily \doxylink{structhttp__parser}{http\+\_\+parser}} about EOF, give {\ttfamily 0} as the fourth parameter to {\ttfamily http\+\_\+parser\+\_\+execute()}. Callbacks and errors can still be encountered during an EOF, so one must still be prepared to receive them.
+
+Scalar valued message information such as {\ttfamily status\+\_\+code}, {\ttfamily method}, and the HTTP version are stored in the parser structure. This data is only temporally stored in {\ttfamily \doxylink{structhttp__parser}{http\+\_\+parser}} and gets reset on each new message. If this information is needed later, copy it out of the structure during the {\ttfamily headers\+\_\+complete} callback.
+
+The parser decodes the transfer-\/encoding for both requests and responses transparently. That is, a chunked encoding is decoded before being sent to the on\+\_\+body callback.\hypertarget{dir_62123356adbeb899e10384ccfa6ed403_autotoc_md576}{}\doxysubsection{\texorpdfstring{The Special Problem of Upgrade}{The Special Problem of Upgrade}}\label{dir_62123356adbeb899e10384ccfa6ed403_autotoc_md576}
+{\ttfamily \doxylink{structhttp__parser}{http\+\_\+parser}} supports upgrading the connection to a different protocol. An increasingly common example of this is the Web\+Socket protocol which sends a request like \begin{DoxyVerb}    GET /demo HTTP/1.1
+    Upgrade: WebSocket
+    Connection: Upgrade
+    Host: example.com
+    Origin: http://example.com
+    WebSocket-Protocol: sample
+\end{DoxyVerb}
+
+
+followed by non-\/\+HTTP data.
+
+(See \href{https://tools.ietf.org/html/rfc6455}{\texttt{RFC6455}} for more information the Web\+Socket protocol.)
+
+To support this, the parser will treat this as a normal HTTP message without a body, issuing both on\+\_\+headers\+\_\+complete and on\+\_\+message\+\_\+complete callbacks. However http\+\_\+parser\+\_\+execute() will stop parsing at the end of the headers and return.
+
+The user is expected to check if {\ttfamily parser-\/\texorpdfstring{$>$}{>}upgrade} has been set to 1 after {\ttfamily http\+\_\+parser\+\_\+execute()} returns. Non-\/\+HTTP data begins at the buffer supplied offset by the return value of {\ttfamily http\+\_\+parser\+\_\+execute()}.\hypertarget{dir_62123356adbeb899e10384ccfa6ed403_autotoc_md577}{}\doxysubsection{\texorpdfstring{Callbacks}{Callbacks}}\label{dir_62123356adbeb899e10384ccfa6ed403_autotoc_md577}
+During the {\ttfamily http\+\_\+parser\+\_\+execute()} call, the callbacks set in {\ttfamily \doxylink{structhttp__parser__settings}{http\+\_\+parser\+\_\+settings}} will be executed. The parser maintains state and never looks behind, so buffering the data is not necessary. If you need to save certain data for later usage, you can do that from the callbacks.
+
+There are two types of callbacks\+:
+
+
+\begin{DoxyItemize}
+\item notification {\ttfamily typedef int (\texorpdfstring{$\ast$}{*}http\+\_\+cb) (http\+\_\+parser\texorpdfstring{$\ast$}{*});} Callbacks\+: on\+\_\+message\+\_\+begin, on\+\_\+headers\+\_\+complete, on\+\_\+message\+\_\+complete.
+\item data {\ttfamily typedef int (\texorpdfstring{$\ast$}{*}http\+\_\+data\+\_\+cb) (http\+\_\+parser\texorpdfstring{$\ast$}{*}, const char \texorpdfstring{$\ast$}{*}at, size\+\_\+t length);} Callbacks\+: (requests only) on\+\_\+url, (common) on\+\_\+header\+\_\+field, on\+\_\+header\+\_\+value, on\+\_\+body;
+\end{DoxyItemize}
+
+Callbacks must return 0 on success. Returning a non-\/zero value indicates error to the parser, making it exit immediately.
+
+For cases where it is necessary to pass local information to/from a callback, the {\ttfamily \doxylink{structhttp__parser}{http\+\_\+parser}} object\textquotesingle{}s {\ttfamily data} field can be used. An example of such a case is when using threads to handle a socket connection, parse a request, and then give a response over that socket. By instantiation of a thread-\/local struct containing relevant data (e.\+g. accepted socket, allocated memory for callbacks to write into, etc), a parser\textquotesingle{}s callbacks are able to communicate data between the scope of the thread and the scope of the callback in a threadsafe manner. This allows {\ttfamily \doxylink{structhttp__parser}{http\+\_\+parser}} to be used in multi-\/threaded contexts.
+
+Example\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\ \ socket\_t\ sock;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}*\ buffer;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ buf\_len;}
+\DoxyCodeLine{\ \}\ custom\_data\_t;}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ my\_url\_callback(\mbox{\hyperlink{structhttp__parser}{http\_parser}}*\ parser,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *at,\ \textcolor{keywordtype}{size\_t}\ length)\ \{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*\ access\ to\ thread\ local\ custom\_data\_t\ struct.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ Use\ this\ access\ save\ parsed\ data\ for\ later\ use\ into\ thread\ local}}
+\DoxyCodeLine{\textcolor{comment}{\ \ buffer,\ or\ communicate\ over\ socket}}
+\DoxyCodeLine{\textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\ \ parser-\/>data;}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{...}
+\DoxyCodeLine{}
+\DoxyCodeLine{void\ http\_parser\_thread(socket\_t\ sock)\ \{}
+\DoxyCodeLine{\ \textcolor{keywordtype}{int}\ nparsed\ =\ 0;}
+\DoxyCodeLine{\ \textcolor{comment}{/*\ allocate\ memory\ for\ user\ data\ */}}
+\DoxyCodeLine{\ custom\_data\_t\ *my\_data\ =\ malloc(\textcolor{keyword}{sizeof}(custom\_data\_t));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \textcolor{comment}{/*\ some\ information\ for\ use\ by\ callbacks.}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ achieves\ thread\ -\/>\ callback\ information\ flow\ */}}
+\DoxyCodeLine{\ my\_data-\/>sock\ =\ sock;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \textcolor{comment}{/*\ instantiate\ a\ thread-\/local\ parser\ */}}
+\DoxyCodeLine{\ \mbox{\hyperlink{structhttp__parser}{http\_parser}}\ *parser\ =\ malloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structhttp__parser}{http\_parser}}));}
+\DoxyCodeLine{\ http\_parser\_init(parser,\ HTTP\_REQUEST);\ \textcolor{comment}{/*\ initialise\ parser\ */}}
+\DoxyCodeLine{\ \textcolor{comment}{/*\ this\ custom\ data\ reference\ is\ accessible\ through\ the\ reference\ to\ the}}
+\DoxyCodeLine{\textcolor{comment}{\ parser\ supplied\ to\ callback\ functions\ */}}
+\DoxyCodeLine{\ parser-\/>data\ =\ my\_data;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \mbox{\hyperlink{structhttp__parser__settings}{http\_parser\_settings}}\ settings;\ \textcolor{comment}{/*\ set\ up\ callbacks\ */}}
+\DoxyCodeLine{\ settings.on\_url\ =\ my\_url\_callback;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \textcolor{comment}{/*\ execute\ parser\ */}}
+\DoxyCodeLine{\ nparsed\ =\ http\_parser\_execute(parser,\ \&settings,\ buf,\ recved);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ ...}
+\DoxyCodeLine{\ \textcolor{comment}{/*\ parsed\ information\ copied\ from\ callback.}}
+\DoxyCodeLine{\textcolor{comment}{\ can\ now\ perform\ action\ on\ data\ copied\ into\ thread-\/local\ memory\ from\ callbacks.}}
+\DoxyCodeLine{\textcolor{comment}{\ achieves\ callback\ -\/>\ thread\ information\ flow\ */}}
+\DoxyCodeLine{\ my\_data-\/>buffer;}
+\DoxyCodeLine{\ ...}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+In case you parse HTTP message in chunks (i.\+e. {\ttfamily read()} request line from socket, parse, read half headers, parse, etc) your data callbacks may be called more than once. {\ttfamily \doxylink{structhttp__parser}{http\+\_\+parser}} guarantees that data pointer is only valid for the lifetime of callback. You can also {\ttfamily read()} into a heap allocated buffer to avoid copying memory around if this fits your application.
+
+Reading headers may be a tricky task if you read/parse headers partially. Basically, you need to remember whether last header callback was field or value and apply the following logic\+: \begin{DoxyVerb}(on_header_field and on_header_value shortened to on_h_*)
+ ------------------------ ------------ --------------------------------------------
+| State (prev. callback) | Callback   | Description/action                         |
+ ------------------------ ------------ --------------------------------------------
+| nothing (first call)   | on_h_field | Allocate new buffer and copy callback data |
+|                        |            | into it                                    |
+ ------------------------ ------------ --------------------------------------------
+| value                  | on_h_field | New header started.                        |
+|                        |            | Copy current name,value buffers to headers |
+|                        |            | list and allocate new buffer for new name  |
+ ------------------------ ------------ --------------------------------------------
+| field                  | on_h_field | Previous name continues. Reallocate name   |
+|                        |            | buffer and append callback data to it      |
+ ------------------------ ------------ --------------------------------------------
+| field                  | on_h_value | Value for current header started. Allocate |
+|                        |            | new buffer and copy callback data to it    |
+ ------------------------ ------------ --------------------------------------------
+| value                  | on_h_value | Value continues. Reallocate value buffer   |
+|                        |            | and append callback data to it             |
+ ------------------------ ------------ --------------------------------------------
+\end{DoxyVerb}
+\hypertarget{dir_62123356adbeb899e10384ccfa6ed403_autotoc_md578}{}\doxysubsection{\texorpdfstring{Parsing URLs}{Parsing URLs}}\label{dir_62123356adbeb899e10384ccfa6ed403_autotoc_md578}
+A simplistic zero-\/copy URL parser is provided as {\ttfamily http\+\_\+parser\+\_\+parse\+\_\+url()}. Users of this library may wish to use it to parse URLs constructed from consecutive {\ttfamily on\+\_\+url} callbacks.
+
+See examples of reading in headers\+:
+
+
+\begin{DoxyItemize}
+\item \href{http://gist.github.com/155877}{\texttt{partial example}} in C
+\item \href{http://github.com/joyent/http-parser/blob/37a0ff8/test.c\#L403}{\texttt{from http-\/parser tests}} in C
+\item \href{http://github.com/joyent/node/blob/842eaf4/src/http.js\#L284}{\texttt{from Node library}} in Javascript 
+\end{DoxyItemize}

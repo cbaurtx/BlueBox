@@ -1,0 +1,67 @@
+\doxysection{nghttp2\+::Block\+Allocator Struct Reference}
+\hypertarget{structnghttp2_1_1BlockAllocator}{}\label{structnghttp2_1_1BlockAllocator}\index{nghttp2::BlockAllocator@{nghttp2::BlockAllocator}}
+
+
+Collaboration diagram for nghttp2\+::Block\+Allocator\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{structnghttp2_1_1BlockAllocator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnghttp2_1_1BlockAllocator_a7a5054d0577c03ff774e7362bc1ed9b5}\label{structnghttp2_1_1BlockAllocator_a7a5054d0577c03ff774e7362bc1ed9b5} 
+{\bfseries Block\+Allocator} (size\+\_\+t block\+\_\+size, size\+\_\+t isolation\+\_\+threshold)
+\item 
+\Hypertarget{structnghttp2_1_1BlockAllocator_a4abdbc513be109975fcde1eef69d7a17}\label{structnghttp2_1_1BlockAllocator_a4abdbc513be109975fcde1eef69d7a17} 
+{\bfseries Block\+Allocator} (Block\+Allocator \&\&other) noexcept
+\item 
+\Hypertarget{structnghttp2_1_1BlockAllocator_a61d5904e0241b41a5951e4363f1cfa4f}\label{structnghttp2_1_1BlockAllocator_a61d5904e0241b41a5951e4363f1cfa4f} 
+Block\+Allocator \& {\bfseries operator=} (Block\+Allocator \&\&other) noexcept
+\item 
+\Hypertarget{structnghttp2_1_1BlockAllocator_a1823fb36b72210f00f80caaf691c0fc0}\label{structnghttp2_1_1BlockAllocator_a1823fb36b72210f00f80caaf691c0fc0} 
+{\bfseries Block\+Allocator} (const Block\+Allocator \&)=delete
+\item 
+\Hypertarget{structnghttp2_1_1BlockAllocator_a5f97a06c5a145d5416eeb5b48307e75c}\label{structnghttp2_1_1BlockAllocator_a5f97a06c5a145d5416eeb5b48307e75c} 
+Block\+Allocator \& {\bfseries operator=} (const Block\+Allocator \&)=delete
+\item 
+\Hypertarget{structnghttp2_1_1BlockAllocator_ad347a9f3d04af93b9e838da9ebad42b7}\label{structnghttp2_1_1BlockAllocator_ad347a9f3d04af93b9e838da9ebad42b7} 
+void {\bfseries reset} ()
+\item 
+\Hypertarget{structnghttp2_1_1BlockAllocator_a087bb21c4f0fef2d9800e6209cd1521f}\label{structnghttp2_1_1BlockAllocator_a087bb21c4f0fef2d9800e6209cd1521f} 
+\mbox{\hyperlink{structnghttp2_1_1MemBlock}{Mem\+Block}} \texorpdfstring{$\ast$}{*} {\bfseries alloc\+\_\+mem\+\_\+block} (size\+\_\+t size)
+\item 
+\Hypertarget{structnghttp2_1_1BlockAllocator_a2df434349ce703ac95e2b2014c5d2b32}\label{structnghttp2_1_1BlockAllocator_a2df434349ce703ac95e2b2014c5d2b32} 
+constexpr size\+\_\+t {\bfseries alloc\+\_\+unit} (size\+\_\+t size)
+\item 
+\Hypertarget{structnghttp2_1_1BlockAllocator_a966d328773baa539f90c5275ecd5574a}\label{structnghttp2_1_1BlockAllocator_a966d328773baa539f90c5275ecd5574a} 
+void \texorpdfstring{$\ast$}{*} {\bfseries alloc} (size\+\_\+t size)
+\item 
+\Hypertarget{structnghttp2_1_1BlockAllocator_a0fac7f437ea18ad6ab7f419597d2d73b}\label{structnghttp2_1_1BlockAllocator_a0fac7f437ea18ad6ab7f419597d2d73b} 
+size\+\_\+t {\bfseries get\+\_\+alloc\+\_\+length} (void \texorpdfstring{$\ast$}{*}ptr)
+\item 
+\Hypertarget{structnghttp2_1_1BlockAllocator_aad09dd9f94ac80f14eb6d6ebbd725532}\label{structnghttp2_1_1BlockAllocator_aad09dd9f94ac80f14eb6d6ebbd725532} 
+void \texorpdfstring{$\ast$}{*} {\bfseries realloc} (void \texorpdfstring{$\ast$}{*}ptr, size\+\_\+t size)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnghttp2_1_1BlockAllocator_a52ba1c27a7c98b4b873a26cda0bafc31}\label{structnghttp2_1_1BlockAllocator_a52ba1c27a7c98b4b873a26cda0bafc31} 
+\mbox{\hyperlink{structnghttp2_1_1MemBlock}{Mem\+Block}} \texorpdfstring{$\ast$}{*} {\bfseries retain}
+\item 
+\Hypertarget{structnghttp2_1_1BlockAllocator_a2ba2b201412e8d1ac31c40e52fe3d86c}\label{structnghttp2_1_1BlockAllocator_a2ba2b201412e8d1ac31c40e52fe3d86c} 
+\mbox{\hyperlink{structnghttp2_1_1MemBlock}{Mem\+Block}} \texorpdfstring{$\ast$}{*} {\bfseries head}
+\item 
+\Hypertarget{structnghttp2_1_1BlockAllocator_ab35540554f05cb3d142bf5bee169f13a}\label{structnghttp2_1_1BlockAllocator_ab35540554f05cb3d142bf5bee169f13a} 
+size\+\_\+t {\bfseries block\+\_\+size}
+\item 
+\Hypertarget{structnghttp2_1_1BlockAllocator_ae26bb98e8eb46ed46fdc27987844225e}\label{structnghttp2_1_1BlockAllocator_ae26bb98e8eb46ed46fdc27987844225e} 
+size\+\_\+t {\bfseries isolation\+\_\+threshold}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/allocator.\+h\end{DoxyCompactItemize}

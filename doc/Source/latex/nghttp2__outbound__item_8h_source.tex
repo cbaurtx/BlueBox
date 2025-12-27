@@ -1,0 +1,178 @@
+\doxysection{nghttp2\+\_\+outbound\+\_\+item.\+h}
+\hypertarget{nghttp2__outbound__item_8h_source}{}\label{nghttp2__outbound__item_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_outbound\_item.h@{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_outbound\_item.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_OUTBOUND\_ITEM\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ NGHTTP2\_OUTBOUND\_ITEM\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifdef\ HAVE\_CONFIG\_H}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ \ include\ <config.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_CONFIG\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_frame.h"{}}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_mem.h"{}}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ NGHTTP2\_DATA\_PROVIDER\_V1\ 1}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ NGHTTP2\_DATA\_PROVIDER\_V2\ 2}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__data__provider__wrap}{nghttp2\_data\_provider\_wrap}}\ \{}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordtype}{int}\ version;}
+\DoxyCodeLine{00041\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \mbox{\hyperlink{unionnghttp2__data__source}{nghttp2\_data\_source}}\ source;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *read\_callback;}
+\DoxyCodeLine{00045\ \ \ \ \ \};}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{structnghttp2__data__provider}{nghttp2\_data\_provider}}\ v1;}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{structnghttp2__data__provider2}{nghttp2\_data\_provider2}}\ v2;}
+\DoxyCodeLine{00048\ \ \ \}\ data\_prd;}
+\DoxyCodeLine{00049\ \}\ \mbox{\hyperlink{structnghttp2__data__provider__wrap}{nghttp2\_data\_provider\_wrap}};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \mbox{\hyperlink{structnghttp2__data__provider__wrap}{nghttp2\_data\_provider\_wrap}}\ *}
+\DoxyCodeLine{00052\ nghttp2\_data\_provider\_wrap\_v1(\mbox{\hyperlink{structnghttp2__data__provider__wrap}{nghttp2\_data\_provider\_wrap}}\ *dpw,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__data__provider}{nghttp2\_data\_provider}}\ *data\_prd);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \mbox{\hyperlink{structnghttp2__data__provider__wrap}{nghttp2\_data\_provider\_wrap}}\ *}
+\DoxyCodeLine{00056\ nghttp2\_data\_provider\_wrap\_v2(\mbox{\hyperlink{structnghttp2__data__provider__wrap}{nghttp2\_data\_provider\_wrap}}\ *dpw,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__data__provider2}{nghttp2\_data\_provider2}}\ *data\_prd);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{comment}{/*\ struct\ used\ for\ HEADERS\ and\ PUSH\_PROMISE\ frame\ */}}
+\DoxyCodeLine{00060\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00061\ \ \ \mbox{\hyperlink{structnghttp2__data__provider__wrap}{nghttp2\_data\_provider\_wrap}}\ dpw;}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{void}\ *stream\_user\_data;}
+\DoxyCodeLine{00063\ \ \ \textcolor{comment}{/*\ error\ code\ when\ request\ HEADERS\ is\ canceled\ by\ RST\_STREAM\ while}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ \ \ \ \ it\ is\ in\ queue.\ */}}
+\DoxyCodeLine{00065\ \ \ uint32\_t\ error\_code;}
+\DoxyCodeLine{00066\ \ \ \textcolor{comment}{/*\ nonzero\ if\ request\ HEADERS\ is\ canceled.\ \ The\ error\ code\ is\ stored}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ \ \ \ \ in\ |error\_code|.\ */}}
+\DoxyCodeLine{00068\ \ \ uint8\_t\ canceled;}
+\DoxyCodeLine{00069\ \}\ \mbox{\hyperlink{structnghttp2__headers__aux__data}{nghttp2\_headers\_aux\_data}};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{comment}{/*\ struct\ used\ for\ DATA\ frame\ */}}
+\DoxyCodeLine{00072\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{structnghttp2__data__provider__wrap}{nghttp2\_data\_provider\_wrap}}\ \mbox{\hyperlink{structnghttp2__data__aux__data_a52a20c719f0fd4ad00bd2e334c6da63f}{dpw}};}
+\DoxyCodeLine{00084\ \ \ uint8\_t\ \mbox{\hyperlink{structnghttp2__data__aux__data_aac523cd519ccd6fb0a191daab57b8672}{flags}};}
+\DoxyCodeLine{00089\ \ \ uint8\_t\ \mbox{\hyperlink{structnghttp2__data__aux__data_a901ee735532886dcaeb10e5fb3744013}{eof}};}
+\DoxyCodeLine{00093\ \ \ uint8\_t\ \mbox{\hyperlink{structnghttp2__data__aux__data_ab9fbc97d956ff1feb0b1bc5b24c4d7eb}{no\_copy}};}
+\DoxyCodeLine{00094\ \}\ \mbox{\hyperlink{structnghttp2__data__aux__data}{nghttp2\_data\_aux\_data}};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00097\ \ \ NGHTTP2\_GOAWAY\_AUX\_NONE\ =\ 0x0,}
+\DoxyCodeLine{00098\ \ \ \textcolor{comment}{/*\ indicates\ that\ session\ should\ be\ terminated\ after\ the}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ \ \ \ \ transmission\ of\ this\ frame.\ */}}
+\DoxyCodeLine{00100\ \ \ NGHTTP2\_GOAWAY\_AUX\_TERM\_ON\_SEND\ =\ 0x1,}
+\DoxyCodeLine{00101\ \ \ \textcolor{comment}{/*\ indicates\ that\ this\ GOAWAY\ is\ just\ a\ notification\ for\ graceful}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ \ \ \ \ shutdown.\ \ No\ nghttp2\_session.goaway\_flags\ should\ be\ updated\ on}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ \ \ \ \ the\ reaction\ to\ this\ frame.\ */}}
+\DoxyCodeLine{00104\ \ \ NGHTTP2\_GOAWAY\_AUX\_SHUTDOWN\_NOTICE\ =\ 0x2}
+\DoxyCodeLine{00105\ \}\ nghttp2\_goaway\_aux\_flag;}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{comment}{/*\ struct\ used\ for\ GOAWAY\ frame\ */}}
+\DoxyCodeLine{00108\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00109\ \ \ \textcolor{comment}{/*\ bitwise-\/OR\ of\ one\ or\ more\ of\ nghttp2\_goaway\_aux\_flag.\ */}}
+\DoxyCodeLine{00110\ \ \ uint8\_t\ flags;}
+\DoxyCodeLine{00111\ \}\ \mbox{\hyperlink{structnghttp2__goaway__aux__data}{nghttp2\_goaway\_aux\_data}};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{comment}{/*\ struct\ used\ for\ extension\ frame\ */}}
+\DoxyCodeLine{00114\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00115\ \ \ \textcolor{comment}{/*\ nonzero\ if\ this\ extension\ frame\ is\ serialized\ by\ library}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ \ \ \ \ function,\ instead\ of\ user-\/defined\ callbacks.\ */}}
+\DoxyCodeLine{00117\ \ \ uint8\_t\ builtin;}
+\DoxyCodeLine{00118\ \}\ \mbox{\hyperlink{structnghttp2__ext__aux__data}{nghttp2\_ext\_aux\_data}};}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{comment}{/*\ Additional\ data\ which\ cannot\ be\ stored\ in\ nghttp2\_frame\ struct\ */}}
+\DoxyCodeLine{00121\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00122\ \ \ \mbox{\hyperlink{structnghttp2__data__aux__data}{nghttp2\_data\_aux\_data}}\ data;}
+\DoxyCodeLine{00123\ \ \ \mbox{\hyperlink{structnghttp2__headers__aux__data}{nghttp2\_headers\_aux\_data}}\ headers;}
+\DoxyCodeLine{00124\ \ \ \mbox{\hyperlink{structnghttp2__goaway__aux__data}{nghttp2\_goaway\_aux\_data}}\ goaway;}
+\DoxyCodeLine{00125\ \ \ \mbox{\hyperlink{structnghttp2__ext__aux__data}{nghttp2\_ext\_aux\_data}}\ ext;}
+\DoxyCodeLine{00126\ \}\ \mbox{\hyperlink{unionnghttp2__aux__data}{nghttp2\_aux\_data}};}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__outbound__item}{nghttp2\_outbound\_item}};}
+\DoxyCodeLine{00129\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__outbound__item}{nghttp2\_outbound\_item}}\ \mbox{\hyperlink{structnghttp2__outbound__item}{nghttp2\_outbound\_item}};}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__outbound__item}{nghttp2\_outbound\_item}}\ \{}
+\DoxyCodeLine{00132\ \ \ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ frame;}
+\DoxyCodeLine{00133\ \ \ \textcolor{comment}{/*\ Storage\ for\ extension\ frame\ payload.\ \ frame-\/>ext.payload\ points}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ \ \ \ \ to\ this\ structure\ to\ avoid\ frequent\ memory\ allocation.\ */}}
+\DoxyCodeLine{00135\ \ \ \mbox{\hyperlink{unionnghttp2__ext__frame__payload}{nghttp2\_ext\_frame\_payload}}\ ext\_frame\_payload;}
+\DoxyCodeLine{00136\ \ \ \mbox{\hyperlink{unionnghttp2__aux__data}{nghttp2\_aux\_data}}\ aux\_data;}
+\DoxyCodeLine{00137\ \ \ \textcolor{comment}{/*\ The\ priority\ used\ in\ priority\ comparison.\ \ Smaller\ is\ served}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ \ \ \ \ earlier.\ \ For\ PING,\ SETTINGS\ and\ non-\/DATA\ frames\ (excluding}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ \ \ \ \ response\ HEADERS\ frame)\ have\ dedicated\ cycle\ value\ defined\ above.}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ \ \ \ \ For\ DATA\ frame,\ cycle\ is\ computed\ by\ taking\ into\ account\ of}}
+\DoxyCodeLine{00141\ \textcolor{comment}{\ \ \ \ \ effective\ weight\ and\ frame\ payload\ length\ previously\ sent,\ so}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ \ \ \ \ that\ the\ amount\ of\ transmission\ is\ distributed\ across\ streams}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ \ \ \ \ proportional\ to\ effective\ weight\ (inside\ a\ tree).\ */}}
+\DoxyCodeLine{00144\ \ \ uint64\_t\ cycle;}
+\DoxyCodeLine{00145\ \ \ \mbox{\hyperlink{structnghttp2__outbound__item}{nghttp2\_outbound\_item}}\ *qnext;}
+\DoxyCodeLine{00146\ \ \ \textcolor{comment}{/*\ nonzero\ if\ this\ object\ is\ queued,\ except\ for\ DATA\ or\ HEADERS}}
+\DoxyCodeLine{00147\ \textcolor{comment}{\ \ \ \ \ which\ are\ attached\ to\ stream\ as\ item.\ */}}
+\DoxyCodeLine{00148\ \ \ uint8\_t\ queued;}
+\DoxyCodeLine{00149\ \};}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ *\ Initializes\ |item|.\ \ No\ memory\ allocation\ is\ done\ in\ this\ function.}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ *\ Don't\ call\ nghttp2\_outbound\_item\_free()\ until\ frame\ member\ is}}
+\DoxyCodeLine{00154\ \textcolor{comment}{\ *\ initialized.}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00156\ \textcolor{keywordtype}{void}\ nghttp2\_outbound\_item\_init(\mbox{\hyperlink{structnghttp2__outbound__item}{nghttp2\_outbound\_item}}\ *item);}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ *\ Deallocates\ resource\ for\ |item|.\ If\ |item|\ is\ NULL,\ this\ function}}
+\DoxyCodeLine{00160\ \textcolor{comment}{\ *\ does\ nothing.}}
+\DoxyCodeLine{00161\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00162\ \textcolor{keywordtype}{void}\ nghttp2\_outbound\_item\_free(\mbox{\hyperlink{structnghttp2__outbound__item}{nghttp2\_outbound\_item}}\ *item,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ *\ queue\ for\ nghttp2\_outbound\_item.}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00167\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00168\ \ \ \mbox{\hyperlink{structnghttp2__outbound__item}{nghttp2\_outbound\_item}}\ *head,\ *tail;}
+\DoxyCodeLine{00169\ \ \ \textcolor{comment}{/*\ number\ of\ items\ in\ this\ queue.\ */}}
+\DoxyCodeLine{00170\ \ \ \textcolor{keywordtype}{size\_t}\ n;}
+\DoxyCodeLine{00171\ \}\ \mbox{\hyperlink{structnghttp2__outbound__queue}{nghttp2\_outbound\_queue}};}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{keywordtype}{void}\ nghttp2\_outbound\_queue\_init(\mbox{\hyperlink{structnghttp2__outbound__queue}{nghttp2\_outbound\_queue}}\ *q);}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{comment}{/*\ Pushes\ |item|\ into\ |q|\ */}}
+\DoxyCodeLine{00176\ \textcolor{keywordtype}{void}\ nghttp2\_outbound\_queue\_push(\mbox{\hyperlink{structnghttp2__outbound__queue}{nghttp2\_outbound\_queue}}\ *q,}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__outbound__item}{nghttp2\_outbound\_item}}\ *item);}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \textcolor{comment}{/*\ Pops\ |item|\ at\ the\ top\ from\ |q|.\ \ If\ |q|\ is\ empty,\ nothing}}
+\DoxyCodeLine{00180\ \textcolor{comment}{\ \ \ happens.\ */}}
+\DoxyCodeLine{00181\ \textcolor{keywordtype}{void}\ nghttp2\_outbound\_queue\_pop(\mbox{\hyperlink{structnghttp2__outbound__queue}{nghttp2\_outbound\_queue}}\ *q);}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{comment}{/*\ Returns\ the\ top\ item.\ */}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#define\ nghttp2\_outbound\_queue\_top(Q)\ ((Q)-\/>head)}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \textcolor{comment}{/*\ Returns\ the\ size\ of\ the\ queue\ */}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#define\ nghttp2\_outbound\_queue\_size(Q)\ ((Q)-\/>n)}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_OUTBOUND\_ITEM\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

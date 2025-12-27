@@ -1,0 +1,254 @@
+\doxysection{components/audioboard/generic\+\_\+i2s/generic\+\_\+i2s.c File Reference}
+\hypertarget{generic__i2s_8c}{}\label{generic__i2s_8c}\index{components/audioboard/generic\_i2s/generic\_i2s.c@{components/audioboard/generic\_i2s/generic\_i2s.c}}
+
+
+Generic driver for i2s.  
+
+
+{\ttfamily \#include "{}generic\+\_\+i2s.\+h"{}}\newline
+{\ttfamily \#include "{}board.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+{\ttfamily \#include "{}audio\+\_\+volume.\+h"{}}\newline
+Include dependency graph for generic\+\_\+i2s.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{generic__i2s_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{generic__i2s_8c_a7f98d4187f464212de091df875fe6faf}{PCM5102\+A\+\_\+\+ASSERT}}(a,  format,  b, ...)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{generic__i2s_8c_a2f94ad1605d31a848d81bba4e49fffa7}{generic\+\_\+i2s\+\_\+ctrl}} (audio\+\_\+hal\+\_\+codec\+\_\+mode\+\_\+t mode, audio\+\_\+hal\+\_\+ctrl\+\_\+t ctrl\+\_\+state)
+\begin{DoxyCompactList}\small\item\em Control the genric I2S. \end{DoxyCompactList}\item 
+\Hypertarget{generic__i2s_8c_a6ade32856dd8159c0c08747160a050dc}\label{generic__i2s_8c_a6ade32856dd8159c0c08747160a050dc} 
+esp\+\_\+err\+\_\+t {\bfseries generic\+\_\+i2s\+\_\+config\+\_\+iface} (audio\+\_\+hal\+\_\+codec\+\_\+mode\+\_\+t mode, audio\+\_\+hal\+\_\+codec\+\_\+i2s\+\_\+iface\+\_\+t \texorpdfstring{$\ast$}{*}iface)
+\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{generic__i2s_8c_a6ef1ef4a8e0753f00e26424711131101}{generic\+\_\+i2s\+\_\+init}} (audio\+\_\+hal\+\_\+codec\+\_\+config\+\_\+t \texorpdfstring{$\ast$}{*}codec\+\_\+cfg)
+\begin{DoxyCompactList}\small\item\em Initialize PCM5102A codec. \end{DoxyCompactList}\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{generic__i2s_8c_af65dfc348d53c3c92a1aec78e687c67b}{generic\+\_\+i2s\+\_\+set\+\_\+mute}} (bool enable)
+\begin{DoxyCompactList}\small\item\em Set mute / unmute. \end{DoxyCompactList}\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{generic__i2s_8c_a89442e44d24541cff981d12b508d04c5}{generic\+\_\+i2s\+\_\+get\+\_\+mute}} (int \texorpdfstring{$\ast$}{*}value)
+\begin{DoxyCompactList}\small\item\em Get mute state. \end{DoxyCompactList}\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{generic__i2s_8c_a3c031db62343c2c311c22b3759c5e721}{generic\+\_\+i2s\+\_\+deinit}} (void)
+\begin{DoxyCompactList}\small\item\em Deinitialize i2s. \end{DoxyCompactList}\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{generic__i2s_8c_ac1f6157f09342e8c2af4dd3ed58d7789}{generic\+\_\+i2s\+\_\+set\+\_\+volume}} (int volume)
+\begin{DoxyCompactList}\small\item\em Set volume. \end{DoxyCompactList}\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{generic__i2s_8c_a18cfe7d119461ed7c80eea2c51b5845a}{generic\+\_\+i2s\+\_\+get\+\_\+volume}} (int \texorpdfstring{$\ast$}{*}volume)
+\begin{DoxyCompactList}\small\item\em Get volume. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+audio\+\_\+hal\+\_\+func\+\_\+t \mbox{\hyperlink{generic__i2s_8c_a613dabaeafce5583f0586edca4ba6c4c}{AUDIO\+\_\+\+CODEC\+\_\+\+PCM5102\+A\+\_\+\+DEFAULT\+\_\+\+HANDLE}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Generic driver for i2s. 
+
+\begin{DoxyVersion}{Version}
+0.\+9 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+Cbaurtx 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+21.\+04.\+2025 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+cbaurtx 
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{{\bfseries{License}}\+: MIT License, read LICENSE.md}
+
+\end{DoxyParagraph}
+
+
+\label{doc-define-members}
+\Hypertarget{generic__i2s_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{generic__i2s_8c_a7f98d4187f464212de091df875fe6faf}\index{generic\_i2s.c@{generic\_i2s.c}!PCM5102A\_ASSERT@{PCM5102A\_ASSERT}}
+\index{PCM5102A\_ASSERT@{PCM5102A\_ASSERT}!generic\_i2s.c@{generic\_i2s.c}}
+\doxysubsubsection{\texorpdfstring{PCM5102A\_ASSERT}{PCM5102A\_ASSERT}}
+{\footnotesize\ttfamily \label{generic__i2s_8c_a7f98d4187f464212de091df875fe6faf} 
+\#define PCM5102\+A\+\_\+\+ASSERT(\begin{DoxyParamCaption}\item[{}]{a}{, }\item[{}]{format}{, }\item[{}]{b}{, }\item[{}]{}...{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ ((a)\ !=\ 0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ESP\_LOGE(TAG,\ format,\ \#\#\_\_VA\_ARGS\_\_);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ b;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{generic__i2s_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{generic__i2s_8c_a2f94ad1605d31a848d81bba4e49fffa7}\index{generic\_i2s.c@{generic\_i2s.c}!generic\_i2s\_ctrl@{generic\_i2s\_ctrl}}
+\index{generic\_i2s\_ctrl@{generic\_i2s\_ctrl}!generic\_i2s.c@{generic\_i2s.c}}
+\doxysubsubsection{\texorpdfstring{generic\_i2s\_ctrl()}{generic\_i2s\_ctrl()}}
+{\footnotesize\ttfamily \label{generic__i2s_8c_a2f94ad1605d31a848d81bba4e49fffa7} 
+esp\+\_\+err\+\_\+t generic\+\_\+i2s\+\_\+ctrl (\begin{DoxyParamCaption}\item[{audio\+\_\+hal\+\_\+codec\+\_\+mode\+\_\+t}]{mode}{, }\item[{audio\+\_\+hal\+\_\+ctrl\+\_\+t}]{ctrl\+\_\+state}{}\end{DoxyParamCaption})}
+
+
+
+Control the genric I2S. 
+
+This function has no effect. \begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item ESP\+\_\+\+OK 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{generic__i2s_8c_a3c031db62343c2c311c22b3759c5e721}\index{generic\_i2s.c@{generic\_i2s.c}!generic\_i2s\_deinit@{generic\_i2s\_deinit}}
+\index{generic\_i2s\_deinit@{generic\_i2s\_deinit}!generic\_i2s.c@{generic\_i2s.c}}
+\doxysubsubsection{\texorpdfstring{generic\_i2s\_deinit()}{generic\_i2s\_deinit()}}
+{\footnotesize\ttfamily \label{generic__i2s_8c_a3c031db62343c2c311c22b3759c5e721} 
+esp\+\_\+err\+\_\+t generic\+\_\+i2s\+\_\+deinit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Deinitialize i2s. 
+
+Deinitialize generic I2S.
+
+This function has no effect. \begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item ESP\+\_\+\+OK 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{generic__i2s_8c_a89442e44d24541cff981d12b508d04c5}\index{generic\_i2s.c@{generic\_i2s.c}!generic\_i2s\_get\_mute@{generic\_i2s\_get\_mute}}
+\index{generic\_i2s\_get\_mute@{generic\_i2s\_get\_mute}!generic\_i2s.c@{generic\_i2s.c}}
+\doxysubsubsection{\texorpdfstring{generic\_i2s\_get\_mute()}{generic\_i2s\_get\_mute()}}
+{\footnotesize\ttfamily \label{generic__i2s_8c_a89442e44d24541cff981d12b508d04c5} 
+esp\+\_\+err\+\_\+t generic\+\_\+i2s\+\_\+get\+\_\+mute (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Get mute state. 
+
+Get mute status.
+
+Get the state of the mute GPIO 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{out}}  & {\em value} & muted / not muted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item ESP\+\_\+\+OK 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{generic__i2s_8c_a18cfe7d119461ed7c80eea2c51b5845a}\index{generic\_i2s.c@{generic\_i2s.c}!generic\_i2s\_get\_volume@{generic\_i2s\_get\_volume}}
+\index{generic\_i2s\_get\_volume@{generic\_i2s\_get\_volume}!generic\_i2s.c@{generic\_i2s.c}}
+\doxysubsubsection{\texorpdfstring{generic\_i2s\_get\_volume()}{generic\_i2s\_get\_volume()}}
+{\footnotesize\ttfamily \label{generic__i2s_8c_a18cfe7d119461ed7c80eea2c51b5845a} 
+esp\+\_\+err\+\_\+t generic\+\_\+i2s\+\_\+get\+\_\+volume (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}}]{volume}{}\end{DoxyParamCaption})}
+
+
+
+Get volume. 
+
+Get voice volume.
+
+This function sets the param volume tp -\/1 (invald) param\mbox{[}in\mbox{]} volume \begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item ESP\+\_\+\+OK 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{generic__i2s_8c_a6ef1ef4a8e0753f00e26424711131101}\index{generic\_i2s.c@{generic\_i2s.c}!generic\_i2s\_init@{generic\_i2s\_init}}
+\index{generic\_i2s\_init@{generic\_i2s\_init}!generic\_i2s.c@{generic\_i2s.c}}
+\doxysubsubsection{\texorpdfstring{generic\_i2s\_init()}{generic\_i2s\_init()}}
+{\footnotesize\ttfamily \label{generic__i2s_8c_a6ef1ef4a8e0753f00e26424711131101} 
+esp\+\_\+err\+\_\+t generic\+\_\+i2s\+\_\+init (\begin{DoxyParamCaption}\item[{audio\+\_\+hal\+\_\+codec\+\_\+config\+\_\+t \texorpdfstring{$\ast$}{*}}]{codec\+\_\+cfg}{}\end{DoxyParamCaption})}
+
+
+
+Initialize PCM5102A codec. 
+
+Initialize I2S.
+
+Only the GPIO pin for the mute signal needs to be setuo 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em codec\+\_\+cfg} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item ESP\+\_\+\+OK 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{generic__i2s_8c_af65dfc348d53c3c92a1aec78e687c67b}\index{generic\_i2s.c@{generic\_i2s.c}!generic\_i2s\_set\_mute@{generic\_i2s\_set\_mute}}
+\index{generic\_i2s\_set\_mute@{generic\_i2s\_set\_mute}!generic\_i2s.c@{generic\_i2s.c}}
+\doxysubsubsection{\texorpdfstring{generic\_i2s\_set\_mute()}{generic\_i2s\_set\_mute()}}
+{\footnotesize\ttfamily \label{generic__i2s_8c_af65dfc348d53c3c92a1aec78e687c67b} 
+esp\+\_\+err\+\_\+t generic\+\_\+i2s\+\_\+set\+\_\+mute (\begin{DoxyParamCaption}\item[{bool}]{enable}{}\end{DoxyParamCaption})}
+
+
+
+Set mute / unmute. 
+
+Set mute or not.
+
+Set the mute GPIO to mute / unmute the PCM5102A \begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item ESP\+\_\+\+OK 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{generic__i2s_8c_ac1f6157f09342e8c2af4dd3ed58d7789}\index{generic\_i2s.c@{generic\_i2s.c}!generic\_i2s\_set\_volume@{generic\_i2s\_set\_volume}}
+\index{generic\_i2s\_set\_volume@{generic\_i2s\_set\_volume}!generic\_i2s.c@{generic\_i2s.c}}
+\doxysubsubsection{\texorpdfstring{generic\_i2s\_set\_volume()}{generic\_i2s\_set\_volume()}}
+{\footnotesize\ttfamily \label{generic__i2s_8c_ac1f6157f09342e8c2af4dd3ed58d7789} 
+esp\+\_\+err\+\_\+t generic\+\_\+i2s\+\_\+set\+\_\+volume (\begin{DoxyParamCaption}\item[{int}]{volume}{}\end{DoxyParamCaption})}
+
+
+
+Set volume. 
+
+Set voice volume.
+
+This function has no effect as the PCM5102A has no volume control. param\mbox{[}in\mbox{]} volume \begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item ESP\+\_\+\+OK 
+\end{DoxyItemize}
+\end{DoxyReturn}
+
+
+\label{doc-var-members}
+\Hypertarget{generic__i2s_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{generic__i2s_8c_a613dabaeafce5583f0586edca4ba6c4c}\index{generic\_i2s.c@{generic\_i2s.c}!AUDIO\_CODEC\_PCM5102A\_DEFAULT\_HANDLE@{AUDIO\_CODEC\_PCM5102A\_DEFAULT\_HANDLE}}
+\index{AUDIO\_CODEC\_PCM5102A\_DEFAULT\_HANDLE@{AUDIO\_CODEC\_PCM5102A\_DEFAULT\_HANDLE}!generic\_i2s.c@{generic\_i2s.c}}
+\doxysubsubsection{\texorpdfstring{AUDIO\_CODEC\_PCM5102A\_DEFAULT\_HANDLE}{AUDIO\_CODEC\_PCM5102A\_DEFAULT\_HANDLE}}
+{\footnotesize\ttfamily \label{generic__i2s_8c_a613dabaeafce5583f0586edca4ba6c4c} 
+audio\+\_\+hal\+\_\+func\+\_\+t AUDIO\+\_\+\+CODEC\+\_\+\+PCM5102\+A\+\_\+\+DEFAULT\+\_\+\+HANDLE}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ .audio\_codec\_initialize\ \ \ =\ \mbox{\hyperlink{generic__i2s_8c_a6ef1ef4a8e0753f00e26424711131101}{generic\_i2s\_init}},}
+\DoxyCodeLine{\ \ \ \ .audio\_codec\_deinitialize\ =\ \mbox{\hyperlink{generic__i2s_8c_a3c031db62343c2c311c22b3759c5e721}{generic\_i2s\_deinit}},}
+\DoxyCodeLine{\ \ \ \ .audio\_codec\_ctrl\ \ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{generic__i2s_8c_a2f94ad1605d31a848d81bba4e49fffa7}{generic\_i2s\_ctrl}},}
+\DoxyCodeLine{\ \ \ \ .audio\_codec\_config\_iface\ =\ generic\_i2s\_config\_iface,}
+\DoxyCodeLine{\ \ \ \ .audio\_codec\_set\_mute\ \ \ \ \ =\ \mbox{\hyperlink{generic__i2s_8c_af65dfc348d53c3c92a1aec78e687c67b}{generic\_i2s\_set\_mute}},}
+\DoxyCodeLine{\ \ \ \ .audio\_codec\_set\_volume\ \ \ =\ \mbox{\hyperlink{generic__i2s_8c_ac1f6157f09342e8c2af4dd3ed58d7789}{generic\_i2s\_set\_volume}},}
+\DoxyCodeLine{\ \ \ \ .audio\_codec\_get\_volume\ \ \ =\ \mbox{\hyperlink{generic__i2s_8c_a18cfe7d119461ed7c80eea2c51b5845a}{generic\_i2s\_get\_volume}},}
+\DoxyCodeLine{\ \ \ \ .audio\_codec\_enable\_pa\ \ \ \ =\ NULL,}
+\DoxyCodeLine{\ \ \ \ .audio\_hal\_lock\ \ \ \ \ \ \ \ \ \ \ =\ NULL,}
+\DoxyCodeLine{\ \ \ \ .handle\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ NULL,}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

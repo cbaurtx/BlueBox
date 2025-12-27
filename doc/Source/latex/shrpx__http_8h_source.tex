@@ -1,0 +1,102 @@
+\doxysection{shrpx\+\_\+http.\+h}
+\hypertarget{shrpx__http_8h_source}{}\label{shrpx__http_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_http.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_http.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_HTTP\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_HTTP\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}shrpx\_config.h"{}}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}util.h"{}}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}allocator.h"{}}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{using\ namespace\ }nghttp2;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{namespace\ }http\ \{}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ StringRef\ create\_error\_html(BlockAllocator\ \&balloc,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ status\_code);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ OutputIt>}
+\DoxyCodeLine{00047\ OutputIt\ create\_via\_header\_value(OutputIt\ dst,\ \textcolor{keywordtype}{int}\ major,\ \textcolor{keywordtype}{int}\ minor)\ \{}
+\DoxyCodeLine{00048\ \ \ *dst++\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}\textcolor{keyword}{>}(major\ +\ \textcolor{charliteral}{'0'});}
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordflow}{if}\ (major\ <\ 2)\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ *dst++\ =\ \textcolor{charliteral}{'.'};}
+\DoxyCodeLine{00051\ \ \ \ \ *dst++\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}\textcolor{keyword}{>}(minor\ +\ \textcolor{charliteral}{'0'});}
+\DoxyCodeLine{00052\ \ \ \}}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordflow}{return}\ util::copy\_lit(dst,\ \textcolor{stringliteral}{"{}\ nghttpx"{}});}
+\DoxyCodeLine{00054\ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{//\ Returns\ generated\ RFC\ 7239\ Forwarded\ header\ field\ value.\ \ The}}
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ |params|\ is\ bitwise-\/OR\ of\ zero\ or\ more\ of\ shrpx\_forwarded\_param}}
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ defined\ in\ shrpx\_config.h.}}
+\DoxyCodeLine{00059\ StringRef\ create\_forwarded(BlockAllocator\ \&balloc,\ \textcolor{keywordtype}{int}\ params,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ StringRef\ \&node\_by,\ \textcolor{keyword}{const}\ StringRef\ \&node\_for,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ StringRef\ \&host,\ \textcolor{keyword}{const}\ StringRef\ \&proto);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ Adds\ ANSI\ color\ codes\ to\ HTTP\ headers\ |hdrs|.}}
+\DoxyCodeLine{00064\ std::string\ colorizeHeaders(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hdrs);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ nghttp2\_ssize\ select\_padding\_callback(nghttp2\_session\ *session,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ nghttp2\_frame\ *frame,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ max\_payload,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ Creates\ set-\/cookie-\/string\ for\ cookie\ based\ affinity.\ \ If\ |path|\ is}}
+\DoxyCodeLine{00071\ \textcolor{comment}{//\ not\ empty,\ "{};\ <path>"{}\ is\ added.\ \ If\ |secure|\ is\ true,\ "{};\ Secure"{}\ is}}
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ added.}}
+\DoxyCodeLine{00073\ StringRef\ create\_affinity\_cookie(BlockAllocator\ \&balloc,\ \textcolor{keyword}{const}\ StringRef\ \&name,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ affinity\_cookie,}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ StringRef\ \&path,\ \textcolor{keywordtype}{bool}\ secure);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{comment}{//\ Returns\ true\ if\ |secure|\ indicates\ that\ Secure\ attribute\ should\ be}}
+\DoxyCodeLine{00078\ \textcolor{comment}{//\ set.}}
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{bool}\ require\_cookie\_secure\_attribute(SessionAffinityCookieSecure\ secure,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ StringRef\ \&scheme);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{comment}{//\ Returns\ RFC\ 7838\ alt-\/svc\ header\ field\ value.}}
+\DoxyCodeLine{00083\ StringRef\ create\_altsvc\_header\_value(BlockAllocator\ \&balloc,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<AltSvc>\ \&altsvcs);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{comment}{//\ Returns\ true\ if\ either\ of\ the\ following\ conditions\ holds:}}
+\DoxyCodeLine{00087\ \textcolor{comment}{//\ -\/\ scheme\ is\ https\ and\ encrypted\ is\ true}}
+\DoxyCodeLine{00088\ \textcolor{comment}{//\ -\/\ scheme\ is\ http\ and\ encrypted\ is\ false}}
+\DoxyCodeLine{00089\ \textcolor{comment}{//\ Otherwise\ returns\ false.}}
+\DoxyCodeLine{00090\ \textcolor{keywordtype}{bool}\ check\_http\_scheme(\textcolor{keyword}{const}\ StringRef\ \&scheme,\ \textcolor{keywordtype}{bool}\ encrypted);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \}\ \textcolor{comment}{//\ namespace\ http}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_HTTP\_H}}
+
+\end{DoxyCode}

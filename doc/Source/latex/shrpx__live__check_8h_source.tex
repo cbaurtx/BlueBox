@@ -1,0 +1,138 @@
+\doxysection{shrpx\+\_\+live\+\_\+check.\+h}
+\hypertarget{shrpx__live__check_8h_source}{}\label{shrpx__live__check_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_live\_check.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_live\_check.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2016\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_LIVE\_CHECK\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_LIVE\_CHECK\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}ssl\_compat.h"{}}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#ifdef\ NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/options.h>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/openssl/ssl.h>}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//\ !NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#\ \ include\ <openssl/ssl.h>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <ev.h>}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}shrpx\_connection.h"{}}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1Worker}{Worker}};}
+\DoxyCodeLine{00051\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}};}
+\DoxyCodeLine{00052\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1DNSQuery}{DNSQuery}};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{class\ }LiveCheck\ \{}
+\DoxyCodeLine{00055\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00056\ \ \ LiveCheck(\textcolor{keyword}{struct}\ ev\_loop\ *loop,\ SSL\_CTX\ *ssl\_ctx,\ \mbox{\hyperlink{classshrpx_1_1Worker}{Worker}}\ *worker,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}}\ *addr,\ std::mt19937\ \&gen);}
+\DoxyCodeLine{00058\ \ \ \string~LiveCheck();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{void}\ disconnect();}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{void}\ on\_success();}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{void}\ on\_failure();}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{int}\ initiate\_connection();}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \textcolor{comment}{//\ Schedules\ next\ connection\ attempt}}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{void}\ schedule();}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{comment}{//\ Low\ level\ I/O\ operation\ callback;\ they\ are\ called\ from\ do\_read()}}
+\DoxyCodeLine{00071\ \ \ \textcolor{comment}{//\ or\ do\_write().}}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{int}\ noop();}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{int}\ connected();}
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{int}\ tls\_handshake();}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{int}\ read\_tls();}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{int}\ write\_tls();}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{int}\ read\_clear();}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{int}\ write\_clear();}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{int}\ do\_read();}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{int}\ do\_write();}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \textcolor{comment}{//\ These\ functions\ are\ used\ to\ feed\ /\ extract\ data\ to}}
+\DoxyCodeLine{00084\ \ \ \textcolor{comment}{//\ nghttp2\_session\ object.}}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{int}\ on\_read(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{int}\ on\_write();}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \textcolor{comment}{//\ Call\ this\ function\ when\ HTTP/2\ connection\ was\ established.\ \ We}}
+\DoxyCodeLine{00089\ \ \ \textcolor{comment}{//\ don't\ call\ this\ function\ for\ HTTP/1\ at\ the\ moment.}}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{int}\ connection\_made();}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{void}\ start\_settings\_timer();}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{void}\ stop\_settings\_timer();}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \textcolor{comment}{//\ Call\ this\ function\ when\ SETTINGS\ ACK\ was\ received\ from\ server.}}
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordtype}{void}\ settings\_ack\_received();}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{void}\ signal\_write();}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00101\ \ \ \mbox{\hyperlink{structshrpx_1_1Connection}{Connection}}\ conn\_;}
+\DoxyCodeLine{00102\ \ \ DefaultMemchunks\ wb\_;}
+\DoxyCodeLine{00103\ \ \ std::mt19937\ \&gen\_;}
+\DoxyCodeLine{00104\ \ \ ev\_timer\ backoff\_timer\_;}
+\DoxyCodeLine{00105\ \ \ ev\_timer\ settings\_timer\_;}
+\DoxyCodeLine{00106\ \ \ std::function<int(LiveCheck\ \&)>\ read\_,\ write\_;}
+\DoxyCodeLine{00107\ \ \ \mbox{\hyperlink{classshrpx_1_1Worker}{Worker}}\ *worker\_;}
+\DoxyCodeLine{00108\ \ \ \textcolor{comment}{//\ nullptr\ if\ no\ TLS\ is\ configured}}
+\DoxyCodeLine{00109\ \ \ SSL\_CTX\ *ssl\_ctx\_;}
+\DoxyCodeLine{00110\ \ \ \textcolor{comment}{//\ Address\ of\ remote\ endpoint}}
+\DoxyCodeLine{00111\ \ \ \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}}\ *addr\_;}
+\DoxyCodeLine{00112\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session\_;}
+\DoxyCodeLine{00113\ \ \ \textcolor{comment}{//\ Actual\ remote\ address\ used\ to\ contact\ backend.\ \ This\ is\ initially}}
+\DoxyCodeLine{00114\ \ \ \textcolor{comment}{//\ nullptr,\ and\ may\ point\ to\ either\ \&addr\_-\/>addr,\ or}}
+\DoxyCodeLine{00115\ \ \ \textcolor{comment}{//\ resolved\_addr\_.get().}}
+\DoxyCodeLine{00116\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ *raddr\_;}
+\DoxyCodeLine{00117\ \ \ \textcolor{comment}{//\ Resolved\ IP\ address\ if\ dns\ parameter\ is\ used}}
+\DoxyCodeLine{00118\ \ \ std::unique\_ptr<Address>\ resolved\_addr\_;}
+\DoxyCodeLine{00119\ \ \ std::unique\_ptr<DNSQuery>\ dns\_query\_;}
+\DoxyCodeLine{00120\ \ \ \textcolor{comment}{//\ The\ number\ of\ successful\ connect\ attempt\ in\ a\ row.}}
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{size\_t}\ success\_count\_;}
+\DoxyCodeLine{00122\ \ \ \textcolor{comment}{//\ The\ number\ of\ unsuccessful\ connect\ attempt\ in\ a\ row.}}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{size\_t}\ fail\_count\_;}
+\DoxyCodeLine{00124\ \ \ \textcolor{comment}{//\ true\ when\ SETTINGS\ ACK\ has\ been\ received\ from\ server.}}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{bool}\ settings\_ack\_received\_;}
+\DoxyCodeLine{00126\ \ \ \textcolor{comment}{//\ true\ when\ GOAWAY\ has\ been\ queued.}}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{bool}\ session\_closing\_;}
+\DoxyCodeLine{00128\ \};}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_LIVE\_CHECK\_H}}
+
+\end{DoxyCode}

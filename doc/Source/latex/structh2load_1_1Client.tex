@@ -1,0 +1,246 @@
+\doxysection{h2load\+::Client Struct Reference}
+\hypertarget{structh2load_1_1Client}{}\label{structh2load_1_1Client}\index{h2load::Client@{h2load::Client}}
+
+
+Collaboration diagram for h2load\+::Client\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structh2load_1_1Client__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structh2load_1_1Client_ae3988842600683a4a0ae03fd839513ff}\label{structh2load_1_1Client_ae3988842600683a4a0ae03fd839513ff} 
+enum \{ {\bfseries ERR\+\_\+\+CONNECT\+\_\+\+FAIL} = -\/100
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structh2load_1_1Client_a24270637501c361794f8a94411293668}\label{structh2load_1_1Client_a24270637501c361794f8a94411293668} 
+{\bfseries Client} (uint32\+\_\+t id, \mbox{\hyperlink{structh2load_1_1Worker}{Worker}} \texorpdfstring{$\ast$}{*}worker, size\+\_\+t req\+\_\+todo)
+\item 
+\Hypertarget{structh2load_1_1Client_a131fab2a8efccc1c8a1653cfbe7ff8be}\label{structh2load_1_1Client_a131fab2a8efccc1c8a1653cfbe7ff8be} 
+int {\bfseries make\+\_\+socket} (addrinfo \texorpdfstring{$\ast$}{*}addr)
+\item 
+\Hypertarget{structh2load_1_1Client_adafa3d6b7867650722847d09b69e8fbd}\label{structh2load_1_1Client_adafa3d6b7867650722847d09b69e8fbd} 
+int {\bfseries connect} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a426d694a079aed68f032a96462cd43be}\label{structh2load_1_1Client_a426d694a079aed68f032a96462cd43be} 
+void {\bfseries disconnect} ()
+\item 
+\Hypertarget{structh2load_1_1Client_ab258eba934f28d03678cf95d70798a45}\label{structh2load_1_1Client_ab258eba934f28d03678cf95d70798a45} 
+void {\bfseries fail} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a529c4cea451da29188e3b7469cc281bb}\label{structh2load_1_1Client_a529c4cea451da29188e3b7469cc281bb} 
+int {\bfseries try\+\_\+again\+\_\+or\+\_\+fail} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a71f490e19c73b7832d82b52c10aab5fd}\label{structh2load_1_1Client_a71f490e19c73b7832d82b52c10aab5fd} 
+void {\bfseries timeout} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a3b2c4569ff193c1c76aa172d9b90b61c}\label{structh2load_1_1Client_a3b2c4569ff193c1c76aa172d9b90b61c} 
+void {\bfseries restart\+\_\+timeout} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a65ef20b9bcc0d39e4efad0c0c85b7365}\label{structh2load_1_1Client_a65ef20b9bcc0d39e4efad0c0c85b7365} 
+int {\bfseries submit\+\_\+request} ()
+\item 
+\Hypertarget{structh2load_1_1Client_ab716b33cebe8c1157a3568c38b704512}\label{structh2load_1_1Client_ab716b33cebe8c1157a3568c38b704512} 
+void {\bfseries process\+\_\+request\+\_\+failure} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a3a0eacebf25e91b9dba4ce6164ab512a}\label{structh2load_1_1Client_a3a0eacebf25e91b9dba4ce6164ab512a} 
+void {\bfseries process\+\_\+timedout\+\_\+streams} ()
+\item 
+\Hypertarget{structh2load_1_1Client_afb0871aec3a39c3f80c3cc46ac0bf825}\label{structh2load_1_1Client_afb0871aec3a39c3f80c3cc46ac0bf825} 
+void {\bfseries process\+\_\+abandoned\+\_\+streams} ()
+\item 
+\Hypertarget{structh2load_1_1Client_abf2d1639a90d6103bb1040da3e27ee67}\label{structh2load_1_1Client_abf2d1639a90d6103bb1040da3e27ee67} 
+void {\bfseries report\+\_\+tls\+\_\+info} ()
+\item 
+\Hypertarget{structh2load_1_1Client_ac9202b150113186e681d67e4f8846b13}\label{structh2load_1_1Client_ac9202b150113186e681d67e4f8846b13} 
+void {\bfseries report\+\_\+app\+\_\+info} ()
+\item 
+\Hypertarget{structh2load_1_1Client_aaa6167f4a7cd46bab66d12f710fe73bd}\label{structh2load_1_1Client_aaa6167f4a7cd46bab66d12f710fe73bd} 
+void {\bfseries terminate\+\_\+session} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a4464b0de8b5f727306612166787d8705}\label{structh2load_1_1Client_a4464b0de8b5f727306612166787d8705} 
+void {\bfseries try\+\_\+new\+\_\+connection} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a6acd44027b5f87892d7c2618f2f5f029}\label{structh2load_1_1Client_a6acd44027b5f87892d7c2618f2f5f029} 
+int {\bfseries do\+\_\+read} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a7d3facb0f78785dcd0b4911b51ace7e0}\label{structh2load_1_1Client_a7d3facb0f78785dcd0b4911b51ace7e0} 
+int {\bfseries do\+\_\+write} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a849c0bdc1fdbbe3c0b4ea70bcd653dbe}\label{structh2load_1_1Client_a849c0bdc1fdbbe3c0b4ea70bcd653dbe} 
+int {\bfseries connected} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a54d337517ee5ae7cfe140a0c46d7d560}\label{structh2load_1_1Client_a54d337517ee5ae7cfe140a0c46d7d560} 
+int {\bfseries read\+\_\+clear} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a1be68f506177e3a893317da779c0410a}\label{structh2load_1_1Client_a1be68f506177e3a893317da779c0410a} 
+int {\bfseries write\+\_\+clear} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a57885c407cf0ba7e2545873397623891}\label{structh2load_1_1Client_a57885c407cf0ba7e2545873397623891} 
+int {\bfseries tls\+\_\+handshake} ()
+\item 
+\Hypertarget{structh2load_1_1Client_af365e3182d0c2e50774dbb17d7ec381c}\label{structh2load_1_1Client_af365e3182d0c2e50774dbb17d7ec381c} 
+int {\bfseries read\+\_\+tls} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a94970e087a30302e169af9b54da64641}\label{structh2load_1_1Client_a94970e087a30302e169af9b54da64641} 
+int {\bfseries write\+\_\+tls} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a8c972ec37764f9b6cb067f4a13984054}\label{structh2load_1_1Client_a8c972ec37764f9b6cb067f4a13984054} 
+int {\bfseries on\+\_\+read} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\item 
+\Hypertarget{structh2load_1_1Client_a69557dfef8c063d0c8c917e11da70d01}\label{structh2load_1_1Client_a69557dfef8c063d0c8c917e11da70d01} 
+int {\bfseries on\+\_\+write} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a48cb7103ec14b0975dba9c58090e8df1}\label{structh2load_1_1Client_a48cb7103ec14b0975dba9c58090e8df1} 
+int {\bfseries connection\+\_\+made} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a8555e7dfe6bb4b0720a378a0ed0a62f1}\label{structh2load_1_1Client_a8555e7dfe6bb4b0720a378a0ed0a62f1} 
+void {\bfseries on\+\_\+request} (int32\+\_\+t stream\+\_\+id)
+\item 
+\Hypertarget{structh2load_1_1Client_a8e5e2f79ac777c2329f4d745ecb2c89c}\label{structh2load_1_1Client_a8e5e2f79ac777c2329f4d745ecb2c89c} 
+void {\bfseries on\+\_\+header} (int32\+\_\+t stream\+\_\+id, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}name, size\+\_\+t namelen, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}value, size\+\_\+t valuelen)
+\item 
+\Hypertarget{structh2load_1_1Client_a76c4a6963503bbe38bc6b0d085b7e807}\label{structh2load_1_1Client_a76c4a6963503bbe38bc6b0d085b7e807} 
+void {\bfseries on\+\_\+status\+\_\+code} (int32\+\_\+t stream\+\_\+id, uint16\+\_\+t status)
+\item 
+\Hypertarget{structh2load_1_1Client_ac34c78f2dbea8b3e7e31d07590ab4c73}\label{structh2load_1_1Client_ac34c78f2dbea8b3e7e31d07590ab4c73} 
+void {\bfseries on\+\_\+stream\+\_\+close} (int32\+\_\+t stream\+\_\+id, bool success, bool final=false)
+\item 
+\Hypertarget{structh2load_1_1Client_a3265a063f54b08c32606dfd17912963b}\label{structh2load_1_1Client_a3265a063f54b08c32606dfd17912963b} 
+\mbox{\hyperlink{structh2load_1_1RequestStat}{Request\+Stat}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+req\+\_\+stat} (int32\+\_\+t stream\+\_\+id)
+\item 
+\Hypertarget{structh2load_1_1Client_a47f342d6530fc3f2b74ef0bfce1de2ab}\label{structh2load_1_1Client_a47f342d6530fc3f2b74ef0bfce1de2ab} 
+void {\bfseries record\+\_\+request\+\_\+time} (\mbox{\hyperlink{structh2load_1_1RequestStat}{Request\+Stat}} \texorpdfstring{$\ast$}{*}req\+\_\+stat)
+\item 
+\Hypertarget{structh2load_1_1Client_a4dc93ca1685af21edee4ae0b82918256}\label{structh2load_1_1Client_a4dc93ca1685af21edee4ae0b82918256} 
+void {\bfseries record\+\_\+connect\+\_\+start\+\_\+time} ()
+\item 
+\Hypertarget{structh2load_1_1Client_ad65af8da47d37f1bdc9b3ce652a4ac6c}\label{structh2load_1_1Client_ad65af8da47d37f1bdc9b3ce652a4ac6c} 
+void {\bfseries record\+\_\+connect\+\_\+time} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a9c1566c5cb827e9d2f35a893eec86934}\label{structh2load_1_1Client_a9c1566c5cb827e9d2f35a893eec86934} 
+void {\bfseries record\+\_\+ttfb} ()
+\item 
+\Hypertarget{structh2load_1_1Client_ac9ea1e266f69e5cfe256324418096b6d}\label{structh2load_1_1Client_ac9ea1e266f69e5cfe256324418096b6d} 
+void {\bfseries clear\+\_\+connect\+\_\+times} ()
+\item 
+\Hypertarget{structh2load_1_1Client_ad72c6941bc58c2b24ca9969b226780b8}\label{structh2load_1_1Client_ad72c6941bc58c2b24ca9969b226780b8} 
+void {\bfseries record\+\_\+client\+\_\+start\+\_\+time} ()
+\item 
+\Hypertarget{structh2load_1_1Client_a70fa325f5e1aabd36279c6ea2e6cd401}\label{structh2load_1_1Client_a70fa325f5e1aabd36279c6ea2e6cd401} 
+void {\bfseries record\+\_\+client\+\_\+end\+\_\+time} ()
+\item 
+\Hypertarget{structh2load_1_1Client_aee422dec58afadbe6731cb8304125948}\label{structh2load_1_1Client_aee422dec58afadbe6731cb8304125948} 
+void {\bfseries signal\+\_\+write} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structh2load_1_1Client_a8e05f835940ab7552723eb7def2530bf}\label{structh2load_1_1Client_a8e05f835940ab7552723eb7def2530bf} 
+Default\+Memchunks {\bfseries wb}
+\item 
+\Hypertarget{structh2load_1_1Client_a40773d07848a534e8ec4ae56ffba02a3}\label{structh2load_1_1Client_a40773d07848a534e8ec4ae56ffba02a3} 
+std\+::unordered\+\_\+map$<$ int32\+\_\+t, \mbox{\hyperlink{structh2load_1_1Stream}{Stream}} $>$ {\bfseries streams}
+\item 
+\Hypertarget{structh2load_1_1Client_ad66e7cbc80750ec2c27eebdcc013246b}\label{structh2load_1_1Client_ad66e7cbc80750ec2c27eebdcc013246b} 
+\mbox{\hyperlink{structh2load_1_1ClientStat}{Client\+Stat}} {\bfseries cstat}
+\item 
+\Hypertarget{structh2load_1_1Client_a5873a5ff09440e192852b1c4551e6037}\label{structh2load_1_1Client_a5873a5ff09440e192852b1c4551e6037} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classh2load_1_1Session}{Session}} $>$ {\bfseries session}
+\item 
+\Hypertarget{structh2load_1_1Client_a2b4c73fd971add9ce4f8f7718fbeffe4}\label{structh2load_1_1Client_a2b4c73fd971add9ce4f8f7718fbeffe4} 
+ev\+\_\+io {\bfseries wev}
+\item 
+\Hypertarget{structh2load_1_1Client_ae94f7c35b77d8395a9d48d1b82b1d552}\label{structh2load_1_1Client_ae94f7c35b77d8395a9d48d1b82b1d552} 
+ev\+\_\+io {\bfseries rev}
+\item 
+\Hypertarget{structh2load_1_1Client_a1e55c6ba21166c93bb57dfb3e9473549}\label{structh2load_1_1Client_a1e55c6ba21166c93bb57dfb3e9473549} 
+std\+::function$<$ int(Client \&)$>$ {\bfseries readfn}
+\item 
+\Hypertarget{structh2load_1_1Client_acb140922842980a71aa8d946a4e7f761}\label{structh2load_1_1Client_acb140922842980a71aa8d946a4e7f761} 
+std\+::function$<$ int(Client \&)$>$ {\bfseries writefn}
+\item 
+\Hypertarget{structh2load_1_1Client_a4dd770c7fbd9e2efa8a102bd42a338df}\label{structh2load_1_1Client_a4dd770c7fbd9e2efa8a102bd42a338df} 
+\mbox{\hyperlink{structh2load_1_1Worker}{Worker}} \texorpdfstring{$\ast$}{*} {\bfseries worker}
+\item 
+\Hypertarget{structh2load_1_1Client_a00f39d1143d7e0e9830a197e43343511}\label{structh2load_1_1Client_a00f39d1143d7e0e9830a197e43343511} 
+SSL \texorpdfstring{$\ast$}{*} {\bfseries ssl}
+\item 
+\Hypertarget{structh2load_1_1Client_a210b39de152160578b81bdfb42379554}\label{structh2load_1_1Client_a210b39de152160578b81bdfb42379554} 
+ev\+\_\+timer {\bfseries request\+\_\+timeout\+\_\+watcher}
+\item 
+\Hypertarget{structh2load_1_1Client_a12548840fc9113c96ec122434848c0f9}\label{structh2load_1_1Client_a12548840fc9113c96ec122434848c0f9} 
+addrinfo \texorpdfstring{$\ast$}{*} {\bfseries next\+\_\+addr}
+\item 
+\Hypertarget{structh2load_1_1Client_af5ea3a19d869d54e587d1717e204f9fb}\label{structh2load_1_1Client_af5ea3a19d869d54e587d1717e204f9fb} 
+addrinfo \texorpdfstring{$\ast$}{*} {\bfseries current\+\_\+addr}
+\item 
+\Hypertarget{structh2load_1_1Client_a8e310ea550dc39cc98c5c19c7d28c2d0}\label{structh2load_1_1Client_a8e310ea550dc39cc98c5c19c7d28c2d0} 
+size\+\_\+t {\bfseries reqidx}
+\item 
+\Hypertarget{structh2load_1_1Client_a8b6e2dbc73829c67116fe77c53a56c1b}\label{structh2load_1_1Client_a8b6e2dbc73829c67116fe77c53a56c1b} 
+Client\+State {\bfseries state}
+\item 
+\Hypertarget{structh2load_1_1Client_a8d8562137965b911f53bacf27fabd519}\label{structh2load_1_1Client_a8d8562137965b911f53bacf27fabd519} 
+size\+\_\+t {\bfseries req\+\_\+todo}
+\item 
+\Hypertarget{structh2load_1_1Client_a25a211323faaf97bb2d689a69dcf47d0}\label{structh2load_1_1Client_a25a211323faaf97bb2d689a69dcf47d0} 
+size\+\_\+t {\bfseries req\+\_\+left}
+\item 
+\Hypertarget{structh2load_1_1Client_add236b686fdc940317959af753afe9b7}\label{structh2load_1_1Client_add236b686fdc940317959af753afe9b7} 
+size\+\_\+t {\bfseries req\+\_\+inflight}
+\item 
+\Hypertarget{structh2load_1_1Client_a15c55a8786a8da8df7e571d972335188}\label{structh2load_1_1Client_a15c55a8786a8da8df7e571d972335188} 
+size\+\_\+t {\bfseries req\+\_\+started}
+\item 
+\Hypertarget{structh2load_1_1Client_a83df2bf4ce044d67e5dbe6df1d12266d}\label{structh2load_1_1Client_a83df2bf4ce044d67e5dbe6df1d12266d} 
+size\+\_\+t {\bfseries req\+\_\+done}
+\item 
+\Hypertarget{structh2load_1_1Client_aa12ad0561102bbfd8e75212699bed894}\label{structh2load_1_1Client_aa12ad0561102bbfd8e75212699bed894} 
+uint32\+\_\+t {\bfseries id}
+\item 
+\Hypertarget{structh2load_1_1Client_a65c7adbe4d1c53b7012477e7833a1f08}\label{structh2load_1_1Client_a65c7adbe4d1c53b7012477e7833a1f08} 
+int {\bfseries fd}
+\item 
+\Hypertarget{structh2load_1_1Client_ae301c7f9aac2978ff8ea164f12aebf3c}\label{structh2load_1_1Client_ae301c7f9aac2978ff8ea164f12aebf3c} 
+\mbox{\hyperlink{structnghttp2_1_1Address}{Address}} {\bfseries local\+\_\+addr}
+\item 
+\Hypertarget{structh2load_1_1Client_aff474b0f8ec5740d915d94a2ee8690be}\label{structh2load_1_1Client_aff474b0f8ec5740d915d94a2ee8690be} 
+ev\+\_\+timer {\bfseries conn\+\_\+active\+\_\+watcher}
+\item 
+\Hypertarget{structh2load_1_1Client_a9fb6f3f5c7058f1d59d55dda830c2b69}\label{structh2load_1_1Client_a9fb6f3f5c7058f1d59d55dda830c2b69} 
+ev\+\_\+timer {\bfseries conn\+\_\+inactivity\+\_\+watcher}
+\item 
+\Hypertarget{structh2load_1_1Client_ad1ebb94f019ec2740b7e2542bf474fd0}\label{structh2load_1_1Client_ad1ebb94f019ec2740b7e2542bf474fd0} 
+std\+::string {\bfseries selected\+\_\+proto}
+\item 
+\Hypertarget{structh2load_1_1Client_a197d33c151109198d44876629e70a8d0}\label{structh2load_1_1Client_a197d33c151109198d44876629e70a8d0} 
+bool {\bfseries new\+\_\+connection\+\_\+requested}
+\item 
+\Hypertarget{structh2load_1_1Client_aa9c683accaa5e3559ebfe6295cc2e0bb}\label{structh2load_1_1Client_aa9c683accaa5e3559ebfe6295cc2e0bb} 
+bool {\bfseries final}
+\item 
+\Hypertarget{structh2load_1_1Client_a16eb0cf8039be7f730d82600a57356ca}\label{structh2load_1_1Client_a16eb0cf8039be7f730d82600a57356ca} 
+ev\+\_\+timer {\bfseries rps\+\_\+watcher}
+\item 
+\Hypertarget{structh2load_1_1Client_ac0eed490fb15e2faccbcd1cc798948a8}\label{structh2load_1_1Client_ac0eed490fb15e2faccbcd1cc798948a8} 
+std\+::chrono\+::steady\+\_\+clock\+::time\+\_\+point {\bfseries rps\+\_\+duration\+\_\+started}
+\item 
+\Hypertarget{structh2load_1_1Client_a86f1e9f2e4d9543a3737091fc6a3baa4}\label{structh2load_1_1Client_a86f1e9f2e4d9543a3737091fc6a3baa4} 
+size\+\_\+t {\bfseries rps\+\_\+req\+\_\+pending}
+\item 
+\Hypertarget{structh2load_1_1Client_ac9c125747db1aa4deb8806c9ac874cc2}\label{structh2load_1_1Client_ac9c125747db1aa4deb8806c9ac874cc2} 
+size\+\_\+t {\bfseries rps\+\_\+req\+\_\+inflight}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/h2load.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/h2load.\+cc\end{DoxyCompactItemize}

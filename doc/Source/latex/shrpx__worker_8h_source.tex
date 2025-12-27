@@ -1,0 +1,489 @@
+\doxysection{shrpx\+\_\+worker.\+h}
+\hypertarget{shrpx__worker_8h_source}{}\label{shrpx__worker_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_worker.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_worker.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_WORKER\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_WORKER\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <mutex>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <deque>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#ifndef\ NOTHREADS}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#\ \ include\ <future>}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ NOTHREADS}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ "{}ssl\_compat.h"{}}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#ifdef\ NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/options.h>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/openssl/ssl.h>}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/openssl/err.h>}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//\ !NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#\ \ include\ <openssl/ssl.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#\ \ include\ <openssl/err.h>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <ev.h>}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ "{}shrpx\_config.h"{}}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ "{}shrpx\_downstream\_connection\_pool.h"{}}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}memchunk.h"{}}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ "{}shrpx\_tls.h"{}}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ "{}shrpx\_live\_check.h"{}}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ "{}shrpx\_connect\_blocker.h"{}}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ "{}shrpx\_dns\_tracker.h"{}}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#\ \ include\ "{}shrpx\_quic\_connection\_handler.h"{}}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#\ \ include\ "{}shrpx\_quic.h"{}}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#include\ "{}allocator.h"{}}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{using\ namespace\ }nghttp2;}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1Http2Session}{Http2Session}};}
+\DoxyCodeLine{00072\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1ConnectBlocker}{ConnectBlocker}};}
+\DoxyCodeLine{00073\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1MemcachedDispatcher}{MemcachedDispatcher}};}
+\DoxyCodeLine{00074\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{UpstreamAddr}};}
+\DoxyCodeLine{00075\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1ConnectionHandler}{ConnectionHandler}};}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00077\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1QUICListener}{QUICListener}};}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#ifdef\ HAVE\_MRUBY}}
+\DoxyCodeLine{00081\ \textcolor{keyword}{namespace\ }mruby\ \{}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1mruby_1_1MRubyContext}{MRubyContext}};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \}\ \textcolor{comment}{//\ namespace\ mruby}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ HAVE\_MRUBY}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{namespace\ }tls\ \{}
+\DoxyCodeLine{00089\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1tls_1_1CertLookupTree}{CertLookupTree}};}
+\DoxyCodeLine{00090\ \}\ \textcolor{comment}{//\ namespace\ tls}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1WeightGroup}{WeightGroup}};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}}\ \{}
+\DoxyCodeLine{00095\ \ \ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ addr;}
+\DoxyCodeLine{00096\ \ \ \textcolor{comment}{//\ backend\ address.\ \ If\ |host\_unix|\ is\ true,\ this\ is\ UNIX\ domain}}
+\DoxyCodeLine{00097\ \ \ \textcolor{comment}{//\ socket\ path.}}
+\DoxyCodeLine{00098\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ host;}
+\DoxyCodeLine{00099\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ hostport;}
+\DoxyCodeLine{00100\ \ \ \textcolor{comment}{//\ backend\ port.\ \ 0\ if\ |host\_unix|\ is\ true.}}
+\DoxyCodeLine{00101\ \ \ uint16\_t\ port;}
+\DoxyCodeLine{00102\ \ \ \textcolor{comment}{//\ true\ if\ |host|\ contains\ UNIX\ domain\ socket\ path.}}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{bool}\ host\_unix;}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \textcolor{comment}{//\ sni\ field\ to\ send\ remote\ server\ if\ TLS\ is\ enabled.}}
+\DoxyCodeLine{00106\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ sni;}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ std::unique\_ptr<ConnectBlocker>\ connect\_blocker;}
+\DoxyCodeLine{00109\ \ \ std::unique\_ptr<LiveCheck>\ live\_check;}
+\DoxyCodeLine{00110\ \ \ \textcolor{comment}{//\ Connection\ pool\ for\ this\ particular\ address\ if\ session\ affinity}}
+\DoxyCodeLine{00111\ \ \ \textcolor{comment}{//\ is\ enabled}}
+\DoxyCodeLine{00112\ \ \ std::unique\_ptr<DownstreamConnectionPool>\ dconn\_pool;}
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordtype}{size\_t}\ fall;}
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordtype}{size\_t}\ rise;}
+\DoxyCodeLine{00115\ \ \ \textcolor{comment}{//\ Client\ side\ TLS\ session\ cache}}
+\DoxyCodeLine{00116\ \ \ \mbox{\hyperlink{structshrpx_1_1tls_1_1TLSSessionCache}{tls::TLSSessionCache}}\ tls\_session\_cache;}
+\DoxyCodeLine{00117\ \ \ \textcolor{comment}{//\ List\ of\ Http2Session\ which\ is\ not\ fully\ utilized\ (i.e.,\ the}}
+\DoxyCodeLine{00118\ \ \ \textcolor{comment}{//\ server\ advertised\ maximum\ concurrency\ is\ not\ reached).\ \ We\ will}}
+\DoxyCodeLine{00119\ \ \ \textcolor{comment}{//\ coalesce\ as\ much\ stream\ as\ possible\ in\ one\ Http2Session\ to\ fully}}
+\DoxyCodeLine{00120\ \ \ \textcolor{comment}{//\ utilize\ TCP\ connection.}}
+\DoxyCodeLine{00121\ \ \ \mbox{\hyperlink{structnghttp2_1_1DList}{DList<Http2Session>}}\ http2\_extra\_freelist;}
+\DoxyCodeLine{00122\ \ \ \mbox{\hyperlink{structshrpx_1_1WeightGroup}{WeightGroup}}\ *wg;}
+\DoxyCodeLine{00123\ \ \ \textcolor{comment}{//\ total\ number\ of\ streams\ created\ in\ HTTP/2\ connections\ for\ this}}
+\DoxyCodeLine{00124\ \ \ \textcolor{comment}{//\ address.}}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{size\_t}\ num\_dconn;}
+\DoxyCodeLine{00126\ \ \ \textcolor{comment}{//\ the\ sequence\ number\ of\ this\ address\ to\ randomize\ the\ order\ access}}
+\DoxyCodeLine{00127\ \ \ \textcolor{comment}{//\ threads.}}
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{size\_t}\ seq;}
+\DoxyCodeLine{00129\ \ \ \textcolor{comment}{//\ Application\ protocol\ used\ in\ this\ backend}}
+\DoxyCodeLine{00130\ \ \ Proto\ proto;}
+\DoxyCodeLine{00131\ \ \ \textcolor{comment}{//\ cycle\ is\ used\ to\ prioritize\ this\ address.\ \ Lower\ value\ takes}}
+\DoxyCodeLine{00132\ \ \ \textcolor{comment}{//\ higher\ priority.}}
+\DoxyCodeLine{00133\ \ \ uint32\_t\ cycle;}
+\DoxyCodeLine{00134\ \ \ \textcolor{comment}{//\ penalty\ which\ is\ applied\ to\ the\ next\ cycle\ calculation.}}
+\DoxyCodeLine{00135\ \ \ uint32\_t\ pending\_penalty;}
+\DoxyCodeLine{00136\ \ \ \textcolor{comment}{//\ Weight\ of\ this\ address\ inside\ a\ weight\ group.\ \ Its\ range\ is\ [1,}}
+\DoxyCodeLine{00137\ \ \ \textcolor{comment}{//\ 256],\ inclusive.}}
+\DoxyCodeLine{00138\ \ \ uint32\_t\ weight;}
+\DoxyCodeLine{00139\ \ \ \textcolor{comment}{//\ name\ of\ group\ which\ this\ address\ belongs\ to.}}
+\DoxyCodeLine{00140\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ group;}
+\DoxyCodeLine{00141\ \ \ \textcolor{comment}{//\ Weight\ of\ the\ weight\ group\ which\ this\ address\ belongs\ to.\ \ Its}}
+\DoxyCodeLine{00142\ \ \ \textcolor{comment}{//\ range\ is\ [1,\ 256],\ inclusive.}}
+\DoxyCodeLine{00143\ \ \ uint32\_t\ group\_weight;}
+\DoxyCodeLine{00144\ \ \ \textcolor{comment}{//\ affinity\ hash\ for\ this\ address.\ \ It\ is\ assigned\ when\ strict}}
+\DoxyCodeLine{00145\ \ \ \textcolor{comment}{//\ stickiness\ is\ enabled.}}
+\DoxyCodeLine{00146\ \ \ uint32\_t\ affinity\_hash;}
+\DoxyCodeLine{00147\ \ \ \textcolor{comment}{//\ true\ if\ TLS\ is\ used\ in\ this\ backend}}
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordtype}{bool}\ tls;}
+\DoxyCodeLine{00149\ \ \ \textcolor{comment}{//\ true\ if\ dynamic\ DNS\ is\ enabled}}
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordtype}{bool}\ dns;}
+\DoxyCodeLine{00151\ \ \ \textcolor{comment}{//\ true\ if\ :scheme\ pseudo\ header\ field\ should\ be\ upgraded\ to\ secure}}
+\DoxyCodeLine{00152\ \ \ \textcolor{comment}{//\ variant\ (e.g.,\ "{}https"{})\ when\ forwarding\ request\ to\ a\ backend}}
+\DoxyCodeLine{00153\ \ \ \textcolor{comment}{//\ connected\ by\ TLS\ connection.}}
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{bool}\ upgrade\_scheme;}
+\DoxyCodeLine{00155\ \ \ \textcolor{comment}{//\ true\ if\ this\ address\ is\ queued.}}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordtype}{bool}\ queued;}
+\DoxyCodeLine{00157\ \};}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{keyword}{constexpr}\ uint32\_t\ MAX\_DOWNSTREAM\_ADDR\_WEIGHT\ =\ 256;}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1DownstreamAddrEntry}{DownstreamAddrEntry}}\ \{}
+\DoxyCodeLine{00162\ \ \ \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}}\ *addr;}
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordtype}{size\_t}\ seq;}
+\DoxyCodeLine{00164\ \ \ uint32\_t\ cycle;}
+\DoxyCodeLine{00165\ \};}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1DownstreamAddrEntryGreater}{DownstreamAddrEntryGreater}}\ \{}
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{bool}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1DownstreamAddrEntry}{DownstreamAddrEntry}}\ \&lhs,}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1DownstreamAddrEntry}{DownstreamAddrEntry}}\ \&rhs)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{auto}\ d\ =\ lhs.cycle\ -\/\ rhs.cycle;}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordflow}{if}\ (d\ ==\ 0)\ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rhs.seq\ <\ lhs.seq;}
+\DoxyCodeLine{00173\ \ \ \ \ \}}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordflow}{return}\ d\ <=\ 2\ *\ MAX\_DOWNSTREAM\_ADDR\_WEIGHT\ -\/\ 1;}
+\DoxyCodeLine{00175\ \ \ \}}
+\DoxyCodeLine{00176\ \};}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1WeightGroup}{WeightGroup}}\ \{}
+\DoxyCodeLine{00179\ \ \ std::priority\_queue<DownstreamAddrEntry,\ std::vector<DownstreamAddrEntry>,}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structshrpx_1_1DownstreamAddrEntryGreater}{DownstreamAddrEntryGreater}}>}
+\DoxyCodeLine{00181\ \ \ \ \ pq;}
+\DoxyCodeLine{00182\ \ \ \textcolor{keywordtype}{size\_t}\ seq;}
+\DoxyCodeLine{00183\ \ \ uint32\_t\ weight;}
+\DoxyCodeLine{00184\ \ \ uint32\_t\ cycle;}
+\DoxyCodeLine{00185\ \ \ uint32\_t\ pending\_penalty;}
+\DoxyCodeLine{00186\ \ \ \textcolor{comment}{//\ true\ if\ this\ object\ is\ queued.}}
+\DoxyCodeLine{00187\ \ \ \textcolor{keywordtype}{bool}\ queued;}
+\DoxyCodeLine{00188\ \};}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1WeightGroupEntry}{WeightGroupEntry}}\ \{}
+\DoxyCodeLine{00191\ \ \ \mbox{\hyperlink{structshrpx_1_1WeightGroup}{WeightGroup}}\ *wg;}
+\DoxyCodeLine{00192\ \ \ \textcolor{keywordtype}{size\_t}\ seq;}
+\DoxyCodeLine{00193\ \ \ uint32\_t\ cycle;}
+\DoxyCodeLine{00194\ \};}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1WeightGroupEntryGreater}{WeightGroupEntryGreater}}\ \{}
+\DoxyCodeLine{00197\ \ \ \textcolor{keywordtype}{bool}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1WeightGroupEntry}{WeightGroupEntry}}\ \&lhs,}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1WeightGroupEntry}{WeightGroupEntry}}\ \&rhs)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keyword}{auto}\ d\ =\ lhs.cycle\ -\/\ rhs.cycle;}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordflow}{if}\ (d\ ==\ 0)\ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rhs.seq\ <\ lhs.seq;}
+\DoxyCodeLine{00202\ \ \ \ \ \}}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keywordflow}{return}\ d\ <=\ 2\ *\ MAX\_DOWNSTREAM\_ADDR\_WEIGHT\ -\/\ 1;}
+\DoxyCodeLine{00204\ \ \ \}}
+\DoxyCodeLine{00205\ \};}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{keyword}{struct\ }SharedDownstreamAddr\ \{}
+\DoxyCodeLine{00208\ \ \ SharedDownstreamAddr()}
+\DoxyCodeLine{00209\ \ \ \ \ :\ balloc(1024,\ 1024),}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ affinity\{SessionAffinity::NONE\},}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ redirect\_if\_not\_tls\{\textcolor{keyword}{false}\},}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ dnf\{\textcolor{keyword}{false}\},}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ timeout\{\}\ \{\}}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ SharedDownstreamAddr(\textcolor{keyword}{const}\ SharedDownstreamAddr\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00216\ \ \ SharedDownstreamAddr(SharedDownstreamAddr\ \&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00217\ \ \ SharedDownstreamAddr\ \&operator=(\textcolor{keyword}{const}\ SharedDownstreamAddr\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00218\ \ \ SharedDownstreamAddr\ \&operator=(SharedDownstreamAddr\ \&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ balloc;}
+\DoxyCodeLine{00221\ \ \ std::vector<DownstreamAddr>\ addrs;}
+\DoxyCodeLine{00222\ \ \ std::vector<WeightGroup>\ wgs;}
+\DoxyCodeLine{00223\ \ \ std::priority\_queue<WeightGroupEntry,\ std::vector<WeightGroupEntry>,}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structshrpx_1_1WeightGroupEntryGreater}{WeightGroupEntryGreater}}>}
+\DoxyCodeLine{00225\ \ \ \ \ pq;}
+\DoxyCodeLine{00226\ \ \ \textcolor{comment}{//\ Bunch\ of\ session\ affinity\ hash.\ \ Only\ used\ if\ affinity\ ==}}
+\DoxyCodeLine{00227\ \ \ \textcolor{comment}{//\ SessionAffinity::IP.}}
+\DoxyCodeLine{00228\ \ \ std::vector<AffinityHash>\ affinity\_hash;}
+\DoxyCodeLine{00229\ \ \ \textcolor{comment}{//\ Maps\ affinity\ hash\ of\ each\ DownstreamAddr\ to\ its\ index\ in\ addrs.}}
+\DoxyCodeLine{00230\ \ \ \textcolor{comment}{//\ It\ is\ only\ assigned\ when\ strict\ stickiness\ is\ enabled.}}
+\DoxyCodeLine{00231\ \ \ std::unordered\_map<uint32\_t,\ size\_t>\ affinity\_hash\_map;}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\#ifdef\ HAVE\_MRUBY}}
+\DoxyCodeLine{00233\ \ \ std::shared\_ptr<mruby::MRubyContext>\ mruby\_ctx;}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ HAVE\_MRUBY}}
+\DoxyCodeLine{00235\ \ \ \textcolor{comment}{//\ Configuration\ for\ session\ affinity}}
+\DoxyCodeLine{00236\ \ \ \mbox{\hyperlink{structshrpx_1_1AffinityConfig}{AffinityConfig}}\ affinity;}
+\DoxyCodeLine{00237\ \ \ \textcolor{comment}{//\ Session\ affinity}}
+\DoxyCodeLine{00238\ \ \ \textcolor{comment}{//\ true\ if\ this\ group\ requires\ that\ client\ connection\ must\ be\ TLS,}}
+\DoxyCodeLine{00239\ \ \ \textcolor{comment}{//\ and\ the\ request\ must\ be\ redirected\ to\ https\ URI.}}
+\DoxyCodeLine{00240\ \ \ \textcolor{keywordtype}{bool}\ redirect\_if\_not\_tls;}
+\DoxyCodeLine{00241\ \ \ \textcolor{comment}{//\ true\ if\ a\ request\ should\ not\ be\ forwarded\ to\ a\ backend.}}
+\DoxyCodeLine{00242\ \ \ \textcolor{keywordtype}{bool}\ dnf;}
+\DoxyCodeLine{00243\ \ \ \textcolor{comment}{//\ Timeouts\ for\ backend\ connection.}}
+\DoxyCodeLine{00244\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00245\ \ \ \ \ ev\_tstamp\ read;}
+\DoxyCodeLine{00246\ \ \ \ \ ev\_tstamp\ write;}
+\DoxyCodeLine{00247\ \ \ \}\ timeout;}
+\DoxyCodeLine{00248\ \};}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \textcolor{keyword}{struct\ }DownstreamAddrGroup\ \{}
+\DoxyCodeLine{00251\ \ \ DownstreamAddrGroup();}
+\DoxyCodeLine{00252\ \ \ \string~DownstreamAddrGroup();}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ DownstreamAddrGroup(\textcolor{keyword}{const}\ DownstreamAddrGroup\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00255\ \ \ DownstreamAddrGroup(DownstreamAddrGroup\ \&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00256\ \ \ DownstreamAddrGroup\ \&operator=(\textcolor{keyword}{const}\ DownstreamAddrGroup\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00257\ \ \ DownstreamAddrGroup\ \&operator=(DownstreamAddrGroup\ \&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \ \ \mbox{\hyperlink{classnghttp2_1_1ImmutableString}{ImmutableString}}\ pattern;}
+\DoxyCodeLine{00260\ \ \ std::shared\_ptr<SharedDownstreamAddr>\ shared\_addr;}
+\DoxyCodeLine{00261\ \ \ \textcolor{comment}{//\ true\ if\ this\ group\ is\ no\ longer\ used\ for\ new\ request.\ \ If\ this\ is}}
+\DoxyCodeLine{00262\ \ \ \textcolor{comment}{//\ true,\ the\ connection\ made\ using\ one\ of\ address\ in\ shared\_addr}}
+\DoxyCodeLine{00263\ \ \ \textcolor{comment}{//\ must\ not\ be\ pooled.}}
+\DoxyCodeLine{00264\ \ \ \textcolor{keywordtype}{bool}\ retired;}
+\DoxyCodeLine{00265\ \};}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1WorkerStat}{WorkerStat}}\ \{}
+\DoxyCodeLine{00268\ \ \ \textcolor{keywordtype}{size\_t}\ num\_connections;}
+\DoxyCodeLine{00269\ \ \ \textcolor{keywordtype}{size\_t}\ num\_close\_waits;}
+\DoxyCodeLine{00270\ \};}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00273\ \textcolor{keyword}{struct\ }QUICPacket\ \{}
+\DoxyCodeLine{00274\ \ \ QUICPacket(\textcolor{keywordtype}{size\_t}\ upstream\_addr\_index,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ \&remote\_addr,}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ \&local\_addr,\ \textcolor{keyword}{const}\ ngtcp2\_pkt\_info\ \&pi,}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::span<const\ uint8\_t>\ data)}
+\DoxyCodeLine{00277\ \ \ \ \ :\ upstream\_addr\_index\{upstream\_addr\_index\},}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ remote\_addr\{remote\_addr\},}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ local\_addr\{local\_addr\},}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ pi\{pi\},}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ data\{std::begin(data),\ std::end(data)\}\ \{\}}
+\DoxyCodeLine{00282\ \ \ QUICPacket()\ :\ upstream\_addr\_index\{\},\ remote\_addr\{\},\ local\_addr\{\},\ pi\{\}\ \{\}}
+\DoxyCodeLine{00283\ \ \ \textcolor{keywordtype}{size\_t}\ upstream\_addr\_index;}
+\DoxyCodeLine{00284\ \ \ Address\ remote\_addr;}
+\DoxyCodeLine{00285\ \ \ Address\ local\_addr;}
+\DoxyCodeLine{00286\ \ \ ngtcp2\_pkt\_info\ pi;}
+\DoxyCodeLine{00287\ \ \ std::vector<uint8\_t>\ data;}
+\DoxyCodeLine{00288\ \};}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \textcolor{keyword}{enum\ class}\ WorkerEventType\ \{}
+\DoxyCodeLine{00292\ \ \ NEW\_CONNECTION\ =\ 0x01,}
+\DoxyCodeLine{00293\ \ \ REOPEN\_LOG\ =\ 0x02,}
+\DoxyCodeLine{00294\ \ \ GRACEFUL\_SHUTDOWN\ =\ 0x03,}
+\DoxyCodeLine{00295\ \ \ REPLACE\_DOWNSTREAM\ =\ 0x04,}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00297\ \ \ QUIC\_PKT\_FORWARD\ =\ 0x05,}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00299\ \};}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1WorkerEvent}{WorkerEvent}}\ \{}
+\DoxyCodeLine{00302\ \ \ WorkerEventType\ type;}
+\DoxyCodeLine{00303\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00304\ \ \ \ \ \mbox{\hyperlink{unionnghttp2_1_1sockaddr__union}{sockaddr\_union}}\ client\_addr;}
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ client\_addrlen;}
+\DoxyCodeLine{00306\ \ \ \ \ \textcolor{keywordtype}{int}\ client\_fd;}
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{UpstreamAddr}}\ *faddr;}
+\DoxyCodeLine{00308\ \ \ \};}
+\DoxyCodeLine{00309\ \ \ std::shared\_ptr<TicketKeys>\ ticket\_keys;}
+\DoxyCodeLine{00310\ \ \ std::shared\_ptr<DownstreamConfig>\ downstreamconf;}
+\DoxyCodeLine{00311\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00312\ \ \ std::unique\_ptr<QUICPacket>\ quic\_pkt;}
+\DoxyCodeLine{00313\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00314\ \};}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \textcolor{keyword}{class\ }Worker\ \{}
+\DoxyCodeLine{00317\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00318\ \ \ Worker(\textcolor{keyword}{struct}\ ev\_loop\ *loop,\ SSL\_CTX\ *sv\_ssl\_ctx,\ SSL\_CTX\ *cl\_ssl\_ctx,}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ SSL\_CTX\ *tls\_session\_cache\_memcached\_ssl\_ctx,}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classshrpx_1_1tls_1_1CertLookupTree}{tls::CertLookupTree}}\ *cert\_tree,}
+\DoxyCodeLine{00321\ \#ifdef\ ENABLE\_HTTP3}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ SSL\_CTX\ *quic\_sv\_ssl\_ctx,\ \mbox{\hyperlink{classshrpx_1_1tls_1_1CertLookupTree}{tls::CertLookupTree}}\ *quic\_cert\_tree,}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structshrpx_1_1WorkerID}{WorkerID}}\ wid,}
+\DoxyCodeLine{00324\ \#\ \ ifdef\ HAVE\_LIBBPF}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ index,}
+\DoxyCodeLine{00326\ \#\ \ endif\ \textcolor{comment}{//\ HAVE\_LIBBPF}}
+\DoxyCodeLine{00327\ \#endif\ \ \ \textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<TicketKeys>\ \&ticket\_keys,}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classshrpx_1_1ConnectionHandler}{ConnectionHandler}}\ *conn\_handler,}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ std::shared\_ptr<DownstreamConfig>\ downstreamconf);}
+\DoxyCodeLine{00331\ \ \ \string~Worker();}
+\DoxyCodeLine{00332\ \ \ \textcolor{keywordtype}{void}\ run\_async();}
+\DoxyCodeLine{00333\ \ \ \textcolor{keywordtype}{void}\ wait();}
+\DoxyCodeLine{00334\ \ \ \textcolor{keywordtype}{void}\ process\_events();}
+\DoxyCodeLine{00335\ \ \ \textcolor{keywordtype}{void}\ send(\mbox{\hyperlink{structshrpx_1_1WorkerEvent}{WorkerEvent}}\ event);}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \ \ \mbox{\hyperlink{classshrpx_1_1tls_1_1CertLookupTree}{tls::CertLookupTree}}\ *get\_cert\_lookup\_tree()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00339\ \ \ \mbox{\hyperlink{classshrpx_1_1tls_1_1CertLookupTree}{tls::CertLookupTree}}\ *get\_quic\_cert\_lookup\_tree()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \ \ \textcolor{comment}{//\ These\ 2\ functions\ make\ a\ lock\ m\_\ to\ get/set\ ticket\ keys}}
+\DoxyCodeLine{00343\ \ \ \textcolor{comment}{//\ atomically.}}
+\DoxyCodeLine{00344\ \ \ std::shared\_ptr<TicketKeys>\ get\_ticket\_keys();}
+\DoxyCodeLine{00345\ \ \ \textcolor{keywordtype}{void}\ set\_ticket\_keys(std::shared\_ptr<TicketKeys>\ ticket\_keys);}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \ \ \mbox{\hyperlink{structshrpx_1_1WorkerStat}{WorkerStat}}\ *get\_worker\_stat();}
+\DoxyCodeLine{00348\ \ \ \textcolor{keyword}{struct\ }ev\_loop\ *get\_loop()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00349\ \ \ SSL\_CTX\ *get\_sv\_ssl\_ctx()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00350\ \ \ SSL\_CTX\ *get\_cl\_ssl\_ctx()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00351\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00352\ \ \ SSL\_CTX\ *get\_quic\_sv\_ssl\_ctx()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00353\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \ \ \textcolor{keywordtype}{void}\ set\_graceful\_shutdown(\textcolor{keywordtype}{bool}\ f);}
+\DoxyCodeLine{00356\ \ \ \textcolor{keywordtype}{bool}\ get\_graceful\_shutdown()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \ \ MemchunkPool\ *get\_mcpool();}
+\DoxyCodeLine{00359\ \ \ \textcolor{keywordtype}{void}\ schedule\_clear\_mcpool();}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \mbox{\hyperlink{classshrpx_1_1MemcachedDispatcher}{MemcachedDispatcher}}\ *get\_session\_cache\_memcached\_dispatcher();}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \ \ std::mt19937\ \&get\_randgen();}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \textcolor{preprocessor}{\#ifdef\ HAVE\_MRUBY}}
+\DoxyCodeLine{00366\ \ \ \textcolor{keywordtype}{int}\ create\_mruby\_context();}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ \ \ \mbox{\hyperlink{classshrpx_1_1mruby_1_1MRubyContext}{mruby::MRubyContext}}\ *get\_mruby\_context()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00369\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ HAVE\_MRUBY}}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \ \ std::vector<std::shared\_ptr<DownstreamAddrGroup>>\ \&}
+\DoxyCodeLine{00372\ \ \ get\_downstream\_addr\_groups();}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \ \ \mbox{\hyperlink{classshrpx_1_1ConnectBlocker}{ConnectBlocker}}\ *get\_connect\_blocker()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1DownstreamConfig}{DownstreamConfig}}\ *get\_downstream\_config()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00379\ \ \ replace\_downstream\_config(std::shared\_ptr<DownstreamConfig>\ downstreamconf);}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00381\ \ \ \mbox{\hyperlink{classshrpx_1_1ConnectionHandler}{ConnectionHandler}}\ *get\_connection\_handler()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00384\ \ \ \mbox{\hyperlink{classshrpx_1_1QUICConnectionHandler}{QUICConnectionHandler}}\ *get\_quic\_connection\_handler();}
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00386\ \ \ \textcolor{keywordtype}{int}\ setup\_quic\_server\_socket();}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1WorkerID}{WorkerID}}\ \&get\_worker\_id()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00390\ \textcolor{preprocessor}{\#\ \ ifdef\ HAVE\_LIBBPF}}
+\DoxyCodeLine{00391\ \ \ \textcolor{keywordtype}{bool}\ should\_attach\_bpf()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \ \ \textcolor{keywordtype}{bool}\ should\_update\_bpf\_map()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ uint32\_t\ compute\_sk\_index()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00396\ \textcolor{preprocessor}{\#\ \ endif\ }\textcolor{comment}{//\ HAVE\_LIBBPF}}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00398\ \ \ \textcolor{keywordtype}{int}\ create\_quic\_server\_socket(\mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{UpstreamAddr}}\ \&addr);}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \ \ \textcolor{comment}{//\ Returns\ a\ pointer\ to\ UpstreamAddr\ which\ matches\ |local\_addr|.}}
+\DoxyCodeLine{00401\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{UpstreamAddr}}\ *find\_quic\_upstream\_addr(\textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ \&local\_addr);}
+\DoxyCodeLine{00402\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \ \ \mbox{\hyperlink{classshrpx_1_1DNSTracker}{DNSTracker}}\ *get\_dns\_tracker();}
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00406\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00407\ \textcolor{preprocessor}{\#ifndef\ NOTHREADS}}
+\DoxyCodeLine{00408\ \ \ std::future<void>\ fut\_;}
+\DoxyCodeLine{00409\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ NOTHREADS}}
+\DoxyCodeLine{00410\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_HTTP3)\ \&\&\ defined(HAVE\_LIBBPF)}}
+\DoxyCodeLine{00411\ \ \ \textcolor{comment}{//\ Unique\ index\ of\ this\ worker.}}
+\DoxyCodeLine{00412\ \ \ \textcolor{keywordtype}{size\_t}\ index\_;}
+\DoxyCodeLine{00413\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3\ \&\&\ HAVE\_LIBBPF}}
+\DoxyCodeLine{00414\ \ \ std::mutex\ m\_;}
+\DoxyCodeLine{00415\ \ \ std::deque<WorkerEvent>\ q\_;}
+\DoxyCodeLine{00416\ \ \ std::mt19937\ randgen\_;}
+\DoxyCodeLine{00417\ \ \ ev\_async\ w\_;}
+\DoxyCodeLine{00418\ \ \ ev\_timer\ mcpool\_clear\_timer\_;}
+\DoxyCodeLine{00419\ \ \ ev\_timer\ proc\_wev\_timer\_;}
+\DoxyCodeLine{00420\ \ \ MemchunkPool\ mcpool\_;}
+\DoxyCodeLine{00421\ \ \ \mbox{\hyperlink{structshrpx_1_1WorkerStat}{WorkerStat}}\ worker\_stat\_;}
+\DoxyCodeLine{00422\ \ \ \mbox{\hyperlink{classshrpx_1_1DNSTracker}{DNSTracker}}\ dns\_tracker\_;}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00425\ \ \ \mbox{\hyperlink{structshrpx_1_1WorkerID}{WorkerID}}\ worker\_id\_;}
+\DoxyCodeLine{00426\ \ \ std::vector<UpstreamAddr>\ quic\_upstream\_addrs\_;}
+\DoxyCodeLine{00427\ \ \ std::vector<std::unique\_ptr<QUICListener>>\ quic\_listeners\_;}
+\DoxyCodeLine{00428\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00430\ \ \ std::shared\_ptr<DownstreamConfig>\ downstreamconf\_;}
+\DoxyCodeLine{00431\ \ \ std::unique\_ptr<MemcachedDispatcher>\ session\_cache\_memcached\_dispatcher\_;}
+\DoxyCodeLine{00432\ \textcolor{preprocessor}{\#ifdef\ HAVE\_MRUBY}}
+\DoxyCodeLine{00433\ \ \ std::unique\_ptr<mruby::MRubyContext>\ mruby\_ctx\_;}
+\DoxyCodeLine{00434\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ HAVE\_MRUBY}}
+\DoxyCodeLine{00435\ \ \ \textcolor{keyword}{struct\ }ev\_loop\ *loop\_;}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \ \ \textcolor{comment}{//\ Following\ fields\ are\ shared\ across\ threads\ if}}
+\DoxyCodeLine{00438\ \ \ \textcolor{comment}{//\ get\_config()-\/>tls\_ctx\_per\_worker\ ==\ true.}}
+\DoxyCodeLine{00439\ \ \ SSL\_CTX\ *sv\_ssl\_ctx\_;}
+\DoxyCodeLine{00440\ \ \ SSL\_CTX\ *cl\_ssl\_ctx\_;}
+\DoxyCodeLine{00441\ \ \ \mbox{\hyperlink{classshrpx_1_1tls_1_1CertLookupTree}{tls::CertLookupTree}}\ *cert\_tree\_;}
+\DoxyCodeLine{00442\ \ \ \mbox{\hyperlink{classshrpx_1_1ConnectionHandler}{ConnectionHandler}}\ *conn\_handler\_;}
+\DoxyCodeLine{00443\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00444\ \ \ SSL\_CTX\ *quic\_sv\_ssl\_ctx\_;}
+\DoxyCodeLine{00445\ \ \ \mbox{\hyperlink{classshrpx_1_1tls_1_1CertLookupTree}{tls::CertLookupTree}}\ *quic\_cert\_tree\_;}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00447\ \ \ \mbox{\hyperlink{classshrpx_1_1QUICConnectionHandler}{QUICConnectionHandler}}\ quic\_conn\_handler\_;}
+\DoxyCodeLine{00448\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00450\ \textcolor{preprocessor}{\#ifdef\ HAVE\_ATOMIC\_STD\_SHARED\_PTR}}
+\DoxyCodeLine{00451\ \ \ std::atomic<std::shared\_ptr<TicketKeys>>\ ticket\_keys\_;}
+\DoxyCodeLine{00452\ \textcolor{preprocessor}{\#else\ \ }\textcolor{comment}{//\ !HAVE\_ATOMIC\_STD\_SHARED\_PTR}}
+\DoxyCodeLine{00453\ \ \ std::mutex\ ticket\_keys\_m\_;}
+\DoxyCodeLine{00454\ \ \ std::shared\_ptr<TicketKeys>\ ticket\_keys\_;}
+\DoxyCodeLine{00455\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !HAVE\_ATOMIC\_STD\_SHARED\_PTR}}
+\DoxyCodeLine{00456\ \ \ std::vector<std::shared\_ptr<DownstreamAddrGroup>>\ downstream\_addr\_groups\_;}
+\DoxyCodeLine{00457\ \ \ \textcolor{comment}{//\ Worker\ level\ blocker\ for\ downstream\ connection.\ \ For\ example,}}
+\DoxyCodeLine{00458\ \ \ \textcolor{comment}{//\ this\ is\ used\ when\ file\ descriptor\ is\ exhausted.}}
+\DoxyCodeLine{00459\ \ \ std::unique\_ptr<ConnectBlocker>\ connect\_blocker\_;}
+\DoxyCodeLine{00460\ }
+\DoxyCodeLine{00461\ \ \ \textcolor{keywordtype}{bool}\ graceful\_shutdown\_;}
+\DoxyCodeLine{00462\ \};}
+\DoxyCodeLine{00463\ }
+\DoxyCodeLine{00464\ \textcolor{comment}{//\ Selects\ group\ based\ on\ request's\ |hostport|\ and\ |path|.\ \ |hostport|}}
+\DoxyCodeLine{00465\ \textcolor{comment}{//\ is\ the\ value\ taken\ from\ :authority\ or\ host\ header\ field,\ and\ may}}
+\DoxyCodeLine{00466\ \textcolor{comment}{//\ contain\ port.\ \ The\ |path|\ may\ contain\ query\ part.\ \ We\ require\ the}}
+\DoxyCodeLine{00467\ \textcolor{comment}{//\ catch-\/all\ pattern\ in\ place,\ so\ this\ function\ always\ selects\ one}}
+\DoxyCodeLine{00468\ \textcolor{comment}{//\ group.\ \ The\ catch-\/all\ group\ index\ is\ given\ in\ |catch\_all|.\ \ All}}
+\DoxyCodeLine{00469\ \textcolor{comment}{//\ patterns\ are\ given\ in\ |groups|.}}
+\DoxyCodeLine{00470\ \textcolor{keywordtype}{size\_t}\ match\_downstream\_addr\_group(}
+\DoxyCodeLine{00471\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1RouterConfig}{RouterConfig}}\ \&routerconfig,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&hostport,}
+\DoxyCodeLine{00472\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&path,}
+\DoxyCodeLine{00473\ \ \ \textcolor{keyword}{const}\ std::vector<std::shared\_ptr<DownstreamAddrGroup>>\ \&groups,}
+\DoxyCodeLine{00474\ \ \ \textcolor{keywordtype}{size\_t}\ catch\_all,\ \mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&balloc);}
+\DoxyCodeLine{00475\ }
+\DoxyCodeLine{00476\ \textcolor{comment}{//\ Calls\ this\ function\ if\ connecting\ to\ backend\ failed.\ \ |raddr|\ is}}
+\DoxyCodeLine{00477\ \textcolor{comment}{//\ the\ actual\ address\ used\ to\ connect\ to\ backend,\ and\ it\ could\ be}}
+\DoxyCodeLine{00478\ \textcolor{comment}{//\ nullptr.\ \ This\ function\ may\ schedule\ live\ check.}}
+\DoxyCodeLine{00479\ \textcolor{keywordtype}{void}\ downstream\_failure(\mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}}\ *addr,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ *raddr);}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00482\ }
+\DoxyCodeLine{00483\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_WORKER\_H}}
+
+\end{DoxyCode}

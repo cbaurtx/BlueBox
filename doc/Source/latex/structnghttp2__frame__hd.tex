@@ -1,0 +1,62 @@
+\doxysection{nghttp2\+\_\+frame\+\_\+hd Struct Reference}
+\hypertarget{structnghttp2__frame__hd}{}\label{structnghttp2__frame__hd}\index{nghttp2\_frame\_hd@{nghttp2\_frame\_hd}}
+
+
+{\ttfamily \#include $<$nghttp2.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{structnghttp2__frame__hd_a3f2215a34b9f2b1e2a0aaf9a5ba3df0e}{length}}
+\item 
+int32\+\_\+t \mbox{\hyperlink{structnghttp2__frame__hd_a50c577bcc13fa7bea71932804a89ffdc}{stream\+\_\+id}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structnghttp2__frame__hd_a838ab3c26840b548638bb792cdeff79d}{type}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structnghttp2__frame__hd_ab07ad92f0ca0e2310de4b2e90d74413c}{flags}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structnghttp2__frame__hd_a7b803a1e4950ecc755244d6cb8ad4f5a}{reserved}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The frame header. 
+
+\label{doc-variable-members}
+\Hypertarget{structnghttp2__frame__hd_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structnghttp2__frame__hd_ab07ad92f0ca0e2310de4b2e90d74413c}\index{nghttp2\_frame\_hd@{nghttp2\_frame\_hd}!flags@{flags}}
+\index{flags@{flags}!nghttp2\_frame\_hd@{nghttp2\_frame\_hd}}
+\doxysubsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily \label{structnghttp2__frame__hd_ab07ad92f0ca0e2310de4b2e90d74413c} 
+uint8\+\_\+t nghttp2\+\_\+frame\+\_\+hd\+::flags}
+
+The flags. \Hypertarget{structnghttp2__frame__hd_a3f2215a34b9f2b1e2a0aaf9a5ba3df0e}\index{nghttp2\_frame\_hd@{nghttp2\_frame\_hd}!length@{length}}
+\index{length@{length}!nghttp2\_frame\_hd@{nghttp2\_frame\_hd}}
+\doxysubsubsection{\texorpdfstring{length}{length}}
+{\footnotesize\ttfamily \label{structnghttp2__frame__hd_a3f2215a34b9f2b1e2a0aaf9a5ba3df0e} 
+size\+\_\+t nghttp2\+\_\+frame\+\_\+hd\+::length}
+
+The length field of this frame, excluding frame header. \Hypertarget{structnghttp2__frame__hd_a7b803a1e4950ecc755244d6cb8ad4f5a}\index{nghttp2\_frame\_hd@{nghttp2\_frame\_hd}!reserved@{reserved}}
+\index{reserved@{reserved}!nghttp2\_frame\_hd@{nghttp2\_frame\_hd}}
+\doxysubsubsection{\texorpdfstring{reserved}{reserved}}
+{\footnotesize\ttfamily \label{structnghttp2__frame__hd_a7b803a1e4950ecc755244d6cb8ad4f5a} 
+uint8\+\_\+t nghttp2\+\_\+frame\+\_\+hd\+::reserved}
+
+Reserved bit in frame header. Currently, this is always set to 0 and application should not expect something useful in here. \Hypertarget{structnghttp2__frame__hd_a50c577bcc13fa7bea71932804a89ffdc}\index{nghttp2\_frame\_hd@{nghttp2\_frame\_hd}!stream\_id@{stream\_id}}
+\index{stream\_id@{stream\_id}!nghttp2\_frame\_hd@{nghttp2\_frame\_hd}}
+\doxysubsubsection{\texorpdfstring{stream\_id}{stream\_id}}
+{\footnotesize\ttfamily \label{structnghttp2__frame__hd_a50c577bcc13fa7bea71932804a89ffdc} 
+int32\+\_\+t nghttp2\+\_\+frame\+\_\+hd\+::stream\+\_\+id}
+
+The stream identifier (aka, stream ID) \Hypertarget{structnghttp2__frame__hd_a838ab3c26840b548638bb792cdeff79d}\index{nghttp2\_frame\_hd@{nghttp2\_frame\_hd}!type@{type}}
+\index{type@{type}!nghttp2\_frame\_hd@{nghttp2\_frame\_hd}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily \label{structnghttp2__frame__hd_a838ab3c26840b548638bb792cdeff79d} 
+uint8\+\_\+t nghttp2\+\_\+frame\+\_\+hd\+::type}
+
+The type of this frame. See {\ttfamily nghttp2\+\_\+frame\+\_\+type}. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/lib/includes/nghttp2/nghttp2.\+h\end{DoxyCompactItemize}

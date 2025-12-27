@@ -1,0 +1,130 @@
+\doxysection{sfparse.\+h}
+\hypertarget{sfparse_8h_source}{}\label{sfparse_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/lib/sfparse.h@{managed\_components/espressif\_\_nghttp/nghttp2/lib/sfparse.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ sfparse}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2023\ sfparse\ contributors}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2019\ nghttp3\ contributors}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2015\ nghttp2\ contributors}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifndef\ SFPARSE\_H}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ SFPARSE\_H}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{comment}{/*\ Define\ WIN32\ when\ build\ target\ is\ Win32\ API\ (borrowed\ from}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ \ \ libcurl)\ */}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#if\ (defined(\_WIN32)\ ||\ defined(\_\_WIN32\_\_))\ \&\&\ !defined(WIN32)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#\ \ define\ WIN32}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ (defined(\_WIN32)\ ||\ defined(\_\_WIN32\_\_))\ \&\&\ !defined(WIN32)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00037\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ defined(\_\_cplusplus)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#if\ defined(\_MSC\_VER)\ \&\&\ (\_MSC\_VER\ <\ 1800)}}
+\DoxyCodeLine{00041\ \textcolor{comment}{/*\ MSVC\ <\ 2013\ does\ not\ have\ inttypes.h\ because\ it\ is\ not\ C99}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ compliant.\ \ See\ compiler\ macros\ and\ version\ number\ in}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ https://sourceforge.net/p/predef/wiki/Compilers/\ */}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#\ \ include\ <stdint.h>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ !(defined(\_MSC\_VER)\ \&\&\ (\_MSC\_VER\ <\ 1800))\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#\ \ include\ <inttypes.h>}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !(defined(\_MSC\_VER)\ \&\&\ (\_MSC\_VER\ <\ 1800))\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <sys/types.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ sfparse\_type\ \{}
+\DoxyCodeLine{00060\ \ \ SFPARSE\_TYPE\_BOOLEAN,}
+\DoxyCodeLine{00064\ \ \ SFPARSE\_TYPE\_INTEGER,}
+\DoxyCodeLine{00068\ \ \ SFPARSE\_TYPE\_DECIMAL,}
+\DoxyCodeLine{00072\ \ \ SFPARSE\_TYPE\_STRING,}
+\DoxyCodeLine{00076\ \ \ SFPARSE\_TYPE\_TOKEN,}
+\DoxyCodeLine{00080\ \ \ SFPARSE\_TYPE\_BYTESEQ,}
+\DoxyCodeLine{00084\ \ \ SFPARSE\_TYPE\_INNER\_LIST,}
+\DoxyCodeLine{00088\ \ \ SFPARSE\_TYPE\_DATE,}
+\DoxyCodeLine{00092\ \ \ SFPARSE\_TYPE\_DISPSTRING}
+\DoxyCodeLine{00093\ \}\ sfparse\_type;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ SFPARSE\_ERR\_PARSE\ -\/1}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ SFPARSE\_ERR\_EOF\ -\/2}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsfparse__vec}{sfparse\_vec}}\ \{}
+\DoxyCodeLine{00121\ \ \ uint8\_t\ *\mbox{\hyperlink{structsfparse__vec_a10881c4f791b2a05eb61018bb58f3775}{base}};}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structsfparse__vec_ab1ae77b627b727dd91c6f3e7f651142c}{len}};}
+\DoxyCodeLine{00126\ \}\ \mbox{\hyperlink{structsfparse__vec}{sfparse\_vec}};}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#define\ SFPARSE\_VALUE\_FLAG\_NONE\ 0x0u}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ SFPARSE\_VALUE\_FLAG\_ESCAPED\_STRING\ 0x1u}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00148\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsfparse__decimal}{sfparse\_decimal}}\ \{}
+\DoxyCodeLine{00152\ \ \ int64\_t\ \mbox{\hyperlink{structsfparse__decimal_a799613b8288d04c493b3154ca85035f4}{numer}};}
+\DoxyCodeLine{00156\ \ \ int64\_t\ \mbox{\hyperlink{structsfparse__decimal_adffc192d2ccda34f474f1feb10b2ce6a}{denom}};}
+\DoxyCodeLine{00157\ \}\ \mbox{\hyperlink{structsfparse__decimal}{sfparse\_decimal}};}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00167\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsfparse__value}{sfparse\_value}}\ \{}
+\DoxyCodeLine{00172\ \ \ sfparse\_type\ \mbox{\hyperlink{structsfparse__value_a0a3ce4828643298ba33bee441ee35c34}{type}};}
+\DoxyCodeLine{00177\ \ \ uint32\_t\ \mbox{\hyperlink{structsfparse__value_aed9ff50179cf2de96e3f97e5e93c4e06}{flags}};}
+\DoxyCodeLine{00183\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structsfparse__value_a2f8afb520b6f165351598d35d07fd351}{boolean}};}
+\DoxyCodeLine{00195\ \ \ \ \ int64\_t\ \mbox{\hyperlink{structsfparse__value_a3e2e83777af104ca4102bdfd0ae8501c}{integer}};}
+\DoxyCodeLine{00200\ \ \ \ \ \mbox{\hyperlink{structsfparse__decimal}{sfparse\_decimal}}\ \mbox{\hyperlink{structsfparse__value_af79ecb2d5f11764fe21146e7ea664b62}{decimal}};}
+\DoxyCodeLine{00224\ \ \ \ \ \mbox{\hyperlink{structsfparse__vec}{sfparse\_vec}}\ \mbox{\hyperlink{structsfparse__value_a7646f57afd29c6fc9b0716f73a1b648c}{vec}};}
+\DoxyCodeLine{00228\ \ \ \};}
+\DoxyCodeLine{00229\ \}\ \mbox{\hyperlink{structsfparse__value}{sfparse\_value}};}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00237\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsfparse__parser}{sfparse\_parser}}\ \{}
+\DoxyCodeLine{00238\ \ \ \textcolor{comment}{/*\ all\ fields\ are\ private\ */}}
+\DoxyCodeLine{00239\ \ \ \textcolor{keyword}{const}\ uint8\_t\ *pos;}
+\DoxyCodeLine{00240\ \ \ \textcolor{keyword}{const}\ uint8\_t\ *end;}
+\DoxyCodeLine{00241\ \ \ uint32\_t\ state;}
+\DoxyCodeLine{00242\ \}\ \mbox{\hyperlink{structsfparse__parser}{sfparse\_parser}};}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00250\ \textcolor{keywordtype}{void}\ sfparse\_parser\_init(\mbox{\hyperlink{structsfparse__parser}{sfparse\_parser}}\ *sfp,\ \textcolor{keyword}{const}\ uint8\_t\ *data,}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ datalen);}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00269\ \textcolor{keywordtype}{int}\ sfparse\_parser\_param(\mbox{\hyperlink{structsfparse__parser}{sfparse\_parser}}\ *sfp,\ \mbox{\hyperlink{structsfparse__vec}{sfparse\_vec}}\ *dest\_key,}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structsfparse__value}{sfparse\_value}}\ *dest\_value);}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00297\ \textcolor{keywordtype}{int}\ sfparse\_parser\_dict(\mbox{\hyperlink{structsfparse__parser}{sfparse\_parser}}\ *sfp,\ \mbox{\hyperlink{structsfparse__vec}{sfparse\_vec}}\ *dest\_key,}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structsfparse__value}{sfparse\_value}}\ *dest\_value);}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00321\ \textcolor{keywordtype}{int}\ sfparse\_parser\_list(\mbox{\hyperlink{structsfparse__parser}{sfparse\_parser}}\ *sfp,\ \mbox{\hyperlink{structsfparse__value}{sfparse\_value}}\ *dest);}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00348\ \textcolor{keywordtype}{int}\ sfparse\_parser\_item(\mbox{\hyperlink{structsfparse__parser}{sfparse\_parser}}\ *sfp,\ \mbox{\hyperlink{structsfparse__value}{sfparse\_value}}\ *dest);}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00375\ \textcolor{keywordtype}{int}\ sfparse\_parser\_inner\_list(\mbox{\hyperlink{structsfparse__parser}{sfparse\_parser}}\ *sfp,\ \mbox{\hyperlink{structsfparse__value}{sfparse\_value}}\ *dest);}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00396\ \textcolor{keywordtype}{void}\ sfparse\_unescape(\mbox{\hyperlink{structsfparse__vec}{sfparse\_vec}}\ *dest,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structsfparse__vec}{sfparse\_vec}}\ *src);}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00415\ \textcolor{keywordtype}{void}\ sfparse\_base64decode(\mbox{\hyperlink{structsfparse__vec}{sfparse\_vec}}\ *dest,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structsfparse__vec}{sfparse\_vec}}\ *src);}
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00436\ \textcolor{keywordtype}{void}\ sfparse\_pctdecode(\mbox{\hyperlink{structsfparse__vec}{sfparse\_vec}}\ *dest,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structsfparse__vec}{sfparse\_vec}}\ *src);}
+\DoxyCodeLine{00437\ }
+\DoxyCodeLine{00438\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00439\ \}}
+\DoxyCodeLine{00440\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ defined(\_\_cplusplus)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !defined(SFPARSE\_H)\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

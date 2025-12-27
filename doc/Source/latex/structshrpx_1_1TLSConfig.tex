@@ -1,0 +1,161 @@
+\doxysection{shrpx\+::TLSConfig Struct Reference}
+\hypertarget{structshrpx_1_1TLSConfig}{}\label{structshrpx_1_1TLSConfig}\index{shrpx::TLSConfig@{shrpx::TLSConfig}}
+
+
+Collaboration diagram for shrpx\+::TLSConfig\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{structshrpx_1_1TLSConfig__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_a2a53d50f81d7c50e4ae2a659a4c4e0a9}\label{structshrpx_1_1TLSConfig_a2a53d50f81d7c50e4ae2a659a4c4e0a9} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>struct \{\\
+\>\>\mbox{\hyperlink{structnghttp2_1_1Address}{Address}} {\bfseries addr}\\
+\>\>uint16\_t {\bfseries port}\\
+\>\>\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} {\bfseries host}\\
+\>\>\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} {\bfseries private\_key\_file}\\
+\>\>\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} {\bfseries cert\_file}\\
+\>\>ev\_tstamp {\bfseries interval}\\
+\>\>size\_t {\bfseries max\_retry}\\
+\>\>size\_t {\bfseries max\_fail}\\
+\>\>int {\bfseries family}\\
+\>\>bool {\bfseries tls}\\
+\>\} {\bfseries memcached}\\
+\>std::vector$<$ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} $>$ {\bfseries files}\\
+\>const EVP\_CIPHER \texorpdfstring{$\ast$}{*} {\bfseries cipher}\\
+\>bool {\bfseries cipher\_given}\\
+\} {\bfseries ticket}\\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1TLSConfig_a81e71adcf65b5ae4c51a41c5137d3baa}\label{structshrpx_1_1TLSConfig_a81e71adcf65b5ae4c51a41c5137d3baa} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>struct \{\\
+\>\>\mbox{\hyperlink{structnghttp2_1_1Address}{Address}} {\bfseries addr}\\
+\>\>uint16\_t {\bfseries port}\\
+\>\>\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} {\bfseries host}\\
+\>\>\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} {\bfseries private\_key\_file}\\
+\>\>\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} {\bfseries cert\_file}\\
+\>\>int {\bfseries family}\\
+\>\>bool {\bfseries tls}\\
+\>\} {\bfseries memcached}\\
+\} {\bfseries session\_cache}\\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1TLSConfig_a70f0732fb347f13c64723a33e0bb2856}\label{structshrpx_1_1TLSConfig_a70f0732fb347f13c64723a33e0bb2856} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>size\_t {\bfseries warmup\_threshold}\\
+\>ev\_tstamp {\bfseries idle\_timeout}\\
+\} {\bfseries dyn\_rec}\\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1TLSConfig_a1525a8746b9b2c32ee3c29b7cd9264e0}\label{structshrpx_1_1TLSConfig_a1525a8746b9b2c32ee3c29b7cd9264e0} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>ev\_tstamp {\bfseries update\_interval}\\
+\>\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} {\bfseries fetch\_ocsp\_response\_file}\\
+\>bool {\bfseries disabled}\\
+\>bool {\bfseries startup}\\
+\>bool {\bfseries no\_verify}\\
+\} {\bfseries ocsp}\\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1TLSConfig_aa8840d2e81e9a9e87071b14b47a2c585}\label{structshrpx_1_1TLSConfig_aa8840d2e81e9a9e87071b14b47a2c585} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} {\bfseries cacert}\\
+\>bool {\bfseries enabled}\\
+\>bool {\bfseries tolerate\_expired}\\
+\} {\bfseries client\_verify}\\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1TLSConfig_acd20242a74c1b84a1f4a291505e2043a}\label{structshrpx_1_1TLSConfig_acd20242a74c1b84a1f4a291505e2043a} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>struct \{\\
+\>\>\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} {\bfseries identity}\\
+\>\>\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} {\bfseries secret}\\
+\>\} {\bfseries psk}\\
+\>\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} {\bfseries private\_key\_file}\\
+\>\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} {\bfseries cert\_file}\\
+\>\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} {\bfseries ciphers}\\
+\>\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} {\bfseries tls13\_ciphers}\\
+\>bool {\bfseries no\_http2\_cipher\_block\_list}\\
+\} {\bfseries client}\\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1TLSConfig_a16ce83e46411ea3db43a267554aa3aa3}\label{structshrpx_1_1TLSConfig_a16ce83e46411ea3db43a267554aa3aa3} 
+std\+::map$<$ \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}}, \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} $>$ {\bfseries psk\+\_\+secrets}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_ad275b7f69dfd09a3f6df52e4f81fbff2}\label{structshrpx_1_1TLSConfig_ad275b7f69dfd09a3f6df52e4f81fbff2} 
+std\+::vector$<$ \mbox{\hyperlink{structshrpx_1_1TLSCertificate}{TLSCertificate}} $>$ {\bfseries subcerts}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_a2be3fa623bf5536cbcd6f997c9362642}\label{structshrpx_1_1TLSConfig_a2be3fa623bf5536cbcd6f997c9362642} 
+std\+::vector$<$ unsigned char $>$ {\bfseries alpn\+\_\+prefs}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_aff6a5fccbe098303acbf6a06321fbdac}\label{structshrpx_1_1TLSConfig_aff6a5fccbe098303acbf6a06321fbdac} 
+std\+::vector$<$ \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} $>$ {\bfseries alpn\+\_\+list}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_a46f5b1f3b57bd7cd1917dd284a8cc1bc}\label{structshrpx_1_1TLSConfig_a46f5b1f3b57bd7cd1917dd284a8cc1bc} 
+std\+::vector$<$ \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} $>$ {\bfseries tls\+\_\+proto\+\_\+list}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_ad61ccaf06680230432199402d54b44c4}\label{structshrpx_1_1TLSConfig_ad61ccaf06680230432199402d54b44c4} 
+std\+::vector$<$ uint8\+\_\+t $>$ {\bfseries sct\+\_\+data}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_ab0d351ce26a15d374c5a942dca350d61}\label{structshrpx_1_1TLSConfig_ab0d351ce26a15d374c5a942dca350d61} 
+BIO\+\_\+\+METHOD \texorpdfstring{$\ast$}{*} {\bfseries bio\+\_\+method}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_ab187f0fcc1ec14f2280acdb5cb39701b}\label{structshrpx_1_1TLSConfig_ab187f0fcc1ec14f2280acdb5cb39701b} 
+long int {\bfseries tls\+\_\+proto\+\_\+mask}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_aa1b607d29f276270ea370d0262153788}\label{structshrpx_1_1TLSConfig_aa1b607d29f276270ea370d0262153788} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries backend\+\_\+sni\+\_\+name}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_a764c176340c113c2fe759072d801f4fe}\label{structshrpx_1_1TLSConfig_a764c176340c113c2fe759072d801f4fe} 
+std\+::chrono\+::seconds {\bfseries session\+\_\+timeout}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_a35b9f20b0e1639d3c0a00dd90c2a4ae9}\label{structshrpx_1_1TLSConfig_a35b9f20b0e1639d3c0a00dd90c2a4ae9} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries private\+\_\+key\+\_\+passwd}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_a20d669ecc1c4757b9d94bc788c067a1a}\label{structshrpx_1_1TLSConfig_a20d669ecc1c4757b9d94bc788c067a1a} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries dh\+\_\+param\+\_\+file}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_a1063c458bb27116603da71d974d362ea}\label{structshrpx_1_1TLSConfig_a1063c458bb27116603da71d974d362ea} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries ecdh\+\_\+curves}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_a3dbc7e2e7aca7dd222c9399ae9474060}\label{structshrpx_1_1TLSConfig_a3dbc7e2e7aca7dd222c9399ae9474060} 
+uint32\+\_\+t {\bfseries max\+\_\+early\+\_\+data}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_a647fcffb368a798ae5b3513271d2ae4f}\label{structshrpx_1_1TLSConfig_a647fcffb368a798ae5b3513271d2ae4f} 
+int {\bfseries min\+\_\+proto\+\_\+version}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_a6b4a9f4bfa7f4101e4a574db574c83be}\label{structshrpx_1_1TLSConfig_a6b4a9f4bfa7f4101e4a574db574c83be} 
+int {\bfseries max\+\_\+proto\+\_\+version}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_a3f5d5446b68f6266c2565f75498b0968}\label{structshrpx_1_1TLSConfig_a3f5d5446b68f6266c2565f75498b0968} 
+bool {\bfseries insecure}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_a0e68fd4e9855d1178715bc1bfb730b70}\label{structshrpx_1_1TLSConfig_a0e68fd4e9855d1178715bc1bfb730b70} 
+bool {\bfseries no\+\_\+postpone\+\_\+early\+\_\+data}
+\item 
+\Hypertarget{structshrpx_1_1TLSConfig_a17878c8edb1d584ea3d1d5d5e5653dbc}\label{structshrpx_1_1TLSConfig_a17878c8edb1d584ea3d1d5d5e5653dbc} 
+bool {\bfseries ktls}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+config.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,128 @@
+\doxysection{nghttp2\+::Request Struct Reference}
+\hypertarget{structnghttp2_1_1Request}{}\label{structnghttp2_1_1Request}\index{nghttp2::Request@{nghttp2::Request}}
+
+
+Collaboration diagram for nghttp2\+::Request\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structnghttp2_1_1Request__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnghttp2_1_1Request_a6e0c306f6a9836fddd2cb4ec9a9fadf2}\label{structnghttp2_1_1Request_a6e0c306f6a9836fddd2cb4ec9a9fadf2} 
+{\bfseries Request} (const std\+::string \&uri, const \mbox{\hyperlink{structurlparse__url}{urlparse\+\_\+url}} \&u, const \mbox{\hyperlink{structnghttp2__data__provider2}{nghttp2\+\_\+data\+\_\+provider2}} \texorpdfstring{$\ast$}{*}data\+\_\+prd, int64\+\_\+t data\+\_\+length, const \mbox{\hyperlink{structnghttp2__extpri}{nghttp2\+\_\+extpri}} \&extpri, int level=0)
+\item 
+\Hypertarget{structnghttp2_1_1Request_a9972b03b36d5dd6c2308f1745e98797d}\label{structnghttp2_1_1Request_a9972b03b36d5dd6c2308f1745e98797d} 
+void {\bfseries init\+\_\+inflater} ()
+\item 
+\Hypertarget{structnghttp2_1_1Request_aa1f862f0a56c913d1a7cbad6b39f8e46}\label{structnghttp2_1_1Request_aa1f862f0a56c913d1a7cbad6b39f8e46} 
+void {\bfseries init\+\_\+html\+\_\+parser} ()
+\item 
+\Hypertarget{structnghttp2_1_1Request_a72112004a1a1dae812ce596b5ecbbd3b}\label{structnghttp2_1_1Request_a72112004a1a1dae812ce596b5ecbbd3b} 
+int {\bfseries update\+\_\+html\+\_\+parser} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len, int fin)
+\item 
+\Hypertarget{structnghttp2_1_1Request_a83255660ad9fa691994fc6795adef2d3}\label{structnghttp2_1_1Request_a83255660ad9fa691994fc6795adef2d3} 
+std\+::string {\bfseries make\+\_\+reqpath} () const
+\item 
+\Hypertarget{structnghttp2_1_1Request_acb0c1cb4f2490cea0b5e1a44f82bf647}\label{structnghttp2_1_1Request_acb0c1cb4f2490cea0b5e1a44f82bf647} 
+bool {\bfseries is\+\_\+ipv6\+\_\+literal\+\_\+addr} () const
+\item 
+\Hypertarget{structnghttp2_1_1Request_aafdeb9efff69648f8fc713ffb00cd2b2}\label{structnghttp2_1_1Request_aafdeb9efff69648f8fc713ffb00cd2b2} 
+Headers\+::value\+\_\+type \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+res\+\_\+header} (int32\+\_\+t token)
+\item 
+\Hypertarget{structnghttp2_1_1Request_ab8e7d8596b063aeeb40ac0f84975d649}\label{structnghttp2_1_1Request_ab8e7d8596b063aeeb40ac0f84975d649} 
+Headers\+::value\+\_\+type \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+req\+\_\+header} (int32\+\_\+t token)
+\item 
+\Hypertarget{structnghttp2_1_1Request_a596cdafafcdd493abdb7672f1c69a713}\label{structnghttp2_1_1Request_a596cdafafcdd493abdb7672f1c69a713} 
+void {\bfseries record\+\_\+request\+\_\+start\+\_\+time} ()
+\item 
+\Hypertarget{structnghttp2_1_1Request_a68fd3a9d171de6795378131d19d7f0e5}\label{structnghttp2_1_1Request_a68fd3a9d171de6795378131d19d7f0e5} 
+void {\bfseries record\+\_\+response\+\_\+start\+\_\+time} ()
+\item 
+\Hypertarget{structnghttp2_1_1Request_ad5f7c8dc8904c30887a44c328ad3dcf0}\label{structnghttp2_1_1Request_ad5f7c8dc8904c30887a44c328ad3dcf0} 
+void {\bfseries record\+\_\+response\+\_\+end\+\_\+time} ()
+\item 
+\Hypertarget{structnghttp2_1_1Request_a4c4901b79bfd139efe7b6d4ea5ab91ac}\label{structnghttp2_1_1Request_a4c4901b79bfd139efe7b6d4ea5ab91ac} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries get\+\_\+real\+\_\+scheme} () const
+\item 
+\Hypertarget{structnghttp2_1_1Request_ad3487dd732da785bcf89f81b53357f0e}\label{structnghttp2_1_1Request_ad3487dd732da785bcf89f81b53357f0e} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries get\+\_\+real\+\_\+host} () const
+\item 
+\Hypertarget{structnghttp2_1_1Request_a150a0bce4a5022d68be64021ed91ca1d}\label{structnghttp2_1_1Request_a150a0bce4a5022d68be64021ed91ca1d} 
+uint16\+\_\+t {\bfseries get\+\_\+real\+\_\+port} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnghttp2_1_1Request_a6ced762ddcddfbcdbf22221524fb2474}\label{structnghttp2_1_1Request_a6ced762ddcddfbcdbf22221524fb2474} 
+Headers {\bfseries res\+\_\+nva}
+\item 
+\Hypertarget{structnghttp2_1_1Request_abadd9e16fe099f1289e0d9e2abefd3f3}\label{structnghttp2_1_1Request_abadd9e16fe099f1289e0d9e2abefd3f3} 
+Headers {\bfseries req\+\_\+nva}
+\item 
+\Hypertarget{structnghttp2_1_1Request_a1f80c4749ade265bccf476c9980f1e8d}\label{structnghttp2_1_1Request_a1f80c4749ade265bccf476c9980f1e8d} 
+std\+::string {\bfseries method}
+\item 
+\Hypertarget{structnghttp2_1_1Request_a22a599566c29b92a3fe1f640c5719670}\label{structnghttp2_1_1Request_a22a599566c29b92a3fe1f640c5719670} 
+std\+::string {\bfseries uri}
+\item 
+\Hypertarget{structnghttp2_1_1Request_a4cf4b23ee6d2c95bd71d898907944aa4}\label{structnghttp2_1_1Request_a4cf4b23ee6d2c95bd71d898907944aa4} 
+\mbox{\hyperlink{structurlparse__url}{urlparse\+\_\+url}} {\bfseries u}
+\item 
+\Hypertarget{structnghttp2_1_1Request_afefaae79e651ce04433b199174e97689}\label{structnghttp2_1_1Request_afefaae79e651ce04433b199174e97689} 
+\mbox{\hyperlink{structnghttp2__extpri}{nghttp2\+\_\+extpri}} {\bfseries extpri}
+\item 
+\Hypertarget{structnghttp2_1_1Request_a2bd85ce4bd36cd34656a9740a0041dbd}\label{structnghttp2_1_1Request_a2bd85ce4bd36cd34656a9740a0041dbd} 
+\mbox{\hyperlink{structnghttp2_1_1RequestTiming}{Request\+Timing}} {\bfseries timing}
+\item 
+\Hypertarget{structnghttp2_1_1Request_a45a69ae73a462a5e2e38209992a60b05}\label{structnghttp2_1_1Request_a45a69ae73a462a5e2e38209992a60b05} 
+int64\+\_\+t {\bfseries data\+\_\+length}
+\item 
+\Hypertarget{structnghttp2_1_1Request_a9d1d55a3988c46b3a6b4b699641cf0ce}\label{structnghttp2_1_1Request_a9d1d55a3988c46b3a6b4b699641cf0ce} 
+int64\+\_\+t {\bfseries data\+\_\+offset}
+\item 
+\Hypertarget{structnghttp2_1_1Request_ab335017d2fd07ea6366c0c809ea760b6}\label{structnghttp2_1_1Request_ab335017d2fd07ea6366c0c809ea760b6} 
+int64\+\_\+t {\bfseries response\+\_\+len}
+\item 
+\Hypertarget{structnghttp2_1_1Request_a02c12617e06c3f325334119a9ceb0a09}\label{structnghttp2_1_1Request_a02c12617e06c3f325334119a9ceb0a09} 
+\mbox{\hyperlink{structnghttp2__gzip}{nghttp2\+\_\+gzip}} \texorpdfstring{$\ast$}{*} {\bfseries inflater}
+\item 
+\Hypertarget{structnghttp2_1_1Request_a71ccf1625b66a300d32d7273cff43b49}\label{structnghttp2_1_1Request_a71ccf1625b66a300d32d7273cff43b49} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classnghttp2_1_1HtmlParser}{Html\+Parser}} $>$ {\bfseries html\+\_\+parser}
+\item 
+\Hypertarget{structnghttp2_1_1Request_ae40794ab240d6f63bca875ec125d0f9e}\label{structnghttp2_1_1Request_ae40794ab240d6f63bca875ec125d0f9e} 
+const \mbox{\hyperlink{structnghttp2__data__provider2}{nghttp2\+\_\+data\+\_\+provider2}} \texorpdfstring{$\ast$}{*} {\bfseries data\+\_\+prd}
+\item 
+\Hypertarget{structnghttp2_1_1Request_ab5f610b0002a5691a9abb96ae092f1f0}\label{structnghttp2_1_1Request_ab5f610b0002a5691a9abb96ae092f1f0} 
+size\+\_\+t {\bfseries header\+\_\+buffer\+\_\+size}
+\item 
+\Hypertarget{structnghttp2_1_1Request_a85efc3ba2f58a2f3437ffb3a2a2af017}\label{structnghttp2_1_1Request_a85efc3ba2f58a2f3437ffb3a2a2af017} 
+int32\+\_\+t {\bfseries stream\+\_\+id}
+\item 
+\Hypertarget{structnghttp2_1_1Request_abaff3987265c33b73edfcc1903f11ad4}\label{structnghttp2_1_1Request_abaff3987265c33b73edfcc1903f11ad4} 
+int {\bfseries status}
+\item 
+\Hypertarget{structnghttp2_1_1Request_a51ed0d5329917fb01987aca652a772e8}\label{structnghttp2_1_1Request_a51ed0d5329917fb01987aca652a772e8} 
+int {\bfseries level}
+\item 
+\Hypertarget{structnghttp2_1_1Request_a02cb412ec1529ad2fad8eda35cf164c2}\label{structnghttp2_1_1Request_a02cb412ec1529ad2fad8eda35cf164c2} 
+http2\+::\+Header\+Index {\bfseries res\+\_\+hdidx}
+\item 
+\Hypertarget{structnghttp2_1_1Request_a09be7aa5d6a8f6dd4f0a14b877b42556}\label{structnghttp2_1_1Request_a09be7aa5d6a8f6dd4f0a14b877b42556} 
+http2\+::\+Header\+Index {\bfseries req\+\_\+hdidx}
+\item 
+\Hypertarget{structnghttp2_1_1Request_ac584c83beffeb3c596514d8474e0c8dd}\label{structnghttp2_1_1Request_ac584c83beffeb3c596514d8474e0c8dd} 
+bool {\bfseries expect\+\_\+final\+\_\+response}
+\item 
+\Hypertarget{structnghttp2_1_1Request_a56ec99f36eac43250ff6e10d4908873c}\label{structnghttp2_1_1Request_a56ec99f36eac43250ff6e10d4908873c} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structnghttp2_1_1ContinueTimer}{Continue\+Timer}} $>$ {\bfseries continue\+\_\+timer}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/nghttp.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/nghttp.\+cc\end{DoxyCompactItemize}

@@ -1,0 +1,8 @@
+<map id="shrpx::DownstreamAddrGroupConfig" name="shrpx::DownstreamAddrGroupConfig">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,243,203,285"/>
+<area shape="rect" id="Node000002" href="$classnghttp2_1_1StringRef.html" title=" " alt="" coords="40,5,168,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,45,98,104,97,171,104,243,99,242,92,171,93,104,100,50"/>
+<area shape="rect" id="Node000003" href="$structshrpx_1_1AffinityConfig.html" title=" " alt="" coords="174,135,314,161"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="130,40,233,133,228,135,128,45"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="219,171,131,245,127,240,214,171"/>
+</map>

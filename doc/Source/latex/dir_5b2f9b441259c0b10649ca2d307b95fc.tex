@@ -1,0 +1,71 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/pack Directory Reference}
+\hypertarget{dir_5b2f9b441259c0b10649ca2d307b95fc}{}\label{dir_5b2f9b441259c0b10649ca2d307b95fc}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/pack Directory Reference@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/pack Directory Reference}}
+Directory dependency graph for mruby-\/pack\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=243pt]{dir_5b2f9b441259c0b10649ca2d307b95fc_dep}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_f644f17c73f298f8436f814adb1a8d1a}{src}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_5b2f9b441259c0b10649ca2d307b95fc_autotoc_md536}{}\doxysubsection{\texorpdfstring{mruby-\/pack (pack / unpack)}{mruby-\/pack (pack / unpack)}}\label{dir_5b2f9b441259c0b10649ca2d307b95fc_autotoc_md536}
+mruby-\/pack provides {\ttfamily Array\#pack} and {\ttfamily String\#unpack} for mruby.\hypertarget{dir_5b2f9b441259c0b10649ca2d307b95fc_autotoc_md537}{}\doxysubsection{\texorpdfstring{Installation}{Installation}}\label{dir_5b2f9b441259c0b10649ca2d307b95fc_autotoc_md537}
+Add the line below into your build configuration\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.gem\ :core\ =>\ 'mruby-\/pack'}
+
+\end{DoxyCode}
+
+
+There is no dependency on other mrbgems.\hypertarget{dir_5b2f9b441259c0b10649ca2d307b95fc_autotoc_md538}{}\doxysubsection{\texorpdfstring{Supported template string}{Supported template string}}\label{dir_5b2f9b441259c0b10649ca2d307b95fc_autotoc_md538}
+
+\begin{DoxyItemize}
+\item A \+: arbitrary binary string (space padded, count is width)
+\item a \+: arbitrary binary string (null padded, count is width)
+\item B \+: bit string (descending)
+\item b \+: bit string (ascending)
+\item C \+: 8-\/bit unsigned (unsigned char)
+\item c \+: 8-\/bit signed (signed char)
+\item D, d\+: 64-\/bit float, native format
+\item E \+: 64-\/bit float, little endian byte order
+\item e \+: 32-\/bit float, little endian byte order
+\item F, f\+: 32-\/bit float, native format
+\item G \+: 64-\/bit float, network (big-\/endian) byte order
+\item g \+: 32-\/bit float, network (big-\/endian) byte order
+\item H \+: hex string (high nibble first)
+\item h \+: hex string (low nibble first)
+\item I \+: unsigned integer, native endian ({\ttfamily unsigned int} in C)
+\item i \+: signed integer, native endian ({\ttfamily int} in C)
+\item J \+: unsigned integer, native endian ({\ttfamily uintptr\+\_\+t} in C)
+\item j \+: signed integer, native endian ({\ttfamily intptr\+\_\+t} in C)
+\item L \+: 32-\/bit unsigned, native endian ({\ttfamily uint32\+\_\+t})
+\item l \+: 32-\/bit signed, native endian ({\ttfamily int32\+\_\+t})
+\item m \+: base64 encoded string (see RFC 2045, count is width)
+\item N \+: 32-\/bit unsigned, network (big-\/endian) byte order
+\item n \+: 16-\/bit unsigned, network (big-\/endian) byte order
+\item Q \+: 64-\/bit unsigned, native endian ({\ttfamily uint64\+\_\+t})
+\item q \+: 64-\/bit signed, native endian ({\ttfamily int64\+\_\+t})
+\item S \+: 16-\/bit unsigned, native endian ({\ttfamily uint16\+\_\+t})
+\item s \+: 16-\/bit signed, native endian ({\ttfamily int16\+\_\+t})
+\item U \+: UTF-\/8 character
+\item V \+: 32-\/bit unsigned, VAX (little-\/endian) byte order
+\item v \+: 16-\/bit unsigned, VAX (little-\/endian) byte order
+\item x \+: null byte
+\item Z \+: same as "{}a"{}, except that null is added with \texorpdfstring{$\ast$}{*}
+\end{DoxyItemize}\hypertarget{dir_5b2f9b441259c0b10649ca2d307b95fc_autotoc_md539}{}\doxysubsection{\texorpdfstring{License}{License}}\label{dir_5b2f9b441259c0b10649ca2d307b95fc_autotoc_md539}
+Copyright (c) 2012 Internet Initiative Japan Inc. Copyright (c) 2017 mruby developers
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "{}\+Software"{}), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions\+:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "{}\+AS IS"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 

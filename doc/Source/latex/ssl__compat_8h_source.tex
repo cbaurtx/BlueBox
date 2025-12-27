@@ -1,0 +1,61 @@
+\doxysection{ssl\+\_\+compat.\+h}
+\hypertarget{ssl__compat_8h_source}{}\label{ssl__compat_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/ssl\_compat.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/ssl\_compat.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2016\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ OPENSSL\_COMPAT\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ OPENSSL\_COMPAT\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_config.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#ifdef\ HAVE\_WOLFSSL}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#\ \ define\ NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//\ !HAVE\_WOLFSSL}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#\ \ include\ <openssl/opensslv.h>}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#\ \ ifdef\ LIBRESSL\_VERSION\_NUMBER}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#\ \ \ \ define\ NGHTTP2\_OPENSSL\_IS\_LIBRESSL}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#\ \ endif\ }\textcolor{comment}{//\ !LIBRESSL\_VERSION\_NUMBER}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#\ \ if\ defined(OPENSSL\_IS\_BORINGSSL)\ ||\ defined(OPENSSL\_IS\_AWSLC)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#\ \ \ \ define\ NGHTTP2\_OPENSSL\_IS\_BORINGSSL}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#\ \ endif\ }\textcolor{comment}{//\ OPENSSL\_IS\_BORINGSSL\ ||\ OPENSSL\_IS\_AWSLC}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#\ \ if\ !defined(NGHTTP2\_OPENSSL\_IS\_BORINGSSL)\ \&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \ \ !defined(NGHTTP2\_OPENSSL\_IS\_LIBRESSL)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#\ \ \ \ define\ NGHTTP2\_GENUINE\_OPENSSL}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#\ \ endif\ }\textcolor{comment}{//\ !NGHTTP2\_OPENSSL\_IS\_BORINGSSL\ \&\&\ !NGHTTP2\_OPENSSL\_IS\_LIBRESSL}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#\ \ ifdef\ NGHTTP2\_GENUINE\_OPENSSL}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#\ \ \ \ define\ OPENSSL\_3\_0\_0\_API\ (OPENSSL\_VERSION\_NUMBER\ >=\ 0x30000000L)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#\ \ else\ }\textcolor{comment}{//\ !NGHTTP2\_GENUINE\_OPENSSL}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#\ \ \ \ define\ OPENSSL\_3\_0\_0\_API\ 0}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#\ \ endif\ }\textcolor{comment}{//\ !NGHTTP2\_GENUINE\_OPENSSL}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#endif\ \ \ }\textcolor{comment}{//\ !HAVE\_WOLFSSL}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ OPENSSL\_COMPAT\_H}}
+
+\end{DoxyCode}

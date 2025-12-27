@@ -1,0 +1,132 @@
+\chapter{User visible changes in {\ttfamily mruby3.\+0} }
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80}{}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80}\index{User visible changes in $<$tt$>$mruby3.0$<$/tt$>$@{User visible changes in $<$tt$>$mruby3.0$<$/tt$>$}}
+\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md429}%
+\Hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md429}%
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md430}{}\doxysection{\texorpdfstring{Build System}{Build System}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md430}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md431}{}\doxysubsection{\texorpdfstring{{\ttfamily build\+\_\+config} directory}{{\ttfamily build\+\_\+config} directory}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md431}
+Typical build configuration files are located in {\ttfamily build\+\_\+config} directory. For examples\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily default}\+: the default configuration
+\item {\ttfamily host-\/gprof}\+: compiles with {\ttfamily gprof} for performance tuning
+\item {\ttfamily host-\/m32}\+: compiles in gcc 32bit mode on 64bit platforms
+\item {\ttfamily boxing}\+: compiles all three boxing options
+\item {\ttfamily clang-\/asan}\+: compiles with {\ttfamily clang}\textquotesingle{}s Address Sanitizer
+\end{DoxyItemize}
+
+You can specify the build configuration file with the {\ttfamily MRUBY\+\_\+\+CONFIG} environment variable (or {\ttfamily CONFIG} in short). If the value specified by {\ttfamily MRUBY\+\_\+\+CONFIG} is not the path to the configuration file, {\ttfamily build\+\_\+config/\$\{MRUBY\+\_\+\+CONFIG\}.rb} is used. So you can specify it as {\ttfamily rake MRUBY\+\_\+\+CONFIG=boxing}, for example.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md432}{}\doxysection{\texorpdfstring{Build Configuration Contribution}{Build Configuration Contribution}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md432}
+When you write a new build configuration description, please contribute. We welcome your contribution as a Git\+Hub pull-\/request.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md433}{}\doxysection{\texorpdfstring{Language Changes}{Language Changes}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md433}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md434}{}\doxysubsection{\texorpdfstring{New Syntax}{New Syntax}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md434}
+We have ported some new syntax from CRuby.
+
+
+\begin{DoxyItemize}
+\item Single line pattern matching ({\ttfamily 12 =\texorpdfstring{$>$}{>} x}); mruby matches only with local variables at the moment
+\item Numbered block parameter ({\ttfamily x.\+map\{\+\_\+1 \texorpdfstring{$\ast$}{*} 2\}})
+\item End-\/less {\ttfamily def} ({\ttfamily def double(x) = x\texorpdfstring{$\ast$}{*}2})
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md435}{}\doxysection{\texorpdfstring{Configuration Options Changed}{Configuration Options Changed}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md435}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md436}{}\doxysubsection{\texorpdfstring{Renamed for consistency}{Renamed for consistency}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md436}
+Some configuration macro names are changed for consistency (use {\ttfamily MRB\+\_\+\+USE\+\_\+\+XXX} or {\ttfamily MRB\+\_\+\+NO\+\_\+\+XXX}).
+
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}mruby2  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}mruby3  \\
+{\ttfamily MRB\+\_\+\+ENABLE\+\_\+\+ALL\+\_\+\+SYMBOLS}  &{\ttfamily MRB\+\_\+\+USE\+\_\+\+ALL\+\_\+\+SYMBOLS}  \\
+{\ttfamily MRB\+\_\+\+ENABLE\+\_\+\+CXX\+\_\+\+ABI}  &{\ttfamily MRB\+\_\+\+USE\+\_\+\+CXX\+\_\+\+ABI}  \\
+{\ttfamily MRB\+\_\+\+ENABLE\+\_\+\+CXX\+\_\+\+EXCEPTION}  &{\ttfamily MRB\+\_\+\+USE\+\_\+\+CXX\+\_\+\+EXCEPTION}  \\
+{\ttfamily MRB\+\_\+\+ENABLE\+\_\+\+DEBUG\+\_\+\+HOOK}  &{\ttfamily MRB\+\_\+\+USE\+\_\+\+DEBUG\+\_\+\+HOOK}  \\
+{\ttfamily MRB\+\_\+\+DISABLE\+\_\+\+DIRECT\+\_\+\+THREADING}  &{\ttfamily MRB\+\_\+\+NO\+\_\+\+DIRECT\+\_\+\+THREADING}  \\
+{\ttfamily MRB\+\_\+\+DISABLE\+\_\+\+STDIO}  &{\ttfamily MRB\+\_\+\+NO\+\_\+\+STDIO}  \\
+{\ttfamily MRB\+\_\+\+METHOD\+\_\+\+T\+\_\+\+STRUCT}  &{\ttfamily MRB\+\_\+\+USE\+\_\+\+METHOD\+\_\+\+T\+\_\+\+STRUCT}  \\
+{\ttfamily MRB\+\_\+\+USE\+\_\+\+FLOAT}  &{\ttfamily MRB\+\_\+\+USE\+\_\+\+FLOAT32}  \\
+{\ttfamily MRB\+\_\+\+WITHOUT\+\_\+\+FLOAT}  &{\ttfamily MRB\+\_\+\+NO\+\_\+\+FLOAT}  \\
+{\ttfamily ENABLE\+\_\+\+LINENOISE}  &{\ttfamily MRB\+\_\+\+USE\+\_\+\+LINENOISE}  \\
+{\ttfamily ENABLE\+\_\+\+READLINE}  &{\ttfamily MRB\+\_\+\+USE\+\_\+\+READLINE}  \\
+{\ttfamily DISABLE\+\_\+\+MIRB\+\_\+\+UNDERSCORE}  &{\ttfamily MRB\+\_\+\+NO\+\_\+\+MIRB\+\_\+\+UNDERSCORE}  \\
+\end{DoxyTable}
+
+
+
+\begin{DoxyItemize}
+\item {\ttfamily MRB\+\_\+\+USE\+\_\+\+FLOAT32} is changed from {\ttfamily MRB\+\_\+\+USE\+\_\+\+FLOAT} to make sure {\ttfamily float} here means using single-\/precision float, and not the opposite of {\ttfamily MRB\+\_\+\+NO\+\_\+\+FLOAT}.
+\item {\ttfamily MRB\+\_\+\+USE\+\_\+\+METHOD\+\_\+\+T\+\_\+\+STRUCT} uses {\ttfamily struct} version of {\ttfamily mrb\+\_\+method\+\_\+t}. More portable but consumes more memory. Turned on by default on 32bit platforms.
+\item {\ttfamily MRB\+\_\+} prefix is added to those without.
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md437}{}\doxysubsection{\texorpdfstring{{\ttfamily MRB\+\_\+\+NO\+\_\+\+BOXING}}{{\ttfamily MRB\+\_\+\+NO\+\_\+\+BOXING}}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md437}
+Uses {\ttfamily struct} to represent {\ttfamily \doxylink{structmrb__value}{mrb\+\_\+value}}. Consumes more memory but easier to investigate the internal and to debug. It used to be default {\ttfamily \doxylink{structmrb__value}{mrb\+\_\+value}} representation. Now the default is {\ttfamily MRB\+\_\+\+WORD\+\_\+\+BOXING}.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md438}{}\doxysubsection{\texorpdfstring{{\ttfamily MRB\+\_\+\+WORD\+\_\+\+BOXING}}{{\ttfamily MRB\+\_\+\+WORD\+\_\+\+BOXING}}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md438}
+Pack {\ttfamily \doxylink{structmrb__value}{mrb\+\_\+value}} in an {\ttfamily intptr\+\_\+t} integer. Consumes less memory compared to {\ttfamily MRB\+\_\+\+NO\+\_\+\+BOXING} especially on 32-\/bit platforms. {\ttfamily Fixnum} size is 31 bits so some integer values does not fit in {\ttfamily Fixnum} integers.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md439}{}\doxysubsection{\texorpdfstring{{\ttfamily MRB\+\_\+\+NAN\+\_\+\+BOXING}}{{\ttfamily MRB\+\_\+\+NAN\+\_\+\+BOXING}}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md439}
+Pack {\ttfamily \doxylink{structmrb__value}{mrb\+\_\+value}} in a floating-\/point number. Nothing changed from previous versions.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md440}{}\doxysubsection{\texorpdfstring{{\ttfamily MRB\+\_\+\+USE\+\_\+\+MALLOC\+\_\+\+TRIM}}{{\ttfamily MRB\+\_\+\+USE\+\_\+\+MALLOC\+\_\+\+TRIM}}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md440}
+Call {\ttfamily malloc\+\_\+trim(0)} from mrb\+\_\+full\+\_\+gc() if this macro is defined. If you are using glibc malloc, this macro could reduce memory consumption.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md441}{}\doxysection{\texorpdfstring{Command Line Program}{Command Line Program}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md441}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md442}{}\doxysubsection{\texorpdfstring{{\ttfamily bin/mruby} (by mrbgems/mruby-\/bin-\/mruby)}{{\ttfamily bin/mruby} (by mrbgems/mruby-\/bin-\/mruby)}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md442}
+The mruby3 now automatically detects {\ttfamily \texorpdfstring{$\ast$}{*}.mrb} files without the {\ttfamily -\/b} switch. Therefore, it can be mixed with the {\ttfamily \texorpdfstring{$\ast$}{*}.rb} file in combination with the {\ttfamily -\/r} switch and specified at the same time. Here\textquotesingle{}s an example that works fine\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ bin/mruby\ app.mrb}
+\DoxyCodeLine{\$\ bin/mruby\ -\/r\ lib1.mrb\ -\/r\ lib2.rb\ app.rb}
+\DoxyCodeLine{\$\ bin/mruby\ -\/r\ lib1.rb\ -\/r\ lib2.rb\ <\ app.mrb}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md443}{}\doxysection{\texorpdfstring{Internal Changes}{Internal Changes}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md443}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md444}{}\doxysubsection{\texorpdfstring{New Instructions}{New Instructions}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md444}
+{\ttfamily mruby3} introduces a few new instructions.
+
+Instructions that access pool\mbox{[}i\mbox{]}/syms\mbox{[}i\mbox{]} where i\texorpdfstring{$>$}{>}255.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily OP\+\_\+\+LOADL16}
+\item {\ttfamily OP\+\_\+\+STRING16}
+\item {\ttfamily OP\+\_\+\+LOADSYM16}
+\end{DoxyItemize}
+
+Instructions that load a 32-\/bit integer.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily OP\+\_\+\+LOADI32}
+\end{DoxyItemize}
+
+Instruction that unwinds jump table for rescue/ensure.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily OP\+\_\+\+JMPUW}
+\end{DoxyItemize}
+
+Renamed from {\ttfamily OP\+\_\+\+RAISE}
+
+
+\begin{DoxyItemize}
+\item {\ttfamily OP\+\_\+\+RAISEIF}
+\end{DoxyItemize}
+
+Instruction that is reserved for the future keyword argument support.
+
+
+\begin{DoxyItemize}
+\item OP\+\_\+\+SENDVK
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md445}{}\doxysubsection{\texorpdfstring{Removed Instructions}{Removed Instructions}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md445}
+Instructions for old exception handling
+
+
+\begin{DoxyItemize}
+\item {\ttfamily OP\+\_\+\+ONERR}
+\item {\ttfamily OP\+\_\+\+POPERR}
+\item {\ttfamily OP\+\_\+\+EPUSH}
+\item {\ttfamily OP\+\_\+\+EPOP}
+\end{DoxyItemize}
+
+No more operand extension
+
+
+\begin{DoxyItemize}
+\item {\ttfamily OP\+\_\+\+EXT1}
+\item {\ttfamily OP\+\_\+\+EXT2}
+\item {\ttfamily OP\+\_\+\+EXT3}
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md446}{}\doxysubsection{\texorpdfstring{Changed Instructions}{Changed Instructions}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md446}
+Jump addresses used to be specified by absolute offset from the start of {\ttfamily iseq}. Now they are relative offset from the address of the next instruction.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md447}{}\doxysubsection{\texorpdfstring{{\ttfamily Random} now use {\ttfamily xoshiro128++}.}{{\ttfamily Random} now use {\ttfamily xoshiro128++}.}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md447}
+For better and faster random number generation.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md448}{}\doxysubsection{\texorpdfstring{Preallocated Symbol}{Preallocated Symbol}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_80_autotoc_md448}
+Preallocated symbols are interned at compile-\/time. They can be accessed via symbols macros (e.\+g. {\ttfamily MRB\+\_\+\+SYM()}).
+
+See \doxysectlink{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2symbol}{Symbols}{0}. 

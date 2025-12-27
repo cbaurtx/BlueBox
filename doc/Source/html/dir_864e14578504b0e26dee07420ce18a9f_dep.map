@@ -1,0 +1,15 @@
+<map id="managed_components/espressif__esp&#45;dsp/modules/windows" name="managed_components/espressif__esp&#45;dsp/modules/windows">
+<area shape="rect" id="node2" href="dir_c239f9df468bf0a6bd72a9d9d96956c6.html" title="blackman" alt="" coords="133,64,211,91"/>
+<area shape="rect" id="node3" href="dir_fa57547df96220a12de80c90e8eefc26.html" title="blackman_harris" alt="" coords="235,64,352,91"/>
+<area shape="rect" id="node4" href="dir_2b86455109eadde1a55c476157dde51c.html" title="blackman_nuttall" alt="" coords="375,64,494,91"/>
+<area shape="rect" id="node5" href="dir_433c679dfca383115b47e61c43c6589e.html" title="flat_top" alt="" coords="518,64,583,91"/>
+<area shape="rect" id="node6" href="dir_36783d405ea879f66cd070539f3f2e70.html" title="hann" alt="" coords="607,64,657,91"/>
+<area shape="rect" id="node7" href="dir_5d932f4cf92a67bbeafa496a1f19b23d.html" title="include" alt="" coords="681,64,743,91"/>
+<area shape="rect" id="node8" href="dir_55092432bffb91b901da92c76079e28b.html" title="nuttall" alt="" coords="768,64,824,91"/>
+<area shape="rect" id="node9" href="dir_eff1649b2ea4bbeada76ac04fd6e1f6f.html" title="test" alt="" coords="848,64,891,91"/>
+<area shape="rect" id="node10" href="dir_9daa05842a3b93b9b84970416d2aacb6.html" title="espressif__nghttp" alt="" coords="807,139,932,165"/>
+<area shape="poly" id="edge1" href="dir_000383_000077.html" alt="" coords="871,89,871,125,867,121,867,93"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000383_000077.html" title="1" alt="" coords="874,112,881,128"/>
+<area shape="rect" id="clust2" href="dir_864e14578504b0e26dee07420ce18a9f.html" alt="" coords="27,53,901,101"/>
+<area shape="rect" id="clust1" href="dir_3bf3a97e32185532199c0772cc9a670c.html" title="modules" alt="" coords="16,16,912,112"/>
+</map>

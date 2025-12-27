@@ -1,0 +1,158 @@
+\doxysection{dump.\+h}
+\hypertarget{dump_8h_source}{}\label{dump_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/dump.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/dump.h}}
+\mbox{\hyperlink{dump_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_DUMP\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_DUMP\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{mruby_8h}{mruby.h}}>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{irep_8h}{mruby/irep.h}}>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{common_8h}{common.h}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00017\ \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\_BEGIN\_DECL}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{/*\ flags\ for\ mrb\_dump\_irep\{,\_binary,\_cfunc,\_cstruct\}\ */}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ MRB\_DUMP\_DEBUG\_INFO\ 1}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ MRB\_DUMP\_STATIC\ 2}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ DUMP\_DEBUG\_INFO\ MRB\_DUMP\_DEBUG\_INFO\ \ }\textcolor{comment}{/*\ deprecated\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#ifndef\ MRB\_NO\_STDIO}}
+\DoxyCodeLine{00025\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_load\_irep\_file(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,FILE*);}
+\DoxyCodeLine{00026\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_load\_irep\_file\_cxt(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ FILE*,\ \mbox{\hyperlink{structmrb__ccontext}{mrb\_ccontext}}*);}
+\DoxyCodeLine{00027\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}\ *mrb\_read\_irep\_file(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ FILE*);}
+\DoxyCodeLine{00028\ \textcolor{keywordtype}{int}\ mrb\_dump\_irep\_binary(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}*,\ uint8\_t,\ FILE*);}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ \textcolor{comment}{/*\ avoid\ mrb\_read\_irep();\ use\ mrb\_read\_irep\_buf()\ instead\ (may\ cause\ buffer\ overflow)\ */}}
+\DoxyCodeLine{00031\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}\ *mrb\_read\_irep(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{const}\ uint8\_t*);}
+\DoxyCodeLine{00032\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}\ *mrb\_read\_irep\_buf(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*,\ \textcolor{keywordtype}{size\_t});}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{/*\ dump/load\ error\ code}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ NOTE:\ MRB\_DUMP\_GENERAL\_FAILURE\ is\ caused\ by}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ *\ unspecified\ issues\ like\ malloc\ failed.}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ MRB\_DUMP\_OK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ MRB\_DUMP\_GENERAL\_FAILURE\ \ \ \ \ \ (-\/1)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ MRB\_DUMP\_WRITE\_FAULT\ \ \ \ \ \ \ \ \ \ (-\/2)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ MRB\_DUMP\_READ\_FAULT\ \ \ \ \ \ \ \ \ \ \ (-\/3)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ MRB\_DUMP\_INVALID\_FILE\_HEADER\ \ (-\/4)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ MRB\_DUMP\_INVALID\_IREP\ \ \ \ \ \ \ \ \ (-\/5)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ MRB\_DUMP\_INVALID\_ARGUMENT\ \ \ \ \ (-\/6)}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{/*\ null\ symbol\ length\ */}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ MRB\_DUMP\_NULL\_SYM\_LEN\ \ \ \ \ \ \ \ \ 0xFFFF}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{/*\ Rite\ Binary\ File\ header\ */}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ RITE\_BINARY\_IDENT\ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}RITE"{}}}
+\DoxyCodeLine{00052\ \textcolor{comment}{/*\ Binary\ Format\ Version\ Major:Minor\ */}}
+\DoxyCodeLine{00053\ \textcolor{comment}{/*\ \ \ Major:\ Incompatible\ to\ prior\ versions\ */}}
+\DoxyCodeLine{00054\ \textcolor{comment}{/*\ \ \ Minor:\ Upper-\/compatible\ to\ prior\ versions\ */}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ RITE\_BINARY\_MAJOR\_VER\ \ \ \ \ \ \ \ \ \ "{}03"{}}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ RITE\_BINARY\_MINOR\_VER\ \ \ \ \ \ \ \ \ \ "{}00"{}}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ RITE\_BINARY\_FORMAT\_VER\ \ \ \ \ \ \ \ \ RITE\_BINARY\_MAJOR\_VER\ RITE\_BINARY\_MINOR\_VER}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ RITE\_COMPILER\_NAME\ \ \ \ \ \ \ \ \ \ \ \ \ "{}MATZ"{}}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ RITE\_COMPILER\_VERSION\ \ \ \ \ \ \ \ \ \ "{}0000"{}}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ RITE\_VM\_VER\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}0300"{}}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ RITE\_BINARY\_EOF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}END\(\backslash\)0"{}}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ RITE\_SECTION\_IREP\_IDENT\ \ \ \ \ \ \ \ "{}IREP"{}}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ RITE\_SECTION\_DEBUG\_IDENT\ \ \ \ \ \ \ "{}DBG\(\backslash\)0"{}}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ RITE\_SECTION\_LV\_IDENT\ \ \ \ \ \ \ \ \ \ "{}LVAR"{}}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ MRB\_DUMP\_DEFAULT\_STR\_LEN\ \ \ \ \ \ 128}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ MRB\_DUMP\_ALIGNMENT\ \ \ \ \ \ \ \ \ \ \ \ sizeof(uint32\_t)}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{comment}{/*\ binary\ header\ */}}
+\DoxyCodeLine{00072\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrite__binary__header}{rite\_binary\_header}}\ \{}
+\DoxyCodeLine{00073\ \ \ uint8\_t\ binary\_ident[4];\ \ \ \ \textcolor{comment}{/*\ Binary\ Identifier\ */}}
+\DoxyCodeLine{00074\ \ \ uint8\_t\ major\_version[2];\ \ \ \textcolor{comment}{/*\ Binary\ Format\ Major\ Version\ */}}
+\DoxyCodeLine{00075\ \ \ uint8\_t\ minor\_version[2];\ \ \ \textcolor{comment}{/*\ Binary\ Format\ Minor\ Version\ */}}
+\DoxyCodeLine{00076\ \ \ uint8\_t\ binary\_size[4];\ \ \ \ \ \textcolor{comment}{/*\ Binary\ Size\ */}}
+\DoxyCodeLine{00077\ \ \ uint8\_t\ compiler\_name[4];\ \ \ \textcolor{comment}{/*\ Compiler\ name\ */}}
+\DoxyCodeLine{00078\ \ \ uint8\_t\ compiler\_version[4];}
+\DoxyCodeLine{00079\ \};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{comment}{/*\ section\ header\ */}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ RITE\_SECTION\_HEADER\ \(\backslash\)}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\ \ uint8\_t\ section\_ident[4];\ \(\backslash\)}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\ \ uint8\_t\ section\_size[4]}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrite__section__header}{rite\_section\_header}}\ \{}
+\DoxyCodeLine{00087\ \ \ RITE\_SECTION\_HEADER;}
+\DoxyCodeLine{00088\ \};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrite__section__irep__header}{rite\_section\_irep\_header}}\ \{}
+\DoxyCodeLine{00091\ \ \ RITE\_SECTION\_HEADER;}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ uint8\_t\ rite\_version[4];\ \ \ \ \textcolor{comment}{/*\ Rite\ Instruction\ Specification\ Version\ */}}
+\DoxyCodeLine{00094\ \};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrite__section__debug__header}{rite\_section\_debug\_header}}\ \{}
+\DoxyCodeLine{00097\ \ \ RITE\_SECTION\_HEADER;}
+\DoxyCodeLine{00098\ \};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrite__section__lv__header}{rite\_section\_lv\_header}}\ \{}
+\DoxyCodeLine{00101\ \ \ RITE\_SECTION\_HEADER;}
+\DoxyCodeLine{00102\ \};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ RITE\_LV\_NULL\_MARK\ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT16\_MAX}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrite__binary__footer}{rite\_binary\_footer}}\ \{}
+\DoxyCodeLine{00107\ \ \ RITE\_SECTION\_HEADER;}
+\DoxyCodeLine{00108\ \};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}}
+\DoxyCodeLine{00111\ uint8\_to\_bin(uint8\_t\ s,\ uint8\_t\ *bin)}
+\DoxyCodeLine{00112\ \{}
+\DoxyCodeLine{00113\ \ \ *bin\ =\ s;}
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{sizeof}(uint8\_t);}
+\DoxyCodeLine{00115\ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}}
+\DoxyCodeLine{00118\ uint16\_to\_bin(uint16\_t\ s,\ uint8\_t\ *bin)}
+\DoxyCodeLine{00119\ \{}
+\DoxyCodeLine{00120\ \ \ *bin++\ =\ (s\ >>\ 8)\ \&\ 0xff;}
+\DoxyCodeLine{00121\ \ \ *bin\ \ \ =\ s\ \&\ 0xff;}
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{sizeof}(uint16\_t);}
+\DoxyCodeLine{00123\ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}}
+\DoxyCodeLine{00126\ uint32\_to\_bin(uint32\_t\ l,\ uint8\_t\ *bin)}
+\DoxyCodeLine{00127\ \{}
+\DoxyCodeLine{00128\ \ \ *bin++\ =\ (l\ >>\ 24)\ \&\ 0xff;}
+\DoxyCodeLine{00129\ \ \ *bin++\ =\ (l\ >>\ 16)\ \&\ 0xff;}
+\DoxyCodeLine{00130\ \ \ *bin++\ =\ (l\ >>\ 8)\ \&\ 0xff;}
+\DoxyCodeLine{00131\ \ \ *bin\ \ \ =\ l\ \&\ 0xff;}
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{sizeof}(uint32\_t);}
+\DoxyCodeLine{00133\ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint32\_t}
+\DoxyCodeLine{00136\ bin\_to\_uint32(\textcolor{keyword}{const}\ uint8\_t\ *bin)}
+\DoxyCodeLine{00137\ \{}
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordflow}{return}\ (uint32\_t)bin[0]\ <<\ 24\ |}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ (uint32\_t)bin[1]\ <<\ 16\ |}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ (uint32\_t)bin[2]\ <<\ 8\ \ |}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ (uint32\_t)bin[3];}
+\DoxyCodeLine{00142\ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint16\_t}
+\DoxyCodeLine{00145\ bin\_to\_uint16(\textcolor{keyword}{const}\ uint8\_t\ *bin)}
+\DoxyCodeLine{00146\ \{}
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordflow}{return}\ (uint16\_t)bin[0]\ <<\ 8\ |}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ (uint16\_t)bin[1];}
+\DoxyCodeLine{00149\ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint8\_t}
+\DoxyCodeLine{00152\ bin\_to\_uint8(\textcolor{keyword}{const}\ uint8\_t\ *bin)}
+\DoxyCodeLine{00153\ \{}
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordflow}{return}\ (uint8\_t)bin[0];}
+\DoxyCodeLine{00155\ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \mbox{\hyperlink{common_8h_a7e9674ff871a8abbcaf9ba23fa4b72d3}{MRB\_END\_DECL}}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_DUMP\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

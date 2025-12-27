@@ -1,0 +1,49 @@
+\doxysection{object.\+h}
+\hypertarget{object_8h_source}{}\label{object_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/object.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/object.h}}
+\mbox{\hyperlink{object_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_OBJECT\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_OBJECT\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ MRB\_OBJECT\_HEADER\ \(\backslash\)}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\ \ struct\ RClass\ *c;\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \ struct\ RBasic\ *gcnext;\ \ \(\backslash\)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\ \ enum\ mrb\_vtype\ tt:8;\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\ \ uint32\_t\ color:3;\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\ \ uint32\_t\ flags:21}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ MRB\_FLAG\_TEST(obj,\ flag)\ ((obj)-\/>flags\ \&\ (flag))}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRBasic}{RBasic}}\ \{}
+\DoxyCodeLine{00020\ \ \ MRB\_OBJECT\_HEADER;}
+\DoxyCodeLine{00021\ \};}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ mrb\_basic\_ptr(v)\ ((struct\ RBasic*)(mrb\_ptr(v)))}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ MRB\_FL\_OBJ\_IS\_FROZEN\ (1\ <<\ 20)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ MRB\_FROZEN\_P(o)\ ((o)-\/>flags\ \&\ MRB\_FL\_OBJ\_IS\_FROZEN)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ MRB\_SET\_FROZEN\_FLAG(o)\ ((o)-\/>flags\ |=\ MRB\_FL\_OBJ\_IS\_FROZEN)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ MRB\_UNSET\_FROZEN\_FLAG(o)\ ((o)-\/>flags\ \&=\ \string~MRB\_FL\_OBJ\_IS\_FROZEN)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ mrb\_frozen\_p(o)\ MRB\_FROZEN\_P(o)}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRObject}{RObject}}\ \{}
+\DoxyCodeLine{00031\ \ \ MRB\_OBJECT\_HEADER;}
+\DoxyCodeLine{00032\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structiv__tbl}{iv\_tbl}}\ *iv;}
+\DoxyCodeLine{00033\ \};}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ mrb\_obj\_ptr(v)\ \ \ ((struct\ RObject*)(mrb\_ptr(v)))}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ mrb\_special\_const\_p(x)\ mrb\_immediate\_p(x)}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRFiber}{RFiber}}\ \{}
+\DoxyCodeLine{00039\ \ \ MRB\_OBJECT\_HEADER;}
+\DoxyCodeLine{00040\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__context}{mrb\_context}}\ *cxt;}
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ mrb\_static\_assert\_object\_size(st)\ \(\backslash\)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ mrb\_static\_assert(sizeof(st)\ <=\ sizeof(void*)\ *\ 6,\ \(\backslash\)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#st\ "{}\ size\ must\ be\ within\ 6\ words"{})}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_OBJECT\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

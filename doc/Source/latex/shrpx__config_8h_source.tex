@@ -1,0 +1,1422 @@
+\doxysection{shrpx\+\_\+config.\+h}
+\hypertarget{shrpx__config_8h_source}{}\label{shrpx__config_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_config.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_config.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_CONFIG\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_CONFIG\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <sys/types.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifdef\ HAVE\_SYS\_SOCKET\_H}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#\ \ include\ <sys/socket.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ HAVE\_SYS\_SOCKET\_H}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <sys/un.h>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#ifdef\ HAVE\_NETINET\_IN\_H}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#\ \ include\ <netinet/in.h>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ HAVE\_NETINET\_IN\_H}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#ifdef\ HAVE\_ARPA\_INET\_H}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#\ \ include\ <arpa/inet.h>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ HAVE\_ARPA\_INET\_H}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <cinttypes>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <cstdio>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ <set>}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}ssl\_compat.h"{}}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifdef\ NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/options.h>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/openssl/ssl.h>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//\ !NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#\ \ include\ <openssl/ssl.h>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <ev.h>}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ "{}shrpx\_log.h"{}}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#include\ "{}shrpx\_router.h"{}}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#if\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#\ \ include\ "{}shrpx\_quic.h"{}}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#include\ "{}template.h"{}}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#include\ "{}http2.h"{}}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#include\ "{}network.h"{}}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#include\ "{}allocator.h"{}}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{using\ namespace\ }nghttp2;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1LogFragment}{LogFragment}};}
+\DoxyCodeLine{00076\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1ConnectBlocker}{ConnectBlocker}};}
+\DoxyCodeLine{00077\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1Http2Session}{Http2Session}};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{namespace\ }tls\ \{}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1tls_1_1CertLookupTree}{CertLookupTree}};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \}\ \textcolor{comment}{//\ namespace\ tls}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_PRIVATE\_KEY\_FILE\ =\ \textcolor{stringliteral}{"{}private-\/key-\/file"{}}\_sr;}
+\DoxyCodeLine{00086\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_PRIVATE\_KEY\_PASSWD\_FILE\ =\ \textcolor{stringliteral}{"{}private-\/key-\/passwd-\/file"{}}\_sr;}
+\DoxyCodeLine{00087\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_CERTIFICATE\_FILE\ =\ \textcolor{stringliteral}{"{}certificate-\/file"{}}\_sr;}
+\DoxyCodeLine{00088\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_DH\_PARAM\_FILE\ =\ \textcolor{stringliteral}{"{}dh-\/param-\/file"{}}\_sr;}
+\DoxyCodeLine{00089\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_SUBCERT\ =\ \textcolor{stringliteral}{"{}subcert"{}}\_sr;}
+\DoxyCodeLine{00090\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\ =\ \textcolor{stringliteral}{"{}backend"{}}\_sr;}
+\DoxyCodeLine{00091\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\ =\ \textcolor{stringliteral}{"{}frontend"{}}\_sr;}
+\DoxyCodeLine{00092\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_WORKERS\ =\ \textcolor{stringliteral}{"{}workers"{}}\_sr;}
+\DoxyCodeLine{00093\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_HTTP2\_MAX\_CONCURRENT\_STREAMS\ =}
+\DoxyCodeLine{00094\ \ \ \textcolor{stringliteral}{"{}http2-\/max-\/concurrent-\/streams"{}}\_sr;}
+\DoxyCodeLine{00095\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_LOG\_LEVEL\ =\ \textcolor{stringliteral}{"{}log-\/level"{}}\_sr;}
+\DoxyCodeLine{00096\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_DAEMON\ =\ \textcolor{stringliteral}{"{}daemon"{}}\_sr;}
+\DoxyCodeLine{00097\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_HTTP2\_PROXY\ =\ \textcolor{stringliteral}{"{}http2-\/proxy"{}}\_sr;}
+\DoxyCodeLine{00098\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_HTTP2\_BRIDGE\ =\ \textcolor{stringliteral}{"{}http2-\/bridge"{}}\_sr;}
+\DoxyCodeLine{00099\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_CLIENT\_PROXY\ =\ \textcolor{stringliteral}{"{}client-\/proxy"{}}\_sr;}
+\DoxyCodeLine{00100\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_ADD\_X\_FORWARDED\_FOR\ =\ \textcolor{stringliteral}{"{}add-\/x-\/forwarded-\/for"{}}\_sr;}
+\DoxyCodeLine{00101\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_STRIP\_INCOMING\_X\_FORWARDED\_FOR\ =}
+\DoxyCodeLine{00102\ \ \ \textcolor{stringliteral}{"{}strip-\/incoming-\/x-\/forwarded-\/for"{}}\_sr;}
+\DoxyCodeLine{00103\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_NO\_VIA\ =\ \textcolor{stringliteral}{"{}no-\/via"{}}\_sr;}
+\DoxyCodeLine{00104\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP2\_READ\_TIMEOUT\ =}
+\DoxyCodeLine{00105\ \ \ \textcolor{stringliteral}{"{}frontend-\/http2-\/read-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00106\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_READ\_TIMEOUT\ =\ \textcolor{stringliteral}{"{}frontend-\/read-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00107\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_WRITE\_TIMEOUT\ =\ \textcolor{stringliteral}{"{}frontend-\/write-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00108\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_READ\_TIMEOUT\ =\ \textcolor{stringliteral}{"{}backend-\/read-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00109\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_WRITE\_TIMEOUT\ =\ \textcolor{stringliteral}{"{}backend-\/write-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00110\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_STREAM\_READ\_TIMEOUT\ =\ \textcolor{stringliteral}{"{}stream-\/read-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00111\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_STREAM\_WRITE\_TIMEOUT\ =\ \textcolor{stringliteral}{"{}stream-\/write-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00112\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_ACCESSLOG\_FILE\ =\ \textcolor{stringliteral}{"{}accesslog-\/file"{}}\_sr;}
+\DoxyCodeLine{00113\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_ACCESSLOG\_SYSLOG\ =\ \textcolor{stringliteral}{"{}accesslog-\/syslog"{}}\_sr;}
+\DoxyCodeLine{00114\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_ACCESSLOG\_FORMAT\ =\ \textcolor{stringliteral}{"{}accesslog-\/format"{}}\_sr;}
+\DoxyCodeLine{00115\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_ERRORLOG\_FILE\ =\ \textcolor{stringliteral}{"{}errorlog-\/file"{}}\_sr;}
+\DoxyCodeLine{00116\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_ERRORLOG\_SYSLOG\ =\ \textcolor{stringliteral}{"{}errorlog-\/syslog"{}}\_sr;}
+\DoxyCodeLine{00117\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_KEEP\_ALIVE\_TIMEOUT\ =}
+\DoxyCodeLine{00118\ \ \ \textcolor{stringliteral}{"{}backend-\/keep-\/alive-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00119\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP2\_WINDOW\_BITS\ =}
+\DoxyCodeLine{00120\ \ \ \textcolor{stringliteral}{"{}frontend-\/http2-\/window-\/bits"{}}\_sr;}
+\DoxyCodeLine{00121\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_HTTP2\_WINDOW\_BITS\ =}
+\DoxyCodeLine{00122\ \ \ \textcolor{stringliteral}{"{}backend-\/http2-\/window-\/bits"{}}\_sr;}
+\DoxyCodeLine{00123\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP2\_CONNECTION\_WINDOW\_BITS\ =}
+\DoxyCodeLine{00124\ \ \ \textcolor{stringliteral}{"{}frontend-\/http2-\/connection-\/window-\/bits"{}}\_sr;}
+\DoxyCodeLine{00125\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_HTTP2\_CONNECTION\_WINDOW\_BITS\ =}
+\DoxyCodeLine{00126\ \ \ \textcolor{stringliteral}{"{}backend-\/http2-\/connection-\/window-\/bits"{}}\_sr;}
+\DoxyCodeLine{00127\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_NO\_TLS\ =\ \textcolor{stringliteral}{"{}frontend-\/no-\/tls"{}}\_sr;}
+\DoxyCodeLine{00128\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_NO\_TLS\ =\ \textcolor{stringliteral}{"{}backend-\/no-\/tls"{}}\_sr;}
+\DoxyCodeLine{00129\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_TLS\_SNI\_FIELD\ =\ \textcolor{stringliteral}{"{}backend-\/tls-\/sni-\/field"{}}\_sr;}
+\DoxyCodeLine{00130\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_PID\_FILE\ =\ \textcolor{stringliteral}{"{}pid-\/file"{}}\_sr;}
+\DoxyCodeLine{00131\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_USER\ =\ \textcolor{stringliteral}{"{}user"{}}\_sr;}
+\DoxyCodeLine{00132\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_SYSLOG\_FACILITY\ =\ \textcolor{stringliteral}{"{}syslog-\/facility"{}}\_sr;}
+\DoxyCodeLine{00133\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKLOG\ =\ \textcolor{stringliteral}{"{}backlog"{}}\_sr;}
+\DoxyCodeLine{00134\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_CIPHERS\ =\ \textcolor{stringliteral}{"{}ciphers"{}}\_sr;}
+\DoxyCodeLine{00135\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_CLIENT\ =\ \textcolor{stringliteral}{"{}client"{}}\_sr;}
+\DoxyCodeLine{00136\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_INSECURE\ =\ \textcolor{stringliteral}{"{}insecure"{}}\_sr;}
+\DoxyCodeLine{00137\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_CACERT\ =\ \textcolor{stringliteral}{"{}cacert"{}}\_sr;}
+\DoxyCodeLine{00138\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_IPV4\ =\ \textcolor{stringliteral}{"{}backend-\/ipv4"{}}\_sr;}
+\DoxyCodeLine{00139\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_IPV6\ =\ \textcolor{stringliteral}{"{}backend-\/ipv6"{}}\_sr;}
+\DoxyCodeLine{00140\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_HTTP\_PROXY\_URI\ =\ \textcolor{stringliteral}{"{}backend-\/http-\/proxy-\/uri"{}}\_sr;}
+\DoxyCodeLine{00141\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_READ\_RATE\ =\ \textcolor{stringliteral}{"{}read-\/rate"{}}\_sr;}
+\DoxyCodeLine{00142\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_READ\_BURST\ =\ \textcolor{stringliteral}{"{}read-\/burst"{}}\_sr;}
+\DoxyCodeLine{00143\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_WRITE\_RATE\ =\ \textcolor{stringliteral}{"{}write-\/rate"{}}\_sr;}
+\DoxyCodeLine{00144\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_WRITE\_BURST\ =\ \textcolor{stringliteral}{"{}write-\/burst"{}}\_sr;}
+\DoxyCodeLine{00145\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_WORKER\_READ\_RATE\ =\ \textcolor{stringliteral}{"{}worker-\/read-\/rate"{}}\_sr;}
+\DoxyCodeLine{00146\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_WORKER\_READ\_BURST\ =\ \textcolor{stringliteral}{"{}worker-\/read-\/burst"{}}\_sr;}
+\DoxyCodeLine{00147\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_WORKER\_WRITE\_RATE\ =\ \textcolor{stringliteral}{"{}worker-\/write-\/rate"{}}\_sr;}
+\DoxyCodeLine{00148\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_WORKER\_WRITE\_BURST\ =\ \textcolor{stringliteral}{"{}worker-\/write-\/burst"{}}\_sr;}
+\DoxyCodeLine{00149\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_NPN\_LIST\ =\ \textcolor{stringliteral}{"{}npn-\/list"{}}\_sr;}
+\DoxyCodeLine{00150\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_PROTO\_LIST\ =\ \textcolor{stringliteral}{"{}tls-\/proto-\/list"{}}\_sr;}
+\DoxyCodeLine{00151\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_VERIFY\_CLIENT\ =\ \textcolor{stringliteral}{"{}verify-\/client"{}}\_sr;}
+\DoxyCodeLine{00152\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_VERIFY\_CLIENT\_CACERT\ =\ \textcolor{stringliteral}{"{}verify-\/client-\/cacert"{}}\_sr;}
+\DoxyCodeLine{00153\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_CLIENT\_PRIVATE\_KEY\_FILE\ =\ \textcolor{stringliteral}{"{}client-\/private-\/key-\/file"{}}\_sr;}
+\DoxyCodeLine{00154\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_CLIENT\_CERT\_FILE\ =\ \textcolor{stringliteral}{"{}client-\/cert-\/file"{}}\_sr;}
+\DoxyCodeLine{00155\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP2\_DUMP\_REQUEST\_HEADER\ =}
+\DoxyCodeLine{00156\ \ \ \textcolor{stringliteral}{"{}frontend-\/http2-\/dump-\/request-\/header"{}}\_sr;}
+\DoxyCodeLine{00157\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP2\_DUMP\_RESPONSE\_HEADER\ =}
+\DoxyCodeLine{00158\ \ \ \textcolor{stringliteral}{"{}frontend-\/http2-\/dump-\/response-\/header"{}}\_sr;}
+\DoxyCodeLine{00159\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_HTTP2\_NO\_COOKIE\_CRUMBLING\ =}
+\DoxyCodeLine{00160\ \ \ \textcolor{stringliteral}{"{}http2-\/no-\/cookie-\/crumbling"{}}\_sr;}
+\DoxyCodeLine{00161\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_FRAME\_DEBUG\ =\ \textcolor{stringliteral}{"{}frontend-\/frame-\/debug"{}}\_sr;}
+\DoxyCodeLine{00162\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_PADDING\ =\ \textcolor{stringliteral}{"{}padding"{}}\_sr;}
+\DoxyCodeLine{00163\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_ALTSVC\ =\ \textcolor{stringliteral}{"{}altsvc"{}}\_sr;}
+\DoxyCodeLine{00164\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_ADD\_REQUEST\_HEADER\ =\ \textcolor{stringliteral}{"{}add-\/request-\/header"{}}\_sr;}
+\DoxyCodeLine{00165\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_ADD\_RESPONSE\_HEADER\ =\ \textcolor{stringliteral}{"{}add-\/response-\/header"{}}\_sr;}
+\DoxyCodeLine{00166\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_WORKER\_FRONTEND\_CONNECTIONS\ =}
+\DoxyCodeLine{00167\ \ \ \textcolor{stringliteral}{"{}worker-\/frontend-\/connections"{}}\_sr;}
+\DoxyCodeLine{00168\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_NO\_LOCATION\_REWRITE\ =\ \textcolor{stringliteral}{"{}no-\/location-\/rewrite"{}}\_sr;}
+\DoxyCodeLine{00169\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_NO\_HOST\_REWRITE\ =\ \textcolor{stringliteral}{"{}no-\/host-\/rewrite"{}}\_sr;}
+\DoxyCodeLine{00170\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_HTTP1\_CONNECTIONS\_PER\_HOST\ =}
+\DoxyCodeLine{00171\ \ \ \textcolor{stringliteral}{"{}backend-\/http1-\/connections-\/per-\/host"{}}\_sr;}
+\DoxyCodeLine{00172\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_HTTP1\_CONNECTIONS\_PER\_FRONTEND\ =}
+\DoxyCodeLine{00173\ \ \ \textcolor{stringliteral}{"{}backend-\/http1-\/connections-\/per-\/frontend"{}}\_sr;}
+\DoxyCodeLine{00174\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_LISTENER\_DISABLE\_TIMEOUT\ =}
+\DoxyCodeLine{00175\ \ \ \textcolor{stringliteral}{"{}listener-\/disable-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00176\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_TICKET\_KEY\_FILE\ =\ \textcolor{stringliteral}{"{}tls-\/ticket-\/key-\/file"{}}\_sr;}
+\DoxyCodeLine{00177\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_RLIMIT\_NOFILE\ =\ \textcolor{stringliteral}{"{}rlimit-\/nofile"{}}\_sr;}
+\DoxyCodeLine{00178\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_REQUEST\_BUFFER\ =\ \textcolor{stringliteral}{"{}backend-\/request-\/buffer"{}}\_sr;}
+\DoxyCodeLine{00179\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_RESPONSE\_BUFFER\ =\ \textcolor{stringliteral}{"{}backend-\/response-\/buffer"{}}\_sr;}
+\DoxyCodeLine{00180\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_NO\_SERVER\_PUSH\ =\ \textcolor{stringliteral}{"{}no-\/server-\/push"{}}\_sr;}
+\DoxyCodeLine{00181\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_HTTP2\_CONNECTIONS\_PER\_WORKER\ =}
+\DoxyCodeLine{00182\ \ \ \textcolor{stringliteral}{"{}backend-\/http2-\/connections-\/per-\/worker"{}}\_sr;}
+\DoxyCodeLine{00183\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FETCH\_OCSP\_RESPONSE\_FILE\ =}
+\DoxyCodeLine{00184\ \ \ \textcolor{stringliteral}{"{}fetch-\/ocsp-\/response-\/file"{}}\_sr;}
+\DoxyCodeLine{00185\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_OCSP\_UPDATE\_INTERVAL\ =\ \textcolor{stringliteral}{"{}ocsp-\/update-\/interval"{}}\_sr;}
+\DoxyCodeLine{00186\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_NO\_OCSP\ =\ \textcolor{stringliteral}{"{}no-\/ocsp"{}}\_sr;}
+\DoxyCodeLine{00187\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_HEADER\_FIELD\_BUFFER\ =\ \textcolor{stringliteral}{"{}header-\/field-\/buffer"{}}\_sr;}
+\DoxyCodeLine{00188\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_MAX\_HEADER\_FIELDS\ =\ \textcolor{stringliteral}{"{}max-\/header-\/fields"{}}\_sr;}
+\DoxyCodeLine{00189\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_INCLUDE\ =\ \textcolor{stringliteral}{"{}include"{}}\_sr;}
+\DoxyCodeLine{00190\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_TICKET\_KEY\_CIPHER\ =\ \textcolor{stringliteral}{"{}tls-\/ticket-\/key-\/cipher"{}}\_sr;}
+\DoxyCodeLine{00191\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_HOST\_REWRITE\ =\ \textcolor{stringliteral}{"{}host-\/rewrite"{}}\_sr;}
+\DoxyCodeLine{00192\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_SESSION\_CACHE\_MEMCACHED\ =}
+\DoxyCodeLine{00193\ \ \ \textcolor{stringliteral}{"{}tls-\/session-\/cache-\/memcached"{}}\_sr;}
+\DoxyCodeLine{00194\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_TICKET\_KEY\_MEMCACHED\ =}
+\DoxyCodeLine{00195\ \ \ \textcolor{stringliteral}{"{}tls-\/ticket-\/key-\/memcached"{}}\_sr;}
+\DoxyCodeLine{00196\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_TICKET\_KEY\_MEMCACHED\_INTERVAL\ =}
+\DoxyCodeLine{00197\ \ \ \textcolor{stringliteral}{"{}tls-\/ticket-\/key-\/memcached-\/interval"{}}\_sr;}
+\DoxyCodeLine{00198\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_TICKET\_KEY\_MEMCACHED\_MAX\_RETRY\ =}
+\DoxyCodeLine{00199\ \ \ \textcolor{stringliteral}{"{}tls-\/ticket-\/key-\/memcached-\/max-\/retry"{}}\_sr;}
+\DoxyCodeLine{00200\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_TICKET\_KEY\_MEMCACHED\_MAX\_FAIL\ =}
+\DoxyCodeLine{00201\ \ \ \textcolor{stringliteral}{"{}tls-\/ticket-\/key-\/memcached-\/max-\/fail"{}}\_sr;}
+\DoxyCodeLine{00202\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_MRUBY\_FILE\ =\ \textcolor{stringliteral}{"{}mruby-\/file"{}}\_sr;}
+\DoxyCodeLine{00203\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_ACCEPT\_PROXY\_PROTOCOL\ =\ \textcolor{stringliteral}{"{}accept-\/proxy-\/protocol"{}}\_sr;}
+\DoxyCodeLine{00204\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FASTOPEN\ =\ \textcolor{stringliteral}{"{}fastopen"{}}\_sr;}
+\DoxyCodeLine{00205\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_DYN\_REC\_WARMUP\_THRESHOLD\ =}
+\DoxyCodeLine{00206\ \ \ \textcolor{stringliteral}{"{}tls-\/dyn-\/rec-\/warmup-\/threshold"{}}\_sr;}
+\DoxyCodeLine{00207\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_DYN\_REC\_IDLE\_TIMEOUT\ =}
+\DoxyCodeLine{00208\ \ \ \textcolor{stringliteral}{"{}tls-\/dyn-\/rec-\/idle-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00209\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_ADD\_FORWARDED\ =\ \textcolor{stringliteral}{"{}add-\/forwarded"{}}\_sr;}
+\DoxyCodeLine{00210\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_STRIP\_INCOMING\_FORWARDED\ =}
+\DoxyCodeLine{00211\ \ \ \textcolor{stringliteral}{"{}strip-\/incoming-\/forwarded"{}}\_sr;}
+\DoxyCodeLine{00212\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FORWARDED\_BY\ =\ \textcolor{stringliteral}{"{}forwarded-\/by"{}}\_sr;}
+\DoxyCodeLine{00213\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FORWARDED\_FOR\ =\ \textcolor{stringliteral}{"{}forwarded-\/for"{}}\_sr;}
+\DoxyCodeLine{00214\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_REQUEST\_HEADER\_FIELD\_BUFFER\ =}
+\DoxyCodeLine{00215\ \ \ \textcolor{stringliteral}{"{}request-\/header-\/field-\/buffer"{}}\_sr;}
+\DoxyCodeLine{00216\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_MAX\_REQUEST\_HEADER\_FIELDS\ =}
+\DoxyCodeLine{00217\ \ \ \textcolor{stringliteral}{"{}max-\/request-\/header-\/fields"{}}\_sr;}
+\DoxyCodeLine{00218\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_RESPONSE\_HEADER\_FIELD\_BUFFER\ =}
+\DoxyCodeLine{00219\ \ \ \textcolor{stringliteral}{"{}response-\/header-\/field-\/buffer"{}}\_sr;}
+\DoxyCodeLine{00220\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_MAX\_RESPONSE\_HEADER\_FIELDS\ =}
+\DoxyCodeLine{00221\ \ \ \textcolor{stringliteral}{"{}max-\/response-\/header-\/fields"{}}\_sr;}
+\DoxyCodeLine{00222\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_NO\_HTTP2\_CIPHER\_BLOCK\_LIST\ =}
+\DoxyCodeLine{00223\ \ \ \textcolor{stringliteral}{"{}no-\/http2-\/cipher-\/block-\/list"{}}\_sr;}
+\DoxyCodeLine{00224\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_NO\_HTTP2\_CIPHER\_BLACK\_LIST\ =}
+\DoxyCodeLine{00225\ \ \ \textcolor{stringliteral}{"{}no-\/http2-\/cipher-\/black-\/list"{}}\_sr;}
+\DoxyCodeLine{00226\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_HTTP1\_TLS\ =\ \textcolor{stringliteral}{"{}backend-\/http1-\/tls"{}}\_sr;}
+\DoxyCodeLine{00227\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_SESSION\_CACHE\_MEMCACHED\_TLS\ =}
+\DoxyCodeLine{00228\ \ \ \textcolor{stringliteral}{"{}tls-\/session-\/cache-\/memcached-\/tls"{}}\_sr;}
+\DoxyCodeLine{00229\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_SESSION\_CACHE\_MEMCACHED\_CERT\_FILE\ =}
+\DoxyCodeLine{00230\ \ \ \textcolor{stringliteral}{"{}tls-\/session-\/cache-\/memcached-\/cert-\/file"{}}\_sr;}
+\DoxyCodeLine{00231\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_SESSION\_CACHE\_MEMCACHED\_PRIVATE\_KEY\_FILE\ =}
+\DoxyCodeLine{00232\ \ \ \textcolor{stringliteral}{"{}tls-\/session-\/cache-\/memcached-\/private-\/key-\/file"{}}\_sr;}
+\DoxyCodeLine{00233\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_SESSION\_CACHE\_MEMCACHED\_ADDRESS\_FAMILY\ =}
+\DoxyCodeLine{00234\ \ \ \textcolor{stringliteral}{"{}tls-\/session-\/cache-\/memcached-\/address-\/family"{}}\_sr;}
+\DoxyCodeLine{00235\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_TICKET\_KEY\_MEMCACHED\_TLS\ =}
+\DoxyCodeLine{00236\ \ \ \textcolor{stringliteral}{"{}tls-\/ticket-\/key-\/memcached-\/tls"{}}\_sr;}
+\DoxyCodeLine{00237\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_TICKET\_KEY\_MEMCACHED\_CERT\_FILE\ =}
+\DoxyCodeLine{00238\ \ \ \textcolor{stringliteral}{"{}tls-\/ticket-\/key-\/memcached-\/cert-\/file"{}}\_sr;}
+\DoxyCodeLine{00239\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_TICKET\_KEY\_MEMCACHED\_PRIVATE\_KEY\_FILE\ =}
+\DoxyCodeLine{00240\ \ \ \textcolor{stringliteral}{"{}tls-\/ticket-\/key-\/memcached-\/private-\/key-\/file"{}}\_sr;}
+\DoxyCodeLine{00241\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_TICKET\_KEY\_MEMCACHED\_ADDRESS\_FAMILY\ =}
+\DoxyCodeLine{00242\ \ \ \textcolor{stringliteral}{"{}tls-\/ticket-\/key-\/memcached-\/address-\/family"{}}\_sr;}
+\DoxyCodeLine{00243\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_ADDRESS\_FAMILY\ =\ \textcolor{stringliteral}{"{}backend-\/address-\/family"{}}\_sr;}
+\DoxyCodeLine{00244\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP2\_MAX\_CONCURRENT\_STREAMS\ =}
+\DoxyCodeLine{00245\ \ \ \textcolor{stringliteral}{"{}frontend-\/http2-\/max-\/concurrent-\/streams"{}}\_sr;}
+\DoxyCodeLine{00246\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_HTTP2\_MAX\_CONCURRENT\_STREAMS\ =}
+\DoxyCodeLine{00247\ \ \ \textcolor{stringliteral}{"{}backend-\/http2-\/max-\/concurrent-\/streams"{}}\_sr;}
+\DoxyCodeLine{00248\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_CONNECTIONS\_PER\_FRONTEND\ =}
+\DoxyCodeLine{00249\ \ \ \textcolor{stringliteral}{"{}backend-\/connections-\/per-\/frontend"{}}\_sr;}
+\DoxyCodeLine{00250\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_TLS\ =\ \textcolor{stringliteral}{"{}backend-\/tls"{}}\_sr;}
+\DoxyCodeLine{00251\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_CONNECTIONS\_PER\_HOST\ =}
+\DoxyCodeLine{00252\ \ \ \textcolor{stringliteral}{"{}backend-\/connections-\/per-\/host"{}}\_sr;}
+\DoxyCodeLine{00253\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_ERROR\_PAGE\ =\ \textcolor{stringliteral}{"{}error-\/page"{}}\_sr;}
+\DoxyCodeLine{00254\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_NO\_KQUEUE\ =\ \textcolor{stringliteral}{"{}no-\/kqueue"{}}\_sr;}
+\DoxyCodeLine{00255\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP2\_SETTINGS\_TIMEOUT\ =}
+\DoxyCodeLine{00256\ \ \ \textcolor{stringliteral}{"{}frontend-\/http2-\/settings-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00257\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_HTTP2\_SETTINGS\_TIMEOUT\ =}
+\DoxyCodeLine{00258\ \ \ \textcolor{stringliteral}{"{}backend-\/http2-\/settings-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00259\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_API\_MAX\_REQUEST\_BODY\ =\ \textcolor{stringliteral}{"{}api-\/max-\/request-\/body"{}}\_sr;}
+\DoxyCodeLine{00260\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_MAX\_BACKOFF\ =\ \textcolor{stringliteral}{"{}backend-\/max-\/backoff"{}}\_sr;}
+\DoxyCodeLine{00261\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_SERVER\_NAME\ =\ \textcolor{stringliteral}{"{}server-\/name"{}}\_sr;}
+\DoxyCodeLine{00262\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_NO\_SERVER\_REWRITE\ =\ \textcolor{stringliteral}{"{}no-\/server-\/rewrite"{}}\_sr;}
+\DoxyCodeLine{00263\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP2\_OPTIMIZE\_WRITE\_BUFFER\_SIZE\ =}
+\DoxyCodeLine{00264\ \ \ \textcolor{stringliteral}{"{}frontend-\/http2-\/optimize-\/write-\/buffer-\/size"{}}\_sr;}
+\DoxyCodeLine{00265\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP2\_OPTIMIZE\_WINDOW\_SIZE\ =}
+\DoxyCodeLine{00266\ \ \ \textcolor{stringliteral}{"{}frontend-\/http2-\/optimize-\/window-\/size"{}}\_sr;}
+\DoxyCodeLine{00267\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP2\_WINDOW\_SIZE\ =}
+\DoxyCodeLine{00268\ \ \ \textcolor{stringliteral}{"{}frontend-\/http2-\/window-\/size"{}}\_sr;}
+\DoxyCodeLine{00269\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP2\_CONNECTION\_WINDOW\_SIZE\ =}
+\DoxyCodeLine{00270\ \ \ \textcolor{stringliteral}{"{}frontend-\/http2-\/connection-\/window-\/size"{}}\_sr;}
+\DoxyCodeLine{00271\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_HTTP2\_WINDOW\_SIZE\ =}
+\DoxyCodeLine{00272\ \ \ \textcolor{stringliteral}{"{}backend-\/http2-\/window-\/size"{}}\_sr;}
+\DoxyCodeLine{00273\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_HTTP2\_CONNECTION\_WINDOW\_SIZE\ =}
+\DoxyCodeLine{00274\ \ \ \textcolor{stringliteral}{"{}backend-\/http2-\/connection-\/window-\/size"{}}\_sr;}
+\DoxyCodeLine{00275\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP2\_ENCODER\_DYNAMIC\_TABLE\_SIZE\ =}
+\DoxyCodeLine{00276\ \ \ \textcolor{stringliteral}{"{}frontend-\/http2-\/encoder-\/dynamic-\/table-\/size"{}}\_sr;}
+\DoxyCodeLine{00277\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP2\_DECODER\_DYNAMIC\_TABLE\_SIZE\ =}
+\DoxyCodeLine{00278\ \ \ \textcolor{stringliteral}{"{}frontend-\/http2-\/decoder-\/dynamic-\/table-\/size"{}}\_sr;}
+\DoxyCodeLine{00279\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_HTTP2\_ENCODER\_DYNAMIC\_TABLE\_SIZE\ =}
+\DoxyCodeLine{00280\ \ \ \textcolor{stringliteral}{"{}backend-\/http2-\/encoder-\/dynamic-\/table-\/size"{}}\_sr;}
+\DoxyCodeLine{00281\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_HTTP2\_DECODER\_DYNAMIC\_TABLE\_SIZE\ =}
+\DoxyCodeLine{00282\ \ \ \textcolor{stringliteral}{"{}backend-\/http2-\/decoder-\/dynamic-\/table-\/size"{}}\_sr;}
+\DoxyCodeLine{00283\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_ECDH\_CURVES\ =\ \textcolor{stringliteral}{"{}ecdh-\/curves"{}}\_sr;}
+\DoxyCodeLine{00284\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_SCT\_DIR\ =\ \textcolor{stringliteral}{"{}tls-\/sct-\/dir"{}}\_sr;}
+\DoxyCodeLine{00285\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_BACKEND\_CONNECT\_TIMEOUT\ =\ \textcolor{stringliteral}{"{}backend-\/connect-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00286\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_DNS\_CACHE\_TIMEOUT\ =\ \textcolor{stringliteral}{"{}dns-\/cache-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00287\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_DNS\_LOOKUP\_TIMEOUT\ =\ \textcolor{stringliteral}{"{}dns-\/lookup-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00288\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_DNS\_MAX\_TRY\ =\ \textcolor{stringliteral}{"{}dns-\/max-\/try"{}}\_sr;}
+\DoxyCodeLine{00289\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_KEEP\_ALIVE\_TIMEOUT\ =}
+\DoxyCodeLine{00290\ \ \ \textcolor{stringliteral}{"{}frontend-\/keep-\/alive-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00291\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_PSK\_SECRETS\ =\ \textcolor{stringliteral}{"{}psk-\/secrets"{}}\_sr;}
+\DoxyCodeLine{00292\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_CLIENT\_PSK\_SECRETS\ =\ \textcolor{stringliteral}{"{}client-\/psk-\/secrets"{}}\_sr;}
+\DoxyCodeLine{00293\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_CLIENT\_NO\_HTTP2\_CIPHER\_BLOCK\_LIST\ =}
+\DoxyCodeLine{00294\ \ \ \textcolor{stringliteral}{"{}client-\/no-\/http2-\/cipher-\/block-\/list"{}}\_sr;}
+\DoxyCodeLine{00295\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_CLIENT\_NO\_HTTP2\_CIPHER\_BLACK\_LIST\ =}
+\DoxyCodeLine{00296\ \ \ \textcolor{stringliteral}{"{}client-\/no-\/http2-\/cipher-\/black-\/list"{}}\_sr;}
+\DoxyCodeLine{00297\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_CLIENT\_CIPHERS\ =\ \textcolor{stringliteral}{"{}client-\/ciphers"{}}\_sr;}
+\DoxyCodeLine{00298\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_ACCESSLOG\_WRITE\_EARLY\ =\ \textcolor{stringliteral}{"{}accesslog-\/write-\/early"{}}\_sr;}
+\DoxyCodeLine{00299\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_MIN\_PROTO\_VERSION\ =\ \textcolor{stringliteral}{"{}tls-\/min-\/proto-\/version"{}}\_sr;}
+\DoxyCodeLine{00300\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_MAX\_PROTO\_VERSION\ =\ \textcolor{stringliteral}{"{}tls-\/max-\/proto-\/version"{}}\_sr;}
+\DoxyCodeLine{00301\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_REDIRECT\_HTTPS\_PORT\ =\ \textcolor{stringliteral}{"{}redirect-\/https-\/port"{}}\_sr;}
+\DoxyCodeLine{00302\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_MAX\_REQUESTS\ =\ \textcolor{stringliteral}{"{}frontend-\/max-\/requests"{}}\_sr;}
+\DoxyCodeLine{00303\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_SINGLE\_THREAD\ =\ \textcolor{stringliteral}{"{}single-\/thread"{}}\_sr;}
+\DoxyCodeLine{00304\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_SINGLE\_PROCESS\ =\ \textcolor{stringliteral}{"{}single-\/process"{}}\_sr;}
+\DoxyCodeLine{00305\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_NO\_ADD\_X\_FORWARDED\_PROTO\ =}
+\DoxyCodeLine{00306\ \ \ \textcolor{stringliteral}{"{}no-\/add-\/x-\/forwarded-\/proto"{}}\_sr;}
+\DoxyCodeLine{00307\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_NO\_STRIP\_INCOMING\_X\_FORWARDED\_PROTO\ =}
+\DoxyCodeLine{00308\ \ \ \textcolor{stringliteral}{"{}no-\/strip-\/incoming-\/x-\/forwarded-\/proto"{}}\_sr;}
+\DoxyCodeLine{00309\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_OCSP\_STARTUP\ =\ \textcolor{stringliteral}{"{}ocsp-\/startup"{}}\_sr;}
+\DoxyCodeLine{00310\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_NO\_VERIFY\_OCSP\ =\ \textcolor{stringliteral}{"{}no-\/verify-\/ocsp"{}}\_sr;}
+\DoxyCodeLine{00311\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_VERIFY\_CLIENT\_TOLERATE\_EXPIRED\ =}
+\DoxyCodeLine{00312\ \ \ \textcolor{stringliteral}{"{}verify-\/client-\/tolerate-\/expired"{}}\_sr;}
+\DoxyCodeLine{00313\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_IGNORE\_PER\_PATTERN\_MRUBY\_ERROR\ =}
+\DoxyCodeLine{00314\ \ \ \textcolor{stringliteral}{"{}ignore-\/per-\/pattern-\/mruby-\/error"{}}\_sr;}
+\DoxyCodeLine{00315\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_NO\_POSTPONE\_EARLY\_DATA\ =}
+\DoxyCodeLine{00316\ \ \ \textcolor{stringliteral}{"{}tls-\/no-\/postpone-\/early-\/data"{}}\_sr;}
+\DoxyCodeLine{00317\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_MAX\_EARLY\_DATA\ =\ \textcolor{stringliteral}{"{}tls-\/max-\/early-\/data"{}}\_sr;}
+\DoxyCodeLine{00318\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS13\_CIPHERS\ =\ \textcolor{stringliteral}{"{}tls13-\/ciphers"{}}\_sr;}
+\DoxyCodeLine{00319\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS13\_CLIENT\_CIPHERS\ =\ \textcolor{stringliteral}{"{}tls13-\/client-\/ciphers"{}}\_sr;}
+\DoxyCodeLine{00320\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_NO\_STRIP\_INCOMING\_EARLY\_DATA\ =}
+\DoxyCodeLine{00321\ \ \ \textcolor{stringliteral}{"{}no-\/strip-\/incoming-\/early-\/data"{}}\_sr;}
+\DoxyCodeLine{00322\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_QUIC\_BPF\_PROGRAM\_FILE\ =\ \textcolor{stringliteral}{"{}quic-\/bpf-\/program-\/file"{}}\_sr;}
+\DoxyCodeLine{00323\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_NO\_QUIC\_BPF\ =\ \textcolor{stringliteral}{"{}no-\/quic-\/bpf"{}}\_sr;}
+\DoxyCodeLine{00324\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_HTTP2\_ALTSVC\ =\ \textcolor{stringliteral}{"{}http2-\/altsvc"{}}\_sr;}
+\DoxyCodeLine{00325\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP3\_READ\_TIMEOUT\ =}
+\DoxyCodeLine{00326\ \ \ \textcolor{stringliteral}{"{}frontend-\/http3-\/read-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00327\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_QUIC\_IDLE\_TIMEOUT\ =}
+\DoxyCodeLine{00328\ \ \ \textcolor{stringliteral}{"{}frontend-\/quic-\/idle-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00329\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_QUIC\_DEBUG\_LOG\ =\ \textcolor{stringliteral}{"{}frontend-\/quic-\/debug-\/log"{}}\_sr;}
+\DoxyCodeLine{00330\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP3\_WINDOW\_SIZE\ =}
+\DoxyCodeLine{00331\ \ \ \textcolor{stringliteral}{"{}frontend-\/http3-\/window-\/size"{}}\_sr;}
+\DoxyCodeLine{00332\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP3\_CONNECTION\_WINDOW\_SIZE\ =}
+\DoxyCodeLine{00333\ \ \ \textcolor{stringliteral}{"{}frontend-\/http3-\/connection-\/window-\/size"{}}\_sr;}
+\DoxyCodeLine{00334\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP3\_MAX\_WINDOW\_SIZE\ =}
+\DoxyCodeLine{00335\ \ \ \textcolor{stringliteral}{"{}frontend-\/http3-\/max-\/window-\/size"{}}\_sr;}
+\DoxyCodeLine{00336\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP3\_MAX\_CONNECTION\_WINDOW\_SIZE\ =}
+\DoxyCodeLine{00337\ \ \ \textcolor{stringliteral}{"{}frontend-\/http3-\/max-\/connection-\/window-\/size"{}}\_sr;}
+\DoxyCodeLine{00338\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP3\_MAX\_CONCURRENT\_STREAMS\ =}
+\DoxyCodeLine{00339\ \ \ \textcolor{stringliteral}{"{}frontend-\/http3-\/max-\/concurrent-\/streams"{}}\_sr;}
+\DoxyCodeLine{00340\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_QUIC\_EARLY\_DATA\ =}
+\DoxyCodeLine{00341\ \ \ \textcolor{stringliteral}{"{}frontend-\/quic-\/early-\/data"{}}\_sr;}
+\DoxyCodeLine{00342\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_QUIC\_QLOG\_DIR\ =\ \textcolor{stringliteral}{"{}frontend-\/quic-\/qlog-\/dir"{}}\_sr;}
+\DoxyCodeLine{00343\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_QUIC\_REQUIRE\_TOKEN\ =}
+\DoxyCodeLine{00344\ \ \ \textcolor{stringliteral}{"{}frontend-\/quic-\/require-\/token"{}}\_sr;}
+\DoxyCodeLine{00345\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_QUIC\_CONGESTION\_CONTROLLER\ =}
+\DoxyCodeLine{00346\ \ \ \textcolor{stringliteral}{"{}frontend-\/quic-\/congestion-\/controller"{}}\_sr;}
+\DoxyCodeLine{00347\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_QUIC\_SERVER\_ID\ =\ \textcolor{stringliteral}{"{}quic-\/server-\/id"{}}\_sr;}
+\DoxyCodeLine{00348\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_QUIC\_SECRET\_FILE\ =}
+\DoxyCodeLine{00349\ \ \ \textcolor{stringliteral}{"{}frontend-\/quic-\/secret-\/file"{}}\_sr;}
+\DoxyCodeLine{00350\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_RLIMIT\_MEMLOCK\ =\ \textcolor{stringliteral}{"{}rlimit-\/memlock"{}}\_sr;}
+\DoxyCodeLine{00351\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_MAX\_WORKER\_PROCESSES\ =\ \textcolor{stringliteral}{"{}max-\/worker-\/processes"{}}\_sr;}
+\DoxyCodeLine{00352\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_WORKER\_PROCESS\_GRACE\_SHUTDOWN\_PERIOD\ =}
+\DoxyCodeLine{00353\ \ \ \textcolor{stringliteral}{"{}worker-\/process-\/grace-\/shutdown-\/period"{}}\_sr;}
+\DoxyCodeLine{00354\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_QUIC\_INITIAL\_RTT\ =}
+\DoxyCodeLine{00355\ \ \ \textcolor{stringliteral}{"{}frontend-\/quic-\/initial-\/rtt"{}}\_sr;}
+\DoxyCodeLine{00356\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_REQUIRE\_HTTP\_SCHEME\ =\ \textcolor{stringliteral}{"{}require-\/http-\/scheme"{}}\_sr;}
+\DoxyCodeLine{00357\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_TLS\_KTLS\ =\ \textcolor{stringliteral}{"{}tls-\/ktls"{}}\_sr;}
+\DoxyCodeLine{00358\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_ALPN\_LIST\ =\ \textcolor{stringliteral}{"{}alpn-\/list"{}}\_sr;}
+\DoxyCodeLine{00359\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HEADER\_TIMEOUT\ =\ \textcolor{stringliteral}{"{}frontend-\/header-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00360\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP2\_IDLE\_TIMEOUT\ =}
+\DoxyCodeLine{00361\ \ \ \textcolor{stringliteral}{"{}frontend-\/http2-\/idle-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00362\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ SHRPX\_OPT\_FRONTEND\_HTTP3\_IDLE\_TIMEOUT\ =}
+\DoxyCodeLine{00363\ \ \ \textcolor{stringliteral}{"{}frontend-\/http3-\/idle-\/timeout"{}}\_sr;}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ SHRPX\_OBFUSCATED\_NODE\_LENGTH\ =\ 8;}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ DEFAULT\_DOWNSTREAM\_HOST\ =\ \textcolor{stringliteral}{"{}127.0.0.1"{}}\_sr;}
+\DoxyCodeLine{00368\ \textcolor{keyword}{constexpr}\ int16\_t\ DEFAULT\_DOWNSTREAM\_PORT\ =\ 80;}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ \textcolor{keyword}{enum\ class}\ Proto\ \{}
+\DoxyCodeLine{00371\ \ \ NONE,}
+\DoxyCodeLine{00372\ \ \ HTTP1,}
+\DoxyCodeLine{00373\ \ \ HTTP2,}
+\DoxyCodeLine{00374\ \ \ HTTP3,}
+\DoxyCodeLine{00375\ \ \ MEMCACHED,}
+\DoxyCodeLine{00376\ \};}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \textcolor{keyword}{enum\ class}\ SessionAffinity\ \{}
+\DoxyCodeLine{00379\ \ \ \textcolor{comment}{//\ No\ session\ affinity}}
+\DoxyCodeLine{00380\ \ \ NONE,}
+\DoxyCodeLine{00381\ \ \ \textcolor{comment}{//\ Client\ IP\ affinity}}
+\DoxyCodeLine{00382\ \ \ IP,}
+\DoxyCodeLine{00383\ \ \ \textcolor{comment}{//\ Cookie\ based\ affinity}}
+\DoxyCodeLine{00384\ \ \ COOKIE,}
+\DoxyCodeLine{00385\ \};}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00387\ \textcolor{keyword}{enum\ class}\ SessionAffinityCookieSecure\ \{}
+\DoxyCodeLine{00388\ \ \ \textcolor{comment}{//\ Secure\ attribute\ of\ session\ affinity\ cookie\ is\ determined\ by\ the}}
+\DoxyCodeLine{00389\ \ \ \textcolor{comment}{//\ request\ scheme.}}
+\DoxyCodeLine{00390\ \ \ AUTO,}
+\DoxyCodeLine{00391\ \ \ \textcolor{comment}{//\ Secure\ attribute\ of\ session\ affinity\ cookie\ is\ always\ set.}}
+\DoxyCodeLine{00392\ \ \ YES,}
+\DoxyCodeLine{00393\ \ \ \textcolor{comment}{//\ Secure\ attribute\ of\ session\ affinity\ cookie\ is\ always\ unset.}}
+\DoxyCodeLine{00394\ \ \ NO,}
+\DoxyCodeLine{00395\ \};}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00397\ \textcolor{keyword}{enum\ class}\ SessionAffinityCookieStickiness\ \{}
+\DoxyCodeLine{00398\ \ \ \textcolor{comment}{//\ Backend\ server\ might\ be\ changed\ when\ an\ existing\ backend\ server}}
+\DoxyCodeLine{00399\ \ \ \textcolor{comment}{//\ is\ removed,\ or\ new\ backend\ server\ is\ added.}}
+\DoxyCodeLine{00400\ \ \ LOOSE,}
+\DoxyCodeLine{00401\ \ \ \textcolor{comment}{//\ Backend\ server\ might\ be\ changed\ when\ a\ designated\ backend\ server}}
+\DoxyCodeLine{00402\ \ \ \textcolor{comment}{//\ is\ removed,\ but\ adding\ new\ backend\ server\ does\ not\ cause}}
+\DoxyCodeLine{00403\ \ \ \textcolor{comment}{//\ breakage.}}
+\DoxyCodeLine{00404\ \ \ STRICT,}
+\DoxyCodeLine{00405\ \};}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1AffinityConfig}{AffinityConfig}}\ \{}
+\DoxyCodeLine{00408\ \ \ \textcolor{comment}{//\ Type\ of\ session\ affinity.}}
+\DoxyCodeLine{00409\ \ \ SessionAffinity\ type;}
+\DoxyCodeLine{00410\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00411\ \ \ \ \ \textcolor{comment}{//\ Name\ of\ a\ cookie\ to\ use.}}
+\DoxyCodeLine{00412\ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ name;}
+\DoxyCodeLine{00413\ \ \ \ \ \textcolor{comment}{//\ Path\ which\ a\ cookie\ is\ applied\ to.}}
+\DoxyCodeLine{00414\ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ path;}
+\DoxyCodeLine{00415\ \ \ \ \ \textcolor{comment}{//\ Secure\ attribute}}
+\DoxyCodeLine{00416\ \ \ \ \ SessionAffinityCookieSecure\ secure;}
+\DoxyCodeLine{00417\ \ \ \ \ \textcolor{comment}{//\ Affinity\ Stickiness}}
+\DoxyCodeLine{00418\ \ \ \ \ SessionAffinityCookieStickiness\ stickiness;}
+\DoxyCodeLine{00419\ \ \ \}\ cookie;}
+\DoxyCodeLine{00420\ \};}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \textcolor{keyword}{enum}\ shrpx\_forwarded\_param\ \{}
+\DoxyCodeLine{00423\ \ \ FORWARDED\_NONE\ =\ 0,}
+\DoxyCodeLine{00424\ \ \ FORWARDED\_BY\ =\ 0x1,}
+\DoxyCodeLine{00425\ \ \ FORWARDED\_FOR\ =\ 0x2,}
+\DoxyCodeLine{00426\ \ \ FORWARDED\_HOST\ =\ 0x4,}
+\DoxyCodeLine{00427\ \ \ FORWARDED\_PROTO\ =\ 0x8,}
+\DoxyCodeLine{00428\ \};}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00430\ \textcolor{keyword}{enum\ class}\ ForwardedNode\ \{}
+\DoxyCodeLine{00431\ \ \ OBFUSCATED,}
+\DoxyCodeLine{00432\ \ \ IP,}
+\DoxyCodeLine{00433\ \};}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00435\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1AltSvc}{AltSvc}}\ \{}
+\DoxyCodeLine{00436\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ protocol\_id,\ host,\ origin,\ service,\ params;}
+\DoxyCodeLine{00437\ }
+\DoxyCodeLine{00438\ \ \ uint16\_t\ port;}
+\DoxyCodeLine{00439\ \};}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00441\ \textcolor{keyword}{enum\ class}\ UpstreamAltMode\ \{}
+\DoxyCodeLine{00442\ \ \ \textcolor{comment}{//\ No\ alternative\ mode}}
+\DoxyCodeLine{00443\ \ \ NONE,}
+\DoxyCodeLine{00444\ \ \ \textcolor{comment}{//\ API\ processing\ mode}}
+\DoxyCodeLine{00445\ \ \ API,}
+\DoxyCodeLine{00446\ \ \ \textcolor{comment}{//\ Health\ monitor\ mode}}
+\DoxyCodeLine{00447\ \ \ HEALTHMON,}
+\DoxyCodeLine{00448\ \};}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00450\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{UpstreamAddr}}\ \{}
+\DoxyCodeLine{00451\ \ \ \textcolor{comment}{//\ The\ unique\ index\ of\ this\ address.}}
+\DoxyCodeLine{00452\ \ \ \textcolor{keywordtype}{size\_t}\ index;}
+\DoxyCodeLine{00453\ \ \ \textcolor{comment}{//\ The\ frontend\ address\ (e.g.,\ FQDN,\ hostname,\ IP\ address).\ \ If}}
+\DoxyCodeLine{00454\ \ \ \textcolor{comment}{//\ |host\_unix|\ is\ true,\ this\ is\ UNIX\ domain\ socket\ path.\ \ This\ must}}
+\DoxyCodeLine{00455\ \ \ \textcolor{comment}{//\ be\ NULL\ terminated\ string.}}
+\DoxyCodeLine{00456\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ host;}
+\DoxyCodeLine{00457\ \ \ \textcolor{comment}{//\ For\ TCP\ socket,\ this\ is\ <IP\ address>:<PORT>.\ \ For\ IPv6\ address,}}
+\DoxyCodeLine{00458\ \ \ \textcolor{comment}{//\ address\ is\ surrounded\ by\ square\ brackets.\ \ If\ socket\ is\ UNIX}}
+\DoxyCodeLine{00459\ \ \ \textcolor{comment}{//\ domain\ socket,\ this\ is\ "{}localhost"{}.}}
+\DoxyCodeLine{00460\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ hostport;}
+\DoxyCodeLine{00461\ \ \ \textcolor{comment}{//\ frontend\ port.\ \ 0\ if\ |host\_unix|\ is\ true.}}
+\DoxyCodeLine{00462\ \ \ uint16\_t\ port;}
+\DoxyCodeLine{00463\ \ \ \textcolor{comment}{//\ For\ TCP\ socket,\ this\ is\ either\ AF\_INET\ or\ AF\_INET6.\ \ For\ UNIX}}
+\DoxyCodeLine{00464\ \ \ \textcolor{comment}{//\ domain\ socket,\ this\ is\ 0.}}
+\DoxyCodeLine{00465\ \ \ \textcolor{keywordtype}{int}\ family;}
+\DoxyCodeLine{00466\ \ \ \textcolor{comment}{//\ Alternate\ mode}}
+\DoxyCodeLine{00467\ \ \ UpstreamAltMode\ alt\_mode;}
+\DoxyCodeLine{00468\ \ \ \textcolor{comment}{//\ true\ if\ |host|\ contains\ UNIX\ domain\ socket\ path.}}
+\DoxyCodeLine{00469\ \ \ \textcolor{keywordtype}{bool}\ host\_unix;}
+\DoxyCodeLine{00470\ \ \ \textcolor{comment}{//\ true\ if\ TLS\ is\ enabled.}}
+\DoxyCodeLine{00471\ \ \ \textcolor{keywordtype}{bool}\ tls;}
+\DoxyCodeLine{00472\ \ \ \textcolor{comment}{//\ true\ if\ SNI\ host\ should\ be\ used\ as\ a\ host\ when\ selecting\ backend}}
+\DoxyCodeLine{00473\ \ \ \textcolor{comment}{//\ server.}}
+\DoxyCodeLine{00474\ \ \ \textcolor{keywordtype}{bool}\ sni\_fwd;}
+\DoxyCodeLine{00475\ \ \ \textcolor{comment}{//\ true\ if\ client\ is\ supposed\ to\ send\ PROXY\ protocol\ v1\ header.}}
+\DoxyCodeLine{00476\ \ \ \textcolor{keywordtype}{bool}\ accept\_proxy\_protocol;}
+\DoxyCodeLine{00477\ \ \ \textcolor{keywordtype}{bool}\ quic;}
+\DoxyCodeLine{00478\ \ \ \textcolor{keywordtype}{int}\ fd;}
+\DoxyCodeLine{00479\ \};}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1DownstreamAddrConfig}{DownstreamAddrConfig}}\ \{}
+\DoxyCodeLine{00482\ \ \ \textcolor{comment}{//\ Resolved\ address\ if\ |dns|\ is\ false}}
+\DoxyCodeLine{00483\ \ \ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ addr;}
+\DoxyCodeLine{00484\ \ \ \textcolor{comment}{//\ backend\ address.\ \ If\ |host\_unix|\ is\ true,\ this\ is\ UNIX\ domain}}
+\DoxyCodeLine{00485\ \ \ \textcolor{comment}{//\ socket\ path.\ \ This\ must\ be\ NULL\ terminated\ string.}}
+\DoxyCodeLine{00486\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ host;}
+\DoxyCodeLine{00487\ \ \ \textcolor{comment}{//\ <HOST>:<PORT>.\ \ This\ does\ not\ treat\ 80\ and\ 443\ specially.\ \ If}}
+\DoxyCodeLine{00488\ \ \ \textcolor{comment}{//\ |host\_unix|\ is\ true,\ this\ is\ "{}localhost"{}.}}
+\DoxyCodeLine{00489\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ hostport;}
+\DoxyCodeLine{00490\ \ \ \textcolor{comment}{//\ hostname\ sent\ as\ SNI\ field}}
+\DoxyCodeLine{00491\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ sni;}
+\DoxyCodeLine{00492\ \ \ \textcolor{comment}{//\ name\ of\ group\ which\ this\ address\ belongs\ to.}}
+\DoxyCodeLine{00493\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ group;}
+\DoxyCodeLine{00494\ \ \ \textcolor{keywordtype}{size\_t}\ fall;}
+\DoxyCodeLine{00495\ \ \ \textcolor{keywordtype}{size\_t}\ rise;}
+\DoxyCodeLine{00496\ \ \ \textcolor{comment}{//\ weight\ of\ this\ address\ inside\ a\ weight\ group.\ \ Its\ range\ is\ [1,}}
+\DoxyCodeLine{00497\ \ \ \textcolor{comment}{//\ 256],\ inclusive.}}
+\DoxyCodeLine{00498\ \ \ uint32\_t\ weight;}
+\DoxyCodeLine{00499\ \ \ \textcolor{comment}{//\ weight\ of\ the\ weight\ group.\ \ Its\ range\ is\ [1,\ 256],\ inclusive.}}
+\DoxyCodeLine{00500\ \ \ uint32\_t\ group\_weight;}
+\DoxyCodeLine{00501\ \ \ \textcolor{comment}{//\ affinity\ hash\ for\ this\ address.\ \ It\ is\ assigned\ when\ strict}}
+\DoxyCodeLine{00502\ \ \ \textcolor{comment}{//\ stickiness\ is\ enabled.}}
+\DoxyCodeLine{00503\ \ \ uint32\_t\ affinity\_hash;}
+\DoxyCodeLine{00504\ \ \ \textcolor{comment}{//\ Application\ protocol\ used\ in\ this\ group}}
+\DoxyCodeLine{00505\ \ \ Proto\ proto;}
+\DoxyCodeLine{00506\ \ \ \textcolor{comment}{//\ backend\ port.\ \ 0\ if\ |host\_unix|\ is\ true.}}
+\DoxyCodeLine{00507\ \ \ uint16\_t\ port;}
+\DoxyCodeLine{00508\ \ \ \textcolor{comment}{//\ true\ if\ |host|\ contains\ UNIX\ domain\ socket\ path.}}
+\DoxyCodeLine{00509\ \ \ \textcolor{keywordtype}{bool}\ host\_unix;}
+\DoxyCodeLine{00510\ \ \ \textcolor{keywordtype}{bool}\ tls;}
+\DoxyCodeLine{00511\ \ \ \textcolor{comment}{//\ true\ if\ dynamic\ DNS\ is\ enabled}}
+\DoxyCodeLine{00512\ \ \ \textcolor{keywordtype}{bool}\ dns;}
+\DoxyCodeLine{00513\ \ \ \textcolor{comment}{//\ true\ if\ :scheme\ pseudo\ header\ field\ should\ be\ upgraded\ to\ secure}}
+\DoxyCodeLine{00514\ \ \ \textcolor{comment}{//\ variant\ (e.g.,\ "{}https"{})\ when\ forwarding\ request\ to\ a\ backend}}
+\DoxyCodeLine{00515\ \ \ \textcolor{comment}{//\ connected\ by\ TLS\ connection.}}
+\DoxyCodeLine{00516\ \ \ \textcolor{keywordtype}{bool}\ upgrade\_scheme;}
+\DoxyCodeLine{00517\ \ \ \textcolor{comment}{//\ true\ if\ a\ request\ should\ not\ be\ forwarded\ to\ a\ backend.}}
+\DoxyCodeLine{00518\ \ \ \textcolor{keywordtype}{bool}\ dnf;}
+\DoxyCodeLine{00519\ \};}
+\DoxyCodeLine{00520\ }
+\DoxyCodeLine{00521\ \textcolor{comment}{//\ Mapping\ hash\ to\ idx\ which\ is\ an\ index\ into}}
+\DoxyCodeLine{00522\ \textcolor{comment}{//\ DownstreamAddrGroupConfig::addrs.}}
+\DoxyCodeLine{00523\ \textcolor{keyword}{struct\ }AffinityHash\ \{}
+\DoxyCodeLine{00524\ \ \ AffinityHash(\textcolor{keywordtype}{size\_t}\ idx,\ uint32\_t\ hash)\ :\ idx(idx),\ hash(hash)\ \{\}}
+\DoxyCodeLine{00525\ }
+\DoxyCodeLine{00526\ \ \ \textcolor{keywordtype}{size\_t}\ idx;}
+\DoxyCodeLine{00527\ \ \ uint32\_t\ hash;}
+\DoxyCodeLine{00528\ \};}
+\DoxyCodeLine{00529\ }
+\DoxyCodeLine{00530\ \textcolor{keyword}{struct\ }DownstreamAddrGroupConfig\ \{}
+\DoxyCodeLine{00531\ \ \ DownstreamAddrGroupConfig(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&pattern)}
+\DoxyCodeLine{00532\ \ \ \ \ :\ pattern(pattern),}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ affinity\{SessionAffinity::NONE\},}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ redirect\_if\_not\_tls(\textcolor{keyword}{false}),}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ dnf\{\textcolor{keyword}{false}\},}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ timeout\{\}\ \{\}}
+\DoxyCodeLine{00537\ }
+\DoxyCodeLine{00538\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ pattern;}
+\DoxyCodeLine{00539\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ mruby\_file;}
+\DoxyCodeLine{00540\ \ \ std::vector<DownstreamAddrConfig>\ addrs;}
+\DoxyCodeLine{00541\ \ \ \textcolor{comment}{//\ Bunch\ of\ session\ affinity\ hash.\ \ Only\ used\ if\ affinity\ ==}}
+\DoxyCodeLine{00542\ \ \ \textcolor{comment}{//\ SessionAffinity::IP.}}
+\DoxyCodeLine{00543\ \ \ std::vector<AffinityHash>\ affinity\_hash;}
+\DoxyCodeLine{00544\ \ \ \textcolor{comment}{//\ Maps\ affinity\ hash\ of\ each\ DownstreamAddrConfig\ to\ its\ index\ in}}
+\DoxyCodeLine{00545\ \ \ \textcolor{comment}{//\ addrs.\ \ It\ is\ only\ assigned\ when\ strict\ stickiness\ is\ enabled.}}
+\DoxyCodeLine{00546\ \ \ std::unordered\_map<uint32\_t,\ size\_t>\ affinity\_hash\_map;}
+\DoxyCodeLine{00547\ \ \ \textcolor{comment}{//\ Cookie\ based\ session\ affinity\ configuration.}}
+\DoxyCodeLine{00548\ \ \ \mbox{\hyperlink{structshrpx_1_1AffinityConfig}{AffinityConfig}}\ affinity;}
+\DoxyCodeLine{00549\ \ \ \textcolor{comment}{//\ true\ if\ this\ group\ requires\ that\ client\ connection\ must\ be\ TLS,}}
+\DoxyCodeLine{00550\ \ \ \textcolor{comment}{//\ and\ the\ request\ must\ be\ redirected\ to\ https\ URI.}}
+\DoxyCodeLine{00551\ \ \ \textcolor{keywordtype}{bool}\ redirect\_if\_not\_tls;}
+\DoxyCodeLine{00552\ \ \ \textcolor{comment}{//\ true\ if\ a\ request\ should\ not\ be\ forwarded\ to\ a\ backend.}}
+\DoxyCodeLine{00553\ \ \ \textcolor{keywordtype}{bool}\ dnf;}
+\DoxyCodeLine{00554\ \ \ \textcolor{comment}{//\ Timeouts\ for\ backend\ connection.}}
+\DoxyCodeLine{00555\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00556\ \ \ \ \ ev\_tstamp\ read;}
+\DoxyCodeLine{00557\ \ \ \ \ ev\_tstamp\ write;}
+\DoxyCodeLine{00558\ \ \ \}\ timeout;}
+\DoxyCodeLine{00559\ \};}
+\DoxyCodeLine{00560\ }
+\DoxyCodeLine{00561\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1TicketKey}{TicketKey}}\ \{}
+\DoxyCodeLine{00562\ \ \ \textcolor{keyword}{const}\ EVP\_CIPHER\ *cipher;}
+\DoxyCodeLine{00563\ \ \ \textcolor{keyword}{const}\ EVP\_MD\ *hmac;}
+\DoxyCodeLine{00564\ \ \ \textcolor{keywordtype}{size\_t}\ hmac\_keylen;}
+\DoxyCodeLine{00565\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00566\ \ \ \ \ \textcolor{comment}{//\ name\ of\ this\ ticket\ configuration}}
+\DoxyCodeLine{00567\ \ \ \ \ std::array<uint8\_t,\ 16>\ name;}
+\DoxyCodeLine{00568\ \ \ \ \ \textcolor{comment}{//\ encryption\ key\ for\ |cipher|}}
+\DoxyCodeLine{00569\ \ \ \ \ std::array<uint8\_t,\ 32>\ enc\_key;}
+\DoxyCodeLine{00570\ \ \ \ \ \textcolor{comment}{//\ hmac\ key\ for\ |hmac|}}
+\DoxyCodeLine{00571\ \ \ \ \ std::array<uint8\_t,\ 32>\ hmac\_key;}
+\DoxyCodeLine{00572\ \ \ \}\ data;}
+\DoxyCodeLine{00573\ \};}
+\DoxyCodeLine{00574\ }
+\DoxyCodeLine{00575\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1TicketKeys}{TicketKeys}}\ \{}
+\DoxyCodeLine{00576\ \ \ \mbox{\hyperlink{structshrpx_1_1TicketKeys}{\string~TicketKeys}}();}
+\DoxyCodeLine{00577\ \ \ std::vector<TicketKey>\ keys;}
+\DoxyCodeLine{00578\ \};}
+\DoxyCodeLine{00579\ }
+\DoxyCodeLine{00580\ \textcolor{keyword}{struct\ }TLSCertificate\ \{}
+\DoxyCodeLine{00581\ \ \ TLSCertificate(\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ private\_key\_file,\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ cert\_file,}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<uint8\_t>\ sct\_data)}
+\DoxyCodeLine{00583\ \ \ \ \ :\ private\_key\_file(std::move(private\_key\_file)),}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ cert\_file(std::move(cert\_file)),}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ sct\_data(std::move(sct\_data))\ \{\}}
+\DoxyCodeLine{00586\ }
+\DoxyCodeLine{00587\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ private\_key\_file;}
+\DoxyCodeLine{00588\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ cert\_file;}
+\DoxyCodeLine{00589\ \ \ std::vector<uint8\_t>\ sct\_data;}
+\DoxyCodeLine{00590\ \};}
+\DoxyCodeLine{00591\ }
+\DoxyCodeLine{00592\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00593\ \textcolor{keyword}{struct\ }QUICKeyingMaterial\ \{}
+\DoxyCodeLine{00594\ \ \ QUICKeyingMaterial()\ noexcept\ =\ default;}
+\DoxyCodeLine{00595\ \ \ QUICKeyingMaterial(QUICKeyingMaterial\ \&\&other)\ noexcept;}
+\DoxyCodeLine{00596\ \ \ \string~QUICKeyingMaterial()\ noexcept;}
+\DoxyCodeLine{00597\ \ \ QUICKeyingMaterial\ \&operator=(QUICKeyingMaterial\ \&\&other)\ noexcept;}
+\DoxyCodeLine{00598\ \ \ EVP\_CIPHER\_CTX\ *cid\_encryption\_ctx;}
+\DoxyCodeLine{00599\ \ \ EVP\_CIPHER\_CTX\ *cid\_decryption\_ctx;}
+\DoxyCodeLine{00600\ \ \ std::array<uint8\_t,\ SHRPX\_QUIC\_SECRET\_RESERVEDLEN>\ reserved;}
+\DoxyCodeLine{00601\ \ \ std::array<uint8\_t,\ SHRPX\_QUIC\_SECRETLEN>\ secret;}
+\DoxyCodeLine{00602\ \ \ std::array<uint8\_t,\ SHRPX\_QUIC\_SALTLEN>\ salt;}
+\DoxyCodeLine{00603\ \ \ std::array<uint8\_t,\ SHRPX\_QUIC\_CID\_ENCRYPTION\_KEYLEN>\ cid\_encryption\_key;}
+\DoxyCodeLine{00604\ \ \ \textcolor{comment}{//\ Identifier\ of\ this\ keying\ material.\ \ Only\ the\ first\ 2\ bits\ are}}
+\DoxyCodeLine{00605\ \ \ \textcolor{comment}{//\ used.}}
+\DoxyCodeLine{00606\ \ \ uint8\_t\ \textcolor{keywordtype}{id};}
+\DoxyCodeLine{00607\ \};}
+\DoxyCodeLine{00608\ }
+\DoxyCodeLine{00609\ struct\ QUICKeyingMaterials\ \{}
+\DoxyCodeLine{00610\ \ \ std::vector<QUICKeyingMaterial>\ keying\_materials;}
+\DoxyCodeLine{00611\ \};}
+\DoxyCodeLine{00612\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00613\ }
+\DoxyCodeLine{00614\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1HttpProxy}{HttpProxy}}\ \{}
+\DoxyCodeLine{00615\ \ \ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ addr;}
+\DoxyCodeLine{00616\ \ \ \textcolor{comment}{//\ host\ in\ http\ proxy\ URI}}
+\DoxyCodeLine{00617\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ host;}
+\DoxyCodeLine{00618\ \ \ \textcolor{comment}{//\ userinfo\ in\ http\ proxy\ URI,\ not\ percent-\/encoded\ form}}
+\DoxyCodeLine{00619\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ userinfo;}
+\DoxyCodeLine{00620\ \ \ \textcolor{comment}{//\ port\ in\ http\ proxy\ URI}}
+\DoxyCodeLine{00621\ \ \ uint16\_t\ port;}
+\DoxyCodeLine{00622\ \};}
+\DoxyCodeLine{00623\ }
+\DoxyCodeLine{00624\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1TLSConfig}{TLSConfig}}\ \{}
+\DoxyCodeLine{00625\ \ \ \textcolor{comment}{//\ RFC\ 5077\ Session\ ticket\ related\ configurations}}
+\DoxyCodeLine{00626\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00627\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ addr;}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ uint16\_t\ port;}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \textcolor{comment}{//\ Hostname\ of\ memcached\ server.\ \ This\ is\ also\ used\ as\ SNI\ field}}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \textcolor{comment}{//\ if\ TLS\ is\ enabled.}}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ host;}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \textcolor{comment}{//\ Client\ private\ key\ and\ certificate\ for\ authentication}}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ private\_key\_file;}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ cert\_file;}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ ev\_tstamp\ interval;}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \textcolor{comment}{//\ Maximum\ number\ of\ retries\ when\ getting\ TLS\ ticket\ key\ from}}
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \textcolor{comment}{//\ mamcached,\ due\ to\ network\ error.}}
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ max\_retry;}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \textcolor{comment}{//\ Maximum\ number\ of\ consecutive\ error\ from\ memcached,\ when\ this}}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \textcolor{comment}{//\ limit\ reached,\ TLS\ ticket\ is\ disabled.}}
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ max\_fail;}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \textcolor{comment}{//\ Address\ family\ of\ memcached\ connection.\ \ One\ of\ either}}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \textcolor{comment}{//\ AF\_INET,\ AF\_INET6\ or\ AF\_UNSPEC.}}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ family;}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ tls;}
+\DoxyCodeLine{00647\ \ \ \ \ \}\ memcached;}
+\DoxyCodeLine{00648\ \ \ \ \ std::vector<StringRef>\ files;}
+\DoxyCodeLine{00649\ \ \ \ \ \textcolor{keyword}{const}\ EVP\_CIPHER\ *cipher;}
+\DoxyCodeLine{00650\ \ \ \ \ \textcolor{comment}{//\ true\ if\ -\/-\/tls-\/ticket-\/key-\/cipher\ is\ used}}
+\DoxyCodeLine{00651\ \ \ \ \ \textcolor{keywordtype}{bool}\ cipher\_given;}
+\DoxyCodeLine{00652\ \ \ \}\ ticket;}
+\DoxyCodeLine{00653\ }
+\DoxyCodeLine{00654\ \ \ \textcolor{comment}{//\ Session\ cache\ related\ configurations}}
+\DoxyCodeLine{00655\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00656\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ addr;}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ uint16\_t\ port;}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \textcolor{comment}{//\ Hostname\ of\ memcached\ server.\ \ This\ is\ also\ used\ as\ SNI\ field}}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \textcolor{comment}{//\ if\ TLS\ is\ enabled.}}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ host;}
+\DoxyCodeLine{00662\ \ \ \ \ \ \ \textcolor{comment}{//\ Client\ private\ key\ and\ certificate\ for\ authentication}}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ private\_key\_file;}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ cert\_file;}
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \textcolor{comment}{//\ Address\ family\ of\ memcached\ connection.\ \ One\ of\ either}}
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \textcolor{comment}{//\ AF\_INET,\ AF\_INET6\ or\ AF\_UNSPEC.}}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ family;}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ tls;}
+\DoxyCodeLine{00669\ \ \ \ \ \}\ memcached;}
+\DoxyCodeLine{00670\ \ \ \}\ session\_cache;}
+\DoxyCodeLine{00671\ }
+\DoxyCodeLine{00672\ \ \ \textcolor{comment}{//\ Dynamic\ record\ sizing\ configurations}}
+\DoxyCodeLine{00673\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00674\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ warmup\_threshold;}
+\DoxyCodeLine{00675\ \ \ \ \ ev\_tstamp\ idle\_timeout;}
+\DoxyCodeLine{00676\ \ \ \}\ dyn\_rec;}
+\DoxyCodeLine{00677\ }
+\DoxyCodeLine{00678\ \ \ \textcolor{comment}{//\ OCSP\ related\ configurations}}
+\DoxyCodeLine{00679\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00680\ \ \ \ \ ev\_tstamp\ update\_interval;}
+\DoxyCodeLine{00681\ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ fetch\_ocsp\_response\_file;}
+\DoxyCodeLine{00682\ \ \ \ \ \textcolor{keywordtype}{bool}\ disabled;}
+\DoxyCodeLine{00683\ \ \ \ \ \textcolor{keywordtype}{bool}\ startup;}
+\DoxyCodeLine{00684\ \ \ \ \ \textcolor{keywordtype}{bool}\ no\_verify;}
+\DoxyCodeLine{00685\ \ \ \}\ ocsp;}
+\DoxyCodeLine{00686\ }
+\DoxyCodeLine{00687\ \ \ \textcolor{comment}{//\ Client\ verification\ configurations}}
+\DoxyCodeLine{00688\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00689\ \ \ \ \ \textcolor{comment}{//\ Path\ to\ file\ containing\ CA\ certificate\ solely\ used\ for\ client}}
+\DoxyCodeLine{00690\ \ \ \ \ \textcolor{comment}{//\ certificate\ validation}}
+\DoxyCodeLine{00691\ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ cacert;}
+\DoxyCodeLine{00692\ \ \ \ \ \textcolor{keywordtype}{bool}\ enabled;}
+\DoxyCodeLine{00693\ \ \ \ \ \textcolor{comment}{//\ true\ if\ we\ accept\ an\ expired\ client\ certificate.}}
+\DoxyCodeLine{00694\ \ \ \ \ \textcolor{keywordtype}{bool}\ tolerate\_expired;}
+\DoxyCodeLine{00695\ \ \ \}\ client\_verify;}
+\DoxyCodeLine{00696\ }
+\DoxyCodeLine{00697\ \ \ \textcolor{comment}{//\ Client\ (backend\ connection)\ TLS\ configuration.}}
+\DoxyCodeLine{00698\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00699\ \ \ \ \ \textcolor{comment}{//\ Client\ PSK\ configuration}}
+\DoxyCodeLine{00700\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \textcolor{comment}{//\ identity\ must\ be\ NULL\ terminated\ string.}}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ identity;}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ secret;}
+\DoxyCodeLine{00704\ \ \ \ \ \}\ psk;}
+\DoxyCodeLine{00705\ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ private\_key\_file;}
+\DoxyCodeLine{00706\ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ cert\_file;}
+\DoxyCodeLine{00707\ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ ciphers;}
+\DoxyCodeLine{00708\ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ tls13\_ciphers;}
+\DoxyCodeLine{00709\ \ \ \ \ \textcolor{keywordtype}{bool}\ no\_http2\_cipher\_block\_list;}
+\DoxyCodeLine{00710\ \ \ \}\ client;}
+\DoxyCodeLine{00711\ }
+\DoxyCodeLine{00712\ \ \ \textcolor{comment}{//\ PSK\ secrets.\ \ The\ key\ is\ identity,\ and\ the\ associated\ value\ is}}
+\DoxyCodeLine{00713\ \ \ \textcolor{comment}{//\ its\ secret.}}
+\DoxyCodeLine{00714\ \ \ std::map<StringRef,\ StringRef>\ psk\_secrets;}
+\DoxyCodeLine{00715\ \ \ \textcolor{comment}{//\ The\ list\ of\ additional\ TLS\ certificate\ pair}}
+\DoxyCodeLine{00716\ \ \ std::vector<TLSCertificate>\ subcerts;}
+\DoxyCodeLine{00717\ \ \ std::vector<unsigned\ char>\ alpn\_prefs;}
+\DoxyCodeLine{00718\ \ \ \textcolor{comment}{//\ list\ of\ supported\ ALPN\ protocol\ strings\ in\ the\ order\ of}}
+\DoxyCodeLine{00719\ \ \ \textcolor{comment}{//\ preference.}}
+\DoxyCodeLine{00720\ \ \ std::vector<StringRef>\ alpn\_list;}
+\DoxyCodeLine{00721\ \ \ \textcolor{comment}{//\ list\ of\ supported\ SSL/TLS\ protocol\ strings.}}
+\DoxyCodeLine{00722\ \ \ std::vector<StringRef>\ tls\_proto\_list;}
+\DoxyCodeLine{00723\ \ \ std::vector<uint8\_t>\ sct\_data;}
+\DoxyCodeLine{00724\ \ \ BIO\_METHOD\ *bio\_method;}
+\DoxyCodeLine{00725\ \ \ \textcolor{comment}{//\ Bit\ mask\ to\ disable\ SSL/TLS\ protocol\ versions.\ \ This\ will\ be}}
+\DoxyCodeLine{00726\ \ \ \textcolor{comment}{//\ passed\ to\ SSL\_CTX\_set\_options().}}
+\DoxyCodeLine{00727\ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ tls\_proto\_mask;}
+\DoxyCodeLine{00728\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ backend\_sni\_name;}
+\DoxyCodeLine{00729\ \ \ std::chrono::seconds\ session\_timeout;}
+\DoxyCodeLine{00730\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ private\_key\_file;}
+\DoxyCodeLine{00731\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ private\_key\_passwd;}
+\DoxyCodeLine{00732\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ cert\_file;}
+\DoxyCodeLine{00733\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ dh\_param\_file;}
+\DoxyCodeLine{00734\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ ciphers;}
+\DoxyCodeLine{00735\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ tls13\_ciphers;}
+\DoxyCodeLine{00736\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ ecdh\_curves;}
+\DoxyCodeLine{00737\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ cacert;}
+\DoxyCodeLine{00738\ \ \ \textcolor{comment}{//\ The\ maximum\ amount\ of\ 0-\/RTT\ data\ that\ server\ accepts.}}
+\DoxyCodeLine{00739\ \ \ uint32\_t\ max\_early\_data;}
+\DoxyCodeLine{00740\ \ \ \textcolor{comment}{//\ The\ minimum\ and\ maximum\ TLS\ version.\ \ These\ values\ are\ defined\ in}}
+\DoxyCodeLine{00741\ \ \ \textcolor{comment}{//\ OpenSSL\ header\ file.}}
+\DoxyCodeLine{00742\ \ \ \textcolor{keywordtype}{int}\ min\_proto\_version;}
+\DoxyCodeLine{00743\ \ \ \textcolor{keywordtype}{int}\ max\_proto\_version;}
+\DoxyCodeLine{00744\ \ \ \textcolor{keywordtype}{bool}\ insecure;}
+\DoxyCodeLine{00745\ \ \ \textcolor{keywordtype}{bool}\ no\_http2\_cipher\_block\_list;}
+\DoxyCodeLine{00746\ \ \ \textcolor{comment}{//\ true\ if\ forwarding\ requests\ included\ in\ TLS\ early\ data\ should\ not}}
+\DoxyCodeLine{00747\ \ \ \textcolor{comment}{//\ be\ postponed\ until\ TLS\ handshake\ finishes.}}
+\DoxyCodeLine{00748\ \ \ \textcolor{keywordtype}{bool}\ no\_postpone\_early\_data;}
+\DoxyCodeLine{00749\ \ \ \textcolor{keywordtype}{bool}\ ktls;}
+\DoxyCodeLine{00750\ \};}
+\DoxyCodeLine{00751\ }
+\DoxyCodeLine{00752\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00753\ \textcolor{keyword}{struct\ }QUICConfig\ \{}
+\DoxyCodeLine{00754\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00755\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00756\ \ \ \ \ \ \ ev\_tstamp\ idle;}
+\DoxyCodeLine{00757\ \ \ \ \ \}\ timeout;}
+\DoxyCodeLine{00758\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00759\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ log;}
+\DoxyCodeLine{00760\ \ \ \ \ \}\ debug;}
+\DoxyCodeLine{00761\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ StringRef\ dir;}
+\DoxyCodeLine{00763\ \ \ \ \ \}\ qlog;}
+\DoxyCodeLine{00764\ \ \ \ \ ngtcp2\_cc\_algo\ congestion\_controller;}
+\DoxyCodeLine{00765\ \ \ \ \ \textcolor{keywordtype}{bool}\ early\_data;}
+\DoxyCodeLine{00766\ \ \ \ \ \textcolor{keywordtype}{bool}\ require\_token;}
+\DoxyCodeLine{00767\ \ \ \ \ StringRef\ secret\_file;}
+\DoxyCodeLine{00768\ \ \ \ \ ev\_tstamp\ initial\_rtt;}
+\DoxyCodeLine{00769\ \ \ \}\ upstream;}
+\DoxyCodeLine{00770\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00771\ \ \ \ \ StringRef\ prog\_file;}
+\DoxyCodeLine{00772\ \ \ \ \ \textcolor{keywordtype}{bool}\ disabled;}
+\DoxyCodeLine{00773\ \ \ \}\ bpf;}
+\DoxyCodeLine{00774\ \ \ uint32\_t\ server\_id;}
+\DoxyCodeLine{00775\ \};}
+\DoxyCodeLine{00776\ }
+\DoxyCodeLine{00777\ \textcolor{keyword}{struct\ }Http3Config\ \{}
+\DoxyCodeLine{00778\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00779\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ max\_concurrent\_streams;}
+\DoxyCodeLine{00780\ \ \ \ \ int32\_t\ window\_size;}
+\DoxyCodeLine{00781\ \ \ \ \ int32\_t\ connection\_window\_size;}
+\DoxyCodeLine{00782\ \ \ \ \ int32\_t\ max\_window\_size;}
+\DoxyCodeLine{00783\ \ \ \ \ int32\_t\ max\_connection\_window\_size;}
+\DoxyCodeLine{00784\ \ \ \}\ upstream;}
+\DoxyCodeLine{00785\ \};}
+\DoxyCodeLine{00786\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00787\ }
+\DoxyCodeLine{00788\ \textcolor{comment}{//\ custom\ error\ page}}
+\DoxyCodeLine{00789\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1ErrorPage}{ErrorPage}}\ \{}
+\DoxyCodeLine{00790\ \ \ \textcolor{comment}{//\ not\ NULL-\/terminated}}
+\DoxyCodeLine{00791\ \ \ std::vector<uint8\_t>\ content;}
+\DoxyCodeLine{00792\ \ \ \textcolor{comment}{//\ 0\ is\ special\ value,\ and\ it\ matches\ all\ HTTP\ status\ code.}}
+\DoxyCodeLine{00793\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ http\_status;}
+\DoxyCodeLine{00794\ \};}
+\DoxyCodeLine{00795\ }
+\DoxyCodeLine{00796\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1HttpConfig}{HttpConfig}}\ \{}
+\DoxyCodeLine{00797\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00798\ \ \ \ \ \textcolor{comment}{//\ obfuscated\ value\ used\ in\ "{}by"{}\ parameter\ of\ Forwarded\ header}}
+\DoxyCodeLine{00799\ \ \ \ \ \textcolor{comment}{//\ field.\ \ This\ is\ only\ used\ when\ user\ defined\ static\ obfuscated}}
+\DoxyCodeLine{00800\ \ \ \ \ \textcolor{comment}{//\ string\ is\ provided.}}
+\DoxyCodeLine{00801\ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ by\_obfuscated;}
+\DoxyCodeLine{00802\ \ \ \ \ \textcolor{comment}{//\ bitwise-\/OR\ of\ one\ or\ more\ of\ shrpx\_forwarded\_param\ values.}}
+\DoxyCodeLine{00803\ \ \ \ \ uint32\_t\ params;}
+\DoxyCodeLine{00804\ \ \ \ \ \textcolor{comment}{//\ type\ of\ value\ recorded\ in\ "{}by"{}\ parameter\ of\ Forwarded\ header}}
+\DoxyCodeLine{00805\ \ \ \ \ \textcolor{comment}{//\ field.}}
+\DoxyCodeLine{00806\ \ \ \ \ ForwardedNode\ by\_node\_type;}
+\DoxyCodeLine{00807\ \ \ \ \ \textcolor{comment}{//\ type\ of\ value\ recorded\ in\ "{}for"{}\ parameter\ of\ Forwarded\ header}}
+\DoxyCodeLine{00808\ \ \ \ \ \textcolor{comment}{//\ field.}}
+\DoxyCodeLine{00809\ \ \ \ \ ForwardedNode\ for\_node\_type;}
+\DoxyCodeLine{00810\ \ \ \ \ \textcolor{keywordtype}{bool}\ strip\_incoming;}
+\DoxyCodeLine{00811\ \ \ \}\ forwarded;}
+\DoxyCodeLine{00812\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00813\ \ \ \ \ \textcolor{keywordtype}{bool}\ add;}
+\DoxyCodeLine{00814\ \ \ \ \ \textcolor{keywordtype}{bool}\ strip\_incoming;}
+\DoxyCodeLine{00815\ \ \ \}\ xff;}
+\DoxyCodeLine{00816\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00817\ \ \ \ \ \textcolor{keywordtype}{bool}\ add;}
+\DoxyCodeLine{00818\ \ \ \ \ \textcolor{keywordtype}{bool}\ strip\_incoming;}
+\DoxyCodeLine{00819\ \ \ \}\ xfp;}
+\DoxyCodeLine{00820\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00821\ \ \ \ \ \textcolor{keywordtype}{bool}\ strip\_incoming;}
+\DoxyCodeLine{00822\ \ \ \}\ early\_data;}
+\DoxyCodeLine{00823\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00824\ \ \ \ \ ev\_tstamp\ header;}
+\DoxyCodeLine{00825\ \ \ \}\ timeout;}
+\DoxyCodeLine{00826\ \ \ std::vector<AltSvc>\ altsvcs;}
+\DoxyCodeLine{00827\ \ \ \textcolor{comment}{//\ altsvcs\ serialized\ in\ a\ wire\ format.}}
+\DoxyCodeLine{00828\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ altsvc\_header\_value;}
+\DoxyCodeLine{00829\ \ \ std::vector<AltSvc>\ http2\_altsvcs;}
+\DoxyCodeLine{00830\ \ \ \textcolor{comment}{//\ http2\_altsvcs\ serialized\ in\ a\ wire\ format.}}
+\DoxyCodeLine{00831\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ http2\_altsvc\_header\_value;}
+\DoxyCodeLine{00832\ \ \ std::vector<ErrorPage>\ error\_pages;}
+\DoxyCodeLine{00833\ \ \ HeaderRefs\ add\_request\_headers;}
+\DoxyCodeLine{00834\ \ \ HeaderRefs\ add\_response\_headers;}
+\DoxyCodeLine{00835\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ server\_name;}
+\DoxyCodeLine{00836\ \ \ \textcolor{comment}{//\ Port\ number\ which\ appears\ in\ Location\ header\ field\ when\ https}}
+\DoxyCodeLine{00837\ \ \ \textcolor{comment}{//\ redirect\ is\ made.}}
+\DoxyCodeLine{00838\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ redirect\_https\_port;}
+\DoxyCodeLine{00839\ \ \ \textcolor{keywordtype}{size\_t}\ request\_header\_field\_buffer;}
+\DoxyCodeLine{00840\ \ \ \textcolor{keywordtype}{size\_t}\ max\_request\_header\_fields;}
+\DoxyCodeLine{00841\ \ \ \textcolor{keywordtype}{size\_t}\ response\_header\_field\_buffer;}
+\DoxyCodeLine{00842\ \ \ \textcolor{keywordtype}{size\_t}\ max\_response\_header\_fields;}
+\DoxyCodeLine{00843\ \ \ \textcolor{keywordtype}{size\_t}\ max\_requests;}
+\DoxyCodeLine{00844\ \ \ \textcolor{keywordtype}{bool}\ no\_via;}
+\DoxyCodeLine{00845\ \ \ \textcolor{keywordtype}{bool}\ no\_location\_rewrite;}
+\DoxyCodeLine{00846\ \ \ \textcolor{keywordtype}{bool}\ no\_host\_rewrite;}
+\DoxyCodeLine{00847\ \ \ \textcolor{keywordtype}{bool}\ no\_server\_rewrite;}
+\DoxyCodeLine{00848\ \ \ \textcolor{keywordtype}{bool}\ require\_http\_scheme;}
+\DoxyCodeLine{00849\ \};}
+\DoxyCodeLine{00850\ }
+\DoxyCodeLine{00851\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1Http2Config}{Http2Config}}\ \{}
+\DoxyCodeLine{00852\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00853\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00854\ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00855\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ request\_header\_file;}
+\DoxyCodeLine{00856\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ response\_header\_file;}
+\DoxyCodeLine{00857\ \ \ \ \ \ \ \ \ FILE\ *request\_header;}
+\DoxyCodeLine{00858\ \ \ \ \ \ \ \ \ FILE\ *response\_header;}
+\DoxyCodeLine{00859\ \ \ \ \ \ \ \}\ dump;}
+\DoxyCodeLine{00860\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ frame\_debug;}
+\DoxyCodeLine{00861\ \ \ \ \ \}\ debug;}
+\DoxyCodeLine{00862\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00863\ \ \ \ \ \ \ ev\_tstamp\ settings;}
+\DoxyCodeLine{00864\ \ \ \ \ \}\ timeout;}
+\DoxyCodeLine{00865\ \ \ \ \ \mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option;}
+\DoxyCodeLine{00866\ \ \ \ \ \mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *alt\_mode\_option;}
+\DoxyCodeLine{00867\ \ \ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *callbacks;}
+\DoxyCodeLine{00868\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ max\_concurrent\_streams;}
+\DoxyCodeLine{00869\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ encoder\_dynamic\_table\_size;}
+\DoxyCodeLine{00870\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ decoder\_dynamic\_table\_size;}
+\DoxyCodeLine{00871\ \ \ \ \ int32\_t\ window\_size;}
+\DoxyCodeLine{00872\ \ \ \ \ int32\_t\ connection\_window\_size;}
+\DoxyCodeLine{00873\ \ \ \ \ \textcolor{keywordtype}{bool}\ optimize\_write\_buffer\_size;}
+\DoxyCodeLine{00874\ \ \ \ \ \textcolor{keywordtype}{bool}\ optimize\_window\_size;}
+\DoxyCodeLine{00875\ \ \ \}\ upstream;}
+\DoxyCodeLine{00876\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00877\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00878\ \ \ \ \ \ \ ev\_tstamp\ settings;}
+\DoxyCodeLine{00879\ \ \ \ \ \}\ timeout;}
+\DoxyCodeLine{00880\ \ \ \ \ \mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option;}
+\DoxyCodeLine{00881\ \ \ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *callbacks;}
+\DoxyCodeLine{00882\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ encoder\_dynamic\_table\_size;}
+\DoxyCodeLine{00883\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ decoder\_dynamic\_table\_size;}
+\DoxyCodeLine{00884\ \ \ \ \ int32\_t\ window\_size;}
+\DoxyCodeLine{00885\ \ \ \ \ int32\_t\ connection\_window\_size;}
+\DoxyCodeLine{00886\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ max\_concurrent\_streams;}
+\DoxyCodeLine{00887\ \ \ \}\ downstream;}
+\DoxyCodeLine{00888\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00889\ \ \ \ \ ev\_tstamp\ stream\_read;}
+\DoxyCodeLine{00890\ \ \ \ \ ev\_tstamp\ stream\_write;}
+\DoxyCodeLine{00891\ \ \ \}\ timeout;}
+\DoxyCodeLine{00892\ \ \ \textcolor{keywordtype}{bool}\ no\_cookie\_crumbling;}
+\DoxyCodeLine{00893\ \ \ \textcolor{keywordtype}{bool}\ no\_server\_push;}
+\DoxyCodeLine{00894\ \};}
+\DoxyCodeLine{00895\ }
+\DoxyCodeLine{00896\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1LoggingConfig}{LoggingConfig}}\ \{}
+\DoxyCodeLine{00897\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00898\ \ \ \ \ std::vector<LogFragment>\ format;}
+\DoxyCodeLine{00899\ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ file;}
+\DoxyCodeLine{00900\ \ \ \ \ \textcolor{comment}{//\ Send\ accesslog\ to\ syslog,\ ignoring\ accesslog\_file.}}
+\DoxyCodeLine{00901\ \ \ \ \ \textcolor{keywordtype}{bool}\ syslog;}
+\DoxyCodeLine{00902\ \ \ \ \ \textcolor{comment}{//\ Write\ accesslog\ when\ response\ headers\ are\ received\ from}}
+\DoxyCodeLine{00903\ \ \ \ \ \textcolor{comment}{//\ backend,\ rather\ than\ response\ body\ is\ received\ and\ sent.}}
+\DoxyCodeLine{00904\ \ \ \ \ \textcolor{keywordtype}{bool}\ write\_early;}
+\DoxyCodeLine{00905\ \ \ \}\ access;}
+\DoxyCodeLine{00906\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00907\ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ file;}
+\DoxyCodeLine{00908\ \ \ \ \ \textcolor{comment}{//\ Send\ errorlog\ to\ syslog,\ ignoring\ errorlog\_file.}}
+\DoxyCodeLine{00909\ \ \ \ \ \textcolor{keywordtype}{bool}\ syslog;}
+\DoxyCodeLine{00910\ \ \ \}\ error;}
+\DoxyCodeLine{00911\ \ \ \textcolor{keywordtype}{int}\ syslog\_facility;}
+\DoxyCodeLine{00912\ \ \ \textcolor{keywordtype}{int}\ severity;}
+\DoxyCodeLine{00913\ \};}
+\DoxyCodeLine{00914\ }
+\DoxyCodeLine{00915\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1RateLimitConfig}{RateLimitConfig}}\ \{}
+\DoxyCodeLine{00916\ \ \ \textcolor{keywordtype}{size\_t}\ rate;}
+\DoxyCodeLine{00917\ \ \ \textcolor{keywordtype}{size\_t}\ burst;}
+\DoxyCodeLine{00918\ \};}
+\DoxyCodeLine{00919\ }
+\DoxyCodeLine{00920\ \textcolor{comment}{//\ Wildcard\ host\ pattern\ routing.\ \ We\ strips\ left\ most\ '*'\ from\ host}}
+\DoxyCodeLine{00921\ \textcolor{comment}{//\ field.\ \ router\ includes\ all\ path\ patterns\ sharing\ the\ same\ wildcard}}
+\DoxyCodeLine{00922\ \textcolor{comment}{//\ host.}}
+\DoxyCodeLine{00923\ \textcolor{keyword}{struct\ }WildcardPattern\ \{}
+\DoxyCodeLine{00924\ \ \ WildcardPattern(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&host)\ :\ host(host)\ \{\}}
+\DoxyCodeLine{00925\ }
+\DoxyCodeLine{00926\ \ \ \textcolor{comment}{//\ This\ might\ not\ be\ NULL\ terminated.\ \ Currently\ it\ is\ only\ used\ for}}
+\DoxyCodeLine{00927\ \ \ \textcolor{comment}{//\ comparison.}}
+\DoxyCodeLine{00928\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ host;}
+\DoxyCodeLine{00929\ \ \ \mbox{\hyperlink{classshrpx_1_1Router}{Router}}\ router;}
+\DoxyCodeLine{00930\ \};}
+\DoxyCodeLine{00931\ }
+\DoxyCodeLine{00932\ \textcolor{comment}{//\ Configuration\ to\ select\ backend\ to\ forward\ request}}
+\DoxyCodeLine{00933\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1RouterConfig}{RouterConfig}}\ \{}
+\DoxyCodeLine{00934\ \ \ \mbox{\hyperlink{classshrpx_1_1Router}{Router}}\ router;}
+\DoxyCodeLine{00935\ \ \ \textcolor{comment}{//\ Router\ for\ reversed\ wildcard\ hosts.\ \ Since\ this\ router\ has}}
+\DoxyCodeLine{00936\ \ \ \textcolor{comment}{//\ wildcard\ hosts\ reversed\ without\ '*',\ one\ should\ call\ match()}}
+\DoxyCodeLine{00937\ \ \ \textcolor{comment}{//\ function\ with\ reversed\ host\ stripping\ last\ character.\ \ This\ is}}
+\DoxyCodeLine{00938\ \ \ \textcolor{comment}{//\ because\ we\ require\ at\ least\ one\ character\ must\ match\ for\ '*'.}}
+\DoxyCodeLine{00939\ \ \ \textcolor{comment}{//\ The\ index\ stored\ in\ this\ router\ is\ index\ of\ wildcard\_patterns.}}
+\DoxyCodeLine{00940\ \ \ \mbox{\hyperlink{classshrpx_1_1Router}{Router}}\ rev\_wildcard\_router;}
+\DoxyCodeLine{00941\ \ \ std::vector<WildcardPattern>\ wildcard\_patterns;}
+\DoxyCodeLine{00942\ \};}
+\DoxyCodeLine{00943\ }
+\DoxyCodeLine{00944\ \textcolor{keyword}{struct\ }DownstreamConfig\ \{}
+\DoxyCodeLine{00945\ \ \ DownstreamConfig()}
+\DoxyCodeLine{00946\ \ \ \ \ :\ balloc(1024,\ 1024),}
+\DoxyCodeLine{00947\ \ \ \ \ \ \ timeout\{\},}
+\DoxyCodeLine{00948\ \ \ \ \ \ \ addr\_group\_catch\_all\{0\},}
+\DoxyCodeLine{00949\ \ \ \ \ \ \ connections\_per\_host\{0\},}
+\DoxyCodeLine{00950\ \ \ \ \ \ \ connections\_per\_frontend\{0\},}
+\DoxyCodeLine{00951\ \ \ \ \ \ \ request\_buffer\_size\{0\},}
+\DoxyCodeLine{00952\ \ \ \ \ \ \ response\_buffer\_size\{0\},}
+\DoxyCodeLine{00953\ \ \ \ \ \ \ family\{0\}\ \{\}}
+\DoxyCodeLine{00954\ }
+\DoxyCodeLine{00955\ \ \ DownstreamConfig(\textcolor{keyword}{const}\ DownstreamConfig\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00956\ \ \ DownstreamConfig(DownstreamConfig\ \&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00957\ \ \ DownstreamConfig\ \&operator=(\textcolor{keyword}{const}\ DownstreamConfig\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00958\ \ \ DownstreamConfig\ \&operator=(DownstreamConfig\ \&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00959\ }
+\DoxyCodeLine{00960\ \ \ \textcolor{comment}{//\ Allocator\ to\ allocate\ memory\ for\ Downstream\ configuration.\ \ Since}}
+\DoxyCodeLine{00961\ \ \ \textcolor{comment}{//\ we\ may\ swap\ around\ DownstreamConfig\ in\ arbitrary\ times\ with\ API}}
+\DoxyCodeLine{00962\ \ \ \textcolor{comment}{//\ calls,\ we\ should\ use\ their\ own\ allocator\ instead\ of\ per\ Config}}
+\DoxyCodeLine{00963\ \ \ \textcolor{comment}{//\ allocator.}}
+\DoxyCodeLine{00964\ \ \ \mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ balloc;}
+\DoxyCodeLine{00965\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00966\ \ \ \ \ ev\_tstamp\ read;}
+\DoxyCodeLine{00967\ \ \ \ \ ev\_tstamp\ write;}
+\DoxyCodeLine{00968\ \ \ \ \ ev\_tstamp\ idle\_read;}
+\DoxyCodeLine{00969\ \ \ \ \ ev\_tstamp\ connect;}
+\DoxyCodeLine{00970\ \ \ \ \ \textcolor{comment}{//\ The\ maximum\ backoff\ while\ checking\ health\ check\ for\ offline}}
+\DoxyCodeLine{00971\ \ \ \ \ \textcolor{comment}{//\ backend\ or\ while\ detaching\ failed\ backend\ from\ load\ balancing}}
+\DoxyCodeLine{00972\ \ \ \ \ \textcolor{comment}{//\ group\ temporarily.}}
+\DoxyCodeLine{00973\ \ \ \ \ ev\_tstamp\ max\_backoff;}
+\DoxyCodeLine{00974\ \ \ \}\ timeout;}
+\DoxyCodeLine{00975\ \ \ \mbox{\hyperlink{structshrpx_1_1RouterConfig}{RouterConfig}}\ router;}
+\DoxyCodeLine{00976\ \ \ std::vector<DownstreamAddrGroupConfig>\ addr\_groups;}
+\DoxyCodeLine{00977\ \ \ \textcolor{comment}{//\ The\ index\ of\ catch-\/all\ group\ in\ downstream\_addr\_groups.}}
+\DoxyCodeLine{00978\ \ \ \textcolor{keywordtype}{size\_t}\ addr\_group\_catch\_all;}
+\DoxyCodeLine{00979\ \ \ \textcolor{keywordtype}{size\_t}\ connections\_per\_host;}
+\DoxyCodeLine{00980\ \ \ \textcolor{keywordtype}{size\_t}\ connections\_per\_frontend;}
+\DoxyCodeLine{00981\ \ \ \textcolor{keywordtype}{size\_t}\ request\_buffer\_size;}
+\DoxyCodeLine{00982\ \ \ \textcolor{keywordtype}{size\_t}\ response\_buffer\_size;}
+\DoxyCodeLine{00983\ \ \ \textcolor{comment}{//\ Address\ family\ of\ backend\ connection.\ \ One\ of\ either\ AF\_INET,}}
+\DoxyCodeLine{00984\ \ \ \textcolor{comment}{//\ AF\_INET6\ or\ AF\_UNSPEC.\ \ This\ is\ ignored\ if\ backend\ connection}}
+\DoxyCodeLine{00985\ \ \ \textcolor{comment}{//\ is\ made\ via\ Unix\ domain\ socket.}}
+\DoxyCodeLine{00986\ \ \ \textcolor{keywordtype}{int}\ family;}
+\DoxyCodeLine{00987\ \};}
+\DoxyCodeLine{00988\ }
+\DoxyCodeLine{00989\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1ConnectionConfig}{ConnectionConfig}}\ \{}
+\DoxyCodeLine{00990\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00991\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00992\ \ \ \ \ \ \ ev\_tstamp\ sleep;}
+\DoxyCodeLine{00993\ \ \ \ \ \}\ timeout;}
+\DoxyCodeLine{00994\ \ \ \ \ \textcolor{comment}{//\ address\ of\ frontend\ acceptors}}
+\DoxyCodeLine{00995\ \ \ \ \ std::vector<UpstreamAddr>\ addrs;}
+\DoxyCodeLine{00996\ \ \ \ \ \textcolor{keywordtype}{int}\ backlog;}
+\DoxyCodeLine{00997\ \ \ \ \ \textcolor{comment}{//\ TCP\ fastopen.\ \ If\ this\ is\ positive,\ it\ is\ passed\ to}}
+\DoxyCodeLine{00998\ \ \ \ \ \textcolor{comment}{//\ setsockopt()\ along\ with\ TCP\_FASTOPEN.}}
+\DoxyCodeLine{00999\ \ \ \ \ \textcolor{keywordtype}{int}\ fastopen;}
+\DoxyCodeLine{01000\ \ \ \}\ listener;}
+\DoxyCodeLine{01001\ }
+\DoxyCodeLine{01002\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{01003\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01004\ \ \ \ \ std::vector<UpstreamAddr>\ addrs;}
+\DoxyCodeLine{01005\ \ \ \}\ quic\_listener;}
+\DoxyCodeLine{01006\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{01007\ }
+\DoxyCodeLine{01008\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01009\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01010\ \ \ \ \ \ \ ev\_tstamp\ http2\_idle;}
+\DoxyCodeLine{01011\ \ \ \ \ \ \ ev\_tstamp\ http3\_idle;}
+\DoxyCodeLine{01012\ \ \ \ \ \ \ ev\_tstamp\ write;}
+\DoxyCodeLine{01013\ \ \ \ \ \ \ ev\_tstamp\ idle;}
+\DoxyCodeLine{01014\ \ \ \ \ \}\ timeout;}
+\DoxyCodeLine{01015\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01016\ \ \ \ \ \ \ \mbox{\hyperlink{structshrpx_1_1RateLimitConfig}{RateLimitConfig}}\ read;}
+\DoxyCodeLine{01017\ \ \ \ \ \ \ \mbox{\hyperlink{structshrpx_1_1RateLimitConfig}{RateLimitConfig}}\ write;}
+\DoxyCodeLine{01018\ \ \ \ \ \}\ ratelimit;}
+\DoxyCodeLine{01019\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ worker\_connections;}
+\DoxyCodeLine{01020\ \ \ \ \ \textcolor{comment}{//\ Deprecated.\ \ See\ UpstreamAddr.accept\_proxy\_protocol.}}
+\DoxyCodeLine{01021\ \ \ \ \ \textcolor{keywordtype}{bool}\ accept\_proxy\_protocol;}
+\DoxyCodeLine{01022\ \ \ \}\ upstream;}
+\DoxyCodeLine{01023\ }
+\DoxyCodeLine{01024\ \ \ std::shared\_ptr<DownstreamConfig>\ downstream;}
+\DoxyCodeLine{01025\ \};}
+\DoxyCodeLine{01026\ }
+\DoxyCodeLine{01027\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1APIConfig}{APIConfig}}\ \{}
+\DoxyCodeLine{01028\ \ \ \textcolor{comment}{//\ Maximum\ request\ body\ size\ for\ one\ API\ request}}
+\DoxyCodeLine{01029\ \ \ \textcolor{keywordtype}{size\_t}\ max\_request\_body;}
+\DoxyCodeLine{01030\ \ \ \textcolor{comment}{//\ true\ if\ at\ least\ one\ of\ UpstreamAddr\ has\ api\ enabled}}
+\DoxyCodeLine{01031\ \ \ \textcolor{keywordtype}{bool}\ enabled;}
+\DoxyCodeLine{01032\ \};}
+\DoxyCodeLine{01033\ }
+\DoxyCodeLine{01034\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1DNSConfig}{DNSConfig}}\ \{}
+\DoxyCodeLine{01035\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01036\ \ \ \ \ ev\_tstamp\ cache;}
+\DoxyCodeLine{01037\ \ \ \ \ ev\_tstamp\ lookup;}
+\DoxyCodeLine{01038\ \ \ \}\ timeout;}
+\DoxyCodeLine{01039\ \ \ \textcolor{comment}{//\ The\ number\ of\ tries\ name\ resolver\ makes\ before\ abandoning}}
+\DoxyCodeLine{01040\ \ \ \textcolor{comment}{//\ request.}}
+\DoxyCodeLine{01041\ \ \ \textcolor{keywordtype}{size\_t}\ max\_try;}
+\DoxyCodeLine{01042\ \};}
+\DoxyCodeLine{01043\ }
+\DoxyCodeLine{01044\ \textcolor{keyword}{struct\ }Config\ \{}
+\DoxyCodeLine{01045\ \ \ Config()}
+\DoxyCodeLine{01046\ \ \ \ \ :\ balloc(4096,\ 4096),}
+\DoxyCodeLine{01047\ \ \ \ \ \ \ downstream\_http\_proxy\{\},}
+\DoxyCodeLine{01048\ \ \ \ \ \ \ http\{\},}
+\DoxyCodeLine{01049\ \ \ \ \ \ \ http2\{\},}
+\DoxyCodeLine{01050\ \ \ \ \ \ \ tls\{\},}
+\DoxyCodeLine{01051\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{01052\ \ \ \ \ \ \ quic\{\},}
+\DoxyCodeLine{01053\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{01054\ \ \ \ \ \ \ logging\{\},}
+\DoxyCodeLine{01055\ \ \ \ \ \ \ conn\{\},}
+\DoxyCodeLine{01056\ \ \ \ \ \ \ api\{\},}
+\DoxyCodeLine{01057\ \ \ \ \ \ \ dns\{\},}
+\DoxyCodeLine{01058\ \ \ \ \ \ \ config\_revision\{0\},}
+\DoxyCodeLine{01059\ \ \ \ \ \ \ num\_worker\{0\},}
+\DoxyCodeLine{01060\ \ \ \ \ \ \ padding\{0\},}
+\DoxyCodeLine{01061\ \ \ \ \ \ \ rlimit\_nofile\{0\},}
+\DoxyCodeLine{01062\ \ \ \ \ \ \ rlimit\_memlock\{0\},}
+\DoxyCodeLine{01063\ \ \ \ \ \ \ uid\{0\},}
+\DoxyCodeLine{01064\ \ \ \ \ \ \ gid\{0\},}
+\DoxyCodeLine{01065\ \ \ \ \ \ \ pid\{0\},}
+\DoxyCodeLine{01066\ \ \ \ \ \ \ verbose\{\textcolor{keyword}{false}\},}
+\DoxyCodeLine{01067\ \ \ \ \ \ \ daemon\{\textcolor{keyword}{false}\},}
+\DoxyCodeLine{01068\ \ \ \ \ \ \ http2\_proxy\{\textcolor{keyword}{false}\},}
+\DoxyCodeLine{01069\ \ \ \ \ \ \ single\_process\{\textcolor{keyword}{false}\},}
+\DoxyCodeLine{01070\ \ \ \ \ \ \ single\_thread\{\textcolor{keyword}{false}\},}
+\DoxyCodeLine{01071\ \ \ \ \ \ \ ignore\_per\_pattern\_mruby\_error\{\textcolor{keyword}{false}\},}
+\DoxyCodeLine{01072\ \ \ \ \ \ \ ev\_loop\_flags\{0\},}
+\DoxyCodeLine{01073\ \ \ \ \ \ \ max\_worker\_processes\{0\},}
+\DoxyCodeLine{01074\ \ \ \ \ \ \ worker\_process\_grace\_shutdown\_period\{0.\}\ \{}
+\DoxyCodeLine{01075\ \ \ \}}
+\DoxyCodeLine{01076\ \ \ \string~Config();}
+\DoxyCodeLine{01077\ }
+\DoxyCodeLine{01078\ \ \ Config(Config\ \&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{01079\ \ \ Config(\textcolor{keyword}{const}\ Config\ \&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{01080\ \ \ Config\ \&operator=(Config\ \&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{01081\ \ \ Config\ \&operator=(\textcolor{keyword}{const}\ Config\ \&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{01082\ }
+\DoxyCodeLine{01083\ \ \ \textcolor{comment}{//\ Allocator\ to\ allocate\ memory\ for\ this\ object\ except\ for}}
+\DoxyCodeLine{01084\ \ \ \textcolor{comment}{//\ DownstreamConfig.\ \ Currently,\ it\ is\ used\ to\ allocate\ memory\ for}}
+\DoxyCodeLine{01085\ \ \ \textcolor{comment}{//\ strings.}}
+\DoxyCodeLine{01086\ \ \ \mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ balloc;}
+\DoxyCodeLine{01087\ \ \ \mbox{\hyperlink{structshrpx_1_1HttpProxy}{HttpProxy}}\ downstream\_http\_proxy;}
+\DoxyCodeLine{01088\ \ \ \mbox{\hyperlink{structshrpx_1_1HttpConfig}{HttpConfig}}\ http;}
+\DoxyCodeLine{01089\ \ \ \mbox{\hyperlink{structshrpx_1_1Http2Config}{Http2Config}}\ http2;}
+\DoxyCodeLine{01090\ \ \ \mbox{\hyperlink{structshrpx_1_1TLSConfig}{TLSConfig}}\ tls;}
+\DoxyCodeLine{01091\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{01092\ \ \ QUICConfig\ quic;}
+\DoxyCodeLine{01093\ \ \ Http3Config\ http3;}
+\DoxyCodeLine{01094\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{01095\ \ \ \mbox{\hyperlink{structshrpx_1_1LoggingConfig}{LoggingConfig}}\ logging;}
+\DoxyCodeLine{01096\ \ \ \mbox{\hyperlink{structshrpx_1_1ConnectionConfig}{ConnectionConfig}}\ conn;}
+\DoxyCodeLine{01097\ \ \ \mbox{\hyperlink{structshrpx_1_1APIConfig}{APIConfig}}\ api;}
+\DoxyCodeLine{01098\ \ \ \mbox{\hyperlink{structshrpx_1_1DNSConfig}{DNSConfig}}\ dns;}
+\DoxyCodeLine{01099\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ pid\_file;}
+\DoxyCodeLine{01100\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ conf\_path;}
+\DoxyCodeLine{01101\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ user;}
+\DoxyCodeLine{01102\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ mruby\_file;}
+\DoxyCodeLine{01103\ \ \ \textcolor{comment}{//\ The\ revision\ of\ configuration\ which\ is\ opaque\ string,\ and\ changes}}
+\DoxyCodeLine{01104\ \ \ \textcolor{comment}{//\ on\ each\ configuration\ reloading.\ \ This\ does\ not\ change\ on}}
+\DoxyCodeLine{01105\ \ \ \textcolor{comment}{//\ backendconfig\ API\ call.\ \ This\ value\ is\ returned\ in\ health\ check}}
+\DoxyCodeLine{01106\ \ \ \textcolor{comment}{//\ as\ "{}nghttpx-\/conf-\/rev"{}\ response\ header\ field.\ \ The\ external}}
+\DoxyCodeLine{01107\ \ \ \textcolor{comment}{//\ program\ can\ check\ this\ value\ to\ know\ whether\ reloading\ has}}
+\DoxyCodeLine{01108\ \ \ \textcolor{comment}{//\ completed\ or\ not.}}
+\DoxyCodeLine{01109\ \ \ uint64\_t\ config\_revision;}
+\DoxyCodeLine{01110\ \ \ \textcolor{keywordtype}{size\_t}\ num\_worker;}
+\DoxyCodeLine{01111\ \ \ \textcolor{keywordtype}{size\_t}\ padding;}
+\DoxyCodeLine{01112\ \ \ \textcolor{keywordtype}{size\_t}\ rlimit\_nofile;}
+\DoxyCodeLine{01113\ \ \ \textcolor{keywordtype}{size\_t}\ rlimit\_memlock;}
+\DoxyCodeLine{01114\ \ \ uid\_t\ uid;}
+\DoxyCodeLine{01115\ \ \ gid\_t\ gid;}
+\DoxyCodeLine{01116\ \ \ pid\_t\ pid;}
+\DoxyCodeLine{01117\ \ \ \textcolor{keywordtype}{bool}\ verbose;}
+\DoxyCodeLine{01118\ \ \ \textcolor{keywordtype}{bool}\ daemon;}
+\DoxyCodeLine{01119\ \ \ \textcolor{keywordtype}{bool}\ http2\_proxy;}
+\DoxyCodeLine{01120\ \ \ \textcolor{comment}{//\ Run\ nghttpx\ in\ single\ process\ mode.\ \ With\ this\ mode,\ signal}}
+\DoxyCodeLine{01121\ \ \ \textcolor{comment}{//\ handling\ is\ omitted.}}
+\DoxyCodeLine{01122\ \ \ \textcolor{keywordtype}{bool}\ single\_process;}
+\DoxyCodeLine{01123\ \ \ \textcolor{keywordtype}{bool}\ single\_thread;}
+\DoxyCodeLine{01124\ \ \ \textcolor{comment}{//\ Ignore\ mruby\ compile\ error\ for\ per-\/pattern\ mruby\ script.}}
+\DoxyCodeLine{01125\ \ \ \textcolor{keywordtype}{bool}\ ignore\_per\_pattern\_mruby\_error;}
+\DoxyCodeLine{01126\ \ \ \textcolor{comment}{//\ flags\ passed\ to\ ev\_default\_loop()\ and\ ev\_loop\_new()}}
+\DoxyCodeLine{01127\ \ \ \textcolor{keywordtype}{int}\ ev\_loop\_flags;}
+\DoxyCodeLine{01128\ \ \ \textcolor{keywordtype}{size\_t}\ max\_worker\_processes;}
+\DoxyCodeLine{01129\ \ \ ev\_tstamp\ worker\_process\_grace\_shutdown\_period;}
+\DoxyCodeLine{01130\ \};}
+\DoxyCodeLine{01131\ }
+\DoxyCodeLine{01132\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1Config}{Config}}\ *get\_config();}
+\DoxyCodeLine{01133\ \mbox{\hyperlink{structshrpx_1_1Config}{Config}}\ *mod\_config();}
+\DoxyCodeLine{01134\ \textcolor{comment}{//\ Replaces\ the\ current\ config\ with\ given\ |new\_config|.\ \ The\ old\ config\ is}}
+\DoxyCodeLine{01135\ \textcolor{comment}{//\ returned.}}
+\DoxyCodeLine{01136\ std::unique\_ptr<Config>\ replace\_config(std::unique\_ptr<Config>\ new\_config);}
+\DoxyCodeLine{01137\ \textcolor{keywordtype}{void}\ create\_config();}
+\DoxyCodeLine{01138\ }
+\DoxyCodeLine{01139\ \textcolor{comment}{//\ generated\ by\ gennghttpxfun.py}}
+\DoxyCodeLine{01140\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{01141\ \ \ SHRPX\_OPTID\_ACCEPT\_PROXY\_PROTOCOL,}
+\DoxyCodeLine{01142\ \ \ SHRPX\_OPTID\_ACCESSLOG\_FILE,}
+\DoxyCodeLine{01143\ \ \ SHRPX\_OPTID\_ACCESSLOG\_FORMAT,}
+\DoxyCodeLine{01144\ \ \ SHRPX\_OPTID\_ACCESSLOG\_SYSLOG,}
+\DoxyCodeLine{01145\ \ \ SHRPX\_OPTID\_ACCESSLOG\_WRITE\_EARLY,}
+\DoxyCodeLine{01146\ \ \ SHRPX\_OPTID\_ADD\_FORWARDED,}
+\DoxyCodeLine{01147\ \ \ SHRPX\_OPTID\_ADD\_REQUEST\_HEADER,}
+\DoxyCodeLine{01148\ \ \ SHRPX\_OPTID\_ADD\_RESPONSE\_HEADER,}
+\DoxyCodeLine{01149\ \ \ SHRPX\_OPTID\_ADD\_X\_FORWARDED\_FOR,}
+\DoxyCodeLine{01150\ \ \ SHRPX\_OPTID\_ALPN\_LIST,}
+\DoxyCodeLine{01151\ \ \ SHRPX\_OPTID\_ALTSVC,}
+\DoxyCodeLine{01152\ \ \ SHRPX\_OPTID\_API\_MAX\_REQUEST\_BODY,}
+\DoxyCodeLine{01153\ \ \ SHRPX\_OPTID\_BACKEND,}
+\DoxyCodeLine{01154\ \ \ SHRPX\_OPTID\_BACKEND\_ADDRESS\_FAMILY,}
+\DoxyCodeLine{01155\ \ \ SHRPX\_OPTID\_BACKEND\_CONNECT\_TIMEOUT,}
+\DoxyCodeLine{01156\ \ \ SHRPX\_OPTID\_BACKEND\_CONNECTIONS\_PER\_FRONTEND,}
+\DoxyCodeLine{01157\ \ \ SHRPX\_OPTID\_BACKEND\_CONNECTIONS\_PER\_HOST,}
+\DoxyCodeLine{01158\ \ \ SHRPX\_OPTID\_BACKEND\_HTTP\_PROXY\_URI,}
+\DoxyCodeLine{01159\ \ \ SHRPX\_OPTID\_BACKEND\_HTTP1\_CONNECTIONS\_PER\_FRONTEND,}
+\DoxyCodeLine{01160\ \ \ SHRPX\_OPTID\_BACKEND\_HTTP1\_CONNECTIONS\_PER\_HOST,}
+\DoxyCodeLine{01161\ \ \ SHRPX\_OPTID\_BACKEND\_HTTP1\_TLS,}
+\DoxyCodeLine{01162\ \ \ SHRPX\_OPTID\_BACKEND\_HTTP2\_CONNECTION\_WINDOW\_BITS,}
+\DoxyCodeLine{01163\ \ \ SHRPX\_OPTID\_BACKEND\_HTTP2\_CONNECTION\_WINDOW\_SIZE,}
+\DoxyCodeLine{01164\ \ \ SHRPX\_OPTID\_BACKEND\_HTTP2\_CONNECTIONS\_PER\_WORKER,}
+\DoxyCodeLine{01165\ \ \ SHRPX\_OPTID\_BACKEND\_HTTP2\_DECODER\_DYNAMIC\_TABLE\_SIZE,}
+\DoxyCodeLine{01166\ \ \ SHRPX\_OPTID\_BACKEND\_HTTP2\_ENCODER\_DYNAMIC\_TABLE\_SIZE,}
+\DoxyCodeLine{01167\ \ \ SHRPX\_OPTID\_BACKEND\_HTTP2\_MAX\_CONCURRENT\_STREAMS,}
+\DoxyCodeLine{01168\ \ \ SHRPX\_OPTID\_BACKEND\_HTTP2\_SETTINGS\_TIMEOUT,}
+\DoxyCodeLine{01169\ \ \ SHRPX\_OPTID\_BACKEND\_HTTP2\_WINDOW\_BITS,}
+\DoxyCodeLine{01170\ \ \ SHRPX\_OPTID\_BACKEND\_HTTP2\_WINDOW\_SIZE,}
+\DoxyCodeLine{01171\ \ \ SHRPX\_OPTID\_BACKEND\_IPV4,}
+\DoxyCodeLine{01172\ \ \ SHRPX\_OPTID\_BACKEND\_IPV6,}
+\DoxyCodeLine{01173\ \ \ SHRPX\_OPTID\_BACKEND\_KEEP\_ALIVE\_TIMEOUT,}
+\DoxyCodeLine{01174\ \ \ SHRPX\_OPTID\_BACKEND\_MAX\_BACKOFF,}
+\DoxyCodeLine{01175\ \ \ SHRPX\_OPTID\_BACKEND\_NO\_TLS,}
+\DoxyCodeLine{01176\ \ \ SHRPX\_OPTID\_BACKEND\_READ\_TIMEOUT,}
+\DoxyCodeLine{01177\ \ \ SHRPX\_OPTID\_BACKEND\_REQUEST\_BUFFER,}
+\DoxyCodeLine{01178\ \ \ SHRPX\_OPTID\_BACKEND\_RESPONSE\_BUFFER,}
+\DoxyCodeLine{01179\ \ \ SHRPX\_OPTID\_BACKEND\_TLS,}
+\DoxyCodeLine{01180\ \ \ SHRPX\_OPTID\_BACKEND\_TLS\_SNI\_FIELD,}
+\DoxyCodeLine{01181\ \ \ SHRPX\_OPTID\_BACKEND\_WRITE\_TIMEOUT,}
+\DoxyCodeLine{01182\ \ \ SHRPX\_OPTID\_BACKLOG,}
+\DoxyCodeLine{01183\ \ \ SHRPX\_OPTID\_CACERT,}
+\DoxyCodeLine{01184\ \ \ SHRPX\_OPTID\_CERTIFICATE\_FILE,}
+\DoxyCodeLine{01185\ \ \ SHRPX\_OPTID\_CIPHERS,}
+\DoxyCodeLine{01186\ \ \ SHRPX\_OPTID\_CLIENT,}
+\DoxyCodeLine{01187\ \ \ SHRPX\_OPTID\_CLIENT\_CERT\_FILE,}
+\DoxyCodeLine{01188\ \ \ SHRPX\_OPTID\_CLIENT\_CIPHERS,}
+\DoxyCodeLine{01189\ \ \ SHRPX\_OPTID\_CLIENT\_NO\_HTTP2\_CIPHER\_BLACK\_LIST,}
+\DoxyCodeLine{01190\ \ \ SHRPX\_OPTID\_CLIENT\_NO\_HTTP2\_CIPHER\_BLOCK\_LIST,}
+\DoxyCodeLine{01191\ \ \ SHRPX\_OPTID\_CLIENT\_PRIVATE\_KEY\_FILE,}
+\DoxyCodeLine{01192\ \ \ SHRPX\_OPTID\_CLIENT\_PROXY,}
+\DoxyCodeLine{01193\ \ \ SHRPX\_OPTID\_CLIENT\_PSK\_SECRETS,}
+\DoxyCodeLine{01194\ \ \ SHRPX\_OPTID\_CONF,}
+\DoxyCodeLine{01195\ \ \ SHRPX\_OPTID\_DAEMON,}
+\DoxyCodeLine{01196\ \ \ SHRPX\_OPTID\_DH\_PARAM\_FILE,}
+\DoxyCodeLine{01197\ \ \ SHRPX\_OPTID\_DNS\_CACHE\_TIMEOUT,}
+\DoxyCodeLine{01198\ \ \ SHRPX\_OPTID\_DNS\_LOOKUP\_TIMEOUT,}
+\DoxyCodeLine{01199\ \ \ SHRPX\_OPTID\_DNS\_MAX\_TRY,}
+\DoxyCodeLine{01200\ \ \ SHRPX\_OPTID\_ECDH\_CURVES,}
+\DoxyCodeLine{01201\ \ \ SHRPX\_OPTID\_ERROR\_PAGE,}
+\DoxyCodeLine{01202\ \ \ SHRPX\_OPTID\_ERRORLOG\_FILE,}
+\DoxyCodeLine{01203\ \ \ SHRPX\_OPTID\_ERRORLOG\_SYSLOG,}
+\DoxyCodeLine{01204\ \ \ SHRPX\_OPTID\_FASTOPEN,}
+\DoxyCodeLine{01205\ \ \ SHRPX\_OPTID\_FETCH\_OCSP\_RESPONSE\_FILE,}
+\DoxyCodeLine{01206\ \ \ SHRPX\_OPTID\_FORWARDED\_BY,}
+\DoxyCodeLine{01207\ \ \ SHRPX\_OPTID\_FORWARDED\_FOR,}
+\DoxyCodeLine{01208\ \ \ SHRPX\_OPTID\_FRONTEND,}
+\DoxyCodeLine{01209\ \ \ SHRPX\_OPTID\_FRONTEND\_FRAME\_DEBUG,}
+\DoxyCodeLine{01210\ \ \ SHRPX\_OPTID\_FRONTEND\_HEADER\_TIMEOUT,}
+\DoxyCodeLine{01211\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP2\_CONNECTION\_WINDOW\_BITS,}
+\DoxyCodeLine{01212\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP2\_CONNECTION\_WINDOW\_SIZE,}
+\DoxyCodeLine{01213\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP2\_DECODER\_DYNAMIC\_TABLE\_SIZE,}
+\DoxyCodeLine{01214\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP2\_DUMP\_REQUEST\_HEADER,}
+\DoxyCodeLine{01215\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP2\_DUMP\_RESPONSE\_HEADER,}
+\DoxyCodeLine{01216\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP2\_ENCODER\_DYNAMIC\_TABLE\_SIZE,}
+\DoxyCodeLine{01217\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP2\_IDLE\_TIMEOUT,}
+\DoxyCodeLine{01218\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP2\_MAX\_CONCURRENT\_STREAMS,}
+\DoxyCodeLine{01219\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP2\_OPTIMIZE\_WINDOW\_SIZE,}
+\DoxyCodeLine{01220\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP2\_OPTIMIZE\_WRITE\_BUFFER\_SIZE,}
+\DoxyCodeLine{01221\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP2\_READ\_TIMEOUT,}
+\DoxyCodeLine{01222\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP2\_SETTINGS\_TIMEOUT,}
+\DoxyCodeLine{01223\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP2\_WINDOW\_BITS,}
+\DoxyCodeLine{01224\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP2\_WINDOW\_SIZE,}
+\DoxyCodeLine{01225\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP3\_CONNECTION\_WINDOW\_SIZE,}
+\DoxyCodeLine{01226\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP3\_IDLE\_TIMEOUT,}
+\DoxyCodeLine{01227\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP3\_MAX\_CONCURRENT\_STREAMS,}
+\DoxyCodeLine{01228\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP3\_MAX\_CONNECTION\_WINDOW\_SIZE,}
+\DoxyCodeLine{01229\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP3\_MAX\_WINDOW\_SIZE,}
+\DoxyCodeLine{01230\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP3\_READ\_TIMEOUT,}
+\DoxyCodeLine{01231\ \ \ SHRPX\_OPTID\_FRONTEND\_HTTP3\_WINDOW\_SIZE,}
+\DoxyCodeLine{01232\ \ \ SHRPX\_OPTID\_FRONTEND\_KEEP\_ALIVE\_TIMEOUT,}
+\DoxyCodeLine{01233\ \ \ SHRPX\_OPTID\_FRONTEND\_MAX\_REQUESTS,}
+\DoxyCodeLine{01234\ \ \ SHRPX\_OPTID\_FRONTEND\_NO\_TLS,}
+\DoxyCodeLine{01235\ \ \ SHRPX\_OPTID\_FRONTEND\_QUIC\_CONGESTION\_CONTROLLER,}
+\DoxyCodeLine{01236\ \ \ SHRPX\_OPTID\_FRONTEND\_QUIC\_DEBUG\_LOG,}
+\DoxyCodeLine{01237\ \ \ SHRPX\_OPTID\_FRONTEND\_QUIC\_EARLY\_DATA,}
+\DoxyCodeLine{01238\ \ \ SHRPX\_OPTID\_FRONTEND\_QUIC\_IDLE\_TIMEOUT,}
+\DoxyCodeLine{01239\ \ \ SHRPX\_OPTID\_FRONTEND\_QUIC\_INITIAL\_RTT,}
+\DoxyCodeLine{01240\ \ \ SHRPX\_OPTID\_FRONTEND\_QUIC\_QLOG\_DIR,}
+\DoxyCodeLine{01241\ \ \ SHRPX\_OPTID\_FRONTEND\_QUIC\_REQUIRE\_TOKEN,}
+\DoxyCodeLine{01242\ \ \ SHRPX\_OPTID\_FRONTEND\_QUIC\_SECRET\_FILE,}
+\DoxyCodeLine{01243\ \ \ SHRPX\_OPTID\_FRONTEND\_READ\_TIMEOUT,}
+\DoxyCodeLine{01244\ \ \ SHRPX\_OPTID\_FRONTEND\_WRITE\_TIMEOUT,}
+\DoxyCodeLine{01245\ \ \ SHRPX\_OPTID\_HEADER\_FIELD\_BUFFER,}
+\DoxyCodeLine{01246\ \ \ SHRPX\_OPTID\_HOST\_REWRITE,}
+\DoxyCodeLine{01247\ \ \ SHRPX\_OPTID\_HTTP2\_ALTSVC,}
+\DoxyCodeLine{01248\ \ \ SHRPX\_OPTID\_HTTP2\_BRIDGE,}
+\DoxyCodeLine{01249\ \ \ SHRPX\_OPTID\_HTTP2\_MAX\_CONCURRENT\_STREAMS,}
+\DoxyCodeLine{01250\ \ \ SHRPX\_OPTID\_HTTP2\_NO\_COOKIE\_CRUMBLING,}
+\DoxyCodeLine{01251\ \ \ SHRPX\_OPTID\_HTTP2\_PROXY,}
+\DoxyCodeLine{01252\ \ \ SHRPX\_OPTID\_IGNORE\_PER\_PATTERN\_MRUBY\_ERROR,}
+\DoxyCodeLine{01253\ \ \ SHRPX\_OPTID\_INCLUDE,}
+\DoxyCodeLine{01254\ \ \ SHRPX\_OPTID\_INSECURE,}
+\DoxyCodeLine{01255\ \ \ SHRPX\_OPTID\_LISTENER\_DISABLE\_TIMEOUT,}
+\DoxyCodeLine{01256\ \ \ SHRPX\_OPTID\_LOG\_LEVEL,}
+\DoxyCodeLine{01257\ \ \ SHRPX\_OPTID\_MAX\_HEADER\_FIELDS,}
+\DoxyCodeLine{01258\ \ \ SHRPX\_OPTID\_MAX\_REQUEST\_HEADER\_FIELDS,}
+\DoxyCodeLine{01259\ \ \ SHRPX\_OPTID\_MAX\_RESPONSE\_HEADER\_FIELDS,}
+\DoxyCodeLine{01260\ \ \ SHRPX\_OPTID\_MAX\_WORKER\_PROCESSES,}
+\DoxyCodeLine{01261\ \ \ SHRPX\_OPTID\_MRUBY\_FILE,}
+\DoxyCodeLine{01262\ \ \ SHRPX\_OPTID\_NO\_ADD\_X\_FORWARDED\_PROTO,}
+\DoxyCodeLine{01263\ \ \ SHRPX\_OPTID\_NO\_HOST\_REWRITE,}
+\DoxyCodeLine{01264\ \ \ SHRPX\_OPTID\_NO\_HTTP2\_CIPHER\_BLACK\_LIST,}
+\DoxyCodeLine{01265\ \ \ SHRPX\_OPTID\_NO\_HTTP2\_CIPHER\_BLOCK\_LIST,}
+\DoxyCodeLine{01266\ \ \ SHRPX\_OPTID\_NO\_KQUEUE,}
+\DoxyCodeLine{01267\ \ \ SHRPX\_OPTID\_NO\_LOCATION\_REWRITE,}
+\DoxyCodeLine{01268\ \ \ SHRPX\_OPTID\_NO\_OCSP,}
+\DoxyCodeLine{01269\ \ \ SHRPX\_OPTID\_NO\_QUIC\_BPF,}
+\DoxyCodeLine{01270\ \ \ SHRPX\_OPTID\_NO\_SERVER\_PUSH,}
+\DoxyCodeLine{01271\ \ \ SHRPX\_OPTID\_NO\_SERVER\_REWRITE,}
+\DoxyCodeLine{01272\ \ \ SHRPX\_OPTID\_NO\_STRIP\_INCOMING\_EARLY\_DATA,}
+\DoxyCodeLine{01273\ \ \ SHRPX\_OPTID\_NO\_STRIP\_INCOMING\_X\_FORWARDED\_PROTO,}
+\DoxyCodeLine{01274\ \ \ SHRPX\_OPTID\_NO\_VERIFY\_OCSP,}
+\DoxyCodeLine{01275\ \ \ SHRPX\_OPTID\_NO\_VIA,}
+\DoxyCodeLine{01276\ \ \ SHRPX\_OPTID\_NPN\_LIST,}
+\DoxyCodeLine{01277\ \ \ SHRPX\_OPTID\_OCSP\_STARTUP,}
+\DoxyCodeLine{01278\ \ \ SHRPX\_OPTID\_OCSP\_UPDATE\_INTERVAL,}
+\DoxyCodeLine{01279\ \ \ SHRPX\_OPTID\_PADDING,}
+\DoxyCodeLine{01280\ \ \ SHRPX\_OPTID\_PID\_FILE,}
+\DoxyCodeLine{01281\ \ \ SHRPX\_OPTID\_PRIVATE\_KEY\_FILE,}
+\DoxyCodeLine{01282\ \ \ SHRPX\_OPTID\_PRIVATE\_KEY\_PASSWD\_FILE,}
+\DoxyCodeLine{01283\ \ \ SHRPX\_OPTID\_PSK\_SECRETS,}
+\DoxyCodeLine{01284\ \ \ SHRPX\_OPTID\_QUIC\_BPF\_PROGRAM\_FILE,}
+\DoxyCodeLine{01285\ \ \ SHRPX\_OPTID\_QUIC\_SERVER\_ID,}
+\DoxyCodeLine{01286\ \ \ SHRPX\_OPTID\_READ\_BURST,}
+\DoxyCodeLine{01287\ \ \ SHRPX\_OPTID\_READ\_RATE,}
+\DoxyCodeLine{01288\ \ \ SHRPX\_OPTID\_REDIRECT\_HTTPS\_PORT,}
+\DoxyCodeLine{01289\ \ \ SHRPX\_OPTID\_REQUEST\_HEADER\_FIELD\_BUFFER,}
+\DoxyCodeLine{01290\ \ \ SHRPX\_OPTID\_REQUIRE\_HTTP\_SCHEME,}
+\DoxyCodeLine{01291\ \ \ SHRPX\_OPTID\_RESPONSE\_HEADER\_FIELD\_BUFFER,}
+\DoxyCodeLine{01292\ \ \ SHRPX\_OPTID\_RLIMIT\_MEMLOCK,}
+\DoxyCodeLine{01293\ \ \ SHRPX\_OPTID\_RLIMIT\_NOFILE,}
+\DoxyCodeLine{01294\ \ \ SHRPX\_OPTID\_SERVER\_NAME,}
+\DoxyCodeLine{01295\ \ \ SHRPX\_OPTID\_SINGLE\_PROCESS,}
+\DoxyCodeLine{01296\ \ \ SHRPX\_OPTID\_SINGLE\_THREAD,}
+\DoxyCodeLine{01297\ \ \ SHRPX\_OPTID\_STREAM\_READ\_TIMEOUT,}
+\DoxyCodeLine{01298\ \ \ SHRPX\_OPTID\_STREAM\_WRITE\_TIMEOUT,}
+\DoxyCodeLine{01299\ \ \ SHRPX\_OPTID\_STRIP\_INCOMING\_FORWARDED,}
+\DoxyCodeLine{01300\ \ \ SHRPX\_OPTID\_STRIP\_INCOMING\_X\_FORWARDED\_FOR,}
+\DoxyCodeLine{01301\ \ \ SHRPX\_OPTID\_SUBCERT,}
+\DoxyCodeLine{01302\ \ \ SHRPX\_OPTID\_SYSLOG\_FACILITY,}
+\DoxyCodeLine{01303\ \ \ SHRPX\_OPTID\_TLS\_DYN\_REC\_IDLE\_TIMEOUT,}
+\DoxyCodeLine{01304\ \ \ SHRPX\_OPTID\_TLS\_DYN\_REC\_WARMUP\_THRESHOLD,}
+\DoxyCodeLine{01305\ \ \ SHRPX\_OPTID\_TLS\_KTLS,}
+\DoxyCodeLine{01306\ \ \ SHRPX\_OPTID\_TLS\_MAX\_EARLY\_DATA,}
+\DoxyCodeLine{01307\ \ \ SHRPX\_OPTID\_TLS\_MAX\_PROTO\_VERSION,}
+\DoxyCodeLine{01308\ \ \ SHRPX\_OPTID\_TLS\_MIN\_PROTO\_VERSION,}
+\DoxyCodeLine{01309\ \ \ SHRPX\_OPTID\_TLS\_NO\_POSTPONE\_EARLY\_DATA,}
+\DoxyCodeLine{01310\ \ \ SHRPX\_OPTID\_TLS\_PROTO\_LIST,}
+\DoxyCodeLine{01311\ \ \ SHRPX\_OPTID\_TLS\_SCT\_DIR,}
+\DoxyCodeLine{01312\ \ \ SHRPX\_OPTID\_TLS\_SESSION\_CACHE\_MEMCACHED,}
+\DoxyCodeLine{01313\ \ \ SHRPX\_OPTID\_TLS\_SESSION\_CACHE\_MEMCACHED\_ADDRESS\_FAMILY,}
+\DoxyCodeLine{01314\ \ \ SHRPX\_OPTID\_TLS\_SESSION\_CACHE\_MEMCACHED\_CERT\_FILE,}
+\DoxyCodeLine{01315\ \ \ SHRPX\_OPTID\_TLS\_SESSION\_CACHE\_MEMCACHED\_PRIVATE\_KEY\_FILE,}
+\DoxyCodeLine{01316\ \ \ SHRPX\_OPTID\_TLS\_SESSION\_CACHE\_MEMCACHED\_TLS,}
+\DoxyCodeLine{01317\ \ \ SHRPX\_OPTID\_TLS\_TICKET\_KEY\_CIPHER,}
+\DoxyCodeLine{01318\ \ \ SHRPX\_OPTID\_TLS\_TICKET\_KEY\_FILE,}
+\DoxyCodeLine{01319\ \ \ SHRPX\_OPTID\_TLS\_TICKET\_KEY\_MEMCACHED,}
+\DoxyCodeLine{01320\ \ \ SHRPX\_OPTID\_TLS\_TICKET\_KEY\_MEMCACHED\_ADDRESS\_FAMILY,}
+\DoxyCodeLine{01321\ \ \ SHRPX\_OPTID\_TLS\_TICKET\_KEY\_MEMCACHED\_CERT\_FILE,}
+\DoxyCodeLine{01322\ \ \ SHRPX\_OPTID\_TLS\_TICKET\_KEY\_MEMCACHED\_INTERVAL,}
+\DoxyCodeLine{01323\ \ \ SHRPX\_OPTID\_TLS\_TICKET\_KEY\_MEMCACHED\_MAX\_FAIL,}
+\DoxyCodeLine{01324\ \ \ SHRPX\_OPTID\_TLS\_TICKET\_KEY\_MEMCACHED\_MAX\_RETRY,}
+\DoxyCodeLine{01325\ \ \ SHRPX\_OPTID\_TLS\_TICKET\_KEY\_MEMCACHED\_PRIVATE\_KEY\_FILE,}
+\DoxyCodeLine{01326\ \ \ SHRPX\_OPTID\_TLS\_TICKET\_KEY\_MEMCACHED\_TLS,}
+\DoxyCodeLine{01327\ \ \ SHRPX\_OPTID\_TLS13\_CIPHERS,}
+\DoxyCodeLine{01328\ \ \ SHRPX\_OPTID\_TLS13\_CLIENT\_CIPHERS,}
+\DoxyCodeLine{01329\ \ \ SHRPX\_OPTID\_USER,}
+\DoxyCodeLine{01330\ \ \ SHRPX\_OPTID\_VERIFY\_CLIENT,}
+\DoxyCodeLine{01331\ \ \ SHRPX\_OPTID\_VERIFY\_CLIENT\_CACERT,}
+\DoxyCodeLine{01332\ \ \ SHRPX\_OPTID\_VERIFY\_CLIENT\_TOLERATE\_EXPIRED,}
+\DoxyCodeLine{01333\ \ \ SHRPX\_OPTID\_WORKER\_FRONTEND\_CONNECTIONS,}
+\DoxyCodeLine{01334\ \ \ SHRPX\_OPTID\_WORKER\_PROCESS\_GRACE\_SHUTDOWN\_PERIOD,}
+\DoxyCodeLine{01335\ \ \ SHRPX\_OPTID\_WORKER\_READ\_BURST,}
+\DoxyCodeLine{01336\ \ \ SHRPX\_OPTID\_WORKER\_READ\_RATE,}
+\DoxyCodeLine{01337\ \ \ SHRPX\_OPTID\_WORKER\_WRITE\_BURST,}
+\DoxyCodeLine{01338\ \ \ SHRPX\_OPTID\_WORKER\_WRITE\_RATE,}
+\DoxyCodeLine{01339\ \ \ SHRPX\_OPTID\_WORKERS,}
+\DoxyCodeLine{01340\ \ \ SHRPX\_OPTID\_WRITE\_BURST,}
+\DoxyCodeLine{01341\ \ \ SHRPX\_OPTID\_WRITE\_RATE,}
+\DoxyCodeLine{01342\ \ \ SHRPX\_OPTID\_MAXIDX,}
+\DoxyCodeLine{01343\ \};}
+\DoxyCodeLine{01344\ }
+\DoxyCodeLine{01345\ \textcolor{comment}{//\ Looks\ up\ token\ for\ given\ option\ name\ |name|.}}
+\DoxyCodeLine{01346\ \textcolor{keywordtype}{int}\ option\_lookup\_token(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&name);}
+\DoxyCodeLine{01347\ }
+\DoxyCodeLine{01348\ \textcolor{comment}{//\ Parses\ option\ name\ |opt|\ and\ value\ |optarg|.\ \ The\ results\ are}}
+\DoxyCodeLine{01349\ \textcolor{comment}{//\ stored\ into\ the\ object\ pointed\ by\ |config|.\ This\ function\ returns\ 0}}
+\DoxyCodeLine{01350\ \textcolor{comment}{//\ if\ it\ succeeds,\ or\ -\/1.\ \ The\ |included\_set|\ contains\ the\ all\ paths}}
+\DoxyCodeLine{01351\ \textcolor{comment}{//\ already\ included\ while\ processing\ this\ configuration,\ to\ avoid\ loop}}
+\DoxyCodeLine{01352\ \textcolor{comment}{//\ in\ -\/-\/include\ option.\ \ The\ |pattern\_addr\_indexer|\ contains\ a\ pair\ of}}
+\DoxyCodeLine{01353\ \textcolor{comment}{//\ pattern\ of\ backend,\ and\ its\ index\ in\ DownstreamConfig::addr\_groups.}}
+\DoxyCodeLine{01354\ \textcolor{comment}{//\ It\ is\ introduced\ to\ speed\ up\ loading\ configuration\ file\ with\ lots}}
+\DoxyCodeLine{01355\ \textcolor{comment}{//\ of\ backends.}}
+\DoxyCodeLine{01356\ \textcolor{keywordtype}{int}\ parse\_config(\mbox{\hyperlink{structnghttp2_1_1Config}{Config}}\ *config,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&opt,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&optarg,}
+\DoxyCodeLine{01357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::set<StringRef>\ \&included\_set,}
+\DoxyCodeLine{01358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<StringRef,\ size\_t>\ \&pattern\_addr\_indexer);}
+\DoxyCodeLine{01359\ }
+\DoxyCodeLine{01360\ \textcolor{comment}{//\ Similar\ to\ parse\_config()\ above,\ but\ additional\ |optid|\ which}}
+\DoxyCodeLine{01361\ \textcolor{comment}{//\ should\ be\ the\ return\ value\ of\ option\_lookup\_token(opt).}}
+\DoxyCodeLine{01362\ \textcolor{keywordtype}{int}\ parse\_config(\mbox{\hyperlink{structnghttp2_1_1Config}{Config}}\ *config,\ \textcolor{keywordtype}{int}\ optid,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&opt,}
+\DoxyCodeLine{01363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&optarg,\ std::set<StringRef>\ \&included\_set,}
+\DoxyCodeLine{01364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<StringRef,\ size\_t>\ \&pattern\_addr\_indexer);}
+\DoxyCodeLine{01365\ }
+\DoxyCodeLine{01366\ \textcolor{comment}{//\ Loads\ configurations\ from\ |filename|\ and\ stores\ them\ in\ |config|.}}
+\DoxyCodeLine{01367\ \textcolor{comment}{//\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ -\/1.\ \ See\ parse\_config()}}
+\DoxyCodeLine{01368\ \textcolor{comment}{//\ for\ |include\_set|.}}
+\DoxyCodeLine{01369\ \textcolor{keywordtype}{int}\ load\_config(\mbox{\hyperlink{structnghttp2_1_1Config}{Config}}\ *config,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filename,}
+\DoxyCodeLine{01370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::set<StringRef>\ \&include\_set,}
+\DoxyCodeLine{01371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<StringRef,\ size\_t>\ \&pattern\_addr\_indexer);}
+\DoxyCodeLine{01372\ }
+\DoxyCodeLine{01373\ \textcolor{comment}{//\ Parses\ header\ field\ in\ |optarg|.\ \ We\ expect\ header\ field\ is\ formed}}
+\DoxyCodeLine{01374\ \textcolor{comment}{//\ like\ "{}NAME:\ VALUE"{}.\ \ We\ require\ that\ NAME\ is\ non\ empty\ string.\ \ "{}:"{}}}
+\DoxyCodeLine{01375\ \textcolor{comment}{//\ is\ allowed\ at\ the\ start\ of\ the\ NAME,\ but\ NAME\ ==\ "{}:"{}\ is\ not}}
+\DoxyCodeLine{01376\ \textcolor{comment}{//\ allowed.\ \ This\ function\ returns\ pair\ of\ NAME\ and\ VALUE.}}
+\DoxyCodeLine{01377\ HeaderRefs::value\_type\ parse\_header(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&balloc,}
+\DoxyCodeLine{01378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&optarg);}
+\DoxyCodeLine{01379\ }
+\DoxyCodeLine{01380\ std::vector<LogFragment>\ parse\_log\_format(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&balloc,}
+\DoxyCodeLine{01381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&optarg);}
+\DoxyCodeLine{01382\ }
+\DoxyCodeLine{01383\ \textcolor{comment}{//\ Returns\ string\ for\ syslog\ |facility|.}}
+\DoxyCodeLine{01384\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ str\_syslog\_facility(\textcolor{keywordtype}{int}\ facility);}
+\DoxyCodeLine{01385\ }
+\DoxyCodeLine{01386\ \textcolor{comment}{//\ Returns\ integer\ value\ of\ syslog\ |facility|\ string.}}
+\DoxyCodeLine{01387\ \textcolor{keywordtype}{int}\ int\_syslog\_facility(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&strfacility);}
+\DoxyCodeLine{01388\ }
+\DoxyCodeLine{01389\ FILE\ *open\_file\_for\_write(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filename);}
+\DoxyCodeLine{01390\ }
+\DoxyCodeLine{01391\ \textcolor{comment}{//\ Reads\ TLS\ ticket\ key\ file\ in\ |files|\ and\ returns\ TicketKey\ which}}
+\DoxyCodeLine{01392\ \textcolor{comment}{//\ stores\ read\ key\ data.\ \ The\ given\ |cipher|\ and\ |hmac|\ determine\ the}}
+\DoxyCodeLine{01393\ \textcolor{comment}{//\ expected\ file\ size.\ \ This\ function\ returns\ TicketKey\ if\ it}}
+\DoxyCodeLine{01394\ \textcolor{comment}{//\ succeeds,\ or\ nullptr.}}
+\DoxyCodeLine{01395\ std::unique\_ptr<TicketKeys>}
+\DoxyCodeLine{01396\ read\_tls\_ticket\_key\_file(\textcolor{keyword}{const}\ std::vector<StringRef>\ \&files,}
+\DoxyCodeLine{01397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ EVP\_CIPHER\ *cipher,\ \textcolor{keyword}{const}\ EVP\_MD\ *hmac);}
+\DoxyCodeLine{01398\ }
+\DoxyCodeLine{01399\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{01400\ std::shared\_ptr<QUICKeyingMaterials>}
+\DoxyCodeLine{01401\ read\_quic\_secret\_file(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&path);}
+\DoxyCodeLine{01402\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{01403\ }
+\DoxyCodeLine{01404\ \textcolor{comment}{//\ Returns\ string\ representation\ of\ |proto|.}}
+\DoxyCodeLine{01405\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ strproto(Proto\ proto);}
+\DoxyCodeLine{01406\ }
+\DoxyCodeLine{01407\ \textcolor{keywordtype}{int}\ configure\_downstream\_group(\mbox{\hyperlink{structnghttp2_1_1Config}{Config}}\ *config,\ \textcolor{keywordtype}{bool}\ http2\_proxy,}
+\DoxyCodeLine{01408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ numeric\_addr\_only,}
+\DoxyCodeLine{01409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ TLSConfig\ \&tlsconf);}
+\DoxyCodeLine{01410\ }
+\DoxyCodeLine{01411\ \textcolor{keywordtype}{int}\ resolve\_hostname(\mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ *addr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname,\ uint16\_t\ port,}
+\DoxyCodeLine{01412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ family,\ \textcolor{keywordtype}{int}\ additional\_flags\ =\ 0);}
+\DoxyCodeLine{01413\ }
+\DoxyCodeLine{01414\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{01415\ }
+\DoxyCodeLine{01416\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_CONFIG\_H}}
+
+\end{DoxyCode}

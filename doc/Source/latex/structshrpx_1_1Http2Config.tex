@@ -1,0 +1,80 @@
+\doxysection{shrpx\+::Http2\+Config Struct Reference}
+\hypertarget{structshrpx_1_1Http2Config}{}\label{structshrpx_1_1Http2Config}\index{shrpx::Http2Config@{shrpx::Http2Config}}
+
+
+Collaboration diagram for shrpx\+::Http2\+Config\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structshrpx_1_1Http2Config__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1Http2Config_ac0645a757bfdae845ab17a5f2dc57ddb}\label{structshrpx_1_1Http2Config_ac0645a757bfdae845ab17a5f2dc57ddb} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>struct \{\\
+\>\>struct \{\\
+\>\>\>\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} {\bfseries request\_header\_file}\\
+\>\>\>\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}} {\bfseries response\_header\_file}\\
+\>\>\>FILE \texorpdfstring{$\ast$}{*} {\bfseries request\_header}\\
+\>\>\>FILE \texorpdfstring{$\ast$}{*} {\bfseries response\_header}\\
+\>\>\} {\bfseries dump}\\
+\>\>bool {\bfseries frame\_debug}\\
+\>\} {\bfseries debug}\\
+\>struct \{\\
+\>\>ev\_tstamp {\bfseries settings}\\
+\>\} {\bfseries timeout}\\
+\>\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}} \texorpdfstring{$\ast$}{*} {\bfseries option}\\
+\>\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}} \texorpdfstring{$\ast$}{*} {\bfseries alt\_mode\_option}\\
+\>\mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}} \texorpdfstring{$\ast$}{*} {\bfseries callbacks}\\
+\>size\_t {\bfseries max\_concurrent\_streams}\\
+\>size\_t {\bfseries encoder\_dynamic\_table\_size}\\
+\>size\_t {\bfseries decoder\_dynamic\_table\_size}\\
+\>int32\_t {\bfseries window\_size}\\
+\>int32\_t {\bfseries connection\_window\_size}\\
+\>bool {\bfseries optimize\_write\_buffer\_size}\\
+\>bool {\bfseries optimize\_window\_size}\\
+\} {\bfseries upstream}\\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1Http2Config_a4315a89cd0baf56cdda29d496141752d}\label{structshrpx_1_1Http2Config_a4315a89cd0baf56cdda29d496141752d} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>struct \{\\
+\>\>ev\_tstamp {\bfseries settings}\\
+\>\} {\bfseries timeout}\\
+\>\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}} \texorpdfstring{$\ast$}{*} {\bfseries option}\\
+\>\mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}} \texorpdfstring{$\ast$}{*} {\bfseries callbacks}\\
+\>size\_t {\bfseries encoder\_dynamic\_table\_size}\\
+\>size\_t {\bfseries decoder\_dynamic\_table\_size}\\
+\>int32\_t {\bfseries window\_size}\\
+\>int32\_t {\bfseries connection\_window\_size}\\
+\>size\_t {\bfseries max\_concurrent\_streams}\\
+\} {\bfseries downstream}\\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1Http2Config_a7dbc54261b487518b214ab71f3a0cd32}\label{structshrpx_1_1Http2Config_a7dbc54261b487518b214ab71f3a0cd32} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>ev\_tstamp {\bfseries stream\_read}\\
+\>ev\_tstamp {\bfseries stream\_write}\\
+\} {\bfseries timeout}\\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1Http2Config_ab8d978009e3026c430024ef49c136577}\label{structshrpx_1_1Http2Config_ab8d978009e3026c430024ef49c136577} 
+bool {\bfseries no\+\_\+cookie\+\_\+crumbling}
+\item 
+\Hypertarget{structshrpx_1_1Http2Config_a842b6f5b30ed454b0ed5d70eef8c830c}\label{structshrpx_1_1Http2Config_a842b6f5b30ed454b0ed5d70eef8c830c} 
+bool {\bfseries no\+\_\+server\+\_\+push}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+config.\+h\end{DoxyCompactItemize}

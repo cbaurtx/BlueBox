@@ -1,0 +1,71 @@
+\doxysection{shrpx\+::Memcached\+Connection Class Reference}
+\hypertarget{classshrpx_1_1MemcachedConnection}{}\label{classshrpx_1_1MemcachedConnection}\index{shrpx::MemcachedConnection@{shrpx::MemcachedConnection}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_a54a798850f4a2115774034e35cacacb6}\label{classshrpx_1_1MemcachedConnection_a54a798850f4a2115774034e35cacacb6} 
+{\bfseries Memcached\+Connection} (const \mbox{\hyperlink{structnghttp2_1_1Address}{Address}} \texorpdfstring{$\ast$}{*}addr, struct ev\+\_\+loop \texorpdfstring{$\ast$}{*}loop, SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*}ssl\+\_\+ctx, const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&sni\+\_\+name, Memchunk\+Pool \texorpdfstring{$\ast$}{*}mcpool, std\+::mt19937 \&gen)
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_ac22b64a1f72fe3957b3e717507c3be75}\label{classshrpx_1_1MemcachedConnection_ac22b64a1f72fe3957b3e717507c3be75} 
+void {\bfseries disconnect} ()
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_a728a31a4be5ccd3f1a2ba3ba2c408097}\label{classshrpx_1_1MemcachedConnection_a728a31a4be5ccd3f1a2ba3ba2c408097} 
+int {\bfseries add\+\_\+request} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1MemcachedRequest}{Memcached\+Request}} $>$ req)
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_a61f92e95744e70e4a17699ddd4938833}\label{classshrpx_1_1MemcachedConnection_a61f92e95744e70e4a17699ddd4938833} 
+int {\bfseries initiate\+\_\+connection} ()
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_aca5b57a4c66976824a3d98784110b0ff}\label{classshrpx_1_1MemcachedConnection_aca5b57a4c66976824a3d98784110b0ff} 
+int {\bfseries connected} ()
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_a8497a444ae6bc03f223e2b16c3501a76}\label{classshrpx_1_1MemcachedConnection_a8497a444ae6bc03f223e2b16c3501a76} 
+int {\bfseries on\+\_\+write} ()
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_aa6194982ff2b45049618b91b579ad0a1}\label{classshrpx_1_1MemcachedConnection_aa6194982ff2b45049618b91b579ad0a1} 
+int {\bfseries on\+\_\+read} ()
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_a73d88cf6fd0a70313ce2be71502e7575}\label{classshrpx_1_1MemcachedConnection_a73d88cf6fd0a70313ce2be71502e7575} 
+int {\bfseries write\+\_\+clear} ()
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_aad3f6c9c64a02cccade28532c4f96bf3}\label{classshrpx_1_1MemcachedConnection_aad3f6c9c64a02cccade28532c4f96bf3} 
+int {\bfseries read\+\_\+clear} ()
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_a1760eeacb0b06d5f43fd737314af8073}\label{classshrpx_1_1MemcachedConnection_a1760eeacb0b06d5f43fd737314af8073} 
+int {\bfseries tls\+\_\+handshake} ()
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_a8f5a8a3fb8d6b2b4750a3fc6be76be1a}\label{classshrpx_1_1MemcachedConnection_a8f5a8a3fb8d6b2b4750a3fc6be76be1a} 
+int {\bfseries write\+\_\+tls} ()
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_acd4d37a37fc2e571cd80a50258b0d94c}\label{classshrpx_1_1MemcachedConnection_acd4d37a37fc2e571cd80a50258b0d94c} 
+int {\bfseries read\+\_\+tls} ()
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_a3719d5fd2e285a4c45a5443cf6f4e65d}\label{classshrpx_1_1MemcachedConnection_a3719d5fd2e285a4c45a5443cf6f4e65d} 
+size\+\_\+t {\bfseries fill\+\_\+request\+\_\+buffer} (struct iovec \texorpdfstring{$\ast$}{*}iov, size\+\_\+t iovlen)
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_ad6c375169fd84b9f472e75e1a7ec38f1}\label{classshrpx_1_1MemcachedConnection_ad6c375169fd84b9f472e75e1a7ec38f1} 
+void {\bfseries drain\+\_\+send\+\_\+queue} (size\+\_\+t nwrite)
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_a0ff7f9bd15c8c3180de0404474c89117}\label{classshrpx_1_1MemcachedConnection_a0ff7f9bd15c8c3180de0404474c89117} 
+void {\bfseries make\+\_\+request} (\mbox{\hyperlink{structshrpx_1_1MemcachedSendbuf}{Memcached\+Sendbuf}} \texorpdfstring{$\ast$}{*}sendbuf, \mbox{\hyperlink{structshrpx_1_1MemcachedRequest}{Memcached\+Request}} \texorpdfstring{$\ast$}{*}req)
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_a5e87936fc808b72a8d09f24eae03e616}\label{classshrpx_1_1MemcachedConnection_a5e87936fc808b72a8d09f24eae03e616} 
+int {\bfseries parse\+\_\+packet} ()
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_ae22231ccd43b8cf2ee8c0b9a85c3f0ac}\label{classshrpx_1_1MemcachedConnection_ae22231ccd43b8cf2ee8c0b9a85c3f0ac} 
+size\+\_\+t {\bfseries serialized\+\_\+size} (\mbox{\hyperlink{structshrpx_1_1MemcachedRequest}{Memcached\+Request}} \texorpdfstring{$\ast$}{*}req)
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_aa3fc12d141a81181d9209b69faa99c0e}\label{classshrpx_1_1MemcachedConnection_aa3fc12d141a81181d9209b69faa99c0e} 
+void {\bfseries signal\+\_\+write} ()
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_a8a62b45104e0889a560b70374ce4ccbf}\label{classshrpx_1_1MemcachedConnection_a8a62b45104e0889a560b70374ce4ccbf} 
+int {\bfseries noop} ()
+\item 
+\Hypertarget{classshrpx_1_1MemcachedConnection_afb884bcfd04cd2d214c6318339599a2c}\label{classshrpx_1_1MemcachedConnection_afb884bcfd04cd2d214c6318339599a2c} 
+void {\bfseries reconnect\+\_\+or\+\_\+fail} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+memcached\+\_\+connection.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+memcached\+\_\+connection.\+cc\end{DoxyCompactItemize}

@@ -1,0 +1,561 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/opcode.h File Reference}
+\hypertarget{include_2mruby_2opcode_8h}{}\label{include_2mruby_2opcode_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/opcode.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/opcode.h}}
+{\ttfamily \#include "{}mruby/ops.\+h"{}}\newline
+Include dependency graph for opcode.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{include_2mruby_2opcode_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{include_2mruby_2opcode_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_ab026224cc5bdee8eeaf1e8bb3e5f1166}{OPCODE}}(x,  \+\_\+)
+\item 
+\Hypertarget{include_2mruby_2opcode_8h_ac72c07ceb75e13975d6e5949b333fe42}\label{include_2mruby_2opcode_8h_ac72c07ceb75e13975d6e5949b333fe42} 
+\#define {\bfseries OP\+\_\+\+L\+\_\+\+STRICT}~1
+\item 
+\Hypertarget{include_2mruby_2opcode_8h_a4fae300fdcb3db83a4238e56849bb4e8}\label{include_2mruby_2opcode_8h_a4fae300fdcb3db83a4238e56849bb4e8} 
+\#define {\bfseries OP\+\_\+\+L\+\_\+\+CAPTURE}~2
+\item 
+\Hypertarget{include_2mruby_2opcode_8h_a9b467e7a86a0917e7171ebbceb629c34}\label{include_2mruby_2opcode_8h_a9b467e7a86a0917e7171ebbceb629c34} 
+\#define {\bfseries OP\+\_\+\+L\+\_\+\+METHOD}~OP\+\_\+\+L\+\_\+\+STRICT
+\item 
+\Hypertarget{include_2mruby_2opcode_8h_a7ea80cc96e05b8382ef6f6badb2209e8}\label{include_2mruby_2opcode_8h_a7ea80cc96e05b8382ef6f6badb2209e8} 
+\#define {\bfseries OP\+\_\+\+L\+\_\+\+LAMBDA}~(OP\+\_\+\+L\+\_\+\+STRICT\texorpdfstring{$\vert$}{|}OP\+\_\+\+L\+\_\+\+CAPTURE)
+\item 
+\Hypertarget{include_2mruby_2opcode_8h_a0592ee3460d6c3204f0cd41b7267727e}\label{include_2mruby_2opcode_8h_a0592ee3460d6c3204f0cd41b7267727e} 
+\#define {\bfseries OP\+\_\+\+L\+\_\+\+BLOCK}~OP\+\_\+\+L\+\_\+\+CAPTURE
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a8e99e306d29864220d4c756a31ff43b5}{PEEK\+\_\+B}}(pc)
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a12b4ad47f66275111e08fd2e8e6b960b}{PEEK\+\_\+S}}(pc)
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a5696ec65c2966ded961498cf0be5a4f6}{PEEK\+\_\+W}}(pc)
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a6106095f3de9250abb2d026fabf87fde}{READ\+\_\+B}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a38237ad60f5ba21e55804dfce9b5aa75}{READ\+\_\+S}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a256b63d847b8ddd801d1cb02cdd17a01}{READ\+\_\+W}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_ab02a98de711cea538eb5db70bdc806d3}{FETCH\+\_\+Z}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_afd665bd40968b869e9ec53602d90e0da}{FETCH\+\_\+B}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a00f4316b940539d85bacf501b4397884}{FETCH\+\_\+\+BB}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a6ceebbc87e127c1d4a38f7924d154f6a}{FETCH\+\_\+\+BBB}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a800cbafb6595935b6d609ee3acb34e40}{FETCH\+\_\+\+BS}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a78fe691758d127516eddcb24f26d8778}{FETCH\+\_\+\+BSS}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_aabe7df32dfc024d0e4e8feaab6618e32}{FETCH\+\_\+S}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a2a38eb08266be6bf2249ee377b515645}{FETCH\+\_\+W}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_aba5b8fb5c4eb659e73f9ad7c2699b9ec}{FETCH\+\_\+\+Z\+\_\+1}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a27b07a254c5224abf9110c201aa2bc8a}{FETCH\+\_\+\+B\+\_\+1}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_adb68eae386e66a5985c24a6baaad157d}{FETCH\+\_\+\+BB\+\_\+1}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_af5222e8b9f0a9c46a2b18cff79cf9b79}{FETCH\+\_\+\+BBB\+\_\+1}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_adf503b555c71b94b92e014679cf3f81b}{FETCH\+\_\+\+BS\+\_\+1}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a4136db07f6c01e7d50f0426539e3ed04}{FETCH\+\_\+\+BSS\+\_\+1}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a736243d10458c833729523e9c7eca3e0}{FETCH\+\_\+\+S\+\_\+1}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a06fdefdc6b228ff2118c05ef725b469d}{FETCH\+\_\+\+W\+\_\+1}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a3413d360fdec19e733c2e35432cd0660}{FETCH\+\_\+\+Z\+\_\+2}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_aa3a9e2e4821d6875476181a1377560e7}{FETCH\+\_\+\+B\+\_\+2}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a28b35e470ac9c2ab0063131df231f144}{FETCH\+\_\+\+BB\+\_\+2}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a846a0ffa2450538bf107a8dc42c5999a}{FETCH\+\_\+\+BBB\+\_\+2}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_aa00ff7d2145597e12e328173a6561ed1}{FETCH\+\_\+\+BS\+\_\+2}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a6b3a310f60ffd4b81b76bf378b65cf96}{FETCH\+\_\+\+BSS\+\_\+2}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_aa228e3202e72ac4aea18ff24e267f9d1}{FETCH\+\_\+\+S\+\_\+2}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a4fbbcd62210e232051fd9ea72d38211f}{FETCH\+\_\+\+W\+\_\+2}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a442f8922e22730adbfe8158242d940a4}{FETCH\+\_\+\+Z\+\_\+3}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_aab07f380836335a729d08c4138588d60}{FETCH\+\_\+\+B\+\_\+3}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a4ec1d2dd6dea5427184d2b228c5c7bfa}{FETCH\+\_\+\+BB\+\_\+3}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_afa7a958904d6e8ad50b4660c4cc289b6}{FETCH\+\_\+\+BBB\+\_\+3}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_a68a4585b4b6703adf5cb309ff36b8e2d}{FETCH\+\_\+\+BS\+\_\+3}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_ad3421a823dd683b9c8ea1797db55355d}{FETCH\+\_\+\+BSS\+\_\+3}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_abb007cd0714df3fde0db8e31dfe8e312}{FETCH\+\_\+\+S\+\_\+3}}()
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2opcode_8h_ad65cc13abb11cb2cef891d264fb6ef9e}{FETCH\+\_\+\+W\+\_\+3}}()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{include_2mruby_2opcode_8h_a8f77493b2b07cf45616f4e53a90b781f}\label{include_2mruby_2opcode_8h_a8f77493b2b07cf45616f4e53a90b781f} 
+enum {\bfseries mrb\+\_\+insn} 
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item Rite\+VM operation codes
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-define-members}
+\Hypertarget{include_2mruby_2opcode_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{include_2mruby_2opcode_8h_afd665bd40968b869e9ec53602d90e0da}\index{opcode.h@{opcode.h}!FETCH\_B@{FETCH\_B}}
+\index{FETCH\_B@{FETCH\_B}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_B}{FETCH\_B}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_afd665bd40968b869e9ec53602d90e0da} 
+\#define FETCH\+\_\+B(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{a=READ\_B();\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a27b07a254c5224abf9110c201aa2bc8a}\index{opcode.h@{opcode.h}!FETCH\_B\_1@{FETCH\_B\_1}}
+\index{FETCH\_B\_1@{FETCH\_B\_1}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_B\_1}{FETCH\_B\_1}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a27b07a254c5224abf9110c201aa2bc8a} 
+\#define FETCH\+\_\+\+B\+\_\+1(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FETCH\_S()}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_aa3a9e2e4821d6875476181a1377560e7}\index{opcode.h@{opcode.h}!FETCH\_B\_2@{FETCH\_B\_2}}
+\index{FETCH\_B\_2@{FETCH\_B\_2}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_B\_2}{FETCH\_B\_2}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_aa3a9e2e4821d6875476181a1377560e7} 
+\#define FETCH\+\_\+\+B\+\_\+2(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FETCH\_B()}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_aab07f380836335a729d08c4138588d60}\index{opcode.h@{opcode.h}!FETCH\_B\_3@{FETCH\_B\_3}}
+\index{FETCH\_B\_3@{FETCH\_B\_3}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_B\_3}{FETCH\_B\_3}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_aab07f380836335a729d08c4138588d60} 
+\#define FETCH\+\_\+\+B\+\_\+3(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FETCH\_B()}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a00f4316b940539d85bacf501b4397884}\index{opcode.h@{opcode.h}!FETCH\_BB@{FETCH\_BB}}
+\index{FETCH\_BB@{FETCH\_BB}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_BB}{FETCH\_BB}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a00f4316b940539d85bacf501b4397884} 
+\#define FETCH\+\_\+\+BB(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{a=READ\_B();\ b=READ\_B();\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_adb68eae386e66a5985c24a6baaad157d}\index{opcode.h@{opcode.h}!FETCH\_BB\_1@{FETCH\_BB\_1}}
+\index{FETCH\_BB\_1@{FETCH\_BB\_1}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_BB\_1}{FETCH\_BB\_1}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_adb68eae386e66a5985c24a6baaad157d} 
+\#define FETCH\+\_\+\+BB\+\_\+1(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{a=READ\_S();\ b=READ\_B();\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a28b35e470ac9c2ab0063131df231f144}\index{opcode.h@{opcode.h}!FETCH\_BB\_2@{FETCH\_BB\_2}}
+\index{FETCH\_BB\_2@{FETCH\_BB\_2}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_BB\_2}{FETCH\_BB\_2}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a28b35e470ac9c2ab0063131df231f144} 
+\#define FETCH\+\_\+\+BB\+\_\+2(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{a=READ\_B();\ b=READ\_S();\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a4ec1d2dd6dea5427184d2b228c5c7bfa}\index{opcode.h@{opcode.h}!FETCH\_BB\_3@{FETCH\_BB\_3}}
+\index{FETCH\_BB\_3@{FETCH\_BB\_3}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_BB\_3}{FETCH\_BB\_3}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a4ec1d2dd6dea5427184d2b228c5c7bfa} 
+\#define FETCH\+\_\+\+BB\+\_\+3(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{a=READ\_S();\ b=READ\_S();\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a6ceebbc87e127c1d4a38f7924d154f6a}\index{opcode.h@{opcode.h}!FETCH\_BBB@{FETCH\_BBB}}
+\index{FETCH\_BBB@{FETCH\_BBB}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_BBB}{FETCH\_BBB}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a6ceebbc87e127c1d4a38f7924d154f6a} 
+\#define FETCH\+\_\+\+BBB(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{a=READ\_B();\ b=READ\_B();\ c=READ\_B();\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_af5222e8b9f0a9c46a2b18cff79cf9b79}\index{opcode.h@{opcode.h}!FETCH\_BBB\_1@{FETCH\_BBB\_1}}
+\index{FETCH\_BBB\_1@{FETCH\_BBB\_1}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_BBB\_1}{FETCH\_BBB\_1}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_af5222e8b9f0a9c46a2b18cff79cf9b79} 
+\#define FETCH\+\_\+\+BBB\+\_\+1(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{a=READ\_S();\ b=READ\_B();\ c=READ\_B();\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a846a0ffa2450538bf107a8dc42c5999a}\index{opcode.h@{opcode.h}!FETCH\_BBB\_2@{FETCH\_BBB\_2}}
+\index{FETCH\_BBB\_2@{FETCH\_BBB\_2}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_BBB\_2}{FETCH\_BBB\_2}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a846a0ffa2450538bf107a8dc42c5999a} 
+\#define FETCH\+\_\+\+BBB\+\_\+2(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{a=READ\_B();\ b=READ\_S();\ c=READ\_B();\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_afa7a958904d6e8ad50b4660c4cc289b6}\index{opcode.h@{opcode.h}!FETCH\_BBB\_3@{FETCH\_BBB\_3}}
+\index{FETCH\_BBB\_3@{FETCH\_BBB\_3}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_BBB\_3}{FETCH\_BBB\_3}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_afa7a958904d6e8ad50b4660c4cc289b6} 
+\#define FETCH\+\_\+\+BBB\+\_\+3(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{a=READ\_S();\ b=READ\_S();\ c=READ\_B();\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a800cbafb6595935b6d609ee3acb34e40}\index{opcode.h@{opcode.h}!FETCH\_BS@{FETCH\_BS}}
+\index{FETCH\_BS@{FETCH\_BS}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_BS}{FETCH\_BS}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a800cbafb6595935b6d609ee3acb34e40} 
+\#define FETCH\+\_\+\+BS(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{a=READ\_B();\ b=READ\_S();\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_adf503b555c71b94b92e014679cf3f81b}\index{opcode.h@{opcode.h}!FETCH\_BS\_1@{FETCH\_BS\_1}}
+\index{FETCH\_BS\_1@{FETCH\_BS\_1}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_BS\_1}{FETCH\_BS\_1}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_adf503b555c71b94b92e014679cf3f81b} 
+\#define FETCH\+\_\+\+BS\+\_\+1(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{a=READ\_S();\ b=READ\_S();\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_aa00ff7d2145597e12e328173a6561ed1}\index{opcode.h@{opcode.h}!FETCH\_BS\_2@{FETCH\_BS\_2}}
+\index{FETCH\_BS\_2@{FETCH\_BS\_2}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_BS\_2}{FETCH\_BS\_2}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_aa00ff7d2145597e12e328173a6561ed1} 
+\#define FETCH\+\_\+\+BS\+\_\+2(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FETCH\_BS()}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a68a4585b4b6703adf5cb309ff36b8e2d}\index{opcode.h@{opcode.h}!FETCH\_BS\_3@{FETCH\_BS\_3}}
+\index{FETCH\_BS\_3@{FETCH\_BS\_3}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_BS\_3}{FETCH\_BS\_3}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a68a4585b4b6703adf5cb309ff36b8e2d} 
+\#define FETCH\+\_\+\+BS\+\_\+3(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{a=READ\_S();\ b=READ\_S();\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a78fe691758d127516eddcb24f26d8778}\index{opcode.h@{opcode.h}!FETCH\_BSS@{FETCH\_BSS}}
+\index{FETCH\_BSS@{FETCH\_BSS}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_BSS}{FETCH\_BSS}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a78fe691758d127516eddcb24f26d8778} 
+\#define FETCH\+\_\+\+BSS(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{a=READ\_B();\ b=READ\_S();\ c=READ\_S();\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a4136db07f6c01e7d50f0426539e3ed04}\index{opcode.h@{opcode.h}!FETCH\_BSS\_1@{FETCH\_BSS\_1}}
+\index{FETCH\_BSS\_1@{FETCH\_BSS\_1}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_BSS\_1}{FETCH\_BSS\_1}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a4136db07f6c01e7d50f0426539e3ed04} 
+\#define FETCH\+\_\+\+BSS\+\_\+1(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{a=READ\_S();\ b=READ\_S();c=READ\_S();\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a6b3a310f60ffd4b81b76bf378b65cf96}\index{opcode.h@{opcode.h}!FETCH\_BSS\_2@{FETCH\_BSS\_2}}
+\index{FETCH\_BSS\_2@{FETCH\_BSS\_2}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_BSS\_2}{FETCH\_BSS\_2}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a6b3a310f60ffd4b81b76bf378b65cf96} 
+\#define FETCH\+\_\+\+BSS\+\_\+2(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FETCH\_BSS()}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_ad3421a823dd683b9c8ea1797db55355d}\index{opcode.h@{opcode.h}!FETCH\_BSS\_3@{FETCH\_BSS\_3}}
+\index{FETCH\_BSS\_3@{FETCH\_BSS\_3}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_BSS\_3}{FETCH\_BSS\_3}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_ad3421a823dd683b9c8ea1797db55355d} 
+\#define FETCH\+\_\+\+BSS\+\_\+3(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FETCH\_BSS\_1()}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_aabe7df32dfc024d0e4e8feaab6618e32}\index{opcode.h@{opcode.h}!FETCH\_S@{FETCH\_S}}
+\index{FETCH\_S@{FETCH\_S}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_S}{FETCH\_S}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_aabe7df32dfc024d0e4e8feaab6618e32} 
+\#define FETCH\+\_\+S(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{a=READ\_S();\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a736243d10458c833729523e9c7eca3e0}\index{opcode.h@{opcode.h}!FETCH\_S\_1@{FETCH\_S\_1}}
+\index{FETCH\_S\_1@{FETCH\_S\_1}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_S\_1}{FETCH\_S\_1}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a736243d10458c833729523e9c7eca3e0} 
+\#define FETCH\+\_\+\+S\+\_\+1(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FETCH\_S()}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_aa228e3202e72ac4aea18ff24e267f9d1}\index{opcode.h@{opcode.h}!FETCH\_S\_2@{FETCH\_S\_2}}
+\index{FETCH\_S\_2@{FETCH\_S\_2}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_S\_2}{FETCH\_S\_2}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_aa228e3202e72ac4aea18ff24e267f9d1} 
+\#define FETCH\+\_\+\+S\+\_\+2(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FETCH\_S()}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_abb007cd0714df3fde0db8e31dfe8e312}\index{opcode.h@{opcode.h}!FETCH\_S\_3@{FETCH\_S\_3}}
+\index{FETCH\_S\_3@{FETCH\_S\_3}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_S\_3}{FETCH\_S\_3}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_abb007cd0714df3fde0db8e31dfe8e312} 
+\#define FETCH\+\_\+\+S\+\_\+3(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FETCH\_S()}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a2a38eb08266be6bf2249ee377b515645}\index{opcode.h@{opcode.h}!FETCH\_W@{FETCH\_W}}
+\index{FETCH\_W@{FETCH\_W}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_W}{FETCH\_W}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a2a38eb08266be6bf2249ee377b515645} 
+\#define FETCH\+\_\+W(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{a=READ\_W();\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a06fdefdc6b228ff2118c05ef725b469d}\index{opcode.h@{opcode.h}!FETCH\_W\_1@{FETCH\_W\_1}}
+\index{FETCH\_W\_1@{FETCH\_W\_1}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_W\_1}{FETCH\_W\_1}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a06fdefdc6b228ff2118c05ef725b469d} 
+\#define FETCH\+\_\+\+W\+\_\+1(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FETCH\_W()}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a4fbbcd62210e232051fd9ea72d38211f}\index{opcode.h@{opcode.h}!FETCH\_W\_2@{FETCH\_W\_2}}
+\index{FETCH\_W\_2@{FETCH\_W\_2}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_W\_2}{FETCH\_W\_2}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a4fbbcd62210e232051fd9ea72d38211f} 
+\#define FETCH\+\_\+\+W\+\_\+2(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FETCH\_W()}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_ad65cc13abb11cb2cef891d264fb6ef9e}\index{opcode.h@{opcode.h}!FETCH\_W\_3@{FETCH\_W\_3}}
+\index{FETCH\_W\_3@{FETCH\_W\_3}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_W\_3}{FETCH\_W\_3}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_ad65cc13abb11cb2cef891d264fb6ef9e} 
+\#define FETCH\+\_\+\+W\+\_\+3(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FETCH\_W()}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_ab02a98de711cea538eb5db70bdc806d3}\index{opcode.h@{opcode.h}!FETCH\_Z@{FETCH\_Z}}
+\index{FETCH\_Z@{FETCH\_Z}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_Z}{FETCH\_Z}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_ab02a98de711cea538eb5db70bdc806d3} 
+\#define FETCH\+\_\+Z(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{/*\ nothing\ */}}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_aba5b8fb5c4eb659e73f9ad7c2699b9ec}\index{opcode.h@{opcode.h}!FETCH\_Z\_1@{FETCH\_Z\_1}}
+\index{FETCH\_Z\_1@{FETCH\_Z\_1}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_Z\_1}{FETCH\_Z\_1}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_aba5b8fb5c4eb659e73f9ad7c2699b9ec} 
+\#define FETCH\+\_\+\+Z\+\_\+1(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FETCH\_Z()}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a3413d360fdec19e733c2e35432cd0660}\index{opcode.h@{opcode.h}!FETCH\_Z\_2@{FETCH\_Z\_2}}
+\index{FETCH\_Z\_2@{FETCH\_Z\_2}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_Z\_2}{FETCH\_Z\_2}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a3413d360fdec19e733c2e35432cd0660} 
+\#define FETCH\+\_\+\+Z\+\_\+2(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FETCH\_Z()}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a442f8922e22730adbfe8158242d940a4}\index{opcode.h@{opcode.h}!FETCH\_Z\_3@{FETCH\_Z\_3}}
+\index{FETCH\_Z\_3@{FETCH\_Z\_3}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{FETCH\_Z\_3}{FETCH\_Z\_3}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a442f8922e22730adbfe8158242d940a4} 
+\#define FETCH\+\_\+\+Z\+\_\+3(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FETCH\_Z()}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_ab026224cc5bdee8eeaf1e8bb3e5f1166}\index{opcode.h@{opcode.h}!OPCODE@{OPCODE}}
+\index{OPCODE@{OPCODE}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{OPCODE}{OPCODE}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_ab026224cc5bdee8eeaf1e8bb3e5f1166} 
+\#define OPCODE(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{\+\_\+}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{OP\_\ \#\#\ x,}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a8e99e306d29864220d4c756a31ff43b5}\index{opcode.h@{opcode.h}!PEEK\_B@{PEEK\_B}}
+\index{PEEK\_B@{PEEK\_B}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{PEEK\_B}{PEEK\_B}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a8e99e306d29864220d4c756a31ff43b5} 
+\#define PEEK\+\_\+B(\begin{DoxyParamCaption}\item[{}]{pc}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(*(pc))}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a12b4ad47f66275111e08fd2e8e6b960b}\index{opcode.h@{opcode.h}!PEEK\_S@{PEEK\_S}}
+\index{PEEK\_S@{PEEK\_S}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{PEEK\_S}{PEEK\_S}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a12b4ad47f66275111e08fd2e8e6b960b} 
+\#define PEEK\+\_\+S(\begin{DoxyParamCaption}\item[{}]{pc}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((pc)[0]<<8|(pc)[1])}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a5696ec65c2966ded961498cf0be5a4f6}\index{opcode.h@{opcode.h}!PEEK\_W@{PEEK\_W}}
+\index{PEEK\_W@{PEEK\_W}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{PEEK\_W}{PEEK\_W}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a5696ec65c2966ded961498cf0be5a4f6} 
+\#define PEEK\+\_\+W(\begin{DoxyParamCaption}\item[{}]{pc}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((pc)[0]<<16|(pc)[1]<<8|(pc)[2])}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a6106095f3de9250abb2d026fabf87fde}\index{opcode.h@{opcode.h}!READ\_B@{READ\_B}}
+\index{READ\_B@{READ\_B}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{READ\_B}{READ\_B}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a6106095f3de9250abb2d026fabf87fde} 
+\#define READ\+\_\+B(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{PEEK\_B(pc++)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a38237ad60f5ba21e55804dfce9b5aa75}\index{opcode.h@{opcode.h}!READ\_S@{READ\_S}}
+\index{READ\_S@{READ\_S}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{READ\_S}{READ\_S}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a38237ad60f5ba21e55804dfce9b5aa75} 
+\#define READ\+\_\+S(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(pc+=2,\ PEEK\_S(pc-\/2))}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2opcode_8h_a256b63d847b8ddd801d1cb02cdd17a01}\index{opcode.h@{opcode.h}!READ\_W@{READ\_W}}
+\index{READ\_W@{READ\_W}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{READ\_W}{READ\_W}}
+{\footnotesize\ttfamily \label{include_2mruby_2opcode_8h_a256b63d847b8ddd801d1cb02cdd17a01} 
+\#define READ\+\_\+W(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(pc+=3,\ PEEK\_W(pc-\/3))}
+
+\end{DoxyCode}

@@ -1,0 +1,18 @@
+<map id="shrpx::DownstreamAddr" name="shrpx::DownstreamAddr">
+<area shape="rect" id="Node000001" title=" " alt="" coords="612,189,774,216"/>
+<area shape="rect" id="Node000002" href="$structnghttp2_1_1Address.html" title=" " alt="" coords="289,16,409,43"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="424,24,464,27,507,34,550,46,589,64,625,93,653,127,688,190,683,188,649,130,621,96,587,69,548,51,506,39,464,32,425,30"/>
+<area shape="rect" id="Node000003" href="$unionnghttp2_1_1sockaddr__union.html" title=" " alt="" coords="5,16,169,43"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="184,27,290,28,286,31,185,32"/>
+<area shape="rect" id="Node000004" href="$classnghttp2_1_1StringRef.html" title=" " alt="" coords="285,135,412,161"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="428,153,588,175,642,189,637,189,588,180,428,158"/>
+<area shape="rect" id="Node000005" href="$structshrpx_1_1tls_1_1TLSSessionCache.html" title=" " alt="" coords="253,187,445,213"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="460,199,469,199,614,202,609,203,469,204,461,204"/>
+<area shape="rect" id="Node000006" href="$structnghttp2_1_1DList.html" title=" " alt="" coords="275,237,422,280"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="437,250,511,242,587,229,646,217,651,216,589,235,512,247,438,255"/>
+<area shape="rect" id="Node000007" href="$classshrpx_1_1Http2Session.html" title=" " alt="" coords="17,245,157,272"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="173,256,277,258,272,260,173,261"/>
+<area shape="poly" id="edge7_Node000007_Node000007" title=" " alt="" coords="63,228,72,221,87,219,101,221,110,227,113,236,109,246,104,243,107,236,106,230,99,226,87,224,74,226,67,232"/>
+<area shape="rect" id="Node000008" href="$structshrpx_1_1WeightGroup.html" title=" " alt="" coords="281,304,417,331"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="432,311,509,299,549,290,587,276,638,246,675,217,680,215,641,251,589,281,550,295,510,305,433,316"/>
+</map>

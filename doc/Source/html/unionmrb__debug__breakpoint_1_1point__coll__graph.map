@@ -1,0 +1,7 @@
+<map id="mrb_debug_breakpoint::point" name="mrb_debug_breakpoint::point">
+<area shape="rect" id="Node000001" title=" " alt="" coords="87,104,240,147"/>
+<area shape="rect" id="Node000002" href="$structmrb__debug__linepoint.html" title=" " alt="" coords="5,5,146,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,41,149,103,144,104,94,46"/>
+<area shape="rect" id="Node000003" href="$structmrb__debug__methodpoint.html" title=" " alt="" coords="170,5,333,32"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="234,43,183,105,179,101,229,45"/>
+</map>

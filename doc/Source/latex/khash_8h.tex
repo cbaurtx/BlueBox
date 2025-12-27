@@ -1,0 +1,523 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/khash.h File Reference}
+\hypertarget{khash_8h}{}\label{khash_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/khash.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/khash.h}}
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$mruby.\+h$>$}\newline
+{\ttfamily \#include "{}common.\+h"{}}\newline
+Include dependency graph for khash.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{khash_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{khash_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{khash_8h_a15da3acf8e434820c2f09f08567289fc}\label{khash_8h_a15da3acf8e434820c2f09f08567289fc} 
+\#define {\bfseries KHASH\+\_\+\+DEFAULT\+\_\+\+SIZE}~32
+\item 
+\Hypertarget{khash_8h_a660b9c1c1103c9f07e7ffdf9ce53cd55}\label{khash_8h_a660b9c1c1103c9f07e7ffdf9ce53cd55} 
+\#define {\bfseries KHASH\+\_\+\+MIN\+\_\+\+SIZE}~8
+\item 
+\#define \mbox{\hyperlink{khash_8h_a13fc68b00efb5cc4abda7b3363a282bd}{UPPER\+\_\+\+BOUND}}(x)
+\item 
+\#define \mbox{\hyperlink{khash_8h_afe0bd30775b414320bcbe0a87c944cab}{\+\_\+\+\_\+ac\+\_\+isempty}}(ed\+\_\+flag,  i)
+\item 
+\#define \mbox{\hyperlink{khash_8h_ad809412f1605229a3827ff211b23423b}{\+\_\+\+\_\+ac\+\_\+isdel}}(ed\+\_\+flag,  i)
+\item 
+\#define \mbox{\hyperlink{khash_8h_ab0ff362c10f22c633497ff8ffe373acc}{\+\_\+\+\_\+ac\+\_\+iseither}}(ed\+\_\+flag,  i)
+\item 
+\#define \mbox{\hyperlink{khash_8h_ace00178d6c4fa86175ff632c3c4b6348}{khash\+\_\+power2}}(v)
+\item 
+\#define \mbox{\hyperlink{khash_8h_a9745030b286d5329afbb47fd8f5bf7de}{khash\+\_\+mask}}(h)
+\item 
+\#define \mbox{\hyperlink{khash_8h_a2cd26f65e64551c10e29861e0832b789}{khash\+\_\+upper\+\_\+bound}}(h)
+\item 
+\#define \mbox{\hyperlink{khash_8h_a040356612add0f611b5a2237a2b3e1ca}{KHASH\+\_\+\+DECLARE}}(name,  khkey\+\_\+t,  khval\+\_\+t,  kh\+\_\+is\+\_\+map)
+\item 
+\Hypertarget{khash_8h_a734e92c016b315cc8137bcee2d6ee61d}\label{khash_8h_a734e92c016b315cc8137bcee2d6ee61d} 
+\#define {\bfseries KHASH\+\_\+\+DEFINE}(name,  khkey\+\_\+t,  khval\+\_\+t,  kh\+\_\+is\+\_\+map,  \+\_\+\+\_\+hash\+\_\+func,  \+\_\+\+\_\+hash\+\_\+equal)
+\item 
+\#define \mbox{\hyperlink{khash_8h_a918655286199787582304265cd9d4463}{khash\+\_\+t}}(name)
+\item 
+\#define \mbox{\hyperlink{khash_8h_a4a4451d6bf3578a072d85244eaf0a03e}{kh\+\_\+init\+\_\+size}}(name,  mrb,  size)
+\item 
+\#define \mbox{\hyperlink{khash_8h_ad8b5f96f7ae6bc5f344772e42302113e}{kh\+\_\+init}}(name,  mrb)
+\item 
+\#define \mbox{\hyperlink{khash_8h_ac6ee031b2b96af384e414e92a7a7d188}{kh\+\_\+destroy}}(name,  mrb,  h)
+\item 
+\#define \mbox{\hyperlink{khash_8h_aad2f166194d41485a7950f5a3d2397a2}{kh\+\_\+clear}}(name,  mrb,  h)
+\item 
+\#define \mbox{\hyperlink{khash_8h_a18ff61aa107146b40a5ec7f960c1f5ee}{kh\+\_\+resize}}(name,  mrb,  h,  s)
+\item 
+\#define \mbox{\hyperlink{khash_8h_af7eb93cd2152ec398096f0a404ba297b}{kh\+\_\+put}}(name,  mrb,  h,  k)
+\item 
+\#define \mbox{\hyperlink{khash_8h_aeb885efcca05e1e39d70cd0aa750f58e}{kh\+\_\+put2}}(name,  mrb,  h,  k,  r)
+\item 
+\#define \mbox{\hyperlink{khash_8h_ac9e7aa54632a835e23935f2a09f4cbdc}{kh\+\_\+get}}(name,  mrb,  h,  k)
+\item 
+\#define \mbox{\hyperlink{khash_8h_a71926147161b3b5b198158daf280be16}{kh\+\_\+del}}(name,  mrb,  h,  k)
+\item 
+\#define \mbox{\hyperlink{khash_8h_ad6dbf386765214217b1d08513ffa866a}{kh\+\_\+copy}}(name,  mrb,  h)
+\item 
+\#define \mbox{\hyperlink{khash_8h_a0df285846d4d503796f8d951f1a05116}{kh\+\_\+exist}}(h,  x)
+\item 
+\#define \mbox{\hyperlink{khash_8h_a44afe015e9ebbeb2fc0c7fcff4d26fc7}{kh\+\_\+key}}(h,  x)
+\item 
+\#define \mbox{\hyperlink{khash_8h_a634c16227ce2e2a664f4efad7d9041bb}{kh\+\_\+val}}(h,  x)
+\item 
+\#define \mbox{\hyperlink{khash_8h_a949373b726a118b0dcd6f12da771c421}{kh\+\_\+value}}(h,  x)
+\item 
+\#define \mbox{\hyperlink{khash_8h_a90ec4b641126d2da72f9c61cd484d96a}{kh\+\_\+begin}}(h)
+\item 
+\#define \mbox{\hyperlink{khash_8h_abc06ff6d0491388be3d4cfac18b79526}{kh\+\_\+end}}(h)
+\item 
+\#define \mbox{\hyperlink{khash_8h_aee5d96400e51a1b9f39504750a257f10}{kh\+\_\+size}}(h)
+\item 
+\#define \mbox{\hyperlink{khash_8h_adf71183b5bc5cdcb3ac42d8b3a3cfb4d}{kh\+\_\+n\+\_\+buckets}}(h)
+\item 
+\#define \mbox{\hyperlink{khash_8h_a28d5e8f9e16ecebe8dd636daa71ce8f1}{kh\+\_\+int\+\_\+hash\+\_\+func}}(mrb,  key)
+\item 
+\#define \mbox{\hyperlink{khash_8h_ac28140438ecda1d6aa831f2adcb5250d}{kh\+\_\+int\+\_\+hash\+\_\+equal}}(mrb,  a,  b)
+\item 
+\#define \mbox{\hyperlink{khash_8h_a005ca9e196af579e3029039f62b453df}{kh\+\_\+int64\+\_\+hash\+\_\+func}}(mrb,  key)
+\item 
+\#define \mbox{\hyperlink{khash_8h_a567968e6dbc9fb9671a1c64ff2c7fb4d}{kh\+\_\+int64\+\_\+hash\+\_\+equal}}(mrb,  a,  b)
+\item 
+\#define \mbox{\hyperlink{khash_8h_a716d3014ee71a3d524e369d0490e60ee}{kh\+\_\+str\+\_\+hash\+\_\+func}}(mrb,  key)
+\item 
+\#define \mbox{\hyperlink{khash_8h_abb5a9386033db2d07a2744bc625f8eca}{kh\+\_\+str\+\_\+hash\+\_\+equal}}(mrb,  a,  b)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{khash_8h_a3583e51109969a55bff12293f468da5e}\label{khash_8h_a3583e51109969a55bff12293f468da5e} 
+typedef \mbox{\hyperlink{khash_8h_a3d3305d76019356aa1733ff9edb11a63}{khint\+\_\+t}} {\bfseries khiter\+\_\+t}
+\item 
+\Hypertarget{khash_8h_a05a8211cb742c809af60e81b6aecb8c9}\label{khash_8h_a05a8211cb742c809af60e81b6aecb8c9} 
+typedef const char \texorpdfstring{$\ast$}{*} {\bfseries kh\+\_\+cstr\+\_\+t}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\+\_\+\+BEGIN\+\_\+\+DECL}} typedef uint32\+\_\+t \mbox{\hyperlink{khash_8h_a3d3305d76019356aa1733ff9edb11a63}{khint\+\_\+t}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item Hash for mruby
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-define-members}
+\Hypertarget{khash_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{khash_8h_ad809412f1605229a3827ff211b23423b}\index{khash.h@{khash.h}!\_\_ac\_isdel@{\_\_ac\_isdel}}
+\index{\_\_ac\_isdel@{\_\_ac\_isdel}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{\_\_ac\_isdel}{\_\_ac\_isdel}}
+{\footnotesize\ttfamily \label{khash_8h_ad809412f1605229a3827ff211b23423b} 
+\#define \+\_\+\+\_\+ac\+\_\+isdel(\begin{DoxyParamCaption}\item[{}]{ed\+\_\+flag}{, }\item[{}]{i}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(ed\_flag[(i)/4]\&\_\_m\_del[(i)\%4])}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_ab0ff362c10f22c633497ff8ffe373acc}\index{khash.h@{khash.h}!\_\_ac\_iseither@{\_\_ac\_iseither}}
+\index{\_\_ac\_iseither@{\_\_ac\_iseither}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{\_\_ac\_iseither}{\_\_ac\_iseither}}
+{\footnotesize\ttfamily \label{khash_8h_ab0ff362c10f22c633497ff8ffe373acc} 
+\#define \+\_\+\+\_\+ac\+\_\+iseither(\begin{DoxyParamCaption}\item[{}]{ed\+\_\+flag}{, }\item[{}]{i}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(ed\_flag[(i)/4]\&\_\_m\_either[(i)\%4])}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_afe0bd30775b414320bcbe0a87c944cab}\index{khash.h@{khash.h}!\_\_ac\_isempty@{\_\_ac\_isempty}}
+\index{\_\_ac\_isempty@{\_\_ac\_isempty}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{\_\_ac\_isempty}{\_\_ac\_isempty}}
+{\footnotesize\ttfamily \label{khash_8h_afe0bd30775b414320bcbe0a87c944cab} 
+\#define \+\_\+\+\_\+ac\+\_\+isempty(\begin{DoxyParamCaption}\item[{}]{ed\+\_\+flag}{, }\item[{}]{i}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(ed\_flag[(i)/4]\&\_\_m\_empty[(i)\%4])}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_a90ec4b641126d2da72f9c61cd484d96a}\index{khash.h@{khash.h}!kh\_begin@{kh\_begin}}
+\index{kh\_begin@{kh\_begin}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_begin}{kh\_begin}}
+{\footnotesize\ttfamily \label{khash_8h_a90ec4b641126d2da72f9c61cd484d96a} 
+\#define kh\+\_\+begin(\begin{DoxyParamCaption}\item[{}]{h}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\mbox{\hyperlink{khash_8h_a3d3305d76019356aa1733ff9edb11a63}{khint\_t}})(0)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_aad2f166194d41485a7950f5a3d2397a2}\index{khash.h@{khash.h}!kh\_clear@{kh\_clear}}
+\index{kh\_clear@{kh\_clear}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_clear}{kh\_clear}}
+{\footnotesize\ttfamily \label{khash_8h_aad2f166194d41485a7950f5a3d2397a2} 
+\#define kh\+\_\+clear(\begin{DoxyParamCaption}\item[{}]{name}{, }\item[{}]{mrb}{, }\item[{}]{h}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{kh\_clear\_\#\#name(mrb,\ h)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_ad6dbf386765214217b1d08513ffa866a}\index{khash.h@{khash.h}!kh\_copy@{kh\_copy}}
+\index{kh\_copy@{kh\_copy}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_copy}{kh\_copy}}
+{\footnotesize\ttfamily \label{khash_8h_ad6dbf386765214217b1d08513ffa866a} 
+\#define kh\+\_\+copy(\begin{DoxyParamCaption}\item[{}]{name}{, }\item[{}]{mrb}{, }\item[{}]{h}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{kh\_copy\_\#\#name(mrb,\ h)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_a71926147161b3b5b198158daf280be16}\index{khash.h@{khash.h}!kh\_del@{kh\_del}}
+\index{kh\_del@{kh\_del}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_del}{kh\_del}}
+{\footnotesize\ttfamily \label{khash_8h_a71926147161b3b5b198158daf280be16} 
+\#define kh\+\_\+del(\begin{DoxyParamCaption}\item[{}]{name}{, }\item[{}]{mrb}{, }\item[{}]{h}{, }\item[{}]{k}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{kh\_del\_\#\#name(mrb,\ h,\ k)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_ac6ee031b2b96af384e414e92a7a7d188}\index{khash.h@{khash.h}!kh\_destroy@{kh\_destroy}}
+\index{kh\_destroy@{kh\_destroy}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_destroy}{kh\_destroy}}
+{\footnotesize\ttfamily \label{khash_8h_ac6ee031b2b96af384e414e92a7a7d188} 
+\#define kh\+\_\+destroy(\begin{DoxyParamCaption}\item[{}]{name}{, }\item[{}]{mrb}{, }\item[{}]{h}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{kh\_destroy\_\#\#name(mrb,\ h)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_abc06ff6d0491388be3d4cfac18b79526}\index{khash.h@{khash.h}!kh\_end@{kh\_end}}
+\index{kh\_end@{kh\_end}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_end}{kh\_end}}
+{\footnotesize\ttfamily \label{khash_8h_abc06ff6d0491388be3d4cfac18b79526} 
+\#define kh\+\_\+end(\begin{DoxyParamCaption}\item[{}]{h}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((h)-\/>n\_buckets)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_a0df285846d4d503796f8d951f1a05116}\index{khash.h@{khash.h}!kh\_exist@{kh\_exist}}
+\index{kh\_exist@{kh\_exist}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_exist}{kh\_exist}}
+{\footnotesize\ttfamily \label{khash_8h_a0df285846d4d503796f8d951f1a05116} 
+\#define kh\+\_\+exist(\begin{DoxyParamCaption}\item[{}]{h}{, }\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(!\_\_ac\_iseither((h)-\/>ed\_flags,\ (x)))}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_ac9e7aa54632a835e23935f2a09f4cbdc}\index{khash.h@{khash.h}!kh\_get@{kh\_get}}
+\index{kh\_get@{kh\_get}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_get}{kh\_get}}
+{\footnotesize\ttfamily \label{khash_8h_ac9e7aa54632a835e23935f2a09f4cbdc} 
+\#define kh\+\_\+get(\begin{DoxyParamCaption}\item[{}]{name}{, }\item[{}]{mrb}{, }\item[{}]{h}{, }\item[{}]{k}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{kh\_get\_\#\#name(mrb,\ h,\ k)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_ad8b5f96f7ae6bc5f344772e42302113e}\index{khash.h@{khash.h}!kh\_init@{kh\_init}}
+\index{kh\_init@{kh\_init}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_init}{kh\_init}}
+{\footnotesize\ttfamily \label{khash_8h_ad8b5f96f7ae6bc5f344772e42302113e} 
+\#define kh\+\_\+init(\begin{DoxyParamCaption}\item[{}]{name}{, }\item[{}]{mrb}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{kh\_init\_\#\#name(mrb)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_a4a4451d6bf3578a072d85244eaf0a03e}\index{khash.h@{khash.h}!kh\_init\_size@{kh\_init\_size}}
+\index{kh\_init\_size@{kh\_init\_size}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_init\_size}{kh\_init\_size}}
+{\footnotesize\ttfamily \label{khash_8h_a4a4451d6bf3578a072d85244eaf0a03e} 
+\#define kh\+\_\+init\+\_\+size(\begin{DoxyParamCaption}\item[{}]{name}{, }\item[{}]{mrb}{, }\item[{}]{size}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{kh\_init\_\#\#name\#\#\_size(mrb,size)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_a567968e6dbc9fb9671a1c64ff2c7fb4d}\index{khash.h@{khash.h}!kh\_int64\_hash\_equal@{kh\_int64\_hash\_equal}}
+\index{kh\_int64\_hash\_equal@{kh\_int64\_hash\_equal}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_int64\_hash\_equal}{kh\_int64\_hash\_equal}}
+{\footnotesize\ttfamily \label{khash_8h_a567968e6dbc9fb9671a1c64ff2c7fb4d} 
+\#define kh\+\_\+int64\+\_\+hash\+\_\+equal(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{a}{, }\item[{}]{b}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(a\ ==\ b)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_a005ca9e196af579e3029039f62b453df}\index{khash.h@{khash.h}!kh\_int64\_hash\_func@{kh\_int64\_hash\_func}}
+\index{kh\_int64\_hash\_func@{kh\_int64\_hash\_func}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_int64\_hash\_func}{kh\_int64\_hash\_func}}
+{\footnotesize\ttfamily \label{khash_8h_a005ca9e196af579e3029039f62b453df} 
+\#define kh\+\_\+int64\+\_\+hash\+\_\+func(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{key}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\mbox{\hyperlink{khash_8h_a3d3305d76019356aa1733ff9edb11a63}{khint\_t}})((key)>>33\string^(key)\string^(key)<<11)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_ac28140438ecda1d6aa831f2adcb5250d}\index{khash.h@{khash.h}!kh\_int\_hash\_equal@{kh\_int\_hash\_equal}}
+\index{kh\_int\_hash\_equal@{kh\_int\_hash\_equal}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_int\_hash\_equal}{kh\_int\_hash\_equal}}
+{\footnotesize\ttfamily \label{khash_8h_ac28140438ecda1d6aa831f2adcb5250d} 
+\#define kh\+\_\+int\+\_\+hash\+\_\+equal(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{a}{, }\item[{}]{b}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(a\ ==\ b)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_a28d5e8f9e16ecebe8dd636daa71ce8f1}\index{khash.h@{khash.h}!kh\_int\_hash\_func@{kh\_int\_hash\_func}}
+\index{kh\_int\_hash\_func@{kh\_int\_hash\_func}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_int\_hash\_func}{kh\_int\_hash\_func}}
+{\footnotesize\ttfamily \label{khash_8h_a28d5e8f9e16ecebe8dd636daa71ce8f1} 
+\#define kh\+\_\+int\+\_\+hash\+\_\+func(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{key}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\mbox{\hyperlink{khash_8h_a3d3305d76019356aa1733ff9edb11a63}{khint\_t}})((key)\string^((key)<<2)\string^((key)>>2))}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_a44afe015e9ebbeb2fc0c7fcff4d26fc7}\index{khash.h@{khash.h}!kh\_key@{kh\_key}}
+\index{kh\_key@{kh\_key}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_key}{kh\_key}}
+{\footnotesize\ttfamily \label{khash_8h_a44afe015e9ebbeb2fc0c7fcff4d26fc7} 
+\#define kh\+\_\+key(\begin{DoxyParamCaption}\item[{}]{h}{, }\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((h)-\/>keys[x])}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_adf71183b5bc5cdcb3ac42d8b3a3cfb4d}\index{khash.h@{khash.h}!kh\_n\_buckets@{kh\_n\_buckets}}
+\index{kh\_n\_buckets@{kh\_n\_buckets}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_n\_buckets}{kh\_n\_buckets}}
+{\footnotesize\ttfamily \label{khash_8h_adf71183b5bc5cdcb3ac42d8b3a3cfb4d} 
+\#define kh\+\_\+n\+\_\+buckets(\begin{DoxyParamCaption}\item[{}]{h}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((h)-\/>n\_buckets)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_af7eb93cd2152ec398096f0a404ba297b}\index{khash.h@{khash.h}!kh\_put@{kh\_put}}
+\index{kh\_put@{kh\_put}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_put}{kh\_put}}
+{\footnotesize\ttfamily \label{khash_8h_af7eb93cd2152ec398096f0a404ba297b} 
+\#define kh\+\_\+put(\begin{DoxyParamCaption}\item[{}]{name}{, }\item[{}]{mrb}{, }\item[{}]{h}{, }\item[{}]{k}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{kh\_put\_\#\#name(mrb,\ h,\ k,\ NULL)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_aeb885efcca05e1e39d70cd0aa750f58e}\index{khash.h@{khash.h}!kh\_put2@{kh\_put2}}
+\index{kh\_put2@{kh\_put2}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_put2}{kh\_put2}}
+{\footnotesize\ttfamily \label{khash_8h_aeb885efcca05e1e39d70cd0aa750f58e} 
+\#define kh\+\_\+put2(\begin{DoxyParamCaption}\item[{}]{name}{, }\item[{}]{mrb}{, }\item[{}]{h}{, }\item[{}]{k}{, }\item[{}]{r}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{kh\_put\_\#\#name(mrb,\ h,\ k,\ r)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_a18ff61aa107146b40a5ec7f960c1f5ee}\index{khash.h@{khash.h}!kh\_resize@{kh\_resize}}
+\index{kh\_resize@{kh\_resize}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_resize}{kh\_resize}}
+{\footnotesize\ttfamily \label{khash_8h_a18ff61aa107146b40a5ec7f960c1f5ee} 
+\#define kh\+\_\+resize(\begin{DoxyParamCaption}\item[{}]{name}{, }\item[{}]{mrb}{, }\item[{}]{h}{, }\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{kh\_resize\_\#\#name(mrb,\ h,\ s)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_aee5d96400e51a1b9f39504750a257f10}\index{khash.h@{khash.h}!kh\_size@{kh\_size}}
+\index{kh\_size@{kh\_size}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_size}{kh\_size}}
+{\footnotesize\ttfamily \label{khash_8h_aee5d96400e51a1b9f39504750a257f10} 
+\#define kh\+\_\+size(\begin{DoxyParamCaption}\item[{}]{h}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((h)-\/>size)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_abb5a9386033db2d07a2744bc625f8eca}\index{khash.h@{khash.h}!kh\_str\_hash\_equal@{kh\_str\_hash\_equal}}
+\index{kh\_str\_hash\_equal@{kh\_str\_hash\_equal}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_str\_hash\_equal}{kh\_str\_hash\_equal}}
+{\footnotesize\ttfamily \label{khash_8h_abb5a9386033db2d07a2744bc625f8eca} 
+\#define kh\+\_\+str\+\_\+hash\+\_\+equal(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{a}{, }\item[{}]{b}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(strcmp(a,\ b)\ ==\ 0)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_a716d3014ee71a3d524e369d0490e60ee}\index{khash.h@{khash.h}!kh\_str\_hash\_func@{kh\_str\_hash\_func}}
+\index{kh\_str\_hash\_func@{kh\_str\_hash\_func}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_str\_hash\_func}{kh\_str\_hash\_func}}
+{\footnotesize\ttfamily \label{khash_8h_a716d3014ee71a3d524e369d0490e60ee} 
+\#define kh\+\_\+str\+\_\+hash\+\_\+func(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{key}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\_\_ac\_X31\_hash\_string(key)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_a634c16227ce2e2a664f4efad7d9041bb}\index{khash.h@{khash.h}!kh\_val@{kh\_val}}
+\index{kh\_val@{kh\_val}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_val}{kh\_val}}
+{\footnotesize\ttfamily \label{khash_8h_a634c16227ce2e2a664f4efad7d9041bb} 
+\#define kh\+\_\+val(\begin{DoxyParamCaption}\item[{}]{h}{, }\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((h)-\/>vals[x])}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_a949373b726a118b0dcd6f12da771c421}\index{khash.h@{khash.h}!kh\_value@{kh\_value}}
+\index{kh\_value@{kh\_value}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{kh\_value}{kh\_value}}
+{\footnotesize\ttfamily \label{khash_8h_a949373b726a118b0dcd6f12da771c421} 
+\#define kh\+\_\+value(\begin{DoxyParamCaption}\item[{}]{h}{, }\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((h)-\/>vals[x])}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_a040356612add0f611b5a2237a2b3e1ca}\index{khash.h@{khash.h}!KHASH\_DECLARE@{KHASH\_DECLARE}}
+\index{KHASH\_DECLARE@{KHASH\_DECLARE}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{KHASH\_DECLARE}{KHASH\_DECLARE}}
+{\footnotesize\ttfamily \label{khash_8h_a040356612add0f611b5a2237a2b3e1ca} 
+\#define KHASH\+\_\+\+DECLARE(\begin{DoxyParamCaption}\item[{}]{name}{, }\item[{}]{khkey\+\_\+t}{, }\item[{}]{khval\+\_\+t}{, }\item[{}]{kh\+\_\+is\+\_\+map}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }kh\_\#\#name\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{khash_8h_a3d3305d76019356aa1733ff9edb11a63}{khint\_t}}\ n\_buckets;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{khash_8h_a3d3305d76019356aa1733ff9edb11a63}{khint\_t}}\ size;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ uint8\_t\ *ed\_flags;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ khkey\_t\ *keys;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ khval\_t\ *vals;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ kh\_\#\#name\#\#\_t;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ kh\_alloc\_\#\#name(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ kh\_\#\#name\#\#\_t\ *h);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ kh\_\#\#name\#\#\_t\ *kh\_init\_\#\#name\#\#\_size(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{khash_8h_a3d3305d76019356aa1733ff9edb11a63}{khint\_t}}\ size);\ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ kh\_\#\#name\#\#\_t\ *kh\_init\_\#\#name(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ kh\_destroy\_\#\#name(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ kh\_\#\#name\#\#\_t\ *h);\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ kh\_clear\_\#\#name(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ kh\_\#\#name\#\#\_t\ *h);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{khash_8h_a3d3305d76019356aa1733ff9edb11a63}{khint\_t}}\ kh\_get\_\#\#name(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ kh\_\#\#name\#\#\_t\ *h,\ khkey\_t\ key);\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{khash_8h_a3d3305d76019356aa1733ff9edb11a63}{khint\_t}}\ kh\_put\_\#\#name(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ kh\_\#\#name\#\#\_t\ *h,\ khkey\_t\ key,\ \textcolor{keywordtype}{int}\ *ret);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ kh\_resize\_\#\#name(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ kh\_\#\#name\#\#\_t\ *h,\ \mbox{\hyperlink{khash_8h_a3d3305d76019356aa1733ff9edb11a63}{khint\_t}}\ new\_n\_buckets);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ kh\_del\_\#\#name(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ kh\_\#\#name\#\#\_t\ *h,\ \mbox{\hyperlink{khash_8h_a3d3305d76019356aa1733ff9edb11a63}{khint\_t}}\ x);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ kh\_\#\#name\#\#\_t\ *kh\_copy\_\#\#name(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ kh\_\#\#name\#\#\_t\ *h);}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_a9745030b286d5329afbb47fd8f5bf7de}\index{khash.h@{khash.h}!khash\_mask@{khash\_mask}}
+\index{khash\_mask@{khash\_mask}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{khash\_mask}{khash\_mask}}
+{\footnotesize\ttfamily \label{khash_8h_a9745030b286d5329afbb47fd8f5bf7de} 
+\#define khash\+\_\+mask(\begin{DoxyParamCaption}\item[{}]{h}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((h)-\/>n\_buckets-\/1)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_ace00178d6c4fa86175ff632c3c4b6348}\index{khash.h@{khash.h}!khash\_power2@{khash\_power2}}
+\index{khash\_power2@{khash\_power2}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{khash\_power2}{khash\_power2}}
+{\footnotesize\ttfamily \label{khash_8h_ace00178d6c4fa86175ff632c3c4b6348} 
+\#define khash\+\_\+power2(\begin{DoxyParamCaption}\item[{}]{v}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ v-\/-\/;\(\backslash\)}
+\DoxyCodeLine{\ \ v\ |=\ v\ >>\ 1;\(\backslash\)}
+\DoxyCodeLine{\ \ v\ |=\ v\ >>\ 2;\(\backslash\)}
+\DoxyCodeLine{\ \ v\ |=\ v\ >>\ 4;\(\backslash\)}
+\DoxyCodeLine{\ \ v\ |=\ v\ >>\ 8;\(\backslash\)}
+\DoxyCodeLine{\ \ v\ |=\ v\ >>\ 16;\(\backslash\)}
+\DoxyCodeLine{\ \ v++;\(\backslash\)}
+\DoxyCodeLine{\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_a918655286199787582304265cd9d4463}\index{khash.h@{khash.h}!khash\_t@{khash\_t}}
+\index{khash\_t@{khash\_t}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{khash\_t}{khash\_t}}
+{\footnotesize\ttfamily \label{khash_8h_a918655286199787582304265cd9d4463} 
+\#define khash\+\_\+t(\begin{DoxyParamCaption}\item[{}]{name}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{kh\_\#\#name\#\#\_t}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_a2cd26f65e64551c10e29861e0832b789}\index{khash.h@{khash.h}!khash\_upper\_bound@{khash\_upper\_bound}}
+\index{khash\_upper\_bound@{khash\_upper\_bound}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{khash\_upper\_bound}{khash\_upper\_bound}}
+{\footnotesize\ttfamily \label{khash_8h_a2cd26f65e64551c10e29861e0832b789} 
+\#define khash\+\_\+upper\+\_\+bound(\begin{DoxyParamCaption}\item[{}]{h}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(UPPER\_BOUND((h)-\/>n\_buckets))}
+
+\end{DoxyCode}
+\Hypertarget{khash_8h_a13fc68b00efb5cc4abda7b3363a282bd}\index{khash.h@{khash.h}!UPPER\_BOUND@{UPPER\_BOUND}}
+\index{UPPER\_BOUND@{UPPER\_BOUND}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{UPPER\_BOUND}{UPPER\_BOUND}}
+{\footnotesize\ttfamily \label{khash_8h_a13fc68b00efb5cc4abda7b3363a282bd} 
+\#define UPPER\+\_\+\+BOUND(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((x)>>2|(x)>>1)}
+
+\end{DoxyCode}
+
+
+\label{doc-var-members}
+\Hypertarget{khash_8h_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{khash_8h_a3d3305d76019356aa1733ff9edb11a63}\index{khash.h@{khash.h}!khint\_t@{khint\_t}}
+\index{khint\_t@{khint\_t}!khash.h@{khash.h}}
+\doxysubsubsection{\texorpdfstring{khint\_t}{khint\_t}}
+{\footnotesize\ttfamily \label{khash_8h_a3d3305d76019356aa1733ff9edb11a63} 
+\mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\+\_\+\+BEGIN\+\_\+\+DECL}} typedef uint32\+\_\+t khint\+\_\+t}
+
+khash definitions used in mruby\textquotesingle{}s hash table. 

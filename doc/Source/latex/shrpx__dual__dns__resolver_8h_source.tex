@@ -1,0 +1,75 @@
+\doxysection{shrpx\+\_\+dual\+\_\+dns\+\_\+resolver.\+h}
+\hypertarget{shrpx__dual__dns__resolver_8h_source}{}\label{shrpx__dual__dns__resolver_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_dual\_dns\_resolver.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_dual\_dns\_resolver.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2016\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_DUAL\_DNS\_RESOLVER\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_DUAL\_DNS\_RESOLVER\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <ev.h>}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ "{}shrpx\_dns\_resolver.h"{}}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{using\ namespace\ }nghttp2;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ DualDNSResolver\ performs\ name\ resolution\ for\ both\ A\ and\ AAAA}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ records\ at\ the\ same\ time.\ \ The\ first\ successful\ return\ (or\ if\ we}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ have\ both\ successful\ results,\ prefer\ to\ AAAA)\ is\ chosen.\ \ This\ is}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ wrapper\ around\ 2\ DNSResolver\ inside.\ \ resolve(),\ get\_status(),\ and}}
+\DoxyCodeLine{00042\ \textcolor{comment}{//\ how\ CompleteCb\ is\ called\ have\ the\ same\ semantics\ with\ DNSResolver.}}
+\DoxyCodeLine{00043\ \textcolor{keyword}{class\ }DualDNSResolver\ \{}
+\DoxyCodeLine{00044\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00045\ \ \ \textcolor{comment}{//\ |family|\ controls\ IP\ version\ preference.\ \ If\ |family|\ ==}}
+\DoxyCodeLine{00046\ \ \ \textcolor{comment}{//\ AF\_UNSPEC,\ bot\ A\ and\ AAAA\ lookups\ are\ performed.\ \ If\ |family|\ ==}}
+\DoxyCodeLine{00047\ \ \ \textcolor{comment}{//\ AF\_INET,\ only\ A\ lookup\ is\ performed.\ \ If\ |family|\ ==\ AF\_INET6,}}
+\DoxyCodeLine{00048\ \ \ \textcolor{comment}{//\ only\ AAAA\ lookup\ is\ performed.}}
+\DoxyCodeLine{00049\ \ \ DualDNSResolver(\textcolor{keyword}{struct}\ ev\_loop\ *loop,\ \textcolor{keywordtype}{int}\ family);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \textcolor{comment}{//\ Resolves\ |host|.\ \ |host|\ must\ be\ NULL-\/terminated\ string.}}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{int}\ resolve(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&host);}
+\DoxyCodeLine{00053\ \ \ CompleteCb\ get\_complete\_cb()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{void}\ set\_complete\_cb(CompleteCb\ cb);}
+\DoxyCodeLine{00055\ \ \ DNSResolverStatus\ get\_status(\mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ *result)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00058\ \ \ \textcolor{comment}{//\ IP\ version\ preference.}}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{int}\ family\_;}
+\DoxyCodeLine{00060\ \ \ \textcolor{comment}{//\ For\ A\ record}}
+\DoxyCodeLine{00061\ \ \ \mbox{\hyperlink{classshrpx_1_1DNSResolver}{DNSResolver}}\ resolv4\_;}
+\DoxyCodeLine{00062\ \ \ \textcolor{comment}{//\ For\ AAAA\ record}}
+\DoxyCodeLine{00063\ \ \ \mbox{\hyperlink{classshrpx_1_1DNSResolver}{DNSResolver}}\ resolv6\_;}
+\DoxyCodeLine{00064\ \ \ CompleteCb\ complete\_cb\_;}
+\DoxyCodeLine{00065\ \};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_DUAL\_DNS\_RESOLVER\_H}}
+
+\end{DoxyCode}

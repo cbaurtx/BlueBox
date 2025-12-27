@@ -1,0 +1,418 @@
+\doxysection{value.\+h}
+\hypertarget{value_8h_source}{}\label{value_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/value.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/value.h}}
+\mbox{\hyperlink{value_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_VALUE\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_VALUE\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{common_8h}{common.h}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ mruby\ Value\ definition\ functions\ and\ macros.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00015\ \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\_BEGIN\_DECL}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{typedef}\ uint32\_t\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#if\ defined(\_\_cplusplus)\ ||\ (defined(\_\_bool\_true\_false\_are\_defined)\ \&\&\ \_\_bool\_true\_false\_are\_defined)}}
+\DoxyCodeLine{00035\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{bool}\ mrb\_bool;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#\ ifndef\ FALSE}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#\ \ define\ FALSE\ false}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#\ ifndef\ TRUE}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#\ \ define\ TRUE\ true}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#\ if\ \_\_STDC\_VERSION\_\_\ >=\ 199901L}}
+\DoxyCodeLine{00045\ \textcolor{keyword}{typedef}\ \_Bool\ mrb\_bool;}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#\ else}}
+\DoxyCodeLine{00047\ \textcolor{keyword}{typedef}\ uint8\_t\ mrb\_bool;}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#\ ifndef\ FALSE}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#\ \ define\ FALSE\ 0}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#\ ifndef\ TRUE}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#\ \ define\ TRUE\ 1}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__state}{mrb\_state}};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#if\ defined\ \_MSC\_VER\ \&\&\ \_MSC\_VER\ <\ 1800}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#\ define\ PRIo64\ "{}llo"{}}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#\ define\ PRId64\ "{}lld"{}}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#\ define\ PRIu64\ "{}llu"{}}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#\ define\ PRIx64\ "{}llx"{}}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#\ define\ PRIo16\ "{}ho"{}}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#\ define\ PRId16\ "{}hd"{}}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#\ define\ PRIu16\ "{}hu"{}}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#\ define\ PRIx16\ "{}hx"{}}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#\ define\ PRIo32\ "{}o"{}}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#\ define\ PRId32\ "{}d"{}}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#\ define\ PRIu32\ "{}u"{}}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#\ define\ PRIx32\ "{}x"{}}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#\ include\ <inttypes.h>}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#if\ defined(MRB\_INT64)}}
+\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{typedef}\ int64\_t\ mrb\_int;}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{typedef}\ uint64\_t\ mrb\_uint;}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#\ define\ MRB\_INT\_BIT\ 64}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#\ define\ MRB\_INT\_MIN\ INT64\_MIN}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#\ define\ MRB\_INT\_MAX\ INT64\_MAX}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#\ define\ MRB\_PRIo\ PRIo64}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#\ define\ MRB\_PRId\ PRId64}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#\ define\ MRB\_PRIx\ PRIx64}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{typedef}\ int32\_t\ mrb\_int;}
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{typedef}\ uint32\_t\ mrb\_uint;}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#\ define\ MRB\_INT\_BIT\ 32}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#\ define\ MRB\_INT\_MIN\ INT32\_MIN}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#\ define\ MRB\_INT\_MAX\ INT32\_MAX}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#\ define\ MRB\_PRIo\ PRIo32}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#\ define\ MRB\_PRId\ PRId32}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#\ define\ MRB\_PRIx\ PRIx32}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#ifdef\ MRB\_ENDIAN\_BIG}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#\ define\ MRB\_ENDIAN\_LOHI(a,b)\ a\ b}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#\ define\ MRB\_ENDIAN\_LOHI(a,b)\ b\ a}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ mrb\_bool\ mrb\_read\_int(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *p,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *e,\ \textcolor{keywordtype}{char}\ **endp,\ mrb\_int\ *np);}
+\DoxyCodeLine{00104\ \textcolor{comment}{/*\ obsolete;\ do\ not\ use\ mrb\_int\_read()\ */}}
+\DoxyCodeLine{00105\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ mrb\_int\ mrb\_int\_read(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*,\ \textcolor{keywordtype}{char}**);}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#ifndef\ MRB\_NO\_FLOAT}}
+\DoxyCodeLine{00107\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ mrb\_bool\ mrb\_read\_float(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *p,\ \textcolor{keywordtype}{char}\ **endp,\ \textcolor{keywordtype}{double}\ *fp);}
+\DoxyCodeLine{00108\ \textcolor{comment}{/*\ obsolete;\ do\ not\ use\ mrb\_float\_read()\ */}}
+\DoxyCodeLine{00109\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{double}\ mrb\_float\_read(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *p,\ \textcolor{keywordtype}{char}\ **endp);}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#ifdef\ MRB\_USE\_FLOAT32}}
+\DoxyCodeLine{00111\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{float}\ mrb\_float;}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00113\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{double}\ mrb\_float;}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#if\ defined\ \_MSC\_VER\ \&\&\ \_MSC\_VER\ <\ 1900}}
+\DoxyCodeLine{00118\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{int}\ mrb\_msvc\_vsnprintf(\textcolor{keywordtype}{char}\ *s,\ \textcolor{keywordtype}{size\_t}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ va\_list\ arg);}
+\DoxyCodeLine{00119\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{int}\ mrb\_msvc\_snprintf(\textcolor{keywordtype}{char}\ *s,\ \textcolor{keywordtype}{size\_t}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ ...);}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#\ define\ vsnprintf(s,\ n,\ format,\ arg)\ mrb\_msvc\_vsnprintf(s,\ n,\ format,\ arg)}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#\ define\ snprintf(s,\ n,\ format,\ ...)\ mrb\_msvc\_snprintf(s,\ n,\ format,\ \_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#\ if\ \_MSC\_VER\ <\ 1800\ \&\&\ !defined\ MRB\_NO\_FLOAT}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#\ \ define\ isfinite(n)\ \_finite(n)}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#\ \ define\ isnan\ \_isnan}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#\ \ define\ isinf(n)\ (!\_finite(n)\ \&\&\ !\_isnan(n))}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#\ \ define\ signbit(n)\ (\_copysign(1.0,\ (n))\ <\ 0.0)}}
+\DoxyCodeLine{00127\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ IEEE754\_INFINITY\_BITS\_SINGLE\ =\ 0x7F800000;}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#\ \ define\ INFINITY\ (*(float*)\&IEEE754\_INFINITY\_BITS\_SINGLE)}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#\ \ define\ NAN\ ((float)(INFINITY\ -\/\ INFINITY))}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#define\ MRB\_VTYPE\_FOREACH(f)\ \(\backslash\)}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\ \ \ \ }\textcolor{comment}{/*\ mrb\_vtype\ */}\textcolor{preprocessor}{\ \ \ \ \ }\textcolor{comment}{/*\ c\ type\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ ruby\ class\ */}\textcolor{preprocessor}{\ \(\backslash\)}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_FALSE,\ \ \ \ \ \ \ void,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}false"{})\ \(\backslash\)}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_TRUE,\ \ \ \ \ \ \ \ void,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}true"{})\ \(\backslash\)}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_SYMBOL,\ \ \ \ \ \ void,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}Symbol"{})\ \(\backslash\)}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_UNDEF,\ \ \ \ \ \ \ void,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}undefined"{})\ \(\backslash\)}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_FREE,\ \ \ \ \ \ \ \ void,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}free"{})\ \(\backslash\)}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_FLOAT,\ \ \ \ \ \ \ struct\ RFloat,\ \ \ \ \ \ "{}Float"{})\ \(\backslash\)}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_INTEGER,\ \ \ \ \ struct\ RInteger,\ \ \ \ "{}Integer"{})\ \(\backslash\)}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_CPTR,\ \ \ \ \ \ \ \ struct\ RCptr,\ \ \ \ \ \ \ "{}cptr"{})\ \(\backslash\)}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_OBJECT,\ \ \ \ \ \ struct\ RObject,\ \ \ \ \ "{}Object"{})\ \(\backslash\)}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_CLASS,\ \ \ \ \ \ \ struct\ RClass,\ \ \ \ \ \ "{}Class"{})\ \(\backslash\)}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_MODULE,\ \ \ \ \ \ struct\ RClass,\ \ \ \ \ \ "{}Module"{})\ \(\backslash\)}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_ICLASS,\ \ \ \ \ \ struct\ RClass,\ \ \ \ \ \ "{}iClass"{})\ \(\backslash\)}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_SCLASS,\ \ \ \ \ \ struct\ RClass,\ \ \ \ \ \ "{}SClass"{})\ \(\backslash\)}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_PROC,\ \ \ \ \ \ \ \ struct\ RProc,\ \ \ \ \ \ \ "{}Proc"{})\ \(\backslash\)}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_ARRAY,\ \ \ \ \ \ \ struct\ RArray,\ \ \ \ \ \ "{}Array"{})\ \(\backslash\)}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_HASH,\ \ \ \ \ \ \ \ struct\ RHash,\ \ \ \ \ \ \ "{}Hash"{})\ \(\backslash\)}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_STRING,\ \ \ \ \ \ struct\ RString,\ \ \ \ \ "{}String"{})\ \(\backslash\)}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_RANGE,\ \ \ \ \ \ \ struct\ RRange,\ \ \ \ \ \ "{}Range"{})\ \(\backslash\)}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_EXCEPTION,\ \ \ struct\ RException,\ \ "{}Exception"{})\ \(\backslash\)}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_ENV,\ \ \ \ \ \ \ \ \ struct\ REnv,\ \ \ \ \ \ \ \ "{}env"{})\ \(\backslash\)}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_CDATA,\ \ \ \ \ \ \ struct\ RData,\ \ \ \ \ \ \ "{}C\ data"{})\ \(\backslash\)}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_FIBER,\ \ \ \ \ \ \ struct\ RFiber,\ \ \ \ \ \ "{}Fiber"{})\ \(\backslash\)}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_STRUCT,\ \ \ \ \ \ struct\ RArray,\ \ \ \ \ \ "{}Struct"{})\ \(\backslash\)}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_ISTRUCT,\ \ \ \ \ struct\ RIStruct,\ \ \ \ "{}istruct"{})\ \(\backslash\)}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_BREAK,\ \ \ \ \ \ \ struct\ RBreak,\ \ \ \ \ \ "{}break"{})\ \(\backslash\)}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_COMPLEX,\ \ \ \ \ struct\ RComplex,\ \ \ \ "{}Complex"{})\ \(\backslash\)}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_RATIONAL,\ \ \ \ struct\ RRational,\ \ \ "{}Rational"{})\ \(\backslash\)}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\ \ f(MRB\_TT\_BIGINT,\ \ \ \ \ \ struct\ RBigint,\ \ \ \ \ "{}Integer"{})}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{keyword}{enum}\ mrb\_vtype\ \{}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ MRB\_VTYPE\_DEFINE(tt,\ type,\ name)\ tt,}}
+\DoxyCodeLine{00166\ \ \ MRB\_VTYPE\_FOREACH(MRB\_VTYPE\_DEFINE)}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#undef\ MRB\_VTYPE\_DEFINE}}
+\DoxyCodeLine{00168\ \ \ MRB\_TT\_MAXDEFINE}
+\DoxyCodeLine{00169\ \};}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{comment}{/*\ obsolete\ name\ for\ MRB\_TT\_CDATA\ */}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#define\ MRB\_TT\_DATA\ MRB\_TT\_CDATA}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#define\ MRB\_VTYPE\_TYPEOF(tt)\ MRB\_TYPEOF\_\#\#tt}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#define\ MRB\_VTYPE\_TYPEDEF(tt,\ type,\ name)\ typedef\ type\ MRB\_VTYPE\_TYPEOF(tt);}}
+\DoxyCodeLine{00177\ MRB\_VTYPE\_FOREACH(MRB\_VTYPE\_TYPEDEF)}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#undef\ MRB\_VTYPE\_TYPEDEF}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \textcolor{comment}{/*\ for\ compatibility\ */}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#define\ MRB\_TT\_FIXNUM\ MRB\_TT\_INTEGER}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{object_8h}{mruby/object.h}}>}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#ifdef\ MRB\_DOCUMENTATION\_BLOCK}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00197\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}};}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#if\ defined(MRB\_WORD\_BOXING)\ ||\ (defined(MRB\_NAN\_BOXING)\ \&\&\ defined(MRB\_64BIT))}}
+\DoxyCodeLine{00202\ \textcolor{keyword}{struct\ }RCptr\ \{}
+\DoxyCodeLine{00203\ \ \ MRB\_OBJECT\_HEADER;}
+\DoxyCodeLine{00204\ \ \ \textcolor{keywordtype}{void}\ *p;}
+\DoxyCodeLine{00205\ \};}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#if\ defined(MRB\_NAN\_BOXING)}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{boxing__nan_8h}{boxing\_nan.h}}"{}}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#elif\ defined(MRB\_WORD\_BOXING)}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{boxing__word_8h}{boxing\_word.h}}"{}}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{boxing__no_8h}{boxing\_no.h}}"{}}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#if\ INTPTR\_MAX\ <\ MRB\_INT\_MAX}}
+\DoxyCodeLine{00217\ \ \ \textcolor{keyword}{typedef}\ intptr\_t\ mrb\_ssize;}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\#\ define\ MRB\_SSIZE\_MAX\ INTPTR\_MAX}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00220\ \ \ \textcolor{keyword}{typedef}\ mrb\_int\ mrb\_ssize;}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#\ define\ MRB\_SSIZE\_MAX\ MRB\_INT\_MAX}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#ifndef\ mrb\_immediate\_p}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#define\ mrb\_immediate\_p(o)\ (mrb\_type(o)\ <=\ MRB\_TT\_CPTR)}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#ifndef\ mrb\_integer\_p}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#define\ mrb\_integer\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_INTEGER)}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#ifndef\ mrb\_fixnum\_p}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#define\ mrb\_fixnum\_p(o)\ mrb\_integer\_p(o)}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#ifndef\ mrb\_symbol\_p}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#define\ mrb\_symbol\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_SYMBOL)}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#ifndef\ mrb\_undef\_p}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#define\ mrb\_undef\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_UNDEF)}}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#ifndef\ mrb\_nil\_p}}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#define\ mrb\_nil\_p(o)\ \ (mrb\_type(o)\ ==\ MRB\_TT\_FALSE\ \&\&\ !mrb\_fixnum(o))}}
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#ifndef\ mrb\_false\_p}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#define\ mrb\_false\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_FALSE\ \&\&\ !!mrb\_fixnum(o))}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#ifndef\ mrb\_true\_p}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#define\ mrb\_true\_p(o)\ \ (mrb\_type(o)\ ==\ MRB\_TT\_TRUE)}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#ifndef\ mrb\_float\_p}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\#ifndef\ MRB\_NO\_FLOAT}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#define\ mrb\_float\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_FLOAT)}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#define\ mrb\_float\_p(o)\ FALSE}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#ifndef\ mrb\_array\_p}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\#define\ mrb\_array\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_ARRAY)}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#ifndef\ mrb\_string\_p}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\#define\ mrb\_string\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_STRING)}}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\#ifndef\ mrb\_hash\_p}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\#define\ mrb\_hash\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_HASH)}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#ifndef\ mrb\_cptr\_p}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\#define\ mrb\_cptr\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_CPTR)}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#ifndef\ mrb\_exception\_p}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#define\ mrb\_exception\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_EXCEPTION)}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\#ifndef\ mrb\_free\_p}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\#define\ mrb\_free\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_FREE)}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#ifndef\ mrb\_object\_p}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\#define\ mrb\_object\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_OBJECT)}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\#ifndef\ mrb\_class\_p}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\#define\ mrb\_class\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_CLASS)}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\#ifndef\ mrb\_module\_p}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\#define\ mrb\_module\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_MODULE)}}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\#ifndef\ mrb\_iclass\_p}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\#define\ mrb\_iclass\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_ICLASS)}}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#ifndef\ mrb\_sclass\_p}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#define\ mrb\_sclass\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_SCLASS)}}
+\DoxyCodeLine{00287\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\#ifndef\ mrb\_proc\_p}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\#define\ mrb\_proc\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_PROC)}}
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#ifndef\ mrb\_range\_p}}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\#define\ mrb\_range\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_RANGE)}}
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\#ifndef\ mrb\_env\_p}}
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\#define\ mrb\_env\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_ENV)}}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#ifndef\ mrb\_data\_p}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\#define\ mrb\_data\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_CDATA)}}
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#ifndef\ mrb\_fiber\_p}}
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\#define\ mrb\_fiber\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_FIBER)}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\#ifndef\ mrb\_istruct\_p}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\#define\ mrb\_istruct\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_ISTRUCT)}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\#ifndef\ mrb\_break\_p}}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\#define\ mrb\_break\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_BREAK)}}
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00309\ \textcolor{preprocessor}{\#ifndef\ mrb\_bool}}
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\#define\ mrb\_bool(o)\ \ \ (mrb\_type(o)\ !=\ MRB\_TT\_FALSE)}}
+\DoxyCodeLine{00311\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\#define\ mrb\_test(o)\ \ \ mrb\_bool(o)}}
+\DoxyCodeLine{00313\ \textcolor{preprocessor}{\#ifndef\ mrb\_bigint\_p}}
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\#define\ mrb\_bigint\_p(o)\ (mrb\_type(o)\ ==\ MRB\_TT\_BIGINT)}}
+\DoxyCodeLine{00315\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#ifndef\ MRB\_NO\_FLOAT}}
+\DoxyCodeLine{00323\ \mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\_INLINE}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \mbox{\hyperlink{value_8h_a433acd8c8fa80ed9e56744fbf1745d48}{mrb\_float\_value}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ mrb\_float\ f)}
+\DoxyCodeLine{00324\ \{}
+\DoxyCodeLine{00325\ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ v;}
+\DoxyCodeLine{00326\ \ \ (void)\ mrb;}
+\DoxyCodeLine{00327\ \ \ SET\_FLOAT\_VALUE(mrb,\ v,\ f);}
+\DoxyCodeLine{00328\ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00329\ \}}
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\_INLINE}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}}
+\DoxyCodeLine{00333\ mrb\_cptr\_value(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keywordtype}{void}\ *p)}
+\DoxyCodeLine{00334\ \{}
+\DoxyCodeLine{00335\ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ v;}
+\DoxyCodeLine{00336\ \ \ (void)\ mrb;}
+\DoxyCodeLine{00337\ \ \ SET\_CPTR\_VALUE(mrb,v,p);}
+\DoxyCodeLine{00338\ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00339\ \}}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00344\ \mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\_INLINE}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \mbox{\hyperlink{value_8h_adc316fcf5ff30a03be926179c8f276d1}{mrb\_int\_value}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ mrb\_int\ i)}
+\DoxyCodeLine{00345\ \{}
+\DoxyCodeLine{00346\ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ v;}
+\DoxyCodeLine{00347\ \ \ SET\_INT\_VALUE(mrb,\ v,\ i);}
+\DoxyCodeLine{00348\ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00349\ \}}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\_INLINE}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_fixnum\_value(mrb\_int\ i)}
+\DoxyCodeLine{00352\ \{}
+\DoxyCodeLine{00353\ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ v;}
+\DoxyCodeLine{00354\ \ \ SET\_FIXNUM\_VALUE(v,\ i);}
+\DoxyCodeLine{00355\ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00356\ \}}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\_INLINE}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}}
+\DoxyCodeLine{00359\ mrb\_symbol\_value(\mbox{\hyperlink{classmrb__sym}{mrb\_sym}}\ i)}
+\DoxyCodeLine{00360\ \{}
+\DoxyCodeLine{00361\ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ v;}
+\DoxyCodeLine{00362\ \ \ SET\_SYM\_VALUE(v,\ i);}
+\DoxyCodeLine{00363\ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00364\ \}}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00366\ \mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\_INLINE}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}}
+\DoxyCodeLine{00367\ mrb\_obj\_value(\textcolor{keywordtype}{void}\ *p)}
+\DoxyCodeLine{00368\ \{}
+\DoxyCodeLine{00369\ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ v;}
+\DoxyCodeLine{00370\ \ \ SET\_OBJ\_VALUE(v,\ (\textcolor{keyword}{struct}\ \mbox{\hyperlink{structRBasic}{RBasic}}*)p);}
+\DoxyCodeLine{00371\ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00372\ \}}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00380\ \mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\_INLINE}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \mbox{\hyperlink{value_8h_aed2477aa94423b268ae791949313f277}{mrb\_nil\_value}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00381\ \{}
+\DoxyCodeLine{00382\ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ v;}
+\DoxyCodeLine{00383\ \ \ SET\_NIL\_VALUE(v);}
+\DoxyCodeLine{00384\ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00385\ \}}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00390\ \mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\_INLINE}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \mbox{\hyperlink{value_8h_aac8220a2fbc784eec48a661773276429}{mrb\_false\_value}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00391\ \{}
+\DoxyCodeLine{00392\ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ v;}
+\DoxyCodeLine{00393\ \ \ SET\_FALSE\_VALUE(v);}
+\DoxyCodeLine{00394\ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00395\ \}}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00400\ \mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\_INLINE}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \mbox{\hyperlink{value_8h_ac80edd77fea9c97597aff8de37658585}{mrb\_true\_value}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00401\ \{}
+\DoxyCodeLine{00402\ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ v;}
+\DoxyCodeLine{00403\ \ \ SET\_TRUE\_VALUE(v);}
+\DoxyCodeLine{00404\ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00405\ \}}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ \mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\_INLINE}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}}
+\DoxyCodeLine{00408\ mrb\_bool\_value(mrb\_bool\ \textcolor{keywordtype}{boolean})}
+\DoxyCodeLine{00409\ \{}
+\DoxyCodeLine{00410\ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ v;}
+\DoxyCodeLine{00411\ \ \ SET\_BOOL\_VALUE(v,\ \textcolor{keywordtype}{boolean});}
+\DoxyCodeLine{00412\ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00413\ \}}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\_INLINE}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}}
+\DoxyCodeLine{00416\ mrb\_undef\_value(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00417\ \{}
+\DoxyCodeLine{00418\ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ v;}
+\DoxyCodeLine{00419\ \ \ SET\_UNDEF\_VALUE(v);}
+\DoxyCodeLine{00420\ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00421\ \}}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ \textcolor{preprocessor}{\#if\ defined(MRB\_USE\_CUSTOM\_RO\_DATA\_P)}}
+\DoxyCodeLine{00424\ \textcolor{comment}{/*\ If\ you\ define\ \`{}MRB\_USE\_CUSTOM\_RO\_DATA\_P`,\ you\ must\ implement\ \`{}mrb\_ro\_data\_p()`.\ */}}
+\DoxyCodeLine{00425\ mrb\_bool\ mrb\_ro\_data\_p(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *p);}
+\DoxyCodeLine{00426\ \textcolor{preprocessor}{\#elif\ !defined(MRB\_NO\_DEFAULT\_RO\_DATA\_P)}}
+\DoxyCodeLine{00427\ \textcolor{preprocessor}{\#if\ defined(MRB\_USE\_ETEXT\_RO\_DATA\_P)}}
+\DoxyCodeLine{00428\ \textcolor{preprocessor}{\#define\ MRB\_LINK\_TIME\_RO\_DATA\_P}}
+\DoxyCodeLine{00429\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ etext,\ edata;}
+\DoxyCodeLine{00430\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ mrb\_bool}
+\DoxyCodeLine{00431\ mrb\_ro\_data\_p(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *p)}
+\DoxyCodeLine{00432\ \{}
+\DoxyCodeLine{00433\ \ \ \textcolor{keywordflow}{return}\ \&etext\ <\ p\ \&\&\ p\ <\ \&edata;}
+\DoxyCodeLine{00434\ \}}
+\DoxyCodeLine{00435\ \textcolor{preprocessor}{\#elif\ defined(\_\_APPLE\_\_)}}
+\DoxyCodeLine{00436\ \textcolor{preprocessor}{\#define\ MRB\_LINK\_TIME\_RO\_DATA\_P}}
+\DoxyCodeLine{00437\ \textcolor{preprocessor}{\#include\ <mach-\/o/getsect.h>}}
+\DoxyCodeLine{00438\ \textcolor{preprocessor}{\#include\ <crt\_externs.h>}\ \textcolor{comment}{//\ for\ \_NSGetMachExecuteHeader}}
+\DoxyCodeLine{00439\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ mrb\_bool}
+\DoxyCodeLine{00440\ mrb\_ro\_data\_p(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *p)}
+\DoxyCodeLine{00441\ \{}
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\#ifdef\ \_\_LP64\_\_}}
+\DoxyCodeLine{00443\ \ \ \textcolor{keyword}{struct\ }mach\_header\_64\ *mhp;}
+\DoxyCodeLine{00444\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00445\ \ \ \textcolor{keyword}{struct\ }mach\_header\ *mhp;}
+\DoxyCodeLine{00446\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00447\ \ \ mhp\ =\ \_NSGetMachExecuteHeader();}
+\DoxyCodeLine{00448\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ textsize,\ datasize;}
+\DoxyCodeLine{00449\ \ \ \textcolor{keywordtype}{char}\ *text\ =\ (\textcolor{keywordtype}{char}*)getsegmentdata(mhp,\ SEG\_TEXT,\ \&textsize);}
+\DoxyCodeLine{00450\ \ \ \textcolor{keywordtype}{char}\ *data\ =\ (\textcolor{keywordtype}{char}*)getsegmentdata(mhp,\ SEG\_DATA,\ \&datasize);}
+\DoxyCodeLine{00451\ \ \ \textcolor{keywordflow}{return}\ text\ +\ textsize\ <\ p\ \&\&\ p\ <\ data\ +\ datasize;}
+\DoxyCodeLine{00452\ \}}
+\DoxyCodeLine{00453\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ Linux\ or\ macOS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00454\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRB\_NO\_DEFAULT\_RO\_DATA\_P\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00455\ \textcolor{preprocessor}{\#ifndef\ MRB\_LINK\_TIME\_RO\_DATA\_P}}
+\DoxyCodeLine{00456\ \textcolor{preprocessor}{\#\ define\ mrb\_ro\_data\_p(p)\ FALSE}}
+\DoxyCodeLine{00457\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00458\ }
+\DoxyCodeLine{00459\ \mbox{\hyperlink{common_8h_a7e9674ff871a8abbcaf9ba23fa4b72d3}{MRB\_END\_DECL}}}
+\DoxyCodeLine{00460\ }
+\DoxyCodeLine{00461\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_VALUE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

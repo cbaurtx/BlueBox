@@ -1,0 +1,16 @@
+<map id="shrpx::ResolverEntry" name="shrpx::ResolverEntry">
+<area shape="rect" id="Node000001" title=" " alt="" coords="198,357,342,384"/>
+<area shape="rect" id="Node000002" href="$classnghttp2_1_1ImmutableString.html" title=" " alt="" coords="5,251,173,277"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,283,251,355,246,358,123,288"/>
+<area shape="rect" id="Node000003" href="$structnghttp2_1_1DList.html" title=" " alt="" coords="197,243,344,285"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="272,299,273,358,268,355,268,303"/>
+<area shape="rect" id="Node000004" href="$structshrpx_1_1DNSQuery.html" title=" " alt="" coords="160,113,285,140"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="233,152,266,243,260,242,230,157"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="300,116,312,127,304,136,287,140,284,135,301,132,306,127,300,121"/>
+<area shape="rect" id="Node000005" href="$classnghttp2_1_1StringRef.html" title=" " alt="" coords="159,5,286,32"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="223,45,225,114,220,112,221,50"/>
+<area shape="rect" id="Node000006" href="$structnghttp2_1_1Address.html" title=" " alt="" coords="378,251,498,277"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="408,285,292,359,290,354,403,286"/>
+<area shape="rect" id="Node000007" href="$unionnghttp2_1_1sockaddr__union.html" title=" " alt="" coords="377,113,540,140"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="456,154,442,252,438,249,452,157"/>
+</map>

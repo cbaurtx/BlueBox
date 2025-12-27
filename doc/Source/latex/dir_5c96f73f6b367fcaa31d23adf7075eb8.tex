@@ -1,0 +1,51 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+esp-\/dsp/examples/applications/spectrum\+\_\+box\+\_\+lite Directory Reference}
+\hypertarget{dir_5c96f73f6b367fcaa31d23adf7075eb8}{}\label{dir_5c96f73f6b367fcaa31d23adf7075eb8}\index{managed\_components/espressif\_\_esp-\/dsp/examples/applications/spectrum\_box\_lite Directory Reference@{managed\_components/espressif\_\_esp-\/dsp/examples/applications/spectrum\_box\_lite Directory Reference}}
+Directory dependency graph for spectrum\+\_\+box\+\_\+lite\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=279pt]{dir_5c96f73f6b367fcaa31d23adf7075eb8_dep}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_a2f84909cde39592c0dab2903d3ec2ce}{main}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_5c96f73f6b367fcaa31d23adf7075eb8_autotoc_md98}{}\doxysubsection{\texorpdfstring{ESP-\/\+DSP ESP32-\/\+S3-\/\+BOX-\/\+Lite Board demo application}{ESP-\/\+DSP ESP32-\/\+S3-\/\+BOX-\/\+Lite Board demo application}}\label{dir_5c96f73f6b367fcaa31d23adf7075eb8_autotoc_md98}
+The demo applications are developed for the ESP32-\/\+S3-\/\+BOX-\/\+Lite development board and demonstrate the usage of FFT functions from the ESP-\/\+DSP library. This example showcases how to use FFT functionality to process audio stream data. The application record sound from two microphones and show the spectrum from them at display as 2D plot.\hypertarget{dir_5c96f73f6b367fcaa31d23adf7075eb8_autotoc_md99}{}\doxysubsection{\texorpdfstring{Audio Processing Flow}{Audio Processing Flow}}\label{dir_5c96f73f6b367fcaa31d23adf7075eb8_autotoc_md99}
+The audio processing flow contains next blocks\+:
+\begin{DoxyEnumerate}
+\item Audio processing task
+\begin{DoxyItemize}
+\item Read left and right channel data from the microphone
+\item Apply window multiplication to both channels
+\item Process FFT and apply bit reverse
+\item Split complex spectrum from two channels to two spectrums of two real channels
+\item Calculate absolute spectrum and convert it to dB
+\item Calculate moving average of the spectrum
+\end{DoxyItemize}
+\item Image Display Task
+\begin{DoxyItemize}
+\item Read data from the
+\item Write data from triple buffer to audio codec
+\end{DoxyItemize}
+\end{DoxyEnumerate}\hypertarget{dir_5c96f73f6b367fcaa31d23adf7075eb8_autotoc_md100}{}\doxysubsection{\texorpdfstring{How to use the example}{How to use the example}}\label{dir_5c96f73f6b367fcaa31d23adf7075eb8_autotoc_md100}
+Just flash the application to the ESP32-\/\+S3-\/\+BOX-\/\+Lite development board, and play some music around or start to speak to the board microphones. The display will show the real-\/time spectrum. The microphone sensitivity could be adjusted in the code.\hypertarget{dir_5c96f73f6b367fcaa31d23adf7075eb8_autotoc_md101}{}\doxysubsubsection{\texorpdfstring{Hardware required}{Hardware required}}\label{dir_5c96f73f6b367fcaa31d23adf7075eb8_autotoc_md101}
+This example does not require any special hardware, and can be run on any common development board.\hypertarget{dir_5c96f73f6b367fcaa31d23adf7075eb8_autotoc_md102}{}\doxysubsubsection{\texorpdfstring{Configure the project}{Configure the project}}\label{dir_5c96f73f6b367fcaa31d23adf7075eb8_autotoc_md102}
+Under Component Config -\/-\/-\/\texorpdfstring{$>$}{>} DSP Library -\/-\/-\/\texorpdfstring{$>$}{>} DSP Optimization, it\textquotesingle{}s possible to choose either the optimized or ANSI implementation, to compare them.\hypertarget{dir_5c96f73f6b367fcaa31d23adf7075eb8_autotoc_md103}{}\doxysubsubsection{\texorpdfstring{Build and flash}{Build and flash}}\label{dir_5c96f73f6b367fcaa31d23adf7075eb8_autotoc_md103}
+Build the project and flash it to the board, then run monitor tool to view serial output (replace PORT with serial port name)\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{idf.py\ flash\ monitor}
+
+\end{DoxyCode}
+
+
+(To exit the serial monitor, type {\ttfamily Ctrl-\/\mbox{]}}.)
+
+See the Getting Started Guide for full steps to configure and use ESP-\/\+IDF to build projects. 

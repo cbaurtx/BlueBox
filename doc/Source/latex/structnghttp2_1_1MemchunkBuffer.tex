@@ -1,0 +1,88 @@
+\doxysection{nghttp2\+::Memchunk\+Buffer\texorpdfstring{$<$}{<} Memchunk \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structnghttp2_1_1MemchunkBuffer}{}\label{structnghttp2_1_1MemchunkBuffer}\index{nghttp2::MemchunkBuffer$<$ Memchunk $>$@{nghttp2::MemchunkBuffer$<$ Memchunk $>$}}
+
+
+Collaboration diagram for nghttp2\+::Memchunk\+Buffer\texorpdfstring{$<$}{<} Memchunk \texorpdfstring{$>$}{>}\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=293pt]{structnghttp2_1_1MemchunkBuffer__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_a10d509637ed03a514b0de9a5eba0a35f}\label{structnghttp2_1_1MemchunkBuffer_a10d509637ed03a514b0de9a5eba0a35f} 
+{\bfseries Memchunk\+Buffer} (\mbox{\hyperlink{structnghttp2_1_1Pool}{Pool}}$<$ \mbox{\hyperlink{structnghttp2_1_1Memchunk}{Memchunk}} $>$ \texorpdfstring{$\ast$}{*}pool)
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_ac3f123e8f621496a77f4c0f912f65b8a}\label{structnghttp2_1_1MemchunkBuffer_ac3f123e8f621496a77f4c0f912f65b8a} 
+{\bfseries Memchunk\+Buffer} (const Memchunk\+Buffer \&)=delete
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_a230a98e06ba7e0955adc660336b168a0}\label{structnghttp2_1_1MemchunkBuffer_a230a98e06ba7e0955adc660336b168a0} 
+{\bfseries Memchunk\+Buffer} (Memchunk\+Buffer \&\&other) noexcept
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_ab7d47fe4d74484d34420f914fb2b4ede}\label{structnghttp2_1_1MemchunkBuffer_ab7d47fe4d74484d34420f914fb2b4ede} 
+Memchunk\+Buffer \& {\bfseries operator=} (const Memchunk\+Buffer \&)=delete
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_aa5b2fb107b6c56473c22dd6c5e8217c0}\label{structnghttp2_1_1MemchunkBuffer_aa5b2fb107b6c56473c22dd6c5e8217c0} 
+Memchunk\+Buffer \& {\bfseries operator=} (Memchunk\+Buffer \&\&other) noexcept
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_adca80fb0c994478f1778bb732898d100}\label{structnghttp2_1_1MemchunkBuffer_adca80fb0c994478f1778bb732898d100} 
+void {\bfseries ensure\+\_\+chunk} ()
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_abb43a26aeae0c2b64c3c21d29f9fe15e}\label{structnghttp2_1_1MemchunkBuffer_abb43a26aeae0c2b64c3c21d29f9fe15e} 
+void {\bfseries release\+\_\+chunk} ()
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_aa1e4ad5ce4eb69ed115b0b6bdbf720fc}\label{structnghttp2_1_1MemchunkBuffer_aa1e4ad5ce4eb69ed115b0b6bdbf720fc} 
+bool {\bfseries chunk\+\_\+avail} () const
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_ae595ee40aa0732bfd47bd005ae4665a3}\label{structnghttp2_1_1MemchunkBuffer_ae595ee40aa0732bfd47bd005ae4665a3} 
+uint8\+\_\+t \texorpdfstring{$\ast$}{*} {\bfseries pos} () const
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_ad636cd2beaa8d39edbd2cab407e7a84a}\label{structnghttp2_1_1MemchunkBuffer_ad636cd2beaa8d39edbd2cab407e7a84a} 
+uint8\+\_\+t \texorpdfstring{$\ast$}{*} {\bfseries last} () const
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_aec30698280a960fe44d9470ff3d8af3d}\label{structnghttp2_1_1MemchunkBuffer_aec30698280a960fe44d9470ff3d8af3d} 
+size\+\_\+t {\bfseries rleft} () const
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_af9df141be50bee18e75be0e0e69aa4ab}\label{structnghttp2_1_1MemchunkBuffer_af9df141be50bee18e75be0e0e69aa4ab} 
+size\+\_\+t {\bfseries wleft} () const
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_a16a11118c0b78c436d0f13963db4d601}\label{structnghttp2_1_1MemchunkBuffer_a16a11118c0b78c436d0f13963db4d601} 
+size\+\_\+t {\bfseries write} (const void \texorpdfstring{$\ast$}{*}src, size\+\_\+t count)
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_a325a146ae0702cc1f688a45ddf350481}\label{structnghttp2_1_1MemchunkBuffer_a325a146ae0702cc1f688a45ddf350481} 
+size\+\_\+t {\bfseries write} (size\+\_\+t count)
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_acc24c9b49653ebcdf36f9629034622a9}\label{structnghttp2_1_1MemchunkBuffer_acc24c9b49653ebcdf36f9629034622a9} 
+size\+\_\+t {\bfseries drain} (size\+\_\+t count)
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_a87171ecbdc428638a3e05392c9e4a5aa}\label{structnghttp2_1_1MemchunkBuffer_a87171ecbdc428638a3e05392c9e4a5aa} 
+size\+\_\+t {\bfseries drain\+\_\+reset} (size\+\_\+t count)
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_af8c8b0cddd256f5042c8f0cf803cfd8e}\label{structnghttp2_1_1MemchunkBuffer_af8c8b0cddd256f5042c8f0cf803cfd8e} 
+void {\bfseries reset} ()
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_a49b0a3504fbc0a35ceb314f157e341c3}\label{structnghttp2_1_1MemchunkBuffer_a49b0a3504fbc0a35ceb314f157e341c3} 
+uint8\+\_\+t \texorpdfstring{$\ast$}{*} {\bfseries begin} ()
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_acf631148b94c9ddd64d056662d068a1c}\label{structnghttp2_1_1MemchunkBuffer_acf631148b94c9ddd64d056662d068a1c} 
+uint8\+\_\+t \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t n)
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_aedf8dbc30061f3b680b0a7c588eeea6d}\label{structnghttp2_1_1MemchunkBuffer_aedf8dbc30061f3b680b0a7c588eeea6d} 
+const uint8\+\_\+t \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t n) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_a7b6982ea4e88d23632b56c394ce38211}\label{structnghttp2_1_1MemchunkBuffer_a7b6982ea4e88d23632b56c394ce38211} 
+\mbox{\hyperlink{structnghttp2_1_1Pool}{Pool}}$<$ \mbox{\hyperlink{structnghttp2_1_1Memchunk}{Memchunk}} $>$ \texorpdfstring{$\ast$}{*} {\bfseries pool}
+\item 
+\Hypertarget{structnghttp2_1_1MemchunkBuffer_a61e1c93f5c43d9dd34a604f430da9eec}\label{structnghttp2_1_1MemchunkBuffer_a61e1c93f5c43d9dd34a604f430da9eec} 
+\mbox{\hyperlink{structnghttp2_1_1Memchunk}{Memchunk}} \texorpdfstring{$\ast$}{*} {\bfseries chunk}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/memchunk.\+h\end{DoxyCompactItemize}

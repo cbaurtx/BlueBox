@@ -1,0 +1,7 @@
+<map id="nghttp2_push_promise" name="nghttp2_push_promise">
+<area shape="rect" id="Node000001" title=" " alt="" coords="56,104,208,131"/>
+<area shape="rect" id="Node000002" href="$structnghttp2__frame__hd.html" title=" " alt="" coords="5,5,131,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,43,126,103,121,104,83,47"/>
+<area shape="rect" id="Node000003" href="$structnghttp2__nv.html" title=" " alt="" coords="155,5,240,32"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="183,44,142,106,138,102,178,46"/>
+</map>

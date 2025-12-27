@@ -1,0 +1,93 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/debug.h File Reference}
+\hypertarget{debug_8h}{}\label{debug_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/debug.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/debug.h}}
+{\ttfamily \#include "{}common.\+h"{}}\newline
+Include dependency graph for debug.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{debug_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structmrb__irep__debug__info__line}{mrb\+\_\+irep\+\_\+debug\+\_\+info\+\_\+line}}
+\item 
+struct \mbox{\hyperlink{structmrb__irep__debug__info__file}{mrb\+\_\+irep\+\_\+debug\+\_\+info\+\_\+file}}
+\item 
+struct \mbox{\hyperlink{structmrb__irep__debug__info}{mrb\+\_\+irep\+\_\+debug\+\_\+info}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\+\_\+\+BEGIN\+\_\+\+DECL}} enum \mbox{\hyperlink{debug_8h_a3069b45fa4af300e63ab72d9c518e544}{mrb\+\_\+debug\+\_\+line\+\_\+type}} \mbox{\hyperlink{debug_8h_a70d1e92453058ae49cb44f3d5932a89e}{mrb\+\_\+debug\+\_\+line\+\_\+type}}
+\item 
+\Hypertarget{debug_8h_ab9e41d8cad46a6b57219618075e0ee56}\label{debug_8h_ab9e41d8cad46a6b57219618075e0ee56} 
+typedef struct mrb\+\_\+irep\+\_\+debug\+\_\+info\+\_\+line {\bfseries mrb\+\_\+irep\+\_\+debug\+\_\+info\+\_\+line}
+\item 
+\Hypertarget{debug_8h_a5809d12f7a0eae1d6e888520493db8a5}\label{debug_8h_a5809d12f7a0eae1d6e888520493db8a5} 
+typedef struct mrb\+\_\+irep\+\_\+debug\+\_\+info\+\_\+file {\bfseries mrb\+\_\+irep\+\_\+debug\+\_\+info\+\_\+file}
+\item 
+\Hypertarget{debug_8h_a5d97b26fde9656e295fc12b870ea17c3}\label{debug_8h_a5d97b26fde9656e295fc12b870ea17c3} 
+typedef struct mrb\+\_\+irep\+\_\+debug\+\_\+info {\bfseries mrb\+\_\+irep\+\_\+debug\+\_\+info}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{debug_8h_a3069b45fa4af300e63ab72d9c518e544}{mrb\+\_\+debug\+\_\+line\+\_\+type}} \{ {\bfseries mrb\+\_\+debug\+\_\+line\+\_\+ary} = 0
+, {\bfseries mrb\+\_\+debug\+\_\+line\+\_\+flat\+\_\+map}
+, {\bfseries mrb\+\_\+debug\+\_\+line\+\_\+packed\+\_\+map}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{debug_8h_a5e67080bfd3c080f551e2102f8e9f82a}\label{debug_8h_a5e67080bfd3c080f551e2102f8e9f82a} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} const char \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+debug\+\_\+get\+\_\+filename} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, const \mbox{\hyperlink{structmrb__irep}{mrb\+\_\+irep}} \texorpdfstring{$\ast$}{*}irep, uint32\+\_\+t pc)
+\item 
+\Hypertarget{debug_8h_a0c94e09b084f7ab1dd48537512c714ca}\label{debug_8h_a0c94e09b084f7ab1dd48537512c714ca} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} int32\+\_\+t {\bfseries mrb\+\_\+debug\+\_\+get\+\_\+line} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, const \mbox{\hyperlink{structmrb__irep}{mrb\+\_\+irep}} \texorpdfstring{$\ast$}{*}irep, uint32\+\_\+t pc)
+\item 
+\Hypertarget{debug_8h_a5c2172f7efc1193f0bc33a6530fe8435}\label{debug_8h_a5c2172f7efc1193f0bc33a6530fe8435} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries mrb\+\_\+debug\+\_\+get\+\_\+position} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, const \mbox{\hyperlink{structmrb__irep}{mrb\+\_\+irep}} \texorpdfstring{$\ast$}{*}irep, uint32\+\_\+t pc, int32\+\_\+t \texorpdfstring{$\ast$}{*}lp, const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}fp)
+\item 
+\Hypertarget{debug_8h_a4910a1c1a6deb047e44259d465173248}\label{debug_8h_a4910a1c1a6deb047e44259d465173248} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__irep__debug__info}{mrb\+\_\+irep\+\_\+debug\+\_\+info}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+debug\+\_\+info\+\_\+alloc} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__irep}{mrb\+\_\+irep}} \texorpdfstring{$\ast$}{*}irep)
+\item 
+\Hypertarget{debug_8h_a13c61991014816279b89a7248d054e32}\label{debug_8h_a13c61991014816279b89a7248d054e32} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__irep__debug__info__file}{mrb\+\_\+irep\+\_\+debug\+\_\+info\+\_\+file}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+debug\+\_\+info\+\_\+append\+\_\+file} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__irep__debug__info}{mrb\+\_\+irep\+\_\+debug\+\_\+info}} \texorpdfstring{$\ast$}{*}info, const char \texorpdfstring{$\ast$}{*}filename, uint16\+\_\+t \texorpdfstring{$\ast$}{*}lines, uint32\+\_\+t start\+\_\+pos, uint32\+\_\+t end\+\_\+pos)
+\item 
+\Hypertarget{debug_8h_a8509990237b897cb7fb8ef3ab864ba1a}\label{debug_8h_a8509990237b897cb7fb8ef3ab864ba1a} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+debug\+\_\+info\+\_\+free} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__irep__debug__info}{mrb\+\_\+irep\+\_\+debug\+\_\+info}} \texorpdfstring{$\ast$}{*}d)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item mruby debug info
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-typedef-members}
+\Hypertarget{debug_8h_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{debug_8h_a70d1e92453058ae49cb44f3d5932a89e}\index{debug.h@{debug.h}!mrb\_debug\_line\_type@{mrb\_debug\_line\_type}}
+\index{mrb\_debug\_line\_type@{mrb\_debug\_line\_type}!debug.h@{debug.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_debug\_line\_type}{mrb\_debug\_line\_type}}
+{\footnotesize\ttfamily \label{debug_8h_a70d1e92453058ae49cb44f3d5932a89e} 
+typedef \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\+\_\+\+BEGIN\+\_\+\+DECL}} enum \mbox{\hyperlink{debug_8h_a3069b45fa4af300e63ab72d9c518e544}{mrb\+\_\+debug\+\_\+line\+\_\+type}} \mbox{\hyperlink{debug_8h_a3069b45fa4af300e63ab72d9c518e544}{mrb\+\_\+debug\+\_\+line\+\_\+type}}}
+
+mruby Debugging. 
+
+\label{doc-enum-members}
+\Hypertarget{debug_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{debug_8h_a3069b45fa4af300e63ab72d9c518e544}\index{debug.h@{debug.h}!mrb\_debug\_line\_type@{mrb\_debug\_line\_type}}
+\index{mrb\_debug\_line\_type@{mrb\_debug\_line\_type}!debug.h@{debug.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_debug\_line\_type}{mrb\_debug\_line\_type}}
+{\footnotesize\ttfamily \label{debug_8h_a3069b45fa4af300e63ab72d9c518e544} 
+enum \mbox{\hyperlink{debug_8h_a3069b45fa4af300e63ab72d9c518e544}{mrb\+\_\+debug\+\_\+line\+\_\+type}}}
+
+mruby Debugging. 

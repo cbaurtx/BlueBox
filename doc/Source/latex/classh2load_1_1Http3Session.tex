@@ -1,0 +1,172 @@
+\doxysection{h2load\+::Http3\+Session Class Reference}
+\hypertarget{classh2load_1_1Http3Session}{}\label{classh2load_1_1Http3Session}\index{h2load::Http3Session@{h2load::Http3Session}}
+
+
+Inheritance diagram for h2load\+::Http3\+Session\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{classh2load_1_1Http3Session__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for h2load\+::Http3\+Session\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{classh2load_1_1Http3Session__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classh2load_1_1Http3Session_aace0fdce1b2f0e2d1680ffba06fc41f5}\label{classh2load_1_1Http3Session_aace0fdce1b2f0e2d1680ffba06fc41f5} 
+{\bfseries Http3\+Session} (\mbox{\hyperlink{structh2load_1_1Client}{Client}} \texorpdfstring{$\ast$}{*}client)
+\item 
+virtual void \mbox{\hyperlink{classh2load_1_1Http3Session_a924f1208158722a1537dcc790bd96bb1}{on\+\_\+connect}} ()
+\item 
+virtual int \mbox{\hyperlink{classh2load_1_1Http3Session_a9f96cc5764507e5a285e812a54c6290f}{submit\+\_\+request}} ()
+\item 
+virtual int \mbox{\hyperlink{classh2load_1_1Http3Session_a1e44a9dd73c9917c0df365a56cdbcf06}{on\+\_\+read}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\item 
+virtual int \mbox{\hyperlink{classh2load_1_1Http3Session_ad206bd28c65924575ad3e0c90ff203ad}{on\+\_\+write}} ()
+\item 
+virtual void \mbox{\hyperlink{classh2load_1_1Http3Session_a0b08f3c0ebf4af87b88d040ba8a18267}{terminate}} ()
+\item 
+virtual size\+\_\+t \mbox{\hyperlink{classh2load_1_1Http3Session_aaef819cf4934799fe10d4bd74a6951a8}{max\+\_\+concurrent\+\_\+streams}} ()
+\item 
+\Hypertarget{classh2load_1_1Http3Session_a7b6b76bce42c12930d8d4b8a8f226df1}\label{classh2load_1_1Http3Session_a7b6b76bce42c12930d8d4b8a8f226df1} 
+int {\bfseries init\+\_\+conn} ()
+\item 
+\Hypertarget{classh2load_1_1Http3Session_ac4e459bc57d9f74344b899b0889bd4f0}\label{classh2load_1_1Http3Session_ac4e459bc57d9f74344b899b0889bd4f0} 
+int {\bfseries stream\+\_\+close} (int64\+\_\+t stream\+\_\+id, uint64\+\_\+t app\+\_\+error\+\_\+code)
+\item 
+\Hypertarget{classh2load_1_1Http3Session_a683a9d1fa40095a06eb72696ad5e9b59}\label{classh2load_1_1Http3Session_a683a9d1fa40095a06eb72696ad5e9b59} 
+int {\bfseries end\+\_\+stream} (int64\+\_\+t stream\+\_\+id)
+\item 
+\Hypertarget{classh2load_1_1Http3Session_add6e4ddbb4539aa648b83bc67646bbc7}\label{classh2load_1_1Http3Session_add6e4ddbb4539aa648b83bc67646bbc7} 
+void {\bfseries recv\+\_\+data} (int64\+\_\+t stream\+\_\+id, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t datalen)
+\item 
+\Hypertarget{classh2load_1_1Http3Session_a6fa62105dcd19de576c3542c5bc328d4}\label{classh2load_1_1Http3Session_a6fa62105dcd19de576c3542c5bc328d4} 
+void {\bfseries consume} (int64\+\_\+t stream\+\_\+id, size\+\_\+t nconsumed)
+\item 
+\Hypertarget{classh2load_1_1Http3Session_a640d720232454fc5a866585f03127daf}\label{classh2load_1_1Http3Session_a640d720232454fc5a866585f03127daf} 
+void {\bfseries begin\+\_\+headers} (int64\+\_\+t stream\+\_\+id)
+\item 
+\Hypertarget{classh2load_1_1Http3Session_a2e1cc8bd2fdcae50d049fb3d416bebc7}\label{classh2load_1_1Http3Session_a2e1cc8bd2fdcae50d049fb3d416bebc7} 
+void {\bfseries recv\+\_\+header} (int64\+\_\+t stream\+\_\+id, const nghttp3\+\_\+vec \texorpdfstring{$\ast$}{*}name, const nghttp3\+\_\+vec \texorpdfstring{$\ast$}{*}value)
+\item 
+\Hypertarget{classh2load_1_1Http3Session_a0343e260aea2cbc6a54be7a8f2afd3b3}\label{classh2load_1_1Http3Session_a0343e260aea2cbc6a54be7a8f2afd3b3} 
+int {\bfseries stop\+\_\+sending} (int64\+\_\+t stream\+\_\+id, uint64\+\_\+t app\+\_\+error\+\_\+code)
+\item 
+\Hypertarget{classh2load_1_1Http3Session_afa1c34d9cea9457863dd66808be74d33}\label{classh2load_1_1Http3Session_afa1c34d9cea9457863dd66808be74d33} 
+int {\bfseries reset\+\_\+stream} (int64\+\_\+t stream\+\_\+id, uint64\+\_\+t app\+\_\+error\+\_\+code)
+\item 
+\Hypertarget{classh2load_1_1Http3Session_a680dcc9e741b8e14182db2b43f69333d}\label{classh2load_1_1Http3Session_a680dcc9e741b8e14182db2b43f69333d} 
+int {\bfseries close\+\_\+stream} (int64\+\_\+t stream\+\_\+id, uint64\+\_\+t app\+\_\+error\+\_\+code)
+\item 
+\Hypertarget{classh2load_1_1Http3Session_a8210771d5ba19a319ec1258a374707e9}\label{classh2load_1_1Http3Session_a8210771d5ba19a319ec1258a374707e9} 
+int {\bfseries shutdown\+\_\+stream\+\_\+read} (int64\+\_\+t stream\+\_\+id)
+\item 
+\Hypertarget{classh2load_1_1Http3Session_ab66821989cc04d5c97656bed3ea6eba6}\label{classh2load_1_1Http3Session_ab66821989cc04d5c97656bed3ea6eba6} 
+int {\bfseries extend\+\_\+max\+\_\+local\+\_\+streams} ()
+\item 
+\Hypertarget{classh2load_1_1Http3Session_a1ee08af3d134538d35a09766450b2a6e}\label{classh2load_1_1Http3Session_a1ee08af3d134538d35a09766450b2a6e} 
+int64\+\_\+t {\bfseries submit\+\_\+request\+\_\+internal} ()
+\item 
+\Hypertarget{classh2load_1_1Http3Session_a32969513cdaa3a61b7a8651fe63bc3fe}\label{classh2load_1_1Http3Session_a32969513cdaa3a61b7a8651fe63bc3fe} 
+ssize\+\_\+t {\bfseries read\+\_\+stream} (uint32\+\_\+t flags, int64\+\_\+t stream\+\_\+id, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t datalen)
+\item 
+\Hypertarget{classh2load_1_1Http3Session_ad8139c7b4312a3bd6a52802767c98c13}\label{classh2load_1_1Http3Session_ad8139c7b4312a3bd6a52802767c98c13} 
+ssize\+\_\+t {\bfseries write\+\_\+stream} (int64\+\_\+t \&stream\+\_\+id, int \&fin, nghttp3\+\_\+vec \texorpdfstring{$\ast$}{*}vec, size\+\_\+t veccnt)
+\item 
+\Hypertarget{classh2load_1_1Http3Session_a3ad74bcbd3366a4fd97824f951199653}\label{classh2load_1_1Http3Session_a3ad74bcbd3366a4fd97824f951199653} 
+void {\bfseries block\+\_\+stream} (int64\+\_\+t stream\+\_\+id)
+\item 
+\Hypertarget{classh2load_1_1Http3Session_abe561e570556e828613676b6ca513b35}\label{classh2load_1_1Http3Session_abe561e570556e828613676b6ca513b35} 
+int {\bfseries unblock\+\_\+stream} (int64\+\_\+t stream\+\_\+id)
+\item 
+\Hypertarget{classh2load_1_1Http3Session_ac465b1a972ce923d4d22721a0d4794b6}\label{classh2load_1_1Http3Session_ac465b1a972ce923d4d22721a0d4794b6} 
+void {\bfseries shutdown\+\_\+stream\+\_\+write} (int64\+\_\+t stream\+\_\+id)
+\item 
+\Hypertarget{classh2load_1_1Http3Session_a7430f230d3ff96048dafb7b0332ec901}\label{classh2load_1_1Http3Session_a7430f230d3ff96048dafb7b0332ec901} 
+int {\bfseries add\+\_\+write\+\_\+offset} (int64\+\_\+t stream\+\_\+id, size\+\_\+t ndatalen)
+\item 
+\Hypertarget{classh2load_1_1Http3Session_a7532cb75d453c13ed16322f8a51512b8}\label{classh2load_1_1Http3Session_a7532cb75d453c13ed16322f8a51512b8} 
+int {\bfseries add\+\_\+ack\+\_\+offset} (int64\+\_\+t stream\+\_\+id, size\+\_\+t datalen)
+\item 
+\Hypertarget{classh2load_1_1Http3Session_ad76c2c53e527f9824fe340761b6999ec}\label{classh2load_1_1Http3Session_ad76c2c53e527f9824fe340761b6999ec} 
+void {\bfseries read\+\_\+data} (nghttp3\+\_\+vec \texorpdfstring{$\ast$}{*}vec, size\+\_\+t veccnt, uint32\+\_\+t \texorpdfstring{$\ast$}{*}pflags)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{classh2load_1_1Http3Session_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classh2load_1_1Http3Session_aaef819cf4934799fe10d4bd74a6951a8}\index{h2load::Http3Session@{h2load::Http3Session}!max\_concurrent\_streams@{max\_concurrent\_streams}}
+\index{max\_concurrent\_streams@{max\_concurrent\_streams}!h2load::Http3Session@{h2load::Http3Session}}
+\doxysubsubsection{\texorpdfstring{max\_concurrent\_streams()}{max\_concurrent\_streams()}}
+{\footnotesize\ttfamily \label{classh2load_1_1Http3Session_aaef819cf4934799fe10d4bd74a6951a8} 
+size\+\_\+t h2load\+::\+Http3\+Session\+::max\+\_\+concurrent\+\_\+streams (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classh2load_1_1Session}{h2load\+::\+Session}}.
+
+\Hypertarget{classh2load_1_1Http3Session_a924f1208158722a1537dcc790bd96bb1}\index{h2load::Http3Session@{h2load::Http3Session}!on\_connect@{on\_connect}}
+\index{on\_connect@{on\_connect}!h2load::Http3Session@{h2load::Http3Session}}
+\doxysubsubsection{\texorpdfstring{on\_connect()}{on\_connect()}}
+{\footnotesize\ttfamily \label{classh2load_1_1Http3Session_a924f1208158722a1537dcc790bd96bb1} 
+void h2load\+::\+Http3\+Session\+::on\+\_\+connect (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classh2load_1_1Session}{h2load\+::\+Session}}.
+
+\Hypertarget{classh2load_1_1Http3Session_a1e44a9dd73c9917c0df365a56cdbcf06}\index{h2load::Http3Session@{h2load::Http3Session}!on\_read@{on\_read}}
+\index{on\_read@{on\_read}!h2load::Http3Session@{h2load::Http3Session}}
+\doxysubsubsection{\texorpdfstring{on\_read()}{on\_read()}}
+{\footnotesize\ttfamily \label{classh2load_1_1Http3Session_a1e44a9dd73c9917c0df365a56cdbcf06} 
+int h2load\+::\+Http3\+Session\+::on\+\_\+read (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classh2load_1_1Session}{h2load\+::\+Session}}.
+
+\Hypertarget{classh2load_1_1Http3Session_ad206bd28c65924575ad3e0c90ff203ad}\index{h2load::Http3Session@{h2load::Http3Session}!on\_write@{on\_write}}
+\index{on\_write@{on\_write}!h2load::Http3Session@{h2load::Http3Session}}
+\doxysubsubsection{\texorpdfstring{on\_write()}{on\_write()}}
+{\footnotesize\ttfamily \label{classh2load_1_1Http3Session_ad206bd28c65924575ad3e0c90ff203ad} 
+int h2load\+::\+Http3\+Session\+::on\+\_\+write (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classh2load_1_1Session}{h2load\+::\+Session}}.
+
+\Hypertarget{classh2load_1_1Http3Session_a9f96cc5764507e5a285e812a54c6290f}\index{h2load::Http3Session@{h2load::Http3Session}!submit\_request@{submit\_request}}
+\index{submit\_request@{submit\_request}!h2load::Http3Session@{h2load::Http3Session}}
+\doxysubsubsection{\texorpdfstring{submit\_request()}{submit\_request()}}
+{\footnotesize\ttfamily \label{classh2load_1_1Http3Session_a9f96cc5764507e5a285e812a54c6290f} 
+int h2load\+::\+Http3\+Session\+::submit\+\_\+request (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classh2load_1_1Session}{h2load\+::\+Session}}.
+
+\Hypertarget{classh2load_1_1Http3Session_a0b08f3c0ebf4af87b88d040ba8a18267}\index{h2load::Http3Session@{h2load::Http3Session}!terminate@{terminate}}
+\index{terminate@{terminate}!h2load::Http3Session@{h2load::Http3Session}}
+\doxysubsubsection{\texorpdfstring{terminate()}{terminate()}}
+{\footnotesize\ttfamily \label{classh2load_1_1Http3Session_a0b08f3c0ebf4af87b88d040ba8a18267} 
+void h2load\+::\+Http3\+Session\+::terminate (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classh2load_1_1Session}{h2load\+::\+Session}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/h2load\+\_\+http3\+\_\+session.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/h2load\+\_\+http3\+\_\+session.\+cc\end{DoxyCompactItemize}

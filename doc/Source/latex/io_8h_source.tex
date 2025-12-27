@@ -1,0 +1,80 @@
+\doxysection{io.\+h}
+\hypertarget{io_8h_source}{}\label{io_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/io/include/mruby/ext/io.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/io/include/mruby/ext/io.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ io.h\ -\/\ IO\ class}}
+\DoxyCodeLine{00003\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_IO\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MRUBY\_IO\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{mruby_8h}{mruby.h}}>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifdef\ MRB\_NO\_STDIO}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#\ error\ IO\ and\ File\ conflicts\ 'MRB\_NO\_STDIO'\ in\ your\ build\ configuration}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#if\ defined(\_\_cplusplus)}}
+\DoxyCodeLine{00015\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#if\ defined(MRB\_WITHOUT\_IO\_PREAD\_PWRITE)}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#\ undef\ MRB\_WITH\_IO\_PREAD\_PWRITE}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#elif\ !defined(MRB\_WITH\_IO\_PREAD\_PWRITE)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#\ if\ defined(\_\_unix\_\_)\ ||\ defined(\_\_MACH\_\_)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#\ \ define\ MRB\_WITH\_IO\_PREAD\_PWRITE}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ MRB\_IO\_BUF\_SIZE\ 4096}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__io__buf}{mrb\_io\_buf}}\ \{}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{short}\ start;}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{short}\ len;}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{char}\ mem[MRB\_IO\_BUF\_SIZE];}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__io}{mrb\_io}}\ \{}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{int}\ fd;\ \ \ \textcolor{comment}{/*\ file\ descriptor,\ or\ -\/1\ */}}
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{int}\ fd2;\ \ \textcolor{comment}{/*\ file\ descriptor\ to\ write\ if\ it's\ different\ from\ fd,\ or\ -\/1\ */}}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{int}\ pid;\ \ \textcolor{comment}{/*\ child's\ pid\ (for\ pipes)\ \ */}}
+\DoxyCodeLine{00038\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__io__buf}{mrb\_io\_buf}}\ *buf;}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ readable:1,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ writable:1,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ eof:1,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sync:1,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_socket:1;}
+\DoxyCodeLine{00044\ \};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ MRB\_O\_RDONLY\ \ \ \ \ \ \ \ \ \ \ \ 0x0000}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ MRB\_O\_WRONLY\ \ \ \ \ \ \ \ \ \ \ \ 0x0001}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ MRB\_O\_RDWR\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0002}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ MRB\_O\_ACCMODE\ \ \ \ \ \ \ \ \ \ \ (MRB\_O\_RDONLY\ |\ MRB\_O\_WRONLY\ |\ MRB\_O\_RDWR)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ MRB\_O\_NONBLOCK\ \ \ \ \ \ \ \ \ \ 0x0004}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ MRB\_O\_APPEND\ \ \ \ \ \ \ \ \ \ \ \ 0x0008}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ MRB\_O\_SYNC\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0010}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ MRB\_O\_NOFOLLOW\ \ \ \ \ \ \ \ \ \ 0x0020}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ MRB\_O\_CREAT\ \ \ \ \ \ \ \ \ \ \ \ \ 0x0040}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ MRB\_O\_TRUNC\ \ \ \ \ \ \ \ \ \ \ \ \ 0x0080}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ MRB\_O\_EXCL\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0100}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ MRB\_O\_NOCTTY\ \ \ \ \ \ \ \ \ \ \ \ 0x0200}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ MRB\_O\_DIRECT\ \ \ \ \ \ \ \ \ \ \ \ 0x0400}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ MRB\_O\_BINARY\ \ \ \ \ \ \ \ \ \ \ \ 0x0800}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ MRB\_O\_SHARE\_DELETE\ \ \ \ \ \ 0x1000}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ MRB\_O\_TMPFILE\ \ \ \ \ \ \ \ \ \ \ 0x2000}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ MRB\_O\_NOATIME\ \ \ \ \ \ \ \ \ \ \ 0x4000}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ MRB\_O\_DSYNC\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00008000}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ MRB\_O\_RSYNC\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00010000}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ E\_IO\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ \ (mrb\_exc\_get(mrb,\ "{}IOError"{}))}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ E\_EOF\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ (mrb\_exc\_get(mrb,\ "{}EOFError"{}))}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keywordtype}{int}\ mrb\_io\_fileno(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ io);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#if\ defined(\_\_cplusplus)}}
+\DoxyCodeLine{00072\ \}\ \textcolor{comment}{/*\ extern\ "{}C"{}\ \{\ */}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ MRUBY\_IO\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

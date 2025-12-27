@@ -1,0 +1,122 @@
+\doxysection{nghttp2\+::Immutable\+String Class Reference}
+\hypertarget{classnghttp2_1_1ImmutableString}{}\label{classnghttp2_1_1ImmutableString}\index{nghttp2::ImmutableString@{nghttp2::ImmutableString}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a605eca25a4aa515f4e3e776dd1051d7a}\label{classnghttp2_1_1ImmutableString_a605eca25a4aa515f4e3e776dd1051d7a} 
+using {\bfseries traits\+\_\+type} = std\+::char\+\_\+traits$<$char$>$
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a0e107a41ae602a8933d1852fbb07e636}\label{classnghttp2_1_1ImmutableString_a0e107a41ae602a8933d1852fbb07e636} 
+using {\bfseries value\+\_\+type} = traits\+\_\+type\+::char\+\_\+type
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_ab79a3f0ef0025ea234e5fba2b702ad47}\label{classnghttp2_1_1ImmutableString_ab79a3f0ef0025ea234e5fba2b702ad47} 
+using {\bfseries allocator\+\_\+type} = std\+::allocator$<$char$>$
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a2e8cb9a2938e18aa6b05425eb4346fe2}\label{classnghttp2_1_1ImmutableString_a2e8cb9a2938e18aa6b05425eb4346fe2} 
+using {\bfseries size\+\_\+type} = std\+::allocator\+\_\+traits$<$allocator\+\_\+type$>$\+::size\+\_\+type
+\item 
+using \mbox{\hyperlink{classnghttp2_1_1ImmutableString_afd2a5e0daeb9c31240cf08eb1c6aa178}{difference\+\_\+type}}
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a4dc2638e56b9c34fbb8b43950ccb5ccc}\label{classnghttp2_1_1ImmutableString_a4dc2638e56b9c34fbb8b43950ccb5ccc} 
+using {\bfseries const\+\_\+reference} = const value\+\_\+type \&
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_ac7be92c344efbd330175941ad7abe512}\label{classnghttp2_1_1ImmutableString_ac7be92c344efbd330175941ad7abe512} 
+using {\bfseries const\+\_\+pointer} = const value\+\_\+type \texorpdfstring{$\ast$}{*}
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a5a41e8b996d8897768058b23249eb715}\label{classnghttp2_1_1ImmutableString_a5a41e8b996d8897768058b23249eb715} 
+using {\bfseries const\+\_\+iterator} = const\+\_\+pointer
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a25f3d29ca5ca156464bb66d30e70c3c7}\label{classnghttp2_1_1ImmutableString_a25f3d29ca5ca156464bb66d30e70c3c7} 
+using {\bfseries const\+\_\+reverse\+\_\+iterator} = std\+::reverse\+\_\+iterator$<$const\+\_\+iterator$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_ab9980c7a982b0eb1cb33d4083eab770e}\label{classnghttp2_1_1ImmutableString_ab9980c7a982b0eb1cb33d4083eab770e} 
+constexpr {\bfseries Immutable\+String} (const char \texorpdfstring{$\ast$}{*}s, size\+\_\+t slen)
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_aeccc5ee3e02006a94f6d2e8c85e0efee}\label{classnghttp2_1_1ImmutableString_aeccc5ee3e02006a94f6d2e8c85e0efee} 
+constexpr {\bfseries Immutable\+String} (const char \texorpdfstring{$\ast$}{*}s)
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_af3656d677ad4c6d3f296eac9b8afcebd}\label{classnghttp2_1_1ImmutableString_af3656d677ad4c6d3f296eac9b8afcebd} 
+constexpr {\bfseries Immutable\+String} (const std\+::string \&s)
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a44a5775d2f0100071a5cf8fda022b5c3}\label{classnghttp2_1_1ImmutableString_a44a5775d2f0100071a5cf8fda022b5c3} 
+{\footnotesize template$<$typename Input\+It$>$ }\\constexpr {\bfseries Immutable\+String} (Input\+It first, Input\+It last)
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_ad39bb163a3e9b427632ce119f9f07927}\label{classnghttp2_1_1ImmutableString_ad39bb163a3e9b427632ce119f9f07927} 
+constexpr {\bfseries Immutable\+String} (const Immutable\+String \&other)
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a51550a098e3389b91ccd8ce566702c3c}\label{classnghttp2_1_1ImmutableString_a51550a098e3389b91ccd8ce566702c3c} 
+constexpr {\bfseries Immutable\+String} (Immutable\+String \&\&other) noexcept
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_aee5c899ac79dd6e33e12e988cac6060b}\label{classnghttp2_1_1ImmutableString_aee5c899ac79dd6e33e12e988cac6060b} 
+constexpr Immutable\+String \& {\bfseries operator=} (const Immutable\+String \&other)
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_abe40b5fd79d296fd5afab8f8abfa6817}\label{classnghttp2_1_1ImmutableString_abe40b5fd79d296fd5afab8f8abfa6817} 
+constexpr Immutable\+String \& {\bfseries operator=} (Immutable\+String \&\&other) noexcept
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a20ee372a74269202dc3fbd453859c099}\label{classnghttp2_1_1ImmutableString_a20ee372a74269202dc3fbd453859c099} 
+constexpr const\+\_\+iterator {\bfseries begin} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a0f4a1d9ea9d3cc9dda3e23bbebcc32ee}\label{classnghttp2_1_1ImmutableString_a0f4a1d9ea9d3cc9dda3e23bbebcc32ee} 
+constexpr const\+\_\+iterator {\bfseries cbegin} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a133ccb25ee796c44b74935b23929f508}\label{classnghttp2_1_1ImmutableString_a133ccb25ee796c44b74935b23929f508} 
+constexpr const\+\_\+iterator {\bfseries end} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a1c93abd857e5240b83d2525445ae66f7}\label{classnghttp2_1_1ImmutableString_a1c93abd857e5240b83d2525445ae66f7} 
+constexpr const\+\_\+iterator {\bfseries cend} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a6fb2ad0391862739469ffd2d51910ccf}\label{classnghttp2_1_1ImmutableString_a6fb2ad0391862739469ffd2d51910ccf} 
+constexpr const\+\_\+reverse\+\_\+iterator {\bfseries rbegin} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a8d02f32ead5d9bcda63b402dc0224050}\label{classnghttp2_1_1ImmutableString_a8d02f32ead5d9bcda63b402dc0224050} 
+constexpr const\+\_\+reverse\+\_\+iterator {\bfseries crbegin} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_af71933a0d8b68a1ba8cfce52d234f6c1}\label{classnghttp2_1_1ImmutableString_af71933a0d8b68a1ba8cfce52d234f6c1} 
+constexpr const\+\_\+reverse\+\_\+iterator {\bfseries rend} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a35e0a21ce18218677e71445ab5f803ac}\label{classnghttp2_1_1ImmutableString_a35e0a21ce18218677e71445ab5f803ac} 
+constexpr const\+\_\+reverse\+\_\+iterator {\bfseries crend} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_ab1b9d85b79a69b960e0e07f382ef6af0}\label{classnghttp2_1_1ImmutableString_ab1b9d85b79a69b960e0e07f382ef6af0} 
+constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries c\+\_\+str} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a967952a2c276876242f0faf6a9b5f25b}\label{classnghttp2_1_1ImmutableString_a967952a2c276876242f0faf6a9b5f25b} 
+constexpr size\+\_\+type {\bfseries size} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a6069ac54ad44f0f24fd99cf666c63da9}\label{classnghttp2_1_1ImmutableString_a6069ac54ad44f0f24fd99cf666c63da9} 
+constexpr bool {\bfseries empty} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a962c2cc10ba48ce4b261a7b254121934}\label{classnghttp2_1_1ImmutableString_a962c2cc10ba48ce4b261a7b254121934} 
+constexpr const\+\_\+reference {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+type pos) const noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnghttp2_1_1ImmutableString_a58381cadd08679dd76ade82169d69265}\label{classnghttp2_1_1ImmutableString_a58381cadd08679dd76ade82169d69265} 
+{\footnotesize template$<$size\+\_\+t N$>$ }\\static constexpr Immutable\+String {\bfseries from\+\_\+lit} (const char(\&s)\mbox{[}N\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\label{doc-typedef-members}
+\Hypertarget{classnghttp2_1_1ImmutableString_doc-typedef-members}
+\doxysubsection{Member Typedef Documentation}
+\Hypertarget{classnghttp2_1_1ImmutableString_afd2a5e0daeb9c31240cf08eb1c6aa178}\index{nghttp2::ImmutableString@{nghttp2::ImmutableString}!difference\_type@{difference\_type}}
+\index{difference\_type@{difference\_type}!nghttp2::ImmutableString@{nghttp2::ImmutableString}}
+\doxysubsubsection{\texorpdfstring{difference\_type}{difference\_type}}
+{\footnotesize\ttfamily \label{classnghttp2_1_1ImmutableString_afd2a5e0daeb9c31240cf08eb1c6aa178} 
+using nghttp2\+::\+Immutable\+String\+::difference\+\_\+type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::allocator\_traits<allocator\_type>::difference\_type}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/template.\+h\end{DoxyCompactItemize}

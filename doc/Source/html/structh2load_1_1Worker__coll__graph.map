@@ -1,0 +1,11 @@
+<map id="h2load::Worker" name="h2load::Worker">
+<area shape="rect" id="Node000001" title=" " alt="" coords="296,125,404,152"/>
+<area shape="rect" id="Node000002" href="$structnghttp2_1_1Pool.html" title=" " alt="" coords="5,5,215,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,38,194,68,253,99,314,125,309,125,251,104,192,73,142,43"/>
+<area shape="rect" id="Node000003" href="$structh2load_1_1Stats.html" title=" " alt="" coords="238,5,336,32"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="303,44,346,125,341,124,300,48"/>
+<area shape="rect" id="Node000004" href="$structh2load_1_1Sampling.html" title=" " alt="" coords="360,5,481,32"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="408,44,375,103,360,127,357,123,370,100,404,47"/>
+<area shape="rect" id="Node000005" href="$structh2load_1_1Config.html" title=" " alt="" coords="513,5,619,32"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="562,45,550,77,528,103,506,114,476,122,405,134,404,129,474,117,504,109,524,99,545,74,557,48"/>
+</map>

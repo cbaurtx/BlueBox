@@ -1,0 +1,47 @@
+\doxysection{shrpx\+::QUICConnection\+Handler Class Reference}
+\hypertarget{classshrpx_1_1QUICConnectionHandler}{}\label{classshrpx_1_1QUICConnectionHandler}\index{shrpx::QUICConnectionHandler@{shrpx::QUICConnectionHandler}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1QUICConnectionHandler_a1b8e8af61c2d33e108d050c59ff00b17}\label{classshrpx_1_1QUICConnectionHandler_a1b8e8af61c2d33e108d050c59ff00b17} 
+{\bfseries QUICConnection\+Handler} (\mbox{\hyperlink{classshrpx_1_1Worker}{Worker}} \texorpdfstring{$\ast$}{*}worker)
+\item 
+\Hypertarget{classshrpx_1_1QUICConnectionHandler_a201610745c74ee303d89f9b022263879}\label{classshrpx_1_1QUICConnectionHandler_a201610745c74ee303d89f9b022263879} 
+int {\bfseries handle\+\_\+packet} (const \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{Upstream\+Addr}} \texorpdfstring{$\ast$}{*}faddr, const \mbox{\hyperlink{structnghttp2_1_1Address}{Address}} \&remote\+\_\+addr, const \mbox{\hyperlink{structnghttp2_1_1Address}{Address}} \&local\+\_\+addr, const ngtcp2\+\_\+pkt\+\_\+info \&pi, std\+::span$<$ const uint8\+\_\+t $>$ data)
+\item 
+\Hypertarget{classshrpx_1_1QUICConnectionHandler_adbe69e3eeff6d806d5111242feb7ef06}\label{classshrpx_1_1QUICConnectionHandler_adbe69e3eeff6d806d5111242feb7ef06} 
+int {\bfseries send\+\_\+retry} (const \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{Upstream\+Addr}} \texorpdfstring{$\ast$}{*}faddr, uint32\+\_\+t version, std\+::span$<$ const uint8\+\_\+t $>$ ini\+\_\+dcid, std\+::span$<$ const uint8\+\_\+t $>$ ini\+\_\+scid, const \mbox{\hyperlink{structnghttp2_1_1Address}{Address}} \&remote\+\_\+addr, const \mbox{\hyperlink{structnghttp2_1_1Address}{Address}} \&local\+\_\+addr, size\+\_\+t max\+\_\+pktlen)
+\item 
+\Hypertarget{classshrpx_1_1QUICConnectionHandler_a0ca39b5c0a3d2f765a4451c0ff361412}\label{classshrpx_1_1QUICConnectionHandler_a0ca39b5c0a3d2f765a4451c0ff361412} 
+int {\bfseries send\+\_\+version\+\_\+negotiation} (const \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{Upstream\+Addr}} \texorpdfstring{$\ast$}{*}faddr, uint32\+\_\+t version, std\+::span$<$ const uint8\+\_\+t $>$ ini\+\_\+dcid, std\+::span$<$ const uint8\+\_\+t $>$ ini\+\_\+scid, const \mbox{\hyperlink{structnghttp2_1_1Address}{Address}} \&remote\+\_\+addr, const \mbox{\hyperlink{structnghttp2_1_1Address}{Address}} \&local\+\_\+addr)
+\item 
+\Hypertarget{classshrpx_1_1QUICConnectionHandler_ae998d99101a674df3e9b69b8d67e199c}\label{classshrpx_1_1QUICConnectionHandler_ae998d99101a674df3e9b69b8d67e199c} 
+int {\bfseries send\+\_\+stateless\+\_\+reset} (const \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{Upstream\+Addr}} \texorpdfstring{$\ast$}{*}faddr, size\+\_\+t pktlen, std\+::span$<$ const uint8\+\_\+t $>$ dcid, const \mbox{\hyperlink{structnghttp2_1_1Address}{Address}} \&remote\+\_\+addr, const \mbox{\hyperlink{structnghttp2_1_1Address}{Address}} \&local\+\_\+addr)
+\item 
+\Hypertarget{classshrpx_1_1QUICConnectionHandler_aa3a737636d55e2816bd84c80a3072be2}\label{classshrpx_1_1QUICConnectionHandler_aa3a737636d55e2816bd84c80a3072be2} 
+int {\bfseries send\+\_\+connection\+\_\+close} (const \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{Upstream\+Addr}} \texorpdfstring{$\ast$}{*}faddr, uint32\+\_\+t version, const ngtcp2\+\_\+cid \&ini\+\_\+dcid, const ngtcp2\+\_\+cid \&ini\+\_\+scid, const \mbox{\hyperlink{structnghttp2_1_1Address}{Address}} \&remote\+\_\+addr, const \mbox{\hyperlink{structnghttp2_1_1Address}{Address}} \&local\+\_\+addr, uint64\+\_\+t error\+\_\+code, size\+\_\+t max\+\_\+pktlen)
+\item 
+\Hypertarget{classshrpx_1_1QUICConnectionHandler_a6f87812c1b392d4f23339ecbf214319a}\label{classshrpx_1_1QUICConnectionHandler_a6f87812c1b392d4f23339ecbf214319a} 
+\mbox{\hyperlink{classshrpx_1_1ClientHandler}{Client\+Handler}} \texorpdfstring{$\ast$}{*} {\bfseries handle\+\_\+new\+\_\+connection} (const \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{Upstream\+Addr}} \texorpdfstring{$\ast$}{*}faddr, const \mbox{\hyperlink{structnghttp2_1_1Address}{Address}} \&remote\+\_\+addr, const \mbox{\hyperlink{structnghttp2_1_1Address}{Address}} \&local\+\_\+addr, const ngtcp2\+\_\+pkt\+\_\+hd \&hd, const ngtcp2\+\_\+cid \texorpdfstring{$\ast$}{*}odcid, std\+::span$<$ const uint8\+\_\+t $>$ token, ngtcp2\+\_\+token\+\_\+type token\+\_\+type)
+\item 
+\Hypertarget{classshrpx_1_1QUICConnectionHandler_a64bce01e2e4b642309f69098c4594c2a}\label{classshrpx_1_1QUICConnectionHandler_a64bce01e2e4b642309f69098c4594c2a} 
+void {\bfseries add\+\_\+connection\+\_\+id} (const ngtcp2\+\_\+cid \&cid, \mbox{\hyperlink{classshrpx_1_1ClientHandler}{Client\+Handler}} \texorpdfstring{$\ast$}{*}handler)
+\item 
+\Hypertarget{classshrpx_1_1QUICConnectionHandler_a81b6ae085676a70b958c39bcfbfa0cf5}\label{classshrpx_1_1QUICConnectionHandler_a81b6ae085676a70b958c39bcfbfa0cf5} 
+void {\bfseries remove\+\_\+connection\+\_\+id} (const ngtcp2\+\_\+cid \&cid)
+\item 
+\Hypertarget{classshrpx_1_1QUICConnectionHandler_ada995be0fb6e993965183e9bea4cdb15}\label{classshrpx_1_1QUICConnectionHandler_ada995be0fb6e993965183e9bea4cdb15} 
+void {\bfseries add\+\_\+close\+\_\+wait} (\mbox{\hyperlink{structshrpx_1_1CloseWait}{Close\+Wait}} \texorpdfstring{$\ast$}{*}cw)
+\item 
+\Hypertarget{classshrpx_1_1QUICConnectionHandler_a0d1dfa8a417a3969e2024ef2e56279b0}\label{classshrpx_1_1QUICConnectionHandler_a0d1dfa8a417a3969e2024ef2e56279b0} 
+void {\bfseries remove\+\_\+close\+\_\+wait} (const \mbox{\hyperlink{structshrpx_1_1CloseWait}{Close\+Wait}} \texorpdfstring{$\ast$}{*}cw)
+\item 
+\Hypertarget{classshrpx_1_1QUICConnectionHandler_acc43e0a6d7937f7800102ba9ae45c11c}\label{classshrpx_1_1QUICConnectionHandler_acc43e0a6d7937f7800102ba9ae45c11c} 
+void {\bfseries on\+\_\+stateless\+\_\+reset\+\_\+bucket\+\_\+regen} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+quic\+\_\+connection\+\_\+handler.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+quic\+\_\+connection\+\_\+handler.\+cc\end{DoxyCompactItemize}

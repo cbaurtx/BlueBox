@@ -1,0 +1,92 @@
+\doxysection{shrpx\+\_\+connect\+\_\+blocker.\+h}
+\hypertarget{shrpx__connect__blocker_8h_source}{}\label{shrpx__connect__blocker_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_connect\_blocker.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_connect\_blocker.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2014\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_CONNECT\_BLOCKER\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_CONNECT\_BLOCKER\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <ev.h>}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{class\ }ConnectBlocker\ \{}
+\DoxyCodeLine{00038\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00039\ \ \ ConnectBlocker(std::mt19937\ \&gen,\ \textcolor{keyword}{struct}\ ev\_loop\ *loop,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::function<\textcolor{keywordtype}{void}()>\ block\_func,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::function<\textcolor{keywordtype}{void}()>\ unblock\_func);}
+\DoxyCodeLine{00042\ \ \ \string~ConnectBlocker();}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ making\ connection\ is\ not\ allowed.}}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{bool}\ blocked()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00046\ \ \ \textcolor{comment}{//\ Call\ this\ function\ if\ connect\ operation\ succeeded.\ \ This\ will}}
+\DoxyCodeLine{00047\ \ \ \textcolor{comment}{//\ reset\ sleep\_\ to\ minimum\ value.}}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{void}\ on\_success();}
+\DoxyCodeLine{00049\ \ \ \textcolor{comment}{//\ Call\ this\ function\ if\ connect\ operations\ failed.\ \ This\ will\ start}}
+\DoxyCodeLine{00050\ \ \ \textcolor{comment}{//\ timer\ and\ blocks\ connection\ establishment\ with\ exponential}}
+\DoxyCodeLine{00051\ \ \ \textcolor{comment}{//\ backoff.}}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{void}\ on\_failure();}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{size\_t}\ get\_fail\_count()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \textcolor{comment}{//\ Peer\ is\ now\ considered\ offline.\ \ This\ effectively\ means\ that\ the}}
+\DoxyCodeLine{00057\ \ \ \textcolor{comment}{//\ connection\ is\ blocked\ until\ online()\ is\ called.}}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{void}\ offline();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \textcolor{comment}{//\ Peer\ is\ now\ considered\ online}}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{void}\ online();}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ peer\ is\ considered\ offline.}}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{bool}\ in\_offline()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{void}\ call\_block\_func();}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{void}\ call\_unblock\_func();}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00070\ \ \ std::mt19937\ \&gen\_;}
+\DoxyCodeLine{00071\ \ \ \textcolor{comment}{//\ Called\ when\ blocking\ is\ started}}
+\DoxyCodeLine{00072\ \ \ std::function<void()>\ block\_func\_;}
+\DoxyCodeLine{00073\ \ \ \textcolor{comment}{//\ Called\ when\ unblocked}}
+\DoxyCodeLine{00074\ \ \ std::function<void()>\ unblock\_func\_;}
+\DoxyCodeLine{00075\ \ \ ev\_timer\ timer\_;}
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{struct\ }ev\_loop\ *loop\_;}
+\DoxyCodeLine{00077\ \ \ \textcolor{comment}{//\ The\ number\ of\ consecutive\ connection\ failure.\ \ Reset\ to\ 0\ on}}
+\DoxyCodeLine{00078\ \ \ \textcolor{comment}{//\ success.}}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{size\_t}\ fail\_count\_;}
+\DoxyCodeLine{00080\ \ \ \textcolor{comment}{//\ true\ if\ peer\ is\ considered\ offline.}}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{bool}\ offline\_;}
+\DoxyCodeLine{00082\ \};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_CONNECT\_BLOCKER\_H}}
+
+\end{DoxyCode}

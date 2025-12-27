@@ -1,0 +1,54 @@
+\doxysection{shrpx\+::Connection\+Config Struct Reference}
+\hypertarget{structshrpx_1_1ConnectionConfig}{}\label{structshrpx_1_1ConnectionConfig}\index{shrpx::ConnectionConfig@{shrpx::ConnectionConfig}}
+
+
+Collaboration diagram for shrpx\+::Connection\+Config\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{structshrpx_1_1ConnectionConfig__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1ConnectionConfig_a31021484a0ba0656d19b602fd8e842bd}\label{structshrpx_1_1ConnectionConfig_a31021484a0ba0656d19b602fd8e842bd} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>struct \{\\
+\>\>ev\_tstamp {\bfseries sleep}\\
+\>\} {\bfseries timeout}\\
+\>std::vector$<$ \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{UpstreamAddr}} $>$ {\bfseries addrs}\\
+\>int {\bfseries backlog}\\
+\>int {\bfseries fastopen}\\
+\} {\bfseries listener}\\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1ConnectionConfig_a7f17b393fd2aaa9e6701448424f4430d}\label{structshrpx_1_1ConnectionConfig_a7f17b393fd2aaa9e6701448424f4430d} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>struct \{\\
+\>\>ev\_tstamp {\bfseries http2\_idle}\\
+\>\>ev\_tstamp {\bfseries http3\_idle}\\
+\>\>ev\_tstamp {\bfseries write}\\
+\>\>ev\_tstamp {\bfseries idle}\\
+\>\} {\bfseries timeout}\\
+\>struct \{\\
+\>\>\mbox{\hyperlink{structshrpx_1_1RateLimitConfig}{RateLimitConfig}} {\bfseries read}\\
+\>\>\mbox{\hyperlink{structshrpx_1_1RateLimitConfig}{RateLimitConfig}} {\bfseries write}\\
+\>\} {\bfseries ratelimit}\\
+\>size\_t {\bfseries worker\_connections}\\
+\>bool {\bfseries accept\_proxy\_protocol}\\
+\} {\bfseries upstream}\\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1ConnectionConfig_a0f68b55b80b7708ee61231c1b5c5eb7d}\label{structshrpx_1_1ConnectionConfig_a0f68b55b80b7708ee61231c1b5c5eb7d} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1DownstreamConfig}{Downstream\+Config}} $>$ {\bfseries downstream}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+config.\+h\end{DoxyCompactItemize}

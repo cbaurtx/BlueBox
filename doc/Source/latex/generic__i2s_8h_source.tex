@@ -1,0 +1,64 @@
+\doxysection{generic\+\_\+i2s.\+h}
+\hypertarget{generic__i2s_8h_source}{}\label{generic__i2s_8h_source}\index{components/audioboard/generic\_i2s/generic\_i2s.h@{components/audioboard/generic\_i2s/generic\_i2s.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ ESPRESSIF\ MIT\ License}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2020\ <ESPRESSIF\ SYSTEMS\ (SHANGHAI)\ CO.,\ LTD>}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted\ for\ use\ on\ all\ ESPRESSIF\ SYSTEMS\ products,\ in\ which\ case,}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ it\ is\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ copy\ of\ this\ software\ and\ associated}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ documentation\ files\ (the\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ to\ do\ so,\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ all\ copies\ or}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ FITNESS}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ \_GENERIC\_I2S\_H\_}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ \_GENERIC\_I2S\_H\_}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}audio\_hal.h"{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}esp\_err.h"{}}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00032\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ VOLUME\_CONTROL\ 0}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00046\ esp\_err\_t\ \mbox{\hyperlink{generic__i2s_8c_a6ef1ef4a8e0753f00e26424711131101}{generic\_i2s\_init}}(audio\_hal\_codec\_config\_t\ *codec\_cfg);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00055\ esp\_err\_t\ \mbox{\hyperlink{generic__i2s_8c_a3c031db62343c2c311c22b3759c5e721}{generic\_i2s\_deinit}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00067\ esp\_err\_t\ \mbox{\hyperlink{generic__i2s_8c_ac1f6157f09342e8c2af4dd3ed58d7789}{generic\_i2s\_set\_volume}}(\textcolor{keywordtype}{int}\ vol);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00078\ esp\_err\_t\ \mbox{\hyperlink{generic__i2s_8c_a18cfe7d119461ed7c80eea2c51b5845a}{generic\_i2s\_get\_volume}}(\textcolor{keywordtype}{int}\ *value);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00089\ esp\_err\_t\ \mbox{\hyperlink{generic__i2s_8c_af65dfc348d53c3c92a1aec78e687c67b}{generic\_i2s\_set\_mute}}(\textcolor{keywordtype}{bool}\ enable);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00100\ esp\_err\_t\ generic\_i2s\_set\_mute\_fade(\textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00109\ esp\_err\_t\ \mbox{\hyperlink{generic__i2s_8c_a89442e44d24541cff981d12b508d04c5}{generic\_i2s\_get\_mute}}(\textcolor{keywordtype}{int}\ *value);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00123\ esp\_err\_t\ generic\_i2s\_set\_damp\_mode(\textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00126\ \}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,74 @@
+\doxysection{nghttp2\+\_\+callbacks.\+h}
+\hypertarget{nghttp2__callbacks_8h_source}{}\label{nghttp2__callbacks_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_callbacks.h@{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_callbacks.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2014\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_CALLBACKS\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ NGHTTP2\_CALLBACKS\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifdef\ HAVE\_CONFIG\_H}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ \ include\ <config.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_CONFIG\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ Callback\ functions.}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00037\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ \{}
+\DoxyCodeLine{00044\ \ \ nghttp2\_send\_callback\ \mbox{\hyperlink{structnghttp2__session__callbacks_ab61a2e5bb9d82a8624cd582771e386c9}{send\_callback}};}
+\DoxyCodeLine{00051\ \ \ nghttp2\_send\_callback2\ \mbox{\hyperlink{structnghttp2__session__callbacks_ad98da71ac219fc732cb827cfe4bf7520}{send\_callback2}};}
+\DoxyCodeLine{00058\ \ \ nghttp2\_recv\_callback\ \mbox{\hyperlink{structnghttp2__session__callbacks_a3fa3e12cf20e7edaa8b8f14ecae65372}{recv\_callback}};}
+\DoxyCodeLine{00065\ \ \ nghttp2\_recv\_callback2\ \mbox{\hyperlink{structnghttp2__session__callbacks_a038ff03094c4077b300746dcf8163ed5}{recv\_callback2}};}
+\DoxyCodeLine{00070\ \ \ nghttp2\_on\_frame\_recv\_callback\ \mbox{\hyperlink{structnghttp2__session__callbacks_a36fcaa6fbe0d01c051b80ca8afb6217f}{on\_frame\_recv\_callback}};}
+\DoxyCodeLine{00075\ \ \ nghttp2\_on\_invalid\_frame\_recv\_callback\ \mbox{\hyperlink{structnghttp2__session__callbacks_a42ad427325fd471fd6cab2bbf874bb5f}{on\_invalid\_frame\_recv\_callback}};}
+\DoxyCodeLine{00080\ \ \ nghttp2\_on\_data\_chunk\_recv\_callback\ \mbox{\hyperlink{structnghttp2__session__callbacks_a2a16d2cad8dace1e74c2225937f7d3e4}{on\_data\_chunk\_recv\_callback}};}
+\DoxyCodeLine{00084\ \ \ nghttp2\_before\_frame\_send\_callback\ \mbox{\hyperlink{structnghttp2__session__callbacks_a09979e3fe4be78b4934216d898533482}{before\_frame\_send\_callback}};}
+\DoxyCodeLine{00088\ \ \ nghttp2\_on\_frame\_send\_callback\ \mbox{\hyperlink{structnghttp2__session__callbacks_a8541524fabc1926b983a12b99ff9ed95}{on\_frame\_send\_callback}};}
+\DoxyCodeLine{00093\ \ \ nghttp2\_on\_frame\_not\_send\_callback\ \mbox{\hyperlink{structnghttp2__session__callbacks_a2a3f448fd7583964c3257c1ae5b109d7}{on\_frame\_not\_send\_callback}};}
+\DoxyCodeLine{00097\ \ \ nghttp2\_on\_stream\_close\_callback\ \mbox{\hyperlink{structnghttp2__session__callbacks_a9c4f1d7e7840087632364ea52b6fdfc2}{on\_stream\_close\_callback}};}
+\DoxyCodeLine{00102\ \ \ nghttp2\_on\_begin\_headers\_callback\ \mbox{\hyperlink{structnghttp2__session__callbacks_a2c854fc198d2224c7f03b24adec21970}{on\_begin\_headers\_callback}};}
+\DoxyCodeLine{00107\ \ \ nghttp2\_on\_header\_callback\ \mbox{\hyperlink{structnghttp2__session__callbacks_a2002c664fecd3445681795015e5a4e7c}{on\_header\_callback}};}
+\DoxyCodeLine{00108\ \ \ nghttp2\_on\_header\_callback2\ on\_header\_callback2;}
+\DoxyCodeLine{00114\ \ \ nghttp2\_on\_invalid\_header\_callback\ \mbox{\hyperlink{structnghttp2__session__callbacks_a360c12482ff6e38d2b799177e49f0696}{on\_invalid\_header\_callback}};}
+\DoxyCodeLine{00115\ \ \ nghttp2\_on\_invalid\_header\_callback2\ on\_invalid\_header\_callback2;}
+\DoxyCodeLine{00122\ \ \ nghttp2\_select\_padding\_callback\ \mbox{\hyperlink{structnghttp2__session__callbacks_abe37d296bc065eaf631a4099275ce27a}{select\_padding\_callback}};}
+\DoxyCodeLine{00128\ \ \ nghttp2\_select\_padding\_callback2\ \mbox{\hyperlink{structnghttp2__session__callbacks_a304241d52ab5755eb590cd7e998f00bc}{select\_padding\_callback2}};}
+\DoxyCodeLine{00134\ \ \ nghttp2\_data\_source\_read\_length\_callback\ \mbox{\hyperlink{structnghttp2__session__callbacks_a69cca40545a97a243eaedaa0edf871f5}{read\_length\_callback}};}
+\DoxyCodeLine{00139\ \ \ nghttp2\_data\_source\_read\_length\_callback2\ \mbox{\hyperlink{structnghttp2__session__callbacks_a2265a92ba0ee9e1548009bf69a8da5cd}{read\_length\_callback2}};}
+\DoxyCodeLine{00143\ \ \ nghttp2\_on\_begin\_frame\_callback\ \mbox{\hyperlink{structnghttp2__session__callbacks_a4de78562ca345afd6c43d5f15c15c26b}{on\_begin\_frame\_callback}};}
+\DoxyCodeLine{00144\ \ \ nghttp2\_send\_data\_callback\ send\_data\_callback;}
+\DoxyCodeLine{00148\ \ \ nghttp2\_pack\_extension\_callback\ \mbox{\hyperlink{structnghttp2__session__callbacks_a69d44542c6149bf90d253cee3106c659}{pack\_extension\_callback}};}
+\DoxyCodeLine{00149\ \ \ nghttp2\_pack\_extension\_callback2\ pack\_extension\_callback2;}
+\DoxyCodeLine{00150\ \ \ nghttp2\_unpack\_extension\_callback\ unpack\_extension\_callback;}
+\DoxyCodeLine{00151\ \ \ nghttp2\_on\_extension\_chunk\_recv\_callback\ on\_extension\_chunk\_recv\_callback;}
+\DoxyCodeLine{00152\ \ \ nghttp2\_error\_callback\ error\_callback;}
+\DoxyCodeLine{00153\ \ \ nghttp2\_error\_callback2\ error\_callback2;}
+\DoxyCodeLine{00154\ \};}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_CALLBACKS\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

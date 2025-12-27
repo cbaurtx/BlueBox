@@ -1,0 +1,132 @@
+\doxysection{tls.\+h}
+\hypertarget{tls_8h_source}{}\label{tls_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/tls.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/tls.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ TLS\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ TLS\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_config.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <cinttypes>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <string\_view>}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}ssl\_compat.h"{}}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{using\ namespace\ }std::literals;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#ifdef\ NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/options.h>}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/openssl/ssl.h>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//\ !NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#\ \ include\ <openssl/ssl.h>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{namespace\ }nghttp2\ \{}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{namespace\ }tls\ \{}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{//\ Recommended\ general\ purpose\ "{}Intermediate\ compatibility"{}\ cipher}}
+\DoxyCodeLine{00049\ \textcolor{comment}{//\ suites\ for\ TLSv1.2\ by\ mozilla.}}
+\DoxyCodeLine{00050\ \textcolor{comment}{//}}
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ https://wiki.mozilla.org/Security/Server\_Side\_TLS}}
+\DoxyCodeLine{00052\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ DEFAULT\_CIPHER\_LIST\ =}
+\DoxyCodeLine{00053\ \ \ \textcolor{stringliteral}{"{}ECDHE-\/ECDSA-\/AES128-\/GCM-\/SHA256:ECDHE-\/RSA-\/AES128-\/GCM-\/SHA256:ECDHE-\/ECDSA-\/"{}}}
+\DoxyCodeLine{00054\ \ \ \textcolor{stringliteral}{"{}AES256-\/GCM-\/SHA384:ECDHE-\/RSA-\/AES256-\/GCM-\/SHA384:ECDHE-\/ECDSA-\/CHACHA20-\/"{}}}
+\DoxyCodeLine{00055\ \ \ \textcolor{stringliteral}{"{}POLY1305:ECDHE-\/RSA-\/CHACHA20-\/POLY1305:DHE-\/RSA-\/AES128-\/GCM-\/SHA256:DHE-\/RSA-\/"{}}}
+\DoxyCodeLine{00056\ \ \ \textcolor{stringliteral}{"{}AES256-\/GCM-\/SHA384"{}}sv;}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ Recommended\ general\ purpose\ "{}Modern\ compatibility"{}\ cipher\ suites}}
+\DoxyCodeLine{00059\ \textcolor{comment}{//\ for\ TLSv1.3\ by\ mozilla.}}
+\DoxyCodeLine{00060\ \textcolor{comment}{//}}
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ https://wiki.mozilla.org/Security/Server\_Side\_TLS}}
+\DoxyCodeLine{00062\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ DEFAULT\_TLS13\_CIPHER\_LIST\ =}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#if\ defined(NGHTTP2\_GENUINE\_OPENSSL)\ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\ \ defined(NGHTTP2\_OPENSSL\_IS\_LIBRESSL)\ ||\ defined(NGHTTP2\_OPENSSL\_IS\_WOLFSSL)}}
+\DoxyCodeLine{00065\ \ \ \textcolor{stringliteral}{"{}TLS\_AES\_128\_GCM\_SHA256:TLS\_AES\_256\_GCM\_SHA384:"{}}}
+\DoxyCodeLine{00066\ \ \ \textcolor{stringliteral}{"{}TLS\_CHACHA20\_POLY1305\_SHA256"{}}sv}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#else\ \ }\textcolor{comment}{//\ !NGHTTP2\_GENUINE\_OPENSSL\ \&\&\ !NGHTTP2\_OPENSSL\_IS\_LIBRESSL}}
+\DoxyCodeLine{00068\ \ \ \textcolor{stringliteral}{"{}"{}}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !NGHTTP2\_GENUINE\_OPENSSL\ \&\&\ !NGHTTP2\_OPENSSL\_IS\_LIBRESSL}}
+\DoxyCodeLine{00070\ \ \ ;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ NGHTTP2\_TLS\_MIN\_VERSION\ =\ TLS1\_VERSION;}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#ifdef\ TLS1\_3\_VERSION}}
+\DoxyCodeLine{00074\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ NGHTTP2\_TLS\_MAX\_VERSION\ =\ TLS1\_3\_VERSION;}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#else\ \ }\textcolor{comment}{//\ !TLS1\_3\_VERSION}}
+\DoxyCodeLine{00076\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ NGHTTP2\_TLS\_MAX\_VERSION\ =\ TLS1\_2\_VERSION;}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !TLS1\_3\_VERSION}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *get\_tls\_protocol(SSL\ *ssl);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2_1_1tls_1_1TLSSessionInfo}{TLSSessionInfo}}\ \{}
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cipher;}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *protocol;}
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{const}\ uint8\_t\ *session\_id;}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{bool}\ session\_reused;}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{size\_t}\ session\_id\_length;}
+\DoxyCodeLine{00087\ \};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \mbox{\hyperlink{structnghttp2_1_1tls_1_1TLSSessionInfo}{TLSSessionInfo}}\ *get\_tls\_session\_info(\mbox{\hyperlink{structnghttp2_1_1tls_1_1TLSSessionInfo}{TLSSessionInfo}}\ *tls\_info,\ SSL\ *ssl);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{comment}{//\ Returns\ true\ iff\ the\ negotiated\ protocol\ is\ TLSv1.2.}}
+\DoxyCodeLine{00092\ \textcolor{keywordtype}{bool}\ check\_http2\_tls\_version(SSL\ *ssl);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{comment}{//\ Returns\ true\ iff\ the\ negotiated\ cipher\ suite\ is\ in\ HTTP/2\ cipher}}
+\DoxyCodeLine{00095\ \textcolor{comment}{//\ block\ list.}}
+\DoxyCodeLine{00096\ \textcolor{keywordtype}{bool}\ check\_http2\_cipher\_block\_list(SSL\ *ssl);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{comment}{//\ Returns\ true\ if\ SSL/TLS\ requirement\ for\ HTTP/2\ is\ fulfilled.}}
+\DoxyCodeLine{00099\ \textcolor{comment}{//\ To\ fulfill\ the\ requirement,\ the\ following\ 2\ terms\ must\ be\ hold:}}
+\DoxyCodeLine{00100\ \textcolor{comment}{//}}
+\DoxyCodeLine{00101\ \textcolor{comment}{//\ 1.\ The\ negotiated\ protocol\ must\ be\ TLSv1.2.}}
+\DoxyCodeLine{00102\ \textcolor{comment}{//\ 2.\ The\ negotiated\ cipher\ cuite\ is\ not\ listed\ in\ the\ block\ list}}
+\DoxyCodeLine{00103\ \textcolor{comment}{//\ \ \ \ described\ in\ RFC\ 7540.}}
+\DoxyCodeLine{00104\ \textcolor{keywordtype}{bool}\ check\_http2\_requirement(SSL\ *ssl);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{comment}{//\ Sets\ TLS\ min\ and\ max\ versions\ to\ |ssl\_ctx|.\ \ This\ function\ returns}}
+\DoxyCodeLine{00107\ \textcolor{comment}{//\ 0\ if\ it\ succeeds,\ or\ -\/1.}}
+\DoxyCodeLine{00108\ \textcolor{keywordtype}{int}\ ssl\_ctx\_set\_proto\_versions(SSL\_CTX\ *ssl\_ctx,\ \textcolor{keywordtype}{int}\ min,\ \textcolor{keywordtype}{int}\ max);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{keyword}{constexpr}\ uint16\_t\ CERTIFICATE\_COMPRESSION\_ALGO\_BROTLI\ =\ 2;}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#if\ defined(NGHTTP2\_OPENSSL\_IS\_BORINGSSL)\ \&\&\ defined(HAVE\_LIBBROTLI)}}
+\DoxyCodeLine{00113\ \textcolor{keywordtype}{int}\ cert\_compress(SSL\ *ssl,\ CBB\ *out,\ \textcolor{keyword}{const}\ uint8\_t\ *in,\ \textcolor{keywordtype}{size\_t}\ in\_len);}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{keywordtype}{int}\ cert\_decompress(SSL\ *ssl,\ CRYPTO\_BUFFER\ **out,\ \textcolor{keywordtype}{size\_t}\ uncompressed\_len,}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *in,\ \textcolor{keywordtype}{size\_t}\ in\_len);}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ NGHTTP2\_OPENSSL\_IS\_BORINGSSL\ \&\&\ HAVE\_LIBBROTLI}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{comment}{//\ Setup\ keylog\ callback.\ \ It\ returns\ 0\ if\ it\ succeeds,\ or\ -\/1.}}
+\DoxyCodeLine{00120\ \textcolor{keywordtype}{int}\ setup\_keylog\_callback(SSL\_CTX\ *ssl\_ctx);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \}\ \textcolor{comment}{//\ namespace\ tls}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \}\ \textcolor{comment}{//\ namespace\ nghttp2}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ TLS\_H}}
+
+\end{DoxyCode}

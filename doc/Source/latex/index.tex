@@ -1,0 +1,411 @@
+\chapter{A2\+DP SINK Stream }
+\hypertarget{index}{}\label{index}\index{A2DP SINK Stream@{A2DP SINK Stream}}
+\label{index_md_README}%
+\Hypertarget{index_md_README}%
+
+
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_README__CN}{中文版本}{0}
+\item Basic Example\+: 
+\end{DoxyItemize}\hypertarget{index_autotoc_md603}{}\doxysection{\texorpdfstring{Example Brief}{Example Brief}}\label{index_autotoc_md603}
+This A2\+DP SINK example uses the Classic Bluetooth A2\+DP profile to distribute and receive audio streams and the AVRCP profile to notify and control media information. Applications such as Bluetooth speakers or Bluetooth headsets can use this example as a reference for basic functions.
+
+The complete pipeline of A2\+DP SINK is as follows\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{aadp\_source\ -\/-\/-\/>\ aadp\_sink\_stream\ -\/-\/-\/>\ i2s\_stream\_writer\ -\/-\/-\/>\ codec\_chip\ -\/-\/-\/>\ speaker}
+
+\end{DoxyCode}
+
+
+As A2\+DP SINK role, the device in this example needs to be paired and connected with A2\+DP SOURCE (usually a mobile phone) in order to play the audio distributed by the SOURCE.\hypertarget{index_autotoc_md604}{}\doxysection{\texorpdfstring{Environment Setup}{Environment Setup}}\label{index_autotoc_md604}
+\hypertarget{index_autotoc_md605}{}\doxysubsubsection{\texorpdfstring{Hardware Required}{Hardware Required}}\label{index_autotoc_md605}
+This example runs on the boards that are marked with a green checkbox in the \href{../../README.md\#compatibility-of-examples-with-espressif-audio-boards}{\texttt{table}}. Please remember to select the board in menuconfig as discussed in Section Configuration below.\hypertarget{index_autotoc_md606}{}\doxysection{\texorpdfstring{Build and Flash}{Build and Flash}}\label{index_autotoc_md606}
+\hypertarget{index_autotoc_md607}{}\doxysubsection{\texorpdfstring{Default IDF Branch}{Default IDF Branch}}\label{index_autotoc_md607}
+This example supports IDF release/v5.\+0 and later branches. By default, it runs on ADF\textquotesingle{}s built-\/in branch {\ttfamily \$ADF\+\_\+\+PATH/esp-\/idf}.\hypertarget{index_autotoc_md608}{}\doxysubsection{\texorpdfstring{Configuration}{Configuration}}\label{index_autotoc_md608}
+The default board for this example is {\ttfamily ESP32-\/\+Lyrat V4.\+3}, if you need to run this example on other development boards, select the board in menuconfig, such as {\ttfamily ESP32-\/\+Lyrat-\/\+Mini V1.\+1}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{menuconfig\ >\ Audio\ HAL\ >\ ESP32-\/Lyrat-\/Mini\ V1.1}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md609}{}\doxysubsection{\texorpdfstring{Build and Flash}{Build and Flash}}\label{index_autotoc_md609}
+Build the project and flash it to the board, then run monitor tool to view serial output (replace {\ttfamily PORT} with your board\textquotesingle{}s serial port name)\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{idf.py\ -\/p\ PORT\ flash\ monitor}
+
+\end{DoxyCode}
+
+
+To exit the serial monitor, type {\ttfamily Ctrl-\/\mbox{]}}.
+
+See \href{https://docs.espressif.com/projects/esp-idf/en/release-v5.3/esp32/index.html}{\texttt{ESP-\/\+IDF Programming Guide}} for full steps to configure and build an ESP-\/\+IDF project.\hypertarget{index_autotoc_md610}{}\doxysection{\texorpdfstring{How to Use the Example}{How to Use the Example}}\label{index_autotoc_md610}
+\hypertarget{index_autotoc_md611}{}\doxysubsection{\texorpdfstring{Example Functionality}{Example Functionality}}\label{index_autotoc_md611}
+
+\begin{DoxyItemize}
+\item The example starts running. The development board is waiting for connection to the mobile phone over Bluetooth.
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{entry\ 0x400806f4}
+\DoxyCodeLine{I\ (27)\ boot:\ ESP-\/IDF\ v4.2.2\ 2nd\ stage\ bootloader}
+\DoxyCodeLine{I\ (27)\ boot:\ compile\ time\ 17:03:07}
+\DoxyCodeLine{I\ (27)\ boot:\ chip\ revision:\ 3}
+\DoxyCodeLine{I\ (30)\ boot\_comm:\ chip\ revision:\ 3,\ min.\ bootloader\ chip\ revision:\ 0}
+\DoxyCodeLine{I\ (37)\ boot.esp32:\ SPI\ Speed\ \ \ \ \ \ :\ 40MHz}
+\DoxyCodeLine{I\ (42)\ boot.esp32:\ SPI\ Mode\ \ \ \ \ \ \ :\ DIO}
+\DoxyCodeLine{I\ (46)\ boot.esp32:\ SPI\ Flash\ Size\ :\ 2MB}
+\DoxyCodeLine{I\ (51)\ boot:\ Enabling\ RNG\ early\ entropy\ source...}
+\DoxyCodeLine{I\ (56)\ boot:\ Partition\ Table:}
+\DoxyCodeLine{I\ (60)\ boot:\ \textcolor{preprocessor}{\#\#\ Label\ \ \ \ \ \ \ \ \ \ \ \ Usage\ \ \ \ \ \ \ \ \ \ Type\ ST\ Offset\ \ \ Length}}
+\DoxyCodeLine{I\ (67)\ boot:\ \ 0\ nvs\ \ \ \ \ \ \ \ \ \ \ \ \ \ WiFi\ data\ \ \ \ \ \ \ \ 01\ 02\ 00009000\ 00006000}
+\DoxyCodeLine{I\ (75)\ boot:\ \ 1\ phy\_init\ \ \ \ \ \ \ \ \ RF\ data\ \ \ \ \ \ \ \ \ \ 01\ 01\ 0000f000\ 00001000}
+\DoxyCodeLine{I\ (82)\ boot:\ \ 2\ factory\ \ \ \ \ \ \ \ \ \ factory\ app\ \ \ \ \ \ 00\ 00\ 00010000\ 00124f80}
+\DoxyCodeLine{I\ (90)\ boot:\ End\ of\ partition\ table}
+\DoxyCodeLine{I\ (94)\ boot\_comm:\ chip\ revision:\ 3,\ min.\ application\ chip\ revision:\ 0}
+\DoxyCodeLine{I\ (101)\ esp\_image:\ segment\ 0:\ paddr=0x00010020\ vaddr=0x3f400020\ size=0x2c878\ (182392)\ map}
+\DoxyCodeLine{I\ (179)\ esp\_image:\ segment\ 1:\ paddr=0x0003c8a0\ vaddr=0x3ffbdb60\ size=0x0344c\ (\ 13388)\ load}
+\DoxyCodeLine{I\ (185)\ esp\_image:\ segment\ 2:\ paddr=0x0003fcf4\ vaddr=0x40080000\ size=0x00324\ (\ \ \ 804)\ load}
+\DoxyCodeLine{0x40080000:\ \_WindowOverflow4\ at\ /hengyongchao/esp-\/idfs/esp-\/idf-\/v4.2.2/components/freertos/xtensa/xtensa\_vectors.S:1730}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (186)\ esp\_image:\ segment\ 3:\ paddr=0x00040020\ vaddr=0x400d0020\ size=0xae738\ (714552)\ map}
+\DoxyCodeLine{0x400d0020:\ \_stext\ at\ ??:?}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (467)\ esp\_image:\ segment\ 4:\ paddr=0x000ee760\ vaddr=0x40080324\ size=0x1701c\ (\ 94236)\ load}
+\DoxyCodeLine{0x40080324:\ \_KernelExceptionVector\ at\ ??:?}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (521)\ boot:\ Loaded\ app\ from\ partition\ at\ offset\ 0x10000}
+\DoxyCodeLine{I\ (521)\ boot:\ Disabling\ RNG\ early\ entropy\ source...}
+\DoxyCodeLine{I\ (522)\ cpu\_start:\ Pro\ cpu\ up.}
+\DoxyCodeLine{I\ (525)\ cpu\_start:\ Application\ information:}
+\DoxyCodeLine{I\ (530)\ cpu\_start:\ Project\ name:\ \ \ \ \ bt\_sink\_demo}
+\DoxyCodeLine{I\ (535)\ cpu\_start:\ App\ version:\ \ \ \ \ \ v2.2-\/201-\/g6fa02923}
+\DoxyCodeLine{I\ (541)\ cpu\_start:\ Compile\ time:\ \ \ \ \ Sep\ 30\ 2021\ 17:03:01}
+\DoxyCodeLine{I\ (547)\ cpu\_start:\ ELF\ file\ SHA256:\ \ 70fe532bd3fbc1b2...}
+\DoxyCodeLine{I\ (553)\ cpu\_start:\ ESP-\/IDF:\ \ \ \ \ \ \ \ \ \ v4.2.2}
+\DoxyCodeLine{I\ (558)\ cpu\_start:\ Starting\ app\ cpu,\ entry\ point\ is\ 0x40081a18}
+\DoxyCodeLine{0x40081a18:\ call\_start\_cpu1\ at\ /hengyongchao/esp-\/idfs/esp-\/idf-\/v4.2.2/components/esp32/cpu\_start.c:287}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (0)\ cpu\_start:\ App\ cpu\ up.}
+\DoxyCodeLine{I\ (569)\ heap\_init:\ Initializing.\ RAM\ available\ for\ dynamic\ allocation:}
+\DoxyCodeLine{I\ (576)\ heap\_init:\ At\ 3FFAFF10\ len\ 000000F0\ (0\ KiB):\ DRAM}
+\DoxyCodeLine{I\ (582)\ heap\_init:\ At\ 3FFB6388\ len\ 00001C78\ (7\ KiB):\ DRAM}
+\DoxyCodeLine{I\ (588)\ heap\_init:\ At\ 3FFB9A20\ len\ 00004108\ (16\ KiB):\ DRAM}
+\DoxyCodeLine{I\ (594)\ heap\_init:\ At\ 3FFCF0E0\ len\ 00010F20\ (67\ KiB):\ DRAM}
+\DoxyCodeLine{I\ (600)\ heap\_init:\ At\ 3FFE0440\ len\ 00003AE0\ (14\ KiB):\ D/IRAM}
+\DoxyCodeLine{I\ (606)\ heap\_init:\ At\ 3FFE4350\ len\ 0001BCB0\ (111\ KiB):\ D/IRAM}
+\DoxyCodeLine{I\ (613)\ heap\_init:\ At\ 40097340\ len\ 00008CC0\ (35\ KiB):\ IRAM}
+\DoxyCodeLine{I\ (619)\ cpu\_start:\ Pro\ cpu\ start\ user\ code}
+\DoxyCodeLine{I\ (637)\ spi\_flash:\ detected\ chip:\ gd}
+\DoxyCodeLine{I\ (638)\ spi\_flash:\ flash\ io:\ dio}
+\DoxyCodeLine{W\ (638)\ spi\_flash:\ Detected\ size(8192k)\ larger\ than\ the\ size\ in\ the\ binary\ image\ header(2048k).\ Using\ the\ size\ in\ the\ binary\ image\ header.}
+\DoxyCodeLine{I\ (648)\ cpu\_start:\ Starting\ scheduler\ on\ PRO\ CPU.}
+\DoxyCodeLine{I\ (0)\ cpu\_start:\ Starting\ scheduler\ on\ APP\ CPU.}
+\DoxyCodeLine{I\ (695)\ BLUETOOTH\_EXAMPLE:\ [\ 1\ ]\ Init\ Bluetooth}
+\DoxyCodeLine{I\ (695)\ BTDM\_INIT:\ BT\ controller\ compile\ version\ [ba56601]}
+\DoxyCodeLine{I\ (695)\ system\_api:\ Base\ MAC\ address\ is\ not\ set}
+\DoxyCodeLine{I\ (695)\ system\_api:\ read\ default\ base\ MAC\ address\ from\ EFUSE}
+\DoxyCodeLine{I\ (705)\ phy\_init:\ phy\_version\ 4660,0162888,Dec\ 23\ 2020}
+\DoxyCodeLine{I\ (1395)\ BLUETOOTH\_EXAMPLE:\ [\ 2\ ]\ Start\ codec\ chip}
+\DoxyCodeLine{I\ (1405)\ gpio:\ GPIO[19]|\ InputEn:\ 1|\ OutputEn:\ 0|\ OpenDrain:\ 0|\ Pullup:\ 1|\ Pulldown:\ 0|\ Intr:3}
+\DoxyCodeLine{I\ (1425)\ gpio:\ GPIO[21]|\ InputEn:\ 0|\ OutputEn:\ 1|\ OpenDrain:\ 0|\ Pullup:\ 0|\ Pulldown:\ 0|\ Intr:0}
+\DoxyCodeLine{I\ (1425)\ ES8388\_DRIVER:\ init,out:02,\ in:00}
+\DoxyCodeLine{I\ (1435)\ AUDIO\_HAL:\ Codec\ mode\ is\ 2,\ Ctrl:1}
+\DoxyCodeLine{I\ (1435)\ BLUETOOTH\_EXAMPLE:\ [\ 3\ ]\ Create\ audio\ pipeline\ for\ playback}
+\DoxyCodeLine{I\ (1435)\ BLUETOOTH\_EXAMPLE:\ [4]\ Create\ i2s\ stream\ to\ write\ data\ to\ codec\ chip}
+\DoxyCodeLine{I\ (1445)\ I2S:\ DMA\ Malloc\ info,\ datalen=blocksize=1200,\ dma\_buf\_count=3}
+\DoxyCodeLine{I\ (1455)\ I2S:\ DMA\ Malloc\ info,\ datalen=blocksize=1200,\ dma\_buf\_count=3}
+\DoxyCodeLine{I\ (1485)\ I2S:\ APLL:\ Req\ RATE:\ 44100,\ real\ rate:\ 44099.988,\ BITS:\ 16,\ CLKM:\ 1,\ BCK\_M:\ 8,\ MCLK:\ 11289597.000,\ SCLK:\ 1411199.625000,\ diva:\ 1,\ divb:\ 0}
+\DoxyCodeLine{I\ (1485)\ LYRAT\_V4\_3:\ I2S0,\ MCLK\ output\ by\ GPIO0}
+\DoxyCodeLine{I\ (1495)\ BLUETOOTH\_EXAMPLE:\ [4.1]\ Get\ Bluetooth\ stream}
+\DoxyCodeLine{W\ (1495)\ BT\_BTC:\ A2DP\ Enable\ with\ AVRC}
+\DoxyCodeLine{I\ (1515)\ A2DP\_STREAM:\ Unhandled\ A2DP\ event:\ 4}
+\DoxyCodeLine{I\ (1515)\ BLUETOOTH\_EXAMPLE:\ [4.2]\ Register\ all\ elements\ to\ audio\ pipeline}
+\DoxyCodeLine{I\ (1515)\ BLUETOOTH\_EXAMPLE:\ [4.3]\ Link\ it\ together\ [Bluetooth]-\/-\/>bt\_stream\_reader-\/-\/>i2s\_stream\_writer-\/-\/>[codec\_chip]}
+\DoxyCodeLine{I\ (1535)\ AUDIO\_PIPELINE:\ link\ el-\/>rb,\ el:0x3ffd7c74,\ tag:bt,\ rb:0x3ffd80e0}
+\DoxyCodeLine{I\ (1535)\ BLUETOOTH\_EXAMPLE:\ [\ 5\ ]\ Initialize\ peripherals}
+\DoxyCodeLine{E\ (1545)\ gpio:\ gpio\_install\_isr\_service(438):\ GPIO\ isr\ service\ already\ installed}
+\DoxyCodeLine{I\ (1555)\ gpio:\ GPIO[36]|\ InputEn:\ 1|\ OutputEn:\ 0|\ OpenDrain:\ 0|\ Pullup:\ 1|\ Pulldown:\ 0|\ Intr:3}
+\DoxyCodeLine{I\ (1565)\ gpio:\ GPIO[39]|\ InputEn:\ 1|\ OutputEn:\ 0|\ OpenDrain:\ 0|\ Pullup:\ 1|\ Pulldown:\ 0|\ Intr:3}
+\DoxyCodeLine{I\ (1575)\ BLUETOOTH\_EXAMPLE:\ [\ 5.1\ ]\ Create\ and\ start\ input\ key\ service}
+\DoxyCodeLine{I\ (1575)\ BLUETOOTH\_EXAMPLE:\ [5.2]\ Create\ Bluetooth\ peripheral}
+\DoxyCodeLine{W\ (1595)\ PERIPH\_TOUCH:\ \_touch\_init}
+\DoxyCodeLine{I\ (1595)\ BLUETOOTH\_EXAMPLE:\ [5.3]\ Start\ all\ peripherals}
+\DoxyCodeLine{I\ (1595)\ BLUETOOTH\_EXAMPLE:\ [\ 6\ ]\ Set\ up\ \ event\ listener}
+\DoxyCodeLine{I\ (1605)\ BLUETOOTH\_EXAMPLE:\ [6.1]\ Listening\ event\ from\ all\ elements\ of\ pipeline}
+\DoxyCodeLine{I\ (1615)\ BLUETOOTH\_EXAMPLE:\ [\ 7\ ]\ Start\ audio\_pipeline}
+\DoxyCodeLine{I\ (1615)\ AUDIO\_ELEMENT:\ [bt-\/0x3ffd7c74]\ Element\ task\ created}
+\DoxyCodeLine{I\ (1635)\ AUDIO\_ELEMENT:\ [i2s-\/0x3ffd5f10]\ Element\ task\ created}
+\DoxyCodeLine{I\ (1635)\ AUDIO\_PIPELINE:\ Func:audio\_pipeline\_run,\ Line:359,\ MEM\ Total:133036\ Bytes}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (1645)\ AUDIO\_ELEMENT:\ [i2s]\ AEL\_MSG\_CMD\_RESUME,state:1}
+\DoxyCodeLine{I\ (1645)\ I2S\_STREAM:\ AUDIO\_STREAM\_WRITER}
+\DoxyCodeLine{I\ (1655)\ AUDIO\_PIPELINE:\ Pipeline\ started}
+\DoxyCodeLine{I\ (1655)\ BLUETOOTH\_EXAMPLE:\ [\ 8\ ]\ Listen\ for\ all\ pipeline\ events}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item Start scanning for the Bluetooth device named {\ttfamily ESP\+\_\+\+SINK\+\_\+\+STREAM\+\_\+\+DEMO} on your mobile phone and connect to it. The log is as follows\+:
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{E\ (265275)\ BT\_APPL:\ bta\_av\_rc\_create\ ACP\ handle\ exist\ for\ shdl:0}
+\DoxyCodeLine{I\ (265285)\ A2DP\_STREAM:\ A2DP\ bd\ address:,\ [14:60:cb:82:72:55]}
+\DoxyCodeLine{I\ (265305)\ A2DP\_STREAM:\ AVRC\ conn\_state\ evt:\ state\ 1,\ [14:60:cb:82:72:55]}
+\DoxyCodeLine{I\ (265455)\ A2DP\_STREAM:\ A2DP\ audio\ stream\ configuration,\ codec\ type\ 0}
+\DoxyCodeLine{I\ (265455)\ A2DP\_STREAM:\ Bluetooth\ configured,\ sample\ rate=44100}
+\DoxyCodeLine{I\ (265465)\ BLUETOOTH\_EXAMPLE:\ [\ *\ ]\ Receive\ music\ info\ from\ Bluetooth,\ sample\_rates=44100,\ bits=16,\ ch=2}
+\DoxyCodeLine{I\ (265495)\ AUDIO\_ELEMENT:\ [i2s]\ AEL\_MSG\_CMD\_PAUSE}
+\DoxyCodeLine{I\ (265545)\ I2S:\ APLL:\ Req\ RATE:\ 44100,\ real\ rate:\ 44099.988,\ BITS:\ 16,\ CLKM:\ 1,\ BCK\_M:\ 8,\ MCLK:\ 11289597.000,\ SCLK:\ 1411199.625000,\ diva:\ 1,\ divb:\ 0}
+\DoxyCodeLine{I\ (265545)\ AUDIO\_ELEMENT:\ [i2s]\ AEL\_MSG\_CMD\_RESUME,state:4}
+\DoxyCodeLine{I\ (265555)\ I2S\_STREAM:\ AUDIO\_STREAM\_WRITER}
+\DoxyCodeLine{I\ (265855)\ A2DP\_STREAM:\ AVRC\ remote\ features\ 25b,\ CT\ features\ 2}
+\DoxyCodeLine{W\ (265995)\ BT\_APPL:\ new\ conn\_srvc\ \textcolor{keywordtype}{id}:19,\ app\_id:0}
+\DoxyCodeLine{I\ (265995)\ A2DP\_STREAM:\ A2DP\ bd\ address:,\ [14:60:cb:82:72:55]}
+\DoxyCodeLine{I\ (265995)\ A2DP\_STREAM:\ A2DP\ connection\ state\ =\ \ CONNECTED}
+\DoxyCodeLine{I\ (266535)\ A2DP\_STREAM:\ AVRC\ remote\ features\ 25b,\ CT\ features\ 2}
+\DoxyCodeLine{I\ (266605)\ A2DP\_STREAM:\ AVRC\ register\ event\ notification:\ 13,\ param:\ 0x0}
+\DoxyCodeLine{I\ (266615)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 40\%}
+\DoxyCodeLine{I\ (266615)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 40\%}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item After a successful connection, open a player on your phone, click the play button, and then the development board will output the audio distributed by the phone’s Bluetooth. The log is as follows\+:
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{I\ (294305)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 23\%}
+\DoxyCodeLine{I\ (294305)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 23\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (294335)\ BT\_LOG:\ bta\_av\_link\_role\_ok\ hndl:x41\ role:1\ conn\_audio:x1\ bits:1\ features:x824b}
+\DoxyCodeLine{}
+\DoxyCodeLine{W\ (294335)\ BT\_APPL:\ new\ conn\_srvc\ \textcolor{keywordtype}{id}:19,\ app\_id:1}
+\DoxyCodeLine{I\ (315545)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 23\%}
+\DoxyCodeLine{I\ (315545)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 23\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (322135)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 23\%}
+\DoxyCodeLine{I\ (322135)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 23\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (327765)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 23\%}
+\DoxyCodeLine{I\ (327765)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 23\%}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item This example also supports AVRCP to control media playback operations, such as volume up, volume down, next song, previous song, etc. The log is as follows\+:
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{I\ (327765)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 23\%}
+\DoxyCodeLine{I\ (327765)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 23\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (330095)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 29\%}
+\DoxyCodeLine{I\ (330095)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 29\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (331115)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 36\%}
+\DoxyCodeLine{I\ (331115)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 36\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (332935)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 29\%}
+\DoxyCodeLine{I\ (332935)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 29\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (333695)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 23\%}
+\DoxyCodeLine{I\ (333695)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 23\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (337975)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 29\%}
+\DoxyCodeLine{I\ (337975)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 29\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (345145)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 62\%}
+\DoxyCodeLine{I\ (345145)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 62\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (345155)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 29\%}
+\DoxyCodeLine{I\ (345155)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 29\%}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md612}{}\doxysubsection{\texorpdfstring{Example Log}{Example Log}}\label{index_autotoc_md612}
+A complete log is as follows\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{entry\ 0x400806f4}
+\DoxyCodeLine{I\ (27)\ boot:\ ESP-\/IDF\ v4.2.2\ 2nd\ stage\ bootloader}
+\DoxyCodeLine{I\ (27)\ boot:\ compile\ time\ 17:03:07}
+\DoxyCodeLine{I\ (27)\ boot:\ chip\ revision:\ 3}
+\DoxyCodeLine{I\ (30)\ boot\_comm:\ chip\ revision:\ 3,\ min.\ bootloader\ chip\ revision:\ 0}
+\DoxyCodeLine{I\ (37)\ boot.esp32:\ SPI\ Speed\ \ \ \ \ \ :\ 40MHz}
+\DoxyCodeLine{I\ (42)\ boot.esp32:\ SPI\ Mode\ \ \ \ \ \ \ :\ DIO}
+\DoxyCodeLine{I\ (46)\ boot.esp32:\ SPI\ Flash\ Size\ :\ 2MB}
+\DoxyCodeLine{I\ (51)\ boot:\ Enabling\ RNG\ early\ entropy\ source...}
+\DoxyCodeLine{I\ (56)\ boot:\ Partition\ Table:}
+\DoxyCodeLine{I\ (60)\ boot:\ \textcolor{preprocessor}{\#\#\ Label\ \ \ \ \ \ \ \ \ \ \ \ Usage\ \ \ \ \ \ \ \ \ \ Type\ ST\ Offset\ \ \ Length}}
+\DoxyCodeLine{I\ (67)\ boot:\ \ 0\ nvs\ \ \ \ \ \ \ \ \ \ \ \ \ \ WiFi\ data\ \ \ \ \ \ \ \ 01\ 02\ 00009000\ 00006000}
+\DoxyCodeLine{I\ (75)\ boot:\ \ 1\ phy\_init\ \ \ \ \ \ \ \ \ RF\ data\ \ \ \ \ \ \ \ \ \ 01\ 01\ 0000f000\ 00001000}
+\DoxyCodeLine{I\ (82)\ boot:\ \ 2\ factory\ \ \ \ \ \ \ \ \ \ factory\ app\ \ \ \ \ \ 00\ 00\ 00010000\ 00124f80}
+\DoxyCodeLine{I\ (90)\ boot:\ End\ of\ partition\ table}
+\DoxyCodeLine{I\ (94)\ boot\_comm:\ chip\ revision:\ 3,\ min.\ application\ chip\ revision:\ 0}
+\DoxyCodeLine{I\ (101)\ esp\_image:\ segment\ 0:\ paddr=0x00010020\ vaddr=0x3f400020\ size=0x2c878\ (182392)\ map}
+\DoxyCodeLine{I\ (179)\ esp\_image:\ segment\ 1:\ paddr=0x0003c8a0\ vaddr=0x3ffbdb60\ size=0x0344c\ (\ 13388)\ load}
+\DoxyCodeLine{I\ (185)\ esp\_image:\ segment\ 2:\ paddr=0x0003fcf4\ vaddr=0x40080000\ size=0x00324\ (\ \ \ 804)\ load}
+\DoxyCodeLine{0x40080000:\ \_WindowOverflow4\ at\ /hengyongchao/esp-\/idfs/esp-\/idf-\/v4.2.2/components/freertos/xtensa/xtensa\_vectors.S:1730}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (186)\ esp\_image:\ segment\ 3:\ paddr=0x00040020\ vaddr=0x400d0020\ size=0xae738\ (714552)\ map}
+\DoxyCodeLine{0x400d0020:\ \_stext\ at\ ??:?}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (467)\ esp\_image:\ segment\ 4:\ paddr=0x000ee760\ vaddr=0x40080324\ size=0x1701c\ (\ 94236)\ load}
+\DoxyCodeLine{0x40080324:\ \_KernelExceptionVector\ at\ ??:?}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (521)\ boot:\ Loaded\ app\ from\ partition\ at\ offset\ 0x10000}
+\DoxyCodeLine{I\ (521)\ boot:\ Disabling\ RNG\ early\ entropy\ source...}
+\DoxyCodeLine{I\ (522)\ cpu\_start:\ Pro\ cpu\ up.}
+\DoxyCodeLine{I\ (525)\ cpu\_start:\ Application\ information:}
+\DoxyCodeLine{I\ (530)\ cpu\_start:\ Project\ name:\ \ \ \ \ bt\_sink\_demo}
+\DoxyCodeLine{I\ (535)\ cpu\_start:\ App\ version:\ \ \ \ \ \ v2.2-\/201-\/g6fa02923}
+\DoxyCodeLine{I\ (541)\ cpu\_start:\ Compile\ time:\ \ \ \ \ Sep\ 30\ 2021\ 17:03:01}
+\DoxyCodeLine{I\ (547)\ cpu\_start:\ ELF\ file\ SHA256:\ \ 70fe532bd3fbc1b2...}
+\DoxyCodeLine{I\ (553)\ cpu\_start:\ ESP-\/IDF:\ \ \ \ \ \ \ \ \ \ v4.2.2}
+\DoxyCodeLine{I\ (558)\ cpu\_start:\ Starting\ app\ cpu,\ entry\ point\ is\ 0x40081a18}
+\DoxyCodeLine{0x40081a18:\ call\_start\_cpu1\ at\ /hengyongchao/esp-\/idfs/esp-\/idf-\/v4.2.2/components/esp32/cpu\_start.c:287}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (0)\ cpu\_start:\ App\ cpu\ up.}
+\DoxyCodeLine{I\ (569)\ heap\_init:\ Initializing.\ RAM\ available\ for\ dynamic\ allocation:}
+\DoxyCodeLine{I\ (576)\ heap\_init:\ At\ 3FFAFF10\ len\ 000000F0\ (0\ KiB):\ DRAM}
+\DoxyCodeLine{I\ (582)\ heap\_init:\ At\ 3FFB6388\ len\ 00001C78\ (7\ KiB):\ DRAM}
+\DoxyCodeLine{I\ (588)\ heap\_init:\ At\ 3FFB9A20\ len\ 00004108\ (16\ KiB):\ DRAM}
+\DoxyCodeLine{I\ (594)\ heap\_init:\ At\ 3FFCF0E0\ len\ 00010F20\ (67\ KiB):\ DRAM}
+\DoxyCodeLine{I\ (600)\ heap\_init:\ At\ 3FFE0440\ len\ 00003AE0\ (14\ KiB):\ D/IRAM}
+\DoxyCodeLine{I\ (606)\ heap\_init:\ At\ 3FFE4350\ len\ 0001BCB0\ (111\ KiB):\ D/IRAM}
+\DoxyCodeLine{I\ (613)\ heap\_init:\ At\ 40097340\ len\ 00008CC0\ (35\ KiB):\ IRAM}
+\DoxyCodeLine{I\ (619)\ cpu\_start:\ Pro\ cpu\ start\ user\ code}
+\DoxyCodeLine{I\ (637)\ spi\_flash:\ detected\ chip:\ gd}
+\DoxyCodeLine{I\ (638)\ spi\_flash:\ flash\ io:\ dio}
+\DoxyCodeLine{W\ (638)\ spi\_flash:\ Detected\ size(8192k)\ larger\ than\ the\ size\ in\ the\ binary\ image\ header(2048k).\ Using\ the\ size\ in\ the\ binary\ image\ header.}
+\DoxyCodeLine{I\ (648)\ cpu\_start:\ Starting\ scheduler\ on\ PRO\ CPU.}
+\DoxyCodeLine{I\ (0)\ cpu\_start:\ Starting\ scheduler\ on\ APP\ CPU.}
+\DoxyCodeLine{I\ (695)\ BLUETOOTH\_EXAMPLE:\ [\ 1\ ]\ Init\ Bluetooth}
+\DoxyCodeLine{I\ (695)\ BTDM\_INIT:\ BT\ controller\ compile\ version\ [ba56601]}
+\DoxyCodeLine{I\ (695)\ system\_api:\ Base\ MAC\ address\ is\ not\ set}
+\DoxyCodeLine{I\ (695)\ system\_api:\ read\ default\ base\ MAC\ address\ from\ EFUSE}
+\DoxyCodeLine{I\ (705)\ phy\_init:\ phy\_version\ 4660,0162888,Dec\ 23\ 2020}
+\DoxyCodeLine{I\ (1395)\ BLUETOOTH\_EXAMPLE:\ [\ 2\ ]\ Start\ codec\ chip}
+\DoxyCodeLine{I\ (1405)\ gpio:\ GPIO[19]|\ InputEn:\ 1|\ OutputEn:\ 0|\ OpenDrain:\ 0|\ Pullup:\ 1|\ Pulldown:\ 0|\ Intr:3}
+\DoxyCodeLine{I\ (1425)\ gpio:\ GPIO[21]|\ InputEn:\ 0|\ OutputEn:\ 1|\ OpenDrain:\ 0|\ Pullup:\ 0|\ Pulldown:\ 0|\ Intr:0}
+\DoxyCodeLine{I\ (1425)\ ES8388\_DRIVER:\ init,out:02,\ in:00}
+\DoxyCodeLine{I\ (1435)\ AUDIO\_HAL:\ Codec\ mode\ is\ 2,\ Ctrl:1}
+\DoxyCodeLine{I\ (1435)\ BLUETOOTH\_EXAMPLE:\ [\ 3\ ]\ Create\ audio\ pipeline\ for\ playback}
+\DoxyCodeLine{I\ (1435)\ BLUETOOTH\_EXAMPLE:\ [4]\ Create\ i2s\ stream\ to\ write\ data\ to\ codec\ chip}
+\DoxyCodeLine{I\ (1445)\ I2S:\ DMA\ Malloc\ info,\ datalen=blocksize=1200,\ dma\_buf\_count=3}
+\DoxyCodeLine{I\ (1455)\ I2S:\ DMA\ Malloc\ info,\ datalen=blocksize=1200,\ dma\_buf\_count=3}
+\DoxyCodeLine{I\ (1485)\ I2S:\ APLL:\ Req\ RATE:\ 44100,\ real\ rate:\ 44099.988,\ BITS:\ 16,\ CLKM:\ 1,\ BCK\_M:\ 8,\ MCLK:\ 11289597.000,\ SCLK:\ 1411199.625000,\ diva:\ 1,\ divb:\ 0}
+\DoxyCodeLine{I\ (1485)\ LYRAT\_V4\_3:\ I2S0,\ MCLK\ output\ by\ GPIO0}
+\DoxyCodeLine{I\ (1495)\ BLUETOOTH\_EXAMPLE:\ [4.1]\ Get\ Bluetooth\ stream}
+\DoxyCodeLine{W\ (1495)\ BT\_BTC:\ A2DP\ Enable\ with\ AVRC}
+\DoxyCodeLine{I\ (1515)\ A2DP\_STREAM:\ Unhandled\ A2DP\ event:\ 4}
+\DoxyCodeLine{I\ (1515)\ BLUETOOTH\_EXAMPLE:\ [4.2]\ Register\ all\ elements\ to\ audio\ pipeline}
+\DoxyCodeLine{I\ (1515)\ BLUETOOTH\_EXAMPLE:\ [4.3]\ Link\ it\ together\ [Bluetooth]-\/-\/>bt\_stream\_reader-\/-\/>i2s\_stream\_writer-\/-\/>[codec\_chip]}
+\DoxyCodeLine{I\ (1535)\ AUDIO\_PIPELINE:\ link\ el-\/>rb,\ el:0x3ffd7c74,\ tag:bt,\ rb:0x3ffd80e0}
+\DoxyCodeLine{I\ (1535)\ BLUETOOTH\_EXAMPLE:\ [\ 5\ ]\ Initialize\ peripherals}
+\DoxyCodeLine{E\ (1545)\ gpio:\ gpio\_install\_isr\_service(438):\ GPIO\ isr\ service\ already\ installed}
+\DoxyCodeLine{I\ (1555)\ gpio:\ GPIO[36]|\ InputEn:\ 1|\ OutputEn:\ 0|\ OpenDrain:\ 0|\ Pullup:\ 1|\ Pulldown:\ 0|\ Intr:3}
+\DoxyCodeLine{I\ (1565)\ gpio:\ GPIO[39]|\ InputEn:\ 1|\ OutputEn:\ 0|\ OpenDrain:\ 0|\ Pullup:\ 1|\ Pulldown:\ 0|\ Intr:3}
+\DoxyCodeLine{I\ (1575)\ BLUETOOTH\_EXAMPLE:\ [\ 5.1\ ]\ Create\ and\ start\ input\ key\ service}
+\DoxyCodeLine{I\ (1575)\ BLUETOOTH\_EXAMPLE:\ [5.2]\ Create\ Bluetooth\ peripheral}
+\DoxyCodeLine{W\ (1595)\ PERIPH\_TOUCH:\ \_touch\_init}
+\DoxyCodeLine{I\ (1595)\ BLUETOOTH\_EXAMPLE:\ [5.3]\ Start\ all\ peripherals}
+\DoxyCodeLine{I\ (1595)\ BLUETOOTH\_EXAMPLE:\ [\ 6\ ]\ Set\ up\ \ event\ listener}
+\DoxyCodeLine{I\ (1605)\ BLUETOOTH\_EXAMPLE:\ [6.1]\ Listening\ event\ from\ all\ elements\ of\ pipeline}
+\DoxyCodeLine{I\ (1615)\ BLUETOOTH\_EXAMPLE:\ [\ 7\ ]\ Start\ audio\_pipeline}
+\DoxyCodeLine{I\ (1615)\ AUDIO\_ELEMENT:\ [bt-\/0x3ffd7c74]\ Element\ task\ created}
+\DoxyCodeLine{I\ (1635)\ AUDIO\_ELEMENT:\ [i2s-\/0x3ffd5f10]\ Element\ task\ created}
+\DoxyCodeLine{I\ (1635)\ AUDIO\_PIPELINE:\ Func:audio\_pipeline\_run,\ Line:359,\ MEM\ Total:133036\ Bytes}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (1645)\ AUDIO\_ELEMENT:\ [i2s]\ AEL\_MSG\_CMD\_RESUME,state:1}
+\DoxyCodeLine{I\ (1645)\ I2S\_STREAM:\ AUDIO\_STREAM\_WRITER}
+\DoxyCodeLine{I\ (1655)\ AUDIO\_PIPELINE:\ Pipeline\ started}
+\DoxyCodeLine{I\ (1655)\ BLUETOOTH\_EXAMPLE:\ [\ 8\ ]\ Listen\ for\ all\ pipeline\ events}
+\DoxyCodeLine{E\ (265275)\ BT\_APPL:\ bta\_av\_rc\_create\ ACP\ handle\ exist\ for\ shdl:0}
+\DoxyCodeLine{I\ (265285)\ A2DP\_STREAM:\ A2DP\ bd\ address:,\ [14:60:cb:82:72:55]}
+\DoxyCodeLine{I\ (265305)\ A2DP\_STREAM:\ AVRC\ conn\_state\ evt:\ state\ 1,\ [14:60:cb:82:72:55]}
+\DoxyCodeLine{I\ (265455)\ A2DP\_STREAM:\ A2DP\ audio\ stream\ configuration,\ codec\ type\ 0}
+\DoxyCodeLine{I\ (265455)\ A2DP\_STREAM:\ Bluetooth\ configured,\ sample\ rate=44100}
+\DoxyCodeLine{I\ (265465)\ BLUETOOTH\_EXAMPLE:\ [\ *\ ]\ Receive\ music\ info\ from\ Bluetooth,\ sample\_rates=44100,\ bits=16,\ ch=2}
+\DoxyCodeLine{I\ (265495)\ AUDIO\_ELEMENT:\ [i2s]\ AEL\_MSG\_CMD\_PAUSE}
+\DoxyCodeLine{I\ (265545)\ I2S:\ APLL:\ Req\ RATE:\ 44100,\ real\ rate:\ 44099.988,\ BITS:\ 16,\ CLKM:\ 1,\ BCK\_M:\ 8,\ MCLK:\ 11289597.000,\ SCLK:\ 1411199.625000,\ diva:\ 1,\ divb:\ 0}
+\DoxyCodeLine{I\ (265545)\ AUDIO\_ELEMENT:\ [i2s]\ AEL\_MSG\_CMD\_RESUME,state:4}
+\DoxyCodeLine{I\ (265555)\ I2S\_STREAM:\ AUDIO\_STREAM\_WRITER}
+\DoxyCodeLine{I\ (265855)\ A2DP\_STREAM:\ AVRC\ remote\ features\ 25b,\ CT\ features\ 2}
+\DoxyCodeLine{W\ (265995)\ BT\_APPL:\ new\ conn\_srvc\ \textcolor{keywordtype}{id}:19,\ app\_id:0}
+\DoxyCodeLine{I\ (265995)\ A2DP\_STREAM:\ A2DP\ bd\ address:,\ [14:60:cb:82:72:55]}
+\DoxyCodeLine{I\ (265995)\ A2DP\_STREAM:\ A2DP\ connection\ state\ =\ \ CONNECTED}
+\DoxyCodeLine{I\ (266535)\ A2DP\_STREAM:\ AVRC\ remote\ features\ 25b,\ CT\ features\ 2}
+\DoxyCodeLine{I\ (266605)\ A2DP\_STREAM:\ AVRC\ register\ event\ notification:\ 13,\ param:\ 0x0}
+\DoxyCodeLine{I\ (266615)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 40\%}
+\DoxyCodeLine{I\ (266615)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 40\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (294305)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 23\%}
+\DoxyCodeLine{I\ (294305)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 23\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (294335)\ BT\_LOG:\ bta\_av\_link\_role\_ok\ hndl:x41\ role:1\ conn\_audio:x1\ bits:1\ features:x824b}
+\DoxyCodeLine{}
+\DoxyCodeLine{W\ (294335)\ BT\_APPL:\ new\ conn\_srvc\ \textcolor{keywordtype}{id}:19,\ app\_id:1}
+\DoxyCodeLine{I\ (315545)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 23\%}
+\DoxyCodeLine{I\ (315545)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 23\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (322135)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 23\%}
+\DoxyCodeLine{I\ (322135)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 23\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (327765)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 23\%}
+\DoxyCodeLine{I\ (327765)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 23\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (330095)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 29\%}
+\DoxyCodeLine{I\ (330095)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 29\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (331115)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 36\%}
+\DoxyCodeLine{I\ (331115)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 36\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (332935)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 29\%}
+\DoxyCodeLine{I\ (332935)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 29\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (333695)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 23\%}
+\DoxyCodeLine{I\ (333695)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 23\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (337975)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 29\%}
+\DoxyCodeLine{I\ (337975)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 29\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (345145)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 62\%}
+\DoxyCodeLine{I\ (345145)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 62\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (345155)\ A2DP\_STREAM:\ AVRC\ set\ absolute\ volume:\ 29\%}
+\DoxyCodeLine{I\ (345155)\ A2DP\_STREAM:\ Volume\ is\ set\ by\ remote\ controller\ 29\%}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md613}{}\doxysection{\texorpdfstring{Troubleshooting}{Troubleshooting}}\label{index_autotoc_md613}
+
+\begin{DoxyItemize}
+\item ESP32 A2\+DP supports the mandatory audio codec SBC. The SBC data stream is transmitted to A2\+DP SINK, and then decoded into PCM data for output. The PCM data is usually 44.\+1 k\+Hz sampling rate, dual-\/channel, and 16-\/bit sampling data. ESP32 A2\+DP SINK also supports other decoder configuration, but you need to modify the protocol stack settings.
+\item ESP32 A2\+DP SINK can only connect to one remote A2\+DP SOURCE device at most. In addition, A2\+DP SINK cannot be used with A2\+DP SOURCE at the same time, but it can be used with other configuration files, such as SPP and HFP.
+\end{DoxyItemize}\hypertarget{index_autotoc_md614}{}\doxysection{\texorpdfstring{Technical Support and Feedback}{Technical Support and Feedback}}\label{index_autotoc_md614}
+Please use the following feedback channels\+:
+
+
+\begin{DoxyItemize}
+\item For technical queries, go to the \href{https://esp32.com/viewforum.php?f=20}{\texttt{esp32.\+com}} forum
+\item For a feature request or bug report, create a \href{https://github.com/espressif/esp-adf/issues}{\texttt{Git\+Hub issue}}
+\end{DoxyItemize}
+
+We will get back to you as soon as possible. 

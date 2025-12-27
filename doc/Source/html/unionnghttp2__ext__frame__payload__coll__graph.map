@@ -1,0 +1,11 @@
+<map id="nghttp2_ext_frame_payload" name="nghttp2_ext_frame_payload">
+<area shape="rect" id="Node000001" title=" " alt="" coords="134,219,315,245"/>
+<area shape="rect" id="Node000002" href="$structnghttp2__ext__altsvc.html" title=" " alt="" coords="5,112,137,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,145,208,217,203,219,101,150"/>
+<area shape="rect" id="Node000003" href="$structnghttp2__ext__origin.html" title=" " alt="" coords="161,112,288,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="226,152,227,220,222,217,222,156"/>
+<area shape="rect" id="Node000004" href="$structnghttp2__origin__entry.html" title=" " alt="" coords="155,5,294,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="226,45,227,113,222,111,223,49"/>
+<area shape="rect" id="Node000005" href="$structnghttp2__ext__priority__update.html" title=" " alt="" coords="313,104,448,147"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="340,155,245,220,242,216,334,156"/>
+</map>

@@ -1,0 +1,128 @@
+\chapter{The new bytecode }
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2opcode}{}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2opcode}\index{The new bytecode@{The new bytecode}}
+\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2opcode_autotoc_md397}%
+\Hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2opcode_autotoc_md397}%
+
+
+We will reimplement the VM to use 8bit instruction code. By bytecode, we mean real byte code. The whole purpose is reducing the memory consumption of mruby VM.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2opcode_autotoc_md398}{}\doxysection{\texorpdfstring{Instructions}{Instructions}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2opcode_autotoc_md398}
+Instructions are bytes. There can be 256 instructions. Currently, we have 106 instructions. Instructions can take 0 to 3 operands.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2opcode_autotoc_md399}{}\doxysubsection{\texorpdfstring{operands}{operands}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2opcode_autotoc_md399}
+The size of operands can be either 8bits, 16bits or 24bits. In the table.\+1 below, the second field describes the size of operands.
+
+
+\begin{DoxyItemize}
+\item B\+: 8bit
+\item S\+: 16bit
+\item W\+: 24bit
+\end{DoxyItemize}
+
+If the first and second operands are of type {\ttfamily B} (8bits), they may be extended to 16bits by the operand extension instruction immediately preceding them. See also {\ttfamily OP\+\_\+\+EXT1}, {\ttfamily OP\+\_\+\+EXT2} and {\ttfamily OP\+\_\+\+EXT3}.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2opcode_autotoc_md400}{}\doxysubsection{\texorpdfstring{table.\+1 Instruction Table}{table.\+1 Instruction Table}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2internal_2opcode_autotoc_md400}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Instruction Name  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Operand type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Semantics  \\
+{\ttfamily OP\+\_\+\+NOP}  &{\ttfamily -\/}  &{\ttfamily no operation}  \\
+{\ttfamily OP\+\_\+\+MOVE}  &{\ttfamily BB}  &{\ttfamily R(a) = R(b)}  \\
+{\ttfamily OP\+\_\+\+LOADL}  &{\ttfamily BB}  &{\ttfamily R(a) = Pool(b)}  \\
+{\ttfamily OP\+\_\+\+LOADI}  &{\ttfamily BB}  &{\ttfamily R(a) = mrb\+\_\+int(b)}  \\
+{\ttfamily OP\+\_\+\+LOADINEG}  &{\ttfamily BB}  &{\ttfamily R(a) = mrb\+\_\+int(-\/b)}  \\
+{\ttfamily OP\+\_\+\+LOADI\+\_\+\+\_\+1}  &{\ttfamily B}  &{\ttfamily R(a) = mrb\+\_\+int(-\/1)}  \\
+{\ttfamily OP\+\_\+\+LOADI\+\_\+0}  &{\ttfamily B}  &{\ttfamily R(a) = mrb\+\_\+int(0)}  \\
+{\ttfamily OP\+\_\+\+LOADI\+\_\+1}  &{\ttfamily B}  &{\ttfamily R(a) = mrb\+\_\+int(1)}  \\
+{\ttfamily OP\+\_\+\+LOADI\+\_\+2}  &{\ttfamily B}  &{\ttfamily R(a) = mrb\+\_\+int(2)}  \\
+{\ttfamily OP\+\_\+\+LOADI\+\_\+3}  &{\ttfamily B}  &{\ttfamily R(a) = mrb\+\_\+int(3)}  \\
+{\ttfamily OP\+\_\+\+LOADI\+\_\+4}  &{\ttfamily B}  &{\ttfamily R(a) = mrb\+\_\+int(4)}  \\
+{\ttfamily OP\+\_\+\+LOADI\+\_\+5}  &{\ttfamily B}  &{\ttfamily R(a) = mrb\+\_\+int(5)}  \\
+{\ttfamily OP\+\_\+\+LOADI\+\_\+6}  &{\ttfamily B}  &{\ttfamily R(a) = mrb\+\_\+int(6)}  \\
+{\ttfamily OP\+\_\+\+LOADI\+\_\+7}  &{\ttfamily B}  &{\ttfamily R(a) = mrb\+\_\+int(7)}  \\
+{\ttfamily OP\+\_\+\+LOADI16}  &{\ttfamily BS}  &{\ttfamily R(a) = mrb\+\_\+int(b)}  \\
+{\ttfamily OP\+\_\+\+LOADI32}  &{\ttfamily BSS}  &{\ttfamily R(a) = mrb\+\_\+int((b\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}16)+c)}  \\
+{\ttfamily OP\+\_\+\+LOADSYM}  &{\ttfamily BB}  &{\ttfamily R(a) = Syms(b)}  \\
+{\ttfamily OP\+\_\+\+LOADNIL}  &{\ttfamily B}  &{\ttfamily R(a) = nil}  \\
+{\ttfamily OP\+\_\+\+LOADSELF}  &{\ttfamily B}  &{\ttfamily R(a) = self}  \\
+{\ttfamily OP\+\_\+\+LOADT}  &{\ttfamily B}  &{\ttfamily R(a) = true}  \\
+{\ttfamily OP\+\_\+\+LOADF}  &{\ttfamily B}  &{\ttfamily R(a) = false}  \\
+{\ttfamily OP\+\_\+\+GETGV}  &{\ttfamily BB}  &{\ttfamily R(a) = getglobal(\+Syms(b))}  \\
+{\ttfamily OP\+\_\+\+SETGV}  &{\ttfamily BB}  &{\ttfamily setglobal(Syms(b), R(a))}  \\
+{\ttfamily OP\+\_\+\+GETSV}  &{\ttfamily BB}  &{\ttfamily R(a) = Special\mbox{[}Syms(b)\mbox{]}}  \\
+{\ttfamily OP\+\_\+\+SETSV}  &{\ttfamily BB}  &{\ttfamily Special\mbox{[}Syms(b)\mbox{]} = R(a)}  \\
+{\ttfamily OP\+\_\+\+GETIV}  &{\ttfamily BB}  &{\ttfamily R(a) = ivget(\+Syms(b))}  \\
+{\ttfamily OP\+\_\+\+SETIV}  &{\ttfamily BB}  &{\ttfamily ivset(Syms(b),R(a))}  \\
+{\ttfamily OP\+\_\+\+GETCV}  &{\ttfamily BB}  &{\ttfamily R(a) = cvget(\+Syms(b))}  \\
+{\ttfamily OP\+\_\+\+SETCV}  &{\ttfamily BB}  &{\ttfamily cvset(Syms(b),R(a))}  \\
+{\ttfamily OP\+\_\+\+GETCONST}  &{\ttfamily BB}  &{\ttfamily R(a) = constget(\+Syms(b))}  \\
+{\ttfamily OP\+\_\+\+SETCONST}  &{\ttfamily BB}  &{\ttfamily constset(Syms(b),R(a))}  \\
+{\ttfamily OP\+\_\+\+GETMCNST}  &{\ttfamily BB}  &{\ttfamily R(a) = R(a)\+::\+Syms(b)}  \\
+{\ttfamily OP\+\_\+\+SETMCNST}  &{\ttfamily BB}  &{\ttfamily R(a+1)\+::\+Syms(b) = R(a)}  \\
+{\ttfamily OP\+\_\+\+GETUPVAR}  &{\ttfamily BBB}  &{\ttfamily R(a) = uvget(b,c)}  \\
+{\ttfamily OP\+\_\+\+SETUPVAR}  &{\ttfamily BBB}  &{\ttfamily uvset(b,c,\+R(a))}  \\
+{\ttfamily OP\+\_\+\+GETIDX}  &{\ttfamily B}  &{\ttfamily R(a) = R(a)\mbox{[}R(a+1)\mbox{]}}  \\
+{\ttfamily OP\+\_\+\+SETIDX}  &{\ttfamily B}  &{\ttfamily R(a)\mbox{[}R(a+1)\mbox{]} = R(a+2)}  \\
+{\ttfamily OP\+\_\+\+JMP}  &{\ttfamily S}  &{\ttfamily pc+=a}  \\
+{\ttfamily OP\+\_\+\+JMPIF}  &{\ttfamily BS}  &{\ttfamily if R(a) pc+=b}  \\
+{\ttfamily OP\+\_\+\+JMPNOT}  &{\ttfamily BS}  &{\ttfamily if !R(a) pc+=b}  \\
+{\ttfamily OP\+\_\+\+JMPNIL}  &{\ttfamily BS}  &{\ttfamily if R(a)==nil pc+=b}  \\
+{\ttfamily OP\+\_\+\+JMPUW}  &{\ttfamily S}  &{\ttfamily unwind\+\_\+and\+\_\+jump\+\_\+to(a)}  \\
+{\ttfamily OP\+\_\+\+EXCEPT}  &{\ttfamily B}  &{\ttfamily R(a) = exc}  \\
+{\ttfamily OP\+\_\+\+RESCUE}  &{\ttfamily BB}  &{\ttfamily R(b) = R(a).isa?(R(b))}  \\
+{\ttfamily OP\+\_\+\+RAISEIF}  &{\ttfamily B}  &{\ttfamily raise(\+R(a)) if R(a)}  \\
+{\ttfamily OP\+\_\+\+SSEND}  &{\ttfamily BBB}  &{\ttfamily R(a) = self.\+send(Syms(b),R(a+1)..,R(a+n+1)\+:R(a+n+2)..) (c=n\textbackslash{}\texorpdfstring{$\vert$}{|}k\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}4)}  \\
+{\ttfamily OP\+\_\+\+SSENDB}  &{\ttfamily BBB}  &{\ttfamily R(a) = self.\+send(Syms(b),R(a+1)..,R(a+n+1)\+:R(a+n+2)..,\&R(a+n+2k+1))}  \\
+{\ttfamily OP\+\_\+\+SEND}  &{\ttfamily BBB}  &{\ttfamily R(a) = R(a).send(Syms(b),R(a+1)..,R(a+n+1)\+:R(a+n+2)..) (c=n\textbackslash{}\texorpdfstring{$\vert$}{|}k\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}4)}  \\
+{\ttfamily OP\+\_\+\+SENDB}  &{\ttfamily BBB}  &{\ttfamily R(a) = R(a).send(Syms(b),R(a+1)..,R(a+n+1)\+:R(a+n+2)..,\&R(a+n+2k+1))}  \\
+{\ttfamily OP\+\_\+\+CALL}  &{\ttfamily -\/}  &{\ttfamily self.\+call(\texorpdfstring{$\ast$}{*}, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}, \&) (But overlay the current call frame; tailcall)}  \\
+{\ttfamily OP\+\_\+\+SUPER}  &{\ttfamily BB}  &{\ttfamily R(a) = super(R(a+1),... ,R(a+b+1))}  \\
+{\ttfamily OP\+\_\+\+ARGARY}  &{\ttfamily BS}  &{\ttfamily R(a) = argument array (16=m5\+:r1\+:m5\+:d1\+:lv4)}  \\
+{\ttfamily OP\+\_\+\+ENTER}  &{\ttfamily W}  &{\ttfamily arg setup according to flags (23=m5\+:o5\+:r1\+:m5\+:k5\+:d1\+:b1)}  \\
+{\ttfamily OP\+\_\+\+KEY\+\_\+P}  &{\ttfamily BB}  &{\ttfamily R(a) = kdict.\+key?(Syms(b))}  \\
+{\ttfamily OP\+\_\+\+KEYEND}  &{\ttfamily -\/}  &{\ttfamily raise unless kdict.\+empty?}  \\
+{\ttfamily OP\+\_\+\+KARG}  &{\ttfamily BB}  &{\ttfamily R(a) = kdict\mbox{[}Syms(b)\mbox{]}; kdict.\+delete(\+Syms(b))}  \\
+{\ttfamily OP\+\_\+\+RETURN}  &{\ttfamily B}  &{\ttfamily return R(a) (normal)}  \\
+{\ttfamily OP\+\_\+\+RETURN\+\_\+\+BLK}  &{\ttfamily B}  &{\ttfamily return R(a) (in-\/block return)}  \\
+{\ttfamily OP\+\_\+\+BREAK}  &{\ttfamily B}  &{\ttfamily break R(a)}  \\
+{\ttfamily OP\+\_\+\+BLKPUSH}  &{\ttfamily BS}  &{\ttfamily R(a) = block (16=m5\+:r1\+:m5\+:d1\+:lv4)}  \\
+{\ttfamily OP\+\_\+\+ADD}  &{\ttfamily B}  &{\ttfamily R(a) = R(a)+R(a+1)}  \\
+{\ttfamily OP\+\_\+\+ADDI}  &{\ttfamily BB}  &{\ttfamily R(a) = R(a)+mrb\+\_\+int(b)}  \\
+{\ttfamily OP\+\_\+\+SUB}  &{\ttfamily B}  &{\ttfamily R(a) = R(a)-\/R(a+1)}  \\
+{\ttfamily OP\+\_\+\+SUBI}  &{\ttfamily BB}  &{\ttfamily R(a) = R(a)-\/mrb\+\_\+int(b)}  \\
+{\ttfamily OP\+\_\+\+MUL}  &{\ttfamily B}  &{\ttfamily R(a) = R(a)\texorpdfstring{$\ast$}{*}R(a+1)}  \\
+{\ttfamily OP\+\_\+\+DIV}  &{\ttfamily B}  &{\ttfamily R(a) = R(a)/R(a+1)}  \\
+{\ttfamily OP\+\_\+\+EQ}  &{\ttfamily B}  &{\ttfamily R(a) = R(a)==R(a+1)}  \\
+{\ttfamily OP\+\_\+\+LT}  &{\ttfamily B}  &{\ttfamily R(a) = R(a)\texorpdfstring{$<$}{<}R(a+1)}  \\
+{\ttfamily OP\+\_\+\+LE}  &{\ttfamily B}  &{\ttfamily R(a) = R(a)\texorpdfstring{$<$}{<}=R(a+1)}  \\
+{\ttfamily OP\+\_\+\+GT}  &{\ttfamily B}  &{\ttfamily R(a) = R(a)\texorpdfstring{$>$}{>}R(a+1)}  \\
+{\ttfamily OP\+\_\+\+GE}  &{\ttfamily B}  &{\ttfamily R(a) = R(a)\texorpdfstring{$>$}{>}=R(a+1)}  \\
+{\ttfamily OP\+\_\+\+ARRAY}  &{\ttfamily BB}  &{\ttfamily R(a) = ary\+\_\+new(R(a),R(a+1)..R(a+b))}  \\
+{\ttfamily OP\+\_\+\+ARRAY2}  &{\ttfamily BBB}  &{\ttfamily R(a) = ary\+\_\+new(R(b),R(b+1)..R(b+c))}  \\
+{\ttfamily OP\+\_\+\+ARYCAT}  &{\ttfamily B}  &{\ttfamily ary\+\_\+cat(R(a),R(a+1))}  \\
+{\ttfamily OP\+\_\+\+ARYPUSH}  &{\ttfamily BB}  &{\ttfamily ary\+\_\+push(R(a),R(a+1)..R(a+b))}  \\
+{\ttfamily OP\+\_\+\+ARYSPLAT}  &{\ttfamily B}  &{\ttfamily R(a) = ary\+\_\+splat(\+R(a))}  \\
+{\ttfamily OP\+\_\+\+AREF}  &{\ttfamily BBB}  &{\ttfamily R(a) = R(b)\mbox{[}c\mbox{]}}  \\
+{\ttfamily OP\+\_\+\+ASET}  &{\ttfamily BBB}  &{\ttfamily R(b)\mbox{[}c\mbox{]} = R(a)}  \\
+{\ttfamily OP\+\_\+\+APOST}  &{\ttfamily BBB}  &{\ttfamily \texorpdfstring{$\ast$}{*}R(a),R(a+1)..R(a+c) = R(a)\mbox{[}b..\mbox{]}}  \\
+{\ttfamily OP\+\_\+\+INTERN}  &{\ttfamily B}  &{\ttfamily R(a) = intern(\+R(a))}  \\
+{\ttfamily OP\+\_\+\+SYMBOL}  &{\ttfamily BB}  &{\ttfamily R(a) = intern(\+Pool(b))}  \\
+{\ttfamily OP\+\_\+\+STRING}  &{\ttfamily BB}  &{\ttfamily R(a) = str\+\_\+dup(\+Pool(b))}  \\
+{\ttfamily OP\+\_\+\+STRCAT}  &{\ttfamily B}  &{\ttfamily str\+\_\+cat(R(a),R(a+1))}  \\
+{\ttfamily OP\+\_\+\+HASH}  &{\ttfamily BB}  &{\ttfamily R(a) = hash\+\_\+new(R(a),R(a+1)..R(a+b\texorpdfstring{$\ast$}{*}2-\/1))}  \\
+{\ttfamily OP\+\_\+\+HASHADD}  &{\ttfamily BB}  &{\ttfamily hash\+\_\+push(R(a),R(a+1)..R(a+b\texorpdfstring{$\ast$}{*}2))}  \\
+{\ttfamily OP\+\_\+\+HASHCAT}  &{\ttfamily B}  &{\ttfamily R(a) = hash\+\_\+cat(R(a),R(a+1))}  \\
+{\ttfamily OP\+\_\+\+LAMBDA}  &{\ttfamily BB}  &{\ttfamily R(a) = lambda(\+Irep(b),\+OP\+\_\+\+L\+\_\+\+LAMBDA)}  \\
+{\ttfamily OP\+\_\+\+BLOCK}  &{\ttfamily BB}  &{\ttfamily R(a) = lambda(\+Irep(b),\+OP\+\_\+\+L\+\_\+\+BLOCK)}  \\
+{\ttfamily OP\+\_\+\+METHOD}  &{\ttfamily BB}  &{\ttfamily R(a) = lambda(\+Irep(b),\+OP\+\_\+\+L\+\_\+\+METHOD)}  \\
+{\ttfamily OP\+\_\+\+RANGE\+\_\+\+INC}  &{\ttfamily B}  &{\ttfamily R(a) = range\+\_\+new(R(a),R(a+1),FALSE)}  \\
+{\ttfamily OP\+\_\+\+RANGE\+\_\+\+EXC}  &{\ttfamily B}  &{\ttfamily R(a) = range\+\_\+new(R(a),R(a+1),TRUE)}  \\
+{\ttfamily OP\+\_\+\+OCLASS}  &{\ttfamily B}  &{\ttfamily R(a) = \+::\+Object}  \\
+{\ttfamily OP\+\_\+\+CLASS}  &{\ttfamily BB}  &{\ttfamily R(a) = newclass(R(a),Syms(b),R(a+1))}  \\
+{\ttfamily OP\+\_\+\+MODULE}  &{\ttfamily BB}  &{\ttfamily R(a) = newmodule(R(a),Syms(b))}  \\
+{\ttfamily OP\+\_\+\+EXEC}  &{\ttfamily BB}  &{\ttfamily R(a) = blockexec(R(a),Irep(b))}  \\
+{\ttfamily OP\+\_\+\+DEF}  &{\ttfamily BB}  &{\ttfamily R(a).newmethod(Syms(b),R(a+1)); R(a) = Syms(b)}  \\
+{\ttfamily OP\+\_\+\+ALIAS}  &{\ttfamily BB}  &{\ttfamily alias\+\_\+method(target\+\_\+class,Syms(a),Syms(b))}  \\
+{\ttfamily OP\+\_\+\+UNDEF}  &{\ttfamily B}  &{\ttfamily undef\+\_\+method(target\+\_\+class,\+Syms(a))}  \\
+{\ttfamily OP\+\_\+\+SCLASS}  &{\ttfamily B}  &{\ttfamily R(a) = R(a).singleton\+\_\+class}  \\
+{\ttfamily OP\+\_\+\+TCLASS}  &{\ttfamily B}  &{\ttfamily R(a) = target\+\_\+class}  \\
+{\ttfamily OP\+\_\+\+DEBUG}  &{\ttfamily BBB}  &{\ttfamily print a,b,c}  \\
+{\ttfamily OP\+\_\+\+ERR}  &{\ttfamily B}  &{\ttfamily raise(\+Local\+Jump\+Error, Pool(a))}  \\
+{\ttfamily OP\+\_\+\+EXT1}  &{\ttfamily -\/}  &{\ttfamily make 1st operand (a) 16bit}  \\
+{\ttfamily OP\+\_\+\+EXT2}  &{\ttfamily -\/}  &{\ttfamily make 2nd operand (b) 16bit}  \\
+{\ttfamily OP\+\_\+\+EXT3}  &{\ttfamily -\/}  &{\ttfamily make 1st and 2nd operands 16bit}  \\
+{\ttfamily OP\+\_\+\+STOP}  &{\ttfamily -\/}  &{\ttfamily stop VM}  \\
+\end{DoxyTable}

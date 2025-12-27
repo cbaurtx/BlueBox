@@ -1,0 +1,303 @@
+\doxysection{nghttp2\+\_\+stream.\+h}
+\hypertarget{nghttp2__stream_8h_source}{}\label{nghttp2__stream_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_stream.h@{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_stream.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_STREAM\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ NGHTTP2\_STREAM\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifdef\ HAVE\_CONFIG\_H}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ \ include\ <config.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_CONFIG\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_outbound\_item.h"{}}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_map.h"{}}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_pq.h"{}}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_int.h"{}}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ *\ If\ local\ peer\ is\ stream\ initiator:}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ *\ NGHTTP2\_STREAM\_OPENING\ :\ upon\ sending\ request\ HEADERS}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ NGHTTP2\_STREAM\_OPENED\ :\ upon\ receiving\ response\ HEADERS}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ *\ NGHTTP2\_STREAM\_CLOSING\ :\ upon\ queuing\ RST\_STREAM}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ *\ If\ remote\ peer\ is\ stream\ initiator:}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ *\ NGHTTP2\_STREAM\_OPENING\ :\ upon\ receiving\ request\ HEADERS}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ NGHTTP2\_STREAM\_OPENED\ :\ upon\ sending\ response\ HEADERS}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ *\ NGHTTP2\_STREAM\_CLOSING\ :\ upon\ queuing\ RST\_STREAM}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00049\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00050\ \ \ \textcolor{comment}{/*\ Initial\ state\ */}}
+\DoxyCodeLine{00051\ \ \ NGHTTP2\_STREAM\_INITIAL,}
+\DoxyCodeLine{00052\ \ \ \textcolor{comment}{/*\ For\ stream\ initiator:\ request\ HEADERS\ has\ been\ sent,\ but\ response}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ \ \ \ \ HEADERS\ has\ not\ been\ received\ yet.\ \ For\ receiver:\ request\ HEADERS}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ \ \ \ has\ been\ received,\ but\ it\ does\ not\ send\ response\ HEADERS\ yet.\ */}}
+\DoxyCodeLine{00055\ \ \ NGHTTP2\_STREAM\_OPENING,}
+\DoxyCodeLine{00056\ \ \ \textcolor{comment}{/*\ For\ stream\ initiator:\ response\ HEADERS\ is\ received.\ For\ receiver:}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ \ \ \ response\ HEADERS\ is\ sent.\ */}}
+\DoxyCodeLine{00058\ \ \ NGHTTP2\_STREAM\_OPENED,}
+\DoxyCodeLine{00059\ \ \ \textcolor{comment}{/*\ RST\_STREAM\ is\ received,\ but\ somehow\ we\ need\ to\ keep\ stream\ in}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ \ \ \ \ memory.\ */}}
+\DoxyCodeLine{00061\ \ \ NGHTTP2\_STREAM\_CLOSING,}
+\DoxyCodeLine{00062\ \ \ \textcolor{comment}{/*\ PUSH\_PROMISE\ is\ received\ or\ sent\ */}}
+\DoxyCodeLine{00063\ \ \ NGHTTP2\_STREAM\_RESERVED,}
+\DoxyCodeLine{00064\ \ \ \textcolor{comment}{/*\ Stream\ is\ created\ in\ this\ state\ if\ it\ is\ used\ as\ anchor\ in}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ \ \ \ dependency\ tree.\ */}}
+\DoxyCodeLine{00066\ \ \ NGHTTP2\_STREAM\_IDLE}
+\DoxyCodeLine{00067\ \}\ nghttp2\_stream\_state;}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00070\ \ \ NGHTTP2\_SHUT\_NONE\ =\ 0,}
+\DoxyCodeLine{00071\ \ \ \textcolor{comment}{/*\ Indicates\ further\ receptions\ will\ be\ disallowed.\ */}}
+\DoxyCodeLine{00072\ \ \ NGHTTP2\_SHUT\_RD\ =\ 0x01,}
+\DoxyCodeLine{00073\ \ \ \textcolor{comment}{/*\ Indicates\ further\ transmissions\ will\ be\ disallowed.\ */}}
+\DoxyCodeLine{00074\ \ \ NGHTTP2\_SHUT\_WR\ =\ 0x02,}
+\DoxyCodeLine{00075\ \ \ \textcolor{comment}{/*\ Indicates\ both\ further\ receptions\ and\ transmissions\ will\ be}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ \ \ \ \ disallowed.\ */}}
+\DoxyCodeLine{00077\ \ \ NGHTTP2\_SHUT\_RDWR\ =\ NGHTTP2\_SHUT\_RD\ |\ NGHTTP2\_SHUT\_WR}
+\DoxyCodeLine{00078\ \}\ nghttp2\_shut\_flag;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00081\ \ \ NGHTTP2\_STREAM\_FLAG\_NONE\ =\ 0,}
+\DoxyCodeLine{00082\ \ \ \textcolor{comment}{/*\ Indicates\ that\ this\ stream\ is\ pushed\ stream\ and\ not\ opened}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ \ \ \ \ yet.\ */}}
+\DoxyCodeLine{00084\ \ \ NGHTTP2\_STREAM\_FLAG\_PUSH\ =\ 0x01,}
+\DoxyCodeLine{00085\ \ \ \textcolor{comment}{/*\ Indicates\ that\ this\ stream\ was\ closed\ */}}
+\DoxyCodeLine{00086\ \ \ NGHTTP2\_STREAM\_FLAG\_CLOSED\ =\ 0x02,}
+\DoxyCodeLine{00087\ \ \ \textcolor{comment}{/*\ Indicates\ the\ item\ is\ deferred\ due\ to\ flow\ control.\ */}}
+\DoxyCodeLine{00088\ \ \ NGHTTP2\_STREAM\_FLAG\_DEFERRED\_FLOW\_CONTROL\ =\ 0x04,}
+\DoxyCodeLine{00089\ \ \ \textcolor{comment}{/*\ Indicates\ the\ item\ is\ deferred\ by\ user\ callback\ */}}
+\DoxyCodeLine{00090\ \ \ NGHTTP2\_STREAM\_FLAG\_DEFERRED\_USER\ =\ 0x08,}
+\DoxyCodeLine{00091\ \ \ \textcolor{comment}{/*\ bitwise\ OR\ of\ NGHTTP2\_STREAM\_FLAG\_DEFERRED\_FLOW\_CONTROL\ and}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ \ \ \ \ NGHTTP2\_STREAM\_FLAG\_DEFERRED\_USER.\ */}}
+\DoxyCodeLine{00093\ \ \ NGHTTP2\_STREAM\_FLAG\_DEFERRED\_ALL\ =\ 0x0c,}
+\DoxyCodeLine{00094\ \ \ \textcolor{comment}{/*\ Ignore\ client\ RFC\ 9218\ priority\ signal.\ */}}
+\DoxyCodeLine{00095\ \ \ NGHTTP2\_STREAM\_FLAG\_IGNORE\_CLIENT\_PRIORITIES\ =\ 0x20,}
+\DoxyCodeLine{00096\ \ \ \textcolor{comment}{/*\ Indicates\ that\ RFC\ 9113\ leading\ and\ trailing\ white\ spaces}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ \ \ \ \ validation\ against\ a\ field\ value\ is\ not\ performed.\ */}}
+\DoxyCodeLine{00098\ \ \ NGHTTP2\_STREAM\_FLAG\_NO\_RFC9113\_LEADING\_AND\_TRAILING\_WS\_VALIDATION\ =\ 0x40,}
+\DoxyCodeLine{00099\ \}\ nghttp2\_stream\_flag;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{comment}{/*\ HTTP\ related\ flags\ to\ enforce\ HTTP\ semantics\ */}}
+\DoxyCodeLine{00102\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00103\ \ \ NGHTTP2\_HTTP\_FLAG\_NONE\ =\ 0,}
+\DoxyCodeLine{00104\ \ \ \textcolor{comment}{/*\ header\ field\ seen\ so\ far\ */}}
+\DoxyCodeLine{00105\ \ \ NGHTTP2\_HTTP\_FLAG\_\_AUTHORITY\ =\ 1,}
+\DoxyCodeLine{00106\ \ \ NGHTTP2\_HTTP\_FLAG\_\_PATH\ =\ 1\ <<\ 1,}
+\DoxyCodeLine{00107\ \ \ NGHTTP2\_HTTP\_FLAG\_\_METHOD\ =\ 1\ <<\ 2,}
+\DoxyCodeLine{00108\ \ \ NGHTTP2\_HTTP\_FLAG\_\_SCHEME\ =\ 1\ <<\ 3,}
+\DoxyCodeLine{00109\ \ \ \textcolor{comment}{/*\ host\ is\ not\ pseudo\ header,\ but\ we\ require\ either\ host\ or}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ \ \ \ \ :authority\ */}}
+\DoxyCodeLine{00111\ \ \ NGHTTP2\_HTTP\_FLAG\_HOST\ =\ 1\ <<\ 4,}
+\DoxyCodeLine{00112\ \ \ NGHTTP2\_HTTP\_FLAG\_\_STATUS\ =\ 1\ <<\ 5,}
+\DoxyCodeLine{00113\ \ \ \textcolor{comment}{/*\ required\ header\ fields\ for\ HTTP\ request\ except\ for\ CONNECT}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ \ \ \ \ method.\ */}}
+\DoxyCodeLine{00115\ \ \ NGHTTP2\_HTTP\_FLAG\_REQ\_HEADERS\ =\ NGHTTP2\_HTTP\_FLAG\_\_METHOD\ |}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ NGHTTP2\_HTTP\_FLAG\_\_PATH\ |}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ NGHTTP2\_HTTP\_FLAG\_\_SCHEME,}
+\DoxyCodeLine{00118\ \ \ NGHTTP2\_HTTP\_FLAG\_PSEUDO\_HEADER\_DISALLOWED\ =\ 1\ <<\ 6,}
+\DoxyCodeLine{00119\ \ \ \textcolor{comment}{/*\ HTTP\ method\ flags\ */}}
+\DoxyCodeLine{00120\ \ \ NGHTTP2\_HTTP\_FLAG\_METH\_CONNECT\ =\ 1\ <<\ 7,}
+\DoxyCodeLine{00121\ \ \ NGHTTP2\_HTTP\_FLAG\_METH\_HEAD\ =\ 1\ <<\ 8,}
+\DoxyCodeLine{00122\ \ \ NGHTTP2\_HTTP\_FLAG\_METH\_OPTIONS\ =\ 1\ <<\ 9,}
+\DoxyCodeLine{00123\ \ \ NGHTTP2\_HTTP\_FLAG\_METH\_UPGRADE\_WORKAROUND\ =\ 1\ <<\ 10,}
+\DoxyCodeLine{00124\ \ \ NGHTTP2\_HTTP\_FLAG\_METH\_ALL\ =}
+\DoxyCodeLine{00125\ \ \ \ \ NGHTTP2\_HTTP\_FLAG\_METH\_CONNECT\ |\ NGHTTP2\_HTTP\_FLAG\_METH\_HEAD\ |}
+\DoxyCodeLine{00126\ \ \ \ \ NGHTTP2\_HTTP\_FLAG\_METH\_OPTIONS\ |\ NGHTTP2\_HTTP\_FLAG\_METH\_UPGRADE\_WORKAROUND,}
+\DoxyCodeLine{00127\ \ \ \textcolor{comment}{/*\ :path\ category\ */}}
+\DoxyCodeLine{00128\ \ \ \textcolor{comment}{/*\ path\ starts\ with\ "{}/"{}\ */}}
+\DoxyCodeLine{00129\ \ \ NGHTTP2\_HTTP\_FLAG\_PATH\_REGULAR\ =\ 1\ <<\ 11,}
+\DoxyCodeLine{00130\ \ \ \textcolor{comment}{/*\ path\ "{}*"{}\ */}}
+\DoxyCodeLine{00131\ \ \ NGHTTP2\_HTTP\_FLAG\_PATH\_ASTERISK\ =\ 1\ <<\ 12,}
+\DoxyCodeLine{00132\ \ \ \textcolor{comment}{/*\ scheme\ */}}
+\DoxyCodeLine{00133\ \ \ \textcolor{comment}{/*\ "{}http"{}\ or\ "{}https"{}\ scheme\ */}}
+\DoxyCodeLine{00134\ \ \ NGHTTP2\_HTTP\_FLAG\_SCHEME\_HTTP\ =\ 1\ <<\ 13,}
+\DoxyCodeLine{00135\ \ \ \textcolor{comment}{/*\ set\ if\ final\ response\ is\ expected\ */}}
+\DoxyCodeLine{00136\ \ \ NGHTTP2\_HTTP\_FLAG\_EXPECT\_FINAL\_RESPONSE\ =\ 1\ <<\ 14,}
+\DoxyCodeLine{00137\ \ \ NGHTTP2\_HTTP\_FLAG\_\_PROTOCOL\ =\ 1\ <<\ 15,}
+\DoxyCodeLine{00138\ \ \ \textcolor{comment}{/*\ set\ if\ priority\ header\ field\ is\ received\ */}}
+\DoxyCodeLine{00139\ \ \ NGHTTP2\_HTTP\_FLAG\_PRIORITY\ =\ 1\ <<\ 16,}
+\DoxyCodeLine{00140\ \ \ \textcolor{comment}{/*\ set\ if\ an\ error\ is\ encountered\ while\ parsing\ priority\ header}}
+\DoxyCodeLine{00141\ \textcolor{comment}{\ \ \ \ \ field\ */}}
+\DoxyCodeLine{00142\ \ \ NGHTTP2\_HTTP\_FLAG\_BAD\_PRIORITY\ =\ 1\ <<\ 17,}
+\DoxyCodeLine{00143\ \}\ nghttp2\_http\_flag;}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ \{}
+\DoxyCodeLine{00146\ \ \ nghttp2\_stream\_state\ state;}
+\DoxyCodeLine{00147\ \ \ \mbox{\hyperlink{structnghttp2__pq__entry}{nghttp2\_pq\_entry}}\ pq\_entry;}
+\DoxyCodeLine{00148\ \ \ \textcolor{comment}{/*\ Content-\/Length\ of\ request/response\ body.\ \ -\/1\ if\ unknown.\ */}}
+\DoxyCodeLine{00149\ \ \ int64\_t\ content\_length;}
+\DoxyCodeLine{00150\ \ \ \textcolor{comment}{/*\ Received\ body\ so\ far\ */}}
+\DoxyCodeLine{00151\ \ \ int64\_t\ recv\_content\_length;}
+\DoxyCodeLine{00152\ \ \ \textcolor{comment}{/*\ Next\ scheduled\ time\ to\ sent\ item\ */}}
+\DoxyCodeLine{00153\ \ \ uint64\_t\ cycle;}
+\DoxyCodeLine{00154\ \ \ \textcolor{comment}{/*\ Secondary\ key\ for\ prioritization\ to\ break\ a\ tie\ for\ cycle.\ \ This}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ \ \ \ \ value\ is\ monotonically\ increased\ for\ single\ parent\ stream.\ */}}
+\DoxyCodeLine{00156\ \ \ uint64\_t\ seq;}
+\DoxyCodeLine{00157\ \ \ \mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *closed\_next;}
+\DoxyCodeLine{00158\ \ \ \textcolor{comment}{/*\ The\ arbitrary\ data\ provided\ by\ user\ for\ this\ stream.\ */}}
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordtype}{void}\ *stream\_user\_data;}
+\DoxyCodeLine{00160\ \ \ \textcolor{comment}{/*\ Item\ to\ send\ */}}
+\DoxyCodeLine{00161\ \ \ \mbox{\hyperlink{structnghttp2__outbound__item}{nghttp2\_outbound\_item}}\ *item;}
+\DoxyCodeLine{00162\ \ \ \textcolor{comment}{/*\ Last\ written\ length\ of\ frame\ payload\ */}}
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordtype}{size\_t}\ last\_writelen;}
+\DoxyCodeLine{00164\ \ \ \textcolor{comment}{/*\ stream\ ID\ */}}
+\DoxyCodeLine{00165\ \ \ int32\_t\ stream\_id;}
+\DoxyCodeLine{00166\ \ \ \textcolor{comment}{/*\ Current\ remote\ window\ size.\ This\ value\ is\ computed\ against\ the}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ \ \ \ \ current\ initial\ window\ size\ of\ remote\ endpoint.\ */}}
+\DoxyCodeLine{00168\ \ \ int32\_t\ remote\_window\_size;}
+\DoxyCodeLine{00169\ \ \ \textcolor{comment}{/*\ Keep\ track\ of\ the\ number\ of\ bytes\ received\ without}}
+\DoxyCodeLine{00170\ \textcolor{comment}{\ \ \ \ \ WINDOW\_UPDATE.\ This\ could\ be\ negative\ after\ submitting\ negative}}
+\DoxyCodeLine{00171\ \textcolor{comment}{\ \ \ \ \ value\ to\ WINDOW\_UPDATE\ */}}
+\DoxyCodeLine{00172\ \ \ int32\_t\ recv\_window\_size;}
+\DoxyCodeLine{00173\ \ \ \textcolor{comment}{/*\ The\ number\ of\ bytes\ consumed\ by\ the\ application\ and\ now\ is}}
+\DoxyCodeLine{00174\ \textcolor{comment}{\ \ \ \ \ subject\ to\ WINDOW\_UPDATE.\ \ This\ is\ only\ used\ when\ auto}}
+\DoxyCodeLine{00175\ \textcolor{comment}{\ \ \ \ \ WINDOW\_UPDATE\ is\ turned\ off.\ */}}
+\DoxyCodeLine{00176\ \ \ int32\_t\ consumed\_size;}
+\DoxyCodeLine{00177\ \ \ \textcolor{comment}{/*\ The\ amount\ of\ recv\_window\_size\ cut\ using\ submitting\ negative}}
+\DoxyCodeLine{00178\ \textcolor{comment}{\ \ \ \ \ value\ to\ WINDOW\_UPDATE\ */}}
+\DoxyCodeLine{00179\ \ \ int32\_t\ recv\_reduction;}
+\DoxyCodeLine{00180\ \ \ \textcolor{comment}{/*\ window\ size\ for\ local\ flow\ control.\ It\ is\ initially\ set\ to}}
+\DoxyCodeLine{00181\ \textcolor{comment}{\ \ \ \ \ NGHTTP2\_INITIAL\_WINDOW\_SIZE\ and\ could\ be\ increased/decreased\ by}}
+\DoxyCodeLine{00182\ \textcolor{comment}{\ \ \ \ \ submitting\ WINDOW\_UPDATE.\ See\ nghttp2\_submit\_window\_update().\ */}}
+\DoxyCodeLine{00183\ \ \ int32\_t\ local\_window\_size;}
+\DoxyCodeLine{00184\ \ \ \textcolor{comment}{/*\ This\ is\ unpaid\ penalty\ (offset)\ when\ calculating\ cycle.\ */}}
+\DoxyCodeLine{00185\ \ \ uint32\_t\ pending\_penalty;}
+\DoxyCodeLine{00186\ \ \ \textcolor{comment}{/*\ status\ code\ from\ remote\ server\ */}}
+\DoxyCodeLine{00187\ \ \ int16\_t\ status\_code;}
+\DoxyCodeLine{00188\ \ \ \textcolor{comment}{/*\ Bitwise\ OR\ of\ zero\ or\ more\ nghttp2\_http\_flag\ values\ */}}
+\DoxyCodeLine{00189\ \ \ uint32\_t\ http\_flags;}
+\DoxyCodeLine{00190\ \ \ \textcolor{comment}{/*\ This\ is\ bitwise-\/OR\ of\ 0\ or\ more\ of\ nghttp2\_stream\_flag.\ */}}
+\DoxyCodeLine{00191\ \ \ uint8\_t\ flags;}
+\DoxyCodeLine{00192\ \ \ \textcolor{comment}{/*\ Bitwise\ OR\ of\ zero\ or\ more\ nghttp2\_shut\_flag\ values\ */}}
+\DoxyCodeLine{00193\ \ \ uint8\_t\ shut\_flags;}
+\DoxyCodeLine{00194\ \ \ \textcolor{comment}{/*\ Nonzero\ if\ this\ stream\ has\ been\ queued\ to\ stream\ pointed\ by}}
+\DoxyCodeLine{00195\ \textcolor{comment}{\ \ \ \ \ dep\_prev.\ \ We\ maintain\ the\ invariant\ that\ if\ a\ stream\ is\ queued,}}
+\DoxyCodeLine{00196\ \textcolor{comment}{\ \ \ \ \ then\ its\ ancestors,\ except\ for\ root,\ are\ also\ queued.\ \ This}}
+\DoxyCodeLine{00197\ \textcolor{comment}{\ \ \ \ \ invariant\ may\ break\ in\ fatal\ error\ condition.\ */}}
+\DoxyCodeLine{00198\ \ \ uint8\_t\ queued;}
+\DoxyCodeLine{00199\ \ \ \textcolor{comment}{/*\ This\ flag\ is\ used\ to\ reduce\ excessive\ queuing\ of\ WINDOW\_UPDATE\ to}}
+\DoxyCodeLine{00200\ \textcolor{comment}{\ \ \ \ \ this\ stream.\ \ The\ nonzero\ does\ not\ necessarily\ mean\ WINDOW\_UPDATE}}
+\DoxyCodeLine{00201\ \textcolor{comment}{\ \ \ \ \ is\ not\ queued.\ */}}
+\DoxyCodeLine{00202\ \ \ uint8\_t\ window\_update\_queued;}
+\DoxyCodeLine{00203\ \ \ \textcolor{comment}{/*\ extpri\ is\ a\ stream\ priority\ produced\ by\ nghttp2\_extpri\_to\_uint8}}
+\DoxyCodeLine{00204\ \textcolor{comment}{\ \ \ \ \ used\ by\ RFC\ 9218\ extensible\ priorities.\ */}}
+\DoxyCodeLine{00205\ \ \ uint8\_t\ extpri;}
+\DoxyCodeLine{00206\ \ \ \textcolor{comment}{/*\ http\_extpri\ is\ a\ stream\ priority\ received\ in\ HTTP\ request\ header}}
+\DoxyCodeLine{00207\ \textcolor{comment}{\ \ \ \ \ fields\ and\ produced\ by\ nghttp2\_extpri\_to\_uint8.\ */}}
+\DoxyCodeLine{00208\ \ \ uint8\_t\ http\_extpri;}
+\DoxyCodeLine{00209\ \};}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \textcolor{keywordtype}{void}\ nghttp2\_stream\_init(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream,\ int32\_t\ stream\_id,}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ flags,\ nghttp2\_stream\_state\ initial\_state,}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ remote\_initial\_window\_size,}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ local\_initial\_window\_size,}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *stream\_user\_data);}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \textcolor{keywordtype}{void}\ nghttp2\_stream\_free(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream);}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00220\ \textcolor{comment}{\ *\ Disallow\ either\ further\ receptions\ or\ transmissions,\ or\ both.}}
+\DoxyCodeLine{00221\ \textcolor{comment}{\ *\ |flag|\ is\ bitwise\ OR\ of\ one\ or\ more\ of\ nghttp2\_shut\_flag.}}
+\DoxyCodeLine{00222\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00223\ \textcolor{keywordtype}{void}\ nghttp2\_stream\_shutdown(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream,\ nghttp2\_shut\_flag\ flag);}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00226\ \textcolor{comment}{\ *\ Defer\ |stream-\/>item|.\ \ We\ won't\ call\ this\ function\ in\ the\ situation}}
+\DoxyCodeLine{00227\ \textcolor{comment}{\ *\ where\ |stream-\/>item|\ ==\ NULL.\ \ The\ |flags|\ is\ bitwise\ OR\ of\ zero\ or}}
+\DoxyCodeLine{00228\ \textcolor{comment}{\ *\ more\ of\ NGHTTP2\_STREAM\_FLAG\_DEFERRED\_USER\ and}}
+\DoxyCodeLine{00229\ \textcolor{comment}{\ *\ NGHTTP2\_STREAM\_FLAG\_DEFERRED\_FLOW\_CONTROL.\ \ The\ |flags|\ indicates}}
+\DoxyCodeLine{00230\ \textcolor{comment}{\ *\ the\ reason\ of\ this\ action.}}
+\DoxyCodeLine{00231\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00232\ \textcolor{keywordtype}{void}\ nghttp2\_stream\_defer\_item(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream,\ uint8\_t\ flags);}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00235\ \textcolor{comment}{\ *\ Put\ back\ deferred\ data\ in\ this\ stream\ to\ active\ state.\ \ The\ |flags|}}
+\DoxyCodeLine{00236\ \textcolor{comment}{\ *\ are\ one\ or\ more\ of\ bitwise\ OR\ of\ the\ following\ values:}}
+\DoxyCodeLine{00237\ \textcolor{comment}{\ *\ NGHTTP2\_STREAM\_FLAG\_DEFERRED\_USER\ and}}
+\DoxyCodeLine{00238\ \textcolor{comment}{\ *\ NGHTTP2\_STREAM\_FLAG\_DEFERRED\_FLOW\_CONTROL\ and\ given\ masks\ are}}
+\DoxyCodeLine{00239\ \textcolor{comment}{\ *\ cleared\ if\ they\ are\ set.\ \ So\ even\ if\ this\ function\ is\ called,\ if}}
+\DoxyCodeLine{00240\ \textcolor{comment}{\ *\ one\ of\ flag\ is\ still\ set,\ data\ does\ not\ become\ active.}}
+\DoxyCodeLine{00241\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00242\ \textcolor{keywordtype}{void}\ nghttp2\_stream\_resume\_deferred\_item(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream,\ uint8\_t\ flags);}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00245\ \textcolor{comment}{\ *\ Returns\ nonzero\ if\ item\ is\ deferred\ by\ whatever\ reason.}}
+\DoxyCodeLine{00246\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00247\ \textcolor{keywordtype}{int}\ nghttp2\_stream\_check\_deferred\_item(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream);}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00250\ \textcolor{comment}{\ *\ Returns\ nonzero\ if\ item\ is\ deferred\ by\ flow\ control.}}
+\DoxyCodeLine{00251\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00252\ \textcolor{keywordtype}{int}\ nghttp2\_stream\_check\_deferred\_by\_flow\_control(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream);}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00255\ \textcolor{comment}{\ *\ Updates\ the\ remote\ window\ size\ with\ the\ new\ value}}
+\DoxyCodeLine{00256\ \textcolor{comment}{\ *\ |new\_initial\_window\_size|.\ The\ |old\_initial\_window\_size|\ is\ used\ to}}
+\DoxyCodeLine{00257\ \textcolor{comment}{\ *\ calculate\ the\ current\ window\ size.}}
+\DoxyCodeLine{00258\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00259\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds\ or\ -\/1.\ The\ failure\ is\ due\ to}}
+\DoxyCodeLine{00260\ \textcolor{comment}{\ *\ overflow.}}
+\DoxyCodeLine{00261\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00262\ \textcolor{keywordtype}{int}\ nghttp2\_stream\_update\_remote\_initial\_window\_size(}
+\DoxyCodeLine{00263\ \ \ \mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream,\ int32\_t\ new\_initial\_window\_size,}
+\DoxyCodeLine{00264\ \ \ int32\_t\ old\_initial\_window\_size);}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00267\ \textcolor{comment}{\ *\ Updates\ the\ local\ window\ size\ with\ the\ new\ value}}
+\DoxyCodeLine{00268\ \textcolor{comment}{\ *\ |new\_initial\_window\_size|.\ The\ |old\_initial\_window\_size|\ is\ used\ to}}
+\DoxyCodeLine{00269\ \textcolor{comment}{\ *\ calculate\ the\ current\ window\ size.}}
+\DoxyCodeLine{00270\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00271\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds\ or\ -\/1.\ The\ failure\ is\ due\ to}}
+\DoxyCodeLine{00272\ \textcolor{comment}{\ *\ overflow.}}
+\DoxyCodeLine{00273\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00274\ \textcolor{keywordtype}{int}\ nghttp2\_stream\_update\_local\_initial\_window\_size(}
+\DoxyCodeLine{00275\ \ \ \mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream,\ int32\_t\ new\_initial\_window\_size,}
+\DoxyCodeLine{00276\ \ \ int32\_t\ old\_initial\_window\_size);}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00279\ \textcolor{comment}{\ *\ Call\ this\ function\ if\ promised\ stream\ |stream|\ is\ replied\ with}}
+\DoxyCodeLine{00280\ \textcolor{comment}{\ *\ HEADERS.\ \ This\ function\ makes\ the\ state\ of\ the\ |stream|\ to}}
+\DoxyCodeLine{00281\ \textcolor{comment}{\ *\ NGHTTP2\_STREAM\_OPENED.}}
+\DoxyCodeLine{00282\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00283\ \textcolor{keywordtype}{void}\ nghttp2\_stream\_promise\_fulfilled(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream);}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00286\ \textcolor{comment}{\ *\ Attaches\ |item|\ to\ |stream|.}}
+\DoxyCodeLine{00287\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00288\ \textcolor{keywordtype}{void}\ nghttp2\_stream\_attach\_item(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream,}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__outbound__item}{nghttp2\_outbound\_item}}\ *item);}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00292\ \textcolor{comment}{\ *\ Detaches\ |stream-\/>item|.\ \ This\ function\ does\ not\ free}}
+\DoxyCodeLine{00293\ \textcolor{comment}{\ *\ |stream-\/>item|.\ \ The\ caller\ must\ free\ it.}}
+\DoxyCodeLine{00294\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00295\ \textcolor{keywordtype}{void}\ nghttp2\_stream\_detach\_item(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream);}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_STREAM\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,9 @@
+<map id="nghttp2::MemchunkBuffer&lt; Memchunk &gt;" name="nghttp2::MemchunkBuffer&lt; Memchunk &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="31,259,201,301"/>
+<area shape="rect" id="Node000002" href="$structnghttp2_1_1Pool.html" title=" " alt="" coords="136,144,290,187"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,198,135,260,132,256,183,199"/>
+<area shape="rect" id="Node000003" href="$structnghttp2_1_1Memchunk.html" title=" " alt="" coords="5,15,176,41"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="86,54,81,117,81,152,85,186,95,224,109,258,103,258,90,226,80,187,76,152,76,116,85,59"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="113,51,197,143,192,145,111,56"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="191,17,202,28,195,38,178,42,175,38,192,33,197,28,191,22"/>
+</map>

@@ -1,0 +1,60 @@
+\doxysection{boxing\+\_\+no.\+h}
+\hypertarget{boxing__no_8h_source}{}\label{boxing__no_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/boxing\_no.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/boxing\_no.h}}
+\mbox{\hyperlink{boxing__no_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_BOXING\_NO\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_BOXING\_NO\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ MRB\_FIXNUM\_SHIFT\ 0}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ MRB\_SYMBOL\_SHIFT\ 0}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ MRB\_FIXNUM\_MIN\ MRB\_INT\_MIN}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ MRB\_FIXNUM\_MAX\ MRB\_INT\_MAX}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{union\ }\mbox{\hyperlink{unionmrb__value__union}{mrb\_value\_union}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifndef\ MRB\_NO\_FLOAT}}
+\DoxyCodeLine{00017\ \ \ mrb\_float\ f;}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00019\ \ \ \textcolor{keywordtype}{void}\ *p;}
+\DoxyCodeLine{00020\ \ \ mrb\_int\ i;}
+\DoxyCodeLine{00021\ \ \ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}}\ sym;}
+\DoxyCodeLine{00022\ \};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \{}
+\DoxyCodeLine{00025\ \ \ \textcolor{keyword}{union\ }\mbox{\hyperlink{unionmrb__value__union}{mrb\_value\_union}}\ value;}
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{enum}\ mrb\_vtype\ tt;}
+\DoxyCodeLine{00027\ \}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ mrb\_ptr(o)\ \ \ \ \ \ (o).value.p}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ mrb\_cptr(o)\ \ \ \ \ mrb\_ptr(o)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifndef\ MRB\_NO\_FLOAT}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ mrb\_float(o)\ \ \ \ (o).value.f}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ mrb\_fixnum(o)\ \ \ (o).value.i}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ mrb\_integer(o)\ \ mrb\_fixnum(o)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ mrb\_symbol(o)\ \ \ (o).value.sym}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ mrb\_type(o)\ \ \ \ \ (o).tt}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ BOXNIX\_SET\_VALUE(o,\ ttt,\ attr,\ v)\ do\ \{\(\backslash\)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\ \ (o).tt\ =\ ttt;\(\backslash\)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\ \ (o).attr\ =\ v;\(\backslash\)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\}\ while\ (0)}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ SET\_NIL\_VALUE(r)\ BOXNIX\_SET\_VALUE(r,\ MRB\_TT\_FALSE,\ value.i,\ 0)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ SET\_FALSE\_VALUE(r)\ BOXNIX\_SET\_VALUE(r,\ MRB\_TT\_FALSE,\ value.i,\ 1)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ SET\_TRUE\_VALUE(r)\ BOXNIX\_SET\_VALUE(r,\ MRB\_TT\_TRUE,\ value.i,\ 1)}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ SET\_BOOL\_VALUE(r,b)\ BOXNIX\_SET\_VALUE(r,\ b\ ?\ MRB\_TT\_TRUE\ :\ MRB\_TT\_FALSE,\ value.i,\ 1)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ SET\_INT\_VALUE(mrb,r,n)\ BOXNIX\_SET\_VALUE(r,\ MRB\_TT\_INTEGER,\ value.i,\ (n))}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ SET\_FIXNUM\_VALUE(r,n)\ BOXNIX\_SET\_VALUE(r,\ MRB\_TT\_INTEGER,\ value.i,\ (n))}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifndef\ MRB\_NO\_FLOAT}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ SET\_FLOAT\_VALUE(mrb,r,v)\ BOXNIX\_SET\_VALUE(r,\ MRB\_TT\_FLOAT,\ value.f,\ (v))}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ SET\_SYM\_VALUE(r,v)\ BOXNIX\_SET\_VALUE(r,\ MRB\_TT\_SYMBOL,\ value.sym,\ (v))}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ SET\_OBJ\_VALUE(r,v)\ BOXNIX\_SET\_VALUE(r,\ (((struct\ RObject*)(v))-\/>tt),\ value.p,\ (v))}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ SET\_CPTR\_VALUE(mrb,r,v)\ BOXNIX\_SET\_VALUE(r,\ MRB\_TT\_CPTR,\ value.p,\ v)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ SET\_UNDEF\_VALUE(r)\ BOXNIX\_SET\_VALUE(r,\ MRB\_TT\_UNDEF,\ value.i,\ 0)}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_BOXING\_NO\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

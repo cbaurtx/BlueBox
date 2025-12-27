@@ -1,0 +1,16 @@
+<map id="backtrace_location" name="backtrace_location">
+<area shape="rect" id="Node000001" title=" " alt="" coords="114,421,244,448"/>
+<area shape="rect" id="Node000002" href="$structmrb__irep.html" title=" " alt="" coords="143,323,214,349"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,363,181,422,176,420,177,367"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="230,326,238,330,241,336,233,345,216,348,214,343,230,341,236,336,234,333,230,331"/>
+<area shape="rect" id="Node000003" href="$structmrb__pool__value.html" title=" " alt="" coords="5,203,118,229"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="84,238,143,297,168,322,163,322,140,301,83,243"/>
+<area shape="rect" id="Node000004" href="$classmrb__sym.html" title=" " alt="" coords="141,203,216,229"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="180,243,181,323,176,321,177,247"/>
+<area shape="rect" id="Node000005" href="$structmrb__irep__debug__info.html" title=" " alt="" coords="240,203,382,229"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="290,239,226,301,197,324,193,320,222,297,285,242"/>
+<area shape="rect" id="Node000006" href="$structmrb__irep__debug__info__file.html" title=" " alt="" coords="228,104,394,131"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="312,144,313,203,308,201,310,149"/>
+<area shape="rect" id="Node000007" href="$structmrb__irep__debug__info__line.html" title=" " alt="" coords="227,5,395,32"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="312,45,313,105,308,103,310,50"/>
+</map>

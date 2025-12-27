@@ -1,0 +1,418 @@
+\doxysection{nghttp2\+\_\+buf.\+h}
+\hypertarget{nghttp2__buf_8h_source}{}\label{nghttp2__buf_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_buf.h@{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_buf.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2014\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_BUF\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ NGHTTP2\_BUF\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifdef\ HAVE\_CONFIG\_H}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ \ include\ <config.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_CONFIG\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_int.h"{}}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_mem.h"{}}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00038\ \ \ \textcolor{comment}{/*\ This\ points\ to\ the\ beginning\ of\ the\ buffer.\ The\ effective\ range}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ of\ buffer\ is\ [begin,\ end).\ */}}
+\DoxyCodeLine{00040\ \ \ uint8\_t\ *begin;}
+\DoxyCodeLine{00041\ \ \ \textcolor{comment}{/*\ This\ points\ to\ the\ memory\ one\ byte\ beyond\ the\ end\ of\ the}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ buffer.\ */}}
+\DoxyCodeLine{00043\ \ \ uint8\_t\ *end;}
+\DoxyCodeLine{00044\ \ \ \textcolor{comment}{/*\ The\ position\ indicator\ for\ effective\ start\ of\ the\ buffer.\ pos\ <=}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ \ \ \ \ last\ must\ be\ hold.\ */}}
+\DoxyCodeLine{00046\ \ \ uint8\_t\ *pos;}
+\DoxyCodeLine{00047\ \ \ \textcolor{comment}{/*\ The\ position\ indicator\ for\ effective\ one\ beyond\ of\ the\ end\ of\ the}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ \ \ \ \ buffer.\ last\ <=\ end\ must\ be\ hold.\ */}}
+\DoxyCodeLine{00049\ \ \ uint8\_t\ *last;}
+\DoxyCodeLine{00050\ \ \ \textcolor{comment}{/*\ Mark\ arbitrary\ position\ in\ buffer\ [begin,\ end)\ */}}
+\DoxyCodeLine{00051\ \ \ uint8\_t\ *mark;}
+\DoxyCodeLine{00052\ \}\ \mbox{\hyperlink{structnghttp2__buf}{nghttp2\_buf}};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ nghttp2\_buf\_len(BUF)\ ((size\_t)((BUF)-\/>last\ -\/\ (BUF)-\/>pos))}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ nghttp2\_buf\_avail(BUF)\ ((size\_t)((BUF)-\/>end\ -\/\ (BUF)-\/>last))}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ nghttp2\_buf\_mark\_avail(BUF)\ ((size\_t)((BUF)-\/>mark\ -\/\ (BUF)-\/>last))}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ nghttp2\_buf\_cap(BUF)\ ((size\_t)((BUF)-\/>end\ -\/\ (BUF)-\/>begin))}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ nghttp2\_buf\_pos\_offset(BUF)\ ((size\_t)((BUF)-\/>pos\ -\/\ (BUF)-\/>begin))}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ nghttp2\_buf\_last\_offset(BUF)\ ((size\_t)((BUF)-\/>last\ -\/\ (BUF)-\/>begin))}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ nghttp2\_buf\_shift\_right(BUF,\ AMT)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\ \ \ \ (BUF)-\/>pos\ +=\ AMT;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\ \ \ \ (BUF)-\/>last\ +=\ AMT;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ nghttp2\_buf\_shift\_left(BUF,\ AMT)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\ \ \ \ (BUF)-\/>pos\ -\/=\ AMT;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \ \ (BUF)-\/>last\ -\/=\ AMT;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ *\ Initializes\ the\ |buf|.\ No\ memory\ is\ allocated\ in\ this\ function.\ Use}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *\ nghttp2\_buf\_reserve()\ to\ allocate\ memory.}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00078\ \textcolor{keywordtype}{void}\ nghttp2\_buf\_init(\mbox{\hyperlink{structnghttp2__buf}{nghttp2\_buf}}\ *buf);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ *\ Initializes\ the\ |buf|\ and\ allocates\ at\ least\ |initial|\ bytes\ of}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ *\ memory.}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00090\ \textcolor{keywordtype}{int}\ nghttp2\_buf\_init2(\mbox{\hyperlink{structnghttp2__buf}{nghttp2\_buf}}\ *buf,\ \textcolor{keywordtype}{size\_t}\ initial,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ *\ Frees\ buffer\ in\ |buf|.}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00095\ \textcolor{keywordtype}{void}\ nghttp2\_buf\_free(\mbox{\hyperlink{structnghttp2__buf}{nghttp2\_buf}}\ *buf,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ *\ Extends\ buffer\ so\ that\ nghttp2\_buf\_cap()\ returns\ at\ least}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ *\ |new\_cap|.\ If\ extensions\ took\ place,\ buffer\ pointers\ in\ |buf|\ will}}
+\DoxyCodeLine{00100\ \textcolor{comment}{\ *\ change.}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00108\ \textcolor{keywordtype}{int}\ nghttp2\_buf\_reserve(\mbox{\hyperlink{structnghttp2__buf}{nghttp2\_buf}}\ *buf,\ \textcolor{keywordtype}{size\_t}\ new\_cap,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ *\ Resets\ pos,\ last,\ mark\ member\ of\ |buf|\ to\ buf-\/>begin.}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00113\ \textcolor{keywordtype}{void}\ nghttp2\_buf\_reset(\mbox{\hyperlink{structnghttp2__buf}{nghttp2\_buf}}\ *buf);}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ *\ Initializes\ |buf|\ using\ supplied\ buffer\ |begin|\ of\ length}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ *\ |len|.\ Semantically,\ the\ application\ should\ not\ call\ *\_reserve()\ or}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ *\ nghttp2\_free()\ functions\ for\ |buf|.}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00120\ \textcolor{keywordtype}{void}\ nghttp2\_buf\_wrap\_init(\mbox{\hyperlink{structnghttp2__buf}{nghttp2\_buf}}\ *buf,\ uint8\_t\ *begin,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__buf__chain}{nghttp2\_buf\_chain}};}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__buf__chain}{nghttp2\_buf\_chain}}\ \mbox{\hyperlink{structnghttp2__buf__chain}{nghttp2\_buf\_chain}};}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{comment}{/*\ Chains\ 2\ buffers\ */}}
+\DoxyCodeLine{00127\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__buf__chain}{nghttp2\_buf\_chain}}\ \{}
+\DoxyCodeLine{00128\ \ \ \textcolor{comment}{/*\ Points\ to\ the\ subsequent\ buffer.\ NULL\ if\ there\ is\ no\ such}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ \ \ \ \ buffer.\ */}}
+\DoxyCodeLine{00130\ \ \ \mbox{\hyperlink{structnghttp2__buf__chain}{nghttp2\_buf\_chain}}\ *next;}
+\DoxyCodeLine{00131\ \ \ \mbox{\hyperlink{structnghttp2__buf}{nghttp2\_buf}}\ buf;}
+\DoxyCodeLine{00132\ \};}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00135\ \ \ \textcolor{comment}{/*\ Points\ to\ the\ first\ buffer\ */}}
+\DoxyCodeLine{00136\ \ \ \mbox{\hyperlink{structnghttp2__buf__chain}{nghttp2\_buf\_chain}}\ *head;}
+\DoxyCodeLine{00137\ \ \ \textcolor{comment}{/*\ Buffer\ pointer\ where\ write\ occurs.\ */}}
+\DoxyCodeLine{00138\ \ \ \mbox{\hyperlink{structnghttp2__buf__chain}{nghttp2\_buf\_chain}}\ *cur;}
+\DoxyCodeLine{00139\ \ \ \textcolor{comment}{/*\ Memory\ allocator\ */}}
+\DoxyCodeLine{00140\ \ \ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem;}
+\DoxyCodeLine{00141\ \ \ \textcolor{comment}{/*\ The\ buffer\ capacity\ of\ each\ buf.\ \ This\ field\ may\ be\ 0\ if}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ \ \ \ \ nghttp2\_bufs\ is\ initialized\ by\ nghttp2\_bufs\_wrap\_init*\ family}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ \ \ \ \ functions.\ */}}
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{size\_t}\ chunk\_length;}
+\DoxyCodeLine{00145\ \ \ \textcolor{comment}{/*\ The\ maximum\ number\ of\ nghttp2\_buf\_chain\ */}}
+\DoxyCodeLine{00146\ \ \ \textcolor{keywordtype}{size\_t}\ max\_chunk;}
+\DoxyCodeLine{00147\ \ \ \textcolor{comment}{/*\ The\ number\ of\ nghttp2\_buf\_chain\ allocated\ */}}
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordtype}{size\_t}\ chunk\_used;}
+\DoxyCodeLine{00149\ \ \ \textcolor{comment}{/*\ The\ number\ of\ nghttp2\_buf\_chain\ to\ keep\ on\ reset\ */}}
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordtype}{size\_t}\ chunk\_keep;}
+\DoxyCodeLine{00151\ \ \ \textcolor{comment}{/*\ pos\ offset\ from\ begin\ in\ each\ buffers.\ On\ initialization\ and}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ \ \ \ \ reset,\ buf-\/>pos\ and\ buf-\/>last\ are\ positioned\ at\ buf-\/>begin\ +}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ \ \ \ \ offset.\ */}}
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{size\_t}\ offset;}
+\DoxyCodeLine{00155\ \}\ \mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}};}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00158\ \textcolor{comment}{\ *\ This\ is\ the\ same\ as\ calling\ nghttp2\_bufs\_init2\ with\ the\ given}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ *\ arguments\ and\ offset\ =\ 0.}}
+\DoxyCodeLine{00160\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00161\ \textcolor{keywordtype}{int}\ nghttp2\_bufs\_init(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \textcolor{keywordtype}{size\_t}\ chunk\_length,\ \textcolor{keywordtype}{size\_t}\ max\_chunk,}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ *\ This\ is\ the\ same\ as\ calling\ nghttp2\_bufs\_init3\ with\ the\ given}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ *\ arguments\ and\ chunk\_keep\ =\ max\_chunk.}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00168\ \textcolor{keywordtype}{int}\ nghttp2\_bufs\_init2(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \textcolor{keywordtype}{size\_t}\ chunk\_length,}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ max\_chunk,\ \textcolor{keywordtype}{size\_t}\ offset,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00172\ \textcolor{comment}{\ *\ Initializes\ |bufs|.\ Each\ buffer\ size\ is\ given\ in\ the}}
+\DoxyCodeLine{00173\ \textcolor{comment}{\ *\ |chunk\_length|.\ \ The\ maximum\ number\ of\ buffers\ is\ given\ in\ the}}
+\DoxyCodeLine{00174\ \textcolor{comment}{\ *\ |max\_chunk|.\ \ On\ reset,\ first\ |chunk\_keep|\ buffers\ are\ kept\ and}}
+\DoxyCodeLine{00175\ \textcolor{comment}{\ *\ remaining\ buffers\ are\ deleted.\ \ Each\ buffer\ will\ have\ bufs-\/>pos\ and}}
+\DoxyCodeLine{00176\ \textcolor{comment}{\ *\ bufs-\/>last\ shifted\ to\ left\ by\ |offset|\ bytes\ on\ creation\ and\ reset.}}
+\DoxyCodeLine{00177\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00178\ \textcolor{comment}{\ *\ This\ function\ allocates\ first\ buffer.\ \ bufs-\/>head\ and\ bufs-\/>cur}}
+\DoxyCodeLine{00179\ \textcolor{comment}{\ *\ will\ point\ to\ the\ first\ buffer\ after\ this\ call.}}
+\DoxyCodeLine{00180\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00181\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00182\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00183\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00184\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00185\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00186\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_INVALID\_ARGUMENT}}
+\DoxyCodeLine{00187\ \textcolor{comment}{\ *\ \ \ \ \ chunk\_keep\ is\ 0;\ or\ max\_chunk\ <\ chunk\_keep;\ or\ offset\ is\ too}}
+\DoxyCodeLine{00188\ \textcolor{comment}{\ *\ \ \ \ \ long.}}
+\DoxyCodeLine{00189\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00190\ \textcolor{keywordtype}{int}\ nghttp2\_bufs\_init3(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \textcolor{keywordtype}{size\_t}\ chunk\_length,}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ max\_chunk,\ \textcolor{keywordtype}{size\_t}\ chunk\_keep,\ \textcolor{keywordtype}{size\_t}\ offset,}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00195\ \textcolor{comment}{\ *\ Frees\ any\ related\ resources\ to\ the\ |bufs|.}}
+\DoxyCodeLine{00196\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00197\ \textcolor{keywordtype}{void}\ nghttp2\_bufs\_free(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs);}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00200\ \textcolor{comment}{\ *\ Initializes\ |bufs|\ using\ supplied\ buffer\ |begin|\ of\ length\ |len|.}}
+\DoxyCodeLine{00201\ \textcolor{comment}{\ *\ The\ first\ buffer\ bufs-\/>head\ uses\ buffer\ |begin|.\ \ The\ buffer\ size}}
+\DoxyCodeLine{00202\ \textcolor{comment}{\ *\ is\ fixed\ and\ no\ extra\ chunk\ buffer\ is\ allocated.\ \ In\ other}}
+\DoxyCodeLine{00203\ \textcolor{comment}{\ *\ words,\ max\_chunk\ =\ chunk\_keep\ =\ 1.\ \ To\ free\ the\ resource\ allocated}}
+\DoxyCodeLine{00204\ \textcolor{comment}{\ *\ for\ |bufs|,\ use\ nghttp2\_bufs\_wrap\_free().}}
+\DoxyCodeLine{00205\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00206\ \textcolor{comment}{\ *\ Don't\ use\ the\ function\ which\ performs\ allocation,\ such\ as}}
+\DoxyCodeLine{00207\ \textcolor{comment}{\ *\ nghttp2\_bufs\_realloc().}}
+\DoxyCodeLine{00208\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00209\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00210\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00211\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00212\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00213\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00214\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00215\ \textcolor{keywordtype}{int}\ nghttp2\_bufs\_wrap\_init(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ uint8\_t\ *begin,\ \textcolor{keywordtype}{size\_t}\ len,}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00219\ \textcolor{comment}{\ *\ Initializes\ |bufs|\ using\ supplied\ |veclen|\ size\ of\ buf\ vector}}
+\DoxyCodeLine{00220\ \textcolor{comment}{\ *\ |vec|.\ \ The\ number\ of\ buffers\ is\ fixed\ and\ no\ extra\ chunk\ buffer\ is}}
+\DoxyCodeLine{00221\ \textcolor{comment}{\ *\ allocated.\ \ In\ other\ words,\ max\_chunk\ =\ chunk\_keep\ =\ |in\_len|.\ \ To}}
+\DoxyCodeLine{00222\ \textcolor{comment}{\ *\ free\ the\ resource\ allocated\ for\ |bufs|,\ use}}
+\DoxyCodeLine{00223\ \textcolor{comment}{\ *\ nghttp2\_bufs\_wrap\_free().}}
+\DoxyCodeLine{00224\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00225\ \textcolor{comment}{\ *\ Don't\ use\ the\ function\ which\ performs\ allocation,\ such\ as}}
+\DoxyCodeLine{00226\ \textcolor{comment}{\ *\ nghttp2\_bufs\_realloc().}}
+\DoxyCodeLine{00227\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00228\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00229\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00230\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00231\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00232\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00233\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00234\ \textcolor{keywordtype}{int}\ nghttp2\_bufs\_wrap\_init2(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__vec}{nghttp2\_vec}}\ *vec,}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ veclen,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00238\ \textcolor{comment}{\ *\ Frees\ any\ related\ resource\ to\ the\ |bufs|.\ \ This\ function\ does\ not}}
+\DoxyCodeLine{00239\ \textcolor{comment}{\ *\ free\ supplied\ buffer\ provided\ in\ nghttp2\_bufs\_wrap\_init().}}
+\DoxyCodeLine{00240\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00241\ \textcolor{keywordtype}{void}\ nghttp2\_bufs\_wrap\_free(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs);}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00244\ \textcolor{comment}{\ *\ Reallocates\ internal\ buffer\ using\ |chunk\_length|.\ \ The\ max\_chunk,}}
+\DoxyCodeLine{00245\ \textcolor{comment}{\ *\ chunk\_keep\ and\ offset\ do\ not\ change.\ \ After\ successful\ allocation}}
+\DoxyCodeLine{00246\ \textcolor{comment}{\ *\ of\ new\ buffer,\ previous\ buffers\ are\ deallocated\ without\ copying}}
+\DoxyCodeLine{00247\ \textcolor{comment}{\ *\ anything\ into\ new\ buffers.\ \ chunk\_used\ is\ reset\ to\ 1.}}
+\DoxyCodeLine{00248\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00249\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00250\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00251\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00252\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00253\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00254\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_INVALID\_ARGUMENT}}
+\DoxyCodeLine{00255\ \textcolor{comment}{\ *\ \ \ \ \ chunk\_length\ <\ offset}}
+\DoxyCodeLine{00256\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00257\ \textcolor{keywordtype}{int}\ nghttp2\_bufs\_realloc(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \textcolor{keywordtype}{size\_t}\ chunk\_length);}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00260\ \textcolor{comment}{\ *\ Appends\ the\ |data|\ of\ length\ |len|\ to\ the\ |bufs|.\ The\ write\ starts}}
+\DoxyCodeLine{00261\ \textcolor{comment}{\ *\ at\ bufs-\/>cur-\/>buf.last.\ A\ new\ buffers\ will\ be\ allocated\ to\ store}}
+\DoxyCodeLine{00262\ \textcolor{comment}{\ *\ all\ data.}}
+\DoxyCodeLine{00263\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00264\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00265\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00266\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00267\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00268\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00269\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_BUFFER\_ERROR}}
+\DoxyCodeLine{00270\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ buffer\ space.}}
+\DoxyCodeLine{00271\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00272\ \textcolor{keywordtype}{int}\ nghttp2\_bufs\_add(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00275\ \textcolor{comment}{\ *\ Appends\ a\ single\ byte\ |b|\ to\ the\ |bufs|.\ The\ write\ starts\ at}}
+\DoxyCodeLine{00276\ \textcolor{comment}{\ *\ bufs-\/>cur-\/>buf.last.\ A\ new\ buffers\ will\ be\ allocated\ to\ store\ all}}
+\DoxyCodeLine{00277\ \textcolor{comment}{\ *\ data.}}
+\DoxyCodeLine{00278\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00279\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00280\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00281\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00282\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00283\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00284\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_BUFFER\_ERROR}}
+\DoxyCodeLine{00285\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ buffer\ space.}}
+\DoxyCodeLine{00286\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00287\ \textcolor{keywordtype}{int}\ nghttp2\_bufs\_addb(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ uint8\_t\ b);}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00290\ \textcolor{comment}{\ *\ Behaves\ like\ nghttp2\_bufs\_addb(),\ but\ this\ does\ not\ update}}
+\DoxyCodeLine{00291\ \textcolor{comment}{\ *\ buf-\/>last\ pointer.}}
+\DoxyCodeLine{00292\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00293\ \textcolor{keywordtype}{int}\ nghttp2\_bufs\_addb\_hold(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ uint8\_t\ b);}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\#define\ nghttp2\_bufs\_fast\_addb(BUFS,\ B)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\ \ \ \ *(BUFS)-\/>cur-\/>buf.last++\ =\ B;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#define\ nghttp2\_bufs\_fast\_addb\_hold(BUFS,\ B)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\ \ \ \ *(BUFS)-\/>cur-\/>buf.last\ =\ B;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00306\ \textcolor{comment}{\ *\ Performs\ bitwise-\/OR\ of\ |b|\ at\ bufs-\/>cur-\/>buf.last.\ A\ new\ buffers}}
+\DoxyCodeLine{00307\ \textcolor{comment}{\ *\ will\ be\ allocated\ if\ necessary.}}
+\DoxyCodeLine{00308\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00309\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00310\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00311\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00312\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00313\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory.}}
+\DoxyCodeLine{00314\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_BUFFER\_ERROR}}
+\DoxyCodeLine{00315\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ buffer\ space.}}
+\DoxyCodeLine{00316\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00317\ \textcolor{keywordtype}{int}\ nghttp2\_bufs\_orb(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ uint8\_t\ b);}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00320\ \textcolor{comment}{\ *\ Behaves\ like\ nghttp2\_bufs\_orb(),\ but\ does\ not\ update\ buf-\/>last}}
+\DoxyCodeLine{00321\ \textcolor{comment}{\ *\ pointer.}}
+\DoxyCodeLine{00322\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00323\ \textcolor{keywordtype}{int}\ nghttp2\_bufs\_orb\_hold(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ uint8\_t\ b);}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\#define\ nghttp2\_bufs\_fast\_orb(BUFS,\ B)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\ \ \ \ uint8\_t\ **p\ =\ \&(BUFS)-\/>cur-\/>buf.last;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\ \ \ \ **p\ =\ (uint8\_t)(**p\ |\ (B));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\ \ \ \ ++(*p);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\#define\ nghttp2\_bufs\_fast\_orb\_hold(BUFS,\ B)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\ \ \ \ uint8\_t\ *p\ =\ (BUFS)-\/>cur-\/>buf.last;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00335\ \textcolor{preprocessor}{\ \ \ \ *p\ =\ (uint8\_t)(*p\ |\ (B));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00336\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00339\ \textcolor{comment}{\ *\ Copies\ all\ data\ stored\ in\ |bufs|\ to\ the\ contiguous\ buffer.\ \ This}}
+\DoxyCodeLine{00340\ \textcolor{comment}{\ *\ function\ allocates\ the\ contiguous\ memory\ to\ store\ all\ data\ in}}
+\DoxyCodeLine{00341\ \textcolor{comment}{\ *\ |bufs|\ and\ assigns\ it\ to\ |*out|.}}
+\DoxyCodeLine{00342\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00343\ \textcolor{comment}{\ *\ The\ contents\ of\ |bufs|\ is\ left\ unchanged.}}
+\DoxyCodeLine{00344\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00345\ \textcolor{comment}{\ *\ This\ function\ returns\ the\ length\ of\ copied\ data\ and\ assigns\ the}}
+\DoxyCodeLine{00346\ \textcolor{comment}{\ *\ pointer\ to\ copied\ data\ to\ |*out|\ if\ it\ succeeds,\ or\ one\ of\ the}}
+\DoxyCodeLine{00347\ \textcolor{comment}{\ *\ following\ negative\ error\ codes:}}
+\DoxyCodeLine{00348\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00349\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00350\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory}}
+\DoxyCodeLine{00351\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00352\ nghttp2\_ssize\ nghttp2\_bufs\_remove(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ uint8\_t\ **out);}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00355\ \textcolor{comment}{\ *\ Copies\ all\ data\ stored\ in\ |bufs|\ to\ |out|.\ \ This\ function\ assumes}}
+\DoxyCodeLine{00356\ \textcolor{comment}{\ *\ that\ the\ buffer\ space\ pointed\ by\ |out|\ has\ at\ least}}
+\DoxyCodeLine{00357\ \textcolor{comment}{\ *\ nghttp2\_bufs(bufs)\ bytes.}}
+\DoxyCodeLine{00358\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00359\ \textcolor{comment}{\ *\ The\ contents\ of\ |bufs|\ is\ left\ unchanged.}}
+\DoxyCodeLine{00360\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00361\ \textcolor{comment}{\ *\ This\ function\ returns\ the\ length\ of\ copied\ data.}}
+\DoxyCodeLine{00362\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00363\ \textcolor{keywordtype}{size\_t}\ nghttp2\_bufs\_remove\_copy(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs,\ uint8\_t\ *out);}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00366\ \textcolor{comment}{\ *\ Resets\ |bufs|\ and\ makes\ the\ buffers\ empty.}}
+\DoxyCodeLine{00367\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00368\ \textcolor{keywordtype}{void}\ nghttp2\_bufs\_reset(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs);}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00371\ \textcolor{comment}{\ *\ Moves\ bufs-\/>cur\ to\ bufs-\/>cur-\/>next.\ \ If\ resulting\ bufs-\/>cur\ is}}
+\DoxyCodeLine{00372\ \textcolor{comment}{\ *\ NULL,\ this\ function\ allocates\ new\ buffers\ and\ bufs-\/>cur\ points\ to}}
+\DoxyCodeLine{00373\ \textcolor{comment}{\ *\ it.}}
+\DoxyCodeLine{00374\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00375\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00376\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00377\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00378\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00379\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory}}
+\DoxyCodeLine{00380\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_BUFFER\_ERROR}}
+\DoxyCodeLine{00381\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ buffer\ space.}}
+\DoxyCodeLine{00382\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00383\ \textcolor{keywordtype}{int}\ nghttp2\_bufs\_advance(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs);}
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00385\ \textcolor{comment}{/*\ Sets\ bufs-\/>cur\ to\ bufs-\/>head\ */}}
+\DoxyCodeLine{00386\ \textcolor{preprocessor}{\#define\ nghttp2\_bufs\_rewind(BUFS)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00387\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00388\ \textcolor{preprocessor}{\ \ \ \ (BUFS)-\/>cur\ =\ (BUFS)-\/>head;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00389\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00392\ \textcolor{comment}{\ *\ Move\ bufs-\/>cur,\ from\ the\ current\ position,\ using\ next\ member,\ to}}
+\DoxyCodeLine{00393\ \textcolor{comment}{\ *\ the\ last\ buf\ which\ has\ nghttp2\_buf\_len(buf)\ >\ 0\ without\ seeing\ buf}}
+\DoxyCodeLine{00394\ \textcolor{comment}{\ *\ which\ satisfies\ nghttp2\_buf\_len(buf)\ ==\ 0.\ \ If}}
+\DoxyCodeLine{00395\ \textcolor{comment}{\ *\ nghttp2\_buf\_len(\&bufs-\/>cur-\/>buf)\ ==\ 0\ or\ bufs-\/>cur-\/>next\ is\ NULL,}}
+\DoxyCodeLine{00396\ \textcolor{comment}{\ *\ bufs-\/>cur\ is\ unchanged.}}
+\DoxyCodeLine{00397\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00398\ \textcolor{keywordtype}{void}\ nghttp2\_bufs\_seek\_last\_present(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs);}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00401\ \textcolor{comment}{\ *\ Returns\ nonzero\ if\ bufs-\/>cur-\/>next\ is\ not\ empty.}}
+\DoxyCodeLine{00402\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00403\ \textcolor{keywordtype}{int}\ nghttp2\_bufs\_next\_present(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs);}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \textcolor{preprocessor}{\#define\ nghttp2\_bufs\_cur\_avail(BUFS)\ nghttp2\_buf\_avail(\&(BUFS)-\/>cur-\/>buf)}}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00408\ \textcolor{comment}{\ *\ Returns\ the\ total\ buffer\ length\ of\ |bufs|.}}
+\DoxyCodeLine{00409\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00410\ \textcolor{keywordtype}{size\_t}\ nghttp2\_bufs\_len(\mbox{\hyperlink{structnghttp2__bufs}{nghttp2\_bufs}}\ *bufs);}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00412\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_BUF\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

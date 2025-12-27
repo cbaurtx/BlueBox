@@ -1,0 +1,109 @@
+\doxysection{node.\+h}
+\hypertarget{node_8h_source}{}\label{node_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/compiler/core/node.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/compiler/core/node.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ node.h\ -\/\ nodes\ of\ abstract\ syntax\ tree}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ See\ Copyright\ Notice\ in\ mruby.h}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_COMPILER\_NODE\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_COMPILER\_NODE\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{enum}\ node\_type\ \{}
+\DoxyCodeLine{00011\ \ \ NODE\_METHOD,}
+\DoxyCodeLine{00012\ \ \ NODE\_SCOPE,}
+\DoxyCodeLine{00013\ \ \ NODE\_BLOCK,}
+\DoxyCodeLine{00014\ \ \ NODE\_IF,}
+\DoxyCodeLine{00015\ \ \ NODE\_CASE,}
+\DoxyCodeLine{00016\ \ \ NODE\_WHEN,}
+\DoxyCodeLine{00017\ \ \ NODE\_WHILE,}
+\DoxyCodeLine{00018\ \ \ NODE\_UNTIL,}
+\DoxyCodeLine{00019\ \ \ NODE\_ITER,}
+\DoxyCodeLine{00020\ \ \ NODE\_FOR,}
+\DoxyCodeLine{00021\ \ \ NODE\_BREAK,}
+\DoxyCodeLine{00022\ \ \ NODE\_NEXT,}
+\DoxyCodeLine{00023\ \ \ NODE\_REDO,}
+\DoxyCodeLine{00024\ \ \ NODE\_RETRY,}
+\DoxyCodeLine{00025\ \ \ NODE\_BEGIN,}
+\DoxyCodeLine{00026\ \ \ NODE\_RESCUE,}
+\DoxyCodeLine{00027\ \ \ NODE\_ENSURE,}
+\DoxyCodeLine{00028\ \ \ NODE\_AND,}
+\DoxyCodeLine{00029\ \ \ NODE\_OR,}
+\DoxyCodeLine{00030\ \ \ NODE\_NOT,}
+\DoxyCodeLine{00031\ \ \ NODE\_MASGN,}
+\DoxyCodeLine{00032\ \ \ NODE\_ASGN,}
+\DoxyCodeLine{00033\ \ \ NODE\_CDECL,}
+\DoxyCodeLine{00034\ \ \ NODE\_CVASGN,}
+\DoxyCodeLine{00035\ \ \ NODE\_CVDECL,}
+\DoxyCodeLine{00036\ \ \ NODE\_OP\_ASGN,}
+\DoxyCodeLine{00037\ \ \ NODE\_CALL,}
+\DoxyCodeLine{00038\ \ \ NODE\_SCALL,}
+\DoxyCodeLine{00039\ \ \ NODE\_FCALL,}
+\DoxyCodeLine{00040\ \ \ NODE\_SUPER,}
+\DoxyCodeLine{00041\ \ \ NODE\_ZSUPER,}
+\DoxyCodeLine{00042\ \ \ NODE\_ARRAY,}
+\DoxyCodeLine{00043\ \ \ NODE\_ZARRAY,}
+\DoxyCodeLine{00044\ \ \ NODE\_HASH,}
+\DoxyCodeLine{00045\ \ \ NODE\_KW\_HASH,}
+\DoxyCodeLine{00046\ \ \ NODE\_RETURN,}
+\DoxyCodeLine{00047\ \ \ NODE\_YIELD,}
+\DoxyCodeLine{00048\ \ \ NODE\_LVAR,}
+\DoxyCodeLine{00049\ \ \ NODE\_DVAR,}
+\DoxyCodeLine{00050\ \ \ NODE\_GVAR,}
+\DoxyCodeLine{00051\ \ \ NODE\_IVAR,}
+\DoxyCodeLine{00052\ \ \ NODE\_CONST,}
+\DoxyCodeLine{00053\ \ \ NODE\_CVAR,}
+\DoxyCodeLine{00054\ \ \ NODE\_NVAR,}
+\DoxyCodeLine{00055\ \ \ NODE\_NTH\_REF,}
+\DoxyCodeLine{00056\ \ \ NODE\_BACK\_REF,}
+\DoxyCodeLine{00057\ \ \ NODE\_MATCH,}
+\DoxyCodeLine{00058\ \ \ NODE\_INT,}
+\DoxyCodeLine{00059\ \ \ NODE\_FLOAT,}
+\DoxyCodeLine{00060\ \ \ NODE\_NEGATE,}
+\DoxyCodeLine{00061\ \ \ NODE\_LAMBDA,}
+\DoxyCodeLine{00062\ \ \ NODE\_SYM,}
+\DoxyCodeLine{00063\ \ \ NODE\_STR,}
+\DoxyCodeLine{00064\ \ \ NODE\_DSTR,}
+\DoxyCodeLine{00065\ \ \ NODE\_XSTR,}
+\DoxyCodeLine{00066\ \ \ NODE\_DXSTR,}
+\DoxyCodeLine{00067\ \ \ NODE\_REGX,}
+\DoxyCodeLine{00068\ \ \ NODE\_DREGX,}
+\DoxyCodeLine{00069\ \ \ NODE\_DREGX\_ONCE,}
+\DoxyCodeLine{00070\ \ \ NODE\_ARG,}
+\DoxyCodeLine{00071\ \ \ NODE\_ARGS\_TAIL,}
+\DoxyCodeLine{00072\ \ \ NODE\_KW\_ARG,}
+\DoxyCodeLine{00073\ \ \ NODE\_KW\_REST\_ARGS,}
+\DoxyCodeLine{00074\ \ \ NODE\_SPLAT,}
+\DoxyCodeLine{00075\ \ \ NODE\_TO\_ARY,}
+\DoxyCodeLine{00076\ \ \ NODE\_SVALUE,}
+\DoxyCodeLine{00077\ \ \ NODE\_BLOCK\_ARG,}
+\DoxyCodeLine{00078\ \ \ NODE\_DEF,}
+\DoxyCodeLine{00079\ \ \ NODE\_SDEF,}
+\DoxyCodeLine{00080\ \ \ NODE\_ALIAS,}
+\DoxyCodeLine{00081\ \ \ NODE\_UNDEF,}
+\DoxyCodeLine{00082\ \ \ NODE\_CLASS,}
+\DoxyCodeLine{00083\ \ \ NODE\_MODULE,}
+\DoxyCodeLine{00084\ \ \ NODE\_SCLASS,}
+\DoxyCodeLine{00085\ \ \ NODE\_COLON2,}
+\DoxyCodeLine{00086\ \ \ NODE\_COLON3,}
+\DoxyCodeLine{00087\ \ \ NODE\_DOT2,}
+\DoxyCodeLine{00088\ \ \ NODE\_DOT3,}
+\DoxyCodeLine{00089\ \ \ NODE\_SELF,}
+\DoxyCodeLine{00090\ \ \ NODE\_NIL,}
+\DoxyCodeLine{00091\ \ \ NODE\_TRUE,}
+\DoxyCodeLine{00092\ \ \ NODE\_FALSE,}
+\DoxyCodeLine{00093\ \ \ NODE\_DEFINED,}
+\DoxyCodeLine{00094\ \ \ NODE\_POSTEXE,}
+\DoxyCodeLine{00095\ \ \ NODE\_DSYM,}
+\DoxyCodeLine{00096\ \ \ NODE\_HEREDOC,}
+\DoxyCodeLine{00097\ \ \ NODE\_LITERAL\_DELIM,}
+\DoxyCodeLine{00098\ \ \ NODE\_WORDS,}
+\DoxyCodeLine{00099\ \ \ NODE\_SYMBOLS,}
+\DoxyCodeLine{00100\ \ \ NODE\_LAST}
+\DoxyCodeLine{00101\ \};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_COMPILER\_NODE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

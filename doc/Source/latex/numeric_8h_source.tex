@@ -1,0 +1,171 @@
+\doxysection{numeric.\+h}
+\hypertarget{numeric_8h_source}{}\label{numeric_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/numeric.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/numeric.h}}
+\mbox{\hyperlink{numeric_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_NUMERIC\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_NUMERIC\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{common_8h}{common.h}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00017\ \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\_BEGIN\_DECL}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ TYPED\_POSFIXABLE(f,t)\ ((f)\ <=\ (t)MRB\_FIXNUM\_MAX)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ TYPED\_NEGFIXABLE(f,t)\ ((f)\ >=\ (t)MRB\_FIXNUM\_MIN)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ TYPED\_FIXABLE(f,t)\ (TYPED\_POSFIXABLE(f,t)\ \&\&\ TYPED\_NEGFIXABLE(f,t))}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ POSFIXABLE(f)\ TYPED\_POSFIXABLE(f,mrb\_int)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ NEGFIXABLE(f)\ TYPED\_NEGFIXABLE(f,mrb\_int)}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ FIXABLE(f)\ TYPED\_FIXABLE(f,mrb\_int)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ MRB\_NO\_FLOAT}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#ifdef\ MRB\_INT64}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ FIXABLE\_FLOAT(f)\ ((f)>=-\/9223372036854775808.0\ \&\&\ (f)<9223372036854775808.0)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ FIXABLE\_FLOAT(f)\ TYPED\_FIXABLE(f,mrb\_float)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{comment}{/*\ utility\ functions\ */}}
+\DoxyCodeLine{00034\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_num\_add(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00035\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_num\_sub(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00036\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_num\_mul(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00037\ \textcolor{comment}{/*\ obsolete\ old\ names\ */}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ mrb\_num\_plus(mrb,\ x,\ y)\ mrb\_num\_add(mrb,\ x,\ y)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ mrb\_num\_minus(mrb,\ x,\ y)\ mrb\_num\_sub(mrb,\ x,\ y)}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_integer\_to\_str(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ mrb\_int\ base);}
+\DoxyCodeLine{00042\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{char}\ *mrb\_int\_to\_cstr(\textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{size\_t}\ len,\ mrb\_int\ n,\ mrb\_int\ base);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{comment}{/*\ obsolete\ function(s);\ will\ be\ removed\ */}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ mrb\_fixnum\_to\_str(mrb,\ x,\ base)\ mrb\_integer\_to\_str(mrb,\ x,\ base)}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#ifndef\ \_\_has\_builtin}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\ \ \#define\ \_\_has\_builtin(x)\ 0}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#if\ (defined(\_\_GNUC\_\_)\ \&\&\ \_\_GNUC\_\_\ >=\ 5)\ ||\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\ \ \ \ (\_\_has\_builtin(\_\_builtin\_add\_overflow)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\ \ \ \ \ \_\_has\_builtin(\_\_builtin\_sub\_overflow)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\ \ \ \ \ \_\_has\_builtin(\_\_builtin\_mul\_overflow))}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#\ define\ MRB\_HAVE\_TYPE\_GENERIC\_CHECKED\_ARITHMETIC\_BUILTINS}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00059\ \textcolor{comment}{//\ Clang\ 3.8\ and\ 3.9\ have\ problem\ compiling\ mruby\ in\ 32-\/bit\ mode,\ when\ MRB\_INT64\ is\ set}}
+\DoxyCodeLine{00060\ \textcolor{comment}{//\ because\ of\ missing\ \_\_mulodi4\ and\ similar\ functions\ in\ its\ runtime.\ We\ need\ to\ use\ custom}}
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ implementation\ for\ them.}}
+\DoxyCodeLine{00062\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#ifdef\ MRB\_HAVE\_TYPE\_GENERIC\_CHECKED\_ARITHMETIC\_BUILTINS}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#if\ defined(\_\_clang\_\_)\ \&\&\ (\_\_clang\_major\_\_\ ==\ 3)\ \&\&\ (\_\_clang\_minor\_\_\ >=\ 8)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\ \ \ \ defined(MRB\_32BIT)\ \&\&\ defined(MRB\_INT64)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#undef\ MRB\_HAVE\_TYPE\_GENERIC\_CHECKED\_ARITHMETIC\_BUILTINS}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#ifdef\ MRB\_HAVE\_TYPE\_GENERIC\_CHECKED\_ARITHMETIC\_BUILTINS}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ mrb\_bool}
+\DoxyCodeLine{00073\ mrb\_int\_add\_overflow(mrb\_int\ augend,\ mrb\_int\ addend,\ mrb\_int\ *sum)}
+\DoxyCodeLine{00074\ \{}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordflow}{return}\ \_\_builtin\_add\_overflow(augend,\ addend,\ sum);}
+\DoxyCodeLine{00076\ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ mrb\_bool}
+\DoxyCodeLine{00079\ mrb\_int\_sub\_overflow(mrb\_int\ minuend,\ mrb\_int\ subtrahend,\ mrb\_int\ *difference)}
+\DoxyCodeLine{00080\ \{}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordflow}{return}\ \_\_builtin\_sub\_overflow(minuend,\ subtrahend,\ difference);}
+\DoxyCodeLine{00082\ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ mrb\_bool}
+\DoxyCodeLine{00085\ mrb\_int\_mul\_overflow(mrb\_int\ multiplier,\ mrb\_int\ multiplicand,\ mrb\_int\ *product)}
+\DoxyCodeLine{00086\ \{}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordflow}{return}\ \_\_builtin\_mul\_overflow(multiplier,\ multiplicand,\ product);}
+\DoxyCodeLine{00088\ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ MRB\_INT\_OVERFLOW\_MASK\ ((mrb\_uint)1\ <<\ (MRB\_INT\_BIT\ -\/\ 1))}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ mrb\_bool}
+\DoxyCodeLine{00095\ mrb\_int\_add\_overflow(mrb\_int\ a,\ mrb\_int\ b,\ mrb\_int\ *c)}
+\DoxyCodeLine{00096\ \{}
+\DoxyCodeLine{00097\ \ \ mrb\_uint\ x\ =\ (mrb\_uint)a;}
+\DoxyCodeLine{00098\ \ \ mrb\_uint\ y\ =\ (mrb\_uint)b;}
+\DoxyCodeLine{00099\ \ \ mrb\_uint\ z\ =\ (mrb\_uint)(x\ +\ y);}
+\DoxyCodeLine{00100\ \ \ *c\ =\ (mrb\_int)z;}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordflow}{return}\ !!(((x\ \string^\ z)\ \&\ (y\ \string^\ z))\ \&\ MRB\_INT\_OVERFLOW\_MASK);}
+\DoxyCodeLine{00102\ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ mrb\_bool}
+\DoxyCodeLine{00105\ mrb\_int\_sub\_overflow(mrb\_int\ a,\ mrb\_int\ b,\ mrb\_int\ *c)}
+\DoxyCodeLine{00106\ \{}
+\DoxyCodeLine{00107\ \ \ mrb\_uint\ x\ =\ (mrb\_uint)a;}
+\DoxyCodeLine{00108\ \ \ mrb\_uint\ y\ =\ (mrb\_uint)b;}
+\DoxyCodeLine{00109\ \ \ mrb\_uint\ z\ =\ (mrb\_uint)(x\ -\/\ y);}
+\DoxyCodeLine{00110\ \ \ *c\ =\ (mrb\_int)z;}
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordflow}{return}\ !!(((x\ \string^\ z)\ \&\ (\string~y\ \string^\ z))\ \&\ MRB\_INT\_OVERFLOW\_MASK);}
+\DoxyCodeLine{00112\ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ mrb\_bool}
+\DoxyCodeLine{00115\ mrb\_int\_mul\_overflow(mrb\_int\ a,\ mrb\_int\ b,\ mrb\_int\ *c)}
+\DoxyCodeLine{00116\ \{}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#ifdef\ MRB\_INT32}}
+\DoxyCodeLine{00118\ \ \ int64\_t\ n\ =\ (int64\_t)a\ *\ b;}
+\DoxyCodeLine{00119\ \ \ *c\ =\ (mrb\_int)n;}
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordflow}{return}\ n\ >\ MRB\_INT\_MAX\ ||\ n\ <\ MRB\_INT\_MIN;}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ MRB\_INT64\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordflow}{if}\ (a\ >\ 0\ \&\&\ b\ >\ 0\ \&\&\ a\ >\ MRB\_INT\_MAX\ /\ b)\ \textcolor{keywordflow}{return}\ TRUE;}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordflow}{if}\ (a\ <\ 0\ \&\&\ b\ >\ 0\ \&\&\ a\ <\ MRB\_INT\_MIN\ /\ b)\ \textcolor{keywordflow}{return}\ TRUE;}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordflow}{if}\ (a\ >\ 0\ \&\&\ b\ <\ 0\ \&\&\ b\ <\ MRB\_INT\_MIN\ /\ a)\ \textcolor{keywordflow}{return}\ TRUE;}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordflow}{if}\ (a\ <\ 0\ \&\&\ b\ <\ 0\ \&\&\ (a\ <=\ MRB\_INT\_MIN\ ||\ b\ <=\ MRB\_INT\_MIN\ ||\ -\/a\ >\ MRB\_INT\_MAX\ /\ -\/b))}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordflow}{return}\ TRUE;}
+\DoxyCodeLine{00127\ \ \ *c\ =\ a\ *\ b;}
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordflow}{return}\ FALSE;}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00130\ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#undef\ MRB\_INT\_OVERFLOW\_MASK}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#ifndef\ MRB\_NO\_FLOAT}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#\ define\ MRB\_FLT\_RADIX\ \ \ \ \ \ \ \ \ \ FLT\_RADIX}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#\ ifdef\ MRB\_USE\_FLOAT32}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_MANT\_DIG\ \ \ \ \ \ FLT\_MANT\_DIG}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_EPSILON\ \ \ \ \ \ \ FLT\_EPSILON}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_DIG\ \ \ \ \ \ \ \ \ \ \ FLT\_DIG}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_MIN\_EXP\ \ \ \ \ \ \ FLT\_MIN\_EXP}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_MIN\ \ \ \ \ \ \ \ \ \ \ FLT\_MIN}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_MIN\_10\_EXP\ \ \ \ FLT\_MIN\_10\_EXP}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_MAX\_EXP\ \ \ \ \ \ \ FLT\_MAX\_EXP}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_MAX\ \ \ \ \ \ \ \ \ \ \ FLT\_MAX}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_MAX\_10\_EXP\ \ \ \ FLT\_MAX\_10\_EXP}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#\ else\ }\textcolor{comment}{/*\ not\ MRB\_USE\_FLOAT32\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_MANT\_DIG\ \ \ \ \ \ DBL\_MANT\_DIG}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_EPSILON\ \ \ \ \ \ \ DBL\_EPSILON}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_DIG\ \ \ \ \ \ \ \ \ \ \ DBL\_DIG}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_MIN\_EXP\ \ \ \ \ \ \ DBL\_MIN\_EXP}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_MIN\ \ \ \ \ \ \ \ \ \ \ DBL\_MIN}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_MIN\_10\_EXP\ \ \ \ DBL\_MIN\_10\_EXP}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_MAX\_EXP\ \ \ \ \ \ \ DBL\_MAX\_EXP}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_MAX\ \ \ \ \ \ \ \ \ \ \ DBL\_MAX}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#\ \ define\ MRB\_FLT\_MAX\_10\_EXP\ \ \ \ DBL\_MAX\_10\_EXP}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#\ endif\ }\textcolor{comment}{/*\ MRB\_USE\_FLOAT32\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_float\_to\_integer(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ val);}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{comment}{/*\ internal\ functions\ */}}
+\DoxyCodeLine{00166\ mrb\_float\ mrb\_div\_float(mrb\_float\ x,\ mrb\_float\ y);}
+\DoxyCodeLine{00167\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_float\_to\_str(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fmt);}
+\DoxyCodeLine{00168\ \textcolor{keywordtype}{int}\ mrb\_format\_float(mrb\_float\ f,\ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{size\_t}\ buf\_size,\ \textcolor{keywordtype}{char}\ fmt,\ \textcolor{keywordtype}{int}\ prec,\ \textcolor{keywordtype}{char}\ sign);}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ MRB\_NO\_FLOAT\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \mbox{\hyperlink{common_8h_a7e9674ff871a8abbcaf9ba23fa4b72d3}{MRB\_END\_DECL}}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_NUMERIC\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

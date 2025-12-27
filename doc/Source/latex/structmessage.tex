@@ -1,0 +1,118 @@
+\doxysection{message Struct Reference}
+\hypertarget{structmessage}{}\label{structmessage}\index{message@{message}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structmessage_a13a850bbbecb02c434fbc70a97d4b8d5}\label{structmessage_a13a850bbbecb02c434fbc70a97d4b8d5} 
+enum \{ {\bfseries NONE} =0
+, {\bfseries FIELD}
+, {\bfseries VALUE}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structmessage_a46a17bdb897a45bb7311769fd35821fb}\label{structmessage_a46a17bdb897a45bb7311769fd35821fb} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries name}
+\item 
+\Hypertarget{structmessage_a7a9793f14df49d81233bdf5bb1004a65}\label{structmessage_a7a9793f14df49d81233bdf5bb1004a65} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries raw}
+\item 
+\Hypertarget{structmessage_ab7b02b29b5c98045401538b759839aaa}\label{structmessage_ab7b02b29b5c98045401538b759839aaa} 
+enum http\+\_\+parser\+\_\+type {\bfseries type}
+\item 
+\Hypertarget{structmessage_a9707fdb13e3f05606b4fad35b404c5e8}\label{structmessage_a9707fdb13e3f05606b4fad35b404c5e8} 
+enum http\+\_\+method {\bfseries method}
+\item 
+\Hypertarget{structmessage_a99bc02df92f50d348a9b64a3b64ddd12}\label{structmessage_a99bc02df92f50d348a9b64a3b64ddd12} 
+int {\bfseries status\+\_\+code}
+\item 
+\Hypertarget{structmessage_ab4f7f3b1b363f5468f5e97e1b317b8b4}\label{structmessage_ab4f7f3b1b363f5468f5e97e1b317b8b4} 
+char {\bfseries response\+\_\+status} \mbox{[}MAX\+\_\+\+ELEMENT\+\_\+\+SIZE\mbox{]}
+\item 
+\Hypertarget{structmessage_a2abac7e085bce42c30aa9e61ca85e885}\label{structmessage_a2abac7e085bce42c30aa9e61ca85e885} 
+char {\bfseries request\+\_\+path} \mbox{[}MAX\+\_\+\+ELEMENT\+\_\+\+SIZE\mbox{]}
+\item 
+\Hypertarget{structmessage_ae6a0a86e11998e8bc5b54b6b3ebbe414}\label{structmessage_ae6a0a86e11998e8bc5b54b6b3ebbe414} 
+char {\bfseries request\+\_\+url} \mbox{[}MAX\+\_\+\+ELEMENT\+\_\+\+SIZE\mbox{]}
+\item 
+\Hypertarget{structmessage_acd7339ea145438256d4944f00e2158e4}\label{structmessage_acd7339ea145438256d4944f00e2158e4} 
+char {\bfseries fragment} \mbox{[}MAX\+\_\+\+ELEMENT\+\_\+\+SIZE\mbox{]}
+\item 
+\Hypertarget{structmessage_a7ae3105bd5e1ed0e5242678a012823be}\label{structmessage_a7ae3105bd5e1ed0e5242678a012823be} 
+char {\bfseries query\+\_\+string} \mbox{[}MAX\+\_\+\+ELEMENT\+\_\+\+SIZE\mbox{]}
+\item 
+\Hypertarget{structmessage_a4009c2894e10baef0123fd535ac94c4d}\label{structmessage_a4009c2894e10baef0123fd535ac94c4d} 
+char {\bfseries body} \mbox{[}MAX\+\_\+\+ELEMENT\+\_\+\+SIZE\mbox{]}
+\item 
+\Hypertarget{structmessage_a76280f10b162e2690411c706a0900271}\label{structmessage_a76280f10b162e2690411c706a0900271} 
+size\+\_\+t {\bfseries body\+\_\+size}
+\item 
+\Hypertarget{structmessage_a81e8a3ee6a31d76f61ed4d5f88ac960c}\label{structmessage_a81e8a3ee6a31d76f61ed4d5f88ac960c} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries host}
+\item 
+\Hypertarget{structmessage_aac8b889dad358cb213ac14a496a83d13}\label{structmessage_aac8b889dad358cb213ac14a496a83d13} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries userinfo}
+\item 
+\Hypertarget{structmessage_ae746ba53ef281457dce10d79d63a2b96}\label{structmessage_ae746ba53ef281457dce10d79d63a2b96} 
+uint16\+\_\+t {\bfseries port}
+\item 
+\Hypertarget{structmessage_aa7f22e44d0ea24ebe66b7e7a51c39463}\label{structmessage_aa7f22e44d0ea24ebe66b7e7a51c39463} 
+int {\bfseries num\+\_\+headers}
+\item 
+\Hypertarget{structmessage_a3c7abd7f319b9287f72b4e547c001ea7}\label{structmessage_a3c7abd7f319b9287f72b4e547c001ea7} 
+enum message\+:: \{ ... \}  {\bfseries last\+\_\+header\+\_\+element}
+\item 
+\Hypertarget{structmessage_ada64a450ea518cbe8ebb25f76b7fe45b}\label{structmessage_ada64a450ea518cbe8ebb25f76b7fe45b} 
+char {\bfseries headers} \mbox{[}MAX\+\_\+\+HEADERS\mbox{]}\mbox{[}2\mbox{]}\mbox{[}MAX\+\_\+\+ELEMENT\+\_\+\+SIZE\mbox{]}
+\item 
+\Hypertarget{structmessage_a9fa2fe019b9b15109632ba49448125b2}\label{structmessage_a9fa2fe019b9b15109632ba49448125b2} 
+int {\bfseries should\+\_\+keep\+\_\+alive}
+\item 
+\Hypertarget{structmessage_a245821c4468193ef14eb651b7f3d3d38}\label{structmessage_a245821c4468193ef14eb651b7f3d3d38} 
+int {\bfseries num\+\_\+chunks}
+\item 
+\Hypertarget{structmessage_a5cce7fc185d36bdf6f70b173a1ca1502}\label{structmessage_a5cce7fc185d36bdf6f70b173a1ca1502} 
+int {\bfseries num\+\_\+chunks\+\_\+complete}
+\item 
+\Hypertarget{structmessage_a992d66e105f37eedbfecb7bc7081f955}\label{structmessage_a992d66e105f37eedbfecb7bc7081f955} 
+int {\bfseries chunk\+\_\+lengths} \mbox{[}MAX\+\_\+\+CHUNKS\mbox{]}
+\item 
+\Hypertarget{structmessage_ab8fe94f026da047e8bda379ea6f49538}\label{structmessage_ab8fe94f026da047e8bda379ea6f49538} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries upgrade}
+\item 
+\Hypertarget{structmessage_aa671065d5218209150105b1198c28356}\label{structmessage_aa671065d5218209150105b1198c28356} 
+unsigned short {\bfseries http\+\_\+major}
+\item 
+\Hypertarget{structmessage_a45ab019e4c8ab0aa6721e46889df09eb}\label{structmessage_a45ab019e4c8ab0aa6721e46889df09eb} 
+unsigned short {\bfseries http\+\_\+minor}
+\item 
+\Hypertarget{structmessage_ad81f30d82bc3e5f25ab8ab6acd282b89}\label{structmessage_ad81f30d82bc3e5f25ab8ab6acd282b89} 
+uint64\+\_\+t {\bfseries content\+\_\+length}
+\item 
+\Hypertarget{structmessage_a674d3ea423035ae13baf795c826559ac}\label{structmessage_a674d3ea423035ae13baf795c826559ac} 
+int {\bfseries message\+\_\+begin\+\_\+cb\+\_\+called}
+\item 
+\Hypertarget{structmessage_a2bc03590b604eb21c6cfb25a00d07ce1}\label{structmessage_a2bc03590b604eb21c6cfb25a00d07ce1} 
+int {\bfseries headers\+\_\+complete\+\_\+cb\+\_\+called}
+\item 
+\Hypertarget{structmessage_af6db066c2b49a00c2884a89afefad2b6}\label{structmessage_af6db066c2b49a00c2884a89afefad2b6} 
+int {\bfseries message\+\_\+complete\+\_\+cb\+\_\+called}
+\item 
+\Hypertarget{structmessage_aabdb3f438ce56be6a1a46003a1b9f968}\label{structmessage_aabdb3f438ce56be6a1a46003a1b9f968} 
+int {\bfseries status\+\_\+cb\+\_\+called}
+\item 
+\Hypertarget{structmessage_af193342fc62bb8cfbd6c951138b96341}\label{structmessage_af193342fc62bb8cfbd6c951138b96341} 
+int {\bfseries message\+\_\+complete\+\_\+on\+\_\+eof}
+\item 
+\Hypertarget{structmessage_ab57c5a0caff716d91413cc8e6a4beba1}\label{structmessage_ab57c5a0caff716d91413cc8e6a4beba1} 
+int {\bfseries body\+\_\+is\+\_\+final}
+\item 
+\Hypertarget{structmessage_aeb9021ac85316dd99627fd30009998f8}\label{structmessage_aeb9021ac85316dd99627fd30009998f8} 
+int {\bfseries allow\+\_\+chunked\+\_\+length}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/urlparse/http-\/parser/test.\+c\end{DoxyCompactItemize}

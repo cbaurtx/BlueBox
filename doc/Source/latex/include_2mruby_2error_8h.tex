@@ -1,0 +1,202 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/error.h File Reference}
+\hypertarget{include_2mruby_2error_8h}{}\label{include_2mruby_2error_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/error.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/error.h}}
+{\ttfamily \#include "{}common.\+h"{}}\newline
+Include dependency graph for error.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{include_2mruby_2error_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{include_2mruby_2error_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structRException}{RException}}
+\item 
+struct \mbox{\hyperlink{structRBreak}{RBreak}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{include_2mruby_2error_8h_a84a75d398d8e18615edcd3b95b26385d}\label{include_2mruby_2error_8h_a84a75d398d8e18615edcd3b95b26385d} 
+\#define {\bfseries MRB\+\_\+\+EXC\+\_\+\+EXIT}~65536
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2error_8h_a62d6ec836c34066664841fcc960da47e}{MRB\+\_\+\+EXC\+\_\+\+EXIT\+\_\+P}}(e)
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2error_8h_a7b727735867147e817a0c51555c32bf7}{MRB\+\_\+\+EXC\+\_\+\+EXIT\+\_\+\+STATUS}}(mrb,  e)
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2error_8h_a846ecd9cf7e0fb7cda1679cd3651665c}{MRB\+\_\+\+EXC\+\_\+\+CHECK\+\_\+\+EXIT}}(mrb,  e)
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2error_8h_a436094b0765c63144174ebeae5baa6a6}{mrb\+\_\+exc\+\_\+ptr}}(v)
+\item 
+\#define \mbox{\hyperlink{include_2mruby_2error_8h_a8efad14d0bc5851ccfb877c7b2d81ee7}{mrb\+\_\+exc\+\_\+new\+\_\+lit}}(mrb,  c,  lit)
+\item 
+\Hypertarget{include_2mruby_2error_8h_a7bb12f0120e8156037e4c84133eab287}\label{include_2mruby_2error_8h_a7bb12f0120e8156037e4c84133eab287} 
+\#define {\bfseries MRB\+\_\+\+USE\+\_\+\+RBREAK\+\_\+\+VALUE\+\_\+\+UNION}~1
+\item 
+\Hypertarget{include_2mruby_2error_8h_a526ba4f1db8b3f0f94bf57241c2c62d7}\label{include_2mruby_2error_8h_a526ba4f1db8b3f0f94bf57241c2c62d7} 
+\#define {\bfseries RBREAK\+\_\+\+VALUE\+\_\+\+TT\+\_\+\+MASK}~((1 $<$$<$ 8) -\/ 1)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{include_2mruby_2error_8h_a54480142f714ac87589f4566efabd70c}{mrb\+\_\+protect\+\_\+error\+\_\+func}}(\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, void \texorpdfstring{$\ast$}{*}userdata)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{include_2mruby_2error_8h_a34618addd13266ca6b35d5d4b038de93}\label{include_2mruby_2error_8h_a34618addd13266ca6b35d5d4b038de93} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{common_8h_acc1cbe3d5fc8be8ab6e6c747281e060b}{mrb\+\_\+noreturn}} void {\bfseries mrb\+\_\+sys\+\_\+fail} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, const char \texorpdfstring{$\ast$}{*}mesg)
+\item 
+\Hypertarget{include_2mruby_2error_8h_adaaecafb6c1b86e50701e7acbf9ce2c4}\label{include_2mruby_2error_8h_adaaecafb6c1b86e50701e7acbf9ce2c4} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+exc\+\_\+new\+\_\+str} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*}c, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str)
+\item 
+\Hypertarget{include_2mruby_2error_8h_a2a6253af6f25fb3b3d6e3687649259a4}\label{include_2mruby_2error_8h_a2a6253af6f25fb3b3d6e3687649259a4} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{common_8h_acc1cbe3d5fc8be8ab6e6c747281e060b}{mrb\+\_\+noreturn}} void {\bfseries mrb\+\_\+no\+\_\+method\+\_\+error} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}} id, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} args, const char \texorpdfstring{$\ast$}{*}fmt,...)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void \mbox{\hyperlink{include_2mruby_2error_8h_a5ae687f28c4cb3021c0afd787c3a8f97}{mrb\+\_\+clear\+\_\+error}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb)
+\item 
+\Hypertarget{include_2mruby_2error_8h_a8e2456267922b20ecd27e725b571b286}\label{include_2mruby_2error_8h_a8e2456267922b20ecd27e725b571b286} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries mrb\+\_\+check\+\_\+error} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb)
+\item 
+\Hypertarget{include_2mruby_2error_8h_a64c3955f2b1e0659ee454517eae93e00}\label{include_2mruby_2error_8h_a64c3955f2b1e0659ee454517eae93e00} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+protect\+\_\+error} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{include_2mruby_2error_8h_a54480142f714ac87589f4566efabd70c}{mrb\+\_\+protect\+\_\+error\+\_\+func}} \texorpdfstring{$\ast$}{*}body, void \texorpdfstring{$\ast$}{*}userdata, \mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} \texorpdfstring{$\ast$}{*}error)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{include_2mruby_2error_8h_a727ae0ee17dec1892de910ecf96a6649}{mrb\+\_\+protect}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\+\_\+func\+\_\+t}} body, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} data, \mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} \texorpdfstring{$\ast$}{*}state)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{include_2mruby_2error_8h_a7e0cef892011cbe65f154d51c8fb9498}{mrb\+\_\+ensure}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\+\_\+func\+\_\+t}} body, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} b\+\_\+data, \mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\+\_\+func\+\_\+t}} ensure, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} e\+\_\+data)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{include_2mruby_2error_8h_afdae6a4ea67cba29d90f0617ed08db67}{mrb\+\_\+rescue}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\+\_\+func\+\_\+t}} body, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} b\+\_\+data, \mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\+\_\+func\+\_\+t}} rescue, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} r\+\_\+data)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{include_2mruby_2error_8h_a1576886fb95554f46b1f5e685e2f4ce7}{mrb\+\_\+rescue\+\_\+exceptions}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\+\_\+func\+\_\+t}} body, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} b\+\_\+data, \mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\+\_\+func\+\_\+t}} rescue, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} r\+\_\+data, mrb\+\_\+int len, struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}classes)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item Exception class
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-define-members}
+\Hypertarget{include_2mruby_2error_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{include_2mruby_2error_8h_a846ecd9cf7e0fb7cda1679cd3651665c}\index{error.h@{error.h}!MRB\_EXC\_CHECK\_EXIT@{MRB\_EXC\_CHECK\_EXIT}}
+\index{MRB\_EXC\_CHECK\_EXIT@{MRB\_EXC\_CHECK\_EXIT}!error.h@{error.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_EXC\_CHECK\_EXIT}{MRB\_EXC\_CHECK\_EXIT}}
+{\footnotesize\ttfamily \label{include_2mruby_2error_8h_a846ecd9cf7e0fb7cda1679cd3651665c} 
+\#define MRB\+\_\+\+EXC\+\_\+\+CHECK\+\_\+\+EXIT(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{e}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{\textcolor{keywordflow}{if}\ (MRB\_EXC\_EXIT\_P(e))\ exit(MRB\_EXC\_EXIT\_STATUS((mrb),(e)));\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2error_8h_a62d6ec836c34066664841fcc960da47e}\index{error.h@{error.h}!MRB\_EXC\_EXIT\_P@{MRB\_EXC\_EXIT\_P}}
+\index{MRB\_EXC\_EXIT\_P@{MRB\_EXC\_EXIT\_P}!error.h@{error.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_EXC\_EXIT\_P}{MRB\_EXC\_EXIT\_P}}
+{\footnotesize\ttfamily \label{include_2mruby_2error_8h_a62d6ec836c34066664841fcc960da47e} 
+\#define MRB\+\_\+\+EXC\+\_\+\+EXIT\+\_\+P(\begin{DoxyParamCaption}\item[{}]{e}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((e)-\/>flags\ \&\ MRB\_EXC\_EXIT)}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2error_8h_a7b727735867147e817a0c51555c32bf7}\index{error.h@{error.h}!MRB\_EXC\_EXIT\_STATUS@{MRB\_EXC\_EXIT\_STATUS}}
+\index{MRB\_EXC\_EXIT\_STATUS@{MRB\_EXC\_EXIT\_STATUS}!error.h@{error.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_EXC\_EXIT\_STATUS}{MRB\_EXC\_EXIT\_STATUS}}
+{\footnotesize\ttfamily \label{include_2mruby_2error_8h_a7b727735867147e817a0c51555c32bf7} 
+\#define MRB\+\_\+\+EXC\+\_\+\+EXIT\+\_\+\+STATUS(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{e}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((int)mrb\_as\_int((mrb),mrb\_obj\_iv\_get((mrb),(e),MRB\_SYM(status))))}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2error_8h_a8efad14d0bc5851ccfb877c7b2d81ee7}\index{error.h@{error.h}!mrb\_exc\_new\_lit@{mrb\_exc\_new\_lit}}
+\index{mrb\_exc\_new\_lit@{mrb\_exc\_new\_lit}!error.h@{error.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_exc\_new\_lit}{mrb\_exc\_new\_lit}}
+{\footnotesize\ttfamily \label{include_2mruby_2error_8h_a8efad14d0bc5851ccfb877c7b2d81ee7} 
+\#define mrb\+\_\+exc\+\_\+new\+\_\+lit(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{c}{, }\item[{}]{lit}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_exc\_new\_str(mrb,\ c,\ mrb\_str\_new\_lit(mrb,\ lit))}
+
+\end{DoxyCode}
+\Hypertarget{include_2mruby_2error_8h_a436094b0765c63144174ebeae5baa6a6}\index{error.h@{error.h}!mrb\_exc\_ptr@{mrb\_exc\_ptr}}
+\index{mrb\_exc\_ptr@{mrb\_exc\_ptr}!error.h@{error.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_exc\_ptr}{mrb\_exc\_ptr}}
+{\footnotesize\ttfamily \label{include_2mruby_2error_8h_a436094b0765c63144174ebeae5baa6a6} 
+\#define mrb\+\_\+exc\+\_\+ptr(\begin{DoxyParamCaption}\item[{}]{v}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\textcolor{keyword}{struct\ }\mbox{\hyperlink{structRException}{RException}}*)mrb\_ptr(v))}
+
+\end{DoxyCode}
+
+
+\label{doc-typedef-members}
+\Hypertarget{include_2mruby_2error_8h_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{include_2mruby_2error_8h_a54480142f714ac87589f4566efabd70c}\index{error.h@{error.h}!mrb\_protect\_error\_func@{mrb\_protect\_error\_func}}
+\index{mrb\_protect\_error\_func@{mrb\_protect\_error\_func}!error.h@{error.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_protect\_error\_func}{mrb\_protect\_error\_func}}
+{\footnotesize\ttfamily \label{include_2mruby_2error_8h_a54480142f714ac87589f4566efabd70c} 
+typedef \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+protect\+\_\+error\+\_\+func(\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, void \texorpdfstring{$\ast$}{*}userdata)}
+
+Protect 
+
+\label{doc-func-members}
+\Hypertarget{include_2mruby_2error_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{include_2mruby_2error_8h_a5ae687f28c4cb3021c0afd787c3a8f97}\index{error.h@{error.h}!mrb\_clear\_error@{mrb\_clear\_error}}
+\index{mrb\_clear\_error@{mrb\_clear\_error}!error.h@{error.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_clear\_error()}{mrb\_clear\_error()}}
+{\footnotesize\ttfamily \label{include_2mruby_2error_8h_a5ae687f28c4cb3021c0afd787c3a8f97} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void mrb\+\_\+clear\+\_\+error (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{}\end{DoxyParamCaption})}
+
+Error check \Hypertarget{include_2mruby_2error_8h_a7e0cef892011cbe65f154d51c8fb9498}\index{error.h@{error.h}!mrb\_ensure@{mrb\_ensure}}
+\index{mrb\_ensure@{mrb\_ensure}!error.h@{error.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_ensure()}{mrb\_ensure()}}
+{\footnotesize\ttfamily \label{include_2mruby_2error_8h_a7e0cef892011cbe65f154d51c8fb9498} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+ensure (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\+\_\+func\+\_\+t}}}]{body}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{b\+\_\+data}{, }\item[{\mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\+\_\+func\+\_\+t}}}]{ensure}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{e\+\_\+data}{}\end{DoxyParamCaption})}
+
+Ensure
+
+Implemented in the mruby-\/error mrbgem \Hypertarget{include_2mruby_2error_8h_a727ae0ee17dec1892de910ecf96a6649}\index{error.h@{error.h}!mrb\_protect@{mrb\_protect}}
+\index{mrb\_protect@{mrb\_protect}!error.h@{error.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_protect()}{mrb\_protect()}}
+{\footnotesize\ttfamily \label{include_2mruby_2error_8h_a727ae0ee17dec1892de910ecf96a6649} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+protect (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\+\_\+func\+\_\+t}}}]{body}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{data}{, }\item[{\mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} \texorpdfstring{$\ast$}{*}}]{state}{}\end{DoxyParamCaption})}
+
+Protect (takes \doxylink{structmrb__value}{mrb\+\_\+value} for body argument)
+
+Implemented in the mruby-\/error mrbgem \Hypertarget{include_2mruby_2error_8h_afdae6a4ea67cba29d90f0617ed08db67}\index{error.h@{error.h}!mrb\_rescue@{mrb\_rescue}}
+\index{mrb\_rescue@{mrb\_rescue}!error.h@{error.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_rescue()}{mrb\_rescue()}}
+{\footnotesize\ttfamily \label{include_2mruby_2error_8h_afdae6a4ea67cba29d90f0617ed08db67} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+rescue (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\+\_\+func\+\_\+t}}}]{body}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{b\+\_\+data}{, }\item[{\mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\+\_\+func\+\_\+t}}}]{rescue}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{r\+\_\+data}{}\end{DoxyParamCaption})}
+
+Rescue
+
+Implemented in the mruby-\/error mrbgem \Hypertarget{include_2mruby_2error_8h_a1576886fb95554f46b1f5e685e2f4ce7}\index{error.h@{error.h}!mrb\_rescue\_exceptions@{mrb\_rescue\_exceptions}}
+\index{mrb\_rescue\_exceptions@{mrb\_rescue\_exceptions}!error.h@{error.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_rescue\_exceptions()}{mrb\_rescue\_exceptions()}}
+{\footnotesize\ttfamily \label{include_2mruby_2error_8h_a1576886fb95554f46b1f5e685e2f4ce7} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+rescue\+\_\+exceptions (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\+\_\+func\+\_\+t}}}]{body}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{b\+\_\+data}{, }\item[{\mbox{\hyperlink{mruby_8h_afd010f40f916ff0d4bf3efc5c2daf274}{mrb\+\_\+func\+\_\+t}}}]{rescue}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{r\+\_\+data}{, }\item[{mrb\+\_\+int}]{len}{, }\item[{struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{classes}{}\end{DoxyParamCaption})}
+
+Rescue exception
+
+Implemented in the mruby-\/error mrbgem 

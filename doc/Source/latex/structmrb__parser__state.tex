@@ -1,0 +1,142 @@
+\doxysection{mrb\+\_\+parser\+\_\+state Struct Reference}
+\hypertarget{structmrb__parser__state}{}\label{structmrb__parser__state}\index{mrb\_parser\_state@{mrb\_parser\_state}}
+
+
+Collaboration diagram for mrb\+\_\+parser\+\_\+state\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structmrb__parser__state__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structmrb__parser__state_a53bc21999295edec458ea139818bbd66}\label{structmrb__parser__state_a53bc21999295edec458ea139818bbd66} 
+\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*} {\bfseries mrb}
+\item 
+\Hypertarget{structmrb__parser__state_a763a4af86f68069ecc472196dca5e75c}\label{structmrb__parser__state_a763a4af86f68069ecc472196dca5e75c} 
+struct \mbox{\hyperlink{structmrb__pool}{mrb\+\_\+pool}} \texorpdfstring{$\ast$}{*} {\bfseries pool}
+\item 
+\Hypertarget{structmrb__parser__state_ad97f89b85e426356ab448c2219e8bf50}\label{structmrb__parser__state_ad97f89b85e426356ab448c2219e8bf50} 
+\mbox{\hyperlink{structmrb__ast__node}{mrb\+\_\+ast\+\_\+node}} \texorpdfstring{$\ast$}{*} {\bfseries cells}
+\item 
+\Hypertarget{structmrb__parser__state_a96880c1fbedc3c1faff6c89b46e09a7f}\label{structmrb__parser__state_a96880c1fbedc3c1faff6c89b46e09a7f} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries s}
+\item 
+\Hypertarget{structmrb__parser__state_a5e923a684b2e6820331ade14926d7b3b}\label{structmrb__parser__state_a5e923a684b2e6820331ade14926d7b3b} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries send}
+\item 
+\Hypertarget{structmrb__parser__state_a3c92154d127b9d17ec13f5fe5d6a1544}\label{structmrb__parser__state_a3c92154d127b9d17ec13f5fe5d6a1544} 
+FILE \texorpdfstring{$\ast$}{*} {\bfseries f}
+\item 
+\Hypertarget{structmrb__parser__state_a78a8a1b8ed3cb2b73f7a02600e33d7ec}\label{structmrb__parser__state_a78a8a1b8ed3cb2b73f7a02600e33d7ec} 
+\mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*} {\bfseries cxt}
+\item 
+\Hypertarget{structmrb__parser__state_acc57235f0e8cc940797148f9d8646898}\label{structmrb__parser__state_acc57235f0e8cc940797148f9d8646898} 
+\mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}} {\bfseries filename\+\_\+sym}
+\item 
+\Hypertarget{structmrb__parser__state_a4ded7a9710c60b7df7c1bfefbb526000}\label{structmrb__parser__state_a4ded7a9710c60b7df7c1bfefbb526000} 
+uint16\+\_\+t {\bfseries lineno}
+\item 
+\Hypertarget{structmrb__parser__state_ac3008ab84bdb33196f234cf919141e4e}\label{structmrb__parser__state_ac3008ab84bdb33196f234cf919141e4e} 
+int {\bfseries column}
+\item 
+\Hypertarget{structmrb__parser__state_a8e40fa674a234cb45b1ec76c48c21bed}\label{structmrb__parser__state_a8e40fa674a234cb45b1ec76c48c21bed} 
+enum mrb\+\_\+lex\+\_\+state\+\_\+enum {\bfseries lstate}
+\item 
+\Hypertarget{structmrb__parser__state_a9921e346e29de87ebf267ffb15955b25}\label{structmrb__parser__state_a9921e346e29de87ebf267ffb15955b25} 
+struct \mbox{\hyperlink{structparser__lex__strterm}{parser\+\_\+lex\+\_\+strterm}} \texorpdfstring{$\ast$}{*} {\bfseries lex\+\_\+strterm}
+\item 
+\Hypertarget{structmrb__parser__state_a5466642d2a3890fab9585c35b41dcb97}\label{structmrb__parser__state_a5466642d2a3890fab9585c35b41dcb97} 
+unsigned int {\bfseries cond\+\_\+stack}
+\item 
+\Hypertarget{structmrb__parser__state_a246f9d3c16e6ebd373c81ae200164b67}\label{structmrb__parser__state_a246f9d3c16e6ebd373c81ae200164b67} 
+unsigned int {\bfseries cmdarg\+\_\+stack}
+\item 
+\Hypertarget{structmrb__parser__state_a963e81e6161458130ca7f69439073952}\label{structmrb__parser__state_a963e81e6161458130ca7f69439073952} 
+int {\bfseries paren\+\_\+nest}
+\item 
+\Hypertarget{structmrb__parser__state_aed77564c8e84c6c5bd540427b94fc4a6}\label{structmrb__parser__state_aed77564c8e84c6c5bd540427b94fc4a6} 
+int {\bfseries lpar\+\_\+beg}
+\item 
+\Hypertarget{structmrb__parser__state_a553167f4197770435e0ba804aed01cd6}\label{structmrb__parser__state_a553167f4197770435e0ba804aed01cd6} 
+int {\bfseries in\+\_\+def}
+\item 
+\Hypertarget{structmrb__parser__state_aa093bfed959dc2ee7cf192a7448f540b}\label{structmrb__parser__state_aa093bfed959dc2ee7cf192a7448f540b} 
+int {\bfseries in\+\_\+single}
+\item 
+\Hypertarget{structmrb__parser__state_a313fbe0e817c3a76f16a97cb90e5b329}\label{structmrb__parser__state_a313fbe0e817c3a76f16a97cb90e5b329} 
+\mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries cmd\+\_\+start}\+:1
+\item 
+\Hypertarget{structmrb__parser__state_ae08c74b83a9b8192ce64672f13bd4c30}\label{structmrb__parser__state_ae08c74b83a9b8192ce64672f13bd4c30} 
+\mbox{\hyperlink{structmrb__ast__node}{mrb\+\_\+ast\+\_\+node}} \texorpdfstring{$\ast$}{*} {\bfseries locals}
+\item 
+\Hypertarget{structmrb__parser__state_a0f829c992ee949e9a0520c622354521e}\label{structmrb__parser__state_a0f829c992ee949e9a0520c622354521e} 
+\mbox{\hyperlink{structmrb__ast__node}{mrb\+\_\+ast\+\_\+node}} \texorpdfstring{$\ast$}{*} {\bfseries pb}
+\item 
+\Hypertarget{structmrb__parser__state_a108f57cf241b8dfc171b5299dfc303ac}\label{structmrb__parser__state_a108f57cf241b8dfc171b5299dfc303ac} 
+char \texorpdfstring{$\ast$}{*} {\bfseries tokbuf}
+\item 
+\Hypertarget{structmrb__parser__state_a5eebc12cc733a3f4e2e5d367a3b0ee88}\label{structmrb__parser__state_a5eebc12cc733a3f4e2e5d367a3b0ee88} 
+char {\bfseries buf} \mbox{[}MRB\+\_\+\+PARSER\+\_\+\+TOKBUF\+\_\+\+SIZE\mbox{]}
+\item 
+\Hypertarget{structmrb__parser__state_aa42490bb18c942c0dcfe7a389bd8230b}\label{structmrb__parser__state_aa42490bb18c942c0dcfe7a389bd8230b} 
+int {\bfseries tidx}
+\item 
+\Hypertarget{structmrb__parser__state_accea1e7ad1b015f3af2aab27ce364c95}\label{structmrb__parser__state_accea1e7ad1b015f3af2aab27ce364c95} 
+int {\bfseries tsiz}
+\item 
+\Hypertarget{structmrb__parser__state_afb0c2efedbf3338f99a7748262536b73}\label{structmrb__parser__state_afb0c2efedbf3338f99a7748262536b73} 
+\mbox{\hyperlink{structmrb__ast__node}{mrb\+\_\+ast\+\_\+node}} \texorpdfstring{$\ast$}{*} {\bfseries heredocs\+\_\+from\+\_\+nextline}
+\item 
+\Hypertarget{structmrb__parser__state_a603f19fdfe3a73e45f35893e9a5038b1}\label{structmrb__parser__state_a603f19fdfe3a73e45f35893e9a5038b1} 
+\mbox{\hyperlink{structmrb__ast__node}{mrb\+\_\+ast\+\_\+node}} \texorpdfstring{$\ast$}{*} {\bfseries parsing\+\_\+heredoc}
+\item 
+\Hypertarget{structmrb__parser__state_ab788d9e2db07b1417774edfd0c6e06bf}\label{structmrb__parser__state_ab788d9e2db07b1417774edfd0c6e06bf} 
+void \texorpdfstring{$\ast$}{*} {\bfseries ylval}
+\item 
+\Hypertarget{structmrb__parser__state_a82a463193336bc6b66b5a60df56294c7}\label{structmrb__parser__state_a82a463193336bc6b66b5a60df56294c7} 
+size\+\_\+t {\bfseries nerr}
+\item 
+\Hypertarget{structmrb__parser__state_a5273d1ee6643b3991f0374514d4cf223}\label{structmrb__parser__state_a5273d1ee6643b3991f0374514d4cf223} 
+size\+\_\+t {\bfseries nwarn}
+\item 
+\Hypertarget{structmrb__parser__state_aaaf0c6d5e4f3b559eac8e5bfbe9836c3}\label{structmrb__parser__state_aaaf0c6d5e4f3b559eac8e5bfbe9836c3} 
+\mbox{\hyperlink{structmrb__ast__node}{mrb\+\_\+ast\+\_\+node}} \texorpdfstring{$\ast$}{*} {\bfseries tree}
+\item 
+\Hypertarget{structmrb__parser__state_ad825ea44527b18137d345c1b0c0aa679}\label{structmrb__parser__state_ad825ea44527b18137d345c1b0c0aa679} 
+\mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries no\+\_\+optimize}\+:1
+\item 
+\Hypertarget{structmrb__parser__state_a639c9b24956d8ef5ada40fdf70afd2c3}\label{structmrb__parser__state_a639c9b24956d8ef5ada40fdf70afd2c3} 
+\mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries capture\+\_\+errors}\+:1
+\item 
+\Hypertarget{structmrb__parser__state_ab1c1ee4d30d42c8524e4a9c73d76ed6a}\label{structmrb__parser__state_ab1c1ee4d30d42c8524e4a9c73d76ed6a} 
+\mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries no\+\_\+ext\+\_\+ops}\+:1
+\item 
+\Hypertarget{structmrb__parser__state_a13b7793cf4204c47b717e6daa26cf512}\label{structmrb__parser__state_a13b7793cf4204c47b717e6daa26cf512} 
+const struct \mbox{\hyperlink{structRProc}{RProc}} \texorpdfstring{$\ast$}{*} {\bfseries upper}
+\item 
+\Hypertarget{structmrb__parser__state_a2d16fbbf0314082ced416a1d614019c8}\label{structmrb__parser__state_a2d16fbbf0314082ced416a1d614019c8} 
+struct \mbox{\hyperlink{structmrb__parser__message}{mrb\+\_\+parser\+\_\+message}} {\bfseries error\+\_\+buffer} \mbox{[}10\mbox{]}
+\item 
+\Hypertarget{structmrb__parser__state_aa8cd126efe1cb0bc532605fd55c954ed}\label{structmrb__parser__state_aa8cd126efe1cb0bc532605fd55c954ed} 
+struct \mbox{\hyperlink{structmrb__parser__message}{mrb\+\_\+parser\+\_\+message}} {\bfseries warn\+\_\+buffer} \mbox{[}10\mbox{]}
+\item 
+\Hypertarget{structmrb__parser__state_a066a7bd46e8f6871958622556bf09110}\label{structmrb__parser__state_a066a7bd46e8f6871958622556bf09110} 
+\mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}} \texorpdfstring{$\ast$}{*} {\bfseries filename\+\_\+table}
+\item 
+\Hypertarget{structmrb__parser__state_abc198823a8641cf5e6432d6f2d7fc001}\label{structmrb__parser__state_abc198823a8641cf5e6432d6f2d7fc001} 
+uint16\+\_\+t {\bfseries filename\+\_\+table\+\_\+length}
+\item 
+\Hypertarget{structmrb__parser__state_abed5ddf8653abc58b9ee84576b791d42}\label{structmrb__parser__state_abed5ddf8653abc58b9ee84576b791d42} 
+uint16\+\_\+t {\bfseries current\+\_\+filename\+\_\+index}
+\item 
+\Hypertarget{structmrb__parser__state_a6368ec12f4d0c519ded2c6ccc7028917}\label{structmrb__parser__state_a6368ec12f4d0c519ded2c6ccc7028917} 
+\mbox{\hyperlink{structmrb__ast__node}{mrb\+\_\+ast\+\_\+node}} \texorpdfstring{$\ast$}{*} {\bfseries nvars}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/\mbox{\hyperlink{compile_8h}{compile.\+h}}\end{DoxyCompactItemize}

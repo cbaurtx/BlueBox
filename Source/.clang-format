@@ -1,0 +1,21 @@
+# Based on Espressif IDF Style Guide (derived from LLVM style, Linux-like)
+BasedOnStyle: LLVM
+IndentWidth: 4
+UseTab: Never
+TabWidth: 4
+AllowShortIfStatementsOnASingleLine: false
+AlwaysBreakAfterReturnType: None
+BreakBeforeBraces: Allman
+ColumnLimit: 120
+PointerAlignment: Left
+DerivePointerAlignment: false
+SpacesBeforeTrailingComments: 1
+SpaceAfterCStyleCast: true
+SpaceBeforeParens: ControlStatements
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+SortIncludes: false
+IncludeBlocks: Preserve
+IndentCaseLabels: true
+AllowShortFunctionsOnASingleLine: Empty

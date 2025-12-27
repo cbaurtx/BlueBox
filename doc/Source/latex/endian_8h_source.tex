@@ -1,0 +1,46 @@
+\doxysection{endian.\+h}
+\hypertarget{endian_8h_source}{}\label{endian_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/endian.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/endian.h}}
+\mbox{\hyperlink{endian_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_ENDIAN\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_ENDIAN\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <limits.h>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\_BEGIN\_DECL}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#if\ !defined(BYTE\_ORDER)\ \&\&\ defined(\_\_BYTE\_ORDER\_\_)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#\ define\ BYTE\_ORDER\ \_\_BYTE\_ORDER\_\_}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#if\ !defined(BIG\_ENDIAN)\ \&\&\ defined(\_\_ORDER\_BIG\_ENDIAN\_\_)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#\ define\ BIG\_ENDIAN\ \_\_ORDER\_BIG\_ENDIAN\_\_}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#if\ !defined(LITTLE\_ENDIAN)\ \&\&\ defined(\_\_ORDER\_LITTLE\_ENDIAN\_\_)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#\ define\ LITTLE\_ENDIAN\ \_\_ORDER\_LITTLE\_ENDIAN\_\_}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#ifdef\ BYTE\_ORDER}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#\ if\ BYTE\_ORDER\ ==\ BIG\_ENDIAN}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#\ \ define\ littleendian\ 0}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#\ elif\ BYTE\_ORDER\ ==\ LITTLE\_ENDIAN}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#\ \ define\ littleendian\ 1}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifndef\ littleendian}}
+\DoxyCodeLine{00032\ \textcolor{comment}{/*\ can't\ distinguish\ endian\ in\ compile\ time\ */}}
+\DoxyCodeLine{00033\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00034\ check\_little\_endian(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ n\ =\ 1;}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordflow}{return}\ (*(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)\&n\ ==\ 1);}
+\DoxyCodeLine{00038\ \}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#\ \ define\ littleendian\ check\_little\_endian()}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \mbox{\hyperlink{common_8h_a7e9674ff871a8abbcaf9ba23fa4b72d3}{MRB\_END\_DECL}}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_ENDIAN\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

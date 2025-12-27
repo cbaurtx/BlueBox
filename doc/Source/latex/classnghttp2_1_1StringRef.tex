@@ -1,0 +1,149 @@
+\doxysection{nghttp2\+::String\+Ref Class Reference}
+\hypertarget{classnghttp2_1_1StringRef}{}\label{classnghttp2_1_1StringRef}\index{nghttp2::StringRef@{nghttp2::StringRef}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_abd7a72631938905ef34fcf26e798d5e0}\label{classnghttp2_1_1StringRef_abd7a72631938905ef34fcf26e798d5e0} 
+using {\bfseries traits\+\_\+type} = std\+::char\+\_\+traits$<$char$>$
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a929972e772c49d228980a6c6164feb39}\label{classnghttp2_1_1StringRef_a929972e772c49d228980a6c6164feb39} 
+using {\bfseries value\+\_\+type} = traits\+\_\+type\+::char\+\_\+type
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_abb930e4a6d8943f0f360374b4ad3d0f4}\label{classnghttp2_1_1StringRef_abb930e4a6d8943f0f360374b4ad3d0f4} 
+using {\bfseries allocator\+\_\+type} = std\+::allocator$<$char$>$
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a639ef3486c3ff539063524dd149d6987}\label{classnghttp2_1_1StringRef_a639ef3486c3ff539063524dd149d6987} 
+using {\bfseries size\+\_\+type} = std\+::allocator\+\_\+traits$<$allocator\+\_\+type$>$\+::size\+\_\+type
+\item 
+using \mbox{\hyperlink{classnghttp2_1_1StringRef_a969b38435859792d89643e8a1c6561fa}{difference\+\_\+type}}
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a2aaf9925e3c270210bf3c6ed581af2cf}\label{classnghttp2_1_1StringRef_a2aaf9925e3c270210bf3c6ed581af2cf} 
+using {\bfseries const\+\_\+reference} = const value\+\_\+type \&
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a218778bd679f92e569abd86b205033e9}\label{classnghttp2_1_1StringRef_a218778bd679f92e569abd86b205033e9} 
+using {\bfseries const\+\_\+pointer} = const value\+\_\+type \texorpdfstring{$\ast$}{*}
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_adce6558a6acd66ffe32bcd28f8d9f325}\label{classnghttp2_1_1StringRef_adce6558a6acd66ffe32bcd28f8d9f325} 
+using {\bfseries const\+\_\+iterator} = const\+\_\+pointer
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a4fadeed7e47e53d4f59617e0764ce658}\label{classnghttp2_1_1StringRef_a4fadeed7e47e53d4f59617e0764ce658} 
+using {\bfseries const\+\_\+reverse\+\_\+iterator} = std\+::reverse\+\_\+iterator$<$const\+\_\+iterator$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a9e3d78616f714ab335e0773366f67fc6}\label{classnghttp2_1_1StringRef_a9e3d78616f714ab335e0773366f67fc6} 
+constexpr {\bfseries String\+Ref} (const String\+Ref \&other) noexcept=default
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a45e9980735e350976be985b74663ab6d}\label{classnghttp2_1_1StringRef_a45e9980735e350976be985b74663ab6d} 
+constexpr {\bfseries String\+Ref} (std\+::nullptr\+\_\+t)=delete
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a7661a209922a3bb4c4ce4757ea4c30c5}\label{classnghttp2_1_1StringRef_a7661a209922a3bb4c4ce4757ea4c30c5} 
+constexpr {\bfseries String\+Ref} (const std\+::string \&s)
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_ac50b5655af1be6538588d73ca918d6ec}\label{classnghttp2_1_1StringRef_ac50b5655af1be6538588d73ca918d6ec} 
+constexpr {\bfseries String\+Ref} (const std\+::string\+\_\+view \&s)
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a1d0b75647409d73409596a58af90c5e2}\label{classnghttp2_1_1StringRef_a1d0b75647409d73409596a58af90c5e2} 
+constexpr {\bfseries String\+Ref} (const \mbox{\hyperlink{classnghttp2_1_1ImmutableString}{Immutable\+String}} \&s)
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a274ba14b8d678cbf761e4aaa6c2b77ac}\label{classnghttp2_1_1StringRef_a274ba14b8d678cbf761e4aaa6c2b77ac} 
+constexpr {\bfseries String\+Ref} (const char \texorpdfstring{$\ast$}{*}s)
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_ad0bb6bb2f3dd9a86e469d0f9e79961d3}\label{classnghttp2_1_1StringRef_ad0bb6bb2f3dd9a86e469d0f9e79961d3} 
+constexpr {\bfseries String\+Ref} (const char \texorpdfstring{$\ast$}{*}s, size\+\_\+t n)
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a8631df0ed49d7a7b9d32eaed6226c0aa}\label{classnghttp2_1_1StringRef_a8631df0ed49d7a7b9d32eaed6226c0aa} 
+{\bfseries String\+Ref} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}s, size\+\_\+t n)
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a58c1de2641483c84ac95f98961a9c66d}\label{classnghttp2_1_1StringRef_a58c1de2641483c84ac95f98961a9c66d} 
+{\footnotesize template$<$std\+::contiguous\+\_\+iterator Input\+It, typename = std\+::enable\+\_\+if\+\_\+t$<$              std\+::is\+\_\+same\+\_\+v$<$std\+::iter\+\_\+value\+\_\+t$<$\+Input\+It$>$, char$>$$>$$>$ }\\constexpr {\bfseries String\+Ref} (Input\+It first, Input\+It last)
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_ab06c3e906b08ecab5d56b1dbd2a1ed4b}\label{classnghttp2_1_1StringRef_ab06c3e906b08ecab5d56b1dbd2a1ed4b} 
+constexpr {\bfseries String\+Ref} (std\+::span$<$ const char $>$ s)
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a2d80ed9c8a3904d73e4969e3b69a7256}\label{classnghttp2_1_1StringRef_a2d80ed9c8a3904d73e4969e3b69a7256} 
+{\bfseries String\+Ref} (std\+::span$<$ const uint8\+\_\+t $>$ s)
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a6503153ca3dab8e1752b15d1027d31fb}\label{classnghttp2_1_1StringRef_a6503153ca3dab8e1752b15d1027d31fb} 
+constexpr String\+Ref \& {\bfseries operator=} (const String\+Ref \&other) noexcept=default
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a0a8b346712bc5d19ab38040f6509da38}\label{classnghttp2_1_1StringRef_a0a8b346712bc5d19ab38040f6509da38} 
+constexpr const\+\_\+iterator {\bfseries begin} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a02200ef48ac2abe4c8a141ea14fdddff}\label{classnghttp2_1_1StringRef_a02200ef48ac2abe4c8a141ea14fdddff} 
+constexpr const\+\_\+iterator {\bfseries cbegin} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a3f21a2d71e22effdea932f710b026e6e}\label{classnghttp2_1_1StringRef_a3f21a2d71e22effdea932f710b026e6e} 
+constexpr const\+\_\+iterator {\bfseries end} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_adf62ef1ddb537c9383c8937d12fa8748}\label{classnghttp2_1_1StringRef_adf62ef1ddb537c9383c8937d12fa8748} 
+constexpr const\+\_\+iterator {\bfseries cend} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_aec9317b2a4947f888eeeee1494402e8d}\label{classnghttp2_1_1StringRef_aec9317b2a4947f888eeeee1494402e8d} 
+constexpr const\+\_\+reverse\+\_\+iterator {\bfseries rbegin} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a87df0b17a2d71f76d904cd8d1d7ff7ed}\label{classnghttp2_1_1StringRef_a87df0b17a2d71f76d904cd8d1d7ff7ed} 
+constexpr const\+\_\+reverse\+\_\+iterator {\bfseries crbegin} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_ac800e91ecd1d32fa85bd9fe77af59823}\label{classnghttp2_1_1StringRef_ac800e91ecd1d32fa85bd9fe77af59823} 
+constexpr const\+\_\+reverse\+\_\+iterator {\bfseries rend} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a3362c9a224a274c3e5bd43c32b15ee5d}\label{classnghttp2_1_1StringRef_a3362c9a224a274c3e5bd43c32b15ee5d} 
+constexpr const\+\_\+reverse\+\_\+iterator {\bfseries crend} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a4063993980515234e0a8df6ddd44d0f8}\label{classnghttp2_1_1StringRef_a4063993980515234e0a8df6ddd44d0f8} 
+constexpr const\+\_\+pointer {\bfseries data} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a76980929cf662ed5f9edceb08aa2f6f1}\label{classnghttp2_1_1StringRef_a76980929cf662ed5f9edceb08aa2f6f1} 
+constexpr size\+\_\+type {\bfseries size} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a6a10f465440f9876023d8c8a42682bc7}\label{classnghttp2_1_1StringRef_a6a10f465440f9876023d8c8a42682bc7} 
+constexpr bool {\bfseries empty} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a2ca0aab20f0cafdd8b1524cee19fdcb2}\label{classnghttp2_1_1StringRef_a2ca0aab20f0cafdd8b1524cee19fdcb2} 
+constexpr const\+\_\+reference {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+type pos) const
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a9f00f08016b171b1a571e7bb3d247ac8}\label{classnghttp2_1_1StringRef_a9f00f08016b171b1a571e7bb3d247ac8} 
+const uint8\+\_\+t \texorpdfstring{$\ast$}{*} {\bfseries byte} () const
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a301aa3ca85d2aa68fa1da85acb1bfd8e}\label{classnghttp2_1_1StringRef_a301aa3ca85d2aa68fa1da85acb1bfd8e} 
+constexpr {\bfseries operator std\+::string\+\_\+view} () const noexcept
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a6896c2408c95b7ace62ffea42632ecde}\label{classnghttp2_1_1StringRef_a6896c2408c95b7ace62ffea42632ecde} 
+constexpr String\+Ref {\bfseries substr} (size\+\_\+type pos=0, size\+\_\+type count=npos) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a6d90004b00282f11ee53b2b6d2f8c2fe}\label{classnghttp2_1_1StringRef_a6d90004b00282f11ee53b2b6d2f8c2fe} 
+static constexpr String\+Ref {\bfseries from\+\_\+maybe\+\_\+nullptr} (const char \texorpdfstring{$\ast$}{*}s) noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnghttp2_1_1StringRef_a144fb8e53ca4650de967cf1c0dcf2e65}\label{classnghttp2_1_1StringRef_a144fb8e53ca4650de967cf1c0dcf2e65} 
+static constexpr size\+\_\+type {\bfseries npos} = size\+\_\+type(-\/1)
+\end{DoxyCompactItemize}
+
+
+\label{doc-typedef-members}
+\Hypertarget{classnghttp2_1_1StringRef_doc-typedef-members}
+\doxysubsection{Member Typedef Documentation}
+\Hypertarget{classnghttp2_1_1StringRef_a969b38435859792d89643e8a1c6561fa}\index{nghttp2::StringRef@{nghttp2::StringRef}!difference\_type@{difference\_type}}
+\index{difference\_type@{difference\_type}!nghttp2::StringRef@{nghttp2::StringRef}}
+\doxysubsubsection{\texorpdfstring{difference\_type}{difference\_type}}
+{\footnotesize\ttfamily \label{classnghttp2_1_1StringRef_a969b38435859792d89643e8a1c6561fa} 
+using nghttp2\+::\+String\+Ref\+::difference\+\_\+type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::allocator\_traits<allocator\_type>::difference\_type}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/template.\+h\end{DoxyCompactItemize}

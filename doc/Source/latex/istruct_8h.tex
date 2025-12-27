@@ -1,0 +1,80 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/istruct.h File Reference}
+\hypertarget{istruct_8h}{}\label{istruct_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/istruct.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/istruct.h}}
+{\ttfamily \#include "{}common.\+h"{}}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for istruct.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{istruct_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structRIStruct}{RIStruct}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{istruct_8h_a27579fb766859feddd6fd4a45ca46168}{ISTRUCT\+\_\+\+DATA\+\_\+\+SIZE}}~(sizeof(void\texorpdfstring{$\ast$}{*}) \texorpdfstring{$\ast$}{*} 3)
+\item 
+\#define \mbox{\hyperlink{istruct_8h_a36d938d55d21d770322d8e09b0c7fadb}{RISTRUCT}}(obj)
+\item 
+\#define \mbox{\hyperlink{istruct_8h_a3c9a2ed331e396427306762f1bf876de}{ISTRUCT\+\_\+\+PTR}}(obj)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{istruct_8h_add83c6b885f379b70e582078a0d567a5}\label{istruct_8h_add83c6b885f379b70e582078a0d567a5} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} mrb\+\_\+int {\bfseries mrb\+\_\+istruct\+\_\+size} ()
+\item 
+\Hypertarget{istruct_8h_a20aa3a6732727be41694f96c9b9c1454}\label{istruct_8h_a20aa3a6732727be41694f96c9b9c1454} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} void \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+istruct\+\_\+ptr} (\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} object)
+\item 
+\Hypertarget{istruct_8h_ac641838e87b802c124b190e00e653eee}\label{istruct_8h_ac641838e87b802c124b190e00e653eee} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} void {\bfseries mrb\+\_\+istruct\+\_\+copy} (\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} dest, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} src)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item Inline structures
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-define-members}
+\Hypertarget{istruct_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{istruct_8h_a27579fb766859feddd6fd4a45ca46168}\index{istruct.h@{istruct.h}!ISTRUCT\_DATA\_SIZE@{ISTRUCT\_DATA\_SIZE}}
+\index{ISTRUCT\_DATA\_SIZE@{ISTRUCT\_DATA\_SIZE}!istruct.h@{istruct.h}}
+\doxysubsubsection{\texorpdfstring{ISTRUCT\_DATA\_SIZE}{ISTRUCT\_DATA\_SIZE}}
+{\footnotesize\ttfamily \label{istruct_8h_a27579fb766859feddd6fd4a45ca46168} 
+\#define ISTRUCT\+\_\+\+DATA\+\_\+\+SIZE~(sizeof(void\texorpdfstring{$\ast$}{*}) \texorpdfstring{$\ast$}{*} 3)}
+
+Inline structures that fit in \doxylink{structRVALUE}{RVALUE}
+
+They cannot have finalizer, and cannot have instance variables. \Hypertarget{istruct_8h_a3c9a2ed331e396427306762f1bf876de}\index{istruct.h@{istruct.h}!ISTRUCT\_PTR@{ISTRUCT\_PTR}}
+\index{ISTRUCT\_PTR@{ISTRUCT\_PTR}!istruct.h@{istruct.h}}
+\doxysubsubsection{\texorpdfstring{ISTRUCT\_PTR}{ISTRUCT\_PTR}}
+{\footnotesize\ttfamily \label{istruct_8h_a3c9a2ed331e396427306762f1bf876de} 
+\#define ISTRUCT\+\_\+\+PTR(\begin{DoxyParamCaption}\item[{}]{obj}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(RISTRUCT(obj)-\/>inline\_data)}
+
+\end{DoxyCode}
+\Hypertarget{istruct_8h_a36d938d55d21d770322d8e09b0c7fadb}\index{istruct.h@{istruct.h}!RISTRUCT@{RISTRUCT}}
+\index{RISTRUCT@{RISTRUCT}!istruct.h@{istruct.h}}
+\doxysubsubsection{\texorpdfstring{RISTRUCT}{RISTRUCT}}
+{\footnotesize\ttfamily \label{istruct_8h_a36d938d55d21d770322d8e09b0c7fadb} 
+\#define RISTRUCT(\begin{DoxyParamCaption}\item[{}]{obj}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\textcolor{keyword}{struct\ }\mbox{\hyperlink{structRIStruct}{RIStruct}}*)(mrb\_ptr(obj)))}
+
+\end{DoxyCode}

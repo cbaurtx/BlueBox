@@ -1,0 +1,32 @@
+\doxysection{apibreak.\+h}
+\hypertarget{apibreak_8h_source}{}\label{apibreak_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/bin-\/debugger/tools/mrdb/apibreak.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/bin-\/debugger/tools/mrdb/apibreak.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ apibreak.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**}}
+\DoxyCodeLine{00004\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ APIBREAK\_H\_}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ APIBREAK\_H\_}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{mruby_8h}{mruby.h}}>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}mrdb.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ int32\_t\ mrb\_debug\_set\_break\_line(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__debug__context}{mrb\_debug\_context}}*,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*,\ uint16\_t);}
+\DoxyCodeLine{00013\ int32\_t\ mrb\_debug\_set\_break\_method(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__debug__context}{mrb\_debug\_context}}*,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*);}
+\DoxyCodeLine{00014\ int32\_t\ mrb\_debug\_get\_breaknum(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__debug__context}{mrb\_debug\_context}}*);}
+\DoxyCodeLine{00015\ int32\_t\ mrb\_debug\_get\_break\_all(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__debug__context}{mrb\_debug\_context}}*,\ uint32\_t,\ \mbox{\hyperlink{structmrb__debug__breakpoint}{mrb\_debug\_breakpoint}}\ bp[]);}
+\DoxyCodeLine{00016\ int32\_t\ mrb\_debug\_get\_break(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__debug__context}{mrb\_debug\_context}}*,\ uint32\_t,\ \mbox{\hyperlink{structmrb__debug__breakpoint}{mrb\_debug\_breakpoint}}*);}
+\DoxyCodeLine{00017\ int32\_t\ mrb\_debug\_delete\_break(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__debug__context}{mrb\_debug\_context}}*,\ uint32\_t);}
+\DoxyCodeLine{00018\ int32\_t\ mrb\_debug\_delete\_break\_all(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__debug__context}{mrb\_debug\_context}}*);}
+\DoxyCodeLine{00019\ int32\_t\ mrb\_debug\_enable\_break(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__debug__context}{mrb\_debug\_context}}*,\ uint32\_t);}
+\DoxyCodeLine{00020\ int32\_t\ mrb\_debug\_enable\_break\_all(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__debug__context}{mrb\_debug\_context}}*);}
+\DoxyCodeLine{00021\ int32\_t\ mrb\_debug\_disable\_break(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__debug__context}{mrb\_debug\_context}}*,\ uint32\_t);}
+\DoxyCodeLine{00022\ int32\_t\ mrb\_debug\_disable\_break\_all(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__debug__context}{mrb\_debug\_context}}*);}
+\DoxyCodeLine{00023\ int32\_t\ mrb\_debug\_check\_breakpoint\_line(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__debug__context}{mrb\_debug\_context}}*,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*,\ uint16\_t);}
+\DoxyCodeLine{00024\ int32\_t\ mrb\_debug\_check\_breakpoint\_method(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__debug__context}{mrb\_debug\_context}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}*,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}},\ mrb\_bool*);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ APIBREAK\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

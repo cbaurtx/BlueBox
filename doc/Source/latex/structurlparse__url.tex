@@ -1,0 +1,68 @@
+\doxysection{urlparse\+\_\+url Struct Reference}
+\hypertarget{structurlparse__url}{}\label{structurlparse__url}\index{urlparse\_url@{urlparse\_url}}
+
+
+{\ttfamily \#include $<$urlparse.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{structurlparse__url_a0fc51133f42830a7da5c81b5ba3170d7}{field\+\_\+set}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{structurlparse__url_abc8cf1eeff44b3dc991a946fb04d1378}{port}}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>uint16\_t \mbox{\hyperlink{structurlparse__url_a0611ce363c793b78f3f054acc18c37d3}{off}}\\
+\>uint16\_t \mbox{\hyperlink{structurlparse__url_a9d04e7e4bb7fa412d0ab8a6d86f4f6f7}{len}}\\
+\} \mbox{\hyperlink{structurlparse__url_a6174e20ea2c02c4def7e22af7a0cd912}{field\_data}} \mbox{[}URLPARSE\_MAX\mbox{]}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\+:type\+:{\ttfamily \doxylink{structurlparse__url}{urlparse\+\_\+url}} is a struct to store the result of parsing a URL. 
+
+\label{doc-variable-members}
+\Hypertarget{structurlparse__url_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structurlparse__url_a6174e20ea2c02c4def7e22af7a0cd912}\index{urlparse\_url@{urlparse\_url}!field\_data@{field\_data}}
+\index{field\_data@{field\_data}!urlparse\_url@{urlparse\_url}}
+\doxysubsubsection{\texorpdfstring{[struct]}{[struct]}}
+{\footnotesize\ttfamily \label{structurlparse__url_a6174e20ea2c02c4def7e22af7a0cd912} 
+struct  \{ ... \}  urlparse\+\_\+url\+::field\+\_\+data\mbox{[}URLPARSE\+\_\+\+MAX\mbox{]}}
+
+@anonstruct\+\_\+start
+
+@struct\+\_\+urlparse\+\_\+field\+\_\+data
+
+\+:member\+:{\ttfamily \doxylink{structurlparse__url_a6174e20ea2c02c4def7e22af7a0cd912}{field\+\_\+data}} stores the position and its length of each URL component if the corresponding bit is set in \+:member\+:{\ttfamily \doxylink{structurlparse__url_a0fc51133f42830a7da5c81b5ba3170d7}{field\+\_\+set}}. For example, field\+\_\+data\mbox{[}\+:enum\+:{\ttfamily URLPARSE\+\_\+\+HOST \texorpdfstring{$<$}{<}urlparse\+\_\+url\+\_\+fields.\+URLPARSE\+\_\+\+HOST\texorpdfstring{$>$}{>}}\mbox{]} is assigned if (\+:member\+:{\ttfamily \doxylink{structurlparse__url_a0fc51133f42830a7da5c81b5ba3170d7}{field\+\_\+set}} \& (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \+:enum\+:{\ttfamily URLPARSE\+\_\+\+HOST \texorpdfstring{$<$}{<}urlparse\+\_\+url\+\_\+fields.\+URLPARSE\+\_\+\+HOST\texorpdfstring{$>$}{>}})) is nonzero. \Hypertarget{structurlparse__url_a0fc51133f42830a7da5c81b5ba3170d7}\index{urlparse\_url@{urlparse\_url}!field\_set@{field\_set}}
+\index{field\_set@{field\_set}!urlparse\_url@{urlparse\_url}}
+\doxysubsubsection{\texorpdfstring{field\_set}{field\_set}}
+{\footnotesize\ttfamily \label{structurlparse__url_a0fc51133f42830a7da5c81b5ba3170d7} 
+uint16\+\_\+t urlparse\+\_\+url\+::field\+\_\+set}
+
+\+:member\+:{\ttfamily \doxylink{structurlparse__url_a0fc51133f42830a7da5c81b5ba3170d7}{field\+\_\+set}} is a bitmask of (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \+:type\+:{\ttfamily URLPARSE\+\_\+\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}urlparse\+\_\+url\+\_\+fields\texorpdfstring{$>$}{>}}) values. \Hypertarget{structurlparse__url_a9d04e7e4bb7fa412d0ab8a6d86f4f6f7}\index{urlparse\_url@{urlparse\_url}!len@{len}}
+\index{len@{len}!urlparse\_url@{urlparse\_url}}
+\doxysubsubsection{\texorpdfstring{len}{len}}
+{\footnotesize\ttfamily \label{structurlparse__url_a9d04e7e4bb7fa412d0ab8a6d86f4f6f7} 
+uint16\+\_\+t urlparse\+\_\+url\+::len}
+
+\+:member\+:{\ttfamily \doxylink{structurlparse__url_a9d04e7e4bb7fa412d0ab8a6d86f4f6f7}{len}} is a length of run in buffer. \Hypertarget{structurlparse__url_a0611ce363c793b78f3f054acc18c37d3}\index{urlparse\_url@{urlparse\_url}!off@{off}}
+\index{off@{off}!urlparse\_url@{urlparse\_url}}
+\doxysubsubsection{\texorpdfstring{off}{off}}
+{\footnotesize\ttfamily \label{structurlparse__url_a0611ce363c793b78f3f054acc18c37d3} 
+uint16\+\_\+t urlparse\+\_\+url\+::off}
+
+\+:member\+:{\ttfamily \doxylink{structurlparse__url_a0611ce363c793b78f3f054acc18c37d3}{off}} is an offset into buffer in which field starts. \Hypertarget{structurlparse__url_abc8cf1eeff44b3dc991a946fb04d1378}\index{urlparse\_url@{urlparse\_url}!port@{port}}
+\index{port@{port}!urlparse\_url@{urlparse\_url}}
+\doxysubsubsection{\texorpdfstring{port}{port}}
+{\footnotesize\ttfamily \label{structurlparse__url_abc8cf1eeff44b3dc991a946fb04d1378} 
+uint16\+\_\+t urlparse\+\_\+url\+::port}
+
+\+:member\+:{\ttfamily \doxylink{structurlparse__url_abc8cf1eeff44b3dc991a946fb04d1378}{port}} is the integer representation of \+:enum\+:{\ttfamily URLPARSE\+\_\+\+PORT \texorpdfstring{$<$}{<}urlparse\+\_\+url\+\_\+fields.\+URLPARSE\+\_\+\+PORT\texorpdfstring{$>$}{>}} string. It is assigned only when (\+:member\+:{\ttfamily \doxylink{structurlparse__url_a0fc51133f42830a7da5c81b5ba3170d7}{field\+\_\+set}} \& (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \+:enum\+:{\ttfamily URLPARSE\+\_\+\+PORT \texorpdfstring{$<$}{<}urlparse\+\_\+url\+\_\+fields.\+URLPARSE\+\_\+\+PORT\texorpdfstring{$>$}{>}})) is nonzero. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/urlparse/urlparse.\+h\end{DoxyCompactItemize}

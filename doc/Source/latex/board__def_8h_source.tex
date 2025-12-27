@@ -1,0 +1,106 @@
+\doxysection{board\+\_\+def.\+h}
+\hypertarget{board__def_8h_source}{}\label{board__def_8h_source}\index{components/audioboard/generic\_i2s\_board/board\_def.h@{components/audioboard/generic\_i2s\_board/board\_def.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ ESPRESSIF\ MIT\ License}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2020\ <ESPRESSIF\ SYSTEMS\ (SHANGHAI)\ CO.,\ LTD>}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted\ for\ use\ on\ all\ ESPRESSIF\ SYSTEMS\ products,\ in\ which\ case,}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ it\ is\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ copy\ of\ this\ software\ and\ associated}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ documentation\ files\ (the\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ to\ do\ so,\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ all\ copies\ or}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ FITNESS}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ \_BOARD\_DEV\_H\_}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ \_BOARD\_DEV\_H\_}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ BUTTON\_VOLUP\_ID\ \ \ \ \ \ \ \ \ \ \ (-\/1)\ \ \ \ \ }\textcolor{comment}{/*\ You\ need\ to\ define\ the\ GPIO\ pins\ of\ your\ board\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ BUTTON\_VOLDOWN\_ID\ \ \ \ \ \ \ \ \ (-\/1)\ \ \ \ \ }\textcolor{comment}{/*\ You\ need\ to\ define\ the\ GPIO\ pins\ of\ your\ board\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ BUTTON\_MUTE\_ID\ \ \ \ \ \ \ \ \ \ \ \ (-\/1)\ \ \ \ \ \ }\textcolor{comment}{/*\ You\ need\ to\ define\ the\ GPIO\ pins\ of\ your\ board\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ BUTTON\_SET\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ (-\/1)\ \ \ \ \ }\textcolor{comment}{/*\ You\ need\ to\ define\ the\ GPIO\ pins\ of\ your\ board\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ BUTTON\_MODE\_ID\ \ \ \ \ \ \ \ \ \ \ \ (-\/1)\ \ \ \ \ }\textcolor{comment}{/*\ You\ need\ to\ define\ the\ GPIO\ pins\ of\ your\ board\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ BUTTON\_PLAY\_ID\ \ \ \ \ \ \ \ \ \ \ \ (-\/1)\ \ \ \ \ }\textcolor{comment}{/*\ You\ need\ to\ define\ the\ GPIO\ pins\ of\ your\ board\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ PA\_ENABLE\_GPIO\ \ \ \ \ \ \ \ \ \ \ \ (-\/1)\ \ \ \ \ }\textcolor{comment}{/*\ You\ need\ to\ define\ the\ GPIO\ pins\ of\ your\ board\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ ADC\_DETECT\_GPIO\ \ \ \ \ \ \ \ \ \ \ (-\/1)\ \ \ \ \ }\textcolor{comment}{/*\ You\ need\ to\ define\ the\ GPIO\ pins\ of\ your\ board\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ BATTERY\_DETECT\_GPIO\ \ \ \ \ \ \ (-\/1)\ \ \ \ \ }\textcolor{comment}{/*\ You\ need\ to\ define\ the\ GPIO\ pins\ of\ your\ board\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ MUTE\_GPIO\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 42\ \ \ \ \ \ }\textcolor{comment}{/*\ You\ need\ to\ define\ the\ GPIO\ pins\ of\ your\ board\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{/*\ Retrobox\ has\ no\ SD\ card\ */}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ FUNC\_SDCARD\_EN\ (1)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ SDCARD\_OPEN\_FILE\_NUM\_MAX\ \ \ \ 5}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ SDCARD\_INTR\_GPIO\ \ \ \ \ \ \ \ \ \ \ \ -\/1}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ SDCARD\_PWR\_CTRL\ \ \ \ \ \ \ \ \ \ \ \ \ -\/1}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ ESP\_SD\_PIN\_CLK\ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/1}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ ESP\_SD\_PIN\_CMD\ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/1}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ ESP\_SD\_PIN\_D0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/1}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ ESP\_SD\_PIN\_D1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/1}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ ESP\_SD\_PIN\_D2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/1}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ ESP\_SD\_PIN\_D3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/1}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ ESP\_SD\_PIN\_D4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/1}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ ESP\_SD\_PIN\_D5\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/1}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ ESP\_SD\_PIN\_D6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/1}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ ESP\_SD\_PIN\_D7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/1}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ ESP\_SD\_PIN\_CD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/1}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ ESP\_SD\_PIN\_WP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/1}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ BOARD\_PA\_GAIN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0)\ \ }\textcolor{comment}{/*\ Power\ amplifier\ gain\ defined\ by\ board\ (dB)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{extern}\ audio\_hal\_func\_t\ AUDIO\_CODEC\_PCM5102A\_DEFAULT\_HANDLE;}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ AUDIO\_CODEC\_DEFAULT\_CONFIG()\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ .adc\_input\ \ =\ AUDIO\_HAL\_ADC\_INPUT\_LINE1,\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ .dac\_output\ =\ AUDIO\_HAL\_DAC\_OUTPUT\_ALL,\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ .codec\_mode\ =\ AUDIO\_HAL\_CODEC\_MODE\_BOTH,\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ .i2s\_iface\ =\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ .mode\ =\ AUDIO\_HAL\_MODE\_MASTER,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ .fmt\ =\ AUDIO\_HAL\_I2S\_NORMAL,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ .samples\ =\ AUDIO\_HAL\_48K\_SAMPLES,\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ .bits\ =\ AUDIO\_HAL\_BIT\_LENGTH\_16BITS,\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\};}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ INPUT\_KEY\_NUM\ \ \ \ \ 0\ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ You\ need\ to\ define\ the\ number\ of\ input\ buttons\ on\ your\ board\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ INPUT\_KEY\_DEFAULT\_INFO()\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ .type\ =\ PERIPH\_ID\_ADC\_BTN,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ .user\_id\ =\ INPUT\_KEY\_USER\_ID\_VOLUP,\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ .act\_id\ =\ BUTTON\_VOLUP\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\ \ \ \ \},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ .type\ =\ PERIPH\_ID\_ADC\_BTN,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ .user\_id\ =\ INPUT\_KEY\_USER\_ID\_VOLDOWN,\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ .act\_id\ =\ BUTTON\_VOLDOWN\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\ \ \ \ \},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ .type\ =\ PERIPH\_ID\_ADC\_BTN,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ .user\_id\ =\ INPUT\_KEY\_USER\_ID\_MUTE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ .act\_id\ =\ BUTTON\_MUTE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\ \ \ \ \},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ .type\ =\ PERIPH\_ID\_ADC\_BTN,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ .user\_id\ =\ INPUT\_KEY\_USER\_ID\_SET,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ .act\_id\ =\ BUTTON\_SET\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\ \ \ \ \},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

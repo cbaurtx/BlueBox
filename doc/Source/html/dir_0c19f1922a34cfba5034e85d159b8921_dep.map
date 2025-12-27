@@ -1,0 +1,10 @@
+<map id="managed_components/espressif__esp&#45;dsp/modules/matrix/add" name="managed_components/espressif__esp&#45;dsp/modules/matrix/add">
+<area shape="rect" id="node2" href="dir_1a31e832106c17893d7cc2017f4c698a.html" title="float" alt="" coords="104,64,150,91"/>
+<area shape="rect" id="node3" href="dir_56bbdefa798835dba51c933730737447.html" title="include" alt="" coords="174,64,236,91"/>
+<area shape="rect" id="node4" href="dir_4d2a1ba22be22930d5d7bfe8778f6b63.html" title="test" alt="" coords="261,64,304,91"/>
+<area shape="rect" id="node5" href="dir_9daa05842a3b93b9b84970416d2aacb6.html" title="espressif__nghttp" alt="" coords="220,139,345,165"/>
+<area shape="poly" id="edge1" href="dir_000373_000077.html" alt="" coords="285,89,285,125,280,122,281,93"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000373_000077.html" title="2" alt="" coords="288,112,295,128"/>
+<area shape="rect" id="clust2" href="dir_0c19f1922a34cfba5034e85d159b8921.html" alt="" coords="27,53,315,101"/>
+<area shape="rect" id="clust1" href="dir_cabc96c1b2ff51b7d4bec4ff54a5d0df.html" title="matrix" alt="" coords="16,16,325,112"/>
+</map>

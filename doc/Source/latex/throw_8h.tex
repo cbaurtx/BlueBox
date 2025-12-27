@@ -1,0 +1,92 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/throw.h File Reference}
+\hypertarget{throw_8h}{}\label{throw_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/throw.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/throw.h}}
+{\ttfamily \#include $<$setjmp.\+h$>$}\newline
+Include dependency graph for throw.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{throw_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structmrb__jmpbuf}{mrb\+\_\+jmpbuf}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{throw_8h_a246ac3b2060cbff1141bb581a2b86e89}\label{throw_8h_a246ac3b2060cbff1141bb581a2b86e89} 
+\#define {\bfseries MRB\+\_\+\+SETJMP}~setjmp
+\item 
+\Hypertarget{throw_8h_a1e06887e32997254881ae6d98988fa05}\label{throw_8h_a1e06887e32997254881ae6d98988fa05} 
+\#define {\bfseries MRB\+\_\+\+LONGJMP}~longjmp
+\item 
+\#define \mbox{\hyperlink{throw_8h_a8ce63b2b7c07ce884666884192704002}{MRB\+\_\+\+TRY}}(buf)
+\item 
+\#define \mbox{\hyperlink{throw_8h_a53d7ae66c4c84df4db60949e8dca9fe6}{MRB\+\_\+\+CATCH}}(buf)
+\item 
+\#define \mbox{\hyperlink{throw_8h_acda8bd9a52fff57e94dc5ecb27f2cef9}{MRB\+\_\+\+END\+\_\+\+EXC}}(buf)
+\item 
+\#define \mbox{\hyperlink{throw_8h_a1378ed94eade7d87e2ccdad232ed8c4b}{MRB\+\_\+\+THROW}}(buf)
+\item 
+\Hypertarget{throw_8h_a4fb571f1a46eac17716d74d8a3f231f9}\label{throw_8h_a4fb571f1a46eac17716d74d8a3f231f9} 
+\#define {\bfseries mrb\+\_\+jmpbuf\+\_\+impl}~jmp\+\_\+buf
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item mruby exception throwing handler
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-define-members}
+\Hypertarget{throw_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{throw_8h_a53d7ae66c4c84df4db60949e8dca9fe6}\index{throw.h@{throw.h}!MRB\_CATCH@{MRB\_CATCH}}
+\index{MRB\_CATCH@{MRB\_CATCH}!throw.h@{throw.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_CATCH}{MRB\_CATCH}}
+{\footnotesize\ttfamily \label{throw_8h_a53d7ae66c4c84df4db60949e8dca9fe6} 
+\#define MRB\+\_\+\+CATCH(\begin{DoxyParamCaption}\item[{}]{buf}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\}\ \textcolor{keywordflow}{else}\ \{}
+
+\end{DoxyCode}
+\Hypertarget{throw_8h_acda8bd9a52fff57e94dc5ecb27f2cef9}\index{throw.h@{throw.h}!MRB\_END\_EXC@{MRB\_END\_EXC}}
+\index{MRB\_END\_EXC@{MRB\_END\_EXC}!throw.h@{throw.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_END\_EXC}{MRB\_END\_EXC}}
+{\footnotesize\ttfamily \label{throw_8h_acda8bd9a52fff57e94dc5ecb27f2cef9} 
+\#define MRB\+\_\+\+END\+\_\+\+EXC(\begin{DoxyParamCaption}\item[{}]{buf}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{throw_8h_a1378ed94eade7d87e2ccdad232ed8c4b}\index{throw.h@{throw.h}!MRB\_THROW@{MRB\_THROW}}
+\index{MRB\_THROW@{MRB\_THROW}!throw.h@{throw.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_THROW}{MRB\_THROW}}
+{\footnotesize\ttfamily \label{throw_8h_a1378ed94eade7d87e2ccdad232ed8c4b} 
+\#define MRB\+\_\+\+THROW(\begin{DoxyParamCaption}\item[{}]{buf}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{MRB\_LONGJMP((buf)-\/>impl,\ 1);}
+
+\end{DoxyCode}
+\Hypertarget{throw_8h_a8ce63b2b7c07ce884666884192704002}\index{throw.h@{throw.h}!MRB\_TRY@{MRB\_TRY}}
+\index{MRB\_TRY@{MRB\_TRY}!throw.h@{throw.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_TRY}{MRB\_TRY}}
+{\footnotesize\ttfamily \label{throw_8h_a8ce63b2b7c07ce884666884192704002} 
+\#define MRB\+\_\+\+TRY(\begin{DoxyParamCaption}\item[{}]{buf}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{if}\ (MRB\_SETJMP((buf)-\/>impl)\ ==\ 0)\ \{}
+
+\end{DoxyCode}

@@ -1,0 +1,322 @@
+\doxysection{nghttp.\+h}
+\hypertarget{nghttp_8h_source}{}\label{nghttp_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/nghttp.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/nghttp.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2015\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ NGHTTP\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ NGHTTP\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_config.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <sys/types.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifdef\ HAVE\_SYS\_SOCKET\_H}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#\ \ include\ <sys/socket.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ HAVE\_SYS\_SOCKET\_H}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#ifdef\ HAVE\_NETDB\_H}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#\ \ include\ <netdb.h>}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ HAVE\_NETDB\_H}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <set>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}ssl\_compat.h"{}}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#ifdef\ NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/options.h>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/openssl/ssl.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//\ !NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#\ \ include\ <openssl/ssl.h>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <ev.h>}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ NGHTTP2\_NO\_SSIZE\_T}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ "{}llhttp.h"{}}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ "{}memchunk.h"{}}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ "{}http2.h"{}}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_gzip.h"{}}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#include\ "{}template.h"{}}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{namespace\ }nghttp2\ \{}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classnghttp2_1_1HtmlParser}{HtmlParser}};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2_1_1Config}{Config}}\ \{}
+\DoxyCodeLine{00070\ \ \ Config();}
+\DoxyCodeLine{00071\ \ \ \string~Config();}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ Headers\ headers;}
+\DoxyCodeLine{00074\ \ \ Headers\ trailer;}
+\DoxyCodeLine{00075\ \ \ std::vector<nghttp2\_extpri>\ extpris;}
+\DoxyCodeLine{00076\ \ \ std::string\ certfile;}
+\DoxyCodeLine{00077\ \ \ std::string\ keyfile;}
+\DoxyCodeLine{00078\ \ \ std::string\ datafile;}
+\DoxyCodeLine{00079\ \ \ std::string\ harfile;}
+\DoxyCodeLine{00080\ \ \ std::string\ scheme\_override;}
+\DoxyCodeLine{00081\ \ \ std::string\ host\_override;}
+\DoxyCodeLine{00082\ \ \ nghttp2\_option\ *http2\_option;}
+\DoxyCodeLine{00083\ \ \ int64\_t\ header\_table\_size;}
+\DoxyCodeLine{00084\ \ \ int64\_t\ min\_header\_table\_size;}
+\DoxyCodeLine{00085\ \ \ int64\_t\ encoder\_header\_table\_size;}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{size\_t}\ padding;}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{size\_t}\ max\_concurrent\_streams;}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{size\_t}\ peer\_max\_concurrent\_streams;}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{int}\ multiply;}
+\DoxyCodeLine{00090\ \ \ \textcolor{comment}{//\ milliseconds}}
+\DoxyCodeLine{00091\ \ \ ev\_tstamp\ timeout;}
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{int}\ window\_bits;}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{int}\ connection\_window\_bits;}
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{int}\ verbose;}
+\DoxyCodeLine{00095\ \ \ uint16\_t\ port\_override;}
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordtype}{bool}\ null\_out;}
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{bool}\ remote\_name;}
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{bool}\ get\_assets;}
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordtype}{bool}\ stat;}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{bool}\ upgrade;}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{bool}\ continuation;}
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{bool}\ no\_content\_length;}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{bool}\ hexdump;}
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{bool}\ no\_push;}
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{bool}\ expect\_continue;}
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{bool}\ verify\_peer;}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{bool}\ ktls;}
+\DoxyCodeLine{00108\ \};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{keyword}{enum\ class}\ RequestState\ \{\ INITIAL,\ ON\_REQUEST,\ ON\_RESPONSE,\ ON\_COMPLETE\ \};}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{keyword}{struct\ }RequestTiming\ \{}
+\DoxyCodeLine{00113\ \ \ \textcolor{comment}{//\ The\ point\ in\ time\ when\ request\ is\ started\ to\ be\ sent.}}
+\DoxyCodeLine{00114\ \ \ \textcolor{comment}{//\ Corresponds\ to\ requestStart\ in\ Resource\ Timing\ TR.}}
+\DoxyCodeLine{00115\ \ \ std::chrono::steady\_clock::time\_point\ request\_start\_time;}
+\DoxyCodeLine{00116\ \ \ \textcolor{comment}{//\ The\ point\ in\ time\ when\ first\ byte\ of\ response\ is\ received.}}
+\DoxyCodeLine{00117\ \ \ \textcolor{comment}{//\ Corresponds\ to\ responseStart\ in\ Resource\ Timing\ TR.}}
+\DoxyCodeLine{00118\ \ \ std::chrono::steady\_clock::time\_point\ response\_start\_time;}
+\DoxyCodeLine{00119\ \ \ \textcolor{comment}{//\ The\ point\ in\ time\ when\ last\ byte\ of\ response\ is\ received.}}
+\DoxyCodeLine{00120\ \ \ \textcolor{comment}{//\ Corresponds\ to\ responseEnd\ in\ Resource\ Timing\ TR.}}
+\DoxyCodeLine{00121\ \ \ std::chrono::steady\_clock::time\_point\ response\_end\_time;}
+\DoxyCodeLine{00122\ \ \ RequestState\ state;}
+\DoxyCodeLine{00123\ \ \ RequestTiming()\ :\ state(RequestState::INITIAL)\ \{\}}
+\DoxyCodeLine{00124\ \};}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2_1_1Request}{Request}};\ \textcolor{comment}{//\ forward\ declaration\ for\ ContinueTimer}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{struct\ }ContinueTimer\ \{}
+\DoxyCodeLine{00129\ \ \ ContinueTimer(\textcolor{keyword}{struct}\ ev\_loop\ *loop,\ \mbox{\hyperlink{structnghttp2_1_1Request}{Request}}\ *req);}
+\DoxyCodeLine{00130\ \ \ \string~ContinueTimer();}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordtype}{void}\ start();}
+\DoxyCodeLine{00133\ \ \ \textcolor{keywordtype}{void}\ stop();}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \textcolor{comment}{//\ Schedules\ an\ immediate\ run\ of\ the\ continue\ callback\ on\ the\ loop,\ if\ the}}
+\DoxyCodeLine{00136\ \ \ \textcolor{comment}{//\ callback\ has\ not\ already\ been\ run}}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{void}\ dispatch\_continue();}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \textcolor{keyword}{struct\ }ev\_loop\ *loop;}
+\DoxyCodeLine{00140\ \ \ ev\_timer\ timer;}
+\DoxyCodeLine{00141\ \};}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{keyword}{struct\ }Request\ \{}
+\DoxyCodeLine{00144\ \ \ \textcolor{comment}{//\ For\ pushed\ request,\ |uri|\ is\ empty\ and\ |u|\ is\ zero-\/cleared.}}
+\DoxyCodeLine{00145\ \ \ Request(\textcolor{keyword}{const}\ std::string\ \&uri,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structurlparse__url}{urlparse\_url}}\ \&u,}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__data__provider2}{nghttp2\_data\_provider2}}\ *data\_prd,\ int64\_t\ data\_length,}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__extpri}{nghttp2\_extpri}}\ \&extpri,\ \textcolor{keywordtype}{int}\ level\ =\ 0);}
+\DoxyCodeLine{00148\ \ \ \string~Request();}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordtype}{void}\ init\_inflater();}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \textcolor{keywordtype}{void}\ init\_html\_parser();}
+\DoxyCodeLine{00153\ \ \ \textcolor{keywordtype}{int}\ update\_html\_parser(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{int}\ fin);}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ std::string\ make\_reqpath()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordtype}{bool}\ is\_ipv6\_literal\_addr()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ Headers::value\_type\ *get\_res\_header(int32\_t\ token);}
+\DoxyCodeLine{00160\ \ \ Headers::value\_type\ *get\_req\_header(int32\_t\ token);}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \textcolor{keywordtype}{void}\ record\_request\_start\_time();}
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordtype}{void}\ record\_response\_start\_time();}
+\DoxyCodeLine{00164\ \ \ \textcolor{keywordtype}{void}\ record\_response\_end\_time();}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \textcolor{comment}{//\ Returns\ scheme\ taking\ into\ account\ overridden\ scheme.}}
+\DoxyCodeLine{00167\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ get\_real\_scheme()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00168\ \ \ \textcolor{comment}{//\ Returns\ request\ host,\ without\ port,\ taking\ into\ account}}
+\DoxyCodeLine{00169\ \ \ \textcolor{comment}{//\ overridden\ host.}}
+\DoxyCodeLine{00170\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ get\_real\_host()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00171\ \ \ \textcolor{comment}{//\ Returns\ request\ port,\ taking\ into\ account\ overridden\ host,\ port,}}
+\DoxyCodeLine{00172\ \ \ \textcolor{comment}{//\ and\ scheme.}}
+\DoxyCodeLine{00173\ \ \ uint16\_t\ get\_real\_port()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ Headers\ res\_nva;}
+\DoxyCodeLine{00176\ \ \ Headers\ req\_nva;}
+\DoxyCodeLine{00177\ \ \ std::string\ method;}
+\DoxyCodeLine{00178\ \ \ \textcolor{comment}{//\ URI\ without\ fragment}}
+\DoxyCodeLine{00179\ \ \ std::string\ uri;}
+\DoxyCodeLine{00180\ \ \ \mbox{\hyperlink{structurlparse__url}{urlparse\_url}}\ u;}
+\DoxyCodeLine{00181\ \ \ \mbox{\hyperlink{structnghttp2__extpri}{nghttp2\_extpri}}\ extpri;}
+\DoxyCodeLine{00182\ \ \ \mbox{\hyperlink{structnghttp2_1_1RequestTiming}{RequestTiming}}\ timing;}
+\DoxyCodeLine{00183\ \ \ int64\_t\ data\_length;}
+\DoxyCodeLine{00184\ \ \ int64\_t\ data\_offset;}
+\DoxyCodeLine{00185\ \ \ \textcolor{comment}{//\ Number\ of\ bytes\ received\ from\ server}}
+\DoxyCodeLine{00186\ \ \ int64\_t\ response\_len;}
+\DoxyCodeLine{00187\ \ \ \mbox{\hyperlink{structnghttp2__gzip}{nghttp2\_gzip}}\ *inflater;}
+\DoxyCodeLine{00188\ \ \ std::unique\_ptr<HtmlParser>\ html\_parser;}
+\DoxyCodeLine{00189\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__data__provider2}{nghttp2\_data\_provider2}}\ *data\_prd;}
+\DoxyCodeLine{00190\ \ \ \textcolor{keywordtype}{size\_t}\ header\_buffer\_size;}
+\DoxyCodeLine{00191\ \ \ int32\_t\ stream\_id;}
+\DoxyCodeLine{00192\ \ \ \textcolor{keywordtype}{int}\ status;}
+\DoxyCodeLine{00193\ \ \ \textcolor{comment}{//\ Recursion\ level:\ 0:\ first\ entity,\ 1:\ entity\ linked\ from\ first\ entity}}
+\DoxyCodeLine{00194\ \ \ \textcolor{keywordtype}{int}\ level;}
+\DoxyCodeLine{00195\ \ \ http2::HeaderIndex\ res\_hdidx;}
+\DoxyCodeLine{00196\ \ \ \textcolor{comment}{//\ used\ for\ incoming\ PUSH\_PROMISE}}
+\DoxyCodeLine{00197\ \ \ http2::HeaderIndex\ req\_hdidx;}
+\DoxyCodeLine{00198\ \ \ \textcolor{keywordtype}{bool}\ expect\_final\_response;}
+\DoxyCodeLine{00199\ \ \ \textcolor{comment}{//\ only\ assigned\ if\ this\ request\ is\ using\ Expect/Continue}}
+\DoxyCodeLine{00200\ \ \ std::unique\_ptr<ContinueTimer>\ continue\_timer;}
+\DoxyCodeLine{00201\ \};}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2_1_1SessionTiming}{SessionTiming}}\ \{}
+\DoxyCodeLine{00204\ \ \ \textcolor{comment}{//\ The\ point\ in\ time\ when\ operation\ was\ started.\ \ Corresponds\ to}}
+\DoxyCodeLine{00205\ \ \ \textcolor{comment}{//\ startTime\ in\ Resource\ Timing\ TR,\ but\ recorded\ in\ system\ clock\ time.}}
+\DoxyCodeLine{00206\ \ \ std::chrono::system\_clock::time\_point\ system\_start\_time;}
+\DoxyCodeLine{00207\ \ \ \textcolor{comment}{//\ Same\ as\ above,\ but\ recorded\ in\ steady\ clock\ time.}}
+\DoxyCodeLine{00208\ \ \ std::chrono::steady\_clock::time\_point\ start\_time;}
+\DoxyCodeLine{00209\ \ \ \textcolor{comment}{//\ The\ point\ in\ time\ when\ DNS\ resolution\ was\ completed.\ \ Corresponds}}
+\DoxyCodeLine{00210\ \ \ \textcolor{comment}{//\ to\ domainLookupEnd\ in\ Resource\ Timing\ TR.}}
+\DoxyCodeLine{00211\ \ \ std::chrono::steady\_clock::time\_point\ domain\_lookup\_end\_time;}
+\DoxyCodeLine{00212\ \ \ \textcolor{comment}{//\ The\ point\ in\ time\ when\ connection\ was\ established\ or\ SSL/TLS}}
+\DoxyCodeLine{00213\ \ \ \textcolor{comment}{//\ handshake\ was\ completed.\ \ Corresponds\ to\ connectEnd\ in\ Resource}}
+\DoxyCodeLine{00214\ \ \ \textcolor{comment}{//\ Timing\ TR.}}
+\DoxyCodeLine{00215\ \ \ std::chrono::steady\_clock::time\_point\ connect\_end\_time;}
+\DoxyCodeLine{00216\ \};}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \textcolor{keyword}{enum\ class}\ ClientState\ \{\ IDLE,\ CONNECTED\ \};}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{keyword}{struct\ }HttpClient\ \{}
+\DoxyCodeLine{00221\ \ \ HttpClient(\textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *callbacks,\ \textcolor{keyword}{struct}\ ev\_loop\ *loop,}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ SSL\_CTX\ *ssl\_ctx);}
+\DoxyCodeLine{00223\ \ \ \string~HttpClient();}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \textcolor{keywordtype}{bool}\ need\_upgrade()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00226\ \ \ \textcolor{keywordtype}{int}\ resolve\_host(\textcolor{keyword}{const}\ std::string\ \&host,\ uint16\_t\ port);}
+\DoxyCodeLine{00227\ \ \ \textcolor{keywordtype}{int}\ initiate\_connection();}
+\DoxyCodeLine{00228\ \ \ \textcolor{keywordtype}{void}\ disconnect();}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \textcolor{keywordtype}{int}\ noop();}
+\DoxyCodeLine{00231\ \ \ \textcolor{keywordtype}{int}\ read\_clear();}
+\DoxyCodeLine{00232\ \ \ \textcolor{keywordtype}{int}\ write\_clear();}
+\DoxyCodeLine{00233\ \ \ \textcolor{keywordtype}{int}\ connected();}
+\DoxyCodeLine{00234\ \ \ \textcolor{keywordtype}{int}\ tls\_handshake();}
+\DoxyCodeLine{00235\ \ \ \textcolor{keywordtype}{int}\ read\_tls();}
+\DoxyCodeLine{00236\ \ \ \textcolor{keywordtype}{int}\ write\_tls();}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \textcolor{keywordtype}{int}\ do\_read();}
+\DoxyCodeLine{00239\ \ \ \textcolor{keywordtype}{int}\ do\_write();}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \textcolor{keywordtype}{int}\ on\_upgrade\_connect();}
+\DoxyCodeLine{00242\ \ \ \textcolor{keywordtype}{int}\ on\_upgrade\_read(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00243\ \ \ \textcolor{keywordtype}{int}\ on\_read(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00244\ \ \ \textcolor{keywordtype}{int}\ on\_write();}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \textcolor{keywordtype}{int}\ connection\_made();}
+\DoxyCodeLine{00247\ \ \ \textcolor{keywordtype}{void}\ connect\_fail();}
+\DoxyCodeLine{00248\ \ \ \textcolor{keywordtype}{void}\ request\_done(\mbox{\hyperlink{structnghttp2_1_1Request}{Request}}\ *req);}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \textcolor{keywordtype}{void}\ signal\_write();}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \textcolor{keywordtype}{bool}\ all\_requests\_processed()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00253\ \ \ \textcolor{keywordtype}{void}\ update\_hostport();}
+\DoxyCodeLine{00254\ \ \ \textcolor{keywordtype}{bool}\ add\_request(\textcolor{keyword}{const}\ std::string\ \&uri,}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__data__provider2}{nghttp2\_data\_provider2}}\ *data\_prd,\ int64\_t\ data\_length,}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__extpri}{nghttp2\_extpri}}\ \&extpri,\ \textcolor{keywordtype}{int}\ level\ =\ 0);}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \ \ \textcolor{keywordtype}{void}\ record\_start\_time();}
+\DoxyCodeLine{00259\ \ \ \textcolor{keywordtype}{void}\ record\_domain\_lookup\_end\_time();}
+\DoxyCodeLine{00260\ \ \ \textcolor{keywordtype}{void}\ record\_connect\_end\_time();}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\#ifdef\ HAVE\_JANSSON}}
+\DoxyCodeLine{00263\ \ \ \textcolor{keywordtype}{void}\ output\_har(FILE\ *outfile);}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ HAVE\_JANSSON}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ MemchunkPool\ mcpool;}
+\DoxyCodeLine{00267\ \ \ DefaultMemchunks\ wb;}
+\DoxyCodeLine{00268\ \ \ std::vector<std::unique\_ptr<Request>>\ reqvec;}
+\DoxyCodeLine{00269\ \ \ \textcolor{comment}{//\ Insert\ path\ already\ added\ in\ reqvec\ to\ prevent\ multiple\ request}}
+\DoxyCodeLine{00270\ \ \ \textcolor{comment}{//\ for\ 1\ resource.}}
+\DoxyCodeLine{00271\ \ \ std::set<std::string>\ path\_cache;}
+\DoxyCodeLine{00272\ \ \ std::string\ scheme;}
+\DoxyCodeLine{00273\ \ \ std::string\ host;}
+\DoxyCodeLine{00274\ \ \ std::string\ hostport;}
+\DoxyCodeLine{00275\ \ \ \textcolor{comment}{//\ Used\ for\ parse\ the\ HTTP\ upgrade\ response\ from\ server}}
+\DoxyCodeLine{00276\ \ \ std::unique\_ptr<llhttp\_t>\ htp;}
+\DoxyCodeLine{00277\ \ \ \mbox{\hyperlink{structnghttp2_1_1SessionTiming}{SessionTiming}}\ timing;}
+\DoxyCodeLine{00278\ \ \ ev\_io\ wev;}
+\DoxyCodeLine{00279\ \ \ ev\_io\ rev;}
+\DoxyCodeLine{00280\ \ \ ev\_timer\ wt;}
+\DoxyCodeLine{00281\ \ \ ev\_timer\ rt;}
+\DoxyCodeLine{00282\ \ \ ev\_timer\ settings\_timer;}
+\DoxyCodeLine{00283\ \ \ std::function<int(HttpClient\ \&)>\ readfn,\ writefn;}
+\DoxyCodeLine{00284\ \ \ std::function<int(HttpClient\ \&,\ \textcolor{keyword}{const}\ uint8\_t\ *,\ \textcolor{keywordtype}{size\_t})>\ on\_readfn;}
+\DoxyCodeLine{00285\ \ \ std::function<int(HttpClient\ \&)>\ on\_writefn;}
+\DoxyCodeLine{00286\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session;}
+\DoxyCodeLine{00287\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *callbacks;}
+\DoxyCodeLine{00288\ \ \ \textcolor{keyword}{struct\ }ev\_loop\ *loop;}
+\DoxyCodeLine{00289\ \ \ SSL\_CTX\ *ssl\_ctx;}
+\DoxyCodeLine{00290\ \ \ SSL\ *ssl;}
+\DoxyCodeLine{00291\ \ \ addrinfo\ *addrs;}
+\DoxyCodeLine{00292\ \ \ addrinfo\ *next\_addr;}
+\DoxyCodeLine{00293\ \ \ addrinfo\ *cur\_addr;}
+\DoxyCodeLine{00294\ \ \ \textcolor{comment}{//\ The\ number\ of\ completed\ requests,\ including\ failed\ ones.}}
+\DoxyCodeLine{00295\ \ \ \textcolor{keywordtype}{size\_t}\ complete;}
+\DoxyCodeLine{00296\ \ \ \textcolor{comment}{//\ The\ number\ of\ requests\ that\ local\ endpoint\ received\ END\_STREAM}}
+\DoxyCodeLine{00297\ \ \ \textcolor{comment}{//\ from\ peer.}}
+\DoxyCodeLine{00298\ \ \ \textcolor{keywordtype}{size\_t}\ success;}
+\DoxyCodeLine{00299\ \ \ \textcolor{comment}{//\ The\ length\ of\ settings\_payload}}
+\DoxyCodeLine{00300\ \ \ \textcolor{keywordtype}{size\_t}\ settings\_payloadlen;}
+\DoxyCodeLine{00301\ \ \ ClientState\ state;}
+\DoxyCodeLine{00302\ \ \ \textcolor{comment}{//\ The\ HTTP\ status\ code\ of\ the\ response\ message\ of\ HTTP\ Upgrade.}}
+\DoxyCodeLine{00303\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ upgrade\_response\_status\_code;}
+\DoxyCodeLine{00304\ \ \ \textcolor{keywordtype}{int}\ fd;}
+\DoxyCodeLine{00305\ \ \ \textcolor{comment}{//\ true\ if\ the\ response\ message\ of\ HTTP\ Upgrade\ request\ is\ fully}}
+\DoxyCodeLine{00306\ \ \ \textcolor{comment}{//\ received.\ It\ is\ not\ relevant\ the\ upgrade\ succeeds,\ or\ not.}}
+\DoxyCodeLine{00307\ \ \ \textcolor{keywordtype}{bool}\ upgrade\_response\_complete;}
+\DoxyCodeLine{00308\ \ \ \textcolor{comment}{//\ SETTINGS\ payload\ sent\ as\ token68\ in\ HTTP\ Upgrade}}
+\DoxyCodeLine{00309\ \ \ std::array<uint8\_t,\ 128>\ settings\_payload;}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \ \textcolor{keyword}{enum}\ \{\ ERR\_CONNECT\_FAIL\ =\ -\/100\ \};}
+\DoxyCodeLine{00312\ \};}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \}\ \textcolor{comment}{//\ namespace\ nghttp2}}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ NGHTTP\_H}}
+
+\end{DoxyCode}

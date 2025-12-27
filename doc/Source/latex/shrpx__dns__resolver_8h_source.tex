@@ -1,0 +1,124 @@
+\doxysection{shrpx\+\_\+dns\+\_\+resolver.\+h}
+\hypertarget{shrpx__dns__resolver_8h_source}{}\label{shrpx__dns__resolver_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_dns\_resolver.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_dns\_resolver.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2016\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_DNS\_RESOLVER\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_DNS\_RESOLVER\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <sys/socket.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <netinet/in.h>}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <ev.h>}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <ares.h>}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ "{}template.h"{}}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ "{}network.h"{}}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{using\ namespace\ }nghttp2;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{enum\ class}\ DNSResolverStatus\ \{}
+\DoxyCodeLine{00046\ \ \ \textcolor{comment}{//\ Resolver\ is\ in\ initial\ status}}
+\DoxyCodeLine{00047\ \ \ IDLE,}
+\DoxyCodeLine{00048\ \ \ \textcolor{comment}{//\ Resolver\ is\ currently\ resolving\ host\ name}}
+\DoxyCodeLine{00049\ \ \ RUNNING,}
+\DoxyCodeLine{00050\ \ \ \textcolor{comment}{//\ Resolver\ successfully\ resolved\ host\ name}}
+\DoxyCodeLine{00051\ \ \ OK,}
+\DoxyCodeLine{00052\ \ \ \textcolor{comment}{//\ Resolver\ failed\ to\ resolve\ host\ name}}
+\DoxyCodeLine{00053\ \ \ ERROR,}
+\DoxyCodeLine{00054\ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{//\ Callback\ function\ called\ when\ host\ name\ lookup\ is\ finished.}}
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ |status|\ is\ either\ DNSResolverStatus::OK,\ or}}
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ DNSResolverStatus::ERROR.\ \ If\ |status|\ is\ DNSResolverStatus::OK,}}
+\DoxyCodeLine{00059\ \textcolor{comment}{//\ |result|\ points\ to\ the\ resolved\ address.\ \ Note\ that\ port\ portion\ of}}
+\DoxyCodeLine{00060\ \textcolor{comment}{//\ |result|\ is\ undefined,\ and\ must\ be\ initialized\ by\ application.}}
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ This\ callback\ function\ is\ not\ called\ if\ name\ lookup\ finishes\ in}}
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ DNSResolver::resolve()\ completely.\ \ In\ this\ case,\ application}}
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ should\ call\ DNSResolver::get\_status()\ to\ get\ current\ status\ and}}
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ result.\ \ In\ other\ words,\ callback\ is\ called\ if\ get\_status()\ returns}}
+\DoxyCodeLine{00065\ \textcolor{comment}{//\ DNSResolverStatus::RUNNING.}}
+\DoxyCodeLine{00066\ \textcolor{keyword}{using\ }CompleteCb\ =}
+\DoxyCodeLine{00067\ \ \ std::function<void(DNSResolverStatus\ status,\ \textcolor{keyword}{const}\ Address\ *result)>;}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ DNSResolver\ is\ asynchronous\ name\ resolver,\ backed\ by\ c-\/ares}}
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ library.}}
+\DoxyCodeLine{00071\ \textcolor{keyword}{class\ }DNSResolver\ \{}
+\DoxyCodeLine{00072\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00073\ \ \ DNSResolver(\textcolor{keyword}{struct}\ ev\_loop\ *loop);}
+\DoxyCodeLine{00074\ \ \ \string~DNSResolver();}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \textcolor{comment}{//\ Starts\ resolving\ hostname\ |name|.}}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{int}\ resolve(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&name,\ \textcolor{keywordtype}{int}\ family);}
+\DoxyCodeLine{00078\ \ \ \textcolor{comment}{//\ Returns\ status.\ \ If\ status\_\ is\ DNSResolverStatus::SUCCESS\ \&\&}}
+\DoxyCodeLine{00079\ \ \ \textcolor{comment}{//\ |result|\ is\ not\ nullptr,\ |*result|\ is\ filled.}}
+\DoxyCodeLine{00080\ \ \ DNSResolverStatus\ get\_status(\mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ *result)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00081\ \ \ \textcolor{comment}{//\ Sets\ callback\ function\ when\ name\ lookup\ finishes.\ \ The\ callback}}
+\DoxyCodeLine{00082\ \ \ \textcolor{comment}{//\ function\ is\ called\ in\ a\ way\ that\ it\ can\ destroy\ this\ DNSResolver.}}
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{void}\ set\_complete\_cb(CompleteCb\ cb);}
+\DoxyCodeLine{00084\ \ \ CompleteCb\ get\_complete\_cb()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \textcolor{comment}{//\ Calls\ these\ functions\ when\ read/write\ event\ occurred\ respectively.}}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{int}\ on\_read(\textcolor{keywordtype}{int}\ fd);}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{int}\ on\_write(\textcolor{keywordtype}{int}\ fd);}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{int}\ on\_timeout();}
+\DoxyCodeLine{00090\ \ \ \textcolor{comment}{//\ Calls\ this\ function\ when\ DNS\ query\ finished.}}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{void}\ on\_result(\textcolor{keywordtype}{int}\ status,\ ares\_addrinfo\ *result);}
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{void}\ reset\_timeout();}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{void}\ start\_rev(\textcolor{keywordtype}{int}\ fd);}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{void}\ stop\_rev(\textcolor{keywordtype}{int}\ fd);}
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordtype}{void}\ start\_wev(\textcolor{keywordtype}{int}\ fd);}
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{void}\ stop\_wev(\textcolor{keywordtype}{int}\ fd);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{int}\ handle\_event(\textcolor{keywordtype}{int}\ rfd,\ \textcolor{keywordtype}{int}\ wfd);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ std::vector<std::unique\_ptr<ev\_io>>\ revs\_,\ wevs\_;}
+\DoxyCodeLine{00103\ \ \ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ result\_;}
+\DoxyCodeLine{00104\ \ \ CompleteCb\ completeCb\_;}
+\DoxyCodeLine{00105\ \ \ ev\_timer\ timer\_;}
+\DoxyCodeLine{00106\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ name\_;}
+\DoxyCodeLine{00107\ \ \ \textcolor{keyword}{struct\ }ev\_loop\ *loop\_;}
+\DoxyCodeLine{00108\ \ \ \textcolor{comment}{//\ ares\_channel\ is\ pointer\ type}}
+\DoxyCodeLine{00109\ \ \ ares\_channel\ channel\_;}
+\DoxyCodeLine{00110\ \ \ \textcolor{comment}{//\ AF\_INET\ or\ AF\_INET6.\ \ AF\_INET\ for\ A\ record\ lookup,\ and\ AF\_INET6}}
+\DoxyCodeLine{00111\ \ \ \textcolor{comment}{//\ for\ AAAA\ record\ lookup.}}
+\DoxyCodeLine{00112\ \ \ \textcolor{keywordtype}{int}\ family\_;}
+\DoxyCodeLine{00113\ \ \ DNSResolverStatus\ status\_;}
+\DoxyCodeLine{00114\ \};}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_DNS\_RESOLVER\_H}}
+
+\end{DoxyCode}

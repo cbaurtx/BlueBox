@@ -1,0 +1,35 @@
+<map id="components/audioboard/generic_i2s/generic_i2s.c" name="components/audioboard/generic_i2s/generic_i2s.c">
+<area shape="rect" id="Node000001" title="Generic driver for i2s." alt="" coords="155,5,328,48"/>
+<area shape="rect" id="Node000002" href="$generic__i2s_8h_source.html" title=" " alt="" coords="140,96,238,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="230,47,208,84,204,81,226,51"/>
+<area shape="rect" id="Node000006" href="$board_8h_source.html" title=" " alt="" coords="265,96,330,123"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="256,46,283,83,277,83,255,51"/>
+<area shape="rect" id="Node000015" href="$esp__log_8h_source.html" title=" " alt="" coords="5,96,83,123"/>
+<area shape="poly" id="edge15_Node000001_Node000015" title=" " alt="" coords="189,51,90,92,88,88,192,46"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="353,96,466,123"/>
+<area shape="poly" id="edge17_Node000001_Node000016" title=" " alt="" coords="285,46,372,88,367,90,284,51"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="146,171,233,197"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="191,121,192,156,187,154,188,125"/>
+<area shape="rect" id="Node000004" href="$esp__err_8h_source.html" title=" " alt="" coords="46,171,122,197"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="169,125,116,164,113,159,173,121"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="15,245,78,272"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="80,196,62,233,58,230,75,199"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="281,122,222,164,220,159,276,125"/>
+<area shape="rect" id="Node000007" href="$board__def_8h_source.html" title=" " alt="" coords="257,171,346,197"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="300,121,302,156,297,154,296,125"/>
+<area shape="rect" id="Node000008" href="$board__pins__config_8h_source.html" title=" " alt="" coords="518,171,655,197"/>
+<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="330,117,342,120,521,166,516,167,341,125,330,122"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="370,171,494,197"/>
+<area shape="poly" id="edge14_Node000006_Node000014" title=" " alt="" coords="321,121,398,163,392,163,320,126"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="824,245,909,272"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="636,195,812,243,806,243,635,201"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="245,245,331,272"/>
+<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="537,198,346,246,345,241,532,198"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="354,245,496,272"/>
+<area shape="poly" id="edge11_Node000008_Node000011" title=" " alt="" coords="561,197,468,241,467,236,556,198"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="520,245,653,272"/>
+<area shape="poly" id="edge12_Node000008_Node000012" title=" " alt="" coords="589,196,589,231,585,228,585,200"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="677,245,800,272"/>
+<area shape="poly" id="edge13_Node000008_Node000013" title=" " alt="" coords="614,195,701,239,696,238,613,200"/>
+<area shape="poly" id="edge16_Node000015_Node000005" title=" " alt="" coords="42,120,38,157,37,197,43,230,37,230,32,198,33,156,40,126"/>
+</map>

@@ -1,0 +1,32 @@
+\doxysection{time.\+h}
+\hypertarget{time_8h_source}{}\label{time_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/time/include/mruby/time.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/time/include/mruby/time.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ mruby/time.h\ -\/\ Time\ class}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ See\ Copyright\ Notice\ in\ mruby.h}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_TIME\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_TIME\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{common_8h}{mruby/common.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <time.h>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\_BEGIN\_DECL}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ mrb\_timezone\ \{}
+\DoxyCodeLine{00016\ \ \ MRB\_TIMEZONE\_NONE\ \ \ =\ 0,}
+\DoxyCodeLine{00017\ \ \ MRB\_TIMEZONE\_UTC\ \ \ \ =\ 1,}
+\DoxyCodeLine{00018\ \ \ MRB\_TIMEZONE\_LOCAL\ \ =\ 2,}
+\DoxyCodeLine{00019\ \ \ MRB\_TIMEZONE\_LAST\ \ \ =\ 3}
+\DoxyCodeLine{00020\ \}\ mrb\_timezone;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_time\_at(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ time\_t\ sec,\ time\_t\ usec,\ mrb\_timezone\ timezone);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \mbox{\hyperlink{common_8h_a7e9674ff871a8abbcaf9ba23fa4b72d3}{MRB\_END\_DECL}}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ MRUBY\_TIME\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

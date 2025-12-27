@@ -1,0 +1,130 @@
+\doxysection{shrpx\+\_\+http\+\_\+downstream\+\_\+connection.\+h}
+\hypertarget{shrpx__http__downstream__connection_8h_source}{}\label{shrpx__http__downstream__connection_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_http\_downstream\_connection.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_http\_downstream\_connection.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_HTTP\_DOWNSTREAM\_CONNECTION\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_HTTP\_DOWNSTREAM\_CONNECTION\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}llhttp.h"{}}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ "{}shrpx\_downstream\_connection.h"{}}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}shrpx\_io\_control.h"{}}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}shrpx\_connection.h"{}}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1DownstreamConnectionPool}{DownstreamConnectionPool}};}
+\DoxyCodeLine{00039\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1Worker}{Worker}};}
+\DoxyCodeLine{00040\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1DownstreamAddrGroup}{DownstreamAddrGroup}};}
+\DoxyCodeLine{00041\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}};}
+\DoxyCodeLine{00042\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1DNSQuery}{DNSQuery}};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{class\ }HttpDownstreamConnection\ :\ \textcolor{keyword}{public}\ DownstreamConnection\ \{}
+\DoxyCodeLine{00045\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00046\ \ \ HttpDownstreamConnection(\textcolor{keyword}{const}\ std::shared\_ptr<DownstreamAddrGroup>\ \&group,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}}\ *addr,\ \textcolor{keyword}{struct}\ ev\_loop\ *loop,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classshrpx_1_1Worker}{Worker}}\ *worker);}
+\DoxyCodeLine{00049\ \ \ \textcolor{keyword}{virtual}\ \string~HttpDownstreamConnection();}
+\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ attach\_downstream(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream);}
+\DoxyCodeLine{00051\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ detach\_downstream(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ push\_request\_headers();}
+\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ push\_upload\_data\_chunk(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ datalen);}
+\DoxyCodeLine{00055\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ end\_upload\_data();}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{void}\ end\_upload\_data\_chunk();}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ pause\_read(IOCtrlReason\ reason);}
+\DoxyCodeLine{00059\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ resume\_read(IOCtrlReason\ reason,\ \textcolor{keywordtype}{size\_t}\ consumed);}
+\DoxyCodeLine{00060\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ force\_resume\_read();}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ on\_read();}
+\DoxyCodeLine{00063\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ on\_write();}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ on\_upstream\_change(\mbox{\hyperlink{classshrpx_1_1Upstream}{Upstream}}\ *upstream);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ poolable()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ std::shared\_ptr<DownstreamAddrGroup>\ \&}
+\DoxyCodeLine{00070\ \ \ get\_downstream\_addr\_group()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}}\ *get\_addr()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{int}\ initiate\_connection();}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{int}\ write\_first();}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{int}\ read\_clear();}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{int}\ write\_clear();}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{int}\ read\_tls();}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{int}\ write\_tls();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{int}\ process\_input(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ datalen);}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{int}\ tls\_handshake();}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{int}\ connected();}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{void}\ signal\_write();}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{int}\ actual\_signal\_write();}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \textcolor{comment}{//\ Returns\ address\ used\ to\ connect\ to\ backend.\ \ Could\ be\ nullptr.}}
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ *get\_raddr()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{int}\ noop();}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{int}\ process\_blocked\_request\_buf();}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00096\ \ \ \mbox{\hyperlink{structshrpx_1_1Connection}{Connection}}\ conn\_;}
+\DoxyCodeLine{00097\ \ \ std::function<int(HttpDownstreamConnection\ \&)>\ on\_read\_,\ on\_write\_,}
+\DoxyCodeLine{00098\ \ \ \ \ signal\_write\_;}
+\DoxyCodeLine{00099\ \ \ \mbox{\hyperlink{classshrpx_1_1Worker}{Worker}}\ *worker\_;}
+\DoxyCodeLine{00100\ \ \ \textcolor{comment}{//\ nullptr\ if\ TLS\ is\ not\ used.}}
+\DoxyCodeLine{00101\ \ \ SSL\_CTX\ *ssl\_ctx\_;}
+\DoxyCodeLine{00102\ \ \ std::shared\_ptr<DownstreamAddrGroup>\ group\_;}
+\DoxyCodeLine{00103\ \ \ \textcolor{comment}{//\ Address\ of\ remote\ endpoint}}
+\DoxyCodeLine{00104\ \ \ \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}}\ *addr\_;}
+\DoxyCodeLine{00105\ \ \ \textcolor{comment}{//\ Actual\ remote\ address\ used\ to\ contact\ backend.\ \ This\ is\ initially}}
+\DoxyCodeLine{00106\ \ \ \textcolor{comment}{//\ nullptr,\ and\ may\ point\ to\ either\ \&addr\_-\/>addr,\ or}}
+\DoxyCodeLine{00107\ \ \ \textcolor{comment}{//\ resolved\_addr\_.get().}}
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ *raddr\_;}
+\DoxyCodeLine{00109\ \ \ \textcolor{comment}{//\ Resolved\ IP\ address\ if\ dns\ parameter\ is\ used}}
+\DoxyCodeLine{00110\ \ \ std::unique\_ptr<Address>\ resolved\_addr\_;}
+\DoxyCodeLine{00111\ \ \ std::unique\_ptr<DNSQuery>\ dns\_query\_;}
+\DoxyCodeLine{00112\ \ \ \mbox{\hyperlink{classshrpx_1_1IOControl}{IOControl}}\ ioctrl\_;}
+\DoxyCodeLine{00113\ \ \ llhttp\_t\ response\_htp\_;}
+\DoxyCodeLine{00114\ \ \ \textcolor{comment}{//\ true\ if\ first\ write\ succeeded.}}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{bool}\ first\_write\_done\_;}
+\DoxyCodeLine{00116\ \ \ \textcolor{comment}{//\ true\ if\ this\ object\ can\ be\ reused}}
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{bool}\ reusable\_;}
+\DoxyCodeLine{00118\ \ \ \textcolor{comment}{//\ true\ if\ request\ header\ is\ written\ to\ request\ buffer.}}
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{bool}\ request\_header\_written\_;}
+\DoxyCodeLine{00120\ \};}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_HTTP\_DOWNSTREAM\_CONNECTION\_H}}
+
+\end{DoxyCode}

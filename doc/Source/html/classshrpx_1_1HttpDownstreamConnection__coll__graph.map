@@ -1,0 +1,10 @@
+<map id="shrpx::HttpDownstreamConnection" name="shrpx::HttpDownstreamConnection">
+<area shape="rect" id="Node000001" title=" " alt="" coords="33,199,259,225"/>
+<area shape="rect" id="Node000002" href="$classshrpx_1_1DownstreamConnection.html" title=" " alt="" coords="46,123,247,149"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,163,149,200,144,197,144,166"/>
+<area shape="rect" id="Node000003" href="$classshrpx_1_1ClientHandler.html" title=" " alt="" coords="5,15,146,41"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="79,54,86,77,96,97,108,110,123,122,118,123,104,114,92,100,81,79,78,59"/>
+<area shape="rect" id="Node000004" href="$classshrpx_1_1Downstream.html" title=" " alt="" coords="169,15,304,41"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="224,53,191,100,165,124,161,120,187,97,220,56"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="320,17,331,28,323,37,306,41,304,36,321,33,326,28,319,23"/>
+</map>

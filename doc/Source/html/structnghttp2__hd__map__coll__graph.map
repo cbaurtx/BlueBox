@@ -1,0 +1,12 @@
+<map id="nghttp2_hd_map" name="nghttp2_hd_map">
+<area shape="rect" id="Node000001" title=" " alt="" coords="60,323,177,349"/>
+<area shape="rect" id="Node000002" href="$structnghttp2__hd__entry.html" title=" " alt="" coords="58,224,179,251"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,265,121,323,116,322,116,268"/>
+<area shape="poly" id="edge5_Node000002_Node000002" title=" " alt="" coords="195,228,206,237,198,246,181,249,179,244,195,241,201,237,195,233"/>
+<area shape="rect" id="Node000003" href="$structnghttp2__hd__nv.html" title=" " alt="" coords="5,125,112,152"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="75,163,113,223,108,224,74,168"/>
+<area shape="rect" id="Node000004" href="$structnghttp2__rcbuf.html" title=" " alt="" coords="8,5,109,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="59,45,61,125,56,125,58,51"/>
+<area shape="rect" id="Node000005" href="$structnghttp2__nv.html" title=" " alt="" coords="136,125,221,152"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="164,164,128,225,124,222,161,168"/>
+</map>

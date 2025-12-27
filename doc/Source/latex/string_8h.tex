@@ -1,0 +1,1145 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/string.h File Reference}
+\hypertarget{string_8h}{}\label{string_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/string.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/string.h}}
+{\ttfamily \#include "{}common.\+h"{}}\newline
+Include dependency graph for string.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{string_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{string_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structRString}{RString}}
+\item 
+struct \mbox{\hyperlink{structRStringEmbed}{RString\+Embed}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{string_8h_a92657ad1be8a8a323df19648e33b47b5}\label{string_8h_a92657ad1be8a8a323df19648e33b47b5} 
+\#define {\bfseries RSTRING\+\_\+\+EMBED\+\_\+\+LEN\+\_\+\+MAX}~  ((mrb\+\_\+int)(sizeof(void\texorpdfstring{$\ast$}{*}) \texorpdfstring{$\ast$}{*} 3 + sizeof(void\texorpdfstring{$\ast$}{*}) -\/ 32 / CHAR\+\_\+\+BIT -\/ 1))
+\item 
+\#define \mbox{\hyperlink{string_8h_aa18fe7d46491d6439675330a763bf667}{RSTR\+\_\+\+SET\+\_\+\+TYPE\+\_\+\+FLAG}}(s,  type)
+\item 
+\#define \mbox{\hyperlink{string_8h_ab2252f287e1f9a93e6d393869eb7d0ad}{RSTR\+\_\+\+UNSET\+\_\+\+TYPE\+\_\+\+FLAG}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_ac129bff42a067874493b2673bbe520ea}{RSTR\+\_\+\+EMBED\+\_\+P}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_ad9d4a31015fab646a43f96bf3fbc9dbf}{RSTR\+\_\+\+SET\+\_\+\+EMBED\+\_\+\+FLAG}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_ae5aad4127be4c4868460baa33803b6ea}{RSTR\+\_\+\+UNSET\+\_\+\+EMBED\+\_\+\+FLAG}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_aa8247e62aa5136b7004ca9d93a273eee}{RSTR\+\_\+\+SET\+\_\+\+EMBED\+\_\+\+LEN}}(s,  n)
+\item 
+\#define \mbox{\hyperlink{string_8h_a13d7de65c4401e8b523d6644e4d81254}{RSTR\+\_\+\+SET\+\_\+\+LEN}}(s,  n)
+\item 
+\#define \mbox{\hyperlink{string_8h_ad86376529e4225d2efa755c42e48694d}{RSTR\+\_\+\+EMBED\+\_\+\+PTR}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_af51eaef67f6ff95c959e93425e654d73}{RSTR\+\_\+\+EMBED\+\_\+\+LEN}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_aa1c9312108137804fea2b7116725dda7}{RSTR\+\_\+\+EMBEDDABLE\+\_\+P}}(len)
+\item 
+\#define \mbox{\hyperlink{string_8h_af7e8ada6c6c5e936295277e2254f445d}{RSTR\+\_\+\+PTR}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_a68623881c586bed5c7c3a7a898514326}{RSTR\+\_\+\+LEN}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_a8c7797703d3a2d005e4190ce5ca9e96b}{RSTR\+\_\+\+CAPA}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_a46660d6b7933c95ae20a0e2dc91b4275}{RSTR\+\_\+\+SHARED\+\_\+P}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_a4625333851535ecc690501e8a9189166}{RSTR\+\_\+\+SET\+\_\+\+SHARED\+\_\+\+FLAG}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_af6604805c8bdf9af9d5227c306c7f087}{RSTR\+\_\+\+UNSET\+\_\+\+SHARED\+\_\+\+FLAG}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_a4ccb86437f70ac18b05767986805ee12}{RSTR\+\_\+\+FSHARED\+\_\+P}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_a71f87c9b65809c2292b2eb09e83f36d2}{RSTR\+\_\+\+SET\+\_\+\+FSHARED\+\_\+\+FLAG}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_aa93d05502e5d99b3325cbdde8fce82b5}{RSTR\+\_\+\+UNSET\+\_\+\+FSHARED\+\_\+\+FLAG}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_ac7c7da4eb7febf8fd4ddf159426a02e2}{RSTR\+\_\+\+NOFREE\+\_\+P}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_a4a1eef44932b820b5af52f75be9fa39a}{RSTR\+\_\+\+SET\+\_\+\+NOFREE\+\_\+\+FLAG}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_a2422634a7e49a327046bfe496026e256}{RSTR\+\_\+\+UNSET\+\_\+\+NOFREE\+\_\+\+FLAG}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_a6a5643b0106930b4720e70d6109e2653}{RSTR\+\_\+\+ASCII\+\_\+P}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_a9c74427d989e0f8d23af0e19e6ce37e8}{RSTR\+\_\+\+SET\+\_\+\+ASCII\+\_\+\+FLAG}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_a8a6981eab00f967696ec464799cc4c61}{RSTR\+\_\+\+UNSET\+\_\+\+ASCII\+\_\+\+FLAG}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_aec94367eb9442659a6aefac3154c71d3}{RSTR\+\_\+\+WRITE\+\_\+\+ASCII\+\_\+\+FLAG}}(s,  v)
+\item 
+\#define \mbox{\hyperlink{string_8h_a497bb0100df55de47950d4420f66b177}{RSTR\+\_\+\+COPY\+\_\+\+ASCII\+\_\+\+FLAG}}(dst,  src)
+\item 
+\#define \mbox{\hyperlink{string_8h_a040d92bad91a781bf104a8758656f6aa}{mrb\+\_\+str\+\_\+ptr}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_aaa521f4ca462fb9f1e20d8d2e44727f0}{RSTRING}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_a6e29e7662f7cba4f2ded043402f489ee}{RSTRING\+\_\+\+PTR}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_a027ddf7e4b073c9acbfd507433a2ed09}{RSTRING\+\_\+\+EMBED\+\_\+\+LEN}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_a6bd9fdf3ad3dbd61640ecd8204e91ef0}{RSTRING\+\_\+\+LEN}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_aadc09966a7f833c985949f71a584b07a}{RSTRING\+\_\+\+CAPA}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_a98b78a51f11056f1737ecc0c1ea2848b}{RSTRING\+\_\+\+END}}(s)
+\item 
+\#define \mbox{\hyperlink{string_8h_a52af32f2a16ba4d24bb847ed042b17cc}{RSTRING\+\_\+\+CSTR}}(mrb,  s)
+\item 
+\Hypertarget{string_8h_a48264870de1c47fa3a760593934ef359}\label{string_8h_a48264870de1c47fa3a760593934ef359} 
+\#define {\bfseries MRB\+\_\+\+STR\+\_\+\+SHARED}~1
+\item 
+\Hypertarget{string_8h_a427ef838a5321a4fb46dae493c222ccf}\label{string_8h_a427ef838a5321a4fb46dae493c222ccf} 
+\#define {\bfseries MRB\+\_\+\+STR\+\_\+\+FSHARED}~2
+\item 
+\Hypertarget{string_8h_af9230ee87f239c91567ced5e71ef4485}\label{string_8h_af9230ee87f239c91567ced5e71ef4485} 
+\#define {\bfseries MRB\+\_\+\+STR\+\_\+\+NOFREE}~4
+\item 
+\Hypertarget{string_8h_ae79d631c1760a822adecdc57f1ad91c9}\label{string_8h_ae79d631c1760a822adecdc57f1ad91c9} 
+\#define {\bfseries MRB\+\_\+\+STR\+\_\+\+EMBED}~8  /\texorpdfstring{$\ast$}{*} type flags up to here \texorpdfstring{$\ast$}{*}/
+\item 
+\Hypertarget{string_8h_afc4bfeb10196e2934410657efc467c6d}\label{string_8h_afc4bfeb10196e2934410657efc467c6d} 
+\#define {\bfseries MRB\+\_\+\+STR\+\_\+\+ASCII}~16
+\item 
+\Hypertarget{string_8h_aa03a0b9b45535247f5e5cc1bbaf2de9a}\label{string_8h_aa03a0b9b45535247f5e5cc1bbaf2de9a} 
+\#define {\bfseries MRB\+\_\+\+STR\+\_\+\+EMBED\+\_\+\+LEN\+\_\+\+SHIFT}~6
+\item 
+\Hypertarget{string_8h_a81ac14571a1632d5c1e8b78893e6fce1}\label{string_8h_a81ac14571a1632d5c1e8b78893e6fce1} 
+\#define {\bfseries MRB\+\_\+\+STR\+\_\+\+EMBED\+\_\+\+LEN\+\_\+\+BIT}~5
+\item 
+\Hypertarget{string_8h_a11775225d1f87d1048c10ec586201c54}\label{string_8h_a11775225d1f87d1048c10ec586201c54} 
+\#define {\bfseries MRB\+\_\+\+STR\+\_\+\+EMBED\+\_\+\+LEN\+\_\+\+MASK}~(((1 $<$$<$ MRB\+\_\+\+STR\+\_\+\+EMBED\+\_\+\+LEN\+\_\+\+BIT) -\/ 1) $<$$<$ MRB\+\_\+\+STR\+\_\+\+EMBED\+\_\+\+LEN\+\_\+\+SHIFT)
+\item 
+\Hypertarget{string_8h_ae6d66cf0f6a2192aae3dea52c1146687}\label{string_8h_ae6d66cf0f6a2192aae3dea52c1146687} 
+\#define {\bfseries MRB\+\_\+\+STR\+\_\+\+TYPE\+\_\+\+MASK}~15
+\item 
+\#define \mbox{\hyperlink{string_8h_a440d70f8e463192afffdd18c4d83b9e0}{mrb\+\_\+str\+\_\+index\+\_\+lit}}(mrb,  str,  lit,  off)
+\item 
+\#define \mbox{\hyperlink{string_8h_a4ee5011466cfc1d89e45233dbb0d8c3b}{mrb\+\_\+str\+\_\+buf\+\_\+new}}(mrb,  capa)
+\item 
+\#define \mbox{\hyperlink{string_8h_a6a3f4f8dc6fdbcc2fdb43b51b4de42df}{mrb\+\_\+string\+\_\+value\+\_\+ptr}}(mrb,  str)
+\item 
+\#define \mbox{\hyperlink{string_8h_a1281056c03dc0fea223778bfeaeba758}{mrb\+\_\+string\+\_\+value\+\_\+len}}(mrb,  str)
+\item 
+\#define \mbox{\hyperlink{string_8h_a217eb36c1612a9d9fdc72be48b396556}{mrb\+\_\+str\+\_\+strlen}}(mrb,  s)
+\item 
+\#define \mbox{\hyperlink{string_8h_a5798722e5be150ff64943293213720e2}{mrb\+\_\+str\+\_\+to\+\_\+inum}}(mrb,  str,  base,  badcheck)
+\item 
+\#define \mbox{\hyperlink{string_8h_a5f3dffffd4ff49ca4a0ff31fd0f1f8c3}{mrb\+\_\+str\+\_\+cat\+\_\+lit}}(mrb,  str,  lit)
+\item 
+\#define \mbox{\hyperlink{string_8h_a30ac6e8fc1638a8d47b8c66034ee2f99}{mrb\+\_\+str\+\_\+cat2}}(mrb,  str,  ptr)
+\item 
+\#define \mbox{\hyperlink{string_8h_a19b0064e9be01abd11e33ab4b9eede40}{mrb\+\_\+str\+\_\+buf\+\_\+cat}}(mrb,  str,  ptr,  len)
+\item 
+\#define \mbox{\hyperlink{string_8h_aaf71483ac2a47c737fdae6f4752d2b90}{mrb\+\_\+str\+\_\+buf\+\_\+append}}(mrb,  str,  str2)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{string_8h_afc9681b9feefe3f1f6336b59b131979b}\label{string_8h_afc9681b9feefe3f1f6336b59b131979b} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+str\+\_\+modify} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structRString}{RString}} \texorpdfstring{$\ast$}{*}s)
+\item 
+\Hypertarget{string_8h_a3955471dd709098ec2b6bbb121406fb5}\label{string_8h_a3955471dd709098ec2b6bbb121406fb5} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+str\+\_\+modify\+\_\+keep\+\_\+ascii} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structRString}{RString}} \texorpdfstring{$\ast$}{*}s)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} mrb\+\_\+int \mbox{\hyperlink{string_8h_a329816bb318b46f28eb4a34b80058b60}{mrb\+\_\+str\+\_\+index}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str, const char \texorpdfstring{$\ast$}{*}p, mrb\+\_\+int len, mrb\+\_\+int offset)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void \mbox{\hyperlink{string_8h_a3a3bb2dc5f65827efd8c5a4ffaf80ce8}{mrb\+\_\+str\+\_\+concat}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} self, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} other)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{string_8h_afc93f995cf35a8e0f0f729624c8d723c}{mrb\+\_\+str\+\_\+plus}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} a, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} b)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{string_8h_aad5e4a69f15f8ce0302eb2e754e2f3a2}{mrb\+\_\+ptr\+\_\+to\+\_\+str}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, void \texorpdfstring{$\ast$}{*}p)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{string_8h_a12f6f54cb54b9119cebbc0b5d289d269}{mrb\+\_\+obj\+\_\+as\+\_\+string}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} obj)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{string_8h_afec250b09ad0c9cb76fa2ef1debd8913}{mrb\+\_\+str\+\_\+resize}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str, mrb\+\_\+int len)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{string_8h_a3ca67825de54270be2a47142ed5556aa}{mrb\+\_\+str\+\_\+substr}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str, mrb\+\_\+int beg, mrb\+\_\+int len)
+\item 
+\Hypertarget{string_8h_aef3671b4a8dea641604cdd507c0bedf4}\label{string_8h_aef3671b4a8dea641604cdd507c0bedf4} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+str\+\_\+new\+\_\+capa} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, mrb\+\_\+int capa)
+\item 
+\Hypertarget{string_8h_a0041ed9e7909cb9e2604017a1720efac}\label{string_8h_a0041ed9e7909cb9e2604017a1720efac} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} const char \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+string\+\_\+cstr} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str)
+\item 
+\Hypertarget{string_8h_a0c918b177c5cd3710369929a8e357eba}\label{string_8h_a0c918b177c5cd3710369929a8e357eba} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} const char \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+string\+\_\+value\+\_\+cstr} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \texorpdfstring{$\ast$}{*}str)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{string_8h_a343060b8ba12eadbe47c7f5a2674dd8e}{mrb\+\_\+str\+\_\+dup}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{string_8h_acea5a239a66455acd3e5caac46be2850}{mrb\+\_\+str\+\_\+intern}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} self)
+\item 
+\Hypertarget{string_8h_afcc2c98aa40d0f83fd8c0a5000d3614e}\label{string_8h_afcc2c98aa40d0f83fd8c0a5000d3614e} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+str\+\_\+to\+\_\+integer} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str, mrb\+\_\+int base, \mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} badcheck)
+\item 
+\Hypertarget{string_8h_a83201198a4a9cc6e3b696df91d058a7a}\label{string_8h_a83201198a4a9cc6e3b696df91d058a7a} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} double {\bfseries mrb\+\_\+str\+\_\+to\+\_\+dbl} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str, \mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} badcheck)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} \mbox{\hyperlink{string_8h_a4dc30efb1939685d4f5c986fec3549b1}{mrb\+\_\+str\+\_\+equal}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str1, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str2)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{string_8h_ab2a1509f1b8da7063eca22622688c0af}{mrb\+\_\+str\+\_\+cat}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str, const char \texorpdfstring{$\ast$}{*}ptr, size\+\_\+t len)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{string_8h_a9dc5d8ecfa65b9d036afdd04b7c281be}{mrb\+\_\+str\+\_\+cat\+\_\+cstr}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str, const char \texorpdfstring{$\ast$}{*}ptr)
+\item 
+\Hypertarget{string_8h_acd65042ceb5b253df24ac4fdae3f3aa4}\label{string_8h_acd65042ceb5b253df24ac4fdae3f3aa4} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+str\+\_\+cat\+\_\+str} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str2)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{string_8h_ab24768835d228b7adc7dea7035d459b9}{mrb\+\_\+str\+\_\+append}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str2)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} int \mbox{\hyperlink{string_8h_acb25530f7781d08a4e308c2449184489}{mrb\+\_\+str\+\_\+cmp}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str1, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str2)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{string_8h_a7eeb91cdb135a4de04ce5422dd0ccaa1}{mrb\+\_\+str\+\_\+to\+\_\+cstr}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\+\_\+\+BEGIN\+\_\+\+DECL}} const char \mbox{\hyperlink{string_8h_aab8342c7db2c23f714e664cf0433104f}{mrb\+\_\+digitmap}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item String class
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-define-members}
+\Hypertarget{string_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{string_8h_aaf71483ac2a47c737fdae6f4752d2b90}\index{string.h@{string.h}!mrb\_str\_buf\_append@{mrb\_str\_buf\_append}}
+\index{mrb\_str\_buf\_append@{mrb\_str\_buf\_append}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_buf\_append}{mrb\_str\_buf\_append}}
+{\footnotesize\ttfamily \label{string_8h_aaf71483ac2a47c737fdae6f4752d2b90} 
+\#define mrb\+\_\+str\+\_\+buf\+\_\+append(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{str}{, }\item[{}]{str2}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_str\_cat\_str(mrb,\ str,\ str2)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a19b0064e9be01abd11e33ab4b9eede40}\index{string.h@{string.h}!mrb\_str\_buf\_cat@{mrb\_str\_buf\_cat}}
+\index{mrb\_str\_buf\_cat@{mrb\_str\_buf\_cat}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_buf\_cat}{mrb\_str\_buf\_cat}}
+{\footnotesize\ttfamily \label{string_8h_a19b0064e9be01abd11e33ab4b9eede40} 
+\#define mrb\+\_\+str\+\_\+buf\+\_\+cat(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{str}{, }\item[{}]{ptr}{, }\item[{}]{len}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{string_8h_ab2a1509f1b8da7063eca22622688c0af}{mrb\_str\_cat}}(mrb,\ str,\ ptr,\ len)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a4ee5011466cfc1d89e45233dbb0d8c3b}\index{string.h@{string.h}!mrb\_str\_buf\_new@{mrb\_str\_buf\_new}}
+\index{mrb\_str\_buf\_new@{mrb\_str\_buf\_new}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_buf\_new}{mrb\_str\_buf\_new}}
+{\footnotesize\ttfamily \label{string_8h_a4ee5011466cfc1d89e45233dbb0d8c3b} 
+\#define mrb\+\_\+str\+\_\+buf\+\_\+new(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{capa}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_str\_new\_capa(mrb,\ (capa))}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a30ac6e8fc1638a8d47b8c66034ee2f99}\index{string.h@{string.h}!mrb\_str\_cat2@{mrb\_str\_cat2}}
+\index{mrb\_str\_cat2@{mrb\_str\_cat2}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_cat2}{mrb\_str\_cat2}}
+{\footnotesize\ttfamily \label{string_8h_a30ac6e8fc1638a8d47b8c66034ee2f99} 
+\#define mrb\+\_\+str\+\_\+cat2(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{str}{, }\item[{}]{ptr}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{string_8h_a9dc5d8ecfa65b9d036afdd04b7c281be}{mrb\_str\_cat\_cstr}}(mrb,\ str,\ ptr)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a5f3dffffd4ff49ca4a0ff31fd0f1f8c3}\index{string.h@{string.h}!mrb\_str\_cat\_lit@{mrb\_str\_cat\_lit}}
+\index{mrb\_str\_cat\_lit@{mrb\_str\_cat\_lit}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_cat\_lit}{mrb\_str\_cat\_lit}}
+{\footnotesize\ttfamily \label{string_8h_a5f3dffffd4ff49ca4a0ff31fd0f1f8c3} 
+\#define mrb\+\_\+str\+\_\+cat\+\_\+lit(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{str}{, }\item[{}]{lit}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{string_8h_ab2a1509f1b8da7063eca22622688c0af}{mrb\_str\_cat}}(mrb,\ str,\ lit,\ mrb\_strlen\_lit(lit))}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a440d70f8e463192afffdd18c4d83b9e0}\index{string.h@{string.h}!mrb\_str\_index\_lit@{mrb\_str\_index\_lit}}
+\index{mrb\_str\_index\_lit@{mrb\_str\_index\_lit}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_index\_lit}{mrb\_str\_index\_lit}}
+{\footnotesize\ttfamily \label{string_8h_a440d70f8e463192afffdd18c4d83b9e0} 
+\#define mrb\+\_\+str\+\_\+index\+\_\+lit(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{str}{, }\item[{}]{lit}{, }\item[{}]{off}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{string_8h_a329816bb318b46f28eb4a34b80058b60}{mrb\_str\_index}}(mrb,\ str,\ lit,\ mrb\_strlen\_lit(lit),\ off);}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a040d92bad91a781bf104a8758656f6aa}\index{string.h@{string.h}!mrb\_str\_ptr@{mrb\_str\_ptr}}
+\index{mrb\_str\_ptr@{mrb\_str\_ptr}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_ptr}{mrb\_str\_ptr}}
+{\footnotesize\ttfamily \label{string_8h_a040d92bad91a781bf104a8758656f6aa} 
+\#define mrb\+\_\+str\+\_\+ptr(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\textcolor{keyword}{struct\ }\mbox{\hyperlink{structRString}{RString}}*)(mrb\_ptr(s)))}
+
+\end{DoxyCode}
+Returns a pointer from a Ruby string \Hypertarget{string_8h_a217eb36c1612a9d9fdc72be48b396556}\index{string.h@{string.h}!mrb\_str\_strlen@{mrb\_str\_strlen}}
+\index{mrb\_str\_strlen@{mrb\_str\_strlen}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_strlen}{mrb\_str\_strlen}}
+{\footnotesize\ttfamily \label{string_8h_a217eb36c1612a9d9fdc72be48b396556} 
+\#define mrb\+\_\+str\+\_\+strlen(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{strlen(RSTR\_PTR(s))}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a5798722e5be150ff64943293213720e2}\index{string.h@{string.h}!mrb\_str\_to\_inum@{mrb\_str\_to\_inum}}
+\index{mrb\_str\_to\_inum@{mrb\_str\_to\_inum}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_to\_inum}{mrb\_str\_to\_inum}}
+{\footnotesize\ttfamily \label{string_8h_a5798722e5be150ff64943293213720e2} 
+\#define mrb\+\_\+str\+\_\+to\+\_\+inum(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{str}{, }\item[{}]{base}{, }\item[{}]{badcheck}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_str\_to\_integer(mrb,\ str,\ base,\ badcheck)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a1281056c03dc0fea223778bfeaeba758}\index{string.h@{string.h}!mrb\_string\_value\_len@{mrb\_string\_value\_len}}
+\index{mrb\_string\_value\_len@{mrb\_string\_value\_len}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_string\_value\_len}{mrb\_string\_value\_len}}
+{\footnotesize\ttfamily \label{string_8h_a1281056c03dc0fea223778bfeaeba758} 
+\#define mrb\+\_\+string\+\_\+value\+\_\+len(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{str}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{RSTRING\_LEN(str)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a6a3f4f8dc6fdbcc2fdb43b51b4de42df}\index{string.h@{string.h}!mrb\_string\_value\_ptr@{mrb\_string\_value\_ptr}}
+\index{mrb\_string\_value\_ptr@{mrb\_string\_value\_ptr}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_string\_value\_ptr}{mrb\_string\_value\_ptr}}
+{\footnotesize\ttfamily \label{string_8h_a6a3f4f8dc6fdbcc2fdb43b51b4de42df} 
+\#define mrb\+\_\+string\+\_\+value\+\_\+ptr(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{str}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{RSTRING\_PTR(str)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a6a5643b0106930b4720e70d6109e2653}\index{string.h@{string.h}!RSTR\_ASCII\_P@{RSTR\_ASCII\_P}}
+\index{RSTR\_ASCII\_P@{RSTR\_ASCII\_P}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_ASCII\_P}{RSTR\_ASCII\_P}}
+{\footnotesize\ttfamily \label{string_8h_a6a5643b0106930b4720e70d6109e2653} 
+\#define RSTR\+\_\+\+ASCII\+\_\+P(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(void)0}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a8c7797703d3a2d005e4190ce5ca9e96b}\index{string.h@{string.h}!RSTR\_CAPA@{RSTR\_CAPA}}
+\index{RSTR\_CAPA@{RSTR\_CAPA}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_CAPA}{RSTR\_CAPA}}
+{\footnotesize\ttfamily \label{string_8h_a8c7797703d3a2d005e4190ce5ca9e96b} 
+\#define RSTR\+\_\+\+CAPA(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(RSTR\_EMBED\_P(s)\ ?\ RSTRING\_EMBED\_LEN\_MAX\ :\ (s)-\/>as.heap.aux.capa)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a497bb0100df55de47950d4420f66b177}\index{string.h@{string.h}!RSTR\_COPY\_ASCII\_FLAG@{RSTR\_COPY\_ASCII\_FLAG}}
+\index{RSTR\_COPY\_ASCII\_FLAG@{RSTR\_COPY\_ASCII\_FLAG}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_COPY\_ASCII\_FLAG}{RSTR\_COPY\_ASCII\_FLAG}}
+{\footnotesize\ttfamily \label{string_8h_a497bb0100df55de47950d4420f66b177} 
+\#define RSTR\+\_\+\+COPY\+\_\+\+ASCII\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{dst}{, }\item[{}]{src}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(void)0}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_af51eaef67f6ff95c959e93425e654d73}\index{string.h@{string.h}!RSTR\_EMBED\_LEN@{RSTR\_EMBED\_LEN}}
+\index{RSTR\_EMBED\_LEN@{RSTR\_EMBED\_LEN}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_EMBED\_LEN}{RSTR\_EMBED\_LEN}}
+{\footnotesize\ttfamily \label{string_8h_af51eaef67f6ff95c959e93425e654d73} 
+\#define RSTR\+\_\+\+EMBED\+\_\+\+LEN(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ (mrb\_int)(((s)-\/>flags\ \&\ MRB\_STR\_EMBED\_LEN\_MASK)\ >>\ MRB\_STR\_EMBED\_LEN\_SHIFT)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_ac129bff42a067874493b2673bbe520ea}\index{string.h@{string.h}!RSTR\_EMBED\_P@{RSTR\_EMBED\_P}}
+\index{RSTR\_EMBED\_P@{RSTR\_EMBED\_P}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_EMBED\_P}{RSTR\_EMBED\_P}}
+{\footnotesize\ttfamily \label{string_8h_ac129bff42a067874493b2673bbe520ea} 
+\#define RSTR\+\_\+\+EMBED\+\_\+P(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((s)-\/>flags\ \&\ MRB\_STR\_EMBED)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_ad86376529e4225d2efa755c42e48694d}\index{string.h@{string.h}!RSTR\_EMBED\_PTR@{RSTR\_EMBED\_PTR}}
+\index{RSTR\_EMBED\_PTR@{RSTR\_EMBED\_PTR}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_EMBED\_PTR}{RSTR\_EMBED\_PTR}}
+{\footnotesize\ttfamily \label{string_8h_ad86376529e4225d2efa755c42e48694d} 
+\#define RSTR\+\_\+\+EMBED\+\_\+\+PTR(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((\textcolor{keyword}{struct\ }\mbox{\hyperlink{structRStringEmbed}{RStringEmbed}}*)(s))-\/>ary)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_aa1c9312108137804fea2b7116725dda7}\index{string.h@{string.h}!RSTR\_EMBEDDABLE\_P@{RSTR\_EMBEDDABLE\_P}}
+\index{RSTR\_EMBEDDABLE\_P@{RSTR\_EMBEDDABLE\_P}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_EMBEDDABLE\_P}{RSTR\_EMBEDDABLE\_P}}
+{\footnotesize\ttfamily \label{string_8h_aa1c9312108137804fea2b7116725dda7} 
+\#define RSTR\+\_\+\+EMBEDDABLE\+\_\+P(\begin{DoxyParamCaption}\item[{}]{len}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((len)\ <=\ RSTRING\_EMBED\_LEN\_MAX)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a4ccb86437f70ac18b05767986805ee12}\index{string.h@{string.h}!RSTR\_FSHARED\_P@{RSTR\_FSHARED\_P}}
+\index{RSTR\_FSHARED\_P@{RSTR\_FSHARED\_P}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_FSHARED\_P}{RSTR\_FSHARED\_P}}
+{\footnotesize\ttfamily \label{string_8h_a4ccb86437f70ac18b05767986805ee12} 
+\#define RSTR\+\_\+\+FSHARED\+\_\+P(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((s)-\/>flags\ \&\ MRB\_STR\_FSHARED)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a68623881c586bed5c7c3a7a898514326}\index{string.h@{string.h}!RSTR\_LEN@{RSTR\_LEN}}
+\index{RSTR\_LEN@{RSTR\_LEN}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_LEN}{RSTR\_LEN}}
+{\footnotesize\ttfamily \label{string_8h_a68623881c586bed5c7c3a7a898514326} 
+\#define RSTR\+\_\+\+LEN(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((RSTR\_EMBED\_P(s))\ ?\ RSTR\_EMBED\_LEN(s)\ :\ (s)-\/>as.heap.len)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_ac7c7da4eb7febf8fd4ddf159426a02e2}\index{string.h@{string.h}!RSTR\_NOFREE\_P@{RSTR\_NOFREE\_P}}
+\index{RSTR\_NOFREE\_P@{RSTR\_NOFREE\_P}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_NOFREE\_P}{RSTR\_NOFREE\_P}}
+{\footnotesize\ttfamily \label{string_8h_ac7c7da4eb7febf8fd4ddf159426a02e2} 
+\#define RSTR\+\_\+\+NOFREE\+\_\+P(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((s)-\/>flags\ \&\ MRB\_STR\_NOFREE)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_af7e8ada6c6c5e936295277e2254f445d}\index{string.h@{string.h}!RSTR\_PTR@{RSTR\_PTR}}
+\index{RSTR\_PTR@{RSTR\_PTR}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_PTR}{RSTR\_PTR}}
+{\footnotesize\ttfamily \label{string_8h_af7e8ada6c6c5e936295277e2254f445d} 
+\#define RSTR\+\_\+\+PTR(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((RSTR\_EMBED\_P(s))\ ?\ RSTR\_EMBED\_PTR(s)\ :\ (s)-\/>as.heap.ptr)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a9c74427d989e0f8d23af0e19e6ce37e8}\index{string.h@{string.h}!RSTR\_SET\_ASCII\_FLAG@{RSTR\_SET\_ASCII\_FLAG}}
+\index{RSTR\_SET\_ASCII\_FLAG@{RSTR\_SET\_ASCII\_FLAG}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_SET\_ASCII\_FLAG}{RSTR\_SET\_ASCII\_FLAG}}
+{\footnotesize\ttfamily \label{string_8h_a9c74427d989e0f8d23af0e19e6ce37e8} 
+\#define RSTR\+\_\+\+SET\+\_\+\+ASCII\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(void)0}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_ad9d4a31015fab646a43f96bf3fbc9dbf}\index{string.h@{string.h}!RSTR\_SET\_EMBED\_FLAG@{RSTR\_SET\_EMBED\_FLAG}}
+\index{RSTR\_SET\_EMBED\_FLAG@{RSTR\_SET\_EMBED\_FLAG}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_SET\_EMBED\_FLAG}{RSTR\_SET\_EMBED\_FLAG}}
+{\footnotesize\ttfamily \label{string_8h_ad9d4a31015fab646a43f96bf3fbc9dbf} 
+\#define RSTR\+\_\+\+SET\+\_\+\+EMBED\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((s)-\/>flags\ |=\ MRB\_STR\_EMBED)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_aa8247e62aa5136b7004ca9d93a273eee}\index{string.h@{string.h}!RSTR\_SET\_EMBED\_LEN@{RSTR\_SET\_EMBED\_LEN}}
+\index{RSTR\_SET\_EMBED\_LEN@{RSTR\_SET\_EMBED\_LEN}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_SET\_EMBED\_LEN}{RSTR\_SET\_EMBED\_LEN}}
+{\footnotesize\ttfamily \label{string_8h_aa8247e62aa5136b7004ca9d93a273eee} 
+\#define RSTR\+\_\+\+SET\+\_\+\+EMBED\+\_\+\+LEN(\begin{DoxyParamCaption}\item[{}]{s}{, }\item[{}]{n}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{size\_t}\ tmp\_n\ =\ (n);\(\backslash\)}
+\DoxyCodeLine{\ \ (s)-\/>flags\ \&=\ \string~MRB\_STR\_EMBED\_LEN\_MASK;\(\backslash\)}
+\DoxyCodeLine{\ \ (s)-\/>flags\ |=\ (tmp\_n)\ <<\ MRB\_STR\_EMBED\_LEN\_SHIFT;\(\backslash\)}
+\DoxyCodeLine{\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a71f87c9b65809c2292b2eb09e83f36d2}\index{string.h@{string.h}!RSTR\_SET\_FSHARED\_FLAG@{RSTR\_SET\_FSHARED\_FLAG}}
+\index{RSTR\_SET\_FSHARED\_FLAG@{RSTR\_SET\_FSHARED\_FLAG}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_SET\_FSHARED\_FLAG}{RSTR\_SET\_FSHARED\_FLAG}}
+{\footnotesize\ttfamily \label{string_8h_a71f87c9b65809c2292b2eb09e83f36d2} 
+\#define RSTR\+\_\+\+SET\+\_\+\+FSHARED\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((s)-\/>flags\ |=\ MRB\_STR\_FSHARED)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a13d7de65c4401e8b523d6644e4d81254}\index{string.h@{string.h}!RSTR\_SET\_LEN@{RSTR\_SET\_LEN}}
+\index{RSTR\_SET\_LEN@{RSTR\_SET\_LEN}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_SET\_LEN}{RSTR\_SET\_LEN}}
+{\footnotesize\ttfamily \label{string_8h_a13d7de65c4401e8b523d6644e4d81254} 
+\#define RSTR\+\_\+\+SET\+\_\+\+LEN(\begin{DoxyParamCaption}\item[{}]{s}{, }\item[{}]{n}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\(\backslash\)}
+\DoxyCodeLine{\ \ if\ (RSTR\_EMBED\_P(s))\ \{\(\backslash\)}
+\DoxyCodeLine{\ \ \ \ RSTR\_SET\_EMBED\_LEN((s),(n));\(\backslash\)}
+\DoxyCodeLine{\ \ \}\(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{else}\ \{\(\backslash\)}
+\DoxyCodeLine{\ \ \ \ (s)-\/>as.heap.len\ =\ (mrb\_ssize)(n);\(\backslash\)}
+\DoxyCodeLine{\ \ \}\(\backslash\)}
+\DoxyCodeLine{\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a4a1eef44932b820b5af52f75be9fa39a}\index{string.h@{string.h}!RSTR\_SET\_NOFREE\_FLAG@{RSTR\_SET\_NOFREE\_FLAG}}
+\index{RSTR\_SET\_NOFREE\_FLAG@{RSTR\_SET\_NOFREE\_FLAG}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_SET\_NOFREE\_FLAG}{RSTR\_SET\_NOFREE\_FLAG}}
+{\footnotesize\ttfamily \label{string_8h_a4a1eef44932b820b5af52f75be9fa39a} 
+\#define RSTR\+\_\+\+SET\+\_\+\+NOFREE\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((s)-\/>flags\ |=\ MRB\_STR\_NOFREE)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a4625333851535ecc690501e8a9189166}\index{string.h@{string.h}!RSTR\_SET\_SHARED\_FLAG@{RSTR\_SET\_SHARED\_FLAG}}
+\index{RSTR\_SET\_SHARED\_FLAG@{RSTR\_SET\_SHARED\_FLAG}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_SET\_SHARED\_FLAG}{RSTR\_SET\_SHARED\_FLAG}}
+{\footnotesize\ttfamily \label{string_8h_a4625333851535ecc690501e8a9189166} 
+\#define RSTR\+\_\+\+SET\+\_\+\+SHARED\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((s)-\/>flags\ |=\ MRB\_STR\_SHARED)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_aa18fe7d46491d6439675330a763bf667}\index{string.h@{string.h}!RSTR\_SET\_TYPE\_FLAG@{RSTR\_SET\_TYPE\_FLAG}}
+\index{RSTR\_SET\_TYPE\_FLAG@{RSTR\_SET\_TYPE\_FLAG}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_SET\_TYPE\_FLAG}{RSTR\_SET\_TYPE\_FLAG}}
+{\footnotesize\ttfamily \label{string_8h_aa18fe7d46491d6439675330a763bf667} 
+\#define RSTR\+\_\+\+SET\+\_\+\+TYPE\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{s}{, }\item[{}]{type}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(RSTR\_UNSET\_TYPE\_FLAG(s),\ (s)-\/>flags\ |=\ MRB\_STR\_\#\#type)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a46660d6b7933c95ae20a0e2dc91b4275}\index{string.h@{string.h}!RSTR\_SHARED\_P@{RSTR\_SHARED\_P}}
+\index{RSTR\_SHARED\_P@{RSTR\_SHARED\_P}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_SHARED\_P}{RSTR\_SHARED\_P}}
+{\footnotesize\ttfamily \label{string_8h_a46660d6b7933c95ae20a0e2dc91b4275} 
+\#define RSTR\+\_\+\+SHARED\+\_\+P(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((s)-\/>flags\ \&\ MRB\_STR\_SHARED)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a8a6981eab00f967696ec464799cc4c61}\index{string.h@{string.h}!RSTR\_UNSET\_ASCII\_FLAG@{RSTR\_UNSET\_ASCII\_FLAG}}
+\index{RSTR\_UNSET\_ASCII\_FLAG@{RSTR\_UNSET\_ASCII\_FLAG}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_UNSET\_ASCII\_FLAG}{RSTR\_UNSET\_ASCII\_FLAG}}
+{\footnotesize\ttfamily \label{string_8h_a8a6981eab00f967696ec464799cc4c61} 
+\#define RSTR\+\_\+\+UNSET\+\_\+\+ASCII\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(void)0}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_ae5aad4127be4c4868460baa33803b6ea}\index{string.h@{string.h}!RSTR\_UNSET\_EMBED\_FLAG@{RSTR\_UNSET\_EMBED\_FLAG}}
+\index{RSTR\_UNSET\_EMBED\_FLAG@{RSTR\_UNSET\_EMBED\_FLAG}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_UNSET\_EMBED\_FLAG}{RSTR\_UNSET\_EMBED\_FLAG}}
+{\footnotesize\ttfamily \label{string_8h_ae5aad4127be4c4868460baa33803b6ea} 
+\#define RSTR\+\_\+\+UNSET\+\_\+\+EMBED\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((s)-\/>flags\ \&=\ \string~(MRB\_STR\_EMBED|MRB\_STR\_EMBED\_LEN\_MASK))}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_aa93d05502e5d99b3325cbdde8fce82b5}\index{string.h@{string.h}!RSTR\_UNSET\_FSHARED\_FLAG@{RSTR\_UNSET\_FSHARED\_FLAG}}
+\index{RSTR\_UNSET\_FSHARED\_FLAG@{RSTR\_UNSET\_FSHARED\_FLAG}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_UNSET\_FSHARED\_FLAG}{RSTR\_UNSET\_FSHARED\_FLAG}}
+{\footnotesize\ttfamily \label{string_8h_aa93d05502e5d99b3325cbdde8fce82b5} 
+\#define RSTR\+\_\+\+UNSET\+\_\+\+FSHARED\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((s)-\/>flags\ \&=\ \string~MRB\_STR\_FSHARED)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a2422634a7e49a327046bfe496026e256}\index{string.h@{string.h}!RSTR\_UNSET\_NOFREE\_FLAG@{RSTR\_UNSET\_NOFREE\_FLAG}}
+\index{RSTR\_UNSET\_NOFREE\_FLAG@{RSTR\_UNSET\_NOFREE\_FLAG}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_UNSET\_NOFREE\_FLAG}{RSTR\_UNSET\_NOFREE\_FLAG}}
+{\footnotesize\ttfamily \label{string_8h_a2422634a7e49a327046bfe496026e256} 
+\#define RSTR\+\_\+\+UNSET\+\_\+\+NOFREE\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((s)-\/>flags\ \&=\ \string~MRB\_STR\_NOFREE)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_af6604805c8bdf9af9d5227c306c7f087}\index{string.h@{string.h}!RSTR\_UNSET\_SHARED\_FLAG@{RSTR\_UNSET\_SHARED\_FLAG}}
+\index{RSTR\_UNSET\_SHARED\_FLAG@{RSTR\_UNSET\_SHARED\_FLAG}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_UNSET\_SHARED\_FLAG}{RSTR\_UNSET\_SHARED\_FLAG}}
+{\footnotesize\ttfamily \label{string_8h_af6604805c8bdf9af9d5227c306c7f087} 
+\#define RSTR\+\_\+\+UNSET\+\_\+\+SHARED\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((s)-\/>flags\ \&=\ \string~MRB\_STR\_SHARED)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_ab2252f287e1f9a93e6d393869eb7d0ad}\index{string.h@{string.h}!RSTR\_UNSET\_TYPE\_FLAG@{RSTR\_UNSET\_TYPE\_FLAG}}
+\index{RSTR\_UNSET\_TYPE\_FLAG@{RSTR\_UNSET\_TYPE\_FLAG}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_UNSET\_TYPE\_FLAG}{RSTR\_UNSET\_TYPE\_FLAG}}
+{\footnotesize\ttfamily \label{string_8h_ab2252f287e1f9a93e6d393869eb7d0ad} 
+\#define RSTR\+\_\+\+UNSET\+\_\+\+TYPE\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((s)-\/>flags\ \&=\ \string~(MRB\_STR\_TYPE\_MASK|MRB\_STR\_EMBED\_LEN\_MASK))}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_aec94367eb9442659a6aefac3154c71d3}\index{string.h@{string.h}!RSTR\_WRITE\_ASCII\_FLAG@{RSTR\_WRITE\_ASCII\_FLAG}}
+\index{RSTR\_WRITE\_ASCII\_FLAG@{RSTR\_WRITE\_ASCII\_FLAG}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTR\_WRITE\_ASCII\_FLAG}{RSTR\_WRITE\_ASCII\_FLAG}}
+{\footnotesize\ttfamily \label{string_8h_aec94367eb9442659a6aefac3154c71d3} 
+\#define RSTR\+\_\+\+WRITE\+\_\+\+ASCII\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{s}{, }\item[{}]{v}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(void)0}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_aaa521f4ca462fb9f1e20d8d2e44727f0}\index{string.h@{string.h}!RSTRING@{RSTRING}}
+\index{RSTRING@{RSTRING}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTRING}{RSTRING}}
+{\footnotesize\ttfamily \label{string_8h_aaa521f4ca462fb9f1e20d8d2e44727f0} 
+\#define RSTRING(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{string_8h_a040d92bad91a781bf104a8758656f6aa}{mrb\_str\_ptr}}(s)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_aadc09966a7f833c985949f71a584b07a}\index{string.h@{string.h}!RSTRING\_CAPA@{RSTRING\_CAPA}}
+\index{RSTRING\_CAPA@{RSTRING\_CAPA}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTRING\_CAPA}{RSTRING\_CAPA}}
+{\footnotesize\ttfamily \label{string_8h_aadc09966a7f833c985949f71a584b07a} 
+\#define RSTRING\+\_\+\+CAPA(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{RSTR\_CAPA(RSTRING(s))}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a52af32f2a16ba4d24bb847ed042b17cc}\index{string.h@{string.h}!RSTRING\_CSTR@{RSTRING\_CSTR}}
+\index{RSTRING\_CSTR@{RSTRING\_CSTR}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTRING\_CSTR}{RSTRING\_CSTR}}
+{\footnotesize\ttfamily \label{string_8h_a52af32f2a16ba4d24bb847ed042b17cc} 
+\#define RSTRING\+\_\+\+CSTR(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_string\_cstr(mrb,\ s)}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a027ddf7e4b073c9acbfd507433a2ed09}\index{string.h@{string.h}!RSTRING\_EMBED\_LEN@{RSTRING\_EMBED\_LEN}}
+\index{RSTRING\_EMBED\_LEN@{RSTRING\_EMBED\_LEN}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTRING\_EMBED\_LEN}{RSTRING\_EMBED\_LEN}}
+{\footnotesize\ttfamily \label{string_8h_a027ddf7e4b073c9acbfd507433a2ed09} 
+\#define RSTRING\+\_\+\+EMBED\+\_\+\+LEN(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{RSTR\_EMBED\_LEN(RSTRING(s))}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a98b78a51f11056f1737ecc0c1ea2848b}\index{string.h@{string.h}!RSTRING\_END@{RSTRING\_END}}
+\index{RSTRING\_END@{RSTRING\_END}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTRING\_END}{RSTRING\_END}}
+{\footnotesize\ttfamily \label{string_8h_a98b78a51f11056f1737ecc0c1ea2848b} 
+\#define RSTRING\+\_\+\+END(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(RSTRING\_PTR(s)\ +\ RSTRING\_LEN(s))}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a6bd9fdf3ad3dbd61640ecd8204e91ef0}\index{string.h@{string.h}!RSTRING\_LEN@{RSTRING\_LEN}}
+\index{RSTRING\_LEN@{RSTRING\_LEN}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTRING\_LEN}{RSTRING\_LEN}}
+{\footnotesize\ttfamily \label{string_8h_a6bd9fdf3ad3dbd61640ecd8204e91ef0} 
+\#define RSTRING\+\_\+\+LEN(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{RSTR\_LEN(RSTRING(s))}
+
+\end{DoxyCode}
+\Hypertarget{string_8h_a6e29e7662f7cba4f2ded043402f489ee}\index{string.h@{string.h}!RSTRING\_PTR@{RSTRING\_PTR}}
+\index{RSTRING\_PTR@{RSTRING\_PTR}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{RSTRING\_PTR}{RSTRING\_PTR}}
+{\footnotesize\ttfamily \label{string_8h_a6e29e7662f7cba4f2ded043402f489ee} 
+\#define RSTRING\+\_\+\+PTR(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{RSTR\_PTR(RSTRING(s))}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{string_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{string_8h_a12f6f54cb54b9119cebbc0b5d289d269}\index{string.h@{string.h}!mrb\_obj\_as\_string@{mrb\_obj\_as\_string}}
+\index{mrb\_obj\_as\_string@{mrb\_obj\_as\_string}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_obj\_as\_string()}{mrb\_obj\_as\_string()}}
+{\footnotesize\ttfamily \label{string_8h_a12f6f54cb54b9119cebbc0b5d289d269} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+obj\+\_\+as\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{obj}{}\end{DoxyParamCaption})}
+
+Returns an object as a Ruby string.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mrb} & The current mruby state. \\
+\hline
+{\em obj} & An object to return as a Ruby string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}\doxylink{structmrb__value}{mrb\+\_\+value}\mbox{]} An object as a Ruby string. 
+\end{DoxyReturn}
+\Hypertarget{string_8h_aad5e4a69f15f8ce0302eb2e754e2f3a2}\index{string.h@{string.h}!mrb\_ptr\_to\_str@{mrb\_ptr\_to\_str}}
+\index{mrb\_ptr\_to\_str@{mrb\_ptr\_to\_str}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_ptr\_to\_str()}{mrb\_ptr\_to\_str()}}
+{\footnotesize\ttfamily \label{string_8h_aad5e4a69f15f8ce0302eb2e754e2f3a2} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+ptr\+\_\+to\+\_\+str (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{p}{}\end{DoxyParamCaption})}
+
+Converts pointer into a Ruby string.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mrb} & The current mruby state. \\
+\hline
+{\em p} & The pointer to convert to Ruby string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}\doxylink{structmrb__value}{mrb\+\_\+value}\mbox{]} Returns a new Ruby String. 
+\end{DoxyReturn}
+\Hypertarget{string_8h_ab24768835d228b7adc7dea7035d459b9}\index{string.h@{string.h}!mrb\_str\_append@{mrb\_str\_append}}
+\index{mrb\_str\_append@{mrb\_str\_append}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_append()}{mrb\_str\_append()}}
+{\footnotesize\ttfamily \label{string_8h_ab24768835d228b7adc7dea7035d459b9} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+str\+\_\+append (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{str}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{str2}{}\end{DoxyParamCaption})}
+
+Adds str2 to the end of str1. \Hypertarget{string_8h_ab2a1509f1b8da7063eca22622688c0af}\index{string.h@{string.h}!mrb\_str\_cat@{mrb\_str\_cat}}
+\index{mrb\_str\_cat@{mrb\_str\_cat}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_cat()}{mrb\_str\_cat()}}
+{\footnotesize\ttfamily \label{string_8h_ab2a1509f1b8da7063eca22622688c0af} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+str\+\_\+cat (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{str}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{ptr}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})}
+
+Returns a concatenated string comprised of a Ruby string and a C string.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mrb} & The current mruby state. \\
+\hline
+{\em str} & Ruby string. \\
+\hline
+{\em ptr} & A C string. \\
+\hline
+{\em len} & length of C string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}\doxylink{structmrb__value}{mrb\+\_\+value}\mbox{]} A Ruby string. 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\doxylink{string_8h_a9dc5d8ecfa65b9d036afdd04b7c281be}{mrb\+\_\+str\+\_\+cat\+\_\+cstr} 
+\end{DoxySeeAlso}
+\Hypertarget{string_8h_a9dc5d8ecfa65b9d036afdd04b7c281be}\index{string.h@{string.h}!mrb\_str\_cat\_cstr@{mrb\_str\_cat\_cstr}}
+\index{mrb\_str\_cat\_cstr@{mrb\_str\_cat\_cstr}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_cat\_cstr()}{mrb\_str\_cat\_cstr()}}
+{\footnotesize\ttfamily \label{string_8h_a9dc5d8ecfa65b9d036afdd04b7c281be} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+str\+\_\+cat\+\_\+cstr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{str}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{ptr}{}\end{DoxyParamCaption})}
+
+Returns a concatenated string comprised of a Ruby string and a C string.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mrb} & The current mruby state. \\
+\hline
+{\em str} & Ruby string. \\
+\hline
+{\em ptr} & A C string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}\doxylink{structmrb__value}{mrb\+\_\+value}\mbox{]} A Ruby string. 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\doxylink{string_8h_ab2a1509f1b8da7063eca22622688c0af}{mrb\+\_\+str\+\_\+cat} 
+\end{DoxySeeAlso}
+\Hypertarget{string_8h_acb25530f7781d08a4e308c2449184489}\index{string.h@{string.h}!mrb\_str\_cmp@{mrb\_str\_cmp}}
+\index{mrb\_str\_cmp@{mrb\_str\_cmp}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_cmp()}{mrb\_str\_cmp()}}
+{\footnotesize\ttfamily \label{string_8h_acb25530f7781d08a4e308c2449184489} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} int mrb\+\_\+str\+\_\+cmp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{str1}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{str2}{}\end{DoxyParamCaption})}
+
+Returns 0 if both Ruby strings are equal. Returns a value \texorpdfstring{$<$}{<} 0 if Ruby str1 is less than Ruby str2. Returns a value \texorpdfstring{$>$}{>} 0 if Ruby str2 is greater than Ruby str1. \Hypertarget{string_8h_a3a3bb2dc5f65827efd8c5a4ffaf80ce8}\index{string.h@{string.h}!mrb\_str\_concat@{mrb\_str\_concat}}
+\index{mrb\_str\_concat@{mrb\_str\_concat}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_concat()}{mrb\_str\_concat()}}
+{\footnotesize\ttfamily \label{string_8h_a3a3bb2dc5f65827efd8c5a4ffaf80ce8} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void mrb\+\_\+str\+\_\+concat (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{self}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{other}{}\end{DoxyParamCaption})}
+
+Appends self to other. Returns self as a concatenated string.
+
+Example\+: \begin{DoxyVerb}int
+main(int argc,
+     char **argv)
+{
+  // Variable declarations.
+  mrb_value str1;
+  mrb_value str2;
+
+  mrb_state *mrb = mrb_open();
+  if (!mrb)
+  {
+     // handle error
+  }
+
+  // Creates new Ruby strings.
+  str1 = mrb_str_new_lit(mrb, "abc");
+  str2 = mrb_str_new_lit(mrb, "def");
+
+  // Concatenates str2 to str1.
+  mrb_str_concat(mrb, str1, str2);
+
+  // Prints new Concatenated Ruby string.
+  mrb_p(mrb, str1);
+
+  mrb_close(mrb);
+  return 0;
+}
+\end{DoxyVerb}
+
+
+Result\+: \begin{DoxyVerb}=> "abcdef"
+\end{DoxyVerb}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em mrb} & The current mruby state. \\
+\hline
+{\em self} & String to concatenate. \\
+\hline
+{\em other} & String to append to self. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}\doxylink{structmrb__value}{mrb\+\_\+value}\mbox{]} Returns a new String appending other to self. 
+\end{DoxyReturn}
+\Hypertarget{string_8h_a343060b8ba12eadbe47c7f5a2674dd8e}\index{string.h@{string.h}!mrb\_str\_dup@{mrb\_str\_dup}}
+\index{mrb\_str\_dup@{mrb\_str\_dup}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_dup()}{mrb\_str\_dup()}}
+{\footnotesize\ttfamily \label{string_8h_a343060b8ba12eadbe47c7f5a2674dd8e} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+str\+\_\+dup (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{str}{}\end{DoxyParamCaption})}
+
+Duplicates a string object.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mrb} & The current mruby state. \\
+\hline
+{\em str} & Ruby string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}\doxylink{structmrb__value}{mrb\+\_\+value}\mbox{]} Duplicated Ruby string. 
+\end{DoxyReturn}
+\Hypertarget{string_8h_a4dc30efb1939685d4f5c986fec3549b1}\index{string.h@{string.h}!mrb\_str\_equal@{mrb\_str\_equal}}
+\index{mrb\_str\_equal@{mrb\_str\_equal}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_equal()}{mrb\_str\_equal()}}
+{\footnotesize\ttfamily \label{string_8h_a4dc30efb1939685d4f5c986fec3549b1} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} mrb\+\_\+str\+\_\+equal (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{str1}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{str2}{}\end{DoxyParamCaption})}
+
+Returns true if the strings match and false if the strings don\textquotesingle{}t match.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mrb} & The current mruby state. \\
+\hline
+{\em str1} & Ruby string to compare. \\
+\hline
+{\em str2} & Ruby string to compare. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}\doxylink{structmrb__value}{mrb\+\_\+value}\mbox{]} boolean value. 
+\end{DoxyReturn}
+\Hypertarget{string_8h_a329816bb318b46f28eb4a34b80058b60}\index{string.h@{string.h}!mrb\_str\_index@{mrb\_str\_index}}
+\index{mrb\_str\_index@{mrb\_str\_index}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_index()}{mrb\_str\_index()}}
+{\footnotesize\ttfamily \label{string_8h_a329816bb318b46f28eb4a34b80058b60} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} mrb\+\_\+int mrb\+\_\+str\+\_\+index (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{str}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{p}{, }\item[{mrb\+\_\+int}]{len}{, }\item[{mrb\+\_\+int}]{offset}{}\end{DoxyParamCaption})}
+
+Finds the index of a substring in a string \Hypertarget{string_8h_acea5a239a66455acd3e5caac46be2850}\index{string.h@{string.h}!mrb\_str\_intern@{mrb\_str\_intern}}
+\index{mrb\_str\_intern@{mrb\_str\_intern}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_intern()}{mrb\_str\_intern()}}
+{\footnotesize\ttfamily \label{string_8h_acea5a239a66455acd3e5caac46be2850} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+str\+\_\+intern (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{self}{}\end{DoxyParamCaption})}
+
+Returns a symbol from a passed in Ruby string.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mrb} & The current mruby state. \\
+\hline
+{\em self} & Ruby string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}\doxylink{structmrb__value}{mrb\+\_\+value}\mbox{]} A symbol. 
+\end{DoxyReturn}
+\Hypertarget{string_8h_afc93f995cf35a8e0f0f729624c8d723c}\index{string.h@{string.h}!mrb\_str\_plus@{mrb\_str\_plus}}
+\index{mrb\_str\_plus@{mrb\_str\_plus}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_plus()}{mrb\_str\_plus()}}
+{\footnotesize\ttfamily \label{string_8h_afc93f995cf35a8e0f0f729624c8d723c} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+str\+\_\+plus (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{a}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{b}{}\end{DoxyParamCaption})}
+
+Adds two strings together.
+
+Example\+: \begin{DoxyVerb}int
+main(int argc,
+     char **argv)
+{
+  // Variable declarations.
+  mrb_value a;
+  mrb_value b;
+  mrb_value c;
+
+  mrb_state *mrb = mrb_open();
+  if (!mrb)
+  {
+     // handle error
+  }
+
+  // Creates two Ruby strings from the passed in C strings.
+  a = mrb_str_new_lit(mrb, "abc");
+  b = mrb_str_new_lit(mrb, "def");
+
+  // Prints both C strings.
+  mrb_p(mrb, a);
+  mrb_p(mrb, b);
+
+  // Concatenates both Ruby strings.
+  c = mrb_str_plus(mrb, a, b);
+
+  // Prints new Concatenated Ruby string.
+  mrb_p(mrb, c);
+
+  mrb_close(mrb);
+  return 0;
+}
+\end{DoxyVerb}
+
+
+Result\+: \begin{DoxyVerb}=> "abc"  # First string
+=> "def"  # Second string
+=> "abcdef" # First & Second concatenated.
+\end{DoxyVerb}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em mrb} & The current mruby state. \\
+\hline
+{\em a} & First string to concatenate. \\
+\hline
+{\em b} & Second string to concatenate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}\doxylink{structmrb__value}{mrb\+\_\+value}\mbox{]} Returns a new String containing a concatenated to b. 
+\end{DoxyReturn}
+\Hypertarget{string_8h_afec250b09ad0c9cb76fa2ef1debd8913}\index{string.h@{string.h}!mrb\_str\_resize@{mrb\_str\_resize}}
+\index{mrb\_str\_resize@{mrb\_str\_resize}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_resize()}{mrb\_str\_resize()}}
+{\footnotesize\ttfamily \label{string_8h_afec250b09ad0c9cb76fa2ef1debd8913} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+str\+\_\+resize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{str}{, }\item[{mrb\+\_\+int}]{len}{}\end{DoxyParamCaption})}
+
+Resizes the string\textquotesingle{}s length. Returns the amount of characters in the specified by len.
+
+Example\+: \begin{DoxyVerb}int
+main(int argc,
+     char **argv)
+{
+    // Variable declaration.
+    mrb_value str;
+
+    mrb_state *mrb = mrb_open();
+    if (!mrb)
+    {
+       // handle error
+    }
+    // Creates a new string.
+    str = mrb_str_new_lit(mrb, "Hello, world!");
+    // Returns 5 characters of
+    mrb_str_resize(mrb, str, 5);
+    mrb_p(mrb, str);
+
+    mrb_close(mrb);
+    return 0;
+ }
+\end{DoxyVerb}
+
+
+Result\+: \begin{DoxyVerb} => "Hello"
+\end{DoxyVerb}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em mrb} & The current mruby state. \\
+\hline
+{\em str} & The Ruby string to resize. \\
+\hline
+{\em len} & The length. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}\doxylink{structmrb__value}{mrb\+\_\+value}\mbox{]} An object as a Ruby string. 
+\end{DoxyReturn}
+\Hypertarget{string_8h_a3ca67825de54270be2a47142ed5556aa}\index{string.h@{string.h}!mrb\_str\_substr@{mrb\_str\_substr}}
+\index{mrb\_str\_substr@{mrb\_str\_substr}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_substr()}{mrb\_str\_substr()}}
+{\footnotesize\ttfamily \label{string_8h_a3ca67825de54270be2a47142ed5556aa} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+str\+\_\+substr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{str}{, }\item[{mrb\+\_\+int}]{beg}{, }\item[{mrb\+\_\+int}]{len}{}\end{DoxyParamCaption})}
+
+Returns a sub string.
+
+Example\+: \begin{DoxyVerb}int
+main(int argc,
+char const **argv)
+{
+  // Variable declarations.
+  mrb_value str1;
+  mrb_value str2;
+
+  mrb_state *mrb = mrb_open();
+  if (!mrb)
+  {
+    // handle error
+  }
+  // Creates new string.
+  str1 = mrb_str_new_lit(mrb, "Hello, world!");
+  // Returns a sub-string within the range of 0..2
+  str2 = mrb_str_substr(mrb, str1, 0, 2);
+
+  // Prints sub-string.
+  mrb_p(mrb, str2);
+
+  mrb_close(mrb);
+  return 0;
+}
+\end{DoxyVerb}
+
+
+Result\+: \begin{DoxyVerb}=> "He"
+\end{DoxyVerb}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em mrb} & The current mruby state. \\
+\hline
+{\em str} & Ruby string. \\
+\hline
+{\em beg} & The beginning point of the sub-\/string. \\
+\hline
+{\em len} & The end point of the sub-\/string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}\doxylink{structmrb__value}{mrb\+\_\+value}\mbox{]} An object as a Ruby sub-\/string. 
+\end{DoxyReturn}
+\Hypertarget{string_8h_a7eeb91cdb135a4de04ce5422dd0ccaa1}\index{string.h@{string.h}!mrb\_str\_to\_cstr@{mrb\_str\_to\_cstr}}
+\index{mrb\_str\_to\_cstr@{mrb\_str\_to\_cstr}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_str\_to\_cstr()}{mrb\_str\_to\_cstr()}}
+{\footnotesize\ttfamily \label{string_8h_a7eeb91cdb135a4de04ce5422dd0ccaa1} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} char \texorpdfstring{$\ast$}{*} mrb\+\_\+str\+\_\+to\+\_\+cstr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}}]{str}{}\end{DoxyParamCaption})}
+
+Returns a newly allocated C string from a Ruby string. This is an utility function to pass a Ruby string to C library functions.
+
+
+\begin{DoxyItemize}
+\item Returned string does not contain any NUL characters (but terminator).
+\item It raises an Argument\+Error exception if Ruby string contains NUL characters.
+\item Returned string will be freed automatically on next GC.
+\item Caller can modify returned string without affecting Ruby string (e.\+g. it can be used for mkstemp(3)).
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em mrb} & The current mruby state. \\
+\hline
+{\em str} & Ruby string. Must be an instance of String. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}char \texorpdfstring{$\ast$}{*}\mbox{]} A newly allocated C string. 
+\end{DoxyReturn}
+
+
+\label{doc-var-members}
+\Hypertarget{string_8h_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{string_8h_aab8342c7db2c23f714e664cf0433104f}\index{string.h@{string.h}!mrb\_digitmap@{mrb\_digitmap}}
+\index{mrb\_digitmap@{mrb\_digitmap}!string.h@{string.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_digitmap}{mrb\_digitmap}}
+{\footnotesize\ttfamily \label{string_8h_aab8342c7db2c23f714e664cf0433104f} 
+\mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\+\_\+\+BEGIN\+\_\+\+DECL}} const char mrb\+\_\+digitmap\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+String class 

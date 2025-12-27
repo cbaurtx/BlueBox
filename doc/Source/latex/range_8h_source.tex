@@ -1,0 +1,76 @@
+\doxysection{range.\+h}
+\hypertarget{range_8h_source}{}\label{range_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/range.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/range.h}}
+\mbox{\hyperlink{range_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_RANGE\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_RANGE\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{common_8h}{common.h}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00015\ \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\_BEGIN\_DECL}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#if\ defined(MRB\_NAN\_BOXING)\ \&\&\ defined(MRB\_64BIT)\ ||\ defined(MRB\_WORD\_BOXING)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#\ define\ MRB\_RANGE\_EMBED}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifdef\ MRB\_RANGE\_EMBED}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRRange}{RRange}}\ \{}
+\DoxyCodeLine{00023\ \ \ MRB\_OBJECT\_HEADER;}
+\DoxyCodeLine{00024\ \ \ mrb\_value\ beg;}
+\DoxyCodeLine{00025\ \ \ mrb\_value\ end;}
+\DoxyCodeLine{00026\ \ \ mrb\_bool\ excl;}
+\DoxyCodeLine{00027\ \};}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#\ define\ mrb\_gc\_free\_range(mrb,\ p)\ ((void)0)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ define\ RANGE\_BEG(p)\ ((p)-\/>beg)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#\ define\ RANGE\_END(p)\ ((p)-\/>end)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00032\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__range__edges}{mrb\_range\_edges}}\ \{}
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ beg;}
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ end;}
+\DoxyCodeLine{00035\ \}\ \mbox{\hyperlink{structmrb__range__edges}{mrb\_range\_edges}};}
+\DoxyCodeLine{00036\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRRange}{RRange}}\ \{}
+\DoxyCodeLine{00037\ \ \ MRB\_OBJECT\_HEADER;}
+\DoxyCodeLine{00038\ \ \ \mbox{\hyperlink{structmrb__range__edges}{mrb\_range\_edges}}\ *edges;}
+\DoxyCodeLine{00039\ \ \ mrb\_bool\ excl;}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#\ define\ mrb\_gc\_free\_range(mrb,\ p)\ mrb\_free(mrb,\ (p)-\/>edges)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#\ define\ RANGE\_BEG(p)\ ((p)-\/>edges-\/>beg)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#\ define\ RANGE\_END(p)\ ((p)-\/>edges-\/>end)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ mrb\_range\_beg(mrb,\ r)\ RANGE\_BEG(mrb\_range\_ptr(mrb,\ r))}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ mrb\_range\_end(mrb,\ r)\ RANGE\_END(mrb\_range\_ptr(mrb,\ r))}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ mrb\_range\_excl\_p(mrb,\ r)\ RANGE\_EXCL(mrb\_range\_ptr(mrb,\ r))}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ mrb\_range\_raw\_ptr(r)\ ((struct\ RRange*)mrb\_ptr(r))}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ mrb\_range\_value(p)\ mrb\_obj\_value((void*)(p))}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ RANGE\_EXCL(p)\ ((p)-\/>excl)}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRRange}{RRange}}*\ mrb\_range\_ptr(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ range);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ *\ Initializes\ a\ Range.}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ *\ If\ the\ third\ parameter\ is\ FALSE\ then\ it\ includes\ the\ last\ value\ in\ the\ range.}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ *\ If\ the\ third\ parameter\ is\ TRUE\ then\ it\ excludes\ the\ last\ value\ in\ the\ range.}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *\ @param\ start\ the\ beginning\ value.}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *\ @param\ end\ the\ ending\ value.}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ *\ @param\ exclude\ represents\ the\ inclusion\ or\ exclusion\ of\ the\ last\ value.}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00065\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_range\_new(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ start,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ end,\ mrb\_bool\ exclude);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{enum}\ mrb\_range\_beg\_len\ \{}
+\DoxyCodeLine{00068\ \ \ MRB\_RANGE\_TYPE\_MISMATCH\ =\ 0,\ \ \textcolor{comment}{/*\ (failure)\ not\ range\ */}}
+\DoxyCodeLine{00069\ \ \ MRB\_RANGE\_OK\ =\ 1,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (success)\ range\ */}}
+\DoxyCodeLine{00070\ \ \ MRB\_RANGE\_OUT\ =\ 2\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (failure)\ out\ of\ range\ */}}
+\DoxyCodeLine{00071\ \};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keyword}{enum}\ mrb\_range\_beg\_len\ mrb\_range\_beg\_len(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ range,\ mrb\_int\ *begp,\ mrb\_int\ *lenp,\ mrb\_int\ len,\ mrb\_bool\ trunc);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \mbox{\hyperlink{common_8h_a7e9674ff871a8abbcaf9ba23fa4b72d3}{MRB\_END\_DECL}}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_RANGE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

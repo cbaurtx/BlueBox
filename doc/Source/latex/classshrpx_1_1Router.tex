@@ -1,0 +1,41 @@
+\doxysection{shrpx\+::Router Class Reference}
+\hypertarget{classshrpx_1_1Router}{}\label{classshrpx_1_1Router}\index{shrpx::Router@{shrpx::Router}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1Router_ae309782519ac32acb9b1f3e3c394dac4}\label{classshrpx_1_1Router_ae309782519ac32acb9b1f3e3c394dac4} 
+{\bfseries Router} (Router \&\&)=default
+\item 
+\Hypertarget{classshrpx_1_1Router_ad8c0c2f3c73ef031770ec3b2f48053d4}\label{classshrpx_1_1Router_ad8c0c2f3c73ef031770ec3b2f48053d4} 
+{\bfseries Router} (const Router \&)=delete
+\item 
+\Hypertarget{classshrpx_1_1Router_a768dff84af43ad998b605dea7334252a}\label{classshrpx_1_1Router_a768dff84af43ad998b605dea7334252a} 
+Router \& {\bfseries operator=} (Router \&\&)=default
+\item 
+\Hypertarget{classshrpx_1_1Router_aa811e842629eac941b249b1a1187aa49}\label{classshrpx_1_1Router_aa811e842629eac941b249b1a1187aa49} 
+Router \& {\bfseries operator=} (const Router \&)=delete
+\item 
+\Hypertarget{classshrpx_1_1Router_ad75e83e916aa43070ae8bdafee65719a}\label{classshrpx_1_1Router_ad75e83e916aa43070ae8bdafee65719a} 
+size\+\_\+t {\bfseries add\+\_\+route} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&pattern, size\+\_\+t index, bool wildcard=false)
+\item 
+\Hypertarget{classshrpx_1_1Router_a19bad48206864991d80493916d92c9e8}\label{classshrpx_1_1Router_a19bad48206864991d80493916d92c9e8} 
+ssize\+\_\+t {\bfseries match} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&host, const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&path) const
+\item 
+\Hypertarget{classshrpx_1_1Router_a0cd297d7994cb52a0a0abbb0e7459216}\label{classshrpx_1_1Router_a0cd297d7994cb52a0a0abbb0e7459216} 
+ssize\+\_\+t {\bfseries match} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&s) const
+\item 
+\Hypertarget{classshrpx_1_1Router_abc00be67c21fccbc4f984681c2b4e00d}\label{classshrpx_1_1Router_abc00be67c21fccbc4f984681c2b4e00d} 
+ssize\+\_\+t {\bfseries match\+\_\+prefix} (size\+\_\+t \texorpdfstring{$\ast$}{*}nread, const \mbox{\hyperlink{structshrpx_1_1RNode}{RNode}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}last\+\_\+node, const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&s) const
+\item 
+\Hypertarget{classshrpx_1_1Router_a0b1410fb6b4eb97d624426a201eaf50f}\label{classshrpx_1_1Router_a0b1410fb6b4eb97d624426a201eaf50f} 
+void {\bfseries add\+\_\+node} (\mbox{\hyperlink{structshrpx_1_1RNode}{RNode}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structnode}{node}}, const char \texorpdfstring{$\ast$}{*}pattern, size\+\_\+t patlen, ssize\+\_\+t index, ssize\+\_\+t wildcard\+\_\+index)
+\item 
+\Hypertarget{classshrpx_1_1Router_a83ac739b6894ea9fe3093655afcf3275}\label{classshrpx_1_1Router_a83ac739b6894ea9fe3093655afcf3275} 
+void {\bfseries dump} () const
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+router.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+router.\+cc\end{DoxyCompactItemize}

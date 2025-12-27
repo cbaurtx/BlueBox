@@ -1,0 +1,65 @@
+\doxysection{bigint.\+h}
+\hypertarget{bigint_8h_source}{}\label{bigint_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/bigint/core/bigint.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/mrbgems/mruby-\/bigint/core/bigint.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_BIGINT\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_BIGINT\_H}}
+\DoxyCodeLine{00009\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ FREE\ GMP\ -\/\ a\ public\ domain\ implementation\ of\ a\ subset\ of\ the}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ gmp\ library}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ I\ hearby\ place\ the\ file\ in\ the\ public\ domain.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ Do\ whatever\ you\ want\ with\ this\ code.\ Change\ it.\ Sell\ it.\ Claim\ you}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ wrote\ it.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ Bugs,\ complaints,\ flames,\ rants:\ please\ send\ email\ to}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ \ \ \ Mark\ Henderson\ <markh@wimsey.bc.ca>}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ I'm\ already\ aware\ that\ fgmp\ is\ considerably\ slower\ than\ gmp}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ CREDITS:}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ \ Paul\ Rouse\ <par@r-\/cube.demon.co.uk>\ -\/\ generic\ bug\ fixes,\ mpz\_sqrt\ and}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ \ \ \ mpz\_sqrtrem,\ and\ modifications\ to\ get\ fgmp\ to\ compile\ on\ a\ system}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ with\ int\ and\ long\ of\ different\ sizes\ (specifically\ MS-\/DOS,286\ compiler)}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ \ Also\ see\ the\ file\ "{}notes"{}\ included\ with\ the\ fgmp\ distribution,\ for}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ \ \ \ more\ credits.}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ VERSION\ 1.0\ -\/\ beta\ 5}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <sys/types.h>}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#if\ defined(MRB\_INT32)\ \&\&\ defined(\_WIN32)\ \&\&\ !defined(MRB\_NO\_MPZ64BIT)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ MRB\_NO\_MPZ64BIT}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#ifdef\ MRB\_NO\_MPZ64BIT}}
+\DoxyCodeLine{00038\ \textcolor{keyword}{typedef}\ uint16\_t\ mp\_limb;}
+\DoxyCodeLine{00039\ \textcolor{keyword}{typedef}\ uint32\_t\ mp\_dbl\_limb;}
+\DoxyCodeLine{00040\ \textcolor{keyword}{typedef}\ int32\_t\ mp\_dbl\_limb\_signed;}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ MPZ\_DIG\_SIZE\ 16}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00043\ \textcolor{keyword}{typedef}\ uint32\_t\ mp\_limb;}
+\DoxyCodeLine{00044\ \textcolor{keyword}{typedef}\ uint64\_t\ mp\_dbl\_limb;}
+\DoxyCodeLine{00045\ \textcolor{keyword}{typedef}\ int64\_t\ mp\_dbl\_limb\_signed;}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ MPZ\_DIG\_SIZE\ 32}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__mpz__t}{\_mpz\_t}}\ \{}
+\DoxyCodeLine{00050\ \ \ mp\_limb\ *p;}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{short}\ sn;}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{size\_t}\ sz;}
+\DoxyCodeLine{00053\ \}\ mpz\_t;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRBigint}{RBigint}}\ \{}
+\DoxyCodeLine{00056\ \ \ MRB\_OBJECT\_HEADER;}
+\DoxyCodeLine{00057\ \ \ mpz\_t\ mp;}
+\DoxyCodeLine{00058\ \};}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ RBIGINT(v)\ ((struct\ RBigint*)mrb\_ptr(v))}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ mrb\_static\_assert\_object\_size(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structRBigint}{RBigint}});}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_BIGINT\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,75 @@
+\doxysection{main/bluebox.c File Reference}
+\hypertarget{bluebox_8c}{}\label{bluebox_8c}\index{main/bluebox.c@{main/bluebox.c}}
+
+
+Blue\+Box Bluetooth sink and i2s source for Retro\+Box.  
+
+
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+bt.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+bt\+\_\+main.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+bt\+\_\+device.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+gap\+\_\+bt\+\_\+api.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+a2dp\+\_\+api.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+avrc\+\_\+api.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+peripherals.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+timer.\+h"{}}\newline
+{\ttfamily \#include "{}nvs\+\_\+flash.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+spiffs.\+h"{}}\newline
+{\ttfamily \#include "{}periph\+\_\+spiffs.\+h"{}}\newline
+{\ttfamily \#include "{}audio\+\_\+mem.\+h"{}}\newline
+{\ttfamily \#include "{}audio\+\_\+element.\+h"{}}\newline
+{\ttfamily \#include "{}audio\+\_\+pipeline.\+h"{}}\newline
+{\ttfamily \#include "{}audio\+\_\+event\+\_\+iface.\+h"{}}\newline
+{\ttfamily \#include "{}bluetooth\+\_\+service.\+h"{}}\newline
+{\ttfamily \#include "{}i2s\+\_\+stream.\+h"{}}\newline
+{\ttfamily \#include "{}spiffs\+\_\+stream.\+h"{}}\newline
+{\ttfamily \#include "{}filter\+\_\+resample.\+h"{}}\newline
+{\ttfamily \#include "{}mp3\+\_\+decoder.\+h"{}}\newline
+{\ttfamily \#include "{}periph\+\_\+touch.\+h"{}}\newline
+{\ttfamily \#include "{}board.\+h"{}}\newline
+{\ttfamily \#include "{}a2dp\+\_\+stream.\+h"{}}\newline
+Include dependency graph for bluebox.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bluebox_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{bluebox_8c_a2413ac80f973a65325697a892a640439}\label{bluebox_8c_a2413ac80f973a65325697a892a640439} 
+\#define {\bfseries NO\+\_\+\+BLUETOOTH}~"{}/spiffs/no\+\_\+bluetooth.\+mp3"{}
+\item 
+\Hypertarget{bluebox_8c_af6202935c026af12978d46a765dafb90}\label{bluebox_8c_af6202935c026af12978d46a765dafb90} 
+\#define {\bfseries CONNECTED}~"{}/spiffs/connected.\+mp3"{}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{bluebox_8c_a630544a7f0a2cc40d8a7fefab7e2fe70}\label{bluebox_8c_a630544a7f0a2cc40d8a7fefab7e2fe70} 
+void {\bfseries app\+\_\+main} (void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Blue\+Box Bluetooth sink and i2s source for Retro\+Box. 
+
+\begin{DoxyVersion}{Version}
+0.\+9 
+\end{DoxyVersion}
+\begin{DoxyAuthor}{Author}
+Cbaurtx 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+11.\+12.\+2025 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+cbaurtx 
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{{\bfseries{License}}\+: MIT License, read LICENSE.md}
+
+\end{DoxyParagraph}
+Blue\+Box is a Bluetooth sink to be connected via I2S to Retro\+Box Uses the Espressif ADF audio framework version 2.\+7. and has been adapted from the Espressif player/pipeline\+\_\+a2dp\+\_\+sink\+\_\+stream example 

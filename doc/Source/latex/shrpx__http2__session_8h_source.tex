@@ -1,0 +1,309 @@
+\doxysection{shrpx\+\_\+http2\+\_\+session.\+h}
+\hypertarget{shrpx__http2__session_8h_source}{}\label{shrpx__http2__session_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_http2\_session.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_http2\_session.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_HTTP2\_SESSION\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_HTTP2\_SESSION\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}ssl\_compat.h"{}}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#ifdef\ NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/options.h>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/openssl/ssl.h>}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//\ !NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#\ \ include\ <openssl/ssl.h>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <ev.h>}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}llhttp.h"{}}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}shrpx\_connection.h"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}buffer.h"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}template.h"{}}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{using\ namespace\ }nghttp2;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1Http2DownstreamConnection}{Http2DownstreamConnection}};}
+\DoxyCodeLine{00057\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1Worker}{Worker}};}
+\DoxyCodeLine{00058\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}};}
+\DoxyCodeLine{00059\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1DownstreamAddrGroup}{DownstreamAddrGroup}};}
+\DoxyCodeLine{00060\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}};}
+\DoxyCodeLine{00061\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1DNSQuery}{DNSQuery}};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1StreamData}{StreamData}}\ \{}
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{structshrpx_1_1StreamData}{StreamData}}\ *dlnext,\ *dlprev;}
+\DoxyCodeLine{00065\ \ \ \mbox{\hyperlink{classshrpx_1_1Http2DownstreamConnection}{Http2DownstreamConnection}}\ *dconn;}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{enum\ class}\ FreelistZone\ \{}
+\DoxyCodeLine{00069\ \ \ \textcolor{comment}{//\ Http2Session\ object\ is\ not\ linked\ in\ any\ freelist.}}
+\DoxyCodeLine{00070\ \ \ NONE,}
+\DoxyCodeLine{00071\ \ \ \textcolor{comment}{//\ Http2Session\ object\ is\ linked\ in\ address\ scope}}
+\DoxyCodeLine{00072\ \ \ \textcolor{comment}{//\ http2\_extra\_freelist.}}
+\DoxyCodeLine{00073\ \ \ EXTRA,}
+\DoxyCodeLine{00074\ \ \ \textcolor{comment}{//\ Http2Session\ object\ is\ about\ to\ be\ deleted,\ and\ it\ does\ not}}
+\DoxyCodeLine{00075\ \ \ \textcolor{comment}{//\ belong\ to\ any\ linked\ list.}}
+\DoxyCodeLine{00076\ \ \ GONE}
+\DoxyCodeLine{00077\ \};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{enum\ class}\ Http2SessionState\ \{}
+\DoxyCodeLine{00080\ \ \ \textcolor{comment}{//\ Disconnected}}
+\DoxyCodeLine{00081\ \ \ DISCONNECTED,}
+\DoxyCodeLine{00082\ \ \ \textcolor{comment}{//\ Connecting\ proxy\ and\ making\ CONNECT\ request}}
+\DoxyCodeLine{00083\ \ \ PROXY\_CONNECTING,}
+\DoxyCodeLine{00084\ \ \ \textcolor{comment}{//\ Tunnel\ is\ established\ with\ proxy}}
+\DoxyCodeLine{00085\ \ \ PROXY\_CONNECTED,}
+\DoxyCodeLine{00086\ \ \ \textcolor{comment}{//\ Establishing\ tunnel\ is\ failed}}
+\DoxyCodeLine{00087\ \ \ PROXY\_FAILED,}
+\DoxyCodeLine{00088\ \ \ \textcolor{comment}{//\ Connecting\ to\ downstream\ and/or\ performing\ SSL/TLS\ handshake}}
+\DoxyCodeLine{00089\ \ \ CONNECTING,}
+\DoxyCodeLine{00090\ \ \ \textcolor{comment}{//\ Connected\ to\ downstream}}
+\DoxyCodeLine{00091\ \ \ CONNECTED,}
+\DoxyCodeLine{00092\ \ \ \textcolor{comment}{//\ Connection\ is\ started\ to\ fail}}
+\DoxyCodeLine{00093\ \ \ CONNECT\_FAILING,}
+\DoxyCodeLine{00094\ \ \ \textcolor{comment}{//\ Resolving\ host\ name}}
+\DoxyCodeLine{00095\ \ \ RESOLVING\_NAME,}
+\DoxyCodeLine{00096\ \};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{enum\ class}\ ConnectionCheck\ \{}
+\DoxyCodeLine{00099\ \ \ \textcolor{comment}{//\ Connection\ checking\ is\ not\ required}}
+\DoxyCodeLine{00100\ \ \ NONE,}
+\DoxyCodeLine{00101\ \ \ \textcolor{comment}{//\ Connection\ checking\ is\ required}}
+\DoxyCodeLine{00102\ \ \ REQUIRED,}
+\DoxyCodeLine{00103\ \ \ \textcolor{comment}{//\ Connection\ checking\ has\ been\ started}}
+\DoxyCodeLine{00104\ \ \ STARTED,}
+\DoxyCodeLine{00105\ \};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{class\ }Http2Session\ \{}
+\DoxyCodeLine{00108\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00109\ \ \ Http2Session(\textcolor{keyword}{struct}\ ev\_loop\ *loop,\ SSL\_CTX\ *ssl\_ctx,\ \mbox{\hyperlink{classshrpx_1_1Worker}{Worker}}\ *worker,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<DownstreamAddrGroup>\ \&group,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}}\ *addr);}
+\DoxyCodeLine{00112\ \ \ \string~Http2Session();}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \textcolor{comment}{//\ If\ hard\ is\ true,\ all\ pending\ requests\ are\ abandoned\ and}}
+\DoxyCodeLine{00115\ \ \ \textcolor{comment}{//\ associated\ ClientHandlers\ will\ be\ deleted.}}
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{int}\ disconnect(\textcolor{keywordtype}{bool}\ hard\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{int}\ initiate\_connection();}
+\DoxyCodeLine{00118\ \ \ \textcolor{keywordtype}{int}\ resolve\_name();}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordtype}{void}\ add\_downstream\_connection(\mbox{\hyperlink{classshrpx_1_1Http2DownstreamConnection}{Http2DownstreamConnection}}\ *dconn);}
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{void}\ remove\_downstream\_connection(\mbox{\hyperlink{classshrpx_1_1Http2DownstreamConnection}{Http2DownstreamConnection}}\ *dconn);}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{void}\ remove\_stream\_data(\mbox{\hyperlink{structshrpx_1_1StreamData}{StreamData}}\ *sd);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{int}\ submit\_request(\mbox{\hyperlink{classshrpx_1_1Http2DownstreamConnection}{Http2DownstreamConnection}}\ *dconn,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nvlen,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__data__provider2}{nghttp2\_data\_provider2}}\ *data\_prd);}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{int}\ submit\_rst\_stream(int32\_t\ stream\_id,\ uint32\_t\ error\_code);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{int}\ terminate\_session(uint32\_t\ error\_code);}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *get\_session()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \textcolor{keywordtype}{int}\ resume\_data(\mbox{\hyperlink{classshrpx_1_1Http2DownstreamConnection}{Http2DownstreamConnection}}\ *dconn);}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \textcolor{keywordtype}{int}\ connection\_made();}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordtype}{int}\ do\_read();}
+\DoxyCodeLine{00139\ \ \ \textcolor{keywordtype}{int}\ do\_write();}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \textcolor{keywordtype}{int}\ on\_read(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ datalen);}
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordtype}{int}\ on\_write();}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{int}\ connected();}
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordtype}{int}\ read\_clear();}
+\DoxyCodeLine{00146\ \ \ \textcolor{keywordtype}{int}\ write\_clear();}
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordtype}{int}\ tls\_handshake();}
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordtype}{int}\ read\_tls();}
+\DoxyCodeLine{00149\ \ \ \textcolor{keywordtype}{int}\ write\_tls();}
+\DoxyCodeLine{00150\ \ \ \textcolor{comment}{//\ This\ is\ a\ special\ write\ function\ which\ just\ stop\ write\ event}}
+\DoxyCodeLine{00151\ \ \ \textcolor{comment}{//\ watcher.}}
+\DoxyCodeLine{00152\ \ \ \textcolor{keywordtype}{int}\ write\_void();}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{int}\ downstream\_read\_proxy(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ datalen);}
+\DoxyCodeLine{00155\ \ \ \textcolor{keywordtype}{int}\ downstream\_connect\_proxy();}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordtype}{int}\ downstream\_read(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ datalen);}
+\DoxyCodeLine{00158\ \ \ \textcolor{keywordtype}{int}\ downstream\_write();}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \textcolor{keywordtype}{int}\ noop();}
+\DoxyCodeLine{00161\ \ \ \textcolor{keywordtype}{int}\ read\_noop(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ datalen);}
+\DoxyCodeLine{00162\ \ \ \textcolor{keywordtype}{int}\ write\_noop();}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \textcolor{keywordtype}{void}\ signal\_write();}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \textcolor{keyword}{struct\ }ev\_loop\ *get\_loop()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ ev\_io\ *get\_wev();}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ Http2SessionState\ get\_state()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00171\ \ \ \textcolor{keywordtype}{void}\ set\_state(Http2SessionState\ state);}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \textcolor{keywordtype}{void}\ start\_settings\_timer();}
+\DoxyCodeLine{00174\ \ \ \textcolor{keywordtype}{void}\ stop\_settings\_timer();}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ SSL\ *get\_ssl()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \textcolor{keywordtype}{int}\ consume(int32\_t\ stream\_id,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ request\ can\ be\ issued\ on\ downstream\ connection.}}
+\DoxyCodeLine{00181\ \ \ \textcolor{keywordtype}{bool}\ can\_push\_request(\textcolor{keyword}{const}\ \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00182\ \ \ \textcolor{comment}{//\ Initiates\ the\ connection\ checking\ if\ downstream\ connection\ has}}
+\DoxyCodeLine{00183\ \ \ \textcolor{comment}{//\ been\ established\ and\ connection\ checking\ is\ required.}}
+\DoxyCodeLine{00184\ \ \ \textcolor{keywordtype}{void}\ start\_checking\_connection();}
+\DoxyCodeLine{00185\ \ \ \textcolor{comment}{//\ Resets\ connection\ check\ timer\ to\ timeout\ |t|.\ \ After\ timeout,\ we}}
+\DoxyCodeLine{00186\ \ \ \textcolor{comment}{//\ require\ connection\ checking.\ \ If\ connection\ checking\ is\ already}}
+\DoxyCodeLine{00187\ \ \ \textcolor{comment}{//\ enabled,\ this\ timeout\ is\ for\ PING\ ACK\ timeout.}}
+\DoxyCodeLine{00188\ \ \ \textcolor{keywordtype}{void}\ reset\_connection\_check\_timer(ev\_tstamp\ t);}
+\DoxyCodeLine{00189\ \ \ \textcolor{keywordtype}{void}\ reset\_connection\_check\_timer\_if\_not\_checking();}
+\DoxyCodeLine{00190\ \ \ \textcolor{comment}{//\ Signals\ that\ connection\ is\ alive.\ \ Internally}}
+\DoxyCodeLine{00191\ \ \ \textcolor{comment}{//\ reset\_connection\_check\_timer()\ is\ called.}}
+\DoxyCodeLine{00192\ \ \ \textcolor{keywordtype}{void}\ connection\_alive();}
+\DoxyCodeLine{00193\ \ \ \textcolor{comment}{//\ Change\ connection\ check\ state.}}
+\DoxyCodeLine{00194\ \ \ \textcolor{keywordtype}{void}\ set\_connection\_check\_state(ConnectionCheck\ state);}
+\DoxyCodeLine{00195\ \ \ ConnectionCheck\ get\_connection\_check\_state()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \textcolor{keywordtype}{bool}\ should\_hard\_fail()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \textcolor{keywordtype}{void}\ submit\_pending\_requests();}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}}\ *get\_addr()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<DownstreamAddrGroup>\ \&get\_downstream\_addr\_group()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \textcolor{keywordtype}{int}\ handle\_downstream\_push\_promise(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream,}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ promised\_stream\_id);}
+\DoxyCodeLine{00207\ \ \ \textcolor{keywordtype}{int}\ handle\_downstream\_push\_promise\_complete(\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *downstream,}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}}\ *promised\_downstream);}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \textcolor{comment}{//\ Returns\ number\ of\ downstream\ connections,\ including\ pushed}}
+\DoxyCodeLine{00211\ \ \ \textcolor{comment}{//\ streams.}}
+\DoxyCodeLine{00212\ \ \ \textcolor{keywordtype}{size\_t}\ get\_num\_dconns()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \textcolor{comment}{//\ Adds\ to\ group\ scope\ http2\_avail\_freelist.}}
+\DoxyCodeLine{00215\ \ \ \textcolor{keywordtype}{void}\ add\_to\_avail\_freelist();}
+\DoxyCodeLine{00216\ \ \ \textcolor{comment}{//\ Adds\ to\ address\ scope\ http2\_extra\_freelist.}}
+\DoxyCodeLine{00217\ \ \ \textcolor{keywordtype}{void}\ add\_to\_extra\_freelist();}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \textcolor{comment}{//\ Removes\ this\ object\ from\ any\ freelist.\ \ If\ this\ object\ is\ not}}
+\DoxyCodeLine{00220\ \ \ \textcolor{comment}{//\ linked\ from\ any\ freelist,\ this\ function\ does\ nothing.}}
+\DoxyCodeLine{00221\ \ \ \textcolor{keywordtype}{void}\ remove\_from\_freelist();}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \textcolor{comment}{//\ Removes\ this\ object\ form\ any\ freelist,\ and\ marks\ this\ object\ as}}
+\DoxyCodeLine{00224\ \ \ \textcolor{comment}{//\ not\ schedulable.}}
+\DoxyCodeLine{00225\ \ \ \textcolor{keywordtype}{void}\ exclude\_from\_scheduling();}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ the\ maximum\ concurrency\ is\ reached.\ \ In\ other}}
+\DoxyCodeLine{00228\ \ \ \textcolor{comment}{//\ words,\ the\ number\ of\ currently\ participated\ streams\ in\ this}}
+\DoxyCodeLine{00229\ \ \ \textcolor{comment}{//\ session\ is\ equal\ or\ greater\ than\ the\ max\ concurrent\ streams\ limit}}
+\DoxyCodeLine{00230\ \ \ \textcolor{comment}{//\ advertised\ by\ server.\ \ If\ |extra|\ is\ nonzero,\ it\ is\ added\ to\ the}}
+\DoxyCodeLine{00231\ \ \ \textcolor{comment}{//\ number\ of\ current\ concurrent\ streams\ when\ comparing\ against}}
+\DoxyCodeLine{00232\ \ \ \textcolor{comment}{//\ server\ initiated\ concurrency\ limit.}}
+\DoxyCodeLine{00233\ \ \ \textcolor{keywordtype}{bool}\ max\_concurrency\_reached(\textcolor{keywordtype}{size\_t}\ extra\ =\ 0)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ DefaultMemchunks\ *get\_request\_buf();}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \textcolor{keywordtype}{void}\ on\_timeout();}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \ \ \textcolor{comment}{//\ This\ is\ called\ periodically\ using\ ev\_prepare\ watcher,\ and\ if}}
+\DoxyCodeLine{00240\ \ \ \textcolor{comment}{//\ group\_\ is\ retired\ (backend\ has\ been\ replaced),\ send\ GOAWAY\ to}}
+\DoxyCodeLine{00241\ \ \ \textcolor{comment}{//\ shutdown\ the\ connection.}}
+\DoxyCodeLine{00242\ \ \ \textcolor{keywordtype}{void}\ check\_retire();}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \textcolor{comment}{//\ Returns\ address\ used\ to\ connect\ to\ backend.\ \ Could\ be\ nullptr.}}
+\DoxyCodeLine{00245\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ *get\_raddr()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \textcolor{comment}{//\ This\ is\ called\ when\ SETTINGS\ frame\ without\ ACK\ flag\ set\ is}}
+\DoxyCodeLine{00248\ \ \ \textcolor{comment}{//\ received.}}
+\DoxyCodeLine{00249\ \ \ \textcolor{keywordtype}{void}\ on\_settings\_received(\textcolor{keyword}{const}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame);}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \ \ \textcolor{keywordtype}{bool}\ get\_allow\_connect\_proto()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ \textcolor{keyword}{using\ }ReadBuf\ =\ \mbox{\hyperlink{structnghttp2_1_1Buffer}{Buffer<8\_k>}};}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ Http2Session\ *dlnext,\ *dlprev;}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00258\ \ \ \mbox{\hyperlink{structshrpx_1_1Connection}{Connection}}\ conn\_;}
+\DoxyCodeLine{00259\ \ \ DefaultMemchunks\ wb\_;}
+\DoxyCodeLine{00260\ \ \ ev\_timer\ settings\_timer\_;}
+\DoxyCodeLine{00261\ \ \ \textcolor{comment}{//\ This\ timer\ has\ 2\ purpose:\ when\ it\ first\ timeout,\ set}}
+\DoxyCodeLine{00262\ \ \ \textcolor{comment}{//\ connection\_check\_state\_\ =\ ConnectionCheck::REQUIRED.\ \ After}}
+\DoxyCodeLine{00263\ \ \ \textcolor{comment}{//\ connection\ check\ has\ started,\ this\ timer\ is\ started\ again\ and}}
+\DoxyCodeLine{00264\ \ \ \textcolor{comment}{//\ traps\ PING\ ACK\ timeout.}}
+\DoxyCodeLine{00265\ \ \ ev\_timer\ connchk\_timer\_;}
+\DoxyCodeLine{00266\ \ \ \textcolor{comment}{//\ timer\ to\ initiate\ connection.\ \ usually,\ this\ fires\ immediately.}}
+\DoxyCodeLine{00267\ \ \ ev\_timer\ initiate\_connection\_timer\_;}
+\DoxyCodeLine{00268\ \ \ ev\_prepare\ prep\_;}
+\DoxyCodeLine{00269\ \ \ \mbox{\hyperlink{structnghttp2_1_1DList}{DList<Http2DownstreamConnection>}}\ dconns\_;}
+\DoxyCodeLine{00270\ \ \ \mbox{\hyperlink{structnghttp2_1_1DList}{DList<StreamData>}}\ streams\_;}
+\DoxyCodeLine{00271\ \ \ std::function<int(Http2Session\ \&)>\ read\_,\ write\_;}
+\DoxyCodeLine{00272\ \ \ std::function<int(Http2Session\ \&,\ \textcolor{keyword}{const}\ uint8\_t\ *,\ \textcolor{keywordtype}{size\_t})>\ on\_read\_;}
+\DoxyCodeLine{00273\ \ \ std::function<int(Http2Session\ \&)>\ on\_write\_;}
+\DoxyCodeLine{00274\ \ \ \textcolor{comment}{//\ Used\ to\ parse\ the\ response\ from\ HTTP\ proxy}}
+\DoxyCodeLine{00275\ \ \ std::unique\_ptr<llhttp\_t>\ proxy\_htp\_;}
+\DoxyCodeLine{00276\ \ \ \mbox{\hyperlink{classshrpx_1_1Worker}{Worker}}\ *worker\_;}
+\DoxyCodeLine{00277\ \ \ \textcolor{comment}{//\ NULL\ if\ no\ TLS\ is\ configured}}
+\DoxyCodeLine{00278\ \ \ SSL\_CTX\ *ssl\_ctx\_;}
+\DoxyCodeLine{00279\ \ \ std::shared\_ptr<DownstreamAddrGroup>\ group\_;}
+\DoxyCodeLine{00280\ \ \ \textcolor{comment}{//\ Address\ of\ remote\ endpoint}}
+\DoxyCodeLine{00281\ \ \ \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}}\ *addr\_;}
+\DoxyCodeLine{00282\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session\_;}
+\DoxyCodeLine{00283\ \ \ \textcolor{comment}{//\ Actual\ remote\ address\ used\ to\ contact\ backend.\ \ This\ is\ initially}}
+\DoxyCodeLine{00284\ \ \ \textcolor{comment}{//\ nullptr,\ and\ may\ point\ to\ either\ \&addr\_-\/>addr,}}
+\DoxyCodeLine{00285\ \ \ \textcolor{comment}{//\ resolved\_addr\_.get(),\ or\ HTTP\ proxy's\ address\ structure.}}
+\DoxyCodeLine{00286\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ *raddr\_;}
+\DoxyCodeLine{00287\ \ \ \textcolor{comment}{//\ Resolved\ IP\ address\ if\ dns\ parameter\ is\ used}}
+\DoxyCodeLine{00288\ \ \ std::unique\_ptr<Address>\ resolved\_addr\_;}
+\DoxyCodeLine{00289\ \ \ std::unique\_ptr<DNSQuery>\ dns\_query\_;}
+\DoxyCodeLine{00290\ \ \ Http2SessionState\ state\_;}
+\DoxyCodeLine{00291\ \ \ ConnectionCheck\ connection\_check\_state\_;}
+\DoxyCodeLine{00292\ \ \ FreelistZone\ freelist\_zone\_;}
+\DoxyCodeLine{00293\ \ \ \textcolor{comment}{//\ true\ if\ SETTINGS\ without\ ACK\ is\ received\ from\ peer.}}
+\DoxyCodeLine{00294\ \ \ \textcolor{keywordtype}{bool}\ settings\_recved\_;}
+\DoxyCodeLine{00295\ \ \ \textcolor{comment}{//\ true\ if\ peer\ enables\ RFC\ 8441\ CONNECT\ protocol.}}
+\DoxyCodeLine{00296\ \ \ \textcolor{keywordtype}{bool}\ allow\_connect\_proto\_;}
+\DoxyCodeLine{00297\ \};}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *create\_http2\_downstream\_callbacks();}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_HTTP2\_SESSION\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,212 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/internal.h File Reference}
+\hypertarget{internal_8h}{}\label{internal_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/internal.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/internal.h}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{internal_8h_ac8bbb117501e1b34e8c97e6de8b3c085}\label{internal_8h_ac8bbb117501e1b34e8c97e6de8b3c085} 
+\mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries mrb\+\_\+inspect\+\_\+recursive\+\_\+p} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} self)
+\item 
+\Hypertarget{internal_8h_af17b068be22e4094cc68cb93d82a1b96}\label{internal_8h_af17b068be22e4094cc68cb93d82a1b96} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+obj\+\_\+equal\+\_\+m} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}})
+\item 
+\Hypertarget{internal_8h_ae9804e6a14d9ff7dff85b8f4e2e28318}\label{internal_8h_ae9804e6a14d9ff7dff85b8f4e2e28318} 
+size\+\_\+t {\bfseries mrb\+\_\+packed\+\_\+int\+\_\+len} (uint32\+\_\+t num)
+\item 
+\Hypertarget{internal_8h_a3c2dcb681f410d860e64228066339922}\label{internal_8h_a3c2dcb681f410d860e64228066339922} 
+size\+\_\+t {\bfseries mrb\+\_\+packed\+\_\+int\+\_\+encode} (uint32\+\_\+t num, uint8\+\_\+t \texorpdfstring{$\ast$}{*}p)
+\item 
+\Hypertarget{internal_8h_a616c9f81c5143cdc764bd00e2ea90235}\label{internal_8h_a616c9f81c5143cdc764bd00e2ea90235} 
+uint32\+\_\+t {\bfseries mrb\+\_\+packed\+\_\+int\+\_\+decode} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}p, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}newpos)
+\item 
+\Hypertarget{internal_8h_a1c52c59fafb8bb9dbf0e52a9bbc7896e}\label{internal_8h_a1c52c59fafb8bb9dbf0e52a9bbc7896e} 
+void {\bfseries mrb\+\_\+codedump\+\_\+all} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structRProc}{RProc}} \texorpdfstring{$\ast$}{*}proc)
+\item 
+\Hypertarget{internal_8h_a23afa6b0b5593c2f7264e68e0b7bd925}\label{internal_8h_a23afa6b0b5593c2f7264e68e0b7bd925} 
+void {\bfseries mrb\+\_\+codedump\+\_\+all\+\_\+file} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structRProc}{RProc}} \texorpdfstring{$\ast$}{*}proc, FILE \texorpdfstring{$\ast$}{*}out)
+\item 
+\Hypertarget{internal_8h_aa6cd1a3e33dde8566b27341694ed5aa3}\label{internal_8h_aa6cd1a3e33dde8566b27341694ed5aa3} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+exc\+\_\+inspect} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} exc)
+\item 
+\Hypertarget{internal_8h_ae2f4481734a67da9f284636c09451285}\label{internal_8h_ae2f4481734a67da9f284636c09451285} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+exc\+\_\+backtrace} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} exc)
+\item 
+\Hypertarget{internal_8h_aee8916a94de39005b71e89e7561b159a}\label{internal_8h_aee8916a94de39005b71e89e7561b159a} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+get\+\_\+backtrace} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb)
+\item 
+\Hypertarget{internal_8h_aa63aaf991a13e6140f22245bbe5992fd}\label{internal_8h_aa63aaf991a13e6140f22245bbe5992fd} 
+void {\bfseries mrb\+\_\+exc\+\_\+mesg\+\_\+set} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structRException}{RException}} \texorpdfstring{$\ast$}{*}exc, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mesg)
+\item 
+\Hypertarget{internal_8h_a2e77a09503dbe0e966b4bbe1efe4646c}\label{internal_8h_a2e77a09503dbe0e966b4bbe1efe4646c} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+exc\+\_\+mesg\+\_\+get} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structRException}{RException}} \texorpdfstring{$\ast$}{*}exc)
+\item 
+\Hypertarget{internal_8h_a807853c952294afb45be0958f937d000}\label{internal_8h_a807853c952294afb45be0958f937d000} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+f\+\_\+raise} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}})
+\item 
+\Hypertarget{internal_8h_a5b28f18fc452a167f090e519ebca1272}\label{internal_8h_a5b28f18fc452a167f090e519ebca1272} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+make\+\_\+exception} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} exc, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mesg)
+\item 
+\Hypertarget{internal_8h_adddf5e6f441ffdac384b9e61555ff606}\label{internal_8h_adddf5e6f441ffdac384b9e61555ff606} 
+void {\bfseries mrb\+\_\+gc\+\_\+mark\+\_\+mt} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{internal_8h_ac176833b0aeeb3ea41adc6a4488e91d7}\label{internal_8h_ac176833b0aeeb3ea41adc6a4488e91d7} 
+size\+\_\+t {\bfseries mrb\+\_\+gc\+\_\+mark\+\_\+mt\+\_\+size} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{internal_8h_a79f156d0e6a4338de21aa43d6b9da0d3}\label{internal_8h_a79f156d0e6a4338de21aa43d6b9da0d3} 
+void {\bfseries mrb\+\_\+gc\+\_\+free\+\_\+mt} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{internal_8h_af903c3aa3dfff4ae34afeedc196517ad}\label{internal_8h_af903c3aa3dfff4ae34afeedc196517ad} 
+size\+\_\+t {\bfseries mrb\+\_\+hash\+\_\+memsize} (\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} obj)
+\item 
+\Hypertarget{internal_8h_a278d9d7f487582eaf00bc9b3d7ffa014}\label{internal_8h_a278d9d7f487582eaf00bc9b3d7ffa014} 
+void {\bfseries mrb\+\_\+gc\+\_\+mark\+\_\+hash} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structRHash}{RHash}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{internal_8h_ac40dc514dda459496d38ec6543798490}\label{internal_8h_ac40dc514dda459496d38ec6543798490} 
+size\+\_\+t {\bfseries mrb\+\_\+gc\+\_\+mark\+\_\+hash\+\_\+size} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structRHash}{RHash}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{internal_8h_a347219cddaab1c69d07a6c6e3af01cb1}\label{internal_8h_a347219cddaab1c69d07a6c6e3af01cb1} 
+void {\bfseries mrb\+\_\+gc\+\_\+free\+\_\+hash} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structRHash}{RHash}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{internal_8h_a37db32ce8532b89168490a90354fefff}\label{internal_8h_a37db32ce8532b89168490a90354fefff} 
+struct \mbox{\hyperlink{structmrb__insn__data}{mrb\+\_\+insn\+\_\+data}} {\bfseries mrb\+\_\+decode\+\_\+insn} (const \mbox{\hyperlink{mruby_8h_a9ecf6ce1e2166ff92259de77767bd930}{mrb\+\_\+code}} \texorpdfstring{$\ast$}{*}pc)
+\item 
+\Hypertarget{internal_8h_ad0fc0d40176dea3ac499fd3f12e692b5}\label{internal_8h_ad0fc0d40176dea3ac499fd3f12e692b5} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+div\+\_\+int\+\_\+value} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, mrb\+\_\+int x, mrb\+\_\+int y)
+\item 
+\Hypertarget{internal_8h_a3ce5cb1fbfd974d961835343db0f7517}\label{internal_8h_a3ce5cb1fbfd974d961835343db0f7517} 
+mrb\+\_\+int {\bfseries mrb\+\_\+div\+\_\+int} (mrb\+\_\+int x, mrb\+\_\+int y)
+\item 
+\Hypertarget{internal_8h_a7049d863039b4b236ec62928b367b849}\label{internal_8h_a7049d863039b4b236ec62928b367b849} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+int\+\_\+add} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} x, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} y)
+\item 
+\Hypertarget{internal_8h_ab86feaf1a814dbed5b4155dfd0600d73}\label{internal_8h_ab86feaf1a814dbed5b4155dfd0600d73} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+int\+\_\+sub} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} x, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} y)
+\item 
+\Hypertarget{internal_8h_a5d8e17b24b95a8441d7d22c61fec8f99}\label{internal_8h_a5d8e17b24b95a8441d7d22c61fec8f99} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+int\+\_\+mul} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} x, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} y)
+\item 
+\Hypertarget{internal_8h_a3a47cc77c5dffb20e7d9e03763c30818}\label{internal_8h_a3a47cc77c5dffb20e7d9e03763c30818} 
+\mbox{\hyperlink{common_8h_acc1cbe3d5fc8be8ab6e6c747281e060b}{mrb\+\_\+noreturn}} void {\bfseries mrb\+\_\+int\+\_\+zerodiv} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb)
+\item 
+\Hypertarget{internal_8h_a8accb1bc5a06dd1407a6a337e8ab7a51}\label{internal_8h_a8accb1bc5a06dd1407a6a337e8ab7a51} 
+\mbox{\hyperlink{common_8h_acc1cbe3d5fc8be8ab6e6c747281e060b}{mrb\+\_\+noreturn}} void {\bfseries mrb\+\_\+int\+\_\+overflow} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, const char \texorpdfstring{$\ast$}{*}reason)
+\item 
+\Hypertarget{internal_8h_a9fead0511137beb40efbeb762fab3935}\label{internal_8h_a9fead0511137beb40efbeb762fab3935} 
+void {\bfseries mrb\+\_\+check\+\_\+num\+\_\+exact} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, mrb\+\_\+float num)
+\item 
+\Hypertarget{internal_8h_a746ff583e5d3b1d2a65c25cc0d11521b}\label{internal_8h_a746ff583e5d3b1d2a65c25cc0d11521b} 
+void {\bfseries mrb\+\_\+gc\+\_\+free\+\_\+str} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structRString}{RString}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{internal_8h_aa7c64c4e310c8b579962af5a92b2dc5a}\label{internal_8h_aa7c64c4e310c8b579962af5a92b2dc5a} 
+uint32\+\_\+t {\bfseries mrb\+\_\+str\+\_\+hash} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str)
+\item 
+\Hypertarget{internal_8h_aa8f8c913970187406af73b06392f50ab}\label{internal_8h_aa8f8c913970187406af73b06392f50ab} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+str\+\_\+dump} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str)
+\item 
+\Hypertarget{internal_8h_abe53c0479b081ba8d940191e0031948d}\label{internal_8h_abe53c0479b081ba8d940191e0031948d} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+str\+\_\+inspect} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str)
+\item 
+\Hypertarget{internal_8h_a060f2ddb550a7d5c63ba7d9292e46f9a}\label{internal_8h_a060f2ddb550a7d5c63ba7d9292e46f9a} 
+\mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries mrb\+\_\+str\+\_\+beg\+\_\+len} (mrb\+\_\+int str\+\_\+len, mrb\+\_\+int \texorpdfstring{$\ast$}{*}begp, mrb\+\_\+int \texorpdfstring{$\ast$}{*}lenp)
+\item 
+\Hypertarget{internal_8h_af8c957d713422b7dd80ef68d2afed70f}\label{internal_8h_af8c957d713422b7dd80ef68d2afed70f} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+str\+\_\+byte\+\_\+subseq} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str, mrb\+\_\+int beg, mrb\+\_\+int len)
+\item 
+\Hypertarget{internal_8h_a1da4c2f730a158bc9b5eea6f8f1d38a2}\label{internal_8h_a1da4c2f730a158bc9b5eea6f8f1d38a2} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+str\+\_\+aref} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} str, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} idx, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} len)
+\item 
+\Hypertarget{internal_8h_acee1ff630c4dcb00d7923438ee17c08f}\label{internal_8h_acee1ff630c4dcb00d7923438ee17c08f} 
+uint32\+\_\+t {\bfseries mrb\+\_\+byte\+\_\+hash} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}, mrb\+\_\+int)
+\item 
+\Hypertarget{internal_8h_aa5f492207b293f0b5644ba88842d46b8}\label{internal_8h_aa5f492207b293f0b5644ba88842d46b8} 
+uint32\+\_\+t {\bfseries mrb\+\_\+byte\+\_\+hash\+\_\+step} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}, mrb\+\_\+int, uint32\+\_\+t)
+\item 
+\Hypertarget{internal_8h_a3cbe1906b8210328dbf75b972908ccb1}\label{internal_8h_a3cbe1906b8210328dbf75b972908ccb1} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+vm\+\_\+special\+\_\+get} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}})
+\item 
+\Hypertarget{internal_8h_a766abfe9ca7ad76bcded297dc35dcd65}\label{internal_8h_a766abfe9ca7ad76bcded297dc35dcd65} 
+void {\bfseries mrb\+\_\+vm\+\_\+special\+\_\+set} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}}, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}})
+\item 
+\Hypertarget{internal_8h_a210648cfe894b6593912e507725b5875}\label{internal_8h_a210648cfe894b6593912e507725b5875} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+vm\+\_\+cv\+\_\+get} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}})
+\item 
+\Hypertarget{internal_8h_a0227fc7e12312e8758c35bc3e2609881}\label{internal_8h_a0227fc7e12312e8758c35bc3e2609881} 
+void {\bfseries mrb\+\_\+vm\+\_\+cv\+\_\+set} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}}, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}})
+\item 
+\Hypertarget{internal_8h_a3801c7009846c56f28fea069a42df059}\label{internal_8h_a3801c7009846c56f28fea069a42df059} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+vm\+\_\+const\+\_\+get} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}})
+\item 
+\Hypertarget{internal_8h_aeb8990c336fa80daa40a5b7c6acb3977}\label{internal_8h_aeb8990c336fa80daa40a5b7c6acb3977} 
+void {\bfseries mrb\+\_\+vm\+\_\+const\+\_\+set} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}}, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}})
+\item 
+\Hypertarget{internal_8h_a3a43b8d9ea9c19226005c1647b070304}\label{internal_8h_a3a43b8d9ea9c19226005c1647b070304} 
+size\+\_\+t {\bfseries mrb\+\_\+obj\+\_\+iv\+\_\+tbl\+\_\+memsize} (\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}})
+\item 
+\Hypertarget{internal_8h_a2673b5b7cea50bda5af295d9a28cf3b4}\label{internal_8h_a2673b5b7cea50bda5af295d9a28cf3b4} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+obj\+\_\+iv\+\_\+inspect} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structRObject}{RObject}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{internal_8h_a4f9087a1290fd9f82c48fe8866c8aa84}\label{internal_8h_a4f9087a1290fd9f82c48fe8866c8aa84} 
+void {\bfseries mrb\+\_\+obj\+\_\+iv\+\_\+set\+\_\+force} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structRObject}{RObject}} \texorpdfstring{$\ast$}{*}obj, \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}} sym, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} v)
+\item 
+\Hypertarget{internal_8h_adc336836a75ed0e6195d156157b415bb}\label{internal_8h_adc336836a75ed0e6195d156157b415bb} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+mod\+\_\+constants} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mod)
+\item 
+\Hypertarget{internal_8h_a7475efbfef48f4528405b81c16eb3053}\label{internal_8h_a7475efbfef48f4528405b81c16eb3053} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+f\+\_\+global\+\_\+variables} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} self)
+\item 
+\Hypertarget{internal_8h_ac4d63efc6299f0a66729b8ad5a650751}\label{internal_8h_ac4d63efc6299f0a66729b8ad5a650751} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+obj\+\_\+instance\+\_\+variables} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}})
+\item 
+\Hypertarget{internal_8h_a1dfdee817c8ed53e3de3ed2cfc358194}\label{internal_8h_a1dfdee817c8ed53e3de3ed2cfc358194} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+mod\+\_\+class\+\_\+variables} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}})
+\item 
+\Hypertarget{internal_8h_a555236fe86dd995de65f14572f55ec18}\label{internal_8h_a555236fe86dd995de65f14572f55ec18} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+mod\+\_\+cv\+\_\+get} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*}c, \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}} sym)
+\item 
+\Hypertarget{internal_8h_ad9f545de836f25ba2effae3bff92789a}\label{internal_8h_ad9f545de836f25ba2effae3bff92789a} 
+\mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries mrb\+\_\+mod\+\_\+cv\+\_\+defined} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*}c, \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}} sym)
+\item 
+\Hypertarget{internal_8h_a64bf244148363518a46084a13181e77f}\label{internal_8h_a64bf244148363518a46084a13181e77f} 
+\mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries mrb\+\_\+ident\+\_\+p} (const char \texorpdfstring{$\ast$}{*}s, mrb\+\_\+int len)
+\item 
+\Hypertarget{internal_8h_a827fbbb2b324673d94926541a3b85863}\label{internal_8h_a827fbbb2b324673d94926541a3b85863} 
+void {\bfseries mrb\+\_\+gc\+\_\+mark\+\_\+gv} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{internal_8h_a3e422990f731aa22bfc3f7891810feee}\label{internal_8h_a3e422990f731aa22bfc3f7891810feee} 
+void {\bfseries mrb\+\_\+gc\+\_\+free\+\_\+gv} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{internal_8h_a96a82fcb59c5669c79cd1b9c48575228}\label{internal_8h_a96a82fcb59c5669c79cd1b9c48575228} 
+void {\bfseries mrb\+\_\+gc\+\_\+mark\+\_\+iv} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structRObject}{RObject}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{internal_8h_aea39feb8117eb546fb4f208995a2dac1}\label{internal_8h_aea39feb8117eb546fb4f208995a2dac1} 
+size\+\_\+t {\bfseries mrb\+\_\+gc\+\_\+mark\+\_\+iv\+\_\+size} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structRObject}{RObject}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{internal_8h_a075daf3fbbd9e72a8b76c9339c78e710}\label{internal_8h_a075daf3fbbd9e72a8b76c9339c78e710} 
+void {\bfseries mrb\+\_\+gc\+\_\+free\+\_\+iv} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structRObject}{RObject}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{internal_8h_a721b20903937a615ea71b13e42aec63b}\label{internal_8h_a721b20903937a615ea71b13e42aec63b} 
+mrb\+\_\+int {\bfseries mrb\+\_\+ci\+\_\+bidx} (\mbox{\hyperlink{structmrb__callinfo}{mrb\+\_\+callinfo}} \texorpdfstring{$\ast$}{*}ci)
+\item 
+\Hypertarget{internal_8h_a6c0c2fc6d505f727cfce3765584c1864}\label{internal_8h_a6c0c2fc6d505f727cfce3765584c1864} 
+mrb\+\_\+int {\bfseries mrb\+\_\+ci\+\_\+nregs} (\mbox{\hyperlink{structmrb__callinfo}{mrb\+\_\+callinfo}} \texorpdfstring{$\ast$}{*}ci)
+\item 
+\Hypertarget{internal_8h_aef241d6c172ce5c40575bc73db87fb4e}\label{internal_8h_aef241d6c172ce5c40575bc73db87fb4e} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+exec\+\_\+irep} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} self, struct \mbox{\hyperlink{structRProc}{RProc}} \texorpdfstring{$\ast$}{*}p)
+\item 
+\Hypertarget{internal_8h_a67dd41d058285fcc1f5b2b6800a0de78}\label{internal_8h_a67dd41d058285fcc1f5b2b6800a0de78} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+obj\+\_\+instance\+\_\+eval} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}})
+\item 
+\Hypertarget{internal_8h_afa8241dcb69ab1a4815bfabbd093bd75}\label{internal_8h_afa8241dcb69ab1a4815bfabbd093bd75} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+mod\+\_\+module\+\_\+eval} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}})
+\item 
+\Hypertarget{internal_8h_a1d33344066221cc8876cebe4ae16192f}\label{internal_8h_a1d33344066221cc8876cebe4ae16192f} 
+\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+f\+\_\+send} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item Functions only called from within the library
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 

@@ -1,0 +1,11 @@
+<map id="shrpx::TLSConnection" name="shrpx::TLSConnection">
+<area shape="rect" id="Node000001" title=" " alt="" coords="418,121,569,148"/>
+<area shape="rect" id="Node000002" href="$structnghttp2_1_1Memchunks.html" title=" " alt="" coords="30,18,173,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,44,289,58,394,84,435,100,471,120,466,120,433,105,393,89,288,63,189,49"/>
+<area shape="rect" id="Node000003" href="$structnghttp2_1_1PeekMemchunks.html" title=" " alt="" coords="15,85,188,128"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="204,111,419,127,416,131,204,116"/>
+<area shape="rect" id="Node000004" href="$structshrpx_1_1MemcachedRequest.html" title=" " alt="" coords="11,152,192,178"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="207,163,298,161,393,153,439,148,434,149,394,158,299,166,208,169"/>
+<area shape="rect" id="Node000005" href="$structshrpx_1_1tls_1_1TLSSessionCache.html" title=" " alt="" coords="5,204,198,230"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="213,218,302,212,348,205,393,193,438,171,473,149,478,147,441,176,395,198,350,210,303,218,213,224"/>
+</map>

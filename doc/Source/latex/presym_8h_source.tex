@@ -1,0 +1,42 @@
+\doxysection{presym.\+h}
+\hypertarget{presym_8h_source}{}\label{presym_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/presym.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/presym.h}}
+\mbox{\hyperlink{presym_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_PRESYM\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_PRESYM\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#if\ defined(MRB\_NO\_PRESYM)}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#\ include\ <\mbox{\hyperlink{disable_8h}{mruby/presym/disable.h}}>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#elif\ !defined(MRB\_PRESYM\_SCANNING)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#\ include\ <\mbox{\hyperlink{enable_8h}{mruby/presym/enable.h}}>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ Where\ \`{}mrb\_intern\_lit`\ is\ allowed\ for\ symbol\ interning,\ it\ is\ directly}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ replaced\ by\ the\ symbol\ ID\ if\ presym\ is\ enabled\ by\ using\ the\ following}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ macros.}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ MRB\_OPSYM(xor)\ \ //=>\ \string^\ \ \ \ \ \ (Operator)}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ \ \ MRB\_CVSYM(xor)\ \ //=>\ @@xor\ \ (Class\ Variable)}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ \ \ MRB\_IVSYM(xor)\ \ //=>\ @xor\ \ \ (Instance\ Variable)}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ MRB\_SYM\_B(xor)\ \ //=>\ xor!\ \ \ (Method\ with\ Bang)}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ \ \ MRB\_SYM\_Q(xor)\ \ //=>\ xor?\ \ \ (Method\ with\ Question\ mark)}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ \ \ MRB\_SYM\_E(xor)\ \ //=>\ xor=\ \ \ (Method\ with\ Equal)}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ \ \ MRB\_SYM(xor)\ \ \ \ //=>\ xor\ \ \ \ (Word\ characters)}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ For\ \`{}MRB\_OPSYM`,\ specify\ the\ names\ corresponding\ to\ operators\ (see}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ \`{}MRuby::Presym::OPERATORS`\ in\ \`{}lib/mruby/presym.rb`\ for\ the\ names\ that}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ can\ be\ specified\ for\ it).\ Other\ than\ that,\ describe\ only\ word\ characters}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ excluding\ leading\ and\ ending\ punctuations.}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ These\ macros\ are\ expanded\ to\ \`{}mrb\_intern\_lit`\ if\ presym\ is\ disabled,}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ therefore\ the\ mruby\ state\ variable\ is\ required.\ The\ above\ macros\ can\ be}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ used\ when\ the\ variable\ name\ is\ \`{}mrb`.\ If\ you\ want\ to\ use\ other\ variable}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ *\ names,\ you\ need\ to\ use\ macros\ with\ \`{}\_2`\ suffix,\ such\ as\ \`{}MRB\_SYM\_2`.}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_PRESYM\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

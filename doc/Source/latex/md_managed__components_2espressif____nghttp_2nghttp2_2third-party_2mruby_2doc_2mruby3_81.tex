@@ -1,0 +1,230 @@
+\chapter{User visible changes in {\ttfamily mruby3.\+1} from {\ttfamily mruby3.\+0} }
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81}{}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81}\index{User visible changes in $<$tt$>$mruby3.1$<$/tt$>$ from $<$tt$>$mruby3.0$<$/tt$>$@{User visible changes in $<$tt$>$mruby3.1$<$/tt$>$ from $<$tt$>$mruby3.0$<$/tt$>$}}
+\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md449}%
+\Hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md449}%
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md450}{}\doxysection{\texorpdfstring{New Features}{New Features}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md450}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md451}{}\doxysubsection{\texorpdfstring{Core Language Features}{Core Language Features}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md451}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md452}{}\doxysubsubsection{\texorpdfstring{Keyword Arguments}{Keyword Arguments}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md452}
+CRuby3.\+0 compatible keyword arguments are introduced. Keyword arguments are basically separated from ordinal arguments.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md453}{}\doxysubsubsection{\texorpdfstring{Other Language Enhancement}{Other Language Enhancement}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md453}
+
+\begin{DoxyItemize}
+\item Implement endless-\/def \href{https://bugs.ruby-lang.org/issues/16746}{\texttt{Ruby\+:Feature\#16746}}
+\item Replace {\ttfamily R-\/assignment} by {\ttfamily single-\/line pattern matching} \href{https://bugs.ruby-lang.org/issues/15921}{\texttt{Ruby\+:Feature\#15921}}
+\item Support squiggly heredocs. \href{https://github.com/mruby/mruby/pull/5246}{\texttt{\#5246}}
+\item Hash value omission \href{https://bugs.ruby-lang.org/issues/14579}{\texttt{Ruby\+:Feature\#14579}}
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md454}{}\doxysubsection{\texorpdfstring{Configuration Options Changed}{Configuration Options Changed}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md454}
+Some configuration macros are available\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily MRB\+\_\+\+WORDBOX\+\_\+\+NO\+\_\+\+FLOAT\+\_\+\+TRUNCATE}\+: by default, float values are packed in the word if possible, but define this macro to allocate float values in the heap.
+\item {\ttfamily MRB\+\_\+\+USE\+\_\+\+RO\+\_\+\+DATA\+\_\+\+P\+\_\+\+ETEXT}\+: define this macro if {\ttfamily \+\_\+etext} is available on your platform.
+\item {\ttfamily MRB\+\_\+\+NO\+\_\+\+DEFAULT\+\_\+\+RO\+\_\+\+DATA\+\_\+P}\+: define this macro to avoid using predefined {\ttfamily mrb\+\_\+ro\+\_\+data\+\_\+p()} function
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md456}{}\doxysection{\texorpdfstring{Updated Features}{Updated Features}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md456}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md457}{}\doxysubsection{\texorpdfstring{New build configurations}{New build configurations}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md457}
+We have added several new build configurations in the {\ttfamily build\+\_\+config} directory.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily cross-\/mingw-\/winetest.\+rb}
+\item {\ttfamily cross-\/mingw.\+rb}
+\item {\ttfamily nintendo\+\_\+switch.\+rb}
+\item {\ttfamily serenity.\+rb}
+\item {\ttfamily minimal}\+: minimal configuration
+\item {\ttfamily host-\/f32}\+: compiles with {\ttfamily mrb\+\_\+float} as 32 bit {\ttfamily float}
+\item {\ttfamily host-\/nofloat}\+: compiles with no float configuration
+\item {\ttfamily android\+\_\+arm64\+\_\+v8a.\+rb}\+: renamed from {\ttfamily android\+\_\+arm64-\/v8a.\+rb}
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md458}{}\doxysubsection{\texorpdfstring{Core Libraries}{Core Libraries}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md458}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md459}{}\doxysubsubsection{\texorpdfstring{New Methods}{New Methods}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md459}
+
+\begin{DoxyItemize}
+\item {\ttfamily Array\#product}
+\item {\ttfamily Array\#repeated\+\_\+combination}
+\item {\ttfamily Array\#repeated\+\_\+permutation}
+\item {\ttfamily Kernel\#\+\_\+\+\_\+\+ENCODING\+\_\+\+\_\+}
+\item {\ttfamily Random.\+bytes}
+\item {\ttfamily Random\#bytes}
+\item {\ttfamily String\#center}
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md460}{}\doxysubsubsection{\texorpdfstring{New Gem Enhancement}{New Gem Enhancement}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md460}
+
+\begin{DoxyItemize}
+\item {\ttfamily mrbgems/mruby-\/pack} now supports {\ttfamily M} directive (Q encoding)
+\item {\ttfamily mrbgems/mruby-\/pack} now supports {\ttfamily X} directive (back-\/up by bytes)
+\item {\ttfamily mrbgems/mruby-\/pack} now supports {\ttfamily @} directive (absolute position)
+\item {\ttfamily mrbgems/mruby-\/pack} now supports {\ttfamily w} directive (BER compression)
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md461}{}\doxysubsection{\texorpdfstring{Tools}{Tools}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md461}
+
+\begin{DoxyItemize}
+\item {\ttfamily mruby-\/config} now supports {\ttfamily -\/-\/cc} and {\ttfamily -\/-\/ld} options.
+\item Remove {\ttfamily OP\+\_\+} prefix from {\ttfamily mruby -\/v} code dump output.
+\item Prohibit use of {\ttfamily OP\+\_\+\+EXT\{1,2,3\}} by {\ttfamily mrbc} with {\ttfamily -\/-\/no-\/ext-\/ops} option.
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md462}{}\doxysubsection{\texorpdfstring{Features for mruby Developer}{Features for mruby Developer}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md462}
+
+\begin{DoxyItemize}
+\item Add new specifier {\ttfamily c} to {\ttfamily \doxylink{mruby_8h_a6659ff35e634812fff48bb6a7f66730e}{mrb\+\_\+get\+\_\+args()}} for receive Class/\+Module.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md464}{}\doxysection{\texorpdfstring{Breaking Changes}{Breaking Changes}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md464}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md465}{}\doxysubsection{\texorpdfstring{Incompatibly Changed Methods}{Incompatibly Changed Methods}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md465}
+
+\begin{DoxyItemize}
+\item {\ttfamily Kernel\#printf} ({\ttfamily mruby-\/sprintf}) Format specifiers {\ttfamily a} and {\ttfamily A} are removed.
+\item {\ttfamily Kernel\#puts} ({\ttfamily mruby-\/print}) Now expand Array arguments.
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md466}{}\doxysubsection{\texorpdfstring{mruby VM and bytecode}{mruby VM and bytecode}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md466}
+Due to improvements in the binary format, mruby binaries are no longer backward compatible. To run the mruby binaries on mruby 3.\+1, recompile with the mruby 3.\+1 {\ttfamily mrbc}.
+
+
+\begin{DoxyItemize}
+\item Upgrade mruby VM version {\ttfamily RITE\+\_\+\+VM\+\_\+\+VER} to {\ttfamily 0300} (means mruby 3.\+0 or after).
+\item Upgrade mruby binary version {\ttfamily RITE\+\_\+\+BINARY\+\_\+\+FORMAT\+\_\+\+VER} to {\ttfamily 0300}.
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md467}{}\doxysubsection{\texorpdfstring{Reintroduced Instructions}{Reintroduced Instructions}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md467}
+{\ttfamily mruby3.\+0} removed {\ttfamily OP\+\_\+\+EXT1}, {\ttfamily OP\+\_\+\+EXT2}, {\ttfamily OP\+\_\+\+EXT3} for operand extension. But the operand size limitations was too tight for real-\/world application. {\ttfamily mruby3.\+1} reintroduces those extension instructions.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md468}{}\doxysubsection{\texorpdfstring{Removed Instructions}{Removed Instructions}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md468}
+{\ttfamily mruby3.\+1} removed following instructions.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily OP\+\_\+\+LOADL16}
+\item {\ttfamily OP\+\_\+\+LOADSYM16}
+\item {\ttfamily OP\+\_\+\+STRING16}
+\item {\ttfamily OP\+\_\+\+LAMBDA16}
+\item {\ttfamily OP\+\_\+\+BLOCK16}
+\item {\ttfamily OP\+\_\+\+METHOD16}
+\item {\ttfamily OP\+\_\+\+EXEC16}
+\end{DoxyItemize}
+
+Those instructions are no longer needed by reintroduction of extension instructions.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily OP\+\_\+\+SENDV}
+\item {\ttfamily OP\+\_\+\+SENDVB}
+\end{DoxyItemize}
+
+Those instructions for method calls with variable number of arguments are no longer needed. They are covered by {\ttfamily OP\+\_\+\+SEND} instruction with {\ttfamily n=15}.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md469}{}\doxysubsection{\texorpdfstring{New Instructions}{New Instructions}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md469}
+{\ttfamily mruby3.\+1} introduces following new instructions.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily OP\+\_\+\+GETIDX}\+: takes 1 operands {\ttfamily R\mbox{[}a\mbox{]}\mbox{[}a+1\mbox{]}}
+\item {\ttfamily OP\+\_\+\+SETIDX}\+: takes 1 operands {\ttfamily R\mbox{[}a\mbox{]}\mbox{[}a+1\mbox{]}=R\mbox{[}a+2\mbox{]}}
+\item {\ttfamily OP\+\_\+\+SSEND}\+: takes 3 operands {\ttfamily a=self.\+b(c...)}; see {\ttfamily OP\+\_\+\+SEND}
+\item {\ttfamily OP\+\_\+\+SSENDB}\+: takes 3 operands {\ttfamily a=self.\+b(c...)\{...\}}; see {\ttfamily OP\+\_\+\+SEND}
+\item {\ttfamily OP\+\_\+\+SYMBOL}\+: takes 2 operands {\ttfamily R\mbox{[}a\mbox{]} = intern(\+Pool\mbox{[}b\mbox{]})}
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md470}{}\doxysubsubsection{\texorpdfstring{{\ttfamily OP\+\_\+\+GETIDX} and {\ttfamily OP\+\_\+\+SETIDX}}{{\ttfamily OP\+\_\+\+GETIDX} and {\ttfamily OP\+\_\+\+SETIDX}}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md470}
+Execute {\ttfamily obj\mbox{[}int\mbox{]}} and {\ttfamily obj\mbox{[}int\mbox{]} = value} respectively, where {\ttfamily obj} is {\ttfamily string\texorpdfstring{$\vert$}{|}array\texorpdfstring{$\vert$}{|}hash}.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md471}{}\doxysubsubsection{\texorpdfstring{{\ttfamily OP\+\_\+\+SSEND} and {\ttfamily OP\+\_\+\+SSENDB}}{{\ttfamily OP\+\_\+\+SSEND} and {\ttfamily OP\+\_\+\+SSENDB}}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md471}
+They are similar to {\ttfamily OP\+\_\+\+SEND} and {\ttfamily OP\+\_\+\+SENDB} respectively. They initialize the {\ttfamily R\mbox{[}a\mbox{]}} by {\ttfamily self} first so that we can skip one {\ttfamily OP\+\_\+\+LOADSELF} instruction for each call.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md472}{}\doxysubsubsection{\texorpdfstring{{\ttfamily OP\+\_\+\+SYMBOL}}{{\ttfamily OP\+\_\+\+SYMBOL}}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md472}
+Extracts the character string placed in the pool as a symbol.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md473}{}\doxysubsection{\texorpdfstring{Changed Instructions}{Changed Instructions}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md473}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md474}{}\doxysubsubsection{\texorpdfstring{{\ttfamily OP\+\_\+\+SEND} and {\ttfamily OP\+\_\+\+SENDB}}{{\ttfamily OP\+\_\+\+SEND} and {\ttfamily OP\+\_\+\+SENDB}}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md474}
+Method calling instructions are unified. Now {\ttfamily OP\+\_\+\+SEND} and {\ttfamily OP\+\_\+\+SENDB} (method call with a block) can support both splat arguments and keyword arguments as well.
+
+The brief description of the instructions\+:
+
+\texorpdfstring{$\vert$}{|}{\ttfamily OP\+\_\+\+SEND} \texorpdfstring{$\vert$}{|} BBB \texorpdfstring{$\vert$}{|} {\ttfamily R\mbox{[}a\mbox{]} = R\mbox{[}a\mbox{]}.call(Syms\mbox{[}b\mbox{]},R\mbox{[}a+1..n\mbox{]},R\mbox{[}a+n+1\mbox{]},R\mbox{[}a+n+2\mbox{]}..nk) c=n\texorpdfstring{$\vert$}{|}nk\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}4} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}{\ttfamily OP\+\_\+\+SENDB} \texorpdfstring{$\vert$}{|} BBB \texorpdfstring{$\vert$}{|} {\ttfamily R\mbox{[}a\mbox{]} = R\mbox{[}a\mbox{]}.call(Syms\mbox{[}b\mbox{]},R\mbox{[}a+1..n\mbox{]},R\mbox{[}a+n+1..nk\mbox{]},R\mbox{[}a+n+2..nk\mbox{]},\&R\mbox{[}a+n+2\texorpdfstring{$\ast$}{*}nk+2\mbox{]}) c=n\texorpdfstring{$\vert$}{|}nk\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}4} \texorpdfstring{$\vert$}{|}
+
+Operand C specifies the number of arguments. Lower 4 bits ({\ttfamily n}) represents the number of ordinal arguments, and higher 4 bits ({\ttfamily nk}) represents the number of keyword arguments. When {\ttfamily n == 15}, the method takes arguments packed in an array. When {\ttfamily nk == 15}, the method takes keyword arguments are packed in a hash.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md475}{}\doxysubsubsection{\texorpdfstring{{\ttfamily OP\+\_\+\+ARYPUSH}}{{\ttfamily OP\+\_\+\+ARYPUSH}}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md475}
+Now takes 2 operands and pushes multiple entries to an array.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md476}{}\doxysubsection{\texorpdfstring{Boxing Updated}{Boxing Updated}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md476}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md477}{}\doxysubsubsection{\texorpdfstring{Word Boxing}{Word Boxing}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md477}
+{\ttfamily MRB\+\_\+\+WORD\+\_\+\+BOXING} now packs floating-\/point numbers in the word, if the size of {\ttfamily mrb\+\_\+float} is equal or smaller than the size of {\ttfamily mrb\+\_\+int} by default. If the size of {\ttfamily mrb\+\_\+float} and {\ttfamily mrb\+\_\+int} are same, the last 2 bits in the {\ttfamily mrb\+\_\+float} are trimmed and used as flags. If you need full precision, you need to define {\ttfamily MRB\+\_\+\+WORDBOX\+\_\+\+NO\+\_\+\+FLOAT\+\_\+\+TRUNCATE} as described above.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md478}{}\doxysubsubsection{\texorpdfstring{NaN Boxing}{NaN Boxing}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md478}
+Previous NaN boxing packs values in NaN representation, but pointer retrievals are far more frequent than floating-\/point number references. So we add constant offset to NaN representation to clear higher bits of pointer representation. This representation is called "{}\+Favor Pointer"{} NaN Boxing.
+
+Also, previous NaN boxing limit the size of {\ttfamily mrb\+\_\+int} to 4 bytes (32 bits) to fit in NaN values. Now we allocate integer values in the heap, if the value does not fit in the 32 bit range, just like we did in Word Boxing.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md479}{}\doxysubsection{\texorpdfstring{Constant Folding}{Constant Folding}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md479}
+The code generator was updated to reduce the number of instructions, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{a\ =\ 2\ *\ 5}
+
+\end{DoxyCode}
+
+
+will be interpreted as
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{a\ =\ 10}
+
+\end{DoxyCode}
+
+
+In addition, we have improved peephole optimizations, for example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{GETIV\ R4\ :@foo}
+\DoxyCodeLine{MOVE\ R1\ R4}
+
+\end{DoxyCode}
+
+
+to
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{GETIV\ R1\ :@foo}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md480}{}\doxysubsection{\texorpdfstring{{\ttfamily String\#hash} now use {\ttfamily FNV1a} algorithm}{{\ttfamily String\#hash} now use {\ttfamily FNV1a} algorithm}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md480}
+For better and faster hash values.
+
+\DoxyHorRuler{0}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md482}{}\doxysection{\texorpdfstring{Major bug fixes}{Major bug fixes}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md482}
+
+\begin{DoxyItemize}
+\item Fix infinite recursive call bugs in integer division \href{https://github.com/mruby/mruby/commit/98799aa6}{\texttt{98799aa6}}
+\item Fix to raise Type\+Error with super inside instance\+\_\+eval / class\+\_\+eval \href{https://github.com/mruby/mruby/pull/5476}{\texttt{\#5476}}
+\item Fix to call {\ttfamily method\+\_\+added} hooks on method definitions; \href{https://github.com/mruby/mruby/pull/2339}{\texttt{\#2339}}
+\item Fix a potential buffer overflow in {\ttfamily time\+\_\+zonename} \href{https://github.com/mruby/mruby/commit/26340a88}{\texttt{26340a88}}
+\item Fix {\ttfamily Module.\+instance\+\_\+eval} bug \href{https://github.com/mruby/mruby/pull/5528}{\texttt{\#5528}}
+\item Fix fix {\ttfamily M} packing bug \href{https://github.com/mruby/mruby/commit/bfe2bd49}{\texttt{bfe2bd49}}
+\item Fix a bug regarding attribute assignment with kargs \href{https://github.com/mruby/mruby/commit/de2b4bd0}{\texttt{de2b4bd0}}
+\item Fix SIGSEGV with mrbgems/mruby-\/method \href{https://github.com/mruby/mruby/pull/5580}{\texttt{\#5580}}
+\item Fix print error before cleanup in {\ttfamily codegen\+\_\+error()} \href{https://github.com/mruby/mruby/pull/5603}{\texttt{\#5603}}
+\item Fix a bug in unpacking BER \href{https://github.com/mruby/mruby/pull/5611}{\texttt{\#5611}}
+\item Fix a bug with numbered parameters as arguments \href{https://github.com/mruby/mruby/pull/5605}{\texttt{\#5605}}
+\item Fix {\ttfamily mrb\+\_\+ary\+\_\+shift\+\_\+m} initialization bug \href{https://github.com/mruby/mruby/commit/27d1e013}{\texttt{27d1e013}}
+\item Fix keyword argument with {\ttfamily super} \href{https://github.com/mruby/mruby/pull/5628}{\texttt{\#5628}}
+\item Fix a bug with numbered parameters on toplevel \href{https://github.com/mruby/mruby/commit/7e7f1b2f}{\texttt{7e7f1b2f}}
+\item Fix keyword argument bug \href{https://github.com/mruby/mruby/issues/5632}{\texttt{\#5632}}
+\item Fix multiple assignments in parameters \href{https://github.com/mruby/mruby/issues/5647}{\texttt{\#5647}}
+\item Fix keyword parameters not passing through super \href{https://github.com/mruby/mruby/issues/5660}{\texttt{\#5660}}
+\item Fix infinite loop from unclosed here-\/doc \href{https://github.com/mruby/mruby/issues/5676}{\texttt{\#5676}}
+\item Fix negative integer division bug \href{https://github.com/mruby/mruby/issues/5678}{\texttt{\#5678}}
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md483}{}\doxysection{\texorpdfstring{CVEs}{CVEs}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md483}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md484}{}\doxysubsection{\texorpdfstring{Fixed CVEs}{Fixed CVEs}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md484}
+Following CVEs are fixed in this release.
+
+
+\begin{DoxyItemize}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2021-4110}{\texttt{CVE-\/2021-\/4110}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2021-4188}{\texttt{CVE-\/2021-\/4188}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-0080}{\texttt{CVE-\/2022-\/0080}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-0240}{\texttt{CVE-\/2022-\/0240}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-0326}{\texttt{CVE-\/2022-\/0326}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-0481}{\texttt{CVE-\/2022-\/0481}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-0631}{\texttt{CVE-\/2022-\/0631}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-0632}{\texttt{CVE-\/2022-\/0632}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-0890}{\texttt{CVE-\/2022-\/0890}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-1071}{\texttt{CVE-\/2022-\/1071}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-1106}{\texttt{CVE-\/2022-\/1106}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-1201}{\texttt{CVE-\/2022-\/1201}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-1427}{\texttt{CVE-\/2022-\/1427}}
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md485}{}\doxysubsection{\texorpdfstring{Unaffected CVEs}{Unaffected CVEs}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_81_autotoc_md485}
+Following CVEs do not cause problems in this release. They are fixed in the later release.
+
+
+\begin{DoxyItemize}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-0481}{\texttt{CVE-\/2022-\/0481}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-0525}{\texttt{CVE-\/2022-\/0525}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-0570}{\texttt{CVE-\/2022-\/0570}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-0614}{\texttt{CVE-\/2022-\/0614}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-0623}{\texttt{CVE-\/2022-\/0623}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-0630}{\texttt{CVE-\/2022-\/0630}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-0817}{\texttt{CVE-\/2022-\/0717}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-1212}{\texttt{CVE-\/2022-\/1212}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-1276}{\texttt{CVE-\/2022-\/1276}}
+\item \href{https://www.cve.org/CVERecord?id=CVE-2022-1286}{\texttt{CVE-\/2022-\/1286}} 
+\end{DoxyItemize}

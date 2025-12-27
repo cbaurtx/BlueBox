@@ -1,0 +1,72 @@
+\doxysection{disable.\+h}
+\hypertarget{disable_8h_source}{}\label{disable_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/presym/disable.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/presym/disable.h}}
+\mbox{\hyperlink{disable_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_PRESYM\_DISABLE\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_PRESYM\_DISABLE\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{string_8h}{string.h}}>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ MRB\_PRESYM\_MAX\ 0}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM(name)\ MRB\_OPSYM\_\_\#\#name(mrb)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ MRB\_CVSYM(name)\ mrb\_intern\_lit(mrb,\ "{}@@"{}\ \#name)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ MRB\_IVSYM(name)\ mrb\_intern\_lit(mrb,\ "{}@"{}\ \#name)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ MRB\_SYM\_B(name)\ mrb\_intern\_lit(mrb,\ \#name\ "{}!"{})}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ MRB\_SYM\_Q(name)\ mrb\_intern\_lit(mrb,\ \#name\ "{}?"{})}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ MRB\_SYM\_E(name)\ mrb\_intern\_lit(mrb,\ \#name\ "{}="{})}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ MRB\_SYM(name)\ mrb\_intern\_lit(mrb,\ \#name)}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_2(mrb,\ name)\ MRB\_OPSYM\_\_\#\#name(mrb)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ MRB\_CVSYM\_2(mrb,\ name)\ mrb\_intern\_lit(mrb,\ "{}@@"{}\ \#name)}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ MRB\_IVSYM\_2(mrb,\ name)\ mrb\_intern\_lit(mrb,\ "{}@"{}\ \#name)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ MRB\_SYM\_B\_2(mrb,\ name)\ mrb\_intern\_lit(mrb,\ \#name\ "{}!"{})}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ MRB\_SYM\_Q\_2(mrb,\ name)\ mrb\_intern\_lit(mrb,\ \#name\ "{}?"{})}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ MRB\_SYM\_E\_2(mrb,\ name)\ mrb\_intern\_lit(mrb,\ \#name\ "{}="{})}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ MRB\_SYM\_2(mrb,\ name)\ mrb\_intern\_lit(mrb,\ \#name)}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_not(mrb)\ mrb\_intern\_lit(mrb,\ "{}!"{})}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_mod(mrb)\ mrb\_intern\_lit(mrb,\ "{}\%"{})}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_and(mrb)\ mrb\_intern\_lit(mrb,\ "{}\&"{})}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_mul(mrb)\ mrb\_intern\_lit(mrb,\ "{}*"{})}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_add(mrb)\ mrb\_intern\_lit(mrb,\ "{}+"{})}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_sub(mrb)\ mrb\_intern\_lit(mrb,\ "{}-\/"{})}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_div(mrb)\ mrb\_intern\_lit(mrb,\ "{}/"{})}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_lt(mrb)\ mrb\_intern\_lit(mrb,\ "{}<"{})}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_gt(mrb)\ mrb\_intern\_lit(mrb,\ "{}>"{})}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_xor(mrb)\ mrb\_intern\_lit(mrb,\ "{}\string^"{})}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_tick(mrb)\ mrb\_intern\_lit(mrb,\ "{}\`{}"{})}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_or(mrb)\ mrb\_intern\_lit(mrb,\ "{}|"{})}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_neg(mrb)\ mrb\_intern\_lit(mrb,\ "{}\string~"{})}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_neq(mrb)\ mrb\_intern\_lit(mrb,\ "{}!="{})}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_nmatch(mrb)\ mrb\_intern\_lit(mrb,\ "{}!\string~"{})}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_andand(mrb)\ mrb\_intern\_lit(mrb,\ "{}\&\&"{})}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_pow(mrb)\ mrb\_intern\_lit(mrb,\ "{}**"{})}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_plus(mrb)\ mrb\_intern\_lit(mrb,\ "{}+@"{})}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_minus(mrb)\ mrb\_intern\_lit(mrb,\ "{}-\/@"{})}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_lshift(mrb)\ mrb\_intern\_lit(mrb,\ "{}<<"{})}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_le(mrb)\ mrb\_intern\_lit(mrb,\ "{}<="{})}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_eq(mrb)\ mrb\_intern\_lit(mrb,\ "{}=="{})}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_match(mrb)\ mrb\_intern\_lit(mrb,\ "{}=\string~"{})}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_ge(mrb)\ mrb\_intern\_lit(mrb,\ "{}>="{})}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_rshift(mrb)\ mrb\_intern\_lit(mrb,\ "{}>>"{})}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_aref(mrb)\ mrb\_intern\_lit(mrb,\ "{}[]"{})}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_oror(mrb)\ mrb\_intern\_lit(mrb,\ "{}||"{})}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_cmp(mrb)\ mrb\_intern\_lit(mrb,\ "{}<=>"{})}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_eqq(mrb)\ mrb\_intern\_lit(mrb,\ "{}==="{})}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_aset(mrb)\ mrb\_intern\_lit(mrb,\ "{}[]="{})}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ MRB\_PRESYM\_DEFINE\_VAR\_AND\_INITER(name,\ size,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ static\ mrb\_sym\ name[size];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ static\ void\ presym\_init\_\#\#name(mrb\_state\ *mrb)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\ \ \ \ mrb\_sym\ name\_\_[]\ =\ \{\_\_VA\_ARGS\_\_\};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\ \ \ \ memcpy(name,\ name\_\_,\ sizeof(name));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ MRB\_PRESYM\_INIT\_SYMBOLS(mrb,\ name)\ presym\_init\_\#\#name(mrb)}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_PRESYM\_DISABLE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

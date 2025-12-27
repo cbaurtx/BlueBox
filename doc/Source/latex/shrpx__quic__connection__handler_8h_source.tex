@@ -1,0 +1,146 @@
+\doxysection{shrpx\+\_\+quic\+\_\+connection\+\_\+handler.\+h}
+\hypertarget{shrpx__quic__connection__handler_8h_source}{}\label{shrpx__quic__connection__handler_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_quic\_connection\_handler.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_quic\_connection\_handler.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_QUIC\_CONNECTION\_HANDLER\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_QUIC\_CONNECTION\_HANDLER\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <ngtcp2/ngtcp2.h>}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <ev.h>}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ "{}shrpx\_quic.h"{}}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ "{}network.h"{}}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{using\ namespace\ }nghttp2;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{UpstreamAddr}};}
+\DoxyCodeLine{00047\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1ClientHandler}{ClientHandler}};}
+\DoxyCodeLine{00048\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1Worker}{Worker}};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ CloseWait\ handles\ packets\ received\ in\ close-\/wait\ (draining\ or}}
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ closing\ period).}}
+\DoxyCodeLine{00052\ \textcolor{keyword}{struct\ }CloseWait\ \{}
+\DoxyCodeLine{00053\ \ \ CloseWait(\mbox{\hyperlink{classshrpx_1_1Worker}{Worker}}\ *worker,\ std::vector<ngtcp2\_cid>\ scids,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<uint8\_t>\ pkt,\ ev\_tstamp\ period);}
+\DoxyCodeLine{00055\ \ \ \string~CloseWait();}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{int}\ handle\_packet(\textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{UpstreamAddr}}\ *faddr,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ \&remote\_addr,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ \&local\_addr,\ \textcolor{keyword}{const}\ ngtcp2\_pkt\_info\ \&pi,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::span<const\ uint8\_t>\ data);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \mbox{\hyperlink{classshrpx_1_1Worker}{Worker}}\ *worker;}
+\DoxyCodeLine{00062\ \ \ \textcolor{comment}{//\ Source\ Connection\ IDs\ of\ the\ connection.}}
+\DoxyCodeLine{00063\ \ \ std::vector<ngtcp2\_cid>\ scids;}
+\DoxyCodeLine{00064\ \ \ \textcolor{comment}{//\ QUIC\ packet\ which\ is\ sent\ in\ response\ to\ the\ incoming\ packet.\ \ It}}
+\DoxyCodeLine{00065\ \ \ \textcolor{comment}{//\ might\ be\ empty.}}
+\DoxyCodeLine{00066\ \ \ std::vector<uint8\_t>\ pkt;}
+\DoxyCodeLine{00067\ \ \ \textcolor{comment}{//\ Close-\/wait\ (draining\ or\ closing\ period)\ timer.}}
+\DoxyCodeLine{00068\ \ \ ev\_timer\ timer;}
+\DoxyCodeLine{00069\ \ \ \textcolor{comment}{//\ The\ number\ of\ bytes\ received\ during\ close-\/wait\ period.}}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{size\_t}\ bytes\_recv;}
+\DoxyCodeLine{00071\ \ \ \textcolor{comment}{//\ The\ number\ of\ bytes\ sent\ during\ close-\/wait\ period.}}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{size\_t}\ bytes\_sent;}
+\DoxyCodeLine{00073\ \ \ \textcolor{comment}{//\ The\ number\ of\ packets\ received\ during\ close-\/wait\ period.}}
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{size\_t}\ num\_pkts\_recv;}
+\DoxyCodeLine{00075\ \ \ \textcolor{comment}{//\ If\ the\ number\ of\ packets\ received\ reaches\ this\ number,\ send\ a}}
+\DoxyCodeLine{00076\ \ \ \textcolor{comment}{//\ QUIC\ packet.}}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{size\_t}\ next\_pkts\_recv;}
+\DoxyCodeLine{00078\ \};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{class\ }QUICConnectionHandler\ \{}
+\DoxyCodeLine{00081\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00082\ \ \ QUICConnectionHandler(\mbox{\hyperlink{classshrpx_1_1Worker}{Worker}}\ *worker);}
+\DoxyCodeLine{00083\ \ \ \string~QUICConnectionHandler();}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{int}\ handle\_packet(\textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{UpstreamAddr}}\ *faddr,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ \&remote\_addr,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ \&local\_addr,\ \textcolor{keyword}{const}\ ngtcp2\_pkt\_info\ \&pi,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::span<const\ uint8\_t>\ data);}
+\DoxyCodeLine{00087\ \ \ \textcolor{comment}{//\ Send\ Retry\ packet.\ \ |ini\_dcid|\ is\ the\ destination\ Connection\ ID}}
+\DoxyCodeLine{00088\ \ \ \textcolor{comment}{//\ which\ appeared\ in\ Client\ Initial\ packet.\ \ |ini\_scid|\ is\ the}}
+\DoxyCodeLine{00089\ \ \ \textcolor{comment}{//\ source\ Connection\ ID\ which\ appeared\ in\ Client\ Initial\ packet.}}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{int}\ send\_retry(\textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{UpstreamAddr}}\ *faddr,\ uint32\_t\ version,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::span<const\ uint8\_t>\ ini\_dcid,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::span<const\ uint8\_t>\ ini\_scid,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ \&remote\_addr,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ \&local\_addr,\ \textcolor{keywordtype}{size\_t}\ max\_pktlen);}
+\DoxyCodeLine{00094\ \ \ \textcolor{comment}{//\ Send\ Version\ Negotiation\ packet.\ \ |ini\_dcid|\ is\ the\ destination}}
+\DoxyCodeLine{00095\ \ \ \textcolor{comment}{//\ Connection\ ID\ which\ appeared\ in\ Client\ Initial\ packet.}}
+\DoxyCodeLine{00096\ \ \ \textcolor{comment}{//\ |ini\_scid|\ is\ the\ source\ Connection\ ID\ which\ appeared\ in\ Client}}
+\DoxyCodeLine{00097\ \ \ \textcolor{comment}{//\ Initial\ packet.}}
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{int}\ send\_version\_negotiation(\textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{UpstreamAddr}}\ *faddr,\ uint32\_t\ version,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::span<const\ uint8\_t>\ ini\_dcid,}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::span<const\ uint8\_t>\ ini\_scid,}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ \&remote\_addr,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ \&local\_addr);}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{int}\ send\_stateless\_reset(\textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{UpstreamAddr}}\ *faddr,\ \textcolor{keywordtype}{size\_t}\ pktlen,}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::span<const\ uint8\_t>\ dcid,}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ \&remote\_addr,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ \&local\_addr);}
+\DoxyCodeLine{00107\ \ \ \textcolor{comment}{//\ Send\ Initial\ CONNECTION\_CLOSE.\ \ |ini\_dcid|\ is\ the\ destination}}
+\DoxyCodeLine{00108\ \ \ \textcolor{comment}{//\ Connection\ ID\ which\ appeared\ in\ Client\ Initial\ packet.}}
+\DoxyCodeLine{00109\ \ \ \textcolor{comment}{//\ |ini\_scid|\ is\ the\ source\ Connection\ ID\ which\ appeared\ in\ Client}}
+\DoxyCodeLine{00110\ \ \ \textcolor{comment}{//\ Initial\ packet.}}
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordtype}{int}\ send\_connection\_close(\textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{UpstreamAddr}}\ *faddr,\ uint32\_t\ version,}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ngtcp2\_cid\ \&ini\_dcid,}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ngtcp2\_cid\ \&ini\_scid,}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ \&remote\_addr,}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ \&local\_addr,\ uint64\_t\ error\_code,}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ max\_pktlen);}
+\DoxyCodeLine{00117\ \ \ \mbox{\hyperlink{classshrpx_1_1ClientHandler}{ClientHandler}}\ *}
+\DoxyCodeLine{00118\ \ \ handle\_new\_connection(\textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{UpstreamAddr}}\ *faddr,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ \&remote\_addr,}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ \&local\_addr,\ \textcolor{keyword}{const}\ ngtcp2\_pkt\_hd\ \&hd,}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ngtcp2\_cid\ *odcid,\ std::span<const\ uint8\_t>\ token,}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ngtcp2\_token\_type\ token\_type);}
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{void}\ add\_connection\_id(\textcolor{keyword}{const}\ ngtcp2\_cid\ \&cid,\ \mbox{\hyperlink{classshrpx_1_1ClientHandler}{ClientHandler}}\ *handler);}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{void}\ remove\_connection\_id(\textcolor{keyword}{const}\ ngtcp2\_cid\ \&cid);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{void}\ add\_close\_wait(\mbox{\hyperlink{structshrpx_1_1CloseWait}{CloseWait}}\ *cw);}
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{void}\ remove\_close\_wait(\textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1CloseWait}{CloseWait}}\ *cw);}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{void}\ on\_stateless\_reset\_bucket\_regen();}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00131\ \ \ \mbox{\hyperlink{classshrpx_1_1Worker}{Worker}}\ *worker\_;}
+\DoxyCodeLine{00132\ \ \ std::unordered\_map<ngtcp2\_cid,\ ClientHandler\ *>\ connections\_;}
+\DoxyCodeLine{00133\ \ \ std::unordered\_map<ngtcp2\_cid,\ CloseWait\ *>\ close\_waits\_;}
+\DoxyCodeLine{00134\ \ \ ev\_timer\ stateless\_reset\_bucket\_regen\_timer\_;}
+\DoxyCodeLine{00135\ \ \ \textcolor{keywordtype}{size\_t}\ stateless\_reset\_bucket\_;}
+\DoxyCodeLine{00136\ \};}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_QUIC\_CONNECTION\_HANDLER\_H}}
+
+\end{DoxyCode}

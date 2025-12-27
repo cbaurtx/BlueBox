@@ -1,0 +1,113 @@
+\doxysection{neverbleed.\+h}
+\hypertarget{neverbleed_8h_source}{}\label{neverbleed_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/neverbleed/neverbleed.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/neverbleed/neverbleed.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2015\ Kazuho\ Oku,\ DeNA\ Co.,\ Ltd.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ copy}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ to}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ deal\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ the}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ and/or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#ifndef\ NEVERBLEED\_H}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ NEVERBLEED\_H}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <pthread.h>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <sys/un.h>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <openssl/engine.h>}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifdef\ \_\_FreeBSD\_\_}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <pthread\_np.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00034\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#if\ (defined(\_\_linux\_\_)\ \&\&\ !defined(\_\_ANDROID\_\_))\ ||\ defined(\_\_FreeBSD\_\_)\ ||\ defined(\_\_NetBSD\_\_)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ NEVERBLEED\_HAS\_PTHREAD\_SETAFFINITY\_NP\ 1}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#if\ defined(\_\_linux\_\_)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ NEVERBLEED\_CPU\_SET\_T\ cpu\_set\_t}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ NEVERBLEED\_CPU\_SET\_T\ cpuset\_t}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ NEVERBLEED\_ERRBUF\_SIZE\ (256)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ NEVERBLEED\_AUTH\_TOKEN\_SIZE\ 32}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structst__neverbleed__t}{st\_neverbleed\_t}}\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ ENGINE\ *engine;}
+\DoxyCodeLine{00050\ \ \ \ \ pid\_t\ daemon\_pid;}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{struct\ }sockaddr\_un\ sun\_;}
+\DoxyCodeLine{00052\ \ \ \ \ pthread\_key\_t\ thread\_key;}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ auth\_token[NEVERBLEED\_AUTH\_TOKEN\_SIZE];}
+\DoxyCodeLine{00054\ \}\ neverbleed\_t;}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structst__neverbleed__iobuf__t}{st\_neverbleed\_iobuf\_t}}\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{char}\ *buf;}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{char}\ *start;}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{char}\ *end;}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ capacity;}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structst__neverbleed__iobuf__t}{st\_neverbleed\_iobuf\_t}}\ *next;}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ processing\ :\ 1;}
+\DoxyCodeLine{00063\ \}\ neverbleed\_iobuf\_t;}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00068\ \textcolor{keywordtype}{int}\ neverbleed\_init(neverbleed\_t\ *nb,\ \textcolor{keywordtype}{char}\ *errbuf);}
+\DoxyCodeLine{00072\ \textcolor{keywordtype}{int}\ neverbleed\_load\_private\_key\_file(neverbleed\_t\ *nb,\ SSL\_CTX\ *ctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fn,\ \textcolor{keywordtype}{char}\ *errbuf);}
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{int}\ neverbleed\_setuidgid(neverbleed\_t\ *nb,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *user,\ \textcolor{keywordtype}{int}\ change\_socket\_ownership);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00081\ \textcolor{keywordtype}{void}\ neverbleed\_start\_digestsign(neverbleed\_iobuf\_t\ *buf,\ EVP\_PKEY\ *pkey,\ \textcolor{keyword}{const}\ EVP\_MD\ *md,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *input,\ \textcolor{keywordtype}{size\_t}\ len,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ rsa\_pss);}
+\DoxyCodeLine{00086\ \textcolor{keywordtype}{void}\ neverbleed\_finish\_digestsign(neverbleed\_iobuf\_t\ *buf,\ \textcolor{keywordtype}{void}\ **digest,\ \textcolor{keywordtype}{size\_t}\ *digest\_len);}
+\DoxyCodeLine{00090\ \textcolor{keywordtype}{void}\ neverbleed\_start\_decrypt(neverbleed\_iobuf\_t\ *buf,\ EVP\_PKEY\ *pkey,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *input,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00094\ \textcolor{keywordtype}{void}\ neverbleed\_finish\_decrypt(neverbleed\_iobuf\_t\ *buf,\ \textcolor{keywordtype}{void}\ **digest,\ \textcolor{keywordtype}{size\_t}\ *digest\_len);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#if\ NEVERBLEED\_HAS\_PTHREAD\_SETAFFINITY\_NP}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00100\ \textcolor{keywordtype}{int}\ neverbleed\_setaffinity(neverbleed\_t\ *nb,\ NEVERBLEED\_CPU\_SET\_T\ *cpuset);}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{extern}\ void\ (*neverbleed\_post\_fork\_cb)(void);}
+\DoxyCodeLine{00113\ \textcolor{keyword}{extern}\ void\ (*neverbleed\_transaction\_cb)(neverbleed\_iobuf\_t\ *req,\ \textcolor{keywordtype}{int}\ responseless);}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{typedef}\ void\ (*neverbleed\_cb)(int);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keywordtype}{int}\ neverbleed\_get\_fd(neverbleed\_t\ *nb);}
+\DoxyCodeLine{00118\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ neverbleed\_iobuf\_size(neverbleed\_iobuf\_t\ *buf);}
+\DoxyCodeLine{00119\ \textcolor{keywordtype}{void}\ neverbleed\_iobuf\_dispose(neverbleed\_iobuf\_t\ *buf);}
+\DoxyCodeLine{00120\ \textcolor{keywordtype}{void}\ neverbleed\_transaction\_read(neverbleed\_t\ *nb,\ neverbleed\_iobuf\_t\ *buf);}
+\DoxyCodeLine{00121\ \textcolor{keywordtype}{void}\ neverbleed\_transaction\_write(neverbleed\_t\ *nb,\ neverbleed\_iobuf\_t\ *buf);}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{extern}\ \textcolor{keyword}{enum}\ neverbleed\_offload\_type\ \{}
+\DoxyCodeLine{00127\ \ \ \ \ NEVERBLEED\_OFFLOAD\_OFF\ =\ 0,}
+\DoxyCodeLine{00128\ \ \ \ \ NEVERBLEED\_OFFLOAD\_QAT\_ON,}
+\DoxyCodeLine{00129\ \ \ \ \ NEVERBLEED\_OFFLOAD\_QAT\_AUTO,}
+\DoxyCodeLine{00130\ \}\ neverbleed\_offload;}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{comment}{/*\ inline\ function\ definitions\ */}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ neverbleed\_iobuf\_size(neverbleed\_iobuf\_t\ *buf)}
+\DoxyCodeLine{00135\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordflow}{return}\ buf-\/>end\ -\/\ buf-\/>start;}
+\DoxyCodeLine{00137\ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00140\ \}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

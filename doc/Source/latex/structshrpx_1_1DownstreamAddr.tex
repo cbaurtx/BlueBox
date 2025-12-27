@@ -1,0 +1,100 @@
+\doxysection{shrpx\+::Downstream\+Addr Struct Reference}
+\hypertarget{structshrpx_1_1DownstreamAddr}{}\label{structshrpx_1_1DownstreamAddr}\index{shrpx::DownstreamAddr@{shrpx::DownstreamAddr}}
+
+
+Collaboration diagram for shrpx\+::Downstream\+Addr\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structshrpx_1_1DownstreamAddr__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a41ed927f7ef6a68c5f701a96767c3136}\label{structshrpx_1_1DownstreamAddr_a41ed927f7ef6a68c5f701a96767c3136} 
+\mbox{\hyperlink{structnghttp2_1_1Address}{Address}} {\bfseries addr}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_aad66ca69ba64716f1b6bccf882123f85}\label{structshrpx_1_1DownstreamAddr_aad66ca69ba64716f1b6bccf882123f85} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries host}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a1c1d20a1a93c36fe1889420d86f4ee31}\label{structshrpx_1_1DownstreamAddr_a1c1d20a1a93c36fe1889420d86f4ee31} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries hostport}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a33145ae98c5abc3fd97daa22126a7dc2}\label{structshrpx_1_1DownstreamAddr_a33145ae98c5abc3fd97daa22126a7dc2} 
+uint16\+\_\+t {\bfseries port}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a3b2e0b9d4f84dd37552e9639c4ab64cc}\label{structshrpx_1_1DownstreamAddr_a3b2e0b9d4f84dd37552e9639c4ab64cc} 
+bool {\bfseries host\+\_\+unix}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_aa58288a5cb69f60fd43926681fa9ab39}\label{structshrpx_1_1DownstreamAddr_aa58288a5cb69f60fd43926681fa9ab39} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries sni}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a72083d0bade95a6f02439f14c60a43f3}\label{structshrpx_1_1DownstreamAddr_a72083d0bade95a6f02439f14c60a43f3} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classshrpx_1_1ConnectBlocker}{Connect\+Blocker}} $>$ {\bfseries connect\+\_\+blocker}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_aa53190454196dfa25815e78824df863b}\label{structshrpx_1_1DownstreamAddr_aa53190454196dfa25815e78824df863b} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classshrpx_1_1LiveCheck}{Live\+Check}} $>$ {\bfseries live\+\_\+check}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a14338dfaa738c2ca6fcda26cbd0e2789}\label{structshrpx_1_1DownstreamAddr_a14338dfaa738c2ca6fcda26cbd0e2789} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classshrpx_1_1DownstreamConnectionPool}{Downstream\+Connection\+Pool}} $>$ {\bfseries dconn\+\_\+pool}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_aebdf04ad6cccee4a5366f262d9a7a304}\label{structshrpx_1_1DownstreamAddr_aebdf04ad6cccee4a5366f262d9a7a304} 
+size\+\_\+t {\bfseries fall}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a9ffdc860db8370df6ecf9faee20e009f}\label{structshrpx_1_1DownstreamAddr_a9ffdc860db8370df6ecf9faee20e009f} 
+size\+\_\+t {\bfseries rise}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a52813a00f2f94ffb51bfa2755d759de3}\label{structshrpx_1_1DownstreamAddr_a52813a00f2f94ffb51bfa2755d759de3} 
+\mbox{\hyperlink{structshrpx_1_1tls_1_1TLSSessionCache}{tls\+::\+TLSSession\+Cache}} {\bfseries tls\+\_\+session\+\_\+cache}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a33500ea98b2d1d61173afff09ba706b6}\label{structshrpx_1_1DownstreamAddr_a33500ea98b2d1d61173afff09ba706b6} 
+\mbox{\hyperlink{structnghttp2_1_1DList}{DList}}$<$ \mbox{\hyperlink{classshrpx_1_1Http2Session}{Http2\+Session}} $>$ {\bfseries http2\+\_\+extra\+\_\+freelist}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a09d23e9ca83d2ae06e2282cb0a46f570}\label{structshrpx_1_1DownstreamAddr_a09d23e9ca83d2ae06e2282cb0a46f570} 
+\mbox{\hyperlink{structshrpx_1_1WeightGroup}{Weight\+Group}} \texorpdfstring{$\ast$}{*} {\bfseries wg}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_aa9992527a9399c555c5bc024dcc1665c}\label{structshrpx_1_1DownstreamAddr_aa9992527a9399c555c5bc024dcc1665c} 
+size\+\_\+t {\bfseries num\+\_\+dconn}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a776909736fe33529f2e3d4b592d342bc}\label{structshrpx_1_1DownstreamAddr_a776909736fe33529f2e3d4b592d342bc} 
+size\+\_\+t {\bfseries seq}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a74a223fce530d870f24633401111100b}\label{structshrpx_1_1DownstreamAddr_a74a223fce530d870f24633401111100b} 
+Proto {\bfseries proto}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_ab466ef8ef6c4722288e7e611711bb377}\label{structshrpx_1_1DownstreamAddr_ab466ef8ef6c4722288e7e611711bb377} 
+uint32\+\_\+t {\bfseries cycle}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a86fc7e5983f35b82bdd3f5b5736bb857}\label{structshrpx_1_1DownstreamAddr_a86fc7e5983f35b82bdd3f5b5736bb857} 
+uint32\+\_\+t {\bfseries pending\+\_\+penalty}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_af6ac4f366454dab409245992fdc49419}\label{structshrpx_1_1DownstreamAddr_af6ac4f366454dab409245992fdc49419} 
+uint32\+\_\+t {\bfseries weight}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a84f05f92f554806df2fbe42fd4d63969}\label{structshrpx_1_1DownstreamAddr_a84f05f92f554806df2fbe42fd4d63969} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries group}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a82db7fcc768caf0c14b8e787fb3b9af1}\label{structshrpx_1_1DownstreamAddr_a82db7fcc768caf0c14b8e787fb3b9af1} 
+uint32\+\_\+t {\bfseries group\+\_\+weight}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_ad5fa896390522cbef1e2a9d8a5d446cc}\label{structshrpx_1_1DownstreamAddr_ad5fa896390522cbef1e2a9d8a5d446cc} 
+uint32\+\_\+t {\bfseries affinity\+\_\+hash}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a1f7679e4926e6ac4cc661c6f1dd37331}\label{structshrpx_1_1DownstreamAddr_a1f7679e4926e6ac4cc661c6f1dd37331} 
+bool {\bfseries tls}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a720cc00cf736c1c1a440f9ffd6097aae}\label{structshrpx_1_1DownstreamAddr_a720cc00cf736c1c1a440f9ffd6097aae} 
+bool {\bfseries dns}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a26a951ae2120fa3f1f42f9c28b974605}\label{structshrpx_1_1DownstreamAddr_a26a951ae2120fa3f1f42f9c28b974605} 
+bool {\bfseries upgrade\+\_\+scheme}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddr_a269e84056381b638d7c567ef8c4d78ae}\label{structshrpx_1_1DownstreamAddr_a269e84056381b638d7c567ef8c4d78ae} 
+bool {\bfseries queued}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+worker.\+h\end{DoxyCompactItemize}

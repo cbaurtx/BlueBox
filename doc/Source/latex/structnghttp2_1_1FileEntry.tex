@@ -1,0 +1,58 @@
+\doxysection{nghttp2\+::File\+Entry Struct Reference}
+\hypertarget{structnghttp2_1_1FileEntry}{}\label{structnghttp2_1_1FileEntry}\index{nghttp2::FileEntry@{nghttp2::FileEntry}}
+
+
+Collaboration diagram for nghttp2\+::File\+Entry\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{structnghttp2_1_1FileEntry__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnghttp2_1_1FileEntry_a14a0955b14a0e765787c69f6e9c39047}\label{structnghttp2_1_1FileEntry_a14a0955b14a0e765787c69f6e9c39047} 
+{\bfseries File\+Entry} (std\+::string path, int64\+\_\+t length, int64\+\_\+t mtime, int fd, const std\+::string \texorpdfstring{$\ast$}{*}content\+\_\+type, const std\+::chrono\+::steady\+\_\+clock\+::time\+\_\+point \&last\+\_\+valid, bool stale=false)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnghttp2_1_1FileEntry_aa9dfc6040aa6c12f5ee8f4673e242ada}\label{structnghttp2_1_1FileEntry_aa9dfc6040aa6c12f5ee8f4673e242ada} 
+std\+::string {\bfseries path}
+\item 
+\Hypertarget{structnghttp2_1_1FileEntry_a068fbe460b90a79fff996c800fc889f1}\label{structnghttp2_1_1FileEntry_a068fbe460b90a79fff996c800fc889f1} 
+std\+::multimap$<$ std\+::string, std\+::unique\+\_\+ptr$<$ File\+Entry $>$ $>$\+::iterator {\bfseries it}
+\item 
+\Hypertarget{structnghttp2_1_1FileEntry_a0d0880d65ff7160bbd9b622b86d0952d}\label{structnghttp2_1_1FileEntry_a0d0880d65ff7160bbd9b622b86d0952d} 
+int64\+\_\+t {\bfseries length}
+\item 
+\Hypertarget{structnghttp2_1_1FileEntry_a1fc495977f87fdb3906b4aaa0425cde0}\label{structnghttp2_1_1FileEntry_a1fc495977f87fdb3906b4aaa0425cde0} 
+int64\+\_\+t {\bfseries mtime}
+\item 
+\Hypertarget{structnghttp2_1_1FileEntry_a928756b89024d92045a1c131d849f901}\label{structnghttp2_1_1FileEntry_a928756b89024d92045a1c131d849f901} 
+std\+::chrono\+::steady\+\_\+clock\+::time\+\_\+point {\bfseries last\+\_\+valid}
+\item 
+\Hypertarget{structnghttp2_1_1FileEntry_a36e82534c16394c8c8b447181e9b6888}\label{structnghttp2_1_1FileEntry_a36e82534c16394c8c8b447181e9b6888} 
+const std\+::string \texorpdfstring{$\ast$}{*} {\bfseries content\+\_\+type}
+\item 
+\Hypertarget{structnghttp2_1_1FileEntry_ac6ae6e59d4a54b28e4b7a66e0b4f1310}\label{structnghttp2_1_1FileEntry_ac6ae6e59d4a54b28e4b7a66e0b4f1310} 
+File\+Entry \texorpdfstring{$\ast$}{*} {\bfseries dlnext}
+\item 
+\Hypertarget{structnghttp2_1_1FileEntry_ac48fec69db6378dbcddca07d81a3295b}\label{structnghttp2_1_1FileEntry_ac48fec69db6378dbcddca07d81a3295b} 
+File\+Entry \texorpdfstring{$\ast$}{*} {\bfseries dlprev}
+\item 
+\Hypertarget{structnghttp2_1_1FileEntry_a2043c0ab0001d06e3536341313619d81}\label{structnghttp2_1_1FileEntry_a2043c0ab0001d06e3536341313619d81} 
+int {\bfseries fd}
+\item 
+\Hypertarget{structnghttp2_1_1FileEntry_aeef5178a0efb04ed10e5544e8c22a0ed}\label{structnghttp2_1_1FileEntry_aeef5178a0efb04ed10e5544e8c22a0ed} 
+int {\bfseries usecount}
+\item 
+\Hypertarget{structnghttp2_1_1FileEntry_a53be82dd566ad51400581a03b0fb146b}\label{structnghttp2_1_1FileEntry_a53be82dd566ad51400581a03b0fb146b} 
+bool {\bfseries stale}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/Http\+Server.\+h\end{DoxyCompactItemize}

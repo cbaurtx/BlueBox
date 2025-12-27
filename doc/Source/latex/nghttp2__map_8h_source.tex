@@ -1,0 +1,134 @@
+\doxysection{nghttp2\+\_\+map.\+h}
+\hypertarget{nghttp2__map_8h_source}{}\label{nghttp2__map_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_map.h@{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_map.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2017\ ngtcp2\ contributors}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ nghttp2\ contributors}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_MAP\_H}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ NGHTTP2\_MAP\_H}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifdef\ HAVE\_CONFIG\_H}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#\ \ include\ <config.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_CONFIG\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_mem.h"{}}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{/*\ Implementation\ of\ unordered\ map\ */}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{typedef}\ int32\_t\ nghttp2\_map\_key\_type;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__map__bucket}{nghttp2\_map\_bucket}}\ \{}
+\DoxyCodeLine{00042\ \ \ uint32\_t\ psl;}
+\DoxyCodeLine{00043\ \ \ nghttp2\_map\_key\_type\ key;}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{void}\ *data;}
+\DoxyCodeLine{00045\ \}\ \mbox{\hyperlink{structnghttp2__map__bucket}{nghttp2\_map\_bucket}};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__map}{nghttp2\_map}}\ \{}
+\DoxyCodeLine{00048\ \ \ \mbox{\hyperlink{structnghttp2__map__bucket}{nghttp2\_map\_bucket}}\ *table;}
+\DoxyCodeLine{00049\ \ \ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem;}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{size\_t}\ size;}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{size\_t}\ hashbits;}
+\DoxyCodeLine{00052\ \}\ \mbox{\hyperlink{structnghttp2__map}{nghttp2\_map}};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ *\ nghttp2\_map\_init\ initializes\ the\ map\ |map|.}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{void}\ nghttp2\_map\_init(\mbox{\hyperlink{structnghttp2__map}{nghttp2\_map}}\ *map,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *\ nghttp2\_map\_free\ deallocates\ any\ resources\ allocated\ for\ |map|.}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *\ The\ stored\ entries\ are\ not\ freed\ by\ this\ function.\ \ Use}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *\ nghttp2\_map\_each()\ to\ free\ each\ entry.}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{void}\ nghttp2\_map\_free(\mbox{\hyperlink{structnghttp2__map}{nghttp2\_map}}\ *map);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ *\ nghttp2\_map\_insert\ inserts\ the\ new\ |data|\ with\ the\ |key|\ to\ the\ map}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ *\ |map|.}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_INVALID\_ARGUMENT}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ *\ \ \ \ \ The\ item\ associated\ by\ |key|\ already\ exists.}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_NOMEM}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *\ \ \ \ \ Out\ of\ memory}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00078\ \textcolor{keywordtype}{int}\ nghttp2\_map\_insert(\mbox{\hyperlink{structnghttp2__map}{nghttp2\_map}}\ *map,\ nghttp2\_map\_key\_type\ key,\ \textcolor{keywordtype}{void}\ *data);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ *\ nghttp2\_map\_find\ returns\ the\ entry\ associated\ by\ the\ key\ |key|.\ \ If}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ *\ there\ is\ no\ such\ entry,\ this\ function\ returns\ NULL.}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00084\ \textcolor{keywordtype}{void}\ *nghttp2\_map\_find(\textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__map}{nghttp2\_map}}\ *map,\ nghttp2\_map\_key\_type\ key);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ *\ nghttp2\_map\_remove\ removes\ the\ entry\ associated\ by\ the\ key\ |key|}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ *\ from\ the\ |map|.\ \ The\ removed\ entry\ is\ not\ freed\ by\ this\ function.}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ *\ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ one\ of\ the\ following}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ *\ negative\ error\ codes:}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ *\ NGHTTP2\_ERR\_INVALID\_ARGUMENT}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ *\ \ \ \ \ The\ entry\ associated\ by\ |key|\ does\ not\ exist.}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00096\ \textcolor{keywordtype}{int}\ nghttp2\_map\_remove(\mbox{\hyperlink{structnghttp2__map}{nghttp2\_map}}\ *map,\ nghttp2\_map\_key\_type\ key);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ *\ nghttp2\_map\_clear\ removes\ all\ entries\ from\ |map|.\ \ The\ removed}}
+\DoxyCodeLine{00100\ \textcolor{comment}{\ *\ entry\ is\ not\ freed\ by\ this\ function.}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00102\ \textcolor{keywordtype}{void}\ nghttp2\_map\_clear(\mbox{\hyperlink{structnghttp2__map}{nghttp2\_map}}\ *map);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ *\ nghttp2\_map\_size\ returns\ the\ number\ of\ items\ stored\ in\ the\ map}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ *\ |map|.}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00108\ \textcolor{keywordtype}{size\_t}\ nghttp2\_map\_size(\textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__map}{nghttp2\_map}}\ *map);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ *\ nghttp2\_map\_each\ applies\ the\ function\ |func|\ to\ each\ entry\ in\ the}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ *\ |map|\ with\ the\ optional\ user\ supplied\ pointer\ |ptr|.}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ *\ If\ the\ |func|\ returns\ 0,\ this\ function\ calls\ the\ |func|\ with\ the}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ *\ next\ entry.\ \ If\ the\ |func|\ returns\ nonzero,\ it\ will\ not\ call\ the}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ *\ |func|\ for\ further\ entries\ and\ return\ the\ return\ value\ of\ the}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ *\ |func|\ immediately.\ \ Thus,\ this\ function\ returns\ 0\ if\ all\ the}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ *\ invocations\ of\ the\ |func|\ return\ 0,\ or\ nonzero\ value\ which\ the\ last}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ *\ invocation\ of\ |func|\ returns.}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00121\ \textcolor{keywordtype}{int}\ nghttp2\_map\_each(\textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__map}{nghttp2\_map}}\ *map,\ \textcolor{keywordtype}{int}\ (*func)(\textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{void}\ *ptr),}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ptr);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#ifndef\ WIN32}}
+\DoxyCodeLine{00125\ \textcolor{keywordtype}{void}\ nghttp2\_map\_print\_distance(\textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__map}{nghttp2\_map}}\ *map);}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !WIN32\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_MAP\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

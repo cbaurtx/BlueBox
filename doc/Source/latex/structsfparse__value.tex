@@ -1,0 +1,95 @@
+\doxysection{sfparse\+\_\+value Struct Reference}
+\hypertarget{structsfparse__value}{}\label{structsfparse__value}\index{sfparse\_value@{sfparse\_value}}
+
+
+{\ttfamily \#include $<$sfparse.\+h$>$}
+
+
+
+Collaboration diagram for sfparse\+\_\+value\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{structsfparse__value__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+sfparse\+\_\+type \mbox{\hyperlink{structsfparse__value_a0a3ce4828643298ba33bee441ee35c34}{type}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{structsfparse__value_aed9ff50179cf2de96e3f97e5e93c4e06}{flags}}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>int \mbox{\hyperlink{structsfparse__value_a2f8afb520b6f165351598d35d07fd351}{boolean}}\\
+\>int64\_t \mbox{\hyperlink{structsfparse__value_a3e2e83777af104ca4102bdfd0ae8501c}{integer}}\\
+\>\mbox{\hyperlink{structsfparse__decimal}{sfparse\_decimal}} \mbox{\hyperlink{structsfparse__value_af79ecb2d5f11764fe21146e7ea664b62}{decimal}}\\
+\>\mbox{\hyperlink{structsfparse__vec}{sfparse\_vec}} \mbox{\hyperlink{structsfparse__value_a7646f57afd29c6fc9b0716f73a1b648c}{vec}}\\
+\}; \\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\+:type\+:{\ttfamily \doxylink{structsfparse__value}{sfparse\+\_\+value}} stores a Structured Field item. For Inner List, only type is set to \+:enum\+:{\ttfamily sfparse\+\_\+type.\+SFPARSE\+\_\+\+TYPE\+\_\+\+INNER\+\_\+\+LIST}. In order to read the items contained in an inner list, call {\ttfamily sfparse\+\_\+parser\+\_\+inner\+\_\+list}. 
+
+\label{doc-variable-members}
+\Hypertarget{structsfparse__value_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structsfparse__value_a18f8a564daec84c7e4aa722e22d95c30}\doxysubsubsection{\texorpdfstring{[union]}{[union]}}
+{\footnotesize\ttfamily \label{structsfparse__value_a18f8a564daec84c7e4aa722e22d95c30} 
+union  \{ ... \}  \mbox{\hyperlink{structsfparse__value}{sfparse\+\_\+value}}}
+
+@anonunion\+\_\+start
+
+@sfparse\+\_\+value\+\_\+value \Hypertarget{structsfparse__value_a2f8afb520b6f165351598d35d07fd351}\index{sfparse\_value@{sfparse\_value}!boolean@{boolean}}
+\index{boolean@{boolean}!sfparse\_value@{sfparse\_value}}
+\doxysubsubsection{\texorpdfstring{boolean}{boolean}}
+{\footnotesize\ttfamily \label{structsfparse__value_a2f8afb520b6f165351598d35d07fd351} 
+int sfparse\+\_\+value\+::boolean}
+
+\+:member\+:{\ttfamily \doxylink{structsfparse__value_a2f8afb520b6f165351598d35d07fd351}{boolean}} contains boolean value if \+:member\+:{\ttfamily \doxylink{structsfparse__value_a0a3ce4828643298ba33bee441ee35c34}{type}} == \+:enum\+:{\ttfamily sfparse\+\_\+type.\+SFPARSE\+\_\+\+TYPE\+\_\+\+BOOLEAN}. 1 indicates true, and 0 indicates false. \Hypertarget{structsfparse__value_af79ecb2d5f11764fe21146e7ea664b62}\index{sfparse\_value@{sfparse\_value}!decimal@{decimal}}
+\index{decimal@{decimal}!sfparse\_value@{sfparse\_value}}
+\doxysubsubsection{\texorpdfstring{decimal}{decimal}}
+{\footnotesize\ttfamily \label{structsfparse__value_af79ecb2d5f11764fe21146e7ea664b62} 
+\mbox{\hyperlink{structsfparse__decimal}{sfparse\+\_\+decimal}} sfparse\+\_\+value\+::decimal}
+
+\+:member\+:{\ttfamily \doxylink{structsfparse__value_af79ecb2d5f11764fe21146e7ea664b62}{decimal}} contains decimal value if \+:member\+:{\ttfamily \doxylink{structsfparse__value_a0a3ce4828643298ba33bee441ee35c34}{type}} == \+:enum\+:{\ttfamily sfparse\+\_\+type.\+SFPARSE\+\_\+\+TYPE\+\_\+\+DECIMAL}. \Hypertarget{structsfparse__value_aed9ff50179cf2de96e3f97e5e93c4e06}\index{sfparse\_value@{sfparse\_value}!flags@{flags}}
+\index{flags@{flags}!sfparse\_value@{sfparse\_value}}
+\doxysubsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily \label{structsfparse__value_aed9ff50179cf2de96e3f97e5e93c4e06} 
+uint32\+\_\+t sfparse\+\_\+value\+::flags}
+
+\+:member\+:{\ttfamily \doxylink{structsfparse__value_aed9ff50179cf2de96e3f97e5e93c4e06}{flags}} is bitwise OR of one or more of \+:macro\+:{\ttfamily SFPARSE\+\_\+\+VALUE\+\_\+\+FLAG\+\_\+\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}SFPARSE\+\_\+\+VALUE\+\_\+\+FLAG\+\_\+\+NONE\texorpdfstring{$>$}{>}}. \Hypertarget{structsfparse__value_a3e2e83777af104ca4102bdfd0ae8501c}\index{sfparse\_value@{sfparse\_value}!integer@{integer}}
+\index{integer@{integer}!sfparse\_value@{sfparse\_value}}
+\doxysubsubsection{\texorpdfstring{integer}{integer}}
+{\footnotesize\ttfamily \label{structsfparse__value_a3e2e83777af104ca4102bdfd0ae8501c} 
+int64\+\_\+t sfparse\+\_\+value\+::integer}
+
+\+:member\+:{\ttfamily \doxylink{structsfparse__value_a3e2e83777af104ca4102bdfd0ae8501c}{integer}} contains integer value if \+:member\+:{\ttfamily \doxylink{structsfparse__value_a0a3ce4828643298ba33bee441ee35c34}{type}} is either \+:enum\+:{\ttfamily sfparse\+\_\+type.\+SFPARSE\+\_\+\+TYPE\+\_\+\+INTEGER} or \+:enum\+:{\ttfamily sfparse\+\_\+type.\+SFPARSE\+\_\+\+TYPE\+\_\+\+DATE}. \Hypertarget{structsfparse__value_a0a3ce4828643298ba33bee441ee35c34}\index{sfparse\_value@{sfparse\_value}!type@{type}}
+\index{type@{type}!sfparse\_value@{sfparse\_value}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily \label{structsfparse__value_a0a3ce4828643298ba33bee441ee35c34} 
+sfparse\+\_\+type sfparse\+\_\+value\+::type}
+
+\+:member\+:{\ttfamily \doxylink{structsfparse__value_a0a3ce4828643298ba33bee441ee35c34}{type}} is the type of the value contained in this particular object. \Hypertarget{structsfparse__value_a7646f57afd29c6fc9b0716f73a1b648c}\index{sfparse\_value@{sfparse\_value}!vec@{vec}}
+\index{vec@{vec}!sfparse\_value@{sfparse\_value}}
+\doxysubsubsection{\texorpdfstring{vec}{vec}}
+{\footnotesize\ttfamily \label{structsfparse__value_a7646f57afd29c6fc9b0716f73a1b648c} 
+\mbox{\hyperlink{structsfparse__vec}{sfparse\+\_\+vec}} sfparse\+\_\+value\+::vec}
+
+\+:member\+:{\ttfamily \doxylink{structsfparse__value_a7646f57afd29c6fc9b0716f73a1b648c}{vec}} contains sequence of bytes if \+:member\+:{\ttfamily \doxylink{structsfparse__value_a0a3ce4828643298ba33bee441ee35c34}{type}} is either \+:enum\+:{\ttfamily sfparse\+\_\+type.\+SFPARSE\+\_\+\+TYPE\+\_\+\+STRING}, \+:enum\+:{\ttfamily sfparse\+\_\+type.\+SFPARSE\+\_\+\+TYPE\+\_\+\+TOKEN}, \+:enum\+:{\ttfamily sfparse\+\_\+type.\+SFPARSE\+\_\+\+TYPE\+\_\+\+BYTESEQ}, or \+:enum\+:{\ttfamily sfparse\+\_\+type.\+SFPARSE\+\_\+\+TYPE\+\_\+\+DISPSTRING}.
+
+For \+:enum\+:{\ttfamily sfparse\+\_\+type.\+SFPARSE\+\_\+\+TYPE\+\_\+\+STRING}, this field contains one or more escaped characters if \+:member\+:{\ttfamily \doxylink{structsfparse__value_aed9ff50179cf2de96e3f97e5e93c4e06}{flags}} has \+:macro\+:{\ttfamily SFPARSE\+\_\+\+VALUE\+\_\+\+FLAG\+\_\+\+ESCAPED\+\_\+\+STRING} set. To unescape the string, use {\ttfamily sfparse\+\_\+unescape}.
+
+For \+:enum\+:{\ttfamily sfparse\+\_\+type.\+SFPARSE\+\_\+\+TYPE\+\_\+\+BYTESEQ}, this field contains base64 encoded string. To decode this byte string, use {\ttfamily sfparse\+\_\+base64decode}.
+
+For \+:enum\+:{\ttfamily sfparse\+\_\+type.\+SFPARSE\+\_\+\+TYPE\+\_\+\+DISPSTRING}, this field may contain percent-\/encoded UTF-\/8 byte sequences. To decode it, use {\ttfamily sfparse\+\_\+pctdecode}.
+
+If \+:member\+:{\ttfamily vec.\+len \texorpdfstring{$<$}{<}\doxylink{structsfparse__vec_ab1ae77b627b727dd91c6f3e7f651142c}{sfparse\+\_\+vec.\+len}\texorpdfstring{$>$}{>}} == 0, \+:member\+:{\ttfamily vec.\+base \texorpdfstring{$<$}{<}\doxylink{structsfparse__vec_a10881c4f791b2a05eb61018bb58f3775}{sfparse\+\_\+vec.\+base}\texorpdfstring{$>$}{>}} is guaranteed to be NULL. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/lib/sfparse.\+h\end{DoxyCompactItemize}

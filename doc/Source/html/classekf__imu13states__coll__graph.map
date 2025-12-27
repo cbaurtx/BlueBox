@@ -1,0 +1,8 @@
+<map id="ekf_imu13states" name="ekf_imu13states">
+<area shape="rect" id="Node000001" title="This class is used to process and calculate attitude from imu sensors." alt="" coords="5,284,123,311"/>
+<area shape="rect" id="Node000002" href="$classekf.html" title=" " alt="" coords="103,199,142,225"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,237,75,286,71,282,103,239"/>
+<area shape="rect" id="Node000003" href="$classdspm_1_1Mat.html" title="Matrix." alt="" coords="13,5,96,32"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="50,45,44,131,43,183,47,234,62,283,56,284,42,235,38,183,38,131,49,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="66,45,121,198,116,199,62,48"/>
+</map>

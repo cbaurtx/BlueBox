@@ -1,0 +1,1318 @@
+\doxysection{nghttp2.\+h}
+\hypertarget{nghttp2_8h_source}{}\label{nghttp2_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/lib/includes/nghttp2/nghttp2.h@{managed\_components/espressif\_\_nghttp/nghttp2/lib/includes/nghttp2/nghttp2.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2013,\ 2014\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ NGHTTP2\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{/*\ Define\ WIN32\ when\ build\ target\ is\ Win32\ API\ (borrowed\ from}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ \ \ libcurl)\ */}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#if\ (defined(\_WIN32)\ ||\ defined(\_\_WIN32\_\_))\ \&\&\ !defined(WIN32)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#\ \ define\ WIN32}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{/*\ Compatibility\ for\ non-\/Clang\ compilers\ */}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#ifndef\ \_\_has\_declspec\_attribute}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#\ \ define\ \_\_has\_declspec\_attribute(x)\ 0}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00040\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ defined(\_MSC\_VER)\ \&\&\ (\_MSC\_VER\ <\ 1800)}}
+\DoxyCodeLine{00045\ \textcolor{comment}{/*\ MSVC\ <\ 2013\ does\ not\ have\ inttypes.h\ because\ it\ is\ not\ C99}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ compliant.\ \ See\ compiler\ macros\ and\ version\ number\ in}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ https://sourceforge.net/p/predef/wiki/Compilers/\ */}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#\ \ include\ <stdint.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ !defined(\_MSC\_VER)\ ||\ (\_MSC\_VER\ >=\ 1800)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#\ \ include\ <inttypes.h>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !defined(\_MSC\_VER)\ ||\ (\_MSC\_VER\ >=\ 1800)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <sys/types.h>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <stdarg.h>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2ver.h>}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#ifdef\ NGHTTP2\_STATICLIB}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#\ \ define\ NGHTTP2\_EXTERN}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#elif\ defined(WIN32)\ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\ \ (\_\_has\_declspec\_attribute(dllexport)\ \&\&\ \_\_has\_declspec\_attribute(dllimport))}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#\ \ ifdef\ BUILDING\_NGHTTP2}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#\ \ \ \ define\ NGHTTP2\_EXTERN\ \_\_declspec(dllexport)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#\ \ else\ }\textcolor{comment}{/*\ !BUILDING\_NGHTTP2\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#\ \ \ \ define\ NGHTTP2\_EXTERN\ \_\_declspec(dllimport)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#\ \ endif\ }\textcolor{comment}{/*\ !BUILDING\_NGHTTP2\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#else\ \ \ \ }\textcolor{comment}{/*\ !defined(WIN32)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#\ \ ifdef\ BUILDING\_NGHTTP2}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#\ \ \ \ define\ NGHTTP2\_EXTERN\ \_\_attribute\_\_((visibility("{}default"{})))}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#\ \ else\ }\textcolor{comment}{/*\ !BUILDING\_NGHTTP2\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#\ \ \ \ define\ NGHTTP2\_EXTERN}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#\ \ endif\ }\textcolor{comment}{/*\ !BUILDING\_NGHTTP2\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif\ \ \ }\textcolor{comment}{/*\ !defined(WIN32)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#ifdef\ BUILDING\_NGHTTP2}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#\ \ undef\ NGHTTP2\_NO\_SSIZE\_T}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ BUILDING\_NGHTTP2\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{typedef}\ ptrdiff\_t\ nghttp2\_ssize;}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ NGHTTP2\_PROTO\_VERSION\_ID\ "{}h2"{}}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ NGHTTP2\_PROTO\_VERSION\_ID\_LEN\ 2}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ NGHTTP2\_PROTO\_ALPN\ "{}\(\backslash\)x2h2"{}}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ NGHTTP2\_PROTO\_ALPN\_LEN\ (sizeof(NGHTTP2\_PROTO\_ALPN)\ -\/\ 1)}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ NGHTTP2\_CLEARTEXT\_PROTO\_VERSION\_ID\ "{}h2c"{}}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#define\ NGHTTP2\_CLEARTEXT\_PROTO\_VERSION\_ID\_LEN\ 3}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}};}
+\DoxyCodeLine{00142\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#define\ NGHTTP2\_VERSION\_AGE\ 1}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00157\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structnghttp2__info_a5358b2cf2726087d859d09e3eea2eda4}{age}};}
+\DoxyCodeLine{00167\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structnghttp2__info_a383770f7b4eab00a0553e8db16037c72}{version\_num}};}
+\DoxyCodeLine{00171\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structnghttp2__info_aaa4ff4d7f2ba92225f55cffc5a3de506}{version\_str}};}
+\DoxyCodeLine{00176\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structnghttp2__info_a07fa310425dc24617a071a7ab0925084}{proto\_str}};}
+\DoxyCodeLine{00177\ \ \ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/\ the\ above\ fields\ all\ exist\ when\ age\ ==\ 1\ */}}
+\DoxyCodeLine{00178\ \}\ \mbox{\hyperlink{structnghttp2__info}{nghttp2\_info}};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#define\ NGHTTP2\_DEFAULT\_WEIGHT\ 16}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#define\ NGHTTP2\_MAX\_WEIGHT\ 256}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\#define\ NGHTTP2\_MIN\_WEIGHT\ 1}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#define\ NGHTTP2\_MAX\_WINDOW\_SIZE\ ((int32\_t)((1U\ <<\ 31)\ -\/\ 1))}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#define\ NGHTTP2\_INITIAL\_WINDOW\_SIZE\ ((1\ <<\ 16)\ -\/\ 1)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#define\ NGHTTP2\_INITIAL\_CONNECTION\_WINDOW\_SIZE\ ((1\ <<\ 16)\ -\/\ 1)}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#define\ NGHTTP2\_DEFAULT\_HEADER\_TABLE\_SIZE\ (1\ <<\ 12)}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#define\ NGHTTP2\_CLIENT\_MAGIC\ "{}PRI\ *\ HTTP/2.0\(\backslash\)r\(\backslash\)n\(\backslash\)r\(\backslash\)nSM\(\backslash\)r\(\backslash\)n\(\backslash\)r\(\backslash\)n"{}}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\#define\ NGHTTP2\_CLIENT\_MAGIC\_LEN\ 24}}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#define\ NGHTTP2\_DEFAULT\_MAX\_SETTINGS\ 32}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00274\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00278\ \ \ NGHTTP2\_ERR\_INVALID\_ARGUMENT\ =\ -\/501,}
+\DoxyCodeLine{00282\ \ \ NGHTTP2\_ERR\_BUFFER\_ERROR\ =\ -\/502,}
+\DoxyCodeLine{00286\ \ \ NGHTTP2\_ERR\_UNSUPPORTED\_VERSION\ =\ -\/503,}
+\DoxyCodeLine{00293\ \ \ NGHTTP2\_ERR\_WOULDBLOCK\ =\ -\/504,}
+\DoxyCodeLine{00297\ \ \ NGHTTP2\_ERR\_PROTO\ =\ -\/505,}
+\DoxyCodeLine{00301\ \ \ NGHTTP2\_ERR\_INVALID\_FRAME\ =\ -\/506,}
+\DoxyCodeLine{00305\ \ \ NGHTTP2\_ERR\_EOF\ =\ -\/507,}
+\DoxyCodeLine{00312\ \ \ NGHTTP2\_ERR\_DEFERRED\ =\ -\/508,}
+\DoxyCodeLine{00317\ \ \ NGHTTP2\_ERR\_STREAM\_ID\_NOT\_AVAILABLE\ =\ -\/509,}
+\DoxyCodeLine{00321\ \ \ NGHTTP2\_ERR\_STREAM\_CLOSED\ =\ -\/510,}
+\DoxyCodeLine{00326\ \ \ NGHTTP2\_ERR\_STREAM\_CLOSING\ =\ -\/511,}
+\DoxyCodeLine{00331\ \ \ NGHTTP2\_ERR\_STREAM\_SHUT\_WR\ =\ -\/512,}
+\DoxyCodeLine{00335\ \ \ NGHTTP2\_ERR\_INVALID\_STREAM\_ID\ =\ -\/513,}
+\DoxyCodeLine{00340\ \ \ NGHTTP2\_ERR\_INVALID\_STREAM\_STATE\ =\ -\/514,}
+\DoxyCodeLine{00344\ \ \ NGHTTP2\_ERR\_DEFERRED\_DATA\_EXIST\ =\ -\/515,}
+\DoxyCodeLine{00349\ \ \ NGHTTP2\_ERR\_START\_STREAM\_NOT\_ALLOWED\ =\ -\/516,}
+\DoxyCodeLine{00353\ \ \ NGHTTP2\_ERR\_GOAWAY\_ALREADY\_SENT\ =\ -\/517,}
+\DoxyCodeLine{00361\ \ \ NGHTTP2\_ERR\_INVALID\_HEADER\_BLOCK\ =\ -\/518,}
+\DoxyCodeLine{00366\ \ \ NGHTTP2\_ERR\_INVALID\_STATE\ =\ -\/519,}
+\DoxyCodeLine{00370\ \ \ NGHTTP2\_ERR\_TEMPORAL\_CALLBACK\_FAILURE\ =\ -\/521,}
+\DoxyCodeLine{00374\ \ \ NGHTTP2\_ERR\_FRAME\_SIZE\_ERROR\ =\ -\/522,}
+\DoxyCodeLine{00378\ \ \ NGHTTP2\_ERR\_HEADER\_COMP\ =\ -\/523,}
+\DoxyCodeLine{00382\ \ \ NGHTTP2\_ERR\_FLOW\_CONTROL\ =\ -\/524,}
+\DoxyCodeLine{00386\ \ \ NGHTTP2\_ERR\_INSUFF\_BUFSIZE\ =\ -\/525,}
+\DoxyCodeLine{00390\ \ \ NGHTTP2\_ERR\_PAUSE\ =\ -\/526,}
+\DoxyCodeLine{00395\ \ \ NGHTTP2\_ERR\_TOO\_MANY\_INFLIGHT\_SETTINGS\ =\ -\/527,}
+\DoxyCodeLine{00399\ \ \ NGHTTP2\_ERR\_PUSH\_DISABLED\ =\ -\/528,}
+\DoxyCodeLine{00406\ \ \ NGHTTP2\_ERR\_DATA\_EXIST\ =\ -\/529,}
+\DoxyCodeLine{00411\ \ \ NGHTTP2\_ERR\_SESSION\_CLOSING\ =\ -\/530,}
+\DoxyCodeLine{00416\ \ \ NGHTTP2\_ERR\_HTTP\_HEADER\ =\ -\/531,}
+\DoxyCodeLine{00420\ \ \ NGHTTP2\_ERR\_HTTP\_MESSAGING\ =\ -\/532,}
+\DoxyCodeLine{00424\ \ \ NGHTTP2\_ERR\_REFUSED\_STREAM\ =\ -\/533,}
+\DoxyCodeLine{00428\ \ \ NGHTTP2\_ERR\_INTERNAL\ =\ -\/534,}
+\DoxyCodeLine{00432\ \ \ NGHTTP2\_ERR\_CANCEL\ =\ -\/535,}
+\DoxyCodeLine{00437\ \ \ NGHTTP2\_ERR\_SETTINGS\_EXPECTED\ =\ -\/536,}
+\DoxyCodeLine{00442\ \ \ NGHTTP2\_ERR\_TOO\_MANY\_SETTINGS\ =\ -\/537,}
+\DoxyCodeLine{00451\ \ \ NGHTTP2\_ERR\_FATAL\ =\ -\/900,}
+\DoxyCodeLine{00455\ \ \ NGHTTP2\_ERR\_NOMEM\ =\ -\/901,}
+\DoxyCodeLine{00459\ \ \ NGHTTP2\_ERR\_CALLBACK\_FAILURE\ =\ -\/902,}
+\DoxyCodeLine{00464\ \ \ NGHTTP2\_ERR\_BAD\_CLIENT\_MAGIC\ =\ -\/903,}
+\DoxyCodeLine{00473\ \ \ NGHTTP2\_ERR\_FLOODED\ =\ -\/904,}
+\DoxyCodeLine{00478\ \ \ NGHTTP2\_ERR\_TOO\_MANY\_CONTINUATIONS\ =\ -\/905,}
+\DoxyCodeLine{00479\ \}\ nghttp2\_error;}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00486\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00490\ \ \ uint8\_t\ *\mbox{\hyperlink{structnghttp2__vec_a6f25e90996392f918580e7f738aaf9b2}{base}};}
+\DoxyCodeLine{00494\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structnghttp2__vec_a5affa199692b5c2c356e6615c8e6a995}{len}};}
+\DoxyCodeLine{00495\ \}\ \mbox{\hyperlink{structnghttp2__vec}{nghttp2\_vec}};}
+\DoxyCodeLine{00496\ }
+\DoxyCodeLine{00497\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}};}
+\DoxyCodeLine{00498\ }
+\DoxyCodeLine{00505\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ \mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}};}
+\DoxyCodeLine{00506\ }
+\DoxyCodeLine{00512\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_rcbuf\_incref(\mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ *rcbuf);}
+\DoxyCodeLine{00513\ }
+\DoxyCodeLine{00521\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_rcbuf\_decref(\mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ *rcbuf);}
+\DoxyCodeLine{00522\ }
+\DoxyCodeLine{00528\ NGHTTP2\_EXTERN\ \mbox{\hyperlink{structnghttp2__vec}{nghttp2\_vec}}\ nghttp2\_rcbuf\_get\_buf(\mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ *rcbuf);}
+\DoxyCodeLine{00529\ }
+\DoxyCodeLine{00537\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_rcbuf\_is\_static(\textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ *rcbuf);}
+\DoxyCodeLine{00538\ }
+\DoxyCodeLine{00544\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00548\ \ \ NGHTTP2\_NV\_FLAG\_NONE\ =\ 0,}
+\DoxyCodeLine{00554\ \ \ NGHTTP2\_NV\_FLAG\_NO\_INDEX\ =\ 0x01,}
+\DoxyCodeLine{00560\ \ \ NGHTTP2\_NV\_FLAG\_NO\_COPY\_NAME\ =\ 0x02,}
+\DoxyCodeLine{00566\ \ \ NGHTTP2\_NV\_FLAG\_NO\_COPY\_VALUE\ =\ 0x04}
+\DoxyCodeLine{00567\ \}\ nghttp2\_nv\_flag;}
+\DoxyCodeLine{00568\ }
+\DoxyCodeLine{00574\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00587\ \ \ uint8\_t\ *\mbox{\hyperlink{structnghttp2__nv_ac61036540dc19ab1b57287272c683796}{name}};}
+\DoxyCodeLine{00600\ \ \ uint8\_t\ *\mbox{\hyperlink{structnghttp2__nv_aa7674407e2de3b708a396f93743bab25}{value}};}
+\DoxyCodeLine{00604\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structnghttp2__nv_a50ae119cd6f0e9ed2ed1b48d0bdb50f3}{namelen}};}
+\DoxyCodeLine{00608\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structnghttp2__nv_a5a0ef70abf34a0a5b6555b566e984294}{valuelen}};}
+\DoxyCodeLine{00612\ \ \ uint8\_t\ \mbox{\hyperlink{structnghttp2__nv_a178942cf2d9457d9a4f2885323e268d7}{flags}};}
+\DoxyCodeLine{00613\ \}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}};}
+\DoxyCodeLine{00614\ }
+\DoxyCodeLine{00620\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00624\ \ \ NGHTTP2\_DATA\ =\ 0,}
+\DoxyCodeLine{00628\ \ \ NGHTTP2\_HEADERS\ =\ 0x01,}
+\DoxyCodeLine{00632\ \ \ NGHTTP2\_PRIORITY\ =\ 0x02,}
+\DoxyCodeLine{00636\ \ \ NGHTTP2\_RST\_STREAM\ =\ 0x03,}
+\DoxyCodeLine{00640\ \ \ NGHTTP2\_SETTINGS\ =\ 0x04,}
+\DoxyCodeLine{00644\ \ \ NGHTTP2\_PUSH\_PROMISE\ =\ 0x05,}
+\DoxyCodeLine{00648\ \ \ NGHTTP2\_PING\ =\ 0x06,}
+\DoxyCodeLine{00652\ \ \ NGHTTP2\_GOAWAY\ =\ 0x07,}
+\DoxyCodeLine{00656\ \ \ NGHTTP2\_WINDOW\_UPDATE\ =\ 0x08,}
+\DoxyCodeLine{00662\ \ \ NGHTTP2\_CONTINUATION\ =\ 0x09,}
+\DoxyCodeLine{00667\ \ \ NGHTTP2\_ALTSVC\ =\ 0x0a,}
+\DoxyCodeLine{00672\ \ \ NGHTTP2\_ORIGIN\ =\ 0x0c,}
+\DoxyCodeLine{00676\ \ \ NGHTTP2\_PRIORITY\_UPDATE\ =\ 0x10}
+\DoxyCodeLine{00677\ \}\ nghttp2\_frame\_type;}
+\DoxyCodeLine{00678\ }
+\DoxyCodeLine{00685\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00689\ \ \ NGHTTP2\_FLAG\_NONE\ =\ 0,}
+\DoxyCodeLine{00693\ \ \ NGHTTP2\_FLAG\_END\_STREAM\ =\ 0x01,}
+\DoxyCodeLine{00697\ \ \ NGHTTP2\_FLAG\_END\_HEADERS\ =\ 0x04,}
+\DoxyCodeLine{00701\ \ \ NGHTTP2\_FLAG\_ACK\ =\ 0x01,}
+\DoxyCodeLine{00705\ \ \ NGHTTP2\_FLAG\_PADDED\ =\ 0x08,}
+\DoxyCodeLine{00709\ \ \ NGHTTP2\_FLAG\_PRIORITY\ =\ 0x20}
+\DoxyCodeLine{00710\ \}\ nghttp2\_flag;}
+\DoxyCodeLine{00711\ }
+\DoxyCodeLine{00716\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00720\ \ \ NGHTTP2\_SETTINGS\_HEADER\_TABLE\_SIZE\ =\ 0x01,}
+\DoxyCodeLine{00724\ \ \ NGHTTP2\_SETTINGS\_ENABLE\_PUSH\ =\ 0x02,}
+\DoxyCodeLine{00728\ \ \ NGHTTP2\_SETTINGS\_MAX\_CONCURRENT\_STREAMS\ =\ 0x03,}
+\DoxyCodeLine{00732\ \ \ NGHTTP2\_SETTINGS\_INITIAL\_WINDOW\_SIZE\ =\ 0x04,}
+\DoxyCodeLine{00736\ \ \ NGHTTP2\_SETTINGS\_MAX\_FRAME\_SIZE\ =\ 0x05,}
+\DoxyCodeLine{00740\ \ \ NGHTTP2\_SETTINGS\_MAX\_HEADER\_LIST\_SIZE\ =\ 0x06,}
+\DoxyCodeLine{00745\ \ \ NGHTTP2\_SETTINGS\_ENABLE\_CONNECT\_PROTOCOL\ =\ 0x08,}
+\DoxyCodeLine{00749\ \ \ NGHTTP2\_SETTINGS\_NO\_RFC7540\_PRIORITIES\ =\ 0x09}
+\DoxyCodeLine{00750\ \}\ nghttp2\_settings\_id;}
+\DoxyCodeLine{00751\ \textcolor{comment}{/*\ Note:\ If\ we\ add\ SETTINGS,\ update\ the\ capacity\ of}}
+\DoxyCodeLine{00752\ \textcolor{comment}{\ \ \ NGHTTP2\_INBOUND\_NUM\_IV\ as\ well\ */}}
+\DoxyCodeLine{00753\ }
+\DoxyCodeLine{00771\ \textcolor{preprocessor}{\#define\ NGHTTP2\_INITIAL\_MAX\_CONCURRENT\_STREAMS\ ((1U\ <<\ 31)\ -\/\ 1)}}
+\DoxyCodeLine{00772\ }
+\DoxyCodeLine{00777\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00781\ \ \ NGHTTP2\_NO\_ERROR\ =\ 0x00,}
+\DoxyCodeLine{00785\ \ \ NGHTTP2\_PROTOCOL\_ERROR\ =\ 0x01,}
+\DoxyCodeLine{00789\ \ \ NGHTTP2\_INTERNAL\_ERROR\ =\ 0x02,}
+\DoxyCodeLine{00793\ \ \ NGHTTP2\_FLOW\_CONTROL\_ERROR\ =\ 0x03,}
+\DoxyCodeLine{00797\ \ \ NGHTTP2\_SETTINGS\_TIMEOUT\ =\ 0x04,}
+\DoxyCodeLine{00801\ \ \ NGHTTP2\_STREAM\_CLOSED\ =\ 0x05,}
+\DoxyCodeLine{00805\ \ \ NGHTTP2\_FRAME\_SIZE\_ERROR\ =\ 0x06,}
+\DoxyCodeLine{00809\ \ \ NGHTTP2\_REFUSED\_STREAM\ =\ 0x07,}
+\DoxyCodeLine{00813\ \ \ NGHTTP2\_CANCEL\ =\ 0x08,}
+\DoxyCodeLine{00817\ \ \ NGHTTP2\_COMPRESSION\_ERROR\ =\ 0x09,}
+\DoxyCodeLine{00821\ \ \ NGHTTP2\_CONNECT\_ERROR\ =\ 0x0a,}
+\DoxyCodeLine{00825\ \ \ NGHTTP2\_ENHANCE\_YOUR\_CALM\ =\ 0x0b,}
+\DoxyCodeLine{00829\ \ \ NGHTTP2\_INADEQUATE\_SECURITY\ =\ 0x0c,}
+\DoxyCodeLine{00833\ \ \ NGHTTP2\_HTTP\_1\_1\_REQUIRED\ =\ 0x0d}
+\DoxyCodeLine{00834\ \}\ nghttp2\_error\_code;}
+\DoxyCodeLine{00835\ }
+\DoxyCodeLine{00840\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00844\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structnghttp2__frame__hd_a3f2215a34b9f2b1e2a0aaf9a5ba3df0e}{length}};}
+\DoxyCodeLine{00848\ \ \ int32\_t\ \mbox{\hyperlink{structnghttp2__frame__hd_a50c577bcc13fa7bea71932804a89ffdc}{stream\_id}};}
+\DoxyCodeLine{00852\ \ \ uint8\_t\ \mbox{\hyperlink{structnghttp2__frame__hd_a838ab3c26840b548638bb792cdeff79d}{type}};}
+\DoxyCodeLine{00856\ \ \ uint8\_t\ \mbox{\hyperlink{structnghttp2__frame__hd_ab07ad92f0ca0e2310de4b2e90d74413c}{flags}};}
+\DoxyCodeLine{00861\ \ \ uint8\_t\ \mbox{\hyperlink{structnghttp2__frame__hd_a7b803a1e4950ecc755244d6cb8ad4f5a}{reserved}};}
+\DoxyCodeLine{00862\ \}\ \mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}};}
+\DoxyCodeLine{00863\ }
+\DoxyCodeLine{00870\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00874\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{unionnghttp2__data__source_a1e996c298371abfa499d6e48e2890b92}{fd}};}
+\DoxyCodeLine{00878\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{unionnghttp2__data__source_acbe6a4bfd48f979fcc5a7e873223c848}{ptr}};}
+\DoxyCodeLine{00879\ \}\ \mbox{\hyperlink{unionnghttp2__data__source}{nghttp2\_data\_source}};}
+\DoxyCodeLine{00880\ }
+\DoxyCodeLine{00887\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00891\ \ \ NGHTTP2\_DATA\_FLAG\_NONE\ =\ 0,}
+\DoxyCodeLine{00895\ \ \ NGHTTP2\_DATA\_FLAG\_EOF\ =\ 0x01,}
+\DoxyCodeLine{00902\ \ \ NGHTTP2\_DATA\_FLAG\_NO\_END\_STREAM\ =\ 0x02,}
+\DoxyCodeLine{00907\ \ \ NGHTTP2\_DATA\_FLAG\_NO\_COPY\ =\ 0x04}
+\DoxyCodeLine{00908\ \}\ nghttp2\_data\_flag;}
+\DoxyCodeLine{00909\ }
+\DoxyCodeLine{00910\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00979\ \textcolor{keyword}{typedef}\ ssize\_t\ (*nghttp2\_data\_source\_read\_callback)(}
+\DoxyCodeLine{00980\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ int32\_t\ stream\_id,\ uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ length,}
+\DoxyCodeLine{00981\ \ \ uint32\_t\ *data\_flags,\ \mbox{\hyperlink{unionnghttp2__data__source}{nghttp2\_data\_source}}\ *source,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{00982\ }
+\DoxyCodeLine{00983\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00984\ }
+\DoxyCodeLine{01048\ \textcolor{keyword}{typedef}\ nghttp2\_ssize\ (*nghttp2\_data\_source\_read\_callback2)(}
+\DoxyCodeLine{01049\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ int32\_t\ stream\_id,\ uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ length,}
+\DoxyCodeLine{01050\ \ \ uint32\_t\ *data\_flags,\ \mbox{\hyperlink{unionnghttp2__data__source}{nghttp2\_data\_source}}\ *source,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{01051\ }
+\DoxyCodeLine{01052\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01063\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01067\ \ \ \mbox{\hyperlink{unionnghttp2__data__source}{nghttp2\_data\_source}}\ \mbox{\hyperlink{structnghttp2__data__provider_aee3b7f10005b20d75385fb5fc3a6876d}{source}};}
+\DoxyCodeLine{01071\ \ \ nghttp2\_data\_source\_read\_callback\ \mbox{\hyperlink{structnghttp2__data__provider_a6909feffcfb2944b5e08116bef266946}{read\_callback}};}
+\DoxyCodeLine{01072\ \}\ \mbox{\hyperlink{structnghttp2__data__provider}{nghttp2\_data\_provider}};}
+\DoxyCodeLine{01073\ }
+\DoxyCodeLine{01074\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01075\ }
+\DoxyCodeLine{01082\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01086\ \ \ \mbox{\hyperlink{unionnghttp2__data__source}{nghttp2\_data\_source}}\ \mbox{\hyperlink{structnghttp2__data__provider2_aa29789763231d0b2c71f2be87057cbb0}{source}};}
+\DoxyCodeLine{01090\ \ \ nghttp2\_data\_source\_read\_callback2\ \mbox{\hyperlink{structnghttp2__data__provider2_ab08c30a9385b5c7d85b34a9e0d45f1aa}{read\_callback}};}
+\DoxyCodeLine{01091\ \}\ \mbox{\hyperlink{structnghttp2__data__provider2}{nghttp2\_data\_provider2}};}
+\DoxyCodeLine{01092\ }
+\DoxyCodeLine{01099\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01100\ \ \ \mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ hd;}
+\DoxyCodeLine{01105\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structnghttp2__data_aedeca7a578e83207e237ed41f84112c4}{padlen}};}
+\DoxyCodeLine{01106\ \}\ \mbox{\hyperlink{structnghttp2__data}{nghttp2\_data}};}
+\DoxyCodeLine{01107\ }
+\DoxyCodeLine{01117\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{01122\ \ \ NGHTTP2\_HCAT\_REQUEST\ =\ 0,}
+\DoxyCodeLine{01127\ \ \ NGHTTP2\_HCAT\_RESPONSE\ =\ 1,}
+\DoxyCodeLine{01132\ \ \ NGHTTP2\_HCAT\_PUSH\_RESPONSE\ =\ 2,}
+\DoxyCodeLine{01139\ \ \ NGHTTP2\_HCAT\_HEADERS\ =\ 3}
+\DoxyCodeLine{01140\ \}\ nghttp2\_headers\_category;}
+\DoxyCodeLine{01141\ }
+\DoxyCodeLine{01153\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01158\ \ \ int32\_t\ \mbox{\hyperlink{structnghttp2__priority__spec_a5cf695e23535af4c1f7f6499d06e00ca}{stream\_id}};}
+\DoxyCodeLine{01162\ \ \ int32\_t\ \mbox{\hyperlink{structnghttp2__priority__spec_a5e0c14487dde9a457a44a1bb5af63bb7}{weight}};}
+\DoxyCodeLine{01166\ \ \ uint8\_t\ \mbox{\hyperlink{structnghttp2__priority__spec_ab374197c67d60e5ff69481313d84b74f}{exclusive}};}
+\DoxyCodeLine{01167\ \}\ \mbox{\hyperlink{structnghttp2__priority__spec}{nghttp2\_priority\_spec}};}
+\DoxyCodeLine{01168\ }
+\DoxyCodeLine{01174\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01178\ \ \ \mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ \mbox{\hyperlink{structnghttp2__headers_a6e3fc55caf00446672ac0afbf2943475}{hd}};}
+\DoxyCodeLine{01183\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structnghttp2__headers_a33d79ed12eb633b712b5d53718d352a5}{padlen}};}
+\DoxyCodeLine{01193\ \ \ \mbox{\hyperlink{structnghttp2__priority__spec}{nghttp2\_priority\_spec}}\ \mbox{\hyperlink{structnghttp2__headers_a88a6d7b8a9abd6d6e86eb2c34f024f08}{pri\_spec}};}
+\DoxyCodeLine{01197\ \ \ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *\mbox{\hyperlink{structnghttp2__headers_a1f3e6a22998852196a8ab5238993159b}{nva}};}
+\DoxyCodeLine{01201\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structnghttp2__headers_aa9f5895731b7f0c4c3037a7f15662ae5}{nvlen}};}
+\DoxyCodeLine{01205\ \ \ nghttp2\_headers\_category\ \mbox{\hyperlink{structnghttp2__headers_a6f120d2f8c6fd97e72b56fb2f2e048c0}{cat}};}
+\DoxyCodeLine{01206\ \}\ \mbox{\hyperlink{structnghttp2__headers}{nghttp2\_headers}};}
+\DoxyCodeLine{01207\ }
+\DoxyCodeLine{01219\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01223\ \ \ \mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ \mbox{\hyperlink{structnghttp2__priority_a3078685ce086b7315b47efa0ca2a6e37}{hd}};}
+\DoxyCodeLine{01227\ \ \ \mbox{\hyperlink{structnghttp2__priority__spec}{nghttp2\_priority\_spec}}\ \mbox{\hyperlink{structnghttp2__priority_ab2973607bfcf5b33a5410b5dfc4d7be4}{pri\_spec}};}
+\DoxyCodeLine{01228\ \}\ \mbox{\hyperlink{structnghttp2__priority}{nghttp2\_priority}};}
+\DoxyCodeLine{01229\ }
+\DoxyCodeLine{01235\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01239\ \ \ \mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ \mbox{\hyperlink{structnghttp2__rst__stream_a815487223f9ba99a51a826f3791908f5}{hd}};}
+\DoxyCodeLine{01243\ \ \ uint32\_t\ \mbox{\hyperlink{structnghttp2__rst__stream_a3ddb43bb918074db0b249b9a4436aa43}{error\_code}};}
+\DoxyCodeLine{01244\ \}\ \mbox{\hyperlink{structnghttp2__rst__stream}{nghttp2\_rst\_stream}};}
+\DoxyCodeLine{01245\ }
+\DoxyCodeLine{01251\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01255\ \ \ int32\_t\ \mbox{\hyperlink{structnghttp2__settings__entry_a54be5a7ced050e532e0ba99ace688e47}{settings\_id}};}
+\DoxyCodeLine{01259\ \ \ uint32\_t\ \mbox{\hyperlink{structnghttp2__settings__entry_a2a267c075dec1a329ee3cf8bbf195aad}{value}};}
+\DoxyCodeLine{01260\ \}\ \mbox{\hyperlink{structnghttp2__settings__entry}{nghttp2\_settings\_entry}};}
+\DoxyCodeLine{01261\ }
+\DoxyCodeLine{01267\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01271\ \ \ \mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ \mbox{\hyperlink{structnghttp2__settings_aa8385c9c1a7a44d7e9b53569a4a4a272}{hd}};}
+\DoxyCodeLine{01275\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structnghttp2__settings_af310f55897db6371f63dbbb83b7d9ebc}{niv}};}
+\DoxyCodeLine{01279\ \ \ \mbox{\hyperlink{structnghttp2__settings__entry}{nghttp2\_settings\_entry}}\ *\mbox{\hyperlink{structnghttp2__settings_ac695887c9e98cd30fac35e996bfbb6a7}{iv}};}
+\DoxyCodeLine{01280\ \}\ \mbox{\hyperlink{structnghttp2__settings}{nghttp2\_settings}};}
+\DoxyCodeLine{01281\ }
+\DoxyCodeLine{01287\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01291\ \ \ \mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ \mbox{\hyperlink{structnghttp2__push__promise_a430e66f2b0915700f0b2ab30287f49c9}{hd}};}
+\DoxyCodeLine{01296\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structnghttp2__push__promise_aea2dbe0976fdecc8c35d1639077b661b}{padlen}};}
+\DoxyCodeLine{01300\ \ \ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *\mbox{\hyperlink{structnghttp2__push__promise_ae0dddfc07ccacaadf611657716ce95d7}{nva}};}
+\DoxyCodeLine{01304\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structnghttp2__push__promise_a5b659ca6292f05f15d4d5744eede1910}{nvlen}};}
+\DoxyCodeLine{01308\ \ \ int32\_t\ \mbox{\hyperlink{structnghttp2__push__promise_a1606790f13cd23e059f85129b53a2a5d}{promised\_stream\_id}};}
+\DoxyCodeLine{01313\ \ \ uint8\_t\ \mbox{\hyperlink{structnghttp2__push__promise_aaf608181298fd3635ba13026cdd8969d}{reserved}};}
+\DoxyCodeLine{01314\ \}\ \mbox{\hyperlink{structnghttp2__push__promise}{nghttp2\_push\_promise}};}
+\DoxyCodeLine{01315\ }
+\DoxyCodeLine{01321\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01325\ \ \ \mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ \mbox{\hyperlink{structnghttp2__ping_a5b7e3571b9af729f699f29e0f5e23424}{hd}};}
+\DoxyCodeLine{01329\ \ \ uint8\_t\ \mbox{\hyperlink{structnghttp2__ping_af82ae896b7cd210e9d946eeebeacd48b}{opaque\_data}}[8];}
+\DoxyCodeLine{01330\ \}\ \mbox{\hyperlink{structnghttp2__ping}{nghttp2\_ping}};}
+\DoxyCodeLine{01331\ }
+\DoxyCodeLine{01337\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01341\ \ \ \mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ \mbox{\hyperlink{structnghttp2__goaway_a0a06f40f1b4445146f09c27cd7d1b5d3}{hd}};}
+\DoxyCodeLine{01345\ \ \ int32\_t\ \mbox{\hyperlink{structnghttp2__goaway_a74b1f45dbd7b6087586c1de4fad39c5b}{last\_stream\_id}};}
+\DoxyCodeLine{01349\ \ \ uint32\_t\ \mbox{\hyperlink{structnghttp2__goaway_ae44c428e231f81f903935279c9a54311}{error\_code}};}
+\DoxyCodeLine{01353\ \ \ uint8\_t\ *\mbox{\hyperlink{structnghttp2__goaway_a68976fa356516faa325e612c4f8a94af}{opaque\_data}};}
+\DoxyCodeLine{01357\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structnghttp2__goaway_a01b7691cc98a16750c4cefa4d95adc69}{opaque\_data\_len}};}
+\DoxyCodeLine{01362\ \ \ uint8\_t\ \mbox{\hyperlink{structnghttp2__goaway_a3c79399d0bf2148616ea57beb41d3737}{reserved}};}
+\DoxyCodeLine{01363\ \}\ \mbox{\hyperlink{structnghttp2__goaway}{nghttp2\_goaway}};}
+\DoxyCodeLine{01364\ }
+\DoxyCodeLine{01370\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01374\ \ \ \mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ \mbox{\hyperlink{structnghttp2__window__update_ae4b1c42bd6e94b14663b87fcd075f666}{hd}};}
+\DoxyCodeLine{01378\ \ \ int32\_t\ \mbox{\hyperlink{structnghttp2__window__update_ac3524b0831cadc216747a211a05c4820}{window\_size\_increment}};}
+\DoxyCodeLine{01383\ \ \ uint8\_t\ \mbox{\hyperlink{structnghttp2__window__update_ac9384b2cf25e1b6c3c05afcb1687cb4c}{reserved}};}
+\DoxyCodeLine{01384\ \}\ \mbox{\hyperlink{structnghttp2__window__update}{nghttp2\_window\_update}};}
+\DoxyCodeLine{01385\ }
+\DoxyCodeLine{01391\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01395\ \ \ \mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ \mbox{\hyperlink{structnghttp2__extension_ac97fa2f73c9f7057f59d08ccaf4bdad9}{hd}};}
+\DoxyCodeLine{01403\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structnghttp2__extension_afee3a625ad00125c1064c4182afed9a1}{payload}};}
+\DoxyCodeLine{01404\ \}\ \mbox{\hyperlink{structnghttp2__extension}{nghttp2\_extension}};}
+\DoxyCodeLine{01405\ }
+\DoxyCodeLine{01413\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{01417\ \ \ \mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ \mbox{\hyperlink{unionnghttp2__frame_a026e2265c51dca6f79bc13982d27ca5f}{hd}};}
+\DoxyCodeLine{01421\ \ \ \mbox{\hyperlink{structnghttp2__data}{nghttp2\_data}}\ \mbox{\hyperlink{unionnghttp2__frame_a4e9d2f95111c489af2ce8b3ac080f890}{data}};}
+\DoxyCodeLine{01425\ \ \ \mbox{\hyperlink{structnghttp2__headers}{nghttp2\_headers}}\ \mbox{\hyperlink{unionnghttp2__frame_aa1bcd9fd616caeeeece3fe8c4cb75e98}{headers}};}
+\DoxyCodeLine{01429\ \ \ \mbox{\hyperlink{structnghttp2__priority}{nghttp2\_priority}}\ \mbox{\hyperlink{unionnghttp2__frame_a1033c5fb9cb48e9531826b93103effa6}{priority}};}
+\DoxyCodeLine{01433\ \ \ \mbox{\hyperlink{structnghttp2__rst__stream}{nghttp2\_rst\_stream}}\ \mbox{\hyperlink{unionnghttp2__frame_aab7250727586c8823746ed79be5fc9e3}{rst\_stream}};}
+\DoxyCodeLine{01437\ \ \ \mbox{\hyperlink{structnghttp2__settings}{nghttp2\_settings}}\ \mbox{\hyperlink{unionnghttp2__frame_a93e48e9a83cad4bd0b7a042914988eb5}{settings}};}
+\DoxyCodeLine{01441\ \ \ \mbox{\hyperlink{structnghttp2__push__promise}{nghttp2\_push\_promise}}\ \mbox{\hyperlink{unionnghttp2__frame_a3b107c1b5f4d3bd756d9ba5ecb4becd2}{push\_promise}};}
+\DoxyCodeLine{01445\ \ \ \mbox{\hyperlink{structnghttp2__ping}{nghttp2\_ping}}\ \mbox{\hyperlink{unionnghttp2__frame_a6b11f0d32245c33006579d5f77416939}{ping}};}
+\DoxyCodeLine{01449\ \ \ \mbox{\hyperlink{structnghttp2__goaway}{nghttp2\_goaway}}\ \mbox{\hyperlink{unionnghttp2__frame_a2dc34d5643a119742867ccd93d1be5bf}{goaway}};}
+\DoxyCodeLine{01453\ \ \ \mbox{\hyperlink{structnghttp2__window__update}{nghttp2\_window\_update}}\ \mbox{\hyperlink{unionnghttp2__frame_a2efaff82a3337c536f3bfa5149bdffef}{window\_update}};}
+\DoxyCodeLine{01457\ \ \ \mbox{\hyperlink{structnghttp2__extension}{nghttp2\_extension}}\ \mbox{\hyperlink{unionnghttp2__frame_a28d37d3ec9881d5b25c01c9568805677}{ext}};}
+\DoxyCodeLine{01458\ \}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}};}
+\DoxyCodeLine{01459\ }
+\DoxyCodeLine{01460\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01496\ \textcolor{keyword}{typedef}\ ssize\_t\ (*nghttp2\_send\_callback)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{01497\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ length,}
+\DoxyCodeLine{01498\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ flags,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{01499\ }
+\DoxyCodeLine{01500\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01501\ }
+\DoxyCodeLine{01533\ \textcolor{keyword}{typedef}\ nghttp2\_ssize\ (*nghttp2\_send\_callback2)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{01534\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *data,}
+\DoxyCodeLine{01535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ length,\ \textcolor{keywordtype}{int}\ flags,}
+\DoxyCodeLine{01536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{01537\ }
+\DoxyCodeLine{01579\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_send\_data\_callback)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{01580\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame,}
+\DoxyCodeLine{01581\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *framehd,\ \textcolor{keywordtype}{size\_t}\ length,}
+\DoxyCodeLine{01582\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{unionnghttp2__data__source}{nghttp2\_data\_source}}\ *source,}
+\DoxyCodeLine{01583\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{01584\ }
+\DoxyCodeLine{01585\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01616\ \textcolor{keyword}{typedef}\ ssize\_t\ (*nghttp2\_recv\_callback)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ uint8\_t\ *buf,}
+\DoxyCodeLine{01617\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ length,\ \textcolor{keywordtype}{int}\ flags,}
+\DoxyCodeLine{01618\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{01619\ }
+\DoxyCodeLine{01620\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01621\ }
+\DoxyCodeLine{01648\ \textcolor{keyword}{typedef}\ nghttp2\_ssize\ (*nghttp2\_recv\_callback2)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{01649\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ length,}
+\DoxyCodeLine{01650\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ flags,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{01651\ }
+\DoxyCodeLine{01681\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_on\_frame\_recv\_callback)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{01682\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame,}
+\DoxyCodeLine{01683\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{01684\ }
+\DoxyCodeLine{01710\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_on\_invalid\_frame\_recv\_callback)(}
+\DoxyCodeLine{01711\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame,\ \textcolor{keywordtype}{int}\ lib\_error\_code,}
+\DoxyCodeLine{01712\ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{01713\ }
+\DoxyCodeLine{01745\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_on\_data\_chunk\_recv\_callback)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{01746\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ flags,}
+\DoxyCodeLine{01747\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,}
+\DoxyCodeLine{01748\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *data,}
+\DoxyCodeLine{01749\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{01750\ }
+\DoxyCodeLine{01778\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_before\_frame\_send\_callback)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{01779\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame,}
+\DoxyCodeLine{01780\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{01781\ }
+\DoxyCodeLine{01798\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_on\_frame\_send\_callback)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{01799\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame,}
+\DoxyCodeLine{01800\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{01801\ }
+\DoxyCodeLine{01824\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_on\_frame\_not\_send\_callback)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{01825\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame,}
+\DoxyCodeLine{01826\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ lib\_error\_code,}
+\DoxyCodeLine{01827\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{01828\ }
+\DoxyCodeLine{01853\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_on\_stream\_close\_callback)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{01854\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,}
+\DoxyCodeLine{01855\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ error\_code,}
+\DoxyCodeLine{01856\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{01857\ }
+\DoxyCodeLine{01922\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_on\_begin\_headers\_callback)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{01923\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame,}
+\DoxyCodeLine{01924\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{01925\ }
+\DoxyCodeLine{02007\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_on\_header\_callback)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{02008\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame,}
+\DoxyCodeLine{02009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *name,\ \textcolor{keywordtype}{size\_t}\ namelen,}
+\DoxyCodeLine{02010\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *value,\ \textcolor{keywordtype}{size\_t}\ valuelen,}
+\DoxyCodeLine{02011\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ flags,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{02012\ }
+\DoxyCodeLine{02033\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_on\_header\_callback2)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{02034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame,}
+\DoxyCodeLine{02035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ *name,}
+\DoxyCodeLine{02036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ *value,\ uint8\_t\ flags,}
+\DoxyCodeLine{02037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{02038\ }
+\DoxyCodeLine{02071\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_on\_invalid\_header\_callback)(}
+\DoxyCodeLine{02072\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame,\ \textcolor{keyword}{const}\ uint8\_t\ *name,}
+\DoxyCodeLine{02073\ \ \ \textcolor{keywordtype}{size\_t}\ namelen,\ \textcolor{keyword}{const}\ uint8\_t\ *value,\ \textcolor{keywordtype}{size\_t}\ valuelen,\ uint8\_t\ flags,}
+\DoxyCodeLine{02074\ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{02075\ }
+\DoxyCodeLine{02104\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_on\_invalid\_header\_callback2)(}
+\DoxyCodeLine{02105\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame,\ \mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ *name,}
+\DoxyCodeLine{02106\ \ \ \mbox{\hyperlink{structnghttp2__rcbuf}{nghttp2\_rcbuf}}\ *value,\ uint8\_t\ flags,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{02107\ }
+\DoxyCodeLine{02108\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02132\ \textcolor{keyword}{typedef}\ ssize\_t\ (*nghttp2\_select\_padding\_callback)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{02133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame,}
+\DoxyCodeLine{02134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ max\_payloadlen,}
+\DoxyCodeLine{02135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{02136\ }
+\DoxyCodeLine{02137\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02138\ }
+\DoxyCodeLine{02157\ \textcolor{keyword}{typedef}\ nghttp2\_ssize\ (*nghttp2\_select\_padding\_callback2)(}
+\DoxyCodeLine{02158\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame,\ \textcolor{keywordtype}{size\_t}\ max\_payloadlen,}
+\DoxyCodeLine{02159\ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{02160\ }
+\DoxyCodeLine{02161\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02192\ \textcolor{keyword}{typedef}\ ssize\_t\ (*nghttp2\_data\_source\_read\_length\_callback)(}
+\DoxyCodeLine{02193\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ uint8\_t\ frame\_type,\ int32\_t\ stream\_id,}
+\DoxyCodeLine{02194\ \ \ int32\_t\ session\_remote\_window\_size,\ int32\_t\ stream\_remote\_window\_size,}
+\DoxyCodeLine{02195\ \ \ uint32\_t\ remote\_max\_frame\_size,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{02196\ }
+\DoxyCodeLine{02197\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02198\ }
+\DoxyCodeLine{02224\ \textcolor{keyword}{typedef}\ nghttp2\_ssize\ (*nghttp2\_data\_source\_read\_length\_callback2)(}
+\DoxyCodeLine{02225\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ uint8\_t\ frame\_type,\ int32\_t\ stream\_id,}
+\DoxyCodeLine{02226\ \ \ int32\_t\ session\_remote\_window\_size,\ int32\_t\ stream\_remote\_window\_size,}
+\DoxyCodeLine{02227\ \ \ uint32\_t\ remote\_max\_frame\_size,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{02228\ }
+\DoxyCodeLine{02252\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_on\_begin\_frame\_callback)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{02253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ *hd,}
+\DoxyCodeLine{02254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{02255\ }
+\DoxyCodeLine{02276\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_on\_extension\_chunk\_recv\_callback)(}
+\DoxyCodeLine{02277\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ *hd,\ \textcolor{keyword}{const}\ uint8\_t\ *data,}
+\DoxyCodeLine{02278\ \ \ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{02279\ }
+\DoxyCodeLine{02314\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_unpack\_extension\_callback)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{02315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ **payload,}
+\DoxyCodeLine{02316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\_frame\_hd}}\ *hd,}
+\DoxyCodeLine{02317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{02318\ }
+\DoxyCodeLine{02319\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02353\ \textcolor{keyword}{typedef}\ ssize\_t\ (*nghttp2\_pack\_extension\_callback)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{02354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ len,}
+\DoxyCodeLine{02355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame,}
+\DoxyCodeLine{02356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{02357\ }
+\DoxyCodeLine{02358\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02359\ }
+\DoxyCodeLine{02388\ \textcolor{keyword}{typedef}\ nghttp2\_ssize\ (*nghttp2\_pack\_extension\_callback2)(}
+\DoxyCodeLine{02389\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ len,}
+\DoxyCodeLine{02390\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\_frame}}\ *frame,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{02391\ }
+\DoxyCodeLine{02418\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_error\_callback)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *msg,}
+\DoxyCodeLine{02419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{02420\ }
+\DoxyCodeLine{02444\ \textcolor{keyword}{typedef}\ int\ (*nghttp2\_error\_callback2)(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{02445\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ lib\_error\_code,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *msg,}
+\DoxyCodeLine{02446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{02447\ }
+\DoxyCodeLine{02448\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}};}
+\DoxyCodeLine{02449\ }
+\DoxyCodeLine{02456\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}};}
+\DoxyCodeLine{02457\ }
+\DoxyCodeLine{02475\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{02476\ nghttp2\_session\_callbacks\_new(\mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ **callbacks\_ptr);}
+\DoxyCodeLine{02477\ }
+\DoxyCodeLine{02484\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{02485\ nghttp2\_session\_callbacks\_del(\mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *callbacks);}
+\DoxyCodeLine{02486\ }
+\DoxyCodeLine{02487\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02501\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_send\_callback(}
+\DoxyCodeLine{02502\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,\ nghttp2\_send\_callback\ send\_callback);}
+\DoxyCodeLine{02503\ }
+\DoxyCodeLine{02504\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02505\ }
+\DoxyCodeLine{02514\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_send\_callback2(}
+\DoxyCodeLine{02515\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,\ nghttp2\_send\_callback2\ send\_callback);}
+\DoxyCodeLine{02516\ }
+\DoxyCodeLine{02517\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02531\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_recv\_callback(}
+\DoxyCodeLine{02532\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,\ nghttp2\_recv\_callback\ recv\_callback);}
+\DoxyCodeLine{02533\ }
+\DoxyCodeLine{02534\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02535\ }
+\DoxyCodeLine{02544\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_recv\_callback2(}
+\DoxyCodeLine{02545\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,\ nghttp2\_recv\_callback2\ recv\_callback);}
+\DoxyCodeLine{02546\ }
+\DoxyCodeLine{02553\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_on\_frame\_recv\_callback(}
+\DoxyCodeLine{02554\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02555\ \ \ nghttp2\_on\_frame\_recv\_callback\ on\_frame\_recv\_callback);}
+\DoxyCodeLine{02556\ }
+\DoxyCodeLine{02564\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{02565\ nghttp2\_session\_callbacks\_set\_on\_invalid\_frame\_recv\_callback(}
+\DoxyCodeLine{02566\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02567\ \ \ nghttp2\_on\_invalid\_frame\_recv\_callback\ on\_invalid\_frame\_recv\_callback);}
+\DoxyCodeLine{02568\ }
+\DoxyCodeLine{02575\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_on\_data\_chunk\_recv\_callback(}
+\DoxyCodeLine{02576\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02577\ \ \ nghttp2\_on\_data\_chunk\_recv\_callback\ on\_data\_chunk\_recv\_callback);}
+\DoxyCodeLine{02578\ }
+\DoxyCodeLine{02584\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_before\_frame\_send\_callback(}
+\DoxyCodeLine{02585\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02586\ \ \ nghttp2\_before\_frame\_send\_callback\ \mbox{\hyperlink{structnghttp2__session__callbacks_a09979e3fe4be78b4934216d898533482}{before\_frame\_send\_callback}});}
+\DoxyCodeLine{02587\ }
+\DoxyCodeLine{02593\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_on\_frame\_send\_callback(}
+\DoxyCodeLine{02594\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02595\ \ \ nghttp2\_on\_frame\_send\_callback\ on\_frame\_send\_callback);}
+\DoxyCodeLine{02596\ }
+\DoxyCodeLine{02603\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_on\_frame\_not\_send\_callback(}
+\DoxyCodeLine{02604\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02605\ \ \ nghttp2\_on\_frame\_not\_send\_callback\ on\_frame\_not\_send\_callback);}
+\DoxyCodeLine{02606\ }
+\DoxyCodeLine{02612\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_on\_stream\_close\_callback(}
+\DoxyCodeLine{02613\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02614\ \ \ nghttp2\_on\_stream\_close\_callback\ on\_stream\_close\_callback);}
+\DoxyCodeLine{02615\ }
+\DoxyCodeLine{02622\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_on\_begin\_headers\_callback(}
+\DoxyCodeLine{02623\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02624\ \ \ nghttp2\_on\_begin\_headers\_callback\ on\_begin\_headers\_callback);}
+\DoxyCodeLine{02625\ }
+\DoxyCodeLine{02635\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_on\_header\_callback(}
+\DoxyCodeLine{02636\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02637\ \ \ nghttp2\_on\_header\_callback\ on\_header\_callback);}
+\DoxyCodeLine{02638\ }
+\DoxyCodeLine{02645\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_on\_header\_callback2(}
+\DoxyCodeLine{02646\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02647\ \ \ nghttp2\_on\_header\_callback2\ on\_header\_callback2);}
+\DoxyCodeLine{02648\ }
+\DoxyCodeLine{02658\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_on\_invalid\_header\_callback(}
+\DoxyCodeLine{02659\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02660\ \ \ nghttp2\_on\_invalid\_header\_callback\ on\_invalid\_header\_callback);}
+\DoxyCodeLine{02661\ }
+\DoxyCodeLine{02668\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_on\_invalid\_header\_callback2(}
+\DoxyCodeLine{02669\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02670\ \ \ nghttp2\_on\_invalid\_header\_callback2\ on\_invalid\_header\_callback2);}
+\DoxyCodeLine{02671\ }
+\DoxyCodeLine{02672\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02686\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_select\_padding\_callback(}
+\DoxyCodeLine{02687\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02688\ \ \ nghttp2\_select\_padding\_callback\ select\_padding\_callback);}
+\DoxyCodeLine{02689\ }
+\DoxyCodeLine{02690\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02691\ }
+\DoxyCodeLine{02699\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_select\_padding\_callback2(}
+\DoxyCodeLine{02700\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02701\ \ \ nghttp2\_select\_padding\_callback2\ select\_padding\_callback);}
+\DoxyCodeLine{02702\ }
+\DoxyCodeLine{02703\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02716\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{02717\ nghttp2\_session\_callbacks\_set\_data\_source\_read\_length\_callback(}
+\DoxyCodeLine{02718\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02719\ \ \ nghttp2\_data\_source\_read\_length\_callback\ data\_source\_read\_length\_callback);}
+\DoxyCodeLine{02720\ }
+\DoxyCodeLine{02721\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02722\ }
+\DoxyCodeLine{02729\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{02730\ nghttp2\_session\_callbacks\_set\_data\_source\_read\_length\_callback2(}
+\DoxyCodeLine{02731\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02732\ \ \ nghttp2\_data\_source\_read\_length\_callback2\ data\_source\_read\_length\_callback);}
+\DoxyCodeLine{02733\ }
+\DoxyCodeLine{02739\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_on\_begin\_frame\_callback(}
+\DoxyCodeLine{02740\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02741\ \ \ nghttp2\_on\_begin\_frame\_callback\ on\_begin\_frame\_callback);}
+\DoxyCodeLine{02742\ }
+\DoxyCodeLine{02750\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_send\_data\_callback(}
+\DoxyCodeLine{02751\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02752\ \ \ nghttp2\_send\_data\_callback\ send\_data\_callback);}
+\DoxyCodeLine{02753\ }
+\DoxyCodeLine{02754\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02767\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_pack\_extension\_callback(}
+\DoxyCodeLine{02768\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02769\ \ \ nghttp2\_pack\_extension\_callback\ pack\_extension\_callback);}
+\DoxyCodeLine{02770\ }
+\DoxyCodeLine{02771\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02772\ }
+\DoxyCodeLine{02779\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_pack\_extension\_callback2(}
+\DoxyCodeLine{02780\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02781\ \ \ nghttp2\_pack\_extension\_callback2\ pack\_extension\_callback);}
+\DoxyCodeLine{02782\ }
+\DoxyCodeLine{02789\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_unpack\_extension\_callback(}
+\DoxyCodeLine{02790\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02791\ \ \ nghttp2\_unpack\_extension\_callback\ unpack\_extension\_callback);}
+\DoxyCodeLine{02792\ }
+\DoxyCodeLine{02799\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{02800\ nghttp2\_session\_callbacks\_set\_on\_extension\_chunk\_recv\_callback(}
+\DoxyCodeLine{02801\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,}
+\DoxyCodeLine{02802\ \ \ nghttp2\_on\_extension\_chunk\_recv\_callback\ on\_extension\_chunk\_recv\_callback);}
+\DoxyCodeLine{02803\ }
+\DoxyCodeLine{02820\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_error\_callback(}
+\DoxyCodeLine{02821\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,\ nghttp2\_error\_callback\ error\_callback);}
+\DoxyCodeLine{02822\ }
+\DoxyCodeLine{02833\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_callbacks\_set\_error\_callback2(}
+\DoxyCodeLine{02834\ \ \ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *cbs,\ nghttp2\_error\_callback2\ error\_callback2);}
+\DoxyCodeLine{02835\ }
+\DoxyCodeLine{02842\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ *(*nghttp2\_malloc)(\textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{void}\ *mem\_user\_data);}
+\DoxyCodeLine{02843\ }
+\DoxyCodeLine{02850\ \textcolor{keyword}{typedef}\ void\ (*nghttp2\_free)(\textcolor{keywordtype}{void}\ *ptr,\ \textcolor{keywordtype}{void}\ *mem\_user\_data);}
+\DoxyCodeLine{02851\ }
+\DoxyCodeLine{02858\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ *(*nghttp2\_calloc)(\textcolor{keywordtype}{size\_t}\ nmemb,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{void}\ *mem\_user\_data);}
+\DoxyCodeLine{02859\ }
+\DoxyCodeLine{02866\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ *(*nghttp2\_realloc)(\textcolor{keywordtype}{void}\ *ptr,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{void}\ *mem\_user\_data);}
+\DoxyCodeLine{02867\ }
+\DoxyCodeLine{02907\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{02912\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structnghttp2__mem_ad44c08c42f4385cc2a44773eaaf9b884}{mem\_user\_data}};}
+\DoxyCodeLine{02916\ \ \ nghttp2\_malloc\ \mbox{\hyperlink{structnghttp2__mem_a3846b0f15a8a7d7bb94e410bc89f1611}{malloc}};}
+\DoxyCodeLine{02920\ \ \ nghttp2\_free\ \mbox{\hyperlink{structnghttp2__mem_ad65efc0ff026114962d5d135561ed0f9}{free}};}
+\DoxyCodeLine{02924\ \ \ nghttp2\_calloc\ \mbox{\hyperlink{structnghttp2__mem_a9c4df71c23a0cf6d563443c8c703a5da}{calloc}};}
+\DoxyCodeLine{02928\ \ \ nghttp2\_realloc\ \mbox{\hyperlink{structnghttp2__mem_a2ea00eebba6c9f75a425b6ae4376418f}{realloc}};}
+\DoxyCodeLine{02929\ \}\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}};}
+\DoxyCodeLine{02930\ }
+\DoxyCodeLine{02931\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}};}
+\DoxyCodeLine{02932\ }
+\DoxyCodeLine{02939\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ \mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}};}
+\DoxyCodeLine{02940\ }
+\DoxyCodeLine{02955\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_option\_new(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ **option\_ptr);}
+\DoxyCodeLine{02956\ }
+\DoxyCodeLine{02963\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_option\_del(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option);}
+\DoxyCodeLine{02964\ }
+\DoxyCodeLine{02975\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{02976\ nghttp2\_option\_set\_no\_auto\_window\_update(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,\ \textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{02977\ }
+\DoxyCodeLine{02993\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{02994\ nghttp2\_option\_set\_peer\_max\_concurrent\_streams(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,}
+\DoxyCodeLine{02995\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ val);}
+\DoxyCodeLine{02996\ }
+\DoxyCodeLine{03016\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{03017\ nghttp2\_option\_set\_no\_recv\_client\_magic(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,\ \textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{03018\ }
+\DoxyCodeLine{03032\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_option\_set\_no\_http\_messaging(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,}
+\DoxyCodeLine{03033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{03034\ }
+\DoxyCodeLine{03050\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{03051\ nghttp2\_option\_set\_max\_reserved\_remote\_streams(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,}
+\DoxyCodeLine{03052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ val);}
+\DoxyCodeLine{03053\ }
+\DoxyCodeLine{03067\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{03068\ nghttp2\_option\_set\_user\_recv\_extension\_type(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,}
+\DoxyCodeLine{03069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ type);}
+\DoxyCodeLine{03070\ }
+\DoxyCodeLine{03087\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{03088\ nghttp2\_option\_set\_builtin\_recv\_extension\_type(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,}
+\DoxyCodeLine{03089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ type);}
+\DoxyCodeLine{03090\ }
+\DoxyCodeLine{03102\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_option\_set\_no\_auto\_ping\_ack(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,}
+\DoxyCodeLine{03103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{03104\ }
+\DoxyCodeLine{03116\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{03117\ nghttp2\_option\_set\_max\_send\_header\_block\_length(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,}
+\DoxyCodeLine{03118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ val);}
+\DoxyCodeLine{03119\ }
+\DoxyCodeLine{03129\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{03130\ nghttp2\_option\_set\_max\_deflate\_dynamic\_table\_size(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,}
+\DoxyCodeLine{03131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ val);}
+\DoxyCodeLine{03132\ }
+\DoxyCodeLine{03143\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_option\_set\_no\_closed\_streams(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,}
+\DoxyCodeLine{03144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{03145\ }
+\DoxyCodeLine{03154\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_option\_set\_max\_outbound\_ack(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,}
+\DoxyCodeLine{03155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ val);}
+\DoxyCodeLine{03156\ }
+\DoxyCodeLine{03165\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_option\_set\_max\_settings(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,}
+\DoxyCodeLine{03166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ val);}
+\DoxyCodeLine{03167\ }
+\DoxyCodeLine{03177\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{03178\ nghttp2\_option\_set\_server\_fallback\_rfc7540\_priorities(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,}
+\DoxyCodeLine{03179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{03180\ }
+\DoxyCodeLine{03189\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{03190\ nghttp2\_option\_set\_no\_rfc9113\_leading\_and\_trailing\_ws\_validation(}
+\DoxyCodeLine{03191\ \ \ \mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,\ \textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{03192\ }
+\DoxyCodeLine{03206\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{03207\ nghttp2\_option\_set\_stream\_reset\_rate\_limit(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,}
+\DoxyCodeLine{03208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ burst,\ uint64\_t\ rate);}
+\DoxyCodeLine{03209\ }
+\DoxyCodeLine{03218\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_option\_set\_max\_continuations(\mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,}
+\DoxyCodeLine{03219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ val);}
+\DoxyCodeLine{03220\ }
+\DoxyCodeLine{03242\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{03243\ nghttp2\_session\_client\_new(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ **session\_ptr,}
+\DoxyCodeLine{03244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *callbacks,}
+\DoxyCodeLine{03245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{03246\ }
+\DoxyCodeLine{03268\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{03269\ nghttp2\_session\_server\_new(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ **session\_ptr,}
+\DoxyCodeLine{03270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *callbacks,}
+\DoxyCodeLine{03271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{03272\ }
+\DoxyCodeLine{03294\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{03295\ nghttp2\_session\_client\_new2(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ **session\_ptr,}
+\DoxyCodeLine{03296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *callbacks,}
+\DoxyCodeLine{03297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option);}
+\DoxyCodeLine{03298\ }
+\DoxyCodeLine{03320\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{03321\ nghttp2\_session\_server\_new2(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ **session\_ptr,}
+\DoxyCodeLine{03322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *callbacks,}
+\DoxyCodeLine{03323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option);}
+\DoxyCodeLine{03324\ }
+\DoxyCodeLine{03346\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_session\_client\_new3(}
+\DoxyCodeLine{03347\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ **session\_ptr,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *callbacks,}
+\DoxyCodeLine{03348\ \ \ \textcolor{keywordtype}{void}\ *user\_data,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{03349\ }
+\DoxyCodeLine{03371\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_session\_server\_new3(}
+\DoxyCodeLine{03372\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ **session\_ptr,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\_session\_callbacks}}\ *callbacks,}
+\DoxyCodeLine{03373\ \ \ \textcolor{keywordtype}{void}\ *user\_data,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__option}{nghttp2\_option}}\ *option,\ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{03374\ }
+\DoxyCodeLine{03381\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_del(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{03382\ }
+\DoxyCodeLine{03438\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_session\_send(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{03439\ }
+\DoxyCodeLine{03440\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{03484\ NGHTTP2\_EXTERN\ ssize\_t\ nghttp2\_session\_mem\_send(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{03485\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ **data\_ptr);}
+\DoxyCodeLine{03486\ }
+\DoxyCodeLine{03487\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{03488\ }
+\DoxyCodeLine{03528\ NGHTTP2\_EXTERN\ nghttp2\_ssize}
+\DoxyCodeLine{03529\ nghttp2\_session\_mem\_send2(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ \textcolor{keyword}{const}\ uint8\_t\ **data\_ptr);}
+\DoxyCodeLine{03530\ }
+\DoxyCodeLine{03599\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_session\_recv(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{03600\ }
+\DoxyCodeLine{03601\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{03643\ NGHTTP2\_EXTERN\ ssize\_t\ nghttp2\_session\_mem\_recv(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{03644\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *in,}
+\DoxyCodeLine{03645\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ inlen);}
+\DoxyCodeLine{03646\ }
+\DoxyCodeLine{03647\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{03648\ }
+\DoxyCodeLine{03686\ NGHTTP2\_EXTERN\ nghttp2\_ssize\ nghttp2\_session\_mem\_recv2(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{03687\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *in,}
+\DoxyCodeLine{03688\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ inlen);}
+\DoxyCodeLine{03689\ }
+\DoxyCodeLine{03704\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_session\_resume\_data(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{03705\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id);}
+\DoxyCodeLine{03706\ }
+\DoxyCodeLine{03717\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_session\_want\_read(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{03718\ }
+\DoxyCodeLine{03729\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_session\_want\_write(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{03730\ }
+\DoxyCodeLine{03743\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ *}
+\DoxyCodeLine{03744\ nghttp2\_session\_get\_stream\_user\_data(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{03745\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id);}
+\DoxyCodeLine{03746\ }
+\DoxyCodeLine{03765\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{03766\ nghttp2\_session\_set\_stream\_user\_data(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{03767\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,\ \textcolor{keywordtype}{void}\ *stream\_user\_data);}
+\DoxyCodeLine{03768\ }
+\DoxyCodeLine{03776\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_session\_set\_user\_data(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{03777\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{03778\ }
+\DoxyCodeLine{03785\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{size\_t}}
+\DoxyCodeLine{03786\ nghttp2\_session\_get\_outbound\_queue\_size(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{03787\ }
+\DoxyCodeLine{03802\ NGHTTP2\_EXTERN\ int32\_t\ nghttp2\_session\_get\_stream\_effective\_recv\_data\_length(}
+\DoxyCodeLine{03803\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ int32\_t\ stream\_id);}
+\DoxyCodeLine{03804\ }
+\DoxyCodeLine{03822\ NGHTTP2\_EXTERN\ int32\_t\ nghttp2\_session\_get\_stream\_effective\_local\_window\_size(}
+\DoxyCodeLine{03823\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ int32\_t\ stream\_id);}
+\DoxyCodeLine{03824\ }
+\DoxyCodeLine{03837\ NGHTTP2\_EXTERN\ int32\_t\ nghttp2\_session\_get\_stream\_local\_window\_size(}
+\DoxyCodeLine{03838\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ int32\_t\ stream\_id);}
+\DoxyCodeLine{03839\ }
+\DoxyCodeLine{03854\ NGHTTP2\_EXTERN\ int32\_t}
+\DoxyCodeLine{03855\ nghttp2\_session\_get\_effective\_recv\_data\_length(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{03856\ }
+\DoxyCodeLine{03874\ NGHTTP2\_EXTERN\ int32\_t}
+\DoxyCodeLine{03875\ nghttp2\_session\_get\_effective\_local\_window\_size(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{03876\ }
+\DoxyCodeLine{03888\ NGHTTP2\_EXTERN\ int32\_t}
+\DoxyCodeLine{03889\ nghttp2\_session\_get\_local\_window\_size(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{03890\ }
+\DoxyCodeLine{03905\ NGHTTP2\_EXTERN\ int32\_t\ nghttp2\_session\_get\_stream\_remote\_window\_size(}
+\DoxyCodeLine{03906\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ int32\_t\ stream\_id);}
+\DoxyCodeLine{03907\ }
+\DoxyCodeLine{03915\ NGHTTP2\_EXTERN\ int32\_t}
+\DoxyCodeLine{03916\ nghttp2\_session\_get\_remote\_window\_size(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{03917\ }
+\DoxyCodeLine{03924\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{03925\ nghttp2\_session\_get\_stream\_local\_close(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{03926\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id);}
+\DoxyCodeLine{03927\ }
+\DoxyCodeLine{03934\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{03935\ nghttp2\_session\_get\_stream\_remote\_close(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{03936\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id);}
+\DoxyCodeLine{03937\ }
+\DoxyCodeLine{03944\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{size\_t}}
+\DoxyCodeLine{03945\ nghttp2\_session\_get\_hd\_inflate\_dynamic\_table\_size(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{03946\ }
+\DoxyCodeLine{03953\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{size\_t}}
+\DoxyCodeLine{03954\ nghttp2\_session\_get\_hd\_deflate\_dynamic\_table\_size(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{03955\ }
+\DoxyCodeLine{03982\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_session\_terminate\_session(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{03983\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ error\_code);}
+\DoxyCodeLine{03984\ }
+\DoxyCodeLine{04011\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_session\_terminate\_session2(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{04012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ last\_stream\_id,}
+\DoxyCodeLine{04013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ error\_code);}
+\DoxyCodeLine{04014\ }
+\DoxyCodeLine{04050\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_submit\_shutdown\_notice(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{04051\ }
+\DoxyCodeLine{04059\ NGHTTP2\_EXTERN\ uint32\_t\ nghttp2\_session\_get\_remote\_settings(}
+\DoxyCodeLine{04060\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ nghttp2\_settings\_id\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{04061\ }
+\DoxyCodeLine{04069\ NGHTTP2\_EXTERN\ uint32\_t\ nghttp2\_session\_get\_local\_settings(}
+\DoxyCodeLine{04070\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ nghttp2\_settings\_id\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{04071\ }
+\DoxyCodeLine{04088\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_session\_set\_next\_stream\_id(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{04089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ next\_stream\_id);}
+\DoxyCodeLine{04090\ }
+\DoxyCodeLine{04098\ NGHTTP2\_EXTERN\ uint32\_t}
+\DoxyCodeLine{04099\ nghttp2\_session\_get\_next\_stream\_id(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{04100\ }
+\DoxyCodeLine{04124\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_session\_consume(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{04125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{04126\ }
+\DoxyCodeLine{04143\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_session\_consume\_connection(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{04144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{04145\ }
+\DoxyCodeLine{04164\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_session\_consume\_stream(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{04165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,}
+\DoxyCodeLine{04166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{04167\ }
+\DoxyCodeLine{04179\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{04180\ nghttp2\_session\_change\_stream\_priority(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{04181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,}
+\DoxyCodeLine{04182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__priority__spec}{nghttp2\_priority\_spec}}\ *pri\_spec);}
+\DoxyCodeLine{04183\ }
+\DoxyCodeLine{04195\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{04196\ nghttp2\_session\_create\_idle\_stream(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ int32\_t\ stream\_id,}
+\DoxyCodeLine{04197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__priority__spec}{nghttp2\_priority\_spec}}\ *pri\_spec);}
+\DoxyCodeLine{04198\ }
+\DoxyCodeLine{04246\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_session\_upgrade(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{04247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *settings\_payload,}
+\DoxyCodeLine{04248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ settings\_payloadlen,}
+\DoxyCodeLine{04249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *stream\_user\_data);}
+\DoxyCodeLine{04250\ }
+\DoxyCodeLine{04290\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_session\_upgrade2(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{04291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *settings\_payload,}
+\DoxyCodeLine{04292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ settings\_payloadlen,}
+\DoxyCodeLine{04293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ head\_request,}
+\DoxyCodeLine{04294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *stream\_user\_data);}
+\DoxyCodeLine{04295\ }
+\DoxyCodeLine{04296\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{04322\ NGHTTP2\_EXTERN\ ssize\_t\ nghttp2\_pack\_settings\_payload(}
+\DoxyCodeLine{04323\ \ \ uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ buflen,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__settings__entry}{nghttp2\_settings\_entry}}\ *iv,\ \textcolor{keywordtype}{size\_t}\ niv);}
+\DoxyCodeLine{04324\ }
+\DoxyCodeLine{04325\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{04326\ }
+\DoxyCodeLine{04348\ NGHTTP2\_EXTERN\ nghttp2\_ssize\ nghttp2\_pack\_settings\_payload2(}
+\DoxyCodeLine{04349\ \ \ uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ buflen,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__settings__entry}{nghttp2\_settings\_entry}}\ *iv,\ \textcolor{keywordtype}{size\_t}\ niv);}
+\DoxyCodeLine{04350\ }
+\DoxyCodeLine{04357\ NGHTTP2\_EXTERN\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *nghttp2\_strerror(\textcolor{keywordtype}{int}\ lib\_error\_code);}
+\DoxyCodeLine{04358\ }
+\DoxyCodeLine{04367\ NGHTTP2\_EXTERN\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *nghttp2\_http2\_strerror(uint32\_t\ error\_code);}
+\DoxyCodeLine{04368\ }
+\DoxyCodeLine{04385\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_priority\_spec\_init(\mbox{\hyperlink{structnghttp2__priority__spec}{nghttp2\_priority\_spec}}\ *pri\_spec,}
+\DoxyCodeLine{04386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,}
+\DoxyCodeLine{04387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ weight,\ \textcolor{keywordtype}{int}\ exclusive);}
+\DoxyCodeLine{04388\ }
+\DoxyCodeLine{04402\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{04403\ nghttp2\_priority\_spec\_default\_init(\mbox{\hyperlink{structnghttp2__priority__spec}{nghttp2\_priority\_spec}}\ *pri\_spec);}
+\DoxyCodeLine{04404\ }
+\DoxyCodeLine{04416\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{04417\ nghttp2\_priority\_spec\_check\_default(\textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__priority__spec}{nghttp2\_priority\_spec}}\ *pri\_spec);}
+\DoxyCodeLine{04418\ }
+\DoxyCodeLine{04419\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{04487\ NGHTTP2\_EXTERN\ int32\_t\ nghttp2\_submit\_request(}
+\DoxyCodeLine{04488\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__priority__spec}{nghttp2\_priority\_spec}}\ *pri\_spec,}
+\DoxyCodeLine{04489\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,\ \textcolor{keywordtype}{size\_t}\ nvlen,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__data__provider}{nghttp2\_data\_provider}}\ *data\_prd,}
+\DoxyCodeLine{04490\ \ \ \textcolor{keywordtype}{void}\ *stream\_user\_data);}
+\DoxyCodeLine{04491\ }
+\DoxyCodeLine{04492\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{04493\ }
+\DoxyCodeLine{04557\ NGHTTP2\_EXTERN\ int32\_t\ nghttp2\_submit\_request2(}
+\DoxyCodeLine{04558\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__priority__spec}{nghttp2\_priority\_spec}}\ *pri\_spec,}
+\DoxyCodeLine{04559\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,\ \textcolor{keywordtype}{size\_t}\ nvlen,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__data__provider2}{nghttp2\_data\_provider2}}\ *data\_prd,}
+\DoxyCodeLine{04560\ \ \ \textcolor{keywordtype}{void}\ *stream\_user\_data);}
+\DoxyCodeLine{04561\ }
+\DoxyCodeLine{04562\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{04631\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{04632\ nghttp2\_submit\_response(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ int32\_t\ stream\_id,}
+\DoxyCodeLine{04633\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,\ \textcolor{keywordtype}{size\_t}\ nvlen,}
+\DoxyCodeLine{04634\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__data__provider}{nghttp2\_data\_provider}}\ *data\_prd);}
+\DoxyCodeLine{04635\ }
+\DoxyCodeLine{04636\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{04637\ }
+\DoxyCodeLine{04702\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{04703\ nghttp2\_submit\_response2(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ int32\_t\ stream\_id,}
+\DoxyCodeLine{04704\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,\ \textcolor{keywordtype}{size\_t}\ nvlen,}
+\DoxyCodeLine{04705\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__data__provider2}{nghttp2\_data\_provider2}}\ *data\_prd);}
+\DoxyCodeLine{04706\ }
+\DoxyCodeLine{04759\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_submit\_trailer(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{04760\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,}
+\DoxyCodeLine{04761\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,\ \textcolor{keywordtype}{size\_t}\ nvlen);}
+\DoxyCodeLine{04762\ }
+\DoxyCodeLine{04840\ NGHTTP2\_EXTERN\ int32\_t\ nghttp2\_submit\_headers(}
+\DoxyCodeLine{04841\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ uint8\_t\ flags,\ int32\_t\ stream\_id,}
+\DoxyCodeLine{04842\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__priority__spec}{nghttp2\_priority\_spec}}\ *pri\_spec,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,\ \textcolor{keywordtype}{size\_t}\ nvlen,}
+\DoxyCodeLine{04843\ \ \ \textcolor{keywordtype}{void}\ *stream\_user\_data);}
+\DoxyCodeLine{04844\ }
+\DoxyCodeLine{04845\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{04891\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_submit\_data(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ uint8\_t\ flags,}
+\DoxyCodeLine{04892\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,}
+\DoxyCodeLine{04893\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__data__provider}{nghttp2\_data\_provider}}\ *data\_prd);}
+\DoxyCodeLine{04894\ }
+\DoxyCodeLine{04895\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{04896\ }
+\DoxyCodeLine{04938\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_submit\_data2(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ uint8\_t\ flags,}
+\DoxyCodeLine{04939\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,}
+\DoxyCodeLine{04940\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__data__provider2}{nghttp2\_data\_provider2}}\ *data\_prd);}
+\DoxyCodeLine{04941\ }
+\DoxyCodeLine{04953\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{04954\ nghttp2\_submit\_priority(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ uint8\_t\ flags,}
+\DoxyCodeLine{04955\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,}
+\DoxyCodeLine{04956\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__priority__spec}{nghttp2\_priority\_spec}}\ *pri\_spec);}
+\DoxyCodeLine{04957\ }
+\DoxyCodeLine{04964\ \textcolor{preprocessor}{\#define\ NGHTTP2\_EXTPRI\_DEFAULT\_URGENCY\ 3}}
+\DoxyCodeLine{04965\ }
+\DoxyCodeLine{04972\ \textcolor{preprocessor}{\#define\ NGHTTP2\_EXTPRI\_URGENCY\_HIGH\ 0}}
+\DoxyCodeLine{04973\ }
+\DoxyCodeLine{04980\ \textcolor{preprocessor}{\#define\ NGHTTP2\_EXTPRI\_URGENCY\_LOW\ 7}}
+\DoxyCodeLine{04981\ }
+\DoxyCodeLine{04988\ \textcolor{preprocessor}{\#define\ NGHTTP2\_EXTPRI\_URGENCY\_LEVELS\ (NGHTTP2\_EXTPRI\_URGENCY\_LOW\ +\ 1)}}
+\DoxyCodeLine{04989\ }
+\DoxyCodeLine{04996\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__extpri}{nghttp2\_extpri}}\ \{}
+\DoxyCodeLine{05003\ \ \ uint32\_t\ \mbox{\hyperlink{structnghttp2__extpri_a08b16beb4834305a9d54fb46095bf66b}{urgency}};}
+\DoxyCodeLine{05010\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structnghttp2__extpri_a3566c073a385571290b4f4812d76f607}{inc}};}
+\DoxyCodeLine{05011\ \}\ \mbox{\hyperlink{structnghttp2__extpri}{nghttp2\_extpri}};}
+\DoxyCodeLine{05012\ }
+\DoxyCodeLine{05032\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_submit\_rst\_stream(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{05033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ flags,\ int32\_t\ stream\_id,}
+\DoxyCodeLine{05034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ error\_code);}
+\DoxyCodeLine{05035\ }
+\DoxyCodeLine{05066\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_submit\_settings(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{05067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ flags,}
+\DoxyCodeLine{05068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__settings__entry}{nghttp2\_settings\_entry}}\ *iv,}
+\DoxyCodeLine{05069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ niv);}
+\DoxyCodeLine{05070\ }
+\DoxyCodeLine{05142\ NGHTTP2\_EXTERN\ int32\_t\ nghttp2\_submit\_push\_promise(}
+\DoxyCodeLine{05143\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ uint8\_t\ flags,\ int32\_t\ stream\_id,}
+\DoxyCodeLine{05144\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,\ \textcolor{keywordtype}{size\_t}\ nvlen,\ \textcolor{keywordtype}{void}\ *promised\_stream\_user\_data);}
+\DoxyCodeLine{05145\ }
+\DoxyCodeLine{05171\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_submit\_ping(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ uint8\_t\ flags,}
+\DoxyCodeLine{05172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *opaque\_data);}
+\DoxyCodeLine{05173\ }
+\DoxyCodeLine{05219\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_submit\_goaway(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{05220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ flags,\ int32\_t\ last\_stream\_id,}
+\DoxyCodeLine{05221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ error\_code,}
+\DoxyCodeLine{05222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *opaque\_data,}
+\DoxyCodeLine{05223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ opaque\_data\_len);}
+\DoxyCodeLine{05224\ }
+\DoxyCodeLine{05236\ NGHTTP2\_EXTERN\ int32\_t}
+\DoxyCodeLine{05237\ nghttp2\_session\_get\_last\_proc\_stream\_id(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{05238\ }
+\DoxyCodeLine{05255\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{05256\ nghttp2\_session\_check\_request\_allowed(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{05257\ }
+\DoxyCodeLine{05263\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{05264\ nghttp2\_session\_check\_server\_session(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{05265\ }
+\DoxyCodeLine{05304\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_submit\_window\_update(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{05305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ flags,}
+\DoxyCodeLine{05306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,}
+\DoxyCodeLine{05307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ window\_size\_increment);}
+\DoxyCodeLine{05308\ }
+\DoxyCodeLine{05343\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{05344\ nghttp2\_session\_set\_local\_window\_size(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ uint8\_t\ flags,}
+\DoxyCodeLine{05345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,\ int32\_t\ window\_size);}
+\DoxyCodeLine{05346\ }
+\DoxyCodeLine{05386\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_submit\_extension(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{05387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ type,\ uint8\_t\ flags,}
+\DoxyCodeLine{05388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,\ \textcolor{keywordtype}{void}\ *payload);}
+\DoxyCodeLine{05389\ }
+\DoxyCodeLine{05402\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{05407\ \ \ uint8\_t\ *\mbox{\hyperlink{structnghttp2__ext__altsvc_a27c76032846eed38f9d3ac3cbd817b8e}{origin}};}
+\DoxyCodeLine{05411\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structnghttp2__ext__altsvc_a62c942e112e7e3fef501775cf8dd500d}{origin\_len}};}
+\DoxyCodeLine{05416\ \ \ uint8\_t\ *\mbox{\hyperlink{structnghttp2__ext__altsvc_a57eee8b79a4c9490f9d368159ac5c77a}{field\_value}};}
+\DoxyCodeLine{05420\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structnghttp2__ext__altsvc_aa235be4021cf18027c5a0b7cc45f142b}{field\_value\_len}};}
+\DoxyCodeLine{05421\ \}\ \mbox{\hyperlink{structnghttp2__ext__altsvc}{nghttp2\_ext\_altsvc}};}
+\DoxyCodeLine{05422\ }
+\DoxyCodeLine{05456\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_submit\_altsvc(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{05457\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ flags,\ int32\_t\ stream\_id,}
+\DoxyCodeLine{05458\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *origin,}
+\DoxyCodeLine{05459\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ origin\_len,}
+\DoxyCodeLine{05460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *field\_value,}
+\DoxyCodeLine{05461\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ field\_value\_len);}
+\DoxyCodeLine{05462\ }
+\DoxyCodeLine{05468\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{05473\ \ \ uint8\_t\ *\mbox{\hyperlink{structnghttp2__origin__entry_a2f2be444a8b4cb0505901e0716698cb5}{origin}};}
+\DoxyCodeLine{05477\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structnghttp2__origin__entry_acf590f19b634f95c5e1145c6e40f8716}{origin\_len}};}
+\DoxyCodeLine{05478\ \}\ \mbox{\hyperlink{structnghttp2__origin__entry}{nghttp2\_origin\_entry}};}
+\DoxyCodeLine{05479\ }
+\DoxyCodeLine{05495\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{05499\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structnghttp2__ext__origin_aa16127fece2e1cf5dce338cf7f24a5ba}{nov}};}
+\DoxyCodeLine{05503\ \ \ \mbox{\hyperlink{structnghttp2__origin__entry}{nghttp2\_origin\_entry}}\ *\mbox{\hyperlink{structnghttp2__ext__origin_a87d64b82eda5632a108402ff292139ad}{ov}};}
+\DoxyCodeLine{05504\ \}\ \mbox{\hyperlink{structnghttp2__ext__origin}{nghttp2\_ext\_origin}};}
+\DoxyCodeLine{05505\ }
+\DoxyCodeLine{05533\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_submit\_origin(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{05534\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ flags,}
+\DoxyCodeLine{05535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__origin__entry}{nghttp2\_origin\_entry}}\ *ov,}
+\DoxyCodeLine{05536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nov);}
+\DoxyCodeLine{05537\ }
+\DoxyCodeLine{05550\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{05554\ \ \ int32\_t\ \mbox{\hyperlink{structnghttp2__ext__priority__update_a3866d687c687b60e100b2c22214a5ed9}{stream\_id}};}
+\DoxyCodeLine{05559\ \ \ uint8\_t\ *\mbox{\hyperlink{structnghttp2__ext__priority__update_a7c9ebfe957720f0622a868babc88092d}{field\_value}};}
+\DoxyCodeLine{05563\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structnghttp2__ext__priority__update_a74366eb33b694a41366031c2f135b97f}{field\_value\_len}};}
+\DoxyCodeLine{05564\ \}\ \mbox{\hyperlink{structnghttp2__ext__priority__update}{nghttp2\_ext\_priority\_update}};}
+\DoxyCodeLine{05565\ }
+\DoxyCodeLine{05600\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_submit\_priority\_update(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,}
+\DoxyCodeLine{05601\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ flags,}
+\DoxyCodeLine{05602\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id,}
+\DoxyCodeLine{05603\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *field\_value,}
+\DoxyCodeLine{05604\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ field\_value\_len);}
+\DoxyCodeLine{05605\ }
+\DoxyCodeLine{05636\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_session\_change\_extpri\_stream\_priority(}
+\DoxyCodeLine{05637\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ int32\_t\ stream\_id,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__extpri}{nghttp2\_extpri}}\ *extpri,}
+\DoxyCodeLine{05638\ \ \ \textcolor{keywordtype}{int}\ ignore\_client\_signal);}
+\DoxyCodeLine{05639\ }
+\DoxyCodeLine{05665\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_session\_get\_extpri\_stream\_priority(}
+\DoxyCodeLine{05666\ \ \ \mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ \mbox{\hyperlink{structnghttp2__extpri}{nghttp2\_extpri}}\ *extpri,\ int32\_t\ stream\_id);}
+\DoxyCodeLine{05667\ }
+\DoxyCodeLine{05685\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_extpri\_parse\_priority(\mbox{\hyperlink{structnghttp2__extpri}{nghttp2\_extpri}}\ *extpri,}
+\DoxyCodeLine{05686\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *value,}
+\DoxyCodeLine{05687\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{05688\ }
+\DoxyCodeLine{05698\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_nv\_compare\_name(\textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *lhs,}
+\DoxyCodeLine{05699\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *rhs);}
+\DoxyCodeLine{05700\ }
+\DoxyCodeLine{05760\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_select\_next\_protocol(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ **out,}
+\DoxyCodeLine{05761\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *outlen,}
+\DoxyCodeLine{05762\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *in,}
+\DoxyCodeLine{05763\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ inlen);}
+\DoxyCodeLine{05764\ }
+\DoxyCodeLine{05819\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_select\_alpn(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ **out,}
+\DoxyCodeLine{05820\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *outlen,}
+\DoxyCodeLine{05821\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *in,}
+\DoxyCodeLine{05822\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ inlen);}
+\DoxyCodeLine{05823\ }
+\DoxyCodeLine{05833\ NGHTTP2\_EXTERN\ \mbox{\hyperlink{structnghttp2__info}{nghttp2\_info}}\ *nghttp2\_version(\textcolor{keywordtype}{int}\ least\_version);}
+\DoxyCodeLine{05834\ }
+\DoxyCodeLine{05841\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_is\_fatal(\textcolor{keywordtype}{int}\ lib\_error\_code);}
+\DoxyCodeLine{05842\ }
+\DoxyCodeLine{05852\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_check\_header\_name(\textcolor{keyword}{const}\ uint8\_t\ *name,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{05853\ }
+\DoxyCodeLine{05864\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_check\_header\_value(\textcolor{keyword}{const}\ uint8\_t\ *value,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{05865\ }
+\DoxyCodeLine{05874\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_check\_header\_value\_rfc9113(\textcolor{keyword}{const}\ uint8\_t\ *value,}
+\DoxyCodeLine{05875\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{05876\ }
+\DoxyCodeLine{05885\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_check\_method(\textcolor{keyword}{const}\ uint8\_t\ *value,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{05886\ }
+\DoxyCodeLine{05899\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_check\_path(\textcolor{keyword}{const}\ uint8\_t\ *value,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{05900\ }
+\DoxyCodeLine{05918\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_check\_authority(\textcolor{keyword}{const}\ uint8\_t\ *value,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{05919\ }
+\DoxyCodeLine{05920\ \textcolor{comment}{/*\ HPACK\ API\ */}}
+\DoxyCodeLine{05921\ }
+\DoxyCodeLine{05922\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}};}
+\DoxyCodeLine{05923\ }
+\DoxyCodeLine{05929\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ \mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}};}
+\DoxyCodeLine{05930\ }
+\DoxyCodeLine{05947\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{05948\ nghttp2\_hd\_deflate\_new(\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ **deflater\_ptr,}
+\DoxyCodeLine{05949\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ max\_deflate\_dynamic\_table\_size);}
+\DoxyCodeLine{05950\ }
+\DoxyCodeLine{05966\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{05967\ nghttp2\_hd\_deflate\_new2(\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ **deflater\_ptr,}
+\DoxyCodeLine{05968\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ max\_deflate\_dynamic\_table\_size,}
+\DoxyCodeLine{05969\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{05970\ }
+\DoxyCodeLine{05976\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_hd\_deflate\_del(\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ *deflater);}
+\DoxyCodeLine{05977\ }
+\DoxyCodeLine{06001\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{06002\ nghttp2\_hd\_deflate\_change\_table\_size(\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ *deflater,}
+\DoxyCodeLine{06003\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ settings\_max\_dynamic\_table\_size);}
+\DoxyCodeLine{06004\ }
+\DoxyCodeLine{06005\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{06037\ NGHTTP2\_EXTERN\ ssize\_t\ nghttp2\_hd\_deflate\_hd(\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ *deflater,}
+\DoxyCodeLine{06038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ buflen,}
+\DoxyCodeLine{06039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,}
+\DoxyCodeLine{06040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nvlen);}
+\DoxyCodeLine{06041\ }
+\DoxyCodeLine{06042\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{06043\ }
+\DoxyCodeLine{06071\ NGHTTP2\_EXTERN\ nghttp2\_ssize}
+\DoxyCodeLine{06072\ nghttp2\_hd\_deflate\_hd2(\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ *deflater,\ uint8\_t\ *buf,}
+\DoxyCodeLine{06073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ buflen,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,\ \textcolor{keywordtype}{size\_t}\ nvlen);}
+\DoxyCodeLine{06074\ }
+\DoxyCodeLine{06075\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{06108\ NGHTTP2\_EXTERN\ ssize\_t\ nghttp2\_hd\_deflate\_hd\_vec(\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ *deflater,}
+\DoxyCodeLine{06109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__vec}{nghttp2\_vec}}\ *vec,}
+\DoxyCodeLine{06110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ veclen,}
+\DoxyCodeLine{06111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,}
+\DoxyCodeLine{06112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nvlen);}
+\DoxyCodeLine{06113\ }
+\DoxyCodeLine{06114\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{06115\ }
+\DoxyCodeLine{06144\ NGHTTP2\_EXTERN\ nghttp2\_ssize\ nghttp2\_hd\_deflate\_hd\_vec2(}
+\DoxyCodeLine{06145\ \ \ \mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ *deflater,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__vec}{nghttp2\_vec}}\ *vec,\ \textcolor{keywordtype}{size\_t}\ veclen,}
+\DoxyCodeLine{06146\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,\ \textcolor{keywordtype}{size\_t}\ nvlen);}
+\DoxyCodeLine{06147\ }
+\DoxyCodeLine{06154\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{size\_t}\ nghttp2\_hd\_deflate\_bound(\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ *deflater,}
+\DoxyCodeLine{06155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nva,}
+\DoxyCodeLine{06156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nvlen);}
+\DoxyCodeLine{06157\ }
+\DoxyCodeLine{06165\ NGHTTP2\_EXTERN}
+\DoxyCodeLine{06166\ \textcolor{keywordtype}{size\_t}\ nghttp2\_hd\_deflate\_get\_num\_table\_entries(\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ *deflater);}
+\DoxyCodeLine{06167\ }
+\DoxyCodeLine{06178\ NGHTTP2\_EXTERN}
+\DoxyCodeLine{06179\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *}
+\DoxyCodeLine{06180\ nghttp2\_hd\_deflate\_get\_table\_entry(\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ *deflater,\ \textcolor{keywordtype}{size\_t}\ idx);}
+\DoxyCodeLine{06181\ }
+\DoxyCodeLine{06188\ NGHTTP2\_EXTERN}
+\DoxyCodeLine{06189\ \textcolor{keywordtype}{size\_t}\ nghttp2\_hd\_deflate\_get\_dynamic\_table\_size(\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ *deflater);}
+\DoxyCodeLine{06190\ }
+\DoxyCodeLine{06196\ NGHTTP2\_EXTERN}
+\DoxyCodeLine{06197\ \textcolor{keywordtype}{size\_t}}
+\DoxyCodeLine{06198\ nghttp2\_hd\_deflate\_get\_max\_dynamic\_table\_size(\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\_hd\_deflater}}\ *deflater);}
+\DoxyCodeLine{06199\ }
+\DoxyCodeLine{06200\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}};}
+\DoxyCodeLine{06201\ }
+\DoxyCodeLine{06207\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}}\ \mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}};}
+\DoxyCodeLine{06208\ }
+\DoxyCodeLine{06222\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_hd\_inflate\_new(\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}}\ **inflater\_ptr);}
+\DoxyCodeLine{06223\ }
+\DoxyCodeLine{06239\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}\ nghttp2\_hd\_inflate\_new2(\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}}\ **inflater\_ptr,}
+\DoxyCodeLine{06240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__mem}{nghttp2\_mem}}\ *mem);}
+\DoxyCodeLine{06241\ }
+\DoxyCodeLine{06247\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_hd\_inflate\_del(\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}}\ *inflater);}
+\DoxyCodeLine{06248\ }
+\DoxyCodeLine{06275\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{06276\ nghttp2\_hd\_inflate\_change\_table\_size(\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}}\ *inflater,}
+\DoxyCodeLine{06277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ settings\_max\_dynamic\_table\_size);}
+\DoxyCodeLine{06278\ }
+\DoxyCodeLine{06284\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{06288\ \ \ NGHTTP2\_HD\_INFLATE\_NONE\ =\ 0,}
+\DoxyCodeLine{06292\ \ \ NGHTTP2\_HD\_INFLATE\_FINAL\ =\ 0x01,}
+\DoxyCodeLine{06296\ \ \ NGHTTP2\_HD\_INFLATE\_EMIT\ =\ 0x02}
+\DoxyCodeLine{06297\ \}\ nghttp2\_hd\_inflate\_flag;}
+\DoxyCodeLine{06298\ }
+\DoxyCodeLine{06299\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{06382\ NGHTTP2\_EXTERN\ ssize\_t\ nghttp2\_hd\_inflate\_hd(\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}}\ *inflater,}
+\DoxyCodeLine{06383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nv\_out,}
+\DoxyCodeLine{06384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *inflate\_flags,\ uint8\_t\ *in,}
+\DoxyCodeLine{06385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ inlen,\ \textcolor{keywordtype}{int}\ in\_final);}
+\DoxyCodeLine{06386\ }
+\DoxyCodeLine{06387\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{06388\ }
+\DoxyCodeLine{06389\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_NO\_SSIZE\_T}\textcolor{preprocessor}{}}
+\DoxyCodeLine{06477\ NGHTTP2\_EXTERN\ ssize\_t\ nghttp2\_hd\_inflate\_hd2(\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}}\ *inflater,}
+\DoxyCodeLine{06478\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nv\_out,}
+\DoxyCodeLine{06479\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *inflate\_flags,}
+\DoxyCodeLine{06480\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *in,\ \textcolor{keywordtype}{size\_t}\ inlen,}
+\DoxyCodeLine{06481\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ in\_final);}
+\DoxyCodeLine{06482\ }
+\DoxyCodeLine{06483\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_NO\_SSIZE\_T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{06484\ }
+\DoxyCodeLine{06568\ NGHTTP2\_EXTERN\ nghttp2\_ssize\ nghttp2\_hd\_inflate\_hd3(}
+\DoxyCodeLine{06569\ \ \ \mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}}\ *inflater,\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *nv\_out,\ \textcolor{keywordtype}{int}\ *inflate\_flags,}
+\DoxyCodeLine{06570\ \ \ \textcolor{keyword}{const}\ uint8\_t\ *in,\ \textcolor{keywordtype}{size\_t}\ inlen,\ \textcolor{keywordtype}{int}\ in\_final);}
+\DoxyCodeLine{06571\ }
+\DoxyCodeLine{06580\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{06581\ nghttp2\_hd\_inflate\_end\_headers(\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}}\ *inflater);}
+\DoxyCodeLine{06582\ }
+\DoxyCodeLine{06590\ NGHTTP2\_EXTERN}
+\DoxyCodeLine{06591\ \textcolor{keywordtype}{size\_t}\ nghttp2\_hd\_inflate\_get\_num\_table\_entries(\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}}\ *inflater);}
+\DoxyCodeLine{06592\ }
+\DoxyCodeLine{06603\ NGHTTP2\_EXTERN}
+\DoxyCodeLine{06604\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ *}
+\DoxyCodeLine{06605\ nghttp2\_hd\_inflate\_get\_table\_entry(\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}}\ *inflater,\ \textcolor{keywordtype}{size\_t}\ idx);}
+\DoxyCodeLine{06606\ }
+\DoxyCodeLine{06613\ NGHTTP2\_EXTERN}
+\DoxyCodeLine{06614\ \textcolor{keywordtype}{size\_t}\ nghttp2\_hd\_inflate\_get\_dynamic\_table\_size(\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}}\ *inflater);}
+\DoxyCodeLine{06615\ }
+\DoxyCodeLine{06621\ NGHTTP2\_EXTERN}
+\DoxyCodeLine{06622\ \textcolor{keywordtype}{size\_t}}
+\DoxyCodeLine{06623\ nghttp2\_hd\_inflate\_get\_max\_dynamic\_table\_size(\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\_hd\_inflater}}\ *inflater);}
+\DoxyCodeLine{06624\ }
+\DoxyCodeLine{06625\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}};}
+\DoxyCodeLine{06626\ }
+\DoxyCodeLine{06633\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ \mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}};}
+\DoxyCodeLine{06634\ }
+\DoxyCodeLine{06648\ NGHTTP2\_EXTERN\ \mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *}
+\DoxyCodeLine{06649\ nghttp2\_session\_find\_stream(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session,\ int32\_t\ stream\_id);}
+\DoxyCodeLine{06650\ }
+\DoxyCodeLine{06656\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{06660\ \ \ NGHTTP2\_STREAM\_STATE\_IDLE\ =\ 1,}
+\DoxyCodeLine{06664\ \ \ NGHTTP2\_STREAM\_STATE\_OPEN,}
+\DoxyCodeLine{06668\ \ \ NGHTTP2\_STREAM\_STATE\_RESERVED\_LOCAL,}
+\DoxyCodeLine{06672\ \ \ NGHTTP2\_STREAM\_STATE\_RESERVED\_REMOTE,}
+\DoxyCodeLine{06676\ \ \ NGHTTP2\_STREAM\_STATE\_HALF\_CLOSED\_LOCAL,}
+\DoxyCodeLine{06680\ \ \ NGHTTP2\_STREAM\_STATE\_HALF\_CLOSED\_REMOTE,}
+\DoxyCodeLine{06684\ \ \ NGHTTP2\_STREAM\_STATE\_CLOSED}
+\DoxyCodeLine{06685\ \}\ nghttp2\_stream\_proto\_state;}
+\DoxyCodeLine{06686\ }
+\DoxyCodeLine{06694\ NGHTTP2\_EXTERN\ nghttp2\_stream\_proto\_state}
+\DoxyCodeLine{06695\ nghttp2\_stream\_get\_state(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream);}
+\DoxyCodeLine{06696\ }
+\DoxyCodeLine{06710\ NGHTTP2\_EXTERN\ \mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *}
+\DoxyCodeLine{06711\ nghttp2\_session\_get\_root\_stream(\mbox{\hyperlink{structnghttp2__session}{nghttp2\_session}}\ *session);}
+\DoxyCodeLine{06712\ }
+\DoxyCodeLine{06724\ NGHTTP2\_EXTERN\ \mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *}
+\DoxyCodeLine{06725\ nghttp2\_stream\_get\_parent(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream);}
+\DoxyCodeLine{06726\ }
+\DoxyCodeLine{06727\ NGHTTP2\_EXTERN\ int32\_t\ nghttp2\_stream\_get\_stream\_id(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream);}
+\DoxyCodeLine{06728\ }
+\DoxyCodeLine{06740\ NGHTTP2\_EXTERN\ \mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *}
+\DoxyCodeLine{06741\ nghttp2\_stream\_get\_next\_sibling(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream);}
+\DoxyCodeLine{06742\ }
+\DoxyCodeLine{06754\ NGHTTP2\_EXTERN\ \mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *}
+\DoxyCodeLine{06755\ nghttp2\_stream\_get\_previous\_sibling(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream);}
+\DoxyCodeLine{06756\ }
+\DoxyCodeLine{06768\ NGHTTP2\_EXTERN\ \mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *}
+\DoxyCodeLine{06769\ nghttp2\_stream\_get\_first\_child(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream);}
+\DoxyCodeLine{06770\ }
+\DoxyCodeLine{06782\ NGHTTP2\_EXTERN\ int32\_t\ nghttp2\_stream\_get\_weight(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream);}
+\DoxyCodeLine{06783\ }
+\DoxyCodeLine{06795\ NGHTTP2\_EXTERN\ int32\_t}
+\DoxyCodeLine{06796\ nghttp2\_stream\_get\_sum\_dependency\_weight(\mbox{\hyperlink{structnghttp2__stream}{nghttp2\_stream}}\ *stream);}
+\DoxyCodeLine{06797\ }
+\DoxyCodeLine{06807\ \textcolor{keyword}{typedef}\ void\ (*nghttp2\_debug\_vprintf\_callback)(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,}
+\DoxyCodeLine{06808\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ va\_list\ args);}
+\DoxyCodeLine{06809\ }
+\DoxyCodeLine{06831\ NGHTTP2\_EXTERN\ \textcolor{keywordtype}{void}\ nghttp2\_set\_debug\_vprintf\_callback(}
+\DoxyCodeLine{06832\ \ \ nghttp2\_debug\_vprintf\_callback\ debug\_vprintf\_callback);}
+\DoxyCodeLine{06833\ }
+\DoxyCodeLine{06834\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{06835\ \}}
+\DoxyCodeLine{06836\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{06837\ }
+\DoxyCodeLine{06838\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

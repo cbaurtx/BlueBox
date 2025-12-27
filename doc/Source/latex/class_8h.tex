@@ -1,0 +1,180 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/class.h File Reference}
+\hypertarget{class_8h}{}\label{class_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/class.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/class.h}}
+{\ttfamily \#include "{}common.\+h"{}}\newline
+Include dependency graph for class.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{class_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structRClass}{RClass}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{class_8h_a7736ec13f8aa3ae57b1b30fce9335406}{mrb\+\_\+class\+\_\+ptr}}(v)
+\item 
+\Hypertarget{class_8h_a5e2b6004a6647ba8ee0dbbffc34a79f3}\label{class_8h_a5e2b6004a6647ba8ee0dbbffc34a79f3} 
+\#define {\bfseries MRB\+\_\+\+FL\+\_\+\+CLASS\+\_\+\+IS\+\_\+\+PREPENDED}~(1 $<$$<$ 19)
+\item 
+\Hypertarget{class_8h_ac3a4d0fd3bea205a648de5ee9d053fa4}\label{class_8h_ac3a4d0fd3bea205a648de5ee9d053fa4} 
+\#define {\bfseries MRB\+\_\+\+FL\+\_\+\+CLASS\+\_\+\+IS\+\_\+\+ORIGIN}~(1 $<$$<$ 18)
+\item 
+\#define \mbox{\hyperlink{class_8h_a3cf8c757d732742094ae64e0cb99b364}{MRB\+\_\+\+CLASS\+\_\+\+ORIGIN}}(c)
+\item 
+\Hypertarget{class_8h_a1576a52670784c6b46e36e4cb8530c77}\label{class_8h_a1576a52670784c6b46e36e4cb8530c77} 
+\#define {\bfseries MRB\+\_\+\+FL\+\_\+\+CLASS\+\_\+\+IS\+\_\+\+INHERITED}~(1 $<$$<$ 17)
+\item 
+\Hypertarget{class_8h_a373a977a8ae2aeb885760ff7fbf17b22}\label{class_8h_a373a977a8ae2aeb885760ff7fbf17b22} 
+\#define {\bfseries MRB\+\_\+\+INSTANCE\+\_\+\+TT\+\_\+\+MASK}~(0x1F)
+\item 
+\#define \mbox{\hyperlink{class_8h_a24f2bcd88b16afab3a99bf988fb85781}{MRB\+\_\+\+SET\+\_\+\+INSTANCE\+\_\+\+TT}}(c,  tt)
+\item 
+\#define \mbox{\hyperlink{class_8h_ac9fb6ffe81b956a9d1c435de33a4a7e1}{MRB\+\_\+\+INSTANCE\+\_\+\+TT}}(c)
+\item 
+\Hypertarget{class_8h_a4ea18df68208eb618a06631f1425bbb1}\label{class_8h_a4ea18df68208eb618a06631f1425bbb1} 
+\#define {\bfseries MRB\+\_\+\+FL\+\_\+\+UNDEF\+\_\+\+ALLOCATE}~(1 $<$$<$ 6)
+\item 
+\#define \mbox{\hyperlink{class_8h_ab9d1d10b6ca0df74e78fe81b3b44c5bb}{MRB\+\_\+\+UNDEF\+\_\+\+ALLOCATOR}}(c)
+\item 
+\#define \mbox{\hyperlink{class_8h_ae53dea5d2b6a8e46a8edba3c1999de81}{MRB\+\_\+\+UNDEF\+\_\+\+ALLOCATOR\+\_\+P}}(c)
+\item 
+\#define \mbox{\hyperlink{class_8h_a290618b9ee032eb7758e588ae0e52dbc}{MRB\+\_\+\+DEFINE\+\_\+\+ALLOCATOR}}(c)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_8h_aef4047ee67878caca88c81557c11d573}\label{class_8h_aef4047ee67878caca88c81557c11d573} 
+typedef int {\bfseries mrb\+\_\+mt\+\_\+foreach\+\_\+func}(\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}}, mrb\+\_\+method\+\_\+t, void \texorpdfstring{$\ast$}{*})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_8h_a23aaf182d6eefd14605ebf077aed1165}\label{class_8h_a23aaf182d6eefd14605ebf077aed1165} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+class} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} v)
+\item 
+\Hypertarget{class_8h_ae0504fe740fac300090abcc28a6b25e1}\label{class_8h_ae0504fe740fac300090abcc28a6b25e1} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+define\+\_\+method\+\_\+raw} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}}, mrb\+\_\+method\+\_\+t)
+\item 
+\Hypertarget{class_8h_ad97faedf104dc8db2316548223af2fb0}\label{class_8h_ad97faedf104dc8db2316548223af2fb0} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+alias\+\_\+method} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*}c, \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}} a, \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}} b)
+\item 
+\Hypertarget{class_8h_ae9103278128059c77869a818981c3dc4}\label{class_8h_ae9103278128059c77869a818981c3dc4} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+remove\+\_\+method} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*}c, \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}} sym)
+\item 
+\Hypertarget{class_8h_a2b828fc38cde4367bd58ed9171ef30fb}\label{class_8h_a2b828fc38cde4367bd58ed9171ef30fb} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} mrb\+\_\+method\+\_\+t {\bfseries mrb\+\_\+method\+\_\+search\+\_\+vm} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}})
+\item 
+\Hypertarget{class_8h_a1a0dd35964a34b189554053be901e4c9}\label{class_8h_a1a0dd35964a34b189554053be901e4c9} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} mrb\+\_\+method\+\_\+t {\bfseries mrb\+\_\+method\+\_\+search} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}})
+\item 
+\Hypertarget{class_8h_ae21acbc3e780ec19a3f0fe9ed9b7a052}\label{class_8h_ae21acbc3e780ec19a3f0fe9ed9b7a052} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+class\+\_\+real} (struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*}cl)
+\item 
+\Hypertarget{class_8h_a3ee63cf9b447f9d07bf5aa9e6c40f1c9}\label{class_8h_a3ee63cf9b447f9d07bf5aa9e6c40f1c9} 
+void {\bfseries mrb\+\_\+mc\+\_\+clear\+\_\+by\+\_\+class} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*}c)
+\item 
+\Hypertarget{class_8h_a76b251e83e21678598c0e3ed1d5e1f67}\label{class_8h_a76b251e83e21678598c0e3ed1d5e1f67} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+mt\+\_\+foreach} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*}, mrb\+\_\+mt\+\_\+foreach\+\_\+func \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item Class class
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-define-members}
+\Hypertarget{class_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{class_8h_a3cf8c757d732742094ae64e0cb99b364}\index{class.h@{class.h}!MRB\_CLASS\_ORIGIN@{MRB\_CLASS\_ORIGIN}}
+\index{MRB\_CLASS\_ORIGIN@{MRB\_CLASS\_ORIGIN}!class.h@{class.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_CLASS\_ORIGIN}{MRB\_CLASS\_ORIGIN}}
+{\footnotesize\ttfamily \label{class_8h_a3cf8c757d732742094ae64e0cb99b364} 
+\#define MRB\+\_\+\+CLASS\+\_\+\+ORIGIN(\begin{DoxyParamCaption}\item[{}]{c}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\(\backslash\)}
+\DoxyCodeLine{\ \ if\ ((c)-\/>flags\ \&\ MRB\_FL\_CLASS\_IS\_PREPENDED)\ \{\(\backslash\)}
+\DoxyCodeLine{\ \ \ \ (c)\ =\ (c)-\/>super;\(\backslash\)}
+\DoxyCodeLine{\ \ \ \ while\ (!((c)-\/>flags\ \&\ MRB\_FL\_CLASS\_IS\_ORIGIN))\ \{\(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ (c)\ =\ (c)-\/>super;\(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\(\backslash\)}
+\DoxyCodeLine{\ \ \}\(\backslash\)}
+\DoxyCodeLine{\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{class_8h_a7736ec13f8aa3ae57b1b30fce9335406}\index{class.h@{class.h}!mrb\_class\_ptr@{mrb\_class\_ptr}}
+\index{mrb\_class\_ptr@{mrb\_class\_ptr}!class.h@{class.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_class\_ptr}{mrb\_class\_ptr}}
+{\footnotesize\ttfamily \label{class_8h_a7736ec13f8aa3ae57b1b30fce9335406} 
+\#define mrb\+\_\+class\+\_\+ptr(\begin{DoxyParamCaption}\item[{}]{v}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\textcolor{keyword}{struct\ }\mbox{\hyperlink{structRClass}{RClass}}*)(mrb\_ptr(v)))}
+
+\end{DoxyCode}
+\Hypertarget{class_8h_a290618b9ee032eb7758e588ae0e52dbc}\index{class.h@{class.h}!MRB\_DEFINE\_ALLOCATOR@{MRB\_DEFINE\_ALLOCATOR}}
+\index{MRB\_DEFINE\_ALLOCATOR@{MRB\_DEFINE\_ALLOCATOR}!class.h@{class.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_DEFINE\_ALLOCATOR}{MRB\_DEFINE\_ALLOCATOR}}
+{\footnotesize\ttfamily \label{class_8h_a290618b9ee032eb7758e588ae0e52dbc} 
+\#define MRB\+\_\+\+DEFINE\+\_\+\+ALLOCATOR(\begin{DoxyParamCaption}\item[{}]{c}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((c)-\/>flags\ \&=\ \string~MRB\_FL\_UNDEF\_ALLOCATE)}
+
+\end{DoxyCode}
+\Hypertarget{class_8h_ac9fb6ffe81b956a9d1c435de33a4a7e1}\index{class.h@{class.h}!MRB\_INSTANCE\_TT@{MRB\_INSTANCE\_TT}}
+\index{MRB\_INSTANCE\_TT@{MRB\_INSTANCE\_TT}!class.h@{class.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_INSTANCE\_TT}{MRB\_INSTANCE\_TT}}
+{\footnotesize\ttfamily \label{class_8h_ac9fb6ffe81b956a9d1c435de33a4a7e1} 
+\#define MRB\+\_\+\+INSTANCE\+\_\+\+TT(\begin{DoxyParamCaption}\item[{}]{c}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\textcolor{keyword}{enum}\ mrb\_vtype)((c)-\/>flags\ \&\ MRB\_INSTANCE\_TT\_MASK)}
+
+\end{DoxyCode}
+\Hypertarget{class_8h_a24f2bcd88b16afab3a99bf988fb85781}\index{class.h@{class.h}!MRB\_SET\_INSTANCE\_TT@{MRB\_SET\_INSTANCE\_TT}}
+\index{MRB\_SET\_INSTANCE\_TT@{MRB\_SET\_INSTANCE\_TT}!class.h@{class.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_SET\_INSTANCE\_TT}{MRB\_SET\_INSTANCE\_TT}}
+{\footnotesize\ttfamily \label{class_8h_a24f2bcd88b16afab3a99bf988fb85781} 
+\#define MRB\+\_\+\+SET\+\_\+\+INSTANCE\+\_\+\+TT(\begin{DoxyParamCaption}\item[{}]{c}{, }\item[{}]{tt}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((c)-\/>flags\ =\ (((c)-\/>flags\ \&\ \string~MRB\_INSTANCE\_TT\_MASK)\ |\ (char)(tt)))}
+
+\end{DoxyCode}
+\Hypertarget{class_8h_ab9d1d10b6ca0df74e78fe81b3b44c5bb}\index{class.h@{class.h}!MRB\_UNDEF\_ALLOCATOR@{MRB\_UNDEF\_ALLOCATOR}}
+\index{MRB\_UNDEF\_ALLOCATOR@{MRB\_UNDEF\_ALLOCATOR}!class.h@{class.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_UNDEF\_ALLOCATOR}{MRB\_UNDEF\_ALLOCATOR}}
+{\footnotesize\ttfamily \label{class_8h_ab9d1d10b6ca0df74e78fe81b3b44c5bb} 
+\#define MRB\+\_\+\+UNDEF\+\_\+\+ALLOCATOR(\begin{DoxyParamCaption}\item[{}]{c}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_assert((c)-\/>tt\ ==\ MRB\_TT\_CLASS),\ (c)-\/>flags\ |=\ MRB\_FL\_UNDEF\_ALLOCATE)}
+
+\end{DoxyCode}
+\Hypertarget{class_8h_ae53dea5d2b6a8e46a8edba3c1999de81}\index{class.h@{class.h}!MRB\_UNDEF\_ALLOCATOR\_P@{MRB\_UNDEF\_ALLOCATOR\_P}}
+\index{MRB\_UNDEF\_ALLOCATOR\_P@{MRB\_UNDEF\_ALLOCATOR\_P}!class.h@{class.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_UNDEF\_ALLOCATOR\_P}{MRB\_UNDEF\_ALLOCATOR\_P}}
+{\footnotesize\ttfamily \label{class_8h_ae53dea5d2b6a8e46a8edba3c1999de81} 
+\#define MRB\+\_\+\+UNDEF\+\_\+\+ALLOCATOR\+\_\+P(\begin{DoxyParamCaption}\item[{}]{c}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((c)-\/>flags\ \&\ MRB\_FL\_UNDEF\_ALLOCATE)}
+
+\end{DoxyCode}

@@ -1,0 +1,39 @@
+\doxysection{nghttp2\+\_\+priority\+\_\+spec Struct Reference}
+\hypertarget{structnghttp2__priority__spec}{}\label{structnghttp2__priority__spec}\index{nghttp2\_priority\_spec@{nghttp2\_priority\_spec}}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int32\+\_\+t \mbox{\hyperlink{structnghttp2__priority__spec_a5cf695e23535af4c1f7f6499d06e00ca}{stream\+\_\+id}}
+\item 
+int32\+\_\+t \mbox{\hyperlink{structnghttp2__priority__spec_a5e0c14487dde9a457a44a1bb5af63bb7}{weight}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structnghttp2__priority__spec_ab374197c67d60e5ff69481313d84b74f}{exclusive}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-variable-members}
+\Hypertarget{structnghttp2__priority__spec_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structnghttp2__priority__spec_ab374197c67d60e5ff69481313d84b74f}\index{nghttp2\_priority\_spec@{nghttp2\_priority\_spec}!exclusive@{exclusive}}
+\index{exclusive@{exclusive}!nghttp2\_priority\_spec@{nghttp2\_priority\_spec}}
+\doxysubsubsection{\texorpdfstring{exclusive}{exclusive}}
+{\footnotesize\ttfamily \label{structnghttp2__priority__spec_ab374197c67d60e5ff69481313d84b74f} 
+uint8\+\_\+t nghttp2\+\_\+priority\+\_\+spec\+::exclusive}
+
+nonzero means exclusive dependency \Hypertarget{structnghttp2__priority__spec_a5cf695e23535af4c1f7f6499d06e00ca}\index{nghttp2\_priority\_spec@{nghttp2\_priority\_spec}!stream\_id@{stream\_id}}
+\index{stream\_id@{stream\_id}!nghttp2\_priority\_spec@{nghttp2\_priority\_spec}}
+\doxysubsubsection{\texorpdfstring{stream\_id}{stream\_id}}
+{\footnotesize\ttfamily \label{structnghttp2__priority__spec_a5cf695e23535af4c1f7f6499d06e00ca} 
+int32\+\_\+t nghttp2\+\_\+priority\+\_\+spec\+::stream\+\_\+id}
+
+The stream ID of the stream to depend on. Specifying 0 makes stream not depend any other stream. \Hypertarget{structnghttp2__priority__spec_a5e0c14487dde9a457a44a1bb5af63bb7}\index{nghttp2\_priority\_spec@{nghttp2\_priority\_spec}!weight@{weight}}
+\index{weight@{weight}!nghttp2\_priority\_spec@{nghttp2\_priority\_spec}}
+\doxysubsubsection{\texorpdfstring{weight}{weight}}
+{\footnotesize\ttfamily \label{structnghttp2__priority__spec_a5e0c14487dde9a457a44a1bb5af63bb7} 
+int32\+\_\+t nghttp2\+\_\+priority\+\_\+spec\+::weight}
+
+The weight of this dependency. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/lib/includes/nghttp2/nghttp2.\+h\end{DoxyCompactItemize}

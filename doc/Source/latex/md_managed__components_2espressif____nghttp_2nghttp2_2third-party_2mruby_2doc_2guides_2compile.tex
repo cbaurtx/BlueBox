@@ -1,0 +1,585 @@
+\chapter{Compile }
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile}{}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile}\index{Compile@{Compile}}
+\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md279}%
+\Hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md279}%
+
+
+mruby uses Rake to compile and cross-\/compile all libraries and binaries.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md280}{}\doxysection{\texorpdfstring{Prerequisites}{Prerequisites}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md280}
+To compile mruby out of the source code you need the following tools\+:
+
+
+\begin{DoxyItemize}
+\item C Compiler (e.\+g. {\ttfamily gcc} or {\ttfamily clang})
+\item Linker (e.\+g. {\ttfamily gcc} or {\ttfamily clang})
+\item Archive utility (e.\+g. {\ttfamily ar})
+\item Ruby 2.\+5 or later (e.\+g. {\ttfamily ruby} or {\ttfamily jruby})
+\end{DoxyItemize}
+
+Optional\+:
+
+
+\begin{DoxyItemize}
+\item Git (to update mruby source and integrate mrbgems easier)
+\item C++ compiler (to use mrbgems which include {\ttfamily \texorpdfstring{$\ast$}{*}.cpp}, {\ttfamily \texorpdfstring{$\ast$}{*}.cxx}, {\ttfamily \texorpdfstring{$\ast$}{*}.cc})
+\item Bison (to compile {\ttfamily mrbgems/mruby-\/compiler/core/parse.\+y})
+\item gperf (to compile {\ttfamily mrbgems/mruby-\/compiler/core/keywords})
+\end{DoxyItemize}
+
+Note that {\ttfamily bison} bundled with mac\+OS is too old to compile {\ttfamily mruby}. Try {\ttfamily brew install bison} and follow the instruction shown to update the {\ttfamily \$PATH} to compile {\ttfamily mruby}. We also encourage you to upgrade {\ttfamily ruby} on mac\+OS in similar manner.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md281}{}\doxysection{\texorpdfstring{Build}{Build}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md281}
+To compile {\ttfamily mruby} with the default build configuration, just invoke {\ttfamily rake} inside of the mruby source root. To generate and execute the test tools call {\ttfamily rake test}. To clean all build files call {\ttfamily rake clean}. To see full command line on build, call {\ttfamily rake -\/v}.
+
+You can specify your own configuration file by the {\ttfamily MRUBY\+\_\+\+CONFIG} environment variable (you can use {\ttfamily CONFIG} for shorthand for {\ttfamily MRUBY\+\_\+\+CONFIG}). If the path doesn\textquotesingle{}t exist, {\ttfamily build\+\_\+config/\$\{MRUBY\+\_\+\+CONFIG\}.rb} is used. The default configuration is defined in the {\ttfamily build\+\_\+config/default.\+rb} file.
+
+Those build configuration files contain the build configuration of mruby, for example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{MRuby::Build.new\ do\ |conf|}
+\DoxyCodeLine{\ \ conf.toolchain\ :gcc}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+
+
+All tools necessary to compile mruby can be set or modified here.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md282}{}\doxysection{\texorpdfstring{Build Configuration}{Build Configuration}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md282}
+We wish you submit a pull-\/request to {\ttfamily build\+\_\+config/\+PLATFORM.\+rb}, once you created a new configuration for a new platform.
+
+Inside the configuration file, the following options can be configured based on your environment.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md283}{}\doxysubsection{\texorpdfstring{Toolchains}{Toolchains}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md283}
+The mruby build system already contains a set of toolchain templates which configure the build environment for specific compiler infrastructures.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md284}{}\doxysubsubsection{\texorpdfstring{GCC}{GCC}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md284}
+Toolchain configuration for the GNU C Compiler.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.toolchain\ :gcc}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md285}{}\doxysubsubsection{\texorpdfstring{clang}{clang}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md285}
+Toolchain configuration for the LLVM C Compiler clang. Mainly equal to the GCC toolchain.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.toolchain\ :clang}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md286}{}\doxysubsubsection{\texorpdfstring{Visual Studio 2010, 2012 and 2013}{Visual Studio 2010, 2012 and 2013}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md286}
+Toolchain configuration for Visual Studio on Windows. If you use the \href{https://msdn.microsoft.com/en-us/library/ms229859(v=vs.110).aspx}{\texttt{Visual Studio Command Prompt}}, you normally do not have to specify this manually, since it gets automatically detected by our build process.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.toolchain\ :visualcpp}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md287}{}\doxysubsubsection{\texorpdfstring{Android}{Android}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md287}
+Toolchain configuration for Android.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.toolchain\ :android}
+
+\end{DoxyCode}
+
+
+Requires the custom standalone Android NDK and the toolchain path in {\ttfamily ANDROID\+\_\+\+STANDALONE\+\_\+\+TOOLCHAIN}.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md288}{}\doxysubsection{\texorpdfstring{Binaries}{Binaries}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md288}
+It is possible to select which tools should be compiled during the compilation process. For example,
+
+
+\begin{DoxyItemize}
+\item {\ttfamily mruby}
+\item {\ttfamily mirb}
+\end{DoxyItemize}
+
+The configuration are done via {\ttfamily mrbgems}. See {\ttfamily Mrbgems} section.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md289}{}\doxysubsection{\texorpdfstring{File Separator}{File Separator}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md289}
+Some environments require a different file separator character. It is possible to set the character via {\ttfamily conf.\+file\+\_\+separator}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.file\_separator\ =\ '/'}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md290}{}\doxysubsection{\texorpdfstring{C Compiler}{C Compiler}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md290}
+Configuration of the C compiler binary, flags and include paths.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.cc\ do\ |cc|}
+\DoxyCodeLine{\ \ cc.command\ =\ ...}
+\DoxyCodeLine{\ \ cc.flags\ =\ ...}
+\DoxyCodeLine{\ \ cc.include\_paths\ =\ ...}
+\DoxyCodeLine{\ \ cc.defines\ =\ ...}
+\DoxyCodeLine{\ \ cc.option\_include\_path\ =\ ...}
+\DoxyCodeLine{\ \ cc.option\_define\ =\ ...}
+\DoxyCodeLine{\ \ cc.compile\_options\ =\ ...}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+
+
+C Compiler has header searcher to detect installed library.
+
+If you need an include path of header file use {\ttfamily search\+\_\+header\+\_\+path}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Searches\ \`{}iconv.h`.}
+\DoxyCodeLine{\#\ If\ found\ it\ will\ return\ include\ path\ of\ the\ header\ file.}
+\DoxyCodeLine{\#\ Otherwise\ it\ will\ return\ nil.}
+\DoxyCodeLine{fail\ 'iconv.h\ not\ found'\ unless\ conf.cc.search\_header\_path\ 'iconv.h'}
+
+\end{DoxyCode}
+
+
+If you need a full file name of header file use {\ttfamily search\+\_\+header}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Searches\ \`{}iconv.h`.}
+\DoxyCodeLine{\#\ If\ found\ it\ will\ return\ full\ path\ of\ the\ header\ file.}
+\DoxyCodeLine{\#\ Otherwise\ it\ will\ return\ nil.}
+\DoxyCodeLine{iconv\_h\ =\ conf.cc.search\_header\ 'iconv.h'}
+\DoxyCodeLine{print\ "{}iconv.h\ found:\ \#\{iconv\_h\}\(\backslash\)n"{}}
+
+\end{DoxyCode}
+
+
+Header searcher uses compiler\textquotesingle{}s {\ttfamily include\+\_\+paths} by default. When you are using GCC toolchain (including clang toolchain since its base is gcc toolchain) it will use compiler specific include paths too. (For example {\ttfamily /usr/local/include}, {\ttfamily /usr/include})
+
+If you need a special header search paths define a singleton method {\ttfamily header\+\_\+search\+\_\+paths} to C compiler\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{def\ conf.cc.header\_search\_paths}
+\DoxyCodeLine{\ \ ['/opt/local/include']\ +\ include\_paths}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md291}{}\doxysubsection{\texorpdfstring{Linker}{Linker}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md291}
+Configuration of the Linker binary, flags and library paths.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.linker\ do\ |linker|}
+\DoxyCodeLine{\ \ linker.command\ =\ ...}
+\DoxyCodeLine{\ \ linker.flags\ =\ ...}
+\DoxyCodeLine{\ \ linker.flags\_before\_libraries\ =\ ...}
+\DoxyCodeLine{\ \ linker.libraries\ =\ ...}
+\DoxyCodeLine{\ \ linker.flags\_after\_libraries\ =\ ...}
+\DoxyCodeLine{\ \ linker.library\_paths\ =\ ...}
+\DoxyCodeLine{\ \ linker.option\_library\ =\ ...}
+\DoxyCodeLine{\ \ linker.option\_library\_path\ =\ ...}
+\DoxyCodeLine{\ \ linker.link\_options\ =\ ...}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md292}{}\doxysubsection{\texorpdfstring{Archiver}{Archiver}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md292}
+Configuration of the Archiver binary and flags.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.archiver\ do\ |archiver|}
+\DoxyCodeLine{\ \ archiver.command\ =\ ...}
+\DoxyCodeLine{\ \ archiver.archive\_options\ =\ ...}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md293}{}\doxysubsection{\texorpdfstring{Parser Generator}{Parser Generator}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md293}
+Configuration of the Parser Generator binary and flags.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.yacc\ do\ |yacc|}
+\DoxyCodeLine{\ \ yacc.command\ =\ ...}
+\DoxyCodeLine{\ \ yacc.compile\_options\ =\ ...}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md294}{}\doxysubsection{\texorpdfstring{GPerf}{GPerf}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md294}
+Configuration of the GPerf binary and flags.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.gperf\ do\ |gperf|}
+\DoxyCodeLine{\ \ gperf.command\ =\ ...}
+\DoxyCodeLine{\ \ gperf.compile\_options\ =\ ...}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md295}{}\doxysubsection{\texorpdfstring{File Extensions}{File Extensions}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md295}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.exts\ do\ |exts|}
+\DoxyCodeLine{\ \ exts.object\ =\ ...}
+\DoxyCodeLine{\ \ exts.executable\ =\ ...}
+\DoxyCodeLine{\ \ exts.library\ =\ ...}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md296}{}\doxysubsection{\texorpdfstring{Preallocated Symbols}{Preallocated Symbols}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md296}
+By far, preallocated symbols are highly compatible with the previous versions, so we expect you won\textquotesingle{}t see any problem with them. But just in case you face any issue, you can disable preallocated symbols by specifying {\ttfamily conf.\+disable\+\_\+presym}.
+
+In the build process, {\ttfamily mrbc} under cross compiling environment will be compiled with this configuration.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md297}{}\doxysubsection{\texorpdfstring{Mrbgems}{Mrbgems}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md297}
+{\ttfamily mruby} comes with the (sort of) packaging system named {\ttfamily mrbgems}. To specify {\ttfamily gem}, you can use {\ttfamily conf.\+gem} in the configuration file.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Integrate\ a\ bundled\ Gem\ you\ see\ in\ \`{}mrbgems`\ directory}
+\DoxyCodeLine{conf.gem\ :core\ =>\ 'mruby-\/something'}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Integrate\ a\ Gem\ from\ GitHub}
+\DoxyCodeLine{conf.gem\ :github\ =>\ 'someone/mruby-\/another'}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Integrate\ a\ mruby\ binary\ Gem}
+\DoxyCodeLine{conf.gem\ :core\ =>\ 'mruby-\/bin-\/mruby'}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Integrate\ a\ interactive\ mruby\ binary\ Gem}
+\DoxyCodeLine{conf.gem\ :core\ =>\ 'mruby-\/bin-\/mirb'}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Integrate\ GemBox\ (set\ of\ Gems)}
+\DoxyCodeLine{conf.gembox\ "{}default"{}}
+
+\end{DoxyCode}
+
+
+A Gem\+Box is a set of Gems defined in {\ttfamily mrbgems/default.\+gembox} for example. It\textquotesingle{}s just a set of {\ttfamily mrbgem} configurations.
+
+There is a {\ttfamily Ruby\+Gem} (gem for CRuby) named {\ttfamily mgem} that help you to manage {\ttfamily mrbgems}. Try {\ttfamily gem install mgem}. {\ttfamily mgem} can show you the list of registered {\ttfamily mrbgems}.
+
+See \doxysectlink{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems}{doc/guides/mrbgems.md}{0} for more option about mrbgems.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md298}{}\doxysubsection{\texorpdfstring{Mrbtest}{Mrbtest}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md298}
+Configuration Mrbtest build process.
+
+If you want {\ttfamily mrbtest.\+a} only, You should set {\ttfamily conf.\+build\+\_\+mrbtest\+\_\+lib\+\_\+only}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.build\_mrbtest\_lib\_only}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md299}{}\doxysubsection{\texorpdfstring{Bintest}{Bintest}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md299}
+Tests for mrbgem tools using CRuby. To have bintests place {\ttfamily \texorpdfstring{$\ast$}{*}.rb} scripts to {\ttfamily bintest/} directory of mrbgems. See {\ttfamily mruby-\/bin-\/\texorpdfstring{$\ast$}{*}/bintest/\texorpdfstring{$\ast$}{*}.rb} if you need examples. If you want a temporary files use {\ttfamily tempfile} module of CRuby instead of {\ttfamily /tmp/}.
+
+You can enable it with following\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.enable\_bintest}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md300}{}\doxysubsection{\texorpdfstring{C++ ABI}{C++ ABI}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md300}
+By default, mruby uses setjmp/longjmp to implement its exceptions. But it doesn\textquotesingle{}t release C++ stack object correctly. To support mrbgems written in C++, mruby can be configured to use C++ exception.
+
+There are two levels of C++ exception handling. The one is {\ttfamily enable\+\_\+cxx\+\_\+exception} that enables C++ exception, but uses C ABI. The other is {\ttfamily enable\+\_\+cxx\+\_\+abi} where all files are compiled by C++ compiler.
+
+When you mix C++ code, C++ exception would be enabled automatically. If you need to enable C++ exception explicitly add the following\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.enable\_cxx\_exception}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md301}{}\doxysubsubsection{\texorpdfstring{C++ exception disabling}{C++ exception disabling}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md301}
+If your compiler does not support C++, and you want to ensure you don\textquotesingle{}t use mrbgem written in C++, you can explicitly disable C++ exception, add following\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.disable\_cxx\_exception}
+
+\end{DoxyCode}
+
+
+and you will get an error when you try to use C++ gem. Note that it must be called before {\ttfamily enable\+\_\+cxx\+\_\+exception} or {\ttfamily gem} method.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md302}{}\doxysubsection{\texorpdfstring{Debugging mode}{Debugging mode}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md302}
+To enable debugging mode add the following\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.enable\_debug}
+
+\end{DoxyCode}
+
+
+When debugging mode is enabled
+
+
+\begin{DoxyItemize}
+\item Macro {\ttfamily MRB\+\_\+\+DEBUG} would be defined.
+\begin{DoxyItemize}
+\item Which means {\ttfamily mrb\+\_\+assert()} macro is enabled.
+\end{DoxyItemize}
+\item Debug information of irep would be generated by {\ttfamily mrbc}.
+\begin{DoxyItemize}
+\item Because {\ttfamily -\/g} flag would be added to {\ttfamily mrbc} runner.
+\begin{DoxyItemize}
+\item You can have better backtrace of mruby scripts with this.
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md303}{}\doxysection{\texorpdfstring{Cross-\/\+Compilation}{Cross-\/\+Compilation}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md303}
+mruby can also be cross-\/compiled from one platform to another. To achieve cross-\/compilation, the build configuration needs to contain an instance of {\ttfamily MRuby\+::\+Cross\+Build}. This instance defines the compilation tools and flags for the target platform. An example could look like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{MRuby::CrossBuild.new('32bit')\ do\ |conf|}
+\DoxyCodeLine{\ \ conf.toolchain\ :gcc}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ conf.cc.flags\ <<\ "{}-\/m32"{}}
+\DoxyCodeLine{\ \ conf.linker.flags\ <<\ "{}-\/m32"{}}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+
+
+All configuration options of {\ttfamily MRuby\+::\+Build} can also be used in {\ttfamily MRuby\+::\+Cross\+Build}. You can find examples under the {\ttfamily build\+\_\+config} directory.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md304}{}\doxysubsection{\texorpdfstring{Mrbtest in Cross-\/\+Compilation}{Mrbtest in Cross-\/\+Compilation}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md304}
+In cross compilation, you can run {\ttfamily mrbtest} on an emulator if you have it by changing configuration of test runner.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.test\_runner\ do\ |t|}
+\DoxyCodeLine{\ \ t.command\ =\ ...\ \#\ set\ emulator.\ this\ value\ must\ be\ non\ nil\ or\ false}
+\DoxyCodeLine{\ \ t.flags\ =\ ...\ \#\ set\ flags\ of\ emulator}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ def\ t.run(bin)\ \#\ override\ \`{}run`\ if\ you\ need\ to\ change\ the\ behavior\ of\ it}
+\DoxyCodeLine{\ \ \ \ ...\ \#\ \`{}bin`\ is\ the\ full\ path\ of\ mrbtest}
+\DoxyCodeLine{\ \ end}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md305}{}\doxysection{\texorpdfstring{Build process}{Build process}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md305}
+During the build process the {\ttfamily build} directory will be created in the root directory. The structure of this directory will look like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{+-\/\ build}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ host}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ +-\/\ LEGAL\ \ \ \ \ \ \ \ <-\/\ License\ description}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ +-\/\ bin\ \ \ \ \ \ \ \ \ \ <-\/\ Binaries\ (mirb,\ mrbc\ and\ mruby)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ +-\/\ lib\ \ \ \ \ \ \ \ \ \ <-\/\ Libraries\ (libmruby.a\ and\ libmruby\_core.a)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ +-\/\ mrbc\ \ \ \ \ \ \ \ \ <-\/\ Minimal\ mrbc\ place}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ +-\/\ mrbgems\ \ \ \ \ \ <-\/\ Compilation\ result\ from\ mrbgems}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ +-\/\ mrblib\ \ \ \ \ \ \ <-\/\ Compilation\ result\ from\ mrblib}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ +-\/\ src\ \ \ \ \ \ \ \ \ \ <-\/\ Compilation\ result\ from\ C\ sources}
+
+\end{DoxyCode}
+
+
+The compilation workflow will look like this\+:
+
+
+\begin{DoxyItemize}
+\item compile minimal {\ttfamily mrbc} from {\ttfamily src} and {\ttfamily mrblib} sources
+\begin{DoxyItemize}
+\item compile all files under {\ttfamily src} (object files will be stored in {\ttfamily build/host/mrbc/src})
+\item compile {\ttfamily mruby-\/compiler} gem
+\item create {\ttfamily build/host/mrbc/lib/libmruby\+\_\+core.\+a} out of all object files (C only)
+\item create {\ttfamily build/host/mrbc/bin/mrbc} via {\ttfamily mruby-\/bin-\/mrbc} gem
+\end{DoxyItemize}
+\item compile all files under {\ttfamily src} and store result in {\ttfamily build/host/src}
+\item create {\ttfamily build/host/mrblib/mrblib.\+c} by compiling all {\ttfamily \texorpdfstring{$\ast$}{*}.rb} files under {\ttfamily mrblib} with {\ttfamily build/host/mrbc/bin/mrbc}
+\item compile {\ttfamily build/host/mrblib/mrblib.\+c} to {\ttfamily build/host/mrblib/mrblib.\+o}
+\item create {\ttfamily build/host/lib/libmruby.\+a} out of all object files (C and Ruby)
+\item compile (normal) mrbgems specified in the configuration file
+\item create {\ttfamily build/host/lib/libmruby.\+a} from object files from gems and {\ttfamily libmruby\+\_\+core.\+a}
+\item create binary commands according to binary gems (e.\+g. {\ttfamily mirb} and {\ttfamily mruby})
+\item copy binaries under {\ttfamily build/host/bin} to {\ttfamily bin} directory
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \_\_\_\_\_\ \ \ \ \_\_\_\_\_\ \ \ \ \_\_\_\_\_\_\ \ \ \ \_\_\_\_\ \ \ \ \_\_\_\_\ \ \ \ \_\_\_\_\_\ \ \ \ \_\_\_\_\_\ \ \ \ \_\_\_\_}
+\DoxyCodeLine{|\ CC\ \ |-\/>|GEN\ \ |-\/>|AR\ \ \ \ |-\/>|CC\ \ |-\/>|CC\ \ |-\/>|AR\ \ \ |-\/>|CC\ \ \ |-\/>|CC\ \ |}
+\DoxyCodeLine{|\ *.c\ |\ \ |y.tab|\ \ |core.a|\ \ |mrbc|\ \ |*.rb|\ \ |lib.a|\ \ |mruby|\ \ |mirb|}
+\DoxyCodeLine{\ -\/-\/-\/-\/-\/\ \ \ \ -\/-\/-\/-\/-\/\ \ \ \ -\/-\/-\/-\/-\/-\/\ \ \ \ -\/-\/-\/-\/\ \ \ \ -\/-\/-\/-\/\ \ \ \ -\/-\/-\/-\/-\/\ \ \ \ -\/-\/-\/-\/-\/\ \ \ \ -\/-\/-\/-\/}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md306}{}\doxysubsection{\texorpdfstring{Cross-\/\+Compilation}{Cross-\/\+Compilation}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md306}
+In case of a cross-\/compilation to {\ttfamily i386} the {\ttfamily build} directory structure looks like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{+-\/\ build}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ host}
+\DoxyCodeLine{\ \ \ \ |\ \ \ |}
+\DoxyCodeLine{\ \ \ \ |\ \ \ +-\/\ bin\ \ \ \ \ \ \ \ \ \ \ <-\/\ Native\ Binaries}
+\DoxyCodeLine{\ \ \ \ |\ \ \ |}
+\DoxyCodeLine{\ \ \ \ |\ \ \ +-\/\ lib\ \ \ \ \ \ \ \ \ \ \ <-\/\ Native\ Libraries}
+\DoxyCodeLine{\ \ \ \ |\ \ \ |}
+\DoxyCodeLine{\ \ \ \ |\ \ \ +-\/\ mrbgems}
+\DoxyCodeLine{\ \ \ \ |\ \ \ |}
+\DoxyCodeLine{\ \ \ \ |\ \ \ +-\/\ src}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ i386}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ +-\/\ bin\ \ \ \ \ \ \ \ \ \ \ \ <-\/\ Cross-\/compiled\ Binaries}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ +-\/\ include\ \ \ \ \ \ \ \ <-\/\ Header\ Directory}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ +-\/\ lib\ \ \ \ \ \ \ \ \ \ \ \ <-\/\ Cross-\/compiled\ Libraries}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ +-\/\ mrbgems}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ +-\/\ mrblib}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ +-\/\ src}
+
+\end{DoxyCode}
+
+
+An extra directory is created for the target platform. In case you compile for {\ttfamily i386} a directory called {\ttfamily i386} is created under the build directory.
+
+The cross compilation workflow starts in the same way as the normal compilation by compiling all {\itshape native} libraries and binaries, except for we don\textquotesingle{}t have {\ttfamily host/mrbc} directory ({\ttfamily host} directory itself works as placeholder for {\ttfamily mrbc}). Afterwards the cross compilation process proceeds like this\+:
+
+
+\begin{DoxyItemize}
+\item cross-\/compile all files under {\ttfamily src} and store result in {\ttfamily build/i386/src}
+\item create {\ttfamily build/i386/lib/libmruby\+\_\+core.\+a} out of C object files
+\item create {\ttfamily build/i386/mrblib/mrblib.\+c} by compiling all {\ttfamily \texorpdfstring{$\ast$}{*}.rb} files under {\ttfamily mrblib} with native {\ttfamily build/host/bin/mrbc}
+\item cross-\/compile {\ttfamily build/i386/mrblib/mrblib.\+c} to {\ttfamily build/i386/mrblib/mrblib.\+o}
+\item create {\ttfamily build/i386/lib/libmruby.\+a} from object files from gems and {\ttfamily libmruby\+\_\+core.\+a}
+\item create binary commands according to binary gems (e.\+g. {\ttfamily mirb} and {\ttfamily mruby})
+\item copy binaries under {\ttfamily build/host/bin} to {\ttfamily bin} directory
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}
+\DoxyCodeLine{|\ \ \ \ \ \ \ \ \ \ \ \ \ \ Native\ Compilation\ for\ Host\ System\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{|\ \ \_\_\_\_\_\ \ \ \ \ \ \_\_\_\_\_\_\ \ \ \ \ \ \_\_\_\_\_\ \ \ \ \ \ \_\_\_\_\ \ \ \ \ \ \_\_\_\_\ \ \ \ \ \ \_\_\_\_\_\ \ |}
+\DoxyCodeLine{|\ |\ CC\ \ |\ -\/>\ |AR\ \ \ \ |\ -\/>\ |GEN\ \ |\ -\/>\ |CC\ \ |\ -\/>\ |CC\ \ |\ -\/>\ |AR\ \ \ |\ |}
+\DoxyCodeLine{|\ |\ *.c\ |\ \ \ \ |core.a|\ \ \ \ |y.tab|\ \ \ \ |mrbc|\ \ \ \ |*.rb|\ \ \ \ |lib.a|\ |}
+\DoxyCodeLine{|\ \ -\/-\/-\/-\/-\/\ \ \ \ \ \ -\/-\/-\/-\/-\/-\/\ \ \ \ \ \ -\/-\/-\/-\/-\/\ \ \ \ \ \ -\/-\/-\/-\/\ \ \ \ \ \ -\/-\/-\/-\/\ \ \ \ \ \ -\/-\/-\/-\/-\/\ \ |}
+\DoxyCodeLine{\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)||/}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)/}
+\DoxyCodeLine{\ \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}
+\DoxyCodeLine{|\ \ \ \ \ \ \ \ \ \ \ \ \ Cross\ Compilation\ for\ Target\ System\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{|\ \ \_\_\_\_\_\ \ \ \ \ \ \_\_\_\_\_\ \ \ \ \ \ \_\_\_\_\_\ \ \ \ \ \ \_\_\_\_\ \ \ \ \ \ \_\_\_\_\_\_\ \ \ \ \ \ \_\_\_\_\_\ \ |}
+\DoxyCodeLine{|\ |\ CC\ \ |\ -\/>\ |AR\ \ \ |\ -\/>\ |CC\ \ \ |\ -\/>\ |CC\ \ |\ -\/>\ |AR\ \ \ \ |\ -\/>\ |CC\ \ \ |\ |}
+\DoxyCodeLine{|\ |\ *.c\ |\ \ \ \ |lib.a|\ \ \ \ |mruby|\ \ \ \ |mirb|\ \ \ \ |core.a|\ \ \ \ |mrbc\ |\ |}
+\DoxyCodeLine{|\ \ -\/-\/-\/-\/-\/\ \ \ \ \ \ -\/-\/-\/-\/-\/\ \ \ \ \ \ -\/-\/-\/-\/-\/\ \ \ \ \ \ -\/-\/-\/-\/\ \ \ \ \ \ -\/-\/-\/-\/-\/-\/\ \ \ \ \ \ -\/-\/-\/-\/-\/\ \ |}
+\DoxyCodeLine{\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md307}{}\doxysection{\texorpdfstring{Build Configuration Examples}{Build Configuration Examples}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md307}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md308}{}\doxysubsection{\texorpdfstring{Minimal Library}{Minimal Library}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md308}
+To build a minimal mruby library you need to use the Cross Compiling feature due to the reason that there are functions (e.\+g. stdio) which can\textquotesingle{}t be disabled for the main build.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{MRuby::CrossBuild.new('minimal')\ do\ |conf|}
+\DoxyCodeLine{\ \ conf.toolchain\ :gcc}
+\DoxyCodeLine{\ \ conf.cc.defines\ <<\ 'MRB\_NO\_STDIO'}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+
+
+This configuration defines a cross compile build called \textquotesingle{}minimal\textquotesingle{} which is using the GCC and compiles for the host machine. It also disables all usages of stdio and doesn\textquotesingle{}t compile any binaries (e.\+g. {\ttfamily mrbc}).\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md309}{}\doxysection{\texorpdfstring{Test Environment}{Test Environment}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md309}
+mruby\textquotesingle{}s build process includes a test environment. In case you start the testing of mruby, a native binary called {\ttfamily mrbtest} will be generated and executed. This binary contains all test cases which are defined under {\ttfamily test/t}. In case of a cross-\/compilation an additional cross-\/compiled {\ttfamily mrbtest} binary is generated. You can copy this binary and run on your target system.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md310}{}\doxysection{\texorpdfstring{Embedding {\ttfamily mruby} in Your Application}{Embedding {\ttfamily mruby} in Your Application}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md310}
+After the build, you will get {\ttfamily libmruby.\+a}. You can link it to your application.
+
+For compiler options and library path, you can use {\ttfamily mruby-\/config} command for convenience. {\ttfamily mruby-\/config} command prints the configuration used for {\ttfamily libmruby.\+a}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ mruby-\/config\ -\/-\/help}
+\DoxyCodeLine{Usage:\ mruby-\/config\ [switches]}
+\DoxyCodeLine{\ \ switches:}
+\DoxyCodeLine{\ \ -\/-\/cc\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print\ compiler\ name}
+\DoxyCodeLine{\ \ -\/-\/cflags\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print\ flags\ passed\ to\ compiler}
+\DoxyCodeLine{\ \ -\/-\/ld\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print\ linker\ name}
+\DoxyCodeLine{\ \ -\/-\/ldflags\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print\ flags\ passed\ to\ linker}
+\DoxyCodeLine{\ \ -\/-\/ldflags-\/before-\/libs\ \ \ \ \ \ \ print\ flags\ passed\ to\ linker\ before\ linked\ libraries}
+\DoxyCodeLine{\ \ -\/-\/libs\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print\ linked\ libraries}
+\DoxyCodeLine{\ \ -\/-\/libmruby-\/path\ \ \ \ \ \ \ \ \ \ \ \ \ print\ libmruby\ path}
+\DoxyCodeLine{\ \ -\/-\/help\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print\ this\ help}
+
+\end{DoxyCode}
+
+
+For example, when you have a C source file ({\ttfamily c.\+c}) and try to compile and link it with {\ttfamily libmruby.\+a}, you can run the following command,
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\`{}mruby-\/config\ -\/-\/cc\ -\/-\/cflags`\ c.c\ \`{}mruby-\/config\ -\/-\/ldflags\ -\/-\/libs`}
+
+\end{DoxyCode}
+
+
+When you use {\ttfamily make}, add following lines in {\ttfamily Makefile}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{MRB\_CONFIG\ =\ <path-\/to-\/mruby-\/config>}
+\DoxyCodeLine{CFLAGS\ =\ \`{}\$(MRB\_CONFIG)\ -\/-\/cflags`}
+\DoxyCodeLine{LDFLAGS\ =\ \`{}\$(MRB\_CONFIG)\ -\/-\/ldflags`}
+\DoxyCodeLine{LIBS\ =\ \`{}\$(MRB\_CONFIG)\ -\/-\/libs`}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md311}{}\doxysection{\texorpdfstring{Install}{Install}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md311}
+To install the files in the {\ttfamily bin}, {\ttfamily include} and {\ttfamily lib} directories generated by the "{}host"{} build target into a system directory, do the following\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ rake\ install}
+
+\end{DoxyCode}
+
+
+If there are multiple build targets in the build configuration file, to install the products of all build targets, do the following\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ rake\ install:full}
+
+\end{DoxyCode}
+
+
+To install only one of several build targets, e.\+g., the "{}its-\/mine"{} build target, do the following\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ rake\ install:full:its-\/mine}
+
+\end{DoxyCode}
+
+
+To install only the executable files, do the following\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ rake\ install\_bin\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ only\ "{}host"{}\ build\ target}
+\DoxyCodeLine{\$\ rake\ install:bin\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ all\ build\ targets}
+\DoxyCodeLine{\$\ rake\ install:bin:its-\/mine\ \ \ \ \ \#\ only\ "{}its-\/mine"{}\ build\ target}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md312}{}\doxysubsection{\texorpdfstring{Installation Directory}{Installation Directory}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md312}
+The installation directory is {\ttfamily /usr/local} for the "{}host"{} build target and {\ttfamily /usr/local/mruby/\texorpdfstring{$<$}{<}build-\/name\texorpdfstring{$>$}{>}} for the others. To change them, you can set the environment variable {\ttfamily PREFIX} or use {\ttfamily MRuby\+::\+Build\#install\+\_\+prefix = dir} in your build configuration file.
+
+The {\ttfamily PREFIX} environment variable affects all build targets and changes the {\ttfamily /usr/local} part.
+
+The {\ttfamily MRuby\+::\+Build\#install\+\_\+prefix} can be set for each individual build target. In this case, the environment variable {\ttfamily PREFIX} is ignored.
+
+Also, if the environment variable {\ttfamily DESTDIR} is set, it will prepend to the path obtained by {\ttfamily install\+\_\+prefix} to determine the final write directory. This is intended for temporary file expansion by the user\textquotesingle{}s package work.
+
+\DoxyHorRuler{0}
+
+
+To summarize\+:
+
+
+\begin{DoxyItemize}
+\item The default value of the environment variable {\ttfamily PREFIX} is {\ttfamily /usr/local}.
+\item For the "{}host"{} build target, the default value of {\ttfamily MRuby\+::\+Build\#install\+\_\+prefix} is {\ttfamily \texorpdfstring{$<$}{<}PREFIX\texorpdfstring{$>$}{>}}.
+\item For a build target other than "{}host"{}, the default value of {\ttfamily MRuby\+::\+Build\#install\+\_\+prefix} is {\ttfamily \texorpdfstring{$<$}{<}PREFIX\texorpdfstring{$>$}{>}/mruby/\texorpdfstring{$<$}{<}build-\/name\texorpdfstring{$>$}{>}}.
+\item If the environment variable {\ttfamily DESTDIR} is set, the actual write directory is {\ttfamily \texorpdfstring{$<$}{<}DESTDIR\texorpdfstring{$>$}{>}/\texorpdfstring{$<$}{<}MRuby\+::\+Build\#install\+\_\+prefix\texorpdfstring{$>$}{>}}.
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md314}{}\doxysection{\texorpdfstring{Tips}{Tips}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2compile_autotoc_md314}
+
+\begin{DoxyItemize}
+\item If you see compilation troubles, try {\ttfamily rake clean} first. 
+\end{DoxyItemize}

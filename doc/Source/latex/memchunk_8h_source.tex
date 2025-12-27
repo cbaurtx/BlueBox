@@ -1,0 +1,670 @@
+\doxysection{memchunk.\+h}
+\hypertarget{memchunk_8h_source}{}\label{memchunk_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/memchunk.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/memchunk.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2014\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ MEMCHUNK\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ MEMCHUNK\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_config.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <limits.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00032\ \textcolor{comment}{/*\ Structure\ for\ scatter/gather\ I/O.\ \ */}}
+\DoxyCodeLine{00033\ \textcolor{keyword}{struct\ }iovec\ \{}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordtype}{void}\ *iov\_base;\ \textcolor{comment}{/*\ Pointer\ to\ data.\ \ */}}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{size\_t}\ iov\_len;\ \textcolor{comment}{/*\ Length\ of\ data.\ \ */}}
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//\ !\_WIN32}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#\ \ include\ <sys/uio.h>}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !\_WIN32}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}template.h"{}}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{namespace\ }nghttp2\ \{}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ DEFAULT\_WR\_IOVCNT\ 16}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#if\ defined(IOV\_MAX)\ \&\&\ IOV\_MAX\ <\ DEFAULT\_WR\_IOVCNT}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#\ \ define\ MAX\_WR\_IOVCNT\ IOV\_MAX}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//\ !defined(IOV\_MAX)\ ||\ IOV\_MAX\ >=\ DEFAULT\_WR\_IOVCNT}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#\ \ define\ MAX\_WR\_IOVCNT\ DEFAULT\_WR\_IOVCNT}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !defined(IOV\_MAX)\ ||\ IOV\_MAX\ >=\ DEFAULT\_WR\_IOVCNT}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{size\_t}\ N>\ \textcolor{keyword}{struct\ }Memchunk\ \{}
+\DoxyCodeLine{00062\ \ \ Memchunk(Memchunk\ *next\_chunk)}
+\DoxyCodeLine{00063\ \ \ \ \ :\ pos(std::begin(buf)),\ last(pos),\ knext(next\_chunk),\ next(\textcolor{keyword}{nullptr})\ \{\}}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{size\_t}\ len()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ last\ -\/\ pos;\ \}}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{size\_t}\ left()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ std::end(buf)\ -\/\ last;\ \}}
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{void}\ reset()\ \{\ pos\ =\ last\ =\ std::begin(buf);\ \}}
+\DoxyCodeLine{00067\ \ \ std::array<uint8\_t,\ N>\ buf;}
+\DoxyCodeLine{00068\ \ \ uint8\_t\ *pos,\ *last;}
+\DoxyCodeLine{00069\ \ \ Memchunk\ *knext;}
+\DoxyCodeLine{00070\ \ \ Memchunk\ *next;}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ size\ =\ N;}
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ \textcolor{keyword}{struct\ }Pool\ \{}
+\DoxyCodeLine{00075\ \ \ Pool()\ :\ pool(\textcolor{keyword}{nullptr}),\ freelist(\textcolor{keyword}{nullptr}),\ poolsize(0),\ freelistsize(0)\ \{\}}
+\DoxyCodeLine{00076\ \ \ \string~Pool()\ \{\ clear();\ \}}
+\DoxyCodeLine{00077\ \ \ T\ *get()\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{if}\ (freelist)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ m\ =\ freelist;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ freelist\ =\ freelist-\/>next;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ m-\/>next\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ m-\/>reset();}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ freelistsize\ -\/=\ T::size;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m;}
+\DoxyCodeLine{00085\ \ \ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ pool\ =\ \textcolor{keyword}{new}\ T\{pool\};}
+\DoxyCodeLine{00088\ \ \ \ \ poolsize\ +=\ T::size;}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{return}\ pool;}
+\DoxyCodeLine{00090\ \ \ \}}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{void}\ recycle(T\ *m)\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ m-\/>next\ =\ freelist;}
+\DoxyCodeLine{00093\ \ \ \ \ freelist\ =\ m;}
+\DoxyCodeLine{00094\ \ \ \ \ freelistsize\ +=\ T::size;}
+\DoxyCodeLine{00095\ \ \ \}}
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordtype}{void}\ clear()\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ freelist\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00098\ \ \ \ \ freelistsize\ =\ 0;}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ p\ =\ pool;\ p;)\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ knext\ =\ p-\/>knext;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \textcolor{keyword}{delete}\ p;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ p\ =\ knext;}
+\DoxyCodeLine{00103\ \ \ \ \ \}}
+\DoxyCodeLine{00104\ \ \ \ \ pool\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00105\ \ \ \ \ poolsize\ =\ 0;}
+\DoxyCodeLine{00106\ \ \ \}}
+\DoxyCodeLine{00107\ \ \ \textcolor{keyword}{using\ }value\_type\ =\ T;}
+\DoxyCodeLine{00108\ \ \ T\ *pool;}
+\DoxyCodeLine{00109\ \ \ T\ *freelist;}
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordtype}{size\_t}\ poolsize;}
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordtype}{size\_t}\ freelistsize;}
+\DoxyCodeLine{00112\ \};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Memchunk>\ \textcolor{keyword}{struct\ }Memchunks\ \{}
+\DoxyCodeLine{00115\ \ \ Memchunks(\mbox{\hyperlink{structnghttp2_1_1Pool}{Pool<Memchunk>}}\ *pool)}
+\DoxyCodeLine{00116\ \ \ \ \ :\ pool(pool),}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ head(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ tail(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ len(0),}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ mark(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ mark\_pos(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ mark\_offset(0)\ \{\}}
+\DoxyCodeLine{00123\ \ \ Memchunks(\textcolor{keyword}{const}\ Memchunks\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00124\ \ \ Memchunks(Memchunks\ \&\&other)\ noexcept}
+\DoxyCodeLine{00125\ \ \ \ \ :\ pool\{other.pool\},\ \textcolor{comment}{//\ keep\ other.pool}}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ head\{std::exchange(other.head,\ \textcolor{keyword}{nullptr})\},}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ tail\{std::exchange(other.tail,\ \textcolor{keyword}{nullptr})\},}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ len\{std::exchange(other.len,\ 0)\},}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ mark\{std::exchange(other.mark,\ \textcolor{keyword}{nullptr})\},}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ mark\_pos\{std::exchange(other.mark\_pos,\ \textcolor{keyword}{nullptr})\},}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ mark\_offset\{std::exchange(other.mark\_offset,\ 0)\}\ \{\}}
+\DoxyCodeLine{00132\ \ \ Memchunks\ \&operator=(\textcolor{keyword}{const}\ Memchunks\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00133\ \ \ Memchunks\ \&operator=(Memchunks\ \&\&other)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ ==\ \&other)\ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ reset();}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ pool\ =\ other.pool;}
+\DoxyCodeLine{00141\ \ \ \ \ head\ =\ std::exchange(other.head,\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00142\ \ \ \ \ tail\ =\ std::exchange(other.tail,\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00143\ \ \ \ \ len\ =\ std::exchange(other.len,\ 0);}
+\DoxyCodeLine{00144\ \ \ \ \ mark\ =\ std::exchange(other.mark,\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00145\ \ \ \ \ mark\_pos\ =\ std::exchange(other.mark\_pos,\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00146\ \ \ \ \ mark\_offset\ =\ std::exchange(other.mark\_offset,\ 0);}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00149\ \ \ \}}
+\DoxyCodeLine{00150\ \ \ \string~Memchunks()\ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{if}\ (!pool)\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00153\ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ m\ =\ head;\ m;)\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ next\ =\ m-\/>next;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ pool-\/>recycle(m);}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ m\ =\ next;}
+\DoxyCodeLine{00158\ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ \}}
+\DoxyCodeLine{00160\ \ \ \textcolor{keywordtype}{size\_t}\ append(\textcolor{keywordtype}{char}\ c)\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordflow}{if}\ (!tail)\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ head\ =\ tail\ =\ pool-\/>get();}
+\DoxyCodeLine{00163\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (tail-\/>left()\ ==\ 0)\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ tail-\/>next\ =\ pool-\/>get();}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ tail\ =\ tail-\/>next;}
+\DoxyCodeLine{00166\ \ \ \ \ \}}
+\DoxyCodeLine{00167\ \ \ \ \ *tail-\/>last++\ =\ c;}
+\DoxyCodeLine{00168\ \ \ \ \ ++len;}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00170\ \ \ \}}
+\DoxyCodeLine{00171\ \ \ \textcolor{keywordtype}{size\_t}\ append(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src,\ \textcolor{keywordtype}{size\_t}\ count)\ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordflow}{if}\ (count\ ==\ 0)\ \{}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00174\ \ \ \ \ \}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keyword}{auto}\ first\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }uint8\_t\ *\textcolor{keyword}{>}(src);}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keyword}{auto}\ last\ =\ first\ +\ count;}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordflow}{if}\ (!tail)\ \{}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ head\ =\ tail\ =\ pool-\/>get();}
+\DoxyCodeLine{00181\ \ \ \ \ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordflow}{for}\ (;;)\ \{}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\ =\ std::min(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(last\ -\/\ first),\ tail-\/>left());}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ tail-\/>last\ =\ std::copy\_n(first,\ n,\ tail-\/>last);}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ first\ +=\ n;}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ len\ +=\ n;}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (first\ ==\ last)\ \{}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ tail-\/>next\ =\ pool-\/>get();}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ tail\ =\ tail-\/>next;}
+\DoxyCodeLine{00194\ \ \ \ \ \}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordflow}{return}\ count;}
+\DoxyCodeLine{00197\ \ \ \}}
+\DoxyCodeLine{00198\ \ \ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{size\_t}\ N>\ \textcolor{keywordtype}{size\_t}\ append(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ (\&s)[N])\ \{}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordflow}{return}\ append(s,\ N\ -\/\ 1);}
+\DoxyCodeLine{00200\ \ \ \}}
+\DoxyCodeLine{00201\ \ \ \textcolor{keywordtype}{size\_t}\ append(\textcolor{keyword}{const}\ std::string\ \&s)\ \{\ \textcolor{keywordflow}{return}\ append(s.c\_str(),\ s.size());\ \}}
+\DoxyCodeLine{00202\ \ \ \textcolor{keywordtype}{size\_t}\ append(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&s)\ \{\ \textcolor{keywordflow}{return}\ append(s.data(),\ s.size());\ \}}
+\DoxyCodeLine{00203\ \ \ \textcolor{keywordtype}{size\_t}\ append(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1ImmutableString}{ImmutableString}}\ \&s)\ \{}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordflow}{return}\ append(s.c\_str(),\ s.size());}
+\DoxyCodeLine{00205\ \ \ \}}
+\DoxyCodeLine{00206\ \ \ \textcolor{keywordtype}{size\_t}\ copy(Memchunks\ \&dest)\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keyword}{auto}\ m\ =\ head;}
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keywordflow}{while}\ (m)\ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ dest.append(m-\/>pos,\ m-\/>len());}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ m\ =\ m-\/>next;}
+\DoxyCodeLine{00211\ \ \ \ \ \}}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordflow}{return}\ len;}
+\DoxyCodeLine{00213\ \ \ \}}
+\DoxyCodeLine{00214\ \ \ \textcolor{keywordtype}{size\_t}\ remove(\textcolor{keywordtype}{void}\ *dest,\ \textcolor{keywordtype}{size\_t}\ count)\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ assert(mark\ ==\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordflow}{if}\ (!tail\ ||\ count\ ==\ 0)\ \{}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00219\ \ \ \ \ \}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keyword}{auto}\ first\ =\ \textcolor{keyword}{static\_cast<}uint8\_t\ *\textcolor{keyword}{>}(dest);}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keyword}{auto}\ last\ =\ first\ +\ count;}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keyword}{auto}\ m\ =\ head;}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keywordflow}{while}\ (m)\ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ next\ =\ m-\/>next;}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\ =\ std::min(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(last\ -\/\ first),\ m-\/>len());}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ assert(m-\/>len());}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ first\ =\ std::copy\_n(m-\/>pos,\ n,\ first);}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ m-\/>pos\ +=\ n;}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ len\ -\/=\ n;}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m-\/>len()\ >\ 0)\ \{}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ pool-\/>recycle(m);}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ m\ =\ next;}
+\DoxyCodeLine{00239\ \ \ \ \ \}}
+\DoxyCodeLine{00240\ \ \ \ \ head\ =\ m;}
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keywordflow}{if}\ (head\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ tail\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00243\ \ \ \ \ \}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordflow}{return}\ first\ -\/\ \textcolor{keyword}{static\_cast<}uint8\_t\ *\textcolor{keyword}{>}(dest);}
+\DoxyCodeLine{00246\ \ \ \}}
+\DoxyCodeLine{00247\ \ \ \textcolor{keywordtype}{size\_t}\ remove(Memchunks\ \&dest,\ \textcolor{keywordtype}{size\_t}\ count)\ \{}
+\DoxyCodeLine{00248\ \ \ \ \ assert(mark\ ==\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keywordflow}{if}\ (!tail\ ||\ count\ ==\ 0)\ \{}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00252\ \ \ \ \ \}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keyword}{auto}\ left\ =\ count;}
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keyword}{auto}\ m\ =\ head;}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{keywordflow}{while}\ (m)\ \{}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ next\ =\ m-\/>next;}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\ =\ std::min(left,\ m-\/>len());}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \ \ assert(m-\/>len());}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ dest.append(m-\/>pos,\ n);}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ m-\/>pos\ +=\ n;}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ len\ -\/=\ n;}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ left\ -\/=\ n;}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m-\/>len()\ >\ 0)\ \{}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ pool-\/>recycle(m);}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ m\ =\ next;}
+\DoxyCodeLine{00271\ \ \ \ \ \}}
+\DoxyCodeLine{00272\ \ \ \ \ head\ =\ m;}
+\DoxyCodeLine{00273\ \ \ \ \ \textcolor{keywordflow}{if}\ (head\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ tail\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00275\ \ \ \ \ \}}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordflow}{return}\ count\ -\/\ left;}
+\DoxyCodeLine{00278\ \ \ \}}
+\DoxyCodeLine{00279\ \ \ \textcolor{keywordtype}{size\_t}\ remove(Memchunks\ \&dest)\ \{}
+\DoxyCodeLine{00280\ \ \ \ \ assert(pool\ ==\ dest.pool);}
+\DoxyCodeLine{00281\ \ \ \ \ assert(mark\ ==\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keywordflow}{if}\ (head\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00285\ \ \ \ \ \}}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keyword}{auto}\ n\ =\ len;}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \ \ \textcolor{keywordflow}{if}\ (dest.tail\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ dest.head\ =\ head;}
+\DoxyCodeLine{00291\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ dest.tail-\/>next\ =\ head;}
+\DoxyCodeLine{00293\ \ \ \ \ \}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \ \ dest.tail\ =\ tail;}
+\DoxyCodeLine{00296\ \ \ \ \ dest.len\ +=\ len;}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ \ \ head\ =\ tail\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00299\ \ \ \ \ len\ =\ 0;}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ \ \ \textcolor{keywordflow}{return}\ n;}
+\DoxyCodeLine{00302\ \ \ \}}
+\DoxyCodeLine{00303\ \ \ \textcolor{keywordtype}{size\_t}\ drain(\textcolor{keywordtype}{size\_t}\ count)\ \{}
+\DoxyCodeLine{00304\ \ \ \ \ assert(mark\ ==\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \ \ \ \ \textcolor{keyword}{auto}\ ndata\ =\ count;}
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{keyword}{auto}\ m\ =\ head;}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keywordflow}{while}\ (m)\ \{}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ next\ =\ m-\/>next;}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\ =\ std::min(count,\ m-\/>len());}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ m-\/>pos\ +=\ n;}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ count\ -\/=\ n;}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ len\ -\/=\ n;}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m-\/>len()\ >\ 0)\ \{}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \ \ pool-\/>recycle(m);}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ m\ =\ next;}
+\DoxyCodeLine{00320\ \ \ \ \ \}}
+\DoxyCodeLine{00321\ \ \ \ \ head\ =\ m;}
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{keywordflow}{if}\ (head\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ tail\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00324\ \ \ \ \ \}}
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keywordflow}{return}\ ndata\ -\/\ count;}
+\DoxyCodeLine{00326\ \ \ \}}
+\DoxyCodeLine{00327\ \ \ \textcolor{keywordtype}{size\_t}\ drain\_mark(\textcolor{keywordtype}{size\_t}\ count)\ \{}
+\DoxyCodeLine{00328\ \ \ \ \ \textcolor{keyword}{auto}\ ndata\ =\ count;}
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keyword}{auto}\ m\ =\ head;}
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{keywordflow}{while}\ (m)\ \{}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ next\ =\ m-\/>next;}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\ =\ std::min(count,\ m-\/>len());}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ m-\/>pos\ +=\ n;}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ count\ -\/=\ n;}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ len\ -\/=\ n;}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ mark\_offset\ -\/=\ n;}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m-\/>len()\ >\ 0)\ \{}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ assert(mark\ !=\ m\ ||\ m-\/>pos\ <=\ mark\_pos);}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mark\ ==\ m)\ \{}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ assert(m-\/>pos\ <=\ mark\_pos);}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ mark\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ mark\_pos\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ mark\_offset\ =\ 0;}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ \ \ \ \ \ \ pool-\/>recycle(m);}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ m\ =\ next;}
+\DoxyCodeLine{00352\ \ \ \ \ \}}
+\DoxyCodeLine{00353\ \ \ \ \ head\ =\ m;}
+\DoxyCodeLine{00354\ \ \ \ \ \textcolor{keywordflow}{if}\ (head\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ tail\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00356\ \ \ \ \ \}}
+\DoxyCodeLine{00357\ \ \ \ \ \textcolor{keywordflow}{return}\ ndata\ -\/\ count;}
+\DoxyCodeLine{00358\ \ \ \}}
+\DoxyCodeLine{00359\ \ \ \textcolor{keywordtype}{int}\ riovec(\textcolor{keyword}{struct}\ iovec\ *iov,\ \textcolor{keywordtype}{int}\ iovcnt)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keywordflow}{if}\ (!head)\ \{}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00362\ \ \ \ \ \}}
+\DoxyCodeLine{00363\ \ \ \ \ \textcolor{keyword}{auto}\ m\ =\ head;}
+\DoxyCodeLine{00364\ \ \ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{00365\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ iovcnt\ \&\&\ m;\ ++i,\ m\ =\ m-\/>next)\ \{}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ iov[i].iov\_base\ =\ m-\/>pos;}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ iov[i].iov\_len\ =\ m-\/>len();}
+\DoxyCodeLine{00368\ \ \ \ \ \}}
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{keywordflow}{return}\ i;}
+\DoxyCodeLine{00370\ \ \ \}}
+\DoxyCodeLine{00371\ \ \ \textcolor{keywordtype}{int}\ riovec\_mark(\textcolor{keyword}{struct}\ iovec\ *iov,\ \textcolor{keywordtype}{int}\ iovcnt)\ \{}
+\DoxyCodeLine{00372\ \ \ \ \ \textcolor{keywordflow}{if}\ (!head\ ||\ iovcnt\ ==\ 0)\ \{}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00374\ \ \ \ \ \}}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ \ \ \ \ \textcolor{keywordtype}{int}\ i\ =\ 0;}
+\DoxyCodeLine{00377\ \ \ \ \ \mbox{\hyperlink{structnghttp2_1_1Memchunk}{Memchunk}}\ *m;}
+\DoxyCodeLine{00378\ \ \ \ \ \textcolor{keywordflow}{if}\ (mark)\ \{}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mark\_pos\ !=\ mark-\/>last)\ \{}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ iov[0].iov\_base\ =\ mark\_pos;}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ iov[0].iov\_len\ =\ mark-\/>len()\ -\/\ (mark\_pos\ -\/\ mark-\/>pos);}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ mark\_pos\ =\ mark-\/>last;}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ mark\_offset\ +=\ iov[0].iov\_len;}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ i\ =\ 1;}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ m\ =\ mark-\/>next;}
+\DoxyCodeLine{00388\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ i\ =\ 0;}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ m\ =\ head;}
+\DoxyCodeLine{00391\ \ \ \ \ \}}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{keywordflow}{for}\ (;\ i\ <\ iovcnt\ \&\&\ m;\ ++i,\ m\ =\ m-\/>next)\ \{}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ iov[i].iov\_base\ =\ m-\/>pos;}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ iov[i].iov\_len\ =\ m-\/>len();}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00397\ \ \ \ \ \ \ mark\ =\ m;}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ mark\_pos\ =\ m-\/>last;}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ mark\_offset\ +=\ m-\/>len();}
+\DoxyCodeLine{00400\ \ \ \ \ \}}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00402\ \ \ \ \ \textcolor{keywordflow}{return}\ i;}
+\DoxyCodeLine{00403\ \ \ \}}
+\DoxyCodeLine{00404\ \ \ \textcolor{keywordtype}{size\_t}\ rleft()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ len;\ \}}
+\DoxyCodeLine{00405\ \ \ \textcolor{keywordtype}{size\_t}\ rleft\_mark()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ len\ -\/\ mark\_offset;\ \}}
+\DoxyCodeLine{00406\ \ \ \textcolor{keywordtype}{void}\ reset()\ \{}
+\DoxyCodeLine{00407\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ m\ =\ head;\ m;)\ \{}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ next\ =\ m-\/>next;}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ pool-\/>recycle(m);}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ m\ =\ next;}
+\DoxyCodeLine{00411\ \ \ \ \ \}}
+\DoxyCodeLine{00412\ \ \ \ \ len\ =\ 0;}
+\DoxyCodeLine{00413\ \ \ \ \ head\ =\ tail\ =\ mark\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00414\ \ \ \ \ mark\_pos\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00415\ \ \ \ \ mark\_offset\ =\ 0;}
+\DoxyCodeLine{00416\ \ \ \}}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \ \ \mbox{\hyperlink{structnghttp2_1_1Pool}{Pool<Memchunk>}}\ *pool;}
+\DoxyCodeLine{00419\ \ \ \mbox{\hyperlink{structnghttp2_1_1Memchunk}{Memchunk}}\ *head,\ *tail;}
+\DoxyCodeLine{00420\ \ \ \textcolor{keywordtype}{size\_t}\ len;}
+\DoxyCodeLine{00421\ \ \ \mbox{\hyperlink{structnghttp2_1_1Memchunk}{Memchunk}}\ *mark;}
+\DoxyCodeLine{00422\ \ \ uint8\_t\ *mark\_pos;}
+\DoxyCodeLine{00423\ \ \ \textcolor{keywordtype}{size\_t}\ mark\_offset;}
+\DoxyCodeLine{00424\ \};}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \textcolor{comment}{//\ Wrapper\ around\ Memchunks\ to\ offer\ "{}peeking"{}\ functionality.}}
+\DoxyCodeLine{00427\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Memchunk>\ \textcolor{keyword}{struct\ }PeekMemchunks\ \{}
+\DoxyCodeLine{00428\ \ \ PeekMemchunks(\mbox{\hyperlink{structnghttp2_1_1Pool}{Pool<Memchunk>}}\ *pool)}
+\DoxyCodeLine{00429\ \ \ \ \ :\ memchunks(pool),}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ cur(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ cur\_pos(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ cur\_last(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ len(0),}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ peeking(\textcolor{keyword}{true})\ \{\}}
+\DoxyCodeLine{00435\ \ \ PeekMemchunks(\textcolor{keyword}{const}\ PeekMemchunks\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00436\ \ \ PeekMemchunks(PeekMemchunks\ \&\&other)\ noexcept}
+\DoxyCodeLine{00437\ \ \ \ \ :\ memchunks\{std::move(other.memchunks)\},}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ cur\{std::exchange(other.cur,\ \textcolor{keyword}{nullptr})\},}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ cur\_pos\{std::exchange(other.cur\_pos,\ \textcolor{keyword}{nullptr})\},}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ cur\_last\{std::exchange(other.cur\_last,\ \textcolor{keyword}{nullptr})\},}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ len\{std::exchange(other.len,\ 0)\},}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ peeking\{std::exchange(other.peeking,\ \textcolor{keyword}{true})\}\ \{\}}
+\DoxyCodeLine{00443\ \ \ PeekMemchunks\ \&operator=(\textcolor{keyword}{const}\ PeekMemchunks\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00444\ \ \ PeekMemchunks\ \&operator=(PeekMemchunks\ \&\&other)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00445\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ ==\ \&other)\ \{}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00447\ \ \ \ \ \}}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00449\ \ \ \ \ memchunks\ =\ std::move(other.memchunks);}
+\DoxyCodeLine{00450\ \ \ \ \ cur\ =\ std::exchange(other.cur,\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00451\ \ \ \ \ cur\_pos\ =\ std::exchange(other.cur\_pos,\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00452\ \ \ \ \ cur\_last\ =\ std::exchange(other.cur\_last,\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00453\ \ \ \ \ len\ =\ std::exchange(other.len,\ 0);}
+\DoxyCodeLine{00454\ \ \ \ \ peeking\ =\ std::exchange(other.peeking,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00456\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00457\ \ \ \}}
+\DoxyCodeLine{00458\ \ \ \textcolor{keywordtype}{size\_t}\ append(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src,\ \textcolor{keywordtype}{size\_t}\ count)\ \{}
+\DoxyCodeLine{00459\ \ \ \ \ count\ =\ memchunks.append(src,\ count);}
+\DoxyCodeLine{00460\ \ \ \ \ len\ +=\ count;}
+\DoxyCodeLine{00461\ \ \ \ \ \textcolor{keywordflow}{return}\ count;}
+\DoxyCodeLine{00462\ \ \ \}}
+\DoxyCodeLine{00463\ \ \ \textcolor{keywordtype}{size\_t}\ remove(\textcolor{keywordtype}{void}\ *dest,\ \textcolor{keywordtype}{size\_t}\ count)\ \{}
+\DoxyCodeLine{00464\ \ \ \ \ \textcolor{keywordflow}{if}\ (!peeking)\ \{}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ count\ =\ memchunks.remove(dest,\ count);}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ len\ -\/=\ count;}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ count;}
+\DoxyCodeLine{00468\ \ \ \ \ \}}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00470\ \ \ \ \ \textcolor{keywordflow}{if}\ (count\ ==\ 0\ ||\ len\ ==\ 0)\ \{}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00472\ \ \ \ \ \}}
+\DoxyCodeLine{00473\ }
+\DoxyCodeLine{00474\ \ \ \ \ \textcolor{keywordflow}{if}\ (!cur)\ \{}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ cur\ =\ memchunks.head;}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ cur\_pos\ =\ cur-\/>pos;}
+\DoxyCodeLine{00477\ \ \ \ \ \}}
+\DoxyCodeLine{00478\ }
+\DoxyCodeLine{00479\ \ \ \ \ \textcolor{comment}{//\ cur\_last\ could\ be\ updated\ in\ append}}
+\DoxyCodeLine{00480\ \ \ \ \ cur\_last\ =\ cur-\/>last;}
+\DoxyCodeLine{00481\ }
+\DoxyCodeLine{00482\ \ \ \ \ \textcolor{keywordflow}{if}\ (cur\_pos\ ==\ cur\_last)\ \{}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ assert(cur-\/>next);}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ cur\ =\ cur-\/>next;}
+\DoxyCodeLine{00485\ \ \ \ \ \}}
+\DoxyCodeLine{00486\ }
+\DoxyCodeLine{00487\ \ \ \ \ \textcolor{keyword}{auto}\ first\ =\ \textcolor{keyword}{static\_cast<}uint8\_t\ *\textcolor{keyword}{>}(dest);}
+\DoxyCodeLine{00488\ \ \ \ \ \textcolor{keyword}{auto}\ last\ =\ first\ +\ count;}
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00490\ \ \ \ \ \textcolor{keywordflow}{for}\ (;;)\ \{}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\ =\ std::min(last\ -\/\ first,\ cur\_last\ -\/\ cur\_pos);}
+\DoxyCodeLine{00492\ }
+\DoxyCodeLine{00493\ \ \ \ \ \ \ first\ =\ std::copy\_n(cur\_pos,\ n,\ first);}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ cur\_pos\ +=\ n;}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ len\ -\/=\ n;}
+\DoxyCodeLine{00496\ }
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (first\ ==\ last)\ \{}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ assert(cur\_pos\ ==\ cur\_last);}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!cur-\/>next)\ \{}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ cur\ =\ cur-\/>next;}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ cur\_pos\ =\ cur-\/>pos;}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ cur\_last\ =\ cur-\/>last;}
+\DoxyCodeLine{00507\ \ \ \ \ \}}
+\DoxyCodeLine{00508\ \ \ \ \ \textcolor{keywordflow}{return}\ first\ -\/\ \textcolor{keyword}{static\_cast<}uint8\_t\ *\textcolor{keyword}{>}(dest);}
+\DoxyCodeLine{00509\ \ \ \}}
+\DoxyCodeLine{00510\ \ \ \textcolor{keywordtype}{size\_t}\ rleft()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ len;\ \}}
+\DoxyCodeLine{00511\ \ \ \textcolor{keywordtype}{size\_t}\ rleft\_buffered()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ memchunks.rleft();\ \}}
+\DoxyCodeLine{00512\ \ \ \textcolor{keywordtype}{void}\ disable\_peek(\textcolor{keywordtype}{bool}\ drain)\ \{}
+\DoxyCodeLine{00513\ \ \ \ \ \textcolor{keywordflow}{if}\ (!peeking)\ \{}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00515\ \ \ \ \ \}}
+\DoxyCodeLine{00516\ \ \ \ \ \textcolor{keywordflow}{if}\ (drain)\ \{}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\ =\ rleft\_buffered()\ -\/\ rleft();}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ memchunks.drain(n);}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ assert(len\ ==\ memchunks.rleft());}
+\DoxyCodeLine{00520\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ len\ =\ memchunks.rleft();}
+\DoxyCodeLine{00522\ \ \ \ \ \}}
+\DoxyCodeLine{00523\ \ \ \ \ cur\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00524\ \ \ \ \ cur\_pos\ =\ cur\_last\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00525\ \ \ \ \ peeking\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00526\ \ \ \}}
+\DoxyCodeLine{00527\ \ \ \textcolor{keywordtype}{void}\ reset()\ \{}
+\DoxyCodeLine{00528\ \ \ \ \ memchunks.reset();}
+\DoxyCodeLine{00529\ \ \ \ \ cur\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00530\ \ \ \ \ cur\_pos\ =\ cur\_last\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00531\ \ \ \ \ len\ =\ 0;}
+\DoxyCodeLine{00532\ \ \ \ \ peeking\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00533\ \ \ \}}
+\DoxyCodeLine{00534\ \ \ \mbox{\hyperlink{structnghttp2_1_1Memchunks}{Memchunks<Memchunk>}}\ memchunks;}
+\DoxyCodeLine{00535\ \ \ \textcolor{comment}{//\ Pointer\ to\ the\ Memchunk\ currently\ we\ are\ reading/writing.}}
+\DoxyCodeLine{00536\ \ \ \mbox{\hyperlink{structnghttp2_1_1Memchunk}{Memchunk}}\ *cur;}
+\DoxyCodeLine{00537\ \ \ \textcolor{comment}{//\ Region\ inside\ cur,\ we\ have\ processed\ to\ cur\_pos.}}
+\DoxyCodeLine{00538\ \ \ uint8\_t\ *cur\_pos,\ *cur\_last;}
+\DoxyCodeLine{00539\ \ \ \textcolor{comment}{//\ This\ is\ the\ length\ we\ have\ left\ unprocessed.\ \ len\ <=}}
+\DoxyCodeLine{00540\ \ \ \textcolor{comment}{//\ memchunk.rleft()\ must\ hold.}}
+\DoxyCodeLine{00541\ \ \ \textcolor{keywordtype}{size\_t}\ len;}
+\DoxyCodeLine{00542\ \ \ \textcolor{comment}{//\ true\ if\ peeking\ is\ enabled.\ \ Initially\ it\ is\ true.}}
+\DoxyCodeLine{00543\ \ \ \textcolor{keywordtype}{bool}\ peeking;}
+\DoxyCodeLine{00544\ \};}
+\DoxyCodeLine{00545\ }
+\DoxyCodeLine{00546\ \textcolor{keyword}{using\ }Memchunk16K\ =\ \mbox{\hyperlink{structnghttp2_1_1Memchunk}{Memchunk<16\_k>}};}
+\DoxyCodeLine{00547\ \textcolor{keyword}{using\ }MemchunkPool\ =\ \mbox{\hyperlink{structnghttp2_1_1Pool}{Pool<Memchunk16K>}};}
+\DoxyCodeLine{00548\ \textcolor{keyword}{using\ }DefaultMemchunks\ =\ \mbox{\hyperlink{structnghttp2_1_1Memchunks}{Memchunks<Memchunk16K>}};}
+\DoxyCodeLine{00549\ \textcolor{keyword}{using\ }DefaultPeekMemchunks\ =\ \mbox{\hyperlink{structnghttp2_1_1PeekMemchunks}{PeekMemchunks<Memchunk16K>}};}
+\DoxyCodeLine{00550\ }
+\DoxyCodeLine{00551\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ limit\_iovec(\textcolor{keyword}{struct}\ iovec\ *iov,\ \textcolor{keywordtype}{int}\ iovcnt,\ \textcolor{keywordtype}{size\_t}\ max)\ \{}
+\DoxyCodeLine{00552\ \ \ \textcolor{keywordflow}{if}\ (max\ ==\ 0)\ \{}
+\DoxyCodeLine{00553\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00554\ \ \ \}}
+\DoxyCodeLine{00555\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ iovcnt;\ ++i)\ \{}
+\DoxyCodeLine{00556\ \ \ \ \ \textcolor{keyword}{auto}\ d\ =\ std::min(max,\ iov[i].iov\_len);}
+\DoxyCodeLine{00557\ \ \ \ \ iov[i].iov\_len\ =\ d;}
+\DoxyCodeLine{00558\ \ \ \ \ max\ -\/=\ d;}
+\DoxyCodeLine{00559\ \ \ \ \ \textcolor{keywordflow}{if}\ (max\ ==\ 0)\ \{}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ i\ +\ 1;}
+\DoxyCodeLine{00561\ \ \ \ \ \}}
+\DoxyCodeLine{00562\ \ \ \}}
+\DoxyCodeLine{00563\ \ \ \textcolor{keywordflow}{return}\ iovcnt;}
+\DoxyCodeLine{00564\ \}}
+\DoxyCodeLine{00565\ }
+\DoxyCodeLine{00566\ \textcolor{comment}{//\ MemchunkBuffer\ is\ similar\ to\ Buffer,\ but\ it\ uses\ pooled\ Memchunk}}
+\DoxyCodeLine{00567\ \textcolor{comment}{//\ for\ its\ underlying\ buffer.}}
+\DoxyCodeLine{00568\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Memchunk>\ \textcolor{keyword}{struct\ }MemchunkBuffer\ \{}
+\DoxyCodeLine{00569\ \ \ MemchunkBuffer(\mbox{\hyperlink{structnghttp2_1_1Pool}{Pool<Memchunk>}}\ *pool)\ :\ pool(pool),\ chunk(\textcolor{keyword}{nullptr})\ \{\}}
+\DoxyCodeLine{00570\ \ \ MemchunkBuffer(\textcolor{keyword}{const}\ MemchunkBuffer\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00571\ \ \ MemchunkBuffer(MemchunkBuffer\ \&\&other)\ noexcept}
+\DoxyCodeLine{00572\ \ \ \ \ :\ pool(other.pool),\ chunk(other.chunk)\ \{}
+\DoxyCodeLine{00573\ \ \ \ \ other.chunk\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00574\ \ \ \}}
+\DoxyCodeLine{00575\ \ \ MemchunkBuffer\ \&operator=(\textcolor{keyword}{const}\ MemchunkBuffer\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00576\ \ \ MemchunkBuffer\ \&operator=(MemchunkBuffer\ \&\&other)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00577\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ ==\ \&other)\ \{}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00579\ \ \ \ \ \}}
+\DoxyCodeLine{00580\ }
+\DoxyCodeLine{00581\ \ \ \ \ pool\ =\ other.pool;}
+\DoxyCodeLine{00582\ \ \ \ \ chunk\ =\ other.chunk;}
+\DoxyCodeLine{00583\ }
+\DoxyCodeLine{00584\ \ \ \ \ other.chunk\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00585\ }
+\DoxyCodeLine{00586\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00587\ \ \ \}}
+\DoxyCodeLine{00588\ }
+\DoxyCodeLine{00589\ \ \ \string~MemchunkBuffer()\ \{}
+\DoxyCodeLine{00590\ \ \ \ \ \textcolor{keywordflow}{if}\ (!pool\ ||\ !chunk)\ \{}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00592\ \ \ \ \ \}}
+\DoxyCodeLine{00593\ \ \ \ \ pool-\/>recycle(chunk);}
+\DoxyCodeLine{00594\ \ \ \}}
+\DoxyCodeLine{00595\ }
+\DoxyCodeLine{00596\ \ \ \textcolor{comment}{//\ Ensures\ that\ the\ underlying\ buffer\ is\ allocated.}}
+\DoxyCodeLine{00597\ \ \ \textcolor{keywordtype}{void}\ ensure\_chunk()\ \{}
+\DoxyCodeLine{00598\ \ \ \ \ \textcolor{keywordflow}{if}\ (chunk)\ \{}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00600\ \ \ \ \ \}}
+\DoxyCodeLine{00601\ \ \ \ \ chunk\ =\ pool-\/>get();}
+\DoxyCodeLine{00602\ \ \ \}}
+\DoxyCodeLine{00603\ }
+\DoxyCodeLine{00604\ \ \ \textcolor{comment}{//\ Releases\ the\ underlying\ buffer.}}
+\DoxyCodeLine{00605\ \ \ \textcolor{keywordtype}{void}\ release\_chunk()\ \{}
+\DoxyCodeLine{00606\ \ \ \ \ \textcolor{keywordflow}{if}\ (!chunk)\ \{}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00608\ \ \ \ \ \}}
+\DoxyCodeLine{00609\ \ \ \ \ pool-\/>recycle(chunk);}
+\DoxyCodeLine{00610\ \ \ \ \ chunk\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00611\ \ \ \}}
+\DoxyCodeLine{00612\ }
+\DoxyCodeLine{00613\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ the\ underlying\ buffer\ is\ allocated.}}
+\DoxyCodeLine{00614\ \ \ \textcolor{keywordtype}{bool}\ chunk\_avail()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ chunk\ !=\ \textcolor{keyword}{nullptr};\ \}}
+\DoxyCodeLine{00615\ }
+\DoxyCodeLine{00616\ \ \ \textcolor{comment}{//\ The\ functions\ below\ must\ be\ called\ after\ the\ underlying\ buffer\ is}}
+\DoxyCodeLine{00617\ \ \ \textcolor{comment}{//\ allocated\ (use\ ensure\_chunk).}}
+\DoxyCodeLine{00618\ }
+\DoxyCodeLine{00619\ \ \ \textcolor{comment}{//\ MemchunkBuffer\ provides\ the\ same\ interface\ functions\ with\ Buffer.}}
+\DoxyCodeLine{00620\ \ \ \textcolor{comment}{//\ Since\ we\ has\ chunk\ as\ a\ member\ variable,\ pos\ and\ last\ are}}
+\DoxyCodeLine{00621\ \ \ \textcolor{comment}{//\ implemented\ as\ wrapper\ functions.}}
+\DoxyCodeLine{00622\ }
+\DoxyCodeLine{00623\ \ \ uint8\_t\ *pos()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ chunk-\/>pos;\ \}}
+\DoxyCodeLine{00624\ \ \ uint8\_t\ *last()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ chunk-\/>last;\ \}}
+\DoxyCodeLine{00625\ }
+\DoxyCodeLine{00626\ \ \ \textcolor{keywordtype}{size\_t}\ rleft()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ chunk-\/>len();\ \}}
+\DoxyCodeLine{00627\ \ \ \textcolor{keywordtype}{size\_t}\ wleft()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ chunk-\/>left();\ \}}
+\DoxyCodeLine{00628\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src,\ \textcolor{keywordtype}{size\_t}\ count)\ \{}
+\DoxyCodeLine{00629\ \ \ \ \ count\ =\ std::min(count,\ wleft());}
+\DoxyCodeLine{00630\ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }uint8\_t\ *\textcolor{keyword}{>}(src);}
+\DoxyCodeLine{00631\ \ \ \ \ chunk-\/>last\ =\ std::copy\_n(p,\ count,\ chunk-\/>last);}
+\DoxyCodeLine{00632\ \ \ \ \ \textcolor{keywordflow}{return}\ count;}
+\DoxyCodeLine{00633\ \ \ \}}
+\DoxyCodeLine{00634\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keywordtype}{size\_t}\ count)\ \{}
+\DoxyCodeLine{00635\ \ \ \ \ count\ =\ std::min(count,\ wleft());}
+\DoxyCodeLine{00636\ \ \ \ \ chunk-\/>last\ +=\ count;}
+\DoxyCodeLine{00637\ \ \ \ \ \textcolor{keywordflow}{return}\ count;}
+\DoxyCodeLine{00638\ \ \ \}}
+\DoxyCodeLine{00639\ \ \ \textcolor{keywordtype}{size\_t}\ drain(\textcolor{keywordtype}{size\_t}\ count)\ \{}
+\DoxyCodeLine{00640\ \ \ \ \ count\ =\ std::min(count,\ rleft());}
+\DoxyCodeLine{00641\ \ \ \ \ chunk-\/>pos\ +=\ count;}
+\DoxyCodeLine{00642\ \ \ \ \ \textcolor{keywordflow}{return}\ count;}
+\DoxyCodeLine{00643\ \ \ \}}
+\DoxyCodeLine{00644\ \ \ \textcolor{keywordtype}{size\_t}\ drain\_reset(\textcolor{keywordtype}{size\_t}\ count)\ \{}
+\DoxyCodeLine{00645\ \ \ \ \ count\ =\ std::min(count,\ rleft());}
+\DoxyCodeLine{00646\ \ \ \ \ std::copy(chunk-\/>pos\ +\ count,\ chunk-\/>last,\ std::begin(chunk-\/>buf));}
+\DoxyCodeLine{00647\ \ \ \ \ chunk-\/>last\ =\ std::begin(chunk-\/>buf)\ +\ (chunk-\/>last\ -\/\ (chunk-\/>pos\ +\ count));}
+\DoxyCodeLine{00648\ \ \ \ \ chunk-\/>pos\ =\ std::begin(chunk-\/>buf);}
+\DoxyCodeLine{00649\ \ \ \ \ \textcolor{keywordflow}{return}\ count;}
+\DoxyCodeLine{00650\ \ \ \}}
+\DoxyCodeLine{00651\ \ \ \textcolor{keywordtype}{void}\ reset()\ \{\ chunk-\/>reset();\ \}}
+\DoxyCodeLine{00652\ \ \ uint8\_t\ *begin()\ \{\ \textcolor{keywordflow}{return}\ std::begin(chunk-\/>buf);\ \}}
+\DoxyCodeLine{00653\ \ \ uint8\_t\ \&operator[](\textcolor{keywordtype}{size\_t}\ n)\ \{\ \textcolor{keywordflow}{return}\ chunk-\/>buf[n];\ \}}
+\DoxyCodeLine{00654\ \ \ \textcolor{keyword}{const}\ uint8\_t\ \&operator[](\textcolor{keywordtype}{size\_t}\ n)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ chunk-\/>buf[n];\ \}}
+\DoxyCodeLine{00655\ }
+\DoxyCodeLine{00656\ \ \ \mbox{\hyperlink{structnghttp2_1_1Pool}{Pool<Memchunk>}}\ *pool;}
+\DoxyCodeLine{00657\ \ \ \mbox{\hyperlink{structnghttp2_1_1Memchunk}{Memchunk}}\ *chunk;}
+\DoxyCodeLine{00658\ \};}
+\DoxyCodeLine{00659\ }
+\DoxyCodeLine{00660\ \textcolor{keyword}{using\ }DefaultMemchunkBuffer\ =\ \mbox{\hyperlink{structnghttp2_1_1MemchunkBuffer}{MemchunkBuffer<Memchunk16K>}};}
+\DoxyCodeLine{00661\ }
+\DoxyCodeLine{00662\ \}\ \textcolor{comment}{//\ namespace\ nghttp2}}
+\DoxyCodeLine{00663\ }
+\DoxyCodeLine{00664\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MEMCHUNK\_H}}
+
+\end{DoxyCode}

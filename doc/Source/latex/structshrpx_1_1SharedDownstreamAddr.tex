@@ -1,0 +1,70 @@
+\doxysection{shrpx\+::Shared\+Downstream\+Addr Struct Reference}
+\hypertarget{structshrpx_1_1SharedDownstreamAddr}{}\label{structshrpx_1_1SharedDownstreamAddr}\index{shrpx::SharedDownstreamAddr@{shrpx::SharedDownstreamAddr}}
+
+
+Collaboration diagram for shrpx\+::Shared\+Downstream\+Addr\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{structshrpx_1_1SharedDownstreamAddr__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1SharedDownstreamAddr_a06434046a4b5ab16563dccd503f9a913}\label{structshrpx_1_1SharedDownstreamAddr_a06434046a4b5ab16563dccd503f9a913} 
+{\bfseries Shared\+Downstream\+Addr} (const Shared\+Downstream\+Addr \&)=delete
+\item 
+\Hypertarget{structshrpx_1_1SharedDownstreamAddr_a15889eefba12fc8c1a20931e62c4198e}\label{structshrpx_1_1SharedDownstreamAddr_a15889eefba12fc8c1a20931e62c4198e} 
+{\bfseries Shared\+Downstream\+Addr} (Shared\+Downstream\+Addr \&\&)=delete
+\item 
+\Hypertarget{structshrpx_1_1SharedDownstreamAddr_acdbd199f1c2ac285c4549ba21fdc6823}\label{structshrpx_1_1SharedDownstreamAddr_acdbd199f1c2ac285c4549ba21fdc6823} 
+Shared\+Downstream\+Addr \& {\bfseries operator=} (const Shared\+Downstream\+Addr \&)=delete
+\item 
+\Hypertarget{structshrpx_1_1SharedDownstreamAddr_acb7cf443936ce1e427dfd91b01809f5e}\label{structshrpx_1_1SharedDownstreamAddr_acb7cf443936ce1e427dfd91b01809f5e} 
+Shared\+Downstream\+Addr \& {\bfseries operator=} (Shared\+Downstream\+Addr \&\&)=delete
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1SharedDownstreamAddr_ae437d4dea0c862e99a24873e97e2faf4}\label{structshrpx_1_1SharedDownstreamAddr_ae437d4dea0c862e99a24873e97e2faf4} 
+\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{Block\+Allocator}} {\bfseries balloc}
+\item 
+\Hypertarget{structshrpx_1_1SharedDownstreamAddr_af2383e3d7bf7e3ae0b9cb4b787d8de71}\label{structshrpx_1_1SharedDownstreamAddr_af2383e3d7bf7e3ae0b9cb4b787d8de71} 
+std\+::vector$<$ \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{Downstream\+Addr}} $>$ {\bfseries addrs}
+\item 
+\Hypertarget{structshrpx_1_1SharedDownstreamAddr_a6f70b38beba56bad976fce70f97deae2}\label{structshrpx_1_1SharedDownstreamAddr_a6f70b38beba56bad976fce70f97deae2} 
+std\+::vector$<$ \mbox{\hyperlink{structshrpx_1_1WeightGroup}{Weight\+Group}} $>$ {\bfseries wgs}
+\item 
+\Hypertarget{structshrpx_1_1SharedDownstreamAddr_a1d3a95760ab7cbc8ceea1213ccebfa7e}\label{structshrpx_1_1SharedDownstreamAddr_a1d3a95760ab7cbc8ceea1213ccebfa7e} 
+std\+::priority\+\_\+queue$<$ \mbox{\hyperlink{structshrpx_1_1WeightGroupEntry}{Weight\+Group\+Entry}}, std\+::vector$<$ \mbox{\hyperlink{structshrpx_1_1WeightGroupEntry}{Weight\+Group\+Entry}} $>$, \mbox{\hyperlink{structshrpx_1_1WeightGroupEntryGreater}{Weight\+Group\+Entry\+Greater}} $>$ {\bfseries pq}
+\item 
+\Hypertarget{structshrpx_1_1SharedDownstreamAddr_a09a373b042758ec7be97369c9c99fc4c}\label{structshrpx_1_1SharedDownstreamAddr_a09a373b042758ec7be97369c9c99fc4c} 
+std\+::vector$<$ \mbox{\hyperlink{structshrpx_1_1AffinityHash}{Affinity\+Hash}} $>$ {\bfseries affinity\+\_\+hash}
+\item 
+\Hypertarget{structshrpx_1_1SharedDownstreamAddr_ae6ddd8b106e8fb94b6cfe2e6c2e80a76}\label{structshrpx_1_1SharedDownstreamAddr_ae6ddd8b106e8fb94b6cfe2e6c2e80a76} 
+std\+::unordered\+\_\+map$<$ uint32\+\_\+t, size\+\_\+t $>$ {\bfseries affinity\+\_\+hash\+\_\+map}
+\item 
+\Hypertarget{structshrpx_1_1SharedDownstreamAddr_a8673db1ced9b324a0b7915da42cb54a3}\label{structshrpx_1_1SharedDownstreamAddr_a8673db1ced9b324a0b7915da42cb54a3} 
+\mbox{\hyperlink{structshrpx_1_1AffinityConfig}{Affinity\+Config}} {\bfseries affinity}
+\item 
+\Hypertarget{structshrpx_1_1SharedDownstreamAddr_a74a23a363c82676373f5f652ce8d11d8}\label{structshrpx_1_1SharedDownstreamAddr_a74a23a363c82676373f5f652ce8d11d8} 
+bool {\bfseries redirect\+\_\+if\+\_\+not\+\_\+tls}
+\item 
+\Hypertarget{structshrpx_1_1SharedDownstreamAddr_ad4b5e7fee4725992b104bfb266702982}\label{structshrpx_1_1SharedDownstreamAddr_ad4b5e7fee4725992b104bfb266702982} 
+bool {\bfseries dnf}
+\item 
+\Hypertarget{structshrpx_1_1SharedDownstreamAddr_a12905cf228828ab8b73a643c920537ae}\label{structshrpx_1_1SharedDownstreamAddr_a12905cf228828ab8b73a643c920537ae} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>ev\_tstamp {\bfseries read}\\
+\>ev\_tstamp {\bfseries write}\\
+\} {\bfseries timeout}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+worker.\+h\end{DoxyCompactItemize}

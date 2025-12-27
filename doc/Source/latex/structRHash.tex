@@ -1,0 +1,44 @@
+\doxysection{RHash Struct Reference}
+\hypertarget{structRHash}{}\label{structRHash}\index{RHash@{RHash}}
+
+
+{\ttfamily \#include $<$hash.\+h$>$}
+
+
+
+Collaboration diagram for RHash\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{structRHash__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structRHash_a03210dabead6aa9a120e38be08fc78a7}\label{structRHash_a03210dabead6aa9a120e38be08fc78a7} 
+{\bfseries MRB\+\_\+\+OBJECT\+\_\+\+HEADER}
+\item 
+\Hypertarget{structRHash_a1217c3b71d8a80766416e1bff8e41c7f}\label{structRHash_a1217c3b71d8a80766416e1bff8e41c7f} 
+struct \mbox{\hyperlink{structiv__tbl}{iv\+\_\+tbl}} \texorpdfstring{$\ast$}{*} {\bfseries iv}
+\item 
+\Hypertarget{structRHash_aedbb73729e76da89985c4a6f19c1ff05}\label{structRHash_aedbb73729e76da89985c4a6f19c1ff05} 
+uint32\+\_\+t {\bfseries size}
+\item 
+\Hypertarget{structRHash_a286dce22e25c17af11a700b1cff8ca2e}\label{structRHash_a286dce22e25c17af11a700b1cff8ca2e} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>struct \mbox{\hyperlink{structhash__entry}{hash\_entry}} \texorpdfstring{$\ast$}{*} {\bfseries ea}\\
+\>struct \mbox{\hyperlink{structhash__table}{hash\_table}} \texorpdfstring{$\ast$}{*} {\bfseries ht}\\
+\} {\bfseries hsh}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Hash class 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/\mbox{\hyperlink{hash_8h}{hash.\+h}}\end{DoxyCompactItemize}

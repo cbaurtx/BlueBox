@@ -1,0 +1,81 @@
+\doxysection{scanning.\+h}
+\hypertarget{scanning_8h_source}{}\label{scanning_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/presym/scanning.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/presym/scanning.h}}
+\mbox{\hyperlink{scanning_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_PRESYM\_SCANNING\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_PRESYM\_SCANNING\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ MRB\_PRESYM\_SCANNING\_TAGGED(arg)\ <@!\ arg\ !@>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#undef\ mrb\_intern\_lit}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ mrb\_intern\_lit(mrb,\ name)\ MRB\_PRESYM\_SCANNING\_TAGGED(name)}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ mrb\_intern\_cstr(mrb,\ name)\ MRB\_PRESYM\_SCANNING\_TAGGED(name)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ mrb\_define\_method(mrb,\ c,\ name,\ ...)\ MRB\_PRESYM\_SCANNING\_TAGGED(name)\ (c)\ (\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ mrb\_define\_class\_method(mrb,\ c,\ name,\ ...)\ MRB\_PRESYM\_SCANNING\_TAGGED(name)\ (c)\ (\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ mrb\_define\_singleton\_method(mrb,\ c,\ name,\ ...)\ MRB\_PRESYM\_SCANNING\_TAGGED(name)\ (c)\ (\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ mrb\_define\_class(mrb,\ name,\ s)\ MRB\_PRESYM\_SCANNING\_TAGGED(name)\ (s)}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ mrb\_define\_class\_under(mrb,\ o,\ name,\ s)\ MRB\_PRESYM\_SCANNING\_TAGGED(name)\ (o)\ (s)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ mrb\_define\_module(mrb,\ name)\ MRB\_PRESYM\_SCANNING\_TAGGED(name)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ mrb\_define\_module\_under(mrb,\ o,\ name)\ MRB\_PRESYM\_SCANNING\_TAGGED(name)\ (o)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ mrb\_define\_module\_function(mrb,\ c,\ name,\ ...)\ MRB\_PRESYM\_SCANNING\_TAGGED(name)\ (c)\ (\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ mrb\_define\_const(mrb,\ c,\ name,\ v)\ MRB\_PRESYM\_SCANNING\_TAGGED(name)\ (c)\ (v)}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ mrb\_define\_global\_const(mrb,\ name,\ v)\ MRB\_PRESYM\_SCANNING\_TAGGED(name)\ (v)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ mrb\_define\_alias(mrb,\ c,\ a,\ b)\ MRB\_PRESYM\_SCANNING\_TAGGED(a)\ MRB\_PRESYM\_SCANNING\_TAGGED(b)\ (c)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ mrb\_class\_get(mrb,\ name)\ MRB\_PRESYM\_SCANNING\_TAGGED(name)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ mrb\_class\_get\_under(mrb,\ outer,\ name)\ MRB\_PRESYM\_SCANNING\_TAGGED(name)\ (outer)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ mrb\_module\_get(mrb,\ name)\ MRB\_PRESYM\_SCANNING\_TAGGED(name)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ mrb\_module\_get\_under(mrb,\ outer,\ name)\ MRB\_PRESYM\_SCANNING\_TAGGED(name)\ (outer)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ mrb\_funcall(mrb,\ v,\ name,\ ...)\ MRB\_PRESYM\_SCANNING\_TAGGED(name)\ (v)\ (\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM(name)\ MRB\_OPSYM\_\_\#\#name(mrb)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ MRB\_CVSYM(name)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}@@"{}\ \#name)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ MRB\_IVSYM(name)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}@"{}\ \#name)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ MRB\_SYM\_B(name)\ MRB\_PRESYM\_SCANNING\_TAGGED(\#name\ "{}!"{})}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ MRB\_SYM\_Q(name)\ MRB\_PRESYM\_SCANNING\_TAGGED(\#name\ "{}?"{})}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ MRB\_SYM\_E(name)\ MRB\_PRESYM\_SCANNING\_TAGGED(\#name\ "{}="{})}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ MRB\_SYM(name)\ MRB\_PRESYM\_SCANNING\_TAGGED(\#name)}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_2(mrb,\ name)\ MRB\_OPSYM\_\_\#\#name(mrb)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ MRB\_CVSYM\_2(mrb,\ name)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}@@"{}\ \#name)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ MRB\_IVSYM\_2(mrb,\ name)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}@"{}\ \#name)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ MRB\_SYM\_B\_2(mrb,\ name)\ MRB\_PRESYM\_SCANNING\_TAGGED(\#name\ "{}!"{})}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ MRB\_SYM\_Q\_2(mrb,\ name)\ MRB\_PRESYM\_SCANNING\_TAGGED(\#name\ "{}?"{})}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ MRB\_SYM\_E\_2(mrb,\ name)\ MRB\_PRESYM\_SCANNING\_TAGGED(\#name\ "{}="{})}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ MRB\_SYM\_2(mrb,\ name)\ MRB\_PRESYM\_SCANNING\_TAGGED(\#name)}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_not(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}!"{})}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_mod(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}\%"{})}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_and(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}\&"{})}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_mul(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}*"{})}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_add(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}+"{})}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_sub(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}-\/"{})}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_div(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}/"{})}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_lt(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}<"{})}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_gt(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}>"{})}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_xor(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}\string^"{})}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_tick(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}\`{}"{})}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_or(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}|"{})}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_neg(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}\string~"{})}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_neq(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}!="{})}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_nmatch(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}!\string~"{})}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_andand(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}\&\&"{})}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_pow(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}**"{})}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_plus(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}+@"{})}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_minus(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}-\/@"{})}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_lshift(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}<<"{})}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_le(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}<="{})}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_eq(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}=="{})}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_match(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}=\string~"{})}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_ge(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}>="{})}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_rshift(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}>>"{})}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_aref(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}[]"{})}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_oror(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}||"{})}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_cmp(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}<=>"{})}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_eqq(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}==="{})}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ MRB\_OPSYM\_\_aset(mrb)\ MRB\_PRESYM\_SCANNING\_TAGGED("{}[]="{})}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_PRESYM\_SCANNING\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

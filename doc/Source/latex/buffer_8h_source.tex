@@ -1,0 +1,84 @@
+\doxysection{buffer.\+h}
+\hypertarget{buffer_8h_source}{}\label{buffer_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/buffer.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/buffer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2014\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ BUFFER\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ BUFFER\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_config.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{namespace\ }nghttp2\ \{}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{size\_t}\ N>\ \textcolor{keyword}{struct\ }Buffer\ \{}
+\DoxyCodeLine{00037\ \ \ Buffer()\ :\ pos(std::begin(buf)),\ last(pos)\ \{\}}
+\DoxyCodeLine{00038\ \ \ \textcolor{comment}{//\ Returns\ the\ number\ of\ bytes\ to\ read.}}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{size\_t}\ rleft()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ last\ -\/\ pos;\ \}}
+\DoxyCodeLine{00040\ \ \ \textcolor{comment}{//\ Returns\ the\ number\ of\ bytes\ this\ buffer\ can\ store.}}
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{size\_t}\ wleft()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ std::end(buf)\ -\/\ last;\ \}}
+\DoxyCodeLine{00042\ \ \ \textcolor{comment}{//\ Writes\ up\ to\ min(wleft(),\ |count|)\ bytes\ from\ buffer\ pointed\ by}}
+\DoxyCodeLine{00043\ \ \ \textcolor{comment}{//\ |src|.\ \ Returns\ number\ of\ bytes\ written.}}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src,\ \textcolor{keywordtype}{size\_t}\ count)\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ count\ =\ std::min(count,\ wleft());}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }uint8\_t\ *\textcolor{keyword}{>}(src);}
+\DoxyCodeLine{00047\ \ \ \ \ last\ =\ std::copy\_n(p,\ count,\ last);}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{return}\ count;}
+\DoxyCodeLine{00049\ \ \ \}}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keywordtype}{size\_t}\ count)\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ count\ =\ std::min(count,\ wleft());}
+\DoxyCodeLine{00052\ \ \ \ \ last\ +=\ count;}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{return}\ count;}
+\DoxyCodeLine{00054\ \ \ \}}
+\DoxyCodeLine{00055\ \ \ \textcolor{comment}{//\ Drains\ min(rleft(),\ |count|)\ bytes\ from\ start\ of\ the\ buffer.}}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{size\_t}\ drain(\textcolor{keywordtype}{size\_t}\ count)\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ count\ =\ std::min(count,\ rleft());}
+\DoxyCodeLine{00058\ \ \ \ \ pos\ +=\ count;}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{return}\ count;}
+\DoxyCodeLine{00060\ \ \ \}}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{size\_t}\ drain\_reset(\textcolor{keywordtype}{size\_t}\ count)\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ count\ =\ std::min(count,\ rleft());}
+\DoxyCodeLine{00063\ \ \ \ \ std::copy(pos\ +\ count,\ last,\ std::begin(buf));}
+\DoxyCodeLine{00064\ \ \ \ \ last\ =\ std::begin(buf)\ +\ (last\ -\/\ (pos\ +\ count));}
+\DoxyCodeLine{00065\ \ \ \ \ pos\ =\ std::begin(buf);}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{return}\ count;}
+\DoxyCodeLine{00067\ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{void}\ reset()\ \{\ pos\ =\ last\ =\ std::begin(buf);\ \}}
+\DoxyCodeLine{00069\ \ \ uint8\_t\ *begin()\ \{\ \textcolor{keywordflow}{return}\ std::begin(buf);\ \}}
+\DoxyCodeLine{00070\ \ \ uint8\_t\ \&operator[](\textcolor{keywordtype}{size\_t}\ n)\ \{\ \textcolor{keywordflow}{return}\ buf[n];\ \}}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{const}\ uint8\_t\ \&operator[](\textcolor{keywordtype}{size\_t}\ n)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ buf[n];\ \}}
+\DoxyCodeLine{00072\ \ \ std::array<uint8\_t,\ N>\ buf;}
+\DoxyCodeLine{00073\ \ \ uint8\_t\ *pos,\ *last;}
+\DoxyCodeLine{00074\ \};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \}\ \textcolor{comment}{//\ namespace\ nghttp2}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ BUFFER\_H}}
+
+\end{DoxyCode}

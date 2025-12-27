@@ -1,0 +1,418 @@
+\doxysection{shrpx\+::Http2\+Upstream Class Reference}
+\hypertarget{classshrpx_1_1Http2Upstream}{}\label{classshrpx_1_1Http2Upstream}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+
+
+Inheritance diagram for shrpx\+::Http2\+Upstream\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{classshrpx_1_1Http2Upstream__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for shrpx\+::Http2\+Upstream\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{classshrpx_1_1Http2Upstream__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_acbae3d468b2e3e443d767d6e64010af2}\label{classshrpx_1_1Http2Upstream_acbae3d468b2e3e443d767d6e64010af2} 
+{\bfseries Http2\+Upstream} (\mbox{\hyperlink{classshrpx_1_1ClientHandler}{Client\+Handler}} \texorpdfstring{$\ast$}{*}handler)
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_a5dc08a1511cfc57a54e1f7cc7a839b1c}{on\+\_\+read}} ()
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_a828604446ec0a0ec3314849e9fa671ef}{on\+\_\+write}} ()
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_a293e003d1720f6f86045723665226235}{on\+\_\+timeout}} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_a8a3bb3afce3e09ce9a77d50c797ed331}{on\+\_\+downstream\+\_\+abort\+\_\+request}} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream, unsigned int status\+\_\+code)
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_a997dd3757fcbb29379f27b77a437ade7}{on\+\_\+downstream\+\_\+abort\+\_\+request\+\_\+with\+\_\+https\+\_\+redirect}} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+virtual \mbox{\hyperlink{classshrpx_1_1ClientHandler}{Client\+Handler}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classshrpx_1_1Http2Upstream_a1418157d00c34d8f57fa8a0e67642a27}{get\+\_\+client\+\_\+handler}} () const
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_ab51048d23b6d53aa1adb097895858257}{downstream\+\_\+read}} (\mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{Downstream\+Connection}} \texorpdfstring{$\ast$}{*}dconn)
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_a39db6d2a3e8b4e69367cda8678f38cc1}{downstream\+\_\+write}} (\mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{Downstream\+Connection}} \texorpdfstring{$\ast$}{*}dconn)
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_acb3f573d2ca6274a798646d90c1b8b09}{downstream\+\_\+eof}} (\mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{Downstream\+Connection}} \texorpdfstring{$\ast$}{*}dconn)
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_a695460615a279e91352ff5352eb96a1b}{downstream\+\_\+error}} (\mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{Downstream\+Connection}} \texorpdfstring{$\ast$}{*}dconn, int events)
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_a85fd8a13fb011a45da0652c4cfa1e682}\label{classshrpx_1_1Http2Upstream_a85fd8a13fb011a45da0652c4cfa1e682} 
+void {\bfseries add\+\_\+pending\+\_\+downstream} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} $>$ downstream)
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_a10eb2f24fb02b4a7d4b0bfd98966d72f}\label{classshrpx_1_1Http2Upstream_a10eb2f24fb02b4a7d4b0bfd98966d72f} 
+void {\bfseries remove\+\_\+downstream} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_ab32ac7b59371e676859fbe8651d8e868}\label{classshrpx_1_1Http2Upstream_ab32ac7b59371e676859fbe8651d8e868} 
+int {\bfseries rst\+\_\+stream} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream, uint32\+\_\+t error\+\_\+code)
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_a5cca9172070c13b6555ae18bc0de9dac}\label{classshrpx_1_1Http2Upstream_a5cca9172070c13b6555ae18bc0de9dac} 
+int {\bfseries terminate\+\_\+session} (uint32\+\_\+t error\+\_\+code)
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_aed6437234488c55aa8ed47fd595d412a}\label{classshrpx_1_1Http2Upstream_aed6437234488c55aa8ed47fd595d412a} 
+int {\bfseries error\+\_\+reply} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream, unsigned int status\+\_\+code)
+\item 
+virtual void \mbox{\hyperlink{classshrpx_1_1Http2Upstream_aa94eaeef72b9ee6053cb76032394e6de}{pause\+\_\+read}} (IOCtrl\+Reason reason)
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_aa3a0bfa0043c94f589157473f3ead12c}{resume\+\_\+read}} (IOCtrl\+Reason reason, \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream, size\+\_\+t consumed)
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_aa6ffb51f34b114300f25c91443c1fc66}{on\+\_\+downstream\+\_\+header\+\_\+complete}} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_a772b0d7bd681fb9c73f398359ac0a493}{on\+\_\+downstream\+\_\+body}} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len, bool flush)
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_a95b2700981e45bb4bb60e23ec121120a}{on\+\_\+downstream\+\_\+body\+\_\+complete}} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+virtual void \mbox{\hyperlink{classshrpx_1_1Http2Upstream_a787914c79735ccb074ef5a81aea82a24}{on\+\_\+handler\+\_\+delete}} ()
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_a182cffb2e8b93dc56a36b814ec937bf5}{on\+\_\+downstream\+\_\+reset}} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream, bool no\+\_\+retry)
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_ac24d764afdbd12369c751953e5e2613e}{send\+\_\+reply}} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}body, size\+\_\+t bodylen)
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_af99be9f78821115e6047b576f4c28f57}{initiate\+\_\+push}} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream, const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&uri)
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_afc63c6ca2c581ea64faa1193e970d08e}{response\+\_\+riovec}} (struct iovec \texorpdfstring{$\ast$}{*}iov, int iovcnt) const
+\item 
+virtual void \mbox{\hyperlink{classshrpx_1_1Http2Upstream_a25c1430953f6b5331de73f56a4455927}{response\+\_\+drain}} (size\+\_\+t n)
+\item 
+virtual bool \mbox{\hyperlink{classshrpx_1_1Http2Upstream_a5c618d5b4c2d00a1691dcba7679f2f9a}{response\+\_\+empty}} () const
+\item 
+virtual \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classshrpx_1_1Http2Upstream_a439bf42dd7ed75fbcccce44eb4f1e2e6}{on\+\_\+downstream\+\_\+push\+\_\+promise}} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream, int32\+\_\+t promised\+\_\+stream\+\_\+id)
+\item 
+virtual int \mbox{\hyperlink{classshrpx_1_1Http2Upstream_a912ae64a9bcdf90bb98f7bcbb4b802fa}{on\+\_\+downstream\+\_\+push\+\_\+promise\+\_\+complete}} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream, \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}promised\+\_\+downstream)
+\item 
+virtual bool \mbox{\hyperlink{classshrpx_1_1Http2Upstream_a5c48e5448c60d73cb9913bfa2d3e3f5e}{push\+\_\+enabled}} () const
+\item 
+virtual void \mbox{\hyperlink{classshrpx_1_1Http2Upstream_af37e92598431db5ac4945db4fff665aa}{cancel\+\_\+premature\+\_\+downstream}} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}promised\+\_\+downstream)
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_aa398f7c871484212235493a535bde25e}\label{classshrpx_1_1Http2Upstream_aa398f7c871484212235493a535bde25e} 
+bool {\bfseries get\+\_\+flow\+\_\+control} () const
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_a447694e094a06c3eba4cf828b48298d1}\label{classshrpx_1_1Http2Upstream_a447694e094a06c3eba4cf828b48298d1} 
+int {\bfseries upgrade\+\_\+upstream} (\mbox{\hyperlink{classshrpx_1_1HttpsUpstream}{Https\+Upstream}} \texorpdfstring{$\ast$}{*}upstream)
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_a77f8258c8fed42abb39d97bc3a6bb1af}\label{classshrpx_1_1Http2Upstream_a77f8258c8fed42abb39d97bc3a6bb1af} 
+void {\bfseries start\+\_\+settings\+\_\+timer} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_a2b712aed3599c503af1395574e1a01b6}\label{classshrpx_1_1Http2Upstream_a2b712aed3599c503af1395574e1a01b6} 
+void {\bfseries stop\+\_\+settings\+\_\+timer} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_a2d23f1e41463b111d0e0070e5725320a}\label{classshrpx_1_1Http2Upstream_a2d23f1e41463b111d0e0070e5725320a} 
+int {\bfseries consume} (int32\+\_\+t stream\+\_\+id, size\+\_\+t len)
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_a31536dc2799a026f5ee7ef97ce109d44}\label{classshrpx_1_1Http2Upstream_a31536dc2799a026f5ee7ef97ce109d44} 
+void {\bfseries log\+\_\+response\+\_\+headers} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream, const std\+::vector$<$ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\+\_\+nv}} $>$ \&nva) const
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_ac9c1b381f19cee3c53e0a4c6c8bb8cf7}\label{classshrpx_1_1Http2Upstream_ac9c1b381f19cee3c53e0a4c6c8bb8cf7} 
+void {\bfseries start\+\_\+downstream} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_ae7bb760cfae2328ef9cb5239dd6ba2d5}\label{classshrpx_1_1Http2Upstream_ae7bb760cfae2328ef9cb5239dd6ba2d5} 
+void {\bfseries initiate\+\_\+downstream} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_aaefa6d888dd4475da1398f6a39c19f21}\label{classshrpx_1_1Http2Upstream_aaefa6d888dd4475da1398f6a39c19f21} 
+void {\bfseries submit\+\_\+goaway} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_a369b49f51ff916f35ed6ed996ceeb30b}\label{classshrpx_1_1Http2Upstream_a369b49f51ff916f35ed6ed996ceeb30b} 
+void {\bfseries check\+\_\+shutdown} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_a9844e60fa93b6a70307f6205d6b7f6ce}\label{classshrpx_1_1Http2Upstream_a9844e60fa93b6a70307f6205d6b7f6ce} 
+void {\bfseries start\+\_\+graceful\+\_\+shutdown} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_aa75a5df18fa62cc6a5e61b05c41523dc}\label{classshrpx_1_1Http2Upstream_aa75a5df18fa62cc6a5e61b05c41523dc} 
+int {\bfseries prepare\+\_\+push\+\_\+promise} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_ac99e3c719503053ad4c397a1eee9f8ac}\label{classshrpx_1_1Http2Upstream_ac99e3c719503053ad4c397a1eee9f8ac} 
+int {\bfseries submit\+\_\+push\+\_\+promise} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&scheme, const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&authority, const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&path, \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_a4362eacda9a05c6cb10daec1694d47e4}\label{classshrpx_1_1Http2Upstream_a4362eacda9a05c6cb10daec1694d47e4} 
+void {\bfseries on\+\_\+start\+\_\+request} (const \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\+\_\+frame}} \texorpdfstring{$\ast$}{*}frame)
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_aaea473d2d6e8223fc48ca409deb0b0ad}\label{classshrpx_1_1Http2Upstream_aaea473d2d6e8223fc48ca409deb0b0ad} 
+int {\bfseries on\+\_\+request\+\_\+headers} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream, const \mbox{\hyperlink{unionnghttp2__frame}{nghttp2\+\_\+frame}} \texorpdfstring{$\ast$}{*}frame)
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_ac2c6cb769674f08b390d99ff2ef60d79}\label{classshrpx_1_1Http2Upstream_ac2c6cb769674f08b390d99ff2ef60d79} 
+Default\+Memchunks \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+response\+\_\+buf} ()
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_aa98622122968f258276bafa0ab60fe29}\label{classshrpx_1_1Http2Upstream_aa98622122968f258276bafa0ab60fe29} 
+size\+\_\+t {\bfseries get\+\_\+max\+\_\+buffer\+\_\+size} () const
+\item 
+\Hypertarget{classshrpx_1_1Http2Upstream_a33d94a2074f8edc14f8b98826496dd40}\label{classshrpx_1_1Http2Upstream_a33d94a2074f8edc14f8b98826496dd40} 
+int {\bfseries redirect\+\_\+to\+\_\+https} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{classshrpx_1_1Http2Upstream_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classshrpx_1_1Http2Upstream_af37e92598431db5ac4945db4fff665aa}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!cancel\_premature\_downstream@{cancel\_premature\_downstream}}
+\index{cancel\_premature\_downstream@{cancel\_premature\_downstream}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{cancel\_premature\_downstream()}{cancel\_premature\_downstream()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_af37e92598431db5ac4945db4fff665aa} 
+void shrpx\+::\+Http2\+Upstream\+::cancel\+\_\+premature\+\_\+downstream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}}]{promised\+\_\+downstream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_acb3f573d2ca6274a798646d90c1b8b09}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!downstream\_eof@{downstream\_eof}}
+\index{downstream\_eof@{downstream\_eof}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{downstream\_eof()}{downstream\_eof()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_acb3f573d2ca6274a798646d90c1b8b09} 
+int shrpx\+::\+Http2\+Upstream\+::downstream\+\_\+eof (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{Downstream\+Connection}} \texorpdfstring{$\ast$}{*}}]{dconn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_a695460615a279e91352ff5352eb96a1b}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!downstream\_error@{downstream\_error}}
+\index{downstream\_error@{downstream\_error}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{downstream\_error()}{downstream\_error()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_a695460615a279e91352ff5352eb96a1b} 
+int shrpx\+::\+Http2\+Upstream\+::downstream\+\_\+error (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{Downstream\+Connection}} \texorpdfstring{$\ast$}{*}}]{dconn}{, }\item[{int}]{events}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_ab51048d23b6d53aa1adb097895858257}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!downstream\_read@{downstream\_read}}
+\index{downstream\_read@{downstream\_read}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{downstream\_read()}{downstream\_read()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_ab51048d23b6d53aa1adb097895858257} 
+int shrpx\+::\+Http2\+Upstream\+::downstream\+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{Downstream\+Connection}} \texorpdfstring{$\ast$}{*}}]{dconn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_a39db6d2a3e8b4e69367cda8678f38cc1}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!downstream\_write@{downstream\_write}}
+\index{downstream\_write@{downstream\_write}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{downstream\_write()}{downstream\_write()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_a39db6d2a3e8b4e69367cda8678f38cc1} 
+int shrpx\+::\+Http2\+Upstream\+::downstream\+\_\+write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{Downstream\+Connection}} \texorpdfstring{$\ast$}{*}}]{dconn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_a1418157d00c34d8f57fa8a0e67642a27}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!get\_client\_handler@{get\_client\_handler}}
+\index{get\_client\_handler@{get\_client\_handler}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{get\_client\_handler()}{get\_client\_handler()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_a1418157d00c34d8f57fa8a0e67642a27} 
+\mbox{\hyperlink{classshrpx_1_1ClientHandler}{Client\+Handler}} \texorpdfstring{$\ast$}{*} shrpx\+::\+Http2\+Upstream\+::get\+\_\+client\+\_\+handler (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_af99be9f78821115e6047b576f4c28f57}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!initiate\_push@{initiate\_push}}
+\index{initiate\_push@{initiate\_push}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{initiate\_push()}{initiate\_push()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_af99be9f78821115e6047b576f4c28f57} 
+int shrpx\+::\+Http2\+Upstream\+::initiate\+\_\+push (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}}]{downstream}{, }\item[{const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&}]{uri}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_a8a3bb3afce3e09ce9a77d50c797ed331}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!on\_downstream\_abort\_request@{on\_downstream\_abort\_request}}
+\index{on\_downstream\_abort\_request@{on\_downstream\_abort\_request}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{on\_downstream\_abort\_request()}{on\_downstream\_abort\_request()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_a8a3bb3afce3e09ce9a77d50c797ed331} 
+int shrpx\+::\+Http2\+Upstream\+::on\+\_\+downstream\+\_\+abort\+\_\+request (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}}]{downstream}{, }\item[{unsigned int}]{status\+\_\+code}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_a997dd3757fcbb29379f27b77a437ade7}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!on\_downstream\_abort\_request\_with\_https\_redirect@{on\_downstream\_abort\_request\_with\_https\_redirect}}
+\index{on\_downstream\_abort\_request\_with\_https\_redirect@{on\_downstream\_abort\_request\_with\_https\_redirect}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{on\_downstream\_abort\_request\_with\_https\_redirect()}{on\_downstream\_abort\_request\_with\_https\_redirect()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_a997dd3757fcbb29379f27b77a437ade7} 
+int shrpx\+::\+Http2\+Upstream\+::on\+\_\+downstream\+\_\+abort\+\_\+request\+\_\+with\+\_\+https\+\_\+redirect (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}}]{downstream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_a772b0d7bd681fb9c73f398359ac0a493}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!on\_downstream\_body@{on\_downstream\_body}}
+\index{on\_downstream\_body@{on\_downstream\_body}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{on\_downstream\_body()}{on\_downstream\_body()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_a772b0d7bd681fb9c73f398359ac0a493} 
+int shrpx\+::\+Http2\+Upstream\+::on\+\_\+downstream\+\_\+body (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}}]{downstream}{, }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{len}{, }\item[{bool}]{flush}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_a95b2700981e45bb4bb60e23ec121120a}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!on\_downstream\_body\_complete@{on\_downstream\_body\_complete}}
+\index{on\_downstream\_body\_complete@{on\_downstream\_body\_complete}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{on\_downstream\_body\_complete()}{on\_downstream\_body\_complete()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_a95b2700981e45bb4bb60e23ec121120a} 
+int shrpx\+::\+Http2\+Upstream\+::on\+\_\+downstream\+\_\+body\+\_\+complete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}}]{downstream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_aa6ffb51f34b114300f25c91443c1fc66}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!on\_downstream\_header\_complete@{on\_downstream\_header\_complete}}
+\index{on\_downstream\_header\_complete@{on\_downstream\_header\_complete}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{on\_downstream\_header\_complete()}{on\_downstream\_header\_complete()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_aa6ffb51f34b114300f25c91443c1fc66} 
+int shrpx\+::\+Http2\+Upstream\+::on\+\_\+downstream\+\_\+header\+\_\+complete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}}]{downstream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_a439bf42dd7ed75fbcccce44eb4f1e2e6}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!on\_downstream\_push\_promise@{on\_downstream\_push\_promise}}
+\index{on\_downstream\_push\_promise@{on\_downstream\_push\_promise}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{on\_downstream\_push\_promise()}{on\_downstream\_push\_promise()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_a439bf42dd7ed75fbcccce44eb4f1e2e6} 
+\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*} shrpx\+::\+Http2\+Upstream\+::on\+\_\+downstream\+\_\+push\+\_\+promise (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}}]{downstream}{, }\item[{int32\+\_\+t}]{promised\+\_\+stream\+\_\+id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_a912ae64a9bcdf90bb98f7bcbb4b802fa}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!on\_downstream\_push\_promise\_complete@{on\_downstream\_push\_promise\_complete}}
+\index{on\_downstream\_push\_promise\_complete@{on\_downstream\_push\_promise\_complete}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{on\_downstream\_push\_promise\_complete()}{on\_downstream\_push\_promise\_complete()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_a912ae64a9bcdf90bb98f7bcbb4b802fa} 
+int shrpx\+::\+Http2\+Upstream\+::on\+\_\+downstream\+\_\+push\+\_\+promise\+\_\+complete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}}]{downstream}{, }\item[{\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}}]{promised\+\_\+downstream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_a182cffb2e8b93dc56a36b814ec937bf5}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!on\_downstream\_reset@{on\_downstream\_reset}}
+\index{on\_downstream\_reset@{on\_downstream\_reset}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{on\_downstream\_reset()}{on\_downstream\_reset()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_a182cffb2e8b93dc56a36b814ec937bf5} 
+int shrpx\+::\+Http2\+Upstream\+::on\+\_\+downstream\+\_\+reset (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}}]{downstream}{, }\item[{bool}]{no\+\_\+retry}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_a787914c79735ccb074ef5a81aea82a24}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!on\_handler\_delete@{on\_handler\_delete}}
+\index{on\_handler\_delete@{on\_handler\_delete}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{on\_handler\_delete()}{on\_handler\_delete()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_a787914c79735ccb074ef5a81aea82a24} 
+void shrpx\+::\+Http2\+Upstream\+::on\+\_\+handler\+\_\+delete (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_a5dc08a1511cfc57a54e1f7cc7a839b1c}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!on\_read@{on\_read}}
+\index{on\_read@{on\_read}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{on\_read()}{on\_read()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_a5dc08a1511cfc57a54e1f7cc7a839b1c} 
+int shrpx\+::\+Http2\+Upstream\+::on\+\_\+read (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_a293e003d1720f6f86045723665226235}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!on\_timeout@{on\_timeout}}
+\index{on\_timeout@{on\_timeout}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{on\_timeout()}{on\_timeout()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_a293e003d1720f6f86045723665226235} 
+int shrpx\+::\+Http2\+Upstream\+::on\+\_\+timeout (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}}]{downstream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_a828604446ec0a0ec3314849e9fa671ef}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!on\_write@{on\_write}}
+\index{on\_write@{on\_write}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{on\_write()}{on\_write()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_a828604446ec0a0ec3314849e9fa671ef} 
+int shrpx\+::\+Http2\+Upstream\+::on\+\_\+write (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_aa94eaeef72b9ee6053cb76032394e6de}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!pause\_read@{pause\_read}}
+\index{pause\_read@{pause\_read}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{pause\_read()}{pause\_read()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_aa94eaeef72b9ee6053cb76032394e6de} 
+void shrpx\+::\+Http2\+Upstream\+::pause\+\_\+read (\begin{DoxyParamCaption}\item[{IOCtrl\+Reason}]{reason}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_a5c48e5448c60d73cb9913bfa2d3e3f5e}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!push\_enabled@{push\_enabled}}
+\index{push\_enabled@{push\_enabled}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{push\_enabled()}{push\_enabled()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_a5c48e5448c60d73cb9913bfa2d3e3f5e} 
+bool shrpx\+::\+Http2\+Upstream\+::push\+\_\+enabled (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_a25c1430953f6b5331de73f56a4455927}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!response\_drain@{response\_drain}}
+\index{response\_drain@{response\_drain}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{response\_drain()}{response\_drain()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_a25c1430953f6b5331de73f56a4455927} 
+void shrpx\+::\+Http2\+Upstream\+::response\+\_\+drain (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{n}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_a5c618d5b4c2d00a1691dcba7679f2f9a}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!response\_empty@{response\_empty}}
+\index{response\_empty@{response\_empty}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{response\_empty()}{response\_empty()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_a5c618d5b4c2d00a1691dcba7679f2f9a} 
+bool shrpx\+::\+Http2\+Upstream\+::response\+\_\+empty (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_afc63c6ca2c581ea64faa1193e970d08e}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!response\_riovec@{response\_riovec}}
+\index{response\_riovec@{response\_riovec}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{response\_riovec()}{response\_riovec()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_afc63c6ca2c581ea64faa1193e970d08e} 
+int shrpx\+::\+Http2\+Upstream\+::response\+\_\+riovec (\begin{DoxyParamCaption}\item[{struct iovec \texorpdfstring{$\ast$}{*}}]{iov}{, }\item[{int}]{iovcnt}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_aa3a0bfa0043c94f589157473f3ead12c}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!resume\_read@{resume\_read}}
+\index{resume\_read@{resume\_read}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{resume\_read()}{resume\_read()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_aa3a0bfa0043c94f589157473f3ead12c} 
+int shrpx\+::\+Http2\+Upstream\+::resume\+\_\+read (\begin{DoxyParamCaption}\item[{IOCtrl\+Reason}]{reason}{, }\item[{\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}}]{downstream}{, }\item[{size\+\_\+t}]{consumed}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+\Hypertarget{classshrpx_1_1Http2Upstream_ac24d764afdbd12369c751953e5e2613e}\index{shrpx::Http2Upstream@{shrpx::Http2Upstream}!send\_reply@{send\_reply}}
+\index{send\_reply@{send\_reply}!shrpx::Http2Upstream@{shrpx::Http2Upstream}}
+\doxysubsubsection{\texorpdfstring{send\_reply()}{send\_reply()}}
+{\footnotesize\ttfamily \label{classshrpx_1_1Http2Upstream_ac24d764afdbd12369c751953e5e2613e} 
+int shrpx\+::\+Http2\+Upstream\+::send\+\_\+reply (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}}]{downstream}{, }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{body}{, }\item[{size\+\_\+t}]{bodylen}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classshrpx_1_1Upstream}{shrpx\+::\+Upstream}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+http2\+\_\+upstream.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+http2\+\_\+upstream.\+cc\end{DoxyCompactItemize}

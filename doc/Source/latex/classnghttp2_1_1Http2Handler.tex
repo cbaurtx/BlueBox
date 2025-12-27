@@ -1,0 +1,104 @@
+\doxysection{nghttp2\+::Http2\+Handler Class Reference}
+\hypertarget{classnghttp2_1_1Http2Handler}{}\label{classnghttp2_1_1Http2Handler}\index{nghttp2::Http2Handler@{nghttp2::Http2Handler}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_abf1e69fb6f10be58c7c2e1ca4aa372cd}\label{classnghttp2_1_1Http2Handler_abf1e69fb6f10be58c7c2e1ca4aa372cd} 
+using {\bfseries Write\+Buf} = \mbox{\hyperlink{structnghttp2_1_1Buffer}{Buffer}}$<$64\+\_\+k$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a555c43f47bf6397a9dbe61fc6509b5dd}\label{classnghttp2_1_1Http2Handler_a555c43f47bf6397a9dbe61fc6509b5dd} 
+{\bfseries Http2\+Handler} (\mbox{\hyperlink{classnghttp2_1_1Sessions}{Sessions}} \texorpdfstring{$\ast$}{*}sessions, int fd, SSL \texorpdfstring{$\ast$}{*}ssl, int64\+\_\+t session\+\_\+id)
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_abadff73f37ae79020899bb193ea6369e}\label{classnghttp2_1_1Http2Handler_abadff73f37ae79020899bb193ea6369e} 
+void {\bfseries remove\+\_\+self} ()
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a622c99368b0eb0d7b6f69185e2d161f3}\label{classnghttp2_1_1Http2Handler_a622c99368b0eb0d7b6f69185e2d161f3} 
+void {\bfseries start\+\_\+settings\+\_\+timer} ()
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a8f936a59bf514f509e0b5059c2c02b4b}\label{classnghttp2_1_1Http2Handler_a8f936a59bf514f509e0b5059c2c02b4b} 
+int {\bfseries on\+\_\+read} ()
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a3d955ae02844d2e1ec0571fbb70f3e7e}\label{classnghttp2_1_1Http2Handler_a3d955ae02844d2e1ec0571fbb70f3e7e} 
+int {\bfseries on\+\_\+write} ()
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a3d40e000aa74003d5cbbb52143fa875a}\label{classnghttp2_1_1Http2Handler_a3d40e000aa74003d5cbbb52143fa875a} 
+int {\bfseries connection\+\_\+made} ()
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a95c49a4e23c0fff0343c33634e9a338d}\label{classnghttp2_1_1Http2Handler_a95c49a4e23c0fff0343c33634e9a338d} 
+int {\bfseries verify\+\_\+alpn\+\_\+result} ()
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a54fd5cbbb4b78384962605e1bfc38074}\label{classnghttp2_1_1Http2Handler_a54fd5cbbb4b78384962605e1bfc38074} 
+int {\bfseries submit\+\_\+file\+\_\+response} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&status, \mbox{\hyperlink{structnghttp2_1_1Stream}{Stream}} \texorpdfstring{$\ast$}{*}stream, time\+\_\+t last\+\_\+modified, off\+\_\+t file\+\_\+length, const std\+::string \texorpdfstring{$\ast$}{*}content\+\_\+type, \mbox{\hyperlink{structnghttp2__data__provider2}{nghttp2\+\_\+data\+\_\+provider2}} \texorpdfstring{$\ast$}{*}data\+\_\+prd)
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a63462afec5a6b7ff476f43232192bfaf}\label{classnghttp2_1_1Http2Handler_a63462afec5a6b7ff476f43232192bfaf} 
+int {\bfseries submit\+\_\+response} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&status, int32\+\_\+t stream\+\_\+id, \mbox{\hyperlink{structnghttp2__data__provider2}{nghttp2\+\_\+data\+\_\+provider2}} \texorpdfstring{$\ast$}{*}data\+\_\+prd)
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_ab6e528fd11cf782efe53208c077b3a40}\label{classnghttp2_1_1Http2Handler_ab6e528fd11cf782efe53208c077b3a40} 
+int {\bfseries submit\+\_\+response} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&status, int32\+\_\+t stream\+\_\+id, const Header\+Refs \&headers, \mbox{\hyperlink{structnghttp2__data__provider2}{nghttp2\+\_\+data\+\_\+provider2}} \texorpdfstring{$\ast$}{*}data\+\_\+prd)
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a14a37cfa446a4e0eaf6ed17c90e45270}\label{classnghttp2_1_1Http2Handler_a14a37cfa446a4e0eaf6ed17c90e45270} 
+int {\bfseries submit\+\_\+non\+\_\+final\+\_\+response} (const std\+::string \&status, int32\+\_\+t stream\+\_\+id)
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a75e6c4f43ad42db8d0303b732114ecd8}\label{classnghttp2_1_1Http2Handler_a75e6c4f43ad42db8d0303b732114ecd8} 
+int {\bfseries submit\+\_\+push\+\_\+promise} (\mbox{\hyperlink{structnghttp2_1_1Stream}{Stream}} \texorpdfstring{$\ast$}{*}stream, const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&push\+\_\+path)
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a38f5a6e0bb850a36985db7cb0ac10670}\label{classnghttp2_1_1Http2Handler_a38f5a6e0bb850a36985db7cb0ac10670} 
+int {\bfseries submit\+\_\+rst\+\_\+stream} (\mbox{\hyperlink{structnghttp2_1_1Stream}{Stream}} \texorpdfstring{$\ast$}{*}stream, uint32\+\_\+t error\+\_\+code)
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_aec703b802876bdf101d7a0c0b3796429}\label{classnghttp2_1_1Http2Handler_aec703b802876bdf101d7a0c0b3796429} 
+void {\bfseries add\+\_\+stream} (int32\+\_\+t stream\+\_\+id, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structnghttp2_1_1Stream}{Stream}} $>$ stream)
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a91a990ed170b3834e2a22cc5a55556d0}\label{classnghttp2_1_1Http2Handler_a91a990ed170b3834e2a22cc5a55556d0} 
+void {\bfseries remove\+\_\+stream} (int32\+\_\+t stream\+\_\+id)
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_ab788b9d0de7858fdf6af9490b7c5b782}\label{classnghttp2_1_1Http2Handler_ab788b9d0de7858fdf6af9490b7c5b782} 
+\mbox{\hyperlink{structnghttp2_1_1Stream}{Stream}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+stream} (int32\+\_\+t stream\+\_\+id)
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a5d452954fc1d5b2db5bc0d84ea9247f3}\label{classnghttp2_1_1Http2Handler_a5d452954fc1d5b2db5bc0d84ea9247f3} 
+int64\+\_\+t {\bfseries session\+\_\+id} () const
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a03744b84051ffdb428889a8a95d1215f}\label{classnghttp2_1_1Http2Handler_a03744b84051ffdb428889a8a95d1215f} 
+\mbox{\hyperlink{classnghttp2_1_1Sessions}{Sessions}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+sessions} () const
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_aceb359754b5fde44c834c90ac9ba7452}\label{classnghttp2_1_1Http2Handler_aceb359754b5fde44c834c90ac9ba7452} 
+const \mbox{\hyperlink{structnghttp2_1_1Config}{Config}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+config} () const
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a6eb879d03cb0a4b64f4eccfe225f0918}\label{classnghttp2_1_1Http2Handler_a6eb879d03cb0a4b64f4eccfe225f0918} 
+void {\bfseries remove\+\_\+settings\+\_\+timer} ()
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a50120d61113bca0ff56c141f31fb74d4}\label{classnghttp2_1_1Http2Handler_a50120d61113bca0ff56c141f31fb74d4} 
+void {\bfseries terminate\+\_\+session} (uint32\+\_\+t error\+\_\+code)
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a5c09034b7cbac6e97c653c41ebc8ff55}\label{classnghttp2_1_1Http2Handler_a5c09034b7cbac6e97c653c41ebc8ff55} 
+int {\bfseries fill\+\_\+wb} ()
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a15e0c04c43e2aed21cfd05a2e70de790}\label{classnghttp2_1_1Http2Handler_a15e0c04c43e2aed21cfd05a2e70de790} 
+int {\bfseries read\+\_\+clear} ()
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_aead458bdd0468eddbbc0d35c4e95a588}\label{classnghttp2_1_1Http2Handler_aead458bdd0468eddbbc0d35c4e95a588} 
+int {\bfseries write\+\_\+clear} ()
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a85b6ade8aa55c1899d78a99cf34b24a1}\label{classnghttp2_1_1Http2Handler_a85b6ade8aa55c1899d78a99cf34b24a1} 
+int {\bfseries tls\+\_\+handshake} ()
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a475466051be38d1ae869e345289be974}\label{classnghttp2_1_1Http2Handler_a475466051be38d1ae869e345289be974} 
+int {\bfseries read\+\_\+tls} ()
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_a13ccf9d887a15b73009589e03216b8b2}\label{classnghttp2_1_1Http2Handler_a13ccf9d887a15b73009589e03216b8b2} 
+int {\bfseries write\+\_\+tls} ()
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_aace5a1a41566505a9187e4464f5cc1cf}\label{classnghttp2_1_1Http2Handler_aace5a1a41566505a9187e4464f5cc1cf} 
+struct ev\+\_\+loop \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+loop} () const
+\item 
+\Hypertarget{classnghttp2_1_1Http2Handler_aba995d99552e4e80670b29e90e4d8141}\label{classnghttp2_1_1Http2Handler_aba995d99552e4e80670b29e90e4d8141} 
+Write\+Buf \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+wb} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/Http\+Server.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/Http\+Server.\+cc\end{DoxyCompactItemize}

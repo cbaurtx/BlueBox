@@ -1,0 +1,12 @@
+<map id="shrpx::DownstreamConfig" name="shrpx::DownstreamConfig">
+<area shape="rect" id="Node000001" title=" " alt="" coords="88,224,262,251"/>
+<area shape="rect" id="Node000002" href="$structnghttp2_1_1BlockAllocator.html" title=" " alt="" coords="12,125,168,152"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,162,167,223,162,224,110,166"/>
+<area shape="rect" id="Node000003" href="$structnghttp2_1_1MemBlock.html" title=" " alt="" coords="5,5,140,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="78,45,91,125,85,125,75,50"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="155,8,166,19,158,28,142,32,139,27,156,24,161,19,155,13"/>
+<area shape="rect" id="Node000004" href="$structshrpx_1_1RouterConfig.html" title=" " alt="" coords="199,125,338,152"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="248,163,189,226,186,222,243,164"/>
+<area shape="rect" id="Node000005" href="$classshrpx_1_1Router.html" title=" " alt="" coords="221,5,321,32"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="272,46,271,126,266,124,269,50"/>
+</map>

@@ -1,0 +1,339 @@
+\doxysection{shrpx\+\_\+tls.\+h}
+\hypertarget{shrpx__tls_8h_source}{}\label{shrpx__tls_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_tls.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_tls.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_TLS\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_TLS\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <mutex>}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}ssl\_compat.h"{}}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#ifdef\ NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/options.h>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/openssl/ssl.h>}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/openssl/err.h>}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//\ !NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#\ \ include\ <openssl/ssl.h>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#\ \ include\ <openssl/err.h>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !NGHTTP2\_OPENSSL\_IS\_WOLFSSL}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <ev.h>}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#ifdef\ HAVE\_NEVERBLEED}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#\ \ include\ <neverbleed.h>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ HAVE\_NEVERBLEED}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}network.h"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}shrpx\_config.h"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}shrpx\_router.h"{}}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1ClientHandler}{ClientHandler}};}
+\DoxyCodeLine{00057\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1Worker}{Worker}};}
+\DoxyCodeLine{00058\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshrpx_1_1DownstreamConnectionPool}{DownstreamConnectionPool}};}
+\DoxyCodeLine{00059\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}};}
+\DoxyCodeLine{00060\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{UpstreamAddr}};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{namespace\ }tls\ \{}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1tls_1_1TLSSessionCache}{TLSSessionCache}}\ \{}
+\DoxyCodeLine{00065\ \ \ \textcolor{comment}{//\ ASN1\ representation\ of\ SSL\_SESSION\ object.\ \ See}}
+\DoxyCodeLine{00066\ \ \ \textcolor{comment}{//\ i2d\_SSL\_SESSION(3SSL).}}
+\DoxyCodeLine{00067\ \ \ std::vector<uint8\_t>\ session\_data;}
+\DoxyCodeLine{00068\ \ \ \textcolor{comment}{//\ The\ last\ time\ stamp\ when\ this\ cache\ entry\ is\ created\ or\ updated.}}
+\DoxyCodeLine{00069\ \ \ std::chrono::steady\_clock::time\_point\ last\_updated;}
+\DoxyCodeLine{00070\ \};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ This\ struct\ stores\ the\ additional\ information\ per\ SSL\_CTX.\ \ This\ is}}
+\DoxyCodeLine{00073\ \textcolor{comment}{//\ attached\ to\ SSL\_CTX\ using\ SSL\_CTX\_set\_app\_data().}}
+\DoxyCodeLine{00074\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1tls_1_1TLSContextData}{TLSContextData}}\ \{}
+\DoxyCodeLine{00075\ \ \ \textcolor{comment}{//\ SCT\ data\ formatted\ so\ that\ this\ can\ be\ directly\ sent\ as}}
+\DoxyCodeLine{00076\ \ \ \textcolor{comment}{//\ extension\_data\ of\ signed\_certificate\_timestamp.}}
+\DoxyCodeLine{00077\ \ \ std::vector<uint8\_t>\ sct\_data;}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#ifndef\ HAVE\_ATOMIC\_STD\_SHARED\_PTR}}
+\DoxyCodeLine{00079\ \ \ \textcolor{comment}{//\ Protects\ ocsp\_data;}}
+\DoxyCodeLine{00080\ \ \ std::mutex\ mu;}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !HAVE\_ATOMIC\_STD\_SHARED\_PTR}}
+\DoxyCodeLine{00082\ \ \ \textcolor{comment}{//\ OCSP\ response}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#ifdef\ HAVE\_ATOMIC\_STD\_SHARED\_PTR}}
+\DoxyCodeLine{00084\ \ \ std::atomic<std::shared\_ptr<std::vector<uint8\_t>>>\ ocsp\_data;}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#else\ \ }\textcolor{comment}{//\ !HAVE\_ATOMIC\_STD\_SHARED\_PTR}}
+\DoxyCodeLine{00086\ \ \ std::shared\_ptr<std::vector<uint8\_t>>\ ocsp\_data;}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !HAVE\_ATOMIC\_STD\_SHARED\_PTR}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \textcolor{comment}{//\ Path\ to\ certificate\ file}}
+\DoxyCodeLine{00090\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cert\_file;}
+\DoxyCodeLine{00091\ \};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{comment}{//\ Create\ server\ side\ SSL\_CTX}}
+\DoxyCodeLine{00094\ SSL\_CTX\ *create\_ssl\_context(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *private\_key\_file,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cert\_file,}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<uint8\_t>\ \&sct\_data}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \#ifdef\ HAVE\_NEVERBLEED}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ neverbleed\_t\ *nb}
+\DoxyCodeLine{00100\ \#endif\ \textcolor{comment}{//\ HAVE\_NEVERBLEED}}
+\DoxyCodeLine{00101\ );}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{comment}{//\ Create\ client\ side\ SSL\_CTX.\ \ This\ does\ not\ configure\ ALPN\ settings.}}
+\DoxyCodeLine{00104\ SSL\_CTX\ *create\_ssl\_client\_context(}
+\DoxyCodeLine{00105\ \#ifdef\ HAVE\_NEVERBLEED}
+\DoxyCodeLine{00106\ \ \ neverbleed\_t\ *nb,}
+\DoxyCodeLine{00107\ \#endif\ \textcolor{comment}{//\ HAVE\_NEVERBLEED}}
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&cacert,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&cert\_file,}
+\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&private\_key\_file);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \mbox{\hyperlink{classshrpx_1_1ClientHandler}{ClientHandler}}\ *accept\_connection(\mbox{\hyperlink{classshrpx_1_1Worker}{Worker}}\ *worker,\ \textcolor{keywordtype}{int}\ fd,\ sockaddr\ *addr,}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ addrlen,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{UpstreamAddr}}\ *faddr);}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{comment}{//\ Check\ peer's\ certificate\ against\ given\ |address|\ and\ |host|.}}
+\DoxyCodeLine{00115\ \textcolor{keywordtype}{int}\ check\_cert(SSL\ *ssl,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ *addr,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&host);}
+\DoxyCodeLine{00116\ \textcolor{comment}{//\ Check\ peer's\ certificate\ against\ given\ host\ name\ described\ in}}
+\DoxyCodeLine{00117\ \textcolor{comment}{//\ |addr|\ and\ numeric\ address\ in\ |raddr|.\ \ Note\ that\ |raddr|\ might\ not}}
+\DoxyCodeLine{00118\ \textcolor{comment}{//\ point\ to\ \&addr-\/>addr.}}
+\DoxyCodeLine{00119\ \textcolor{keywordtype}{int}\ check\_cert(SSL\ *ssl,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{DownstreamAddr}}\ *addr,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ *raddr);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{comment}{//\ Verify\ |cert|\ using\ numeric\ IP\ address.\ \ |hostname|\ and\ |addr|}}
+\DoxyCodeLine{00122\ \textcolor{comment}{//\ should\ contain\ the\ same\ numeric\ IP\ address.\ \ This\ function\ returns}}
+\DoxyCodeLine{00123\ \textcolor{comment}{//\ 0\ if\ it\ succeeds,\ or\ -\/1.}}
+\DoxyCodeLine{00124\ \textcolor{keywordtype}{int}\ verify\_numeric\_hostname(X509\ *cert,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&hostname,}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ *addr);}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{comment}{//\ Verify\ |cert|\ using\ DNS\ name\ hostname.\ \ This\ function\ returns\ 0\ if}}
+\DoxyCodeLine{00128\ \textcolor{comment}{//\ it\ succeeds,\ or\ -\/1.}}
+\DoxyCodeLine{00129\ \textcolor{keywordtype}{int}\ verify\_dns\_hostname(X509\ *cert,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&hostname);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{keyword}{struct\ }WildcardRevPrefix\ \{}
+\DoxyCodeLine{00132\ \ \ WildcardRevPrefix(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&prefix,\ \textcolor{keywordtype}{size\_t}\ idx)}
+\DoxyCodeLine{00133\ \ \ \ \ :\ prefix(std::begin(prefix),\ std::end(prefix)),\ idx(idx)\ \{\}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \textcolor{comment}{//\ "{}Prefix"{}\ of\ wildcard\ pattern.\ \ It\ is\ reversed\ from\ original\ form.}}
+\DoxyCodeLine{00136\ \ \ \textcolor{comment}{//\ For\ example,\ if\ the\ original\ wildcard\ is\ "{}test*.nghttp2.org"{},}}
+\DoxyCodeLine{00137\ \ \ \textcolor{comment}{//\ prefix\ would\ be\ "{}tset"{}.}}
+\DoxyCodeLine{00138\ \ \ \mbox{\hyperlink{classnghttp2_1_1ImmutableString}{ImmutableString}}\ prefix;}
+\DoxyCodeLine{00139\ \ \ \textcolor{comment}{//\ The\ index\ of\ SSL\_CTX.\ \ See\ ConnectionHandler::get\_ssl\_ctx().}}
+\DoxyCodeLine{00140\ \ \ \textcolor{keywordtype}{size\_t}\ idx;}
+\DoxyCodeLine{00141\ \};}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1tls_1_1WildcardPattern}{WildcardPattern}}\ \{}
+\DoxyCodeLine{00144\ \ \ \textcolor{comment}{//\ Wildcard\ host\ sharing\ only\ suffix\ is\ probably\ rare,\ so\ we\ just\ do}}
+\DoxyCodeLine{00145\ \ \ \textcolor{comment}{//\ linear\ search.}}
+\DoxyCodeLine{00146\ \ \ std::vector<WildcardRevPrefix>\ rev\_prefix;}
+\DoxyCodeLine{00147\ \};}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \textcolor{keyword}{class\ }CertLookupTree\ \{}
+\DoxyCodeLine{00150\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00151\ \ \ CertLookupTree();}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \textcolor{comment}{//\ Adds\ hostname\ pattern\ |hostname|\ to\ the\ lookup\ tree,\ associating}}
+\DoxyCodeLine{00154\ \ \ \textcolor{comment}{//\ value\ |index|.\ \ When\ the\ queried\ host\ matches\ this\ pattern,}}
+\DoxyCodeLine{00155\ \ \ \textcolor{comment}{//\ |index|\ is\ returned.\ \ We\ support\ wildcard\ pattern.\ \ The\ left\ most}}
+\DoxyCodeLine{00156\ \ \ \textcolor{comment}{//\ '*'\ is\ considered\ as\ wildcard\ character,\ and\ it\ must\ match\ at}}
+\DoxyCodeLine{00157\ \ \ \textcolor{comment}{//\ least\ one\ character.\ \ If\ the\ same\ pattern\ has\ been\ already\ added,}}
+\DoxyCodeLine{00158\ \ \ \textcolor{comment}{//\ this\ function\ does\ not\ alter\ the\ tree,\ and\ returns\ the\ existing}}
+\DoxyCodeLine{00159\ \ \ \textcolor{comment}{//\ matching\ index.}}
+\DoxyCodeLine{00160\ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00161\ \ \ \textcolor{comment}{//\ The\ caller\ should\ lower-\/case\ |hostname|\ since\ this\ function\ does}}
+\DoxyCodeLine{00162\ \ \ \textcolor{comment}{//\ do\ that,\ and\ lookup\ function\ performs\ case-\/sensitive\ match.}}
+\DoxyCodeLine{00163\ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00164\ \ \ \textcolor{comment}{//\ TODO\ Treat\ wildcard\ pattern\ described\ as\ RFC\ 6125.}}
+\DoxyCodeLine{00165\ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00166\ \ \ \textcolor{comment}{//\ This\ function\ returns\ the\ index.\ \ It\ returns\ -\/1\ if\ it\ fails}}
+\DoxyCodeLine{00167\ \ \ \textcolor{comment}{//\ (e.g.,\ hostname\ is\ too\ long).\ \ If\ the\ returned\ index\ equals\ to}}
+\DoxyCodeLine{00168\ \ \ \textcolor{comment}{//\ |index|,\ then\ hostname\ is\ added\ to\ the\ tree\ with\ the\ value}}
+\DoxyCodeLine{00169\ \ \ \textcolor{comment}{//\ |index|.\ \ If\ it\ is\ not\ -\/1,\ and\ does\ not\ equal\ to\ |index|,\ same}}
+\DoxyCodeLine{00170\ \ \ \textcolor{comment}{//\ hostname\ has\ already\ been\ added\ to\ the\ tree.}}
+\DoxyCodeLine{00171\ \ \ ssize\_t\ add\_cert(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&hostname,\ \textcolor{keywordtype}{size\_t}\ index);}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \textcolor{comment}{//\ Looks\ up\ index\ using\ the\ given\ |hostname|.\ \ The\ exact\ match\ takes}}
+\DoxyCodeLine{00174\ \ \ \textcolor{comment}{//\ precedence\ over\ wildcard\ match.\ \ For\ wildcard\ match,\ longest}}
+\DoxyCodeLine{00175\ \ \ \textcolor{comment}{//\ match\ (sum\ of\ matched\ suffix\ and\ prefix\ length\ in\ bytes)\ is}}
+\DoxyCodeLine{00176\ \ \ \textcolor{comment}{//\ preferred,\ breaking\ a\ tie\ with\ longer\ suffix.}}
+\DoxyCodeLine{00177\ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00178\ \ \ \textcolor{comment}{//\ The\ caller\ should\ lower-\/case\ |hostname|\ since\ this\ function}}
+\DoxyCodeLine{00179\ \ \ \textcolor{comment}{//\ performs\ case-\/sensitive\ match.}}
+\DoxyCodeLine{00180\ \ \ ssize\_t\ lookup(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&hostname);}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \textcolor{comment}{//\ Dumps\ the\ contents\ of\ this\ lookup\ tree\ to\ stderr.}}
+\DoxyCodeLine{00183\ \ \ \textcolor{keywordtype}{void}\ dump()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00186\ \ \ \textcolor{comment}{//\ Exact\ match}}
+\DoxyCodeLine{00187\ \ \ \mbox{\hyperlink{classshrpx_1_1Router}{Router}}\ router\_;}
+\DoxyCodeLine{00188\ \ \ \textcolor{comment}{//\ Wildcard\ reversed\ suffix\ match.\ \ The\ returned\ index\ is\ into}}
+\DoxyCodeLine{00189\ \ \ \textcolor{comment}{//\ wildcard\_patterns\_.}}
+\DoxyCodeLine{00190\ \ \ \mbox{\hyperlink{classshrpx_1_1Router}{Router}}\ rev\_wildcard\_router\_;}
+\DoxyCodeLine{00191\ \ \ \textcolor{comment}{//\ Stores\ wildcard\ suffix\ patterns.}}
+\DoxyCodeLine{00192\ \ \ std::vector<WildcardPattern>\ wildcard\_patterns\_;}
+\DoxyCodeLine{00193\ \};}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \textcolor{comment}{//\ Adds\ hostnames\ in\ certificate\ in\ |ssl\_ctx|\ to\ lookup\ tree\ |lt|.}}
+\DoxyCodeLine{00196\ \textcolor{comment}{//\ The\ subjectAltNames\ and\ commonName\ are\ considered\ as\ eligible}}
+\DoxyCodeLine{00197\ \textcolor{comment}{//\ hostname.\ \ If\ there\ is\ at\ least\ one\ dNSName\ in\ subjectAltNames,}}
+\DoxyCodeLine{00198\ \textcolor{comment}{//\ commonName\ is\ not\ considered.\ \ |ssl\_ctx|\ is\ also\ added\ to}}
+\DoxyCodeLine{00199\ \textcolor{comment}{//\ |indexed\_ssl\_ctx|.\ \ This\ function\ returns\ 0\ if\ it\ succeeds,\ or\ -\/1.}}
+\DoxyCodeLine{00200\ \textcolor{keywordtype}{int}\ cert\_lookup\_tree\_add\_ssl\_ctx(}
+\DoxyCodeLine{00201\ \ \ \mbox{\hyperlink{classshrpx_1_1tls_1_1CertLookupTree}{CertLookupTree}}\ *lt,\ std::vector<std::vector<SSL\_CTX\ *>>\ \&indexed\_ssl\_ctx,}
+\DoxyCodeLine{00202\ \ \ SSL\_CTX\ *ssl\_ctx);}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \textcolor{comment}{//\ Returns\ true\ if\ |proto|\ is\ included\ in\ the}}
+\DoxyCodeLine{00205\ \textcolor{comment}{//\ protocol\ list\ |protos|.}}
+\DoxyCodeLine{00206\ \textcolor{keywordtype}{bool}\ in\_proto\_list(\textcolor{keyword}{const}\ std::vector<StringRef>\ \&protos,}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&proto);}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{comment}{//\ Returns\ true\ if\ security\ requirement\ for\ HTTP/2\ is\ fulfilled.}}
+\DoxyCodeLine{00210\ \textcolor{keywordtype}{bool}\ check\_http2\_requirement(SSL\ *ssl);}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \textcolor{comment}{//\ Returns\ SSL/TLS\ option\ mask\ to\ disable\ SSL/TLS\ protocol\ version\ not}}
+\DoxyCodeLine{00213\ \textcolor{comment}{//\ included\ in\ |tls\_proto\_list|.\ \ The\ returned\ mask\ can\ be\ directly}}
+\DoxyCodeLine{00214\ \textcolor{comment}{//\ passed\ to\ SSL\_CTX\_set\_options().}}
+\DoxyCodeLine{00215\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ create\_tls\_proto\_mask(\textcolor{keyword}{const}\ std::vector<StringRef>\ \&tls\_proto\_list);}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \textcolor{keywordtype}{int}\ set\_alpn\_prefs(std::vector<unsigned\ char>\ \&out,}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<StringRef>\ \&protos);}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{comment}{//\ Setups\ server\ side\ SSL\_CTX.\ \ This\ function\ inspects\ get\_config()}}
+\DoxyCodeLine{00221\ \textcolor{comment}{//\ and\ if\ upstream\_no\_tls\ is\ true,\ returns\ nullptr.\ \ Otherwise}}
+\DoxyCodeLine{00222\ \textcolor{comment}{//\ construct\ default\ SSL\_CTX.\ \ If\ subcerts\ are\ available}}
+\DoxyCodeLine{00223\ \textcolor{comment}{//\ (get\_config()-\/>subcerts),\ caller\ should\ provide\ CertLookupTree}}
+\DoxyCodeLine{00224\ \textcolor{comment}{//\ object\ as\ |cert\_tree|\ parameter,\ otherwise\ SNI\ does\ not\ work.\ \ All}}
+\DoxyCodeLine{00225\ \textcolor{comment}{//\ the\ created\ SSL\_CTX\ is\ stored\ into\ |all\_ssl\_ctx|.\ \ They\ are\ also}}
+\DoxyCodeLine{00226\ \textcolor{comment}{//\ added\ to\ |indexed\_ssl\_ctx|.\ \ |cert\_tree|\ uses\ its\ index\ to}}
+\DoxyCodeLine{00227\ \textcolor{comment}{//\ associate\ hostname\ to\ the\ SSL\_CTX.}}
+\DoxyCodeLine{00228\ SSL\_CTX\ *}
+\DoxyCodeLine{00229\ setup\_server\_ssl\_context(std::vector<SSL\_CTX\ *>\ \&all\_ssl\_ctx,}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::vector<SSL\_CTX\ *>>\ \&indexed\_ssl\_ctx,}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classshrpx_1_1tls_1_1CertLookupTree}{CertLookupTree}}\ *cert\_tree}
+\DoxyCodeLine{00232\ \#ifdef\ HAVE\_NEVERBLEED}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ,}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ neverbleed\_t\ *nb}
+\DoxyCodeLine{00235\ \#endif\ \textcolor{comment}{//\ HAVE\_NEVERBLEED}}
+\DoxyCodeLine{00236\ );}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00239\ SSL\_CTX\ *setup\_quic\_server\_ssl\_context(}
+\DoxyCodeLine{00240\ \ \ std::vector<SSL\_CTX\ *>\ \&all\_ssl\_ctx,}
+\DoxyCodeLine{00241\ \ \ std::vector<std::vector<SSL\_CTX\ *>>\ \&indexed\_ssl\_ctx,}
+\DoxyCodeLine{00242\ \ \ \mbox{\hyperlink{classshrpx_1_1tls_1_1CertLookupTree}{CertLookupTree}}\ *cert\_tree}
+\DoxyCodeLine{00243\ \#\ \ ifdef\ HAVE\_NEVERBLEED}
+\DoxyCodeLine{00244\ \ \ ,}
+\DoxyCodeLine{00245\ \ \ neverbleed\_t\ *nb}
+\DoxyCodeLine{00246\ \#\ \ endif\ \textcolor{comment}{//\ HAVE\_NEVERBLEED}}
+\DoxyCodeLine{00247\ );}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_HTTP3}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \textcolor{comment}{//\ Setups\ client\ side\ SSL\_CTX.}}
+\DoxyCodeLine{00251\ SSL\_CTX\ *setup\_downstream\_client\_ssl\_context(}
+\DoxyCodeLine{00252\ \#ifdef\ HAVE\_NEVERBLEED}
+\DoxyCodeLine{00253\ \ \ neverbleed\_t\ *nb}
+\DoxyCodeLine{00254\ \#endif\ \textcolor{comment}{//\ HAVE\_NEVERBLEED}}
+\DoxyCodeLine{00255\ );}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \textcolor{comment}{//\ Sets\ ALPN\ settings\ in\ |SSL|\ suitable\ for\ HTTP/2\ use.}}
+\DoxyCodeLine{00258\ \textcolor{keywordtype}{void}\ setup\_downstream\_http2\_alpn(SSL\ *ssl);}
+\DoxyCodeLine{00259\ \textcolor{comment}{//\ Sets\ ALPN\ settings\ in\ |SSL|\ suitable\ for\ HTTP/1.1\ use.}}
+\DoxyCodeLine{00260\ \textcolor{keywordtype}{void}\ setup\_downstream\_http1\_alpn(SSL\ *ssl);}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \textcolor{comment}{//\ Creates\ CertLookupTree.\ \ If\ frontend\ is\ configured\ not\ to\ use\ TLS,}}
+\DoxyCodeLine{00263\ \textcolor{comment}{//\ this\ function\ returns\ nullptr.}}
+\DoxyCodeLine{00264\ std::unique\_ptr<CertLookupTree>\ create\_cert\_lookup\_tree();}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ SSL\ *create\_ssl(SSL\_CTX\ *ssl\_ctx);}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \textcolor{comment}{//\ Returns\ true\ if\ SSL/TLS\ is\ enabled\ on\ upstream}}
+\DoxyCodeLine{00269\ \textcolor{keywordtype}{bool}\ upstream\_tls\_enabled(\textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1ConnectionConfig}{ConnectionConfig}}\ \&connconf);}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \textcolor{comment}{//\ Performs\ TLS\ hostname\ match.\ \ |pattern|\ can\ contain\ wildcard}}
+\DoxyCodeLine{00272\ \textcolor{comment}{//\ character\ '*',\ which\ matches\ prefix\ of\ target\ hostname.\ \ There\ are}}
+\DoxyCodeLine{00273\ \textcolor{comment}{//\ several\ restrictions\ to\ make\ wildcard\ work.\ \ The\ matching\ algorithm}}
+\DoxyCodeLine{00274\ \textcolor{comment}{//\ is\ based\ on\ RFC\ 6125.}}
+\DoxyCodeLine{00275\ \textcolor{keywordtype}{bool}\ tls\_hostname\_match(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&pattern,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&hostname);}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \textcolor{comment}{//\ Caches\ |session|.\ \ |session|\ is\ serialized\ into\ ASN1}}
+\DoxyCodeLine{00278\ \textcolor{comment}{//\ representation,\ and\ stored.\ \ |t|\ is\ used\ as\ a\ time\ stamp.}}
+\DoxyCodeLine{00279\ \textcolor{comment}{//\ Depending\ on\ the\ existing\ cache's\ time\ stamp,\ |session|\ might\ not}}
+\DoxyCodeLine{00280\ \textcolor{comment}{//\ be\ cached.}}
+\DoxyCodeLine{00281\ \textcolor{keywordtype}{void}\ try\_cache\_tls\_session(\mbox{\hyperlink{structshrpx_1_1tls_1_1TLSSessionCache}{TLSSessionCache}}\ *cache,\ SSL\_SESSION\ *session,}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::chrono::steady\_clock::time\_point\ \&t);}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \textcolor{comment}{//\ Returns\ cached\ session\ associated\ |addr|.\ \ If\ no\ cache\ entry\ is}}
+\DoxyCodeLine{00285\ \textcolor{comment}{//\ found\ associated\ to\ |addr|,\ nullptr\ will\ be\ returned.}}
+\DoxyCodeLine{00286\ SSL\_SESSION\ *reuse\_tls\_session(\textcolor{keyword}{const}\ \mbox{\hyperlink{structshrpx_1_1tls_1_1TLSSessionCache}{TLSSessionCache}}\ \&addr);}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \textcolor{comment}{//\ Loads\ certificate\ form\ file\ |filename|.\ \ The\ caller\ should\ delete}}
+\DoxyCodeLine{00289\ \textcolor{comment}{//\ the\ returned\ object\ using\ X509\_free().}}
+\DoxyCodeLine{00290\ X509\ *load\_certificate(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filename);}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \textcolor{comment}{//\ Returns\ TLS\ version\ from\ |v|.\ \ The\ returned\ value\ is\ defined\ in}}
+\DoxyCodeLine{00293\ \textcolor{comment}{//\ OpenSSL\ header\ file.\ \ This\ function\ returns\ -\/1\ if\ |v|\ is\ not\ valid}}
+\DoxyCodeLine{00294\ \textcolor{comment}{//\ TLS\ version\ string.}}
+\DoxyCodeLine{00295\ \textcolor{keywordtype}{int}\ proto\_version\_from\_string(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&v);}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \textcolor{comment}{//\ Verifies\ OCSP\ response\ |ocsp\_resp|\ of\ length\ |ocsp\_resplen|.\ \ This}}
+\DoxyCodeLine{00298\ \textcolor{comment}{//\ function\ returns\ 0\ if\ it\ succeeds,\ or\ -\/1.}}
+\DoxyCodeLine{00299\ \textcolor{keywordtype}{int}\ verify\_ocsp\_response(SSL\_CTX\ *ssl\_ctx,\ \textcolor{keyword}{const}\ uint8\_t\ *ocsp\_resp,}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ ocsp\_resplen);}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \textcolor{comment}{//\ Stores\ fingerprint\ of\ |x|\ in\ |dst|\ of\ length\ |dstlen|.\ \ |md|}}
+\DoxyCodeLine{00303\ \textcolor{comment}{//\ specifies\ hash\ function\ to\ use,\ and\ |dstlen|\ must\ be\ large\ enough}}
+\DoxyCodeLine{00304\ \textcolor{comment}{//\ to\ include\ hash\ value\ (e.g.,\ 32\ bytes\ for\ SHA-\/256).\ \ This\ function}}
+\DoxyCodeLine{00305\ \textcolor{comment}{//\ returns\ the\ number\ of\ bytes\ written\ in\ |dst|,\ or\ -\/1.}}
+\DoxyCodeLine{00306\ ssize\_t\ get\_x509\_fingerprint(uint8\_t\ *dst,\ \textcolor{keywordtype}{size\_t}\ dstlen,\ \textcolor{keyword}{const}\ X509\ *x,}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ EVP\_MD\ *md);}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \textcolor{comment}{//\ Returns\ subject\ name\ of\ |x|.\ \ If\ this\ function\ fails\ to\ get\ subject}}
+\DoxyCodeLine{00310\ \textcolor{comment}{//\ name,\ it\ returns\ an\ empty\ string.}}
+\DoxyCodeLine{00311\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ get\_x509\_subject\_name(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&balloc,\ X509\ *x);}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \textcolor{comment}{//\ Returns\ issuer\ name\ of\ |x|.\ \ If\ this\ function\ fails\ to\ get\ issuer}}
+\DoxyCodeLine{00314\ \textcolor{comment}{//\ name,\ it\ returns\ an\ empty\ string.}}
+\DoxyCodeLine{00315\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ get\_x509\_issuer\_name(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&balloc,\ X509\ *x);}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \textcolor{comment}{//\ Returns\ serial\ number\ of\ |x|.\ \ If\ this\ function\ fails\ to\ get\ serial}}
+\DoxyCodeLine{00318\ \textcolor{comment}{//\ number,\ it\ returns\ an\ empty\ string.\ \ number}}
+\DoxyCodeLine{00319\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ get\_x509\_serial(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&balloc,\ X509\ *x);}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \textcolor{comment}{//\ Fills\ NotBefore\ of\ |x|\ in\ |t|.\ \ This\ function\ returns\ 0\ if\ it}}
+\DoxyCodeLine{00322\ \textcolor{comment}{//\ succeeds,\ or\ -\/1.}}
+\DoxyCodeLine{00323\ \textcolor{keywordtype}{int}\ get\_x509\_not\_before(time\_t\ \&t,\ X509\ *x);}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \textcolor{comment}{//\ Fills\ NotAfter\ of\ |x|\ in\ |t|.\ \ This\ function\ returns\ 0\ if\ it}}
+\DoxyCodeLine{00326\ \textcolor{comment}{//\ succeeds,\ or\ -\/1.}}
+\DoxyCodeLine{00327\ \textcolor{keywordtype}{int}\ get\_x509\_not\_after(time\_t\ \&t,\ X509\ *x);}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \}\ \textcolor{comment}{//\ namespace\ tls}}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_TLS\_H}}
+
+\end{DoxyCode}

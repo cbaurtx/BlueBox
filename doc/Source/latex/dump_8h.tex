@@ -1,0 +1,158 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/dump.h File Reference}
+\hypertarget{dump_8h}{}\label{dump_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/dump.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/dump.h}}
+{\ttfamily \#include $<$mruby.\+h$>$}\newline
+{\ttfamily \#include $<$mruby/irep.\+h$>$}\newline
+{\ttfamily \#include "{}common.\+h"{}}\newline
+Include dependency graph for dump.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dump_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structrite__binary__header}{rite\+\_\+binary\+\_\+header}}
+\item 
+struct \mbox{\hyperlink{structrite__section__header}{rite\+\_\+section\+\_\+header}}
+\item 
+struct \mbox{\hyperlink{structrite__section__irep__header}{rite\+\_\+section\+\_\+irep\+\_\+header}}
+\item 
+struct \mbox{\hyperlink{structrite__section__debug__header}{rite\+\_\+section\+\_\+debug\+\_\+header}}
+\item 
+struct \mbox{\hyperlink{structrite__section__lv__header}{rite\+\_\+section\+\_\+lv\+\_\+header}}
+\item 
+struct \mbox{\hyperlink{structrite__binary__footer}{rite\+\_\+binary\+\_\+footer}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{dump_8h_a46cf6095128af9c90d6a70b8b5aa90f5}{MRB\+\_\+\+DUMP\+\_\+\+DEBUG\+\_\+\+INFO}}~1
+\item 
+\Hypertarget{dump_8h_a64ca46c3093df7330bf32fc4bb1b2fb7}\label{dump_8h_a64ca46c3093df7330bf32fc4bb1b2fb7} 
+\#define {\bfseries MRB\+\_\+\+DUMP\+\_\+\+STATIC}~2
+\item 
+\Hypertarget{dump_8h_a2e1a518d6f2e82c3ca1820ee74640b66}\label{dump_8h_a2e1a518d6f2e82c3ca1820ee74640b66} 
+\#define {\bfseries DUMP\+\_\+\+DEBUG\+\_\+\+INFO}~\mbox{\hyperlink{dump_8h_a46cf6095128af9c90d6a70b8b5aa90f5}{MRB\+\_\+\+DUMP\+\_\+\+DEBUG\+\_\+\+INFO}}  /\texorpdfstring{$\ast$}{*} deprecated \texorpdfstring{$\ast$}{*}/
+\item 
+\Hypertarget{dump_8h_aa490a959fe5188709fd506991a2eade4}\label{dump_8h_aa490a959fe5188709fd506991a2eade4} 
+\#define {\bfseries MRB\+\_\+\+DUMP\+\_\+\+OK}~0
+\item 
+\Hypertarget{dump_8h_a6969a229299ebadb5c7a21e0a97717b1}\label{dump_8h_a6969a229299ebadb5c7a21e0a97717b1} 
+\#define {\bfseries MRB\+\_\+\+DUMP\+\_\+\+GENERAL\+\_\+\+FAILURE}~(-\/1)
+\item 
+\Hypertarget{dump_8h_a3b7af3631a1425ef7d9a4e192146f05b}\label{dump_8h_a3b7af3631a1425ef7d9a4e192146f05b} 
+\#define {\bfseries MRB\+\_\+\+DUMP\+\_\+\+WRITE\+\_\+\+FAULT}~(-\/2)
+\item 
+\Hypertarget{dump_8h_a42913540e57a5a72f40f1e820d33088c}\label{dump_8h_a42913540e57a5a72f40f1e820d33088c} 
+\#define {\bfseries MRB\+\_\+\+DUMP\+\_\+\+READ\+\_\+\+FAULT}~(-\/3)
+\item 
+\Hypertarget{dump_8h_a3ad55a5b49b49b9c67a2a3d8b9bbe771}\label{dump_8h_a3ad55a5b49b49b9c67a2a3d8b9bbe771} 
+\#define {\bfseries MRB\+\_\+\+DUMP\+\_\+\+INVALID\+\_\+\+FILE\+\_\+\+HEADER}~(-\/4)
+\item 
+\Hypertarget{dump_8h_a06f6ea44debd519d24f8ef2321002d97}\label{dump_8h_a06f6ea44debd519d24f8ef2321002d97} 
+\#define {\bfseries MRB\+\_\+\+DUMP\+\_\+\+INVALID\+\_\+\+IREP}~(-\/5)
+\item 
+\Hypertarget{dump_8h_a638977bac8328c68ce390079d9e10742}\label{dump_8h_a638977bac8328c68ce390079d9e10742} 
+\#define {\bfseries MRB\+\_\+\+DUMP\+\_\+\+INVALID\+\_\+\+ARGUMENT}~(-\/6)
+\item 
+\Hypertarget{dump_8h_a0edf06768128123d1d97e6395967cf53}\label{dump_8h_a0edf06768128123d1d97e6395967cf53} 
+\#define {\bfseries MRB\+\_\+\+DUMP\+\_\+\+NULL\+\_\+\+SYM\+\_\+\+LEN}~0x\+FFFF
+\item 
+\Hypertarget{dump_8h_a99d9060093d7aa29fbf1c249aa66a52b}\label{dump_8h_a99d9060093d7aa29fbf1c249aa66a52b} 
+\#define {\bfseries RITE\+\_\+\+BINARY\+\_\+\+IDENT}~"{}RITE"{}
+\item 
+\Hypertarget{dump_8h_a6bc91bdc9efe4a3ed3ed49c8d6276630}\label{dump_8h_a6bc91bdc9efe4a3ed3ed49c8d6276630} 
+\#define {\bfseries RITE\+\_\+\+BINARY\+\_\+\+MAJOR\+\_\+\+VER}~"{}03"{}
+\item 
+\Hypertarget{dump_8h_a04760abd0d746c2b42e5fcecf662f94f}\label{dump_8h_a04760abd0d746c2b42e5fcecf662f94f} 
+\#define {\bfseries RITE\+\_\+\+BINARY\+\_\+\+MINOR\+\_\+\+VER}~"{}00"{}
+\item 
+\Hypertarget{dump_8h_a3b4b8a83e5c8bdd7ae2c5a85d698258a}\label{dump_8h_a3b4b8a83e5c8bdd7ae2c5a85d698258a} 
+\#define {\bfseries RITE\+\_\+\+BINARY\+\_\+\+FORMAT\+\_\+\+VER}~RITE\+\_\+\+BINARY\+\_\+\+MAJOR\+\_\+\+VER RITE\+\_\+\+BINARY\+\_\+\+MINOR\+\_\+\+VER
+\item 
+\Hypertarget{dump_8h_a3a73632d71945d2e37a3195b92df8ff0}\label{dump_8h_a3a73632d71945d2e37a3195b92df8ff0} 
+\#define {\bfseries RITE\+\_\+\+COMPILER\+\_\+\+NAME}~"{}MATZ"{}
+\item 
+\Hypertarget{dump_8h_a1865493ab5c0b8951d22f92bb43c606b}\label{dump_8h_a1865493ab5c0b8951d22f92bb43c606b} 
+\#define {\bfseries RITE\+\_\+\+COMPILER\+\_\+\+VERSION}~"{}0000"{}
+\item 
+\Hypertarget{dump_8h_a293e90aef6643de6ec72edf6fef68b6f}\label{dump_8h_a293e90aef6643de6ec72edf6fef68b6f} 
+\#define {\bfseries RITE\+\_\+\+VM\+\_\+\+VER}~"{}0300"{}
+\item 
+\Hypertarget{dump_8h_af6b2aa6f81bf090acf68dfa00337acc1}\label{dump_8h_af6b2aa6f81bf090acf68dfa00337acc1} 
+\#define {\bfseries RITE\+\_\+\+BINARY\+\_\+\+EOF}~"{}END\textbackslash{}0"{}
+\item 
+\Hypertarget{dump_8h_a5c5baeac0275432f3679e585d30a2a41}\label{dump_8h_a5c5baeac0275432f3679e585d30a2a41} 
+\#define {\bfseries RITE\+\_\+\+SECTION\+\_\+\+IREP\+\_\+\+IDENT}~"{}IREP"{}
+\item 
+\Hypertarget{dump_8h_afe228e3800c9cb8e329cb9bdbe0375b6}\label{dump_8h_afe228e3800c9cb8e329cb9bdbe0375b6} 
+\#define {\bfseries RITE\+\_\+\+SECTION\+\_\+\+DEBUG\+\_\+\+IDENT}~"{}DBG\textbackslash{}0"{}
+\item 
+\Hypertarget{dump_8h_a156881fa410db4f3281f070edf16cc2f}\label{dump_8h_a156881fa410db4f3281f070edf16cc2f} 
+\#define {\bfseries RITE\+\_\+\+SECTION\+\_\+\+LV\+\_\+\+IDENT}~"{}LVAR"{}
+\item 
+\Hypertarget{dump_8h_a7a41309e12f0ae3269e3de66a44b202b}\label{dump_8h_a7a41309e12f0ae3269e3de66a44b202b} 
+\#define {\bfseries MRB\+\_\+\+DUMP\+\_\+\+DEFAULT\+\_\+\+STR\+\_\+\+LEN}~128
+\item 
+\Hypertarget{dump_8h_ac8eb684354f2b6c6606eb06e7997b22f}\label{dump_8h_ac8eb684354f2b6c6606eb06e7997b22f} 
+\#define {\bfseries MRB\+\_\+\+DUMP\+\_\+\+ALIGNMENT}~sizeof(uint32\+\_\+t)
+\item 
+\#define \mbox{\hyperlink{dump_8h_ab41271011ba4d1ac8117c2f11aae6b8c}{RITE\+\_\+\+SECTION\+\_\+\+HEADER}}
+\item 
+\Hypertarget{dump_8h_aba030196b1cecb8cb6338f3f7cf71ee6}\label{dump_8h_aba030196b1cecb8cb6338f3f7cf71ee6} 
+\#define {\bfseries RITE\+\_\+\+LV\+\_\+\+NULL\+\_\+\+MARK}~UINT16\+\_\+\+MAX
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{dump_8h_a31ca83a2755018e648292b2af9fb1957}\label{dump_8h_a31ca83a2755018e648292b2af9fb1957} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+load\+\_\+irep\+\_\+file} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, FILE \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{dump_8h_ab929839c22258c001a8089c9824f7c16}\label{dump_8h_ab929839c22258c001a8089c9824f7c16} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+load\+\_\+irep\+\_\+file\+\_\+cxt} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, FILE \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{dump_8h_a2695944a57ff482c3c769bfee735724f}\label{dump_8h_a2695944a57ff482c3c769bfee735724f} 
+\mbox{\hyperlink{structmrb__irep}{mrb\+\_\+irep}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+read\+\_\+irep\+\_\+file} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, FILE \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{dump_8h_af77e0003a17db9815d87fa1d1c9faf33}\label{dump_8h_af77e0003a17db9815d87fa1d1c9faf33} 
+int {\bfseries mrb\+\_\+dump\+\_\+irep\+\_\+binary} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, const \mbox{\hyperlink{structmrb__irep}{mrb\+\_\+irep}} \texorpdfstring{$\ast$}{*}, uint8\+\_\+t, FILE \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{dump_8h_a187e469c71d03ba5f8edd4420f02a29c}\label{dump_8h_a187e469c71d03ba5f8edd4420f02a29c} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__irep}{mrb\+\_\+irep}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+read\+\_\+irep} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, const uint8\+\_\+t \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{dump_8h_a14d554d6c25afd4c254082e7e10bb46b}\label{dump_8h_a14d554d6c25afd4c254082e7e10bb46b} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__irep}{mrb\+\_\+irep}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+read\+\_\+irep\+\_\+buf} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, const void \texorpdfstring{$\ast$}{*}, size\+\_\+t)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item mruby binary dumper (mrbc binary format)
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-define-members}
+\Hypertarget{dump_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{dump_8h_a46cf6095128af9c90d6a70b8b5aa90f5}\index{dump.h@{dump.h}!MRB\_DUMP\_DEBUG\_INFO@{MRB\_DUMP\_DEBUG\_INFO}}
+\index{MRB\_DUMP\_DEBUG\_INFO@{MRB\_DUMP\_DEBUG\_INFO}!dump.h@{dump.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_DUMP\_DEBUG\_INFO}{MRB\_DUMP\_DEBUG\_INFO}}
+{\footnotesize\ttfamily \label{dump_8h_a46cf6095128af9c90d6a70b8b5aa90f5} 
+\#define MRB\+\_\+\+DUMP\+\_\+\+DEBUG\+\_\+\+INFO~1}
+
+Dumping compiled mruby script. \Hypertarget{dump_8h_ab41271011ba4d1ac8117c2f11aae6b8c}\index{dump.h@{dump.h}!RITE\_SECTION\_HEADER@{RITE\_SECTION\_HEADER}}
+\index{RITE\_SECTION\_HEADER@{RITE\_SECTION\_HEADER}!dump.h@{dump.h}}
+\doxysubsubsection{\texorpdfstring{RITE\_SECTION\_HEADER}{RITE\_SECTION\_HEADER}}
+{\footnotesize\ttfamily \label{dump_8h_ab41271011ba4d1ac8117c2f11aae6b8c} 
+\#define RITE\+\_\+\+SECTION\+\_\+\+HEADER}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ uint8\_t\ section\_ident[4];\ \(\backslash\)}
+\DoxyCodeLine{\ \ uint8\_t\ section\_size[4]}
+
+\end{DoxyCode}

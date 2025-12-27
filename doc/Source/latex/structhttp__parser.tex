@@ -1,0 +1,81 @@
+\doxysection{http\+\_\+parser Struct Reference}
+\hypertarget{structhttp__parser}{}\label{structhttp__parser}\index{http\_parser@{http\_parser}}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \mbox{\hyperlink{structhttp__parser_ac6c327558547d55eb64a8aea1310cc2e}{type}}\+: 2
+\item 
+\Hypertarget{structhttp__parser_a5e54708e0cb3f9ced19bd829dcdeaf53}\label{structhttp__parser_a5e54708e0cb3f9ced19bd829dcdeaf53} 
+unsigned int {\bfseries flags}\+: 8
+\item 
+\Hypertarget{structhttp__parser_a6f5952e0b47c83aeacf64fc287fd8003}\label{structhttp__parser_a6f5952e0b47c83aeacf64fc287fd8003} 
+unsigned int {\bfseries state}\+: 7
+\item 
+\Hypertarget{structhttp__parser_ac5b254b99c6472ca19ae1f426758ce75}\label{structhttp__parser_ac5b254b99c6472ca19ae1f426758ce75} 
+unsigned int {\bfseries header\+\_\+state}\+: 7
+\item 
+\Hypertarget{structhttp__parser_a6f7ba706f975f447b3bf72be97facdf8}\label{structhttp__parser_a6f7ba706f975f447b3bf72be97facdf8} 
+unsigned int {\bfseries index}\+: 5
+\item 
+\Hypertarget{structhttp__parser_ab056c0c95aff08e8204916d8e4b95db0}\label{structhttp__parser_ab056c0c95aff08e8204916d8e4b95db0} 
+unsigned int {\bfseries uses\+\_\+transfer\+\_\+encoding}\+: 1
+\item 
+\Hypertarget{structhttp__parser_aacc7ab72fa4c964406054fcafa8b9502}\label{structhttp__parser_aacc7ab72fa4c964406054fcafa8b9502} 
+unsigned int {\bfseries allow\+\_\+chunked\+\_\+length}\+: 1
+\item 
+\Hypertarget{structhttp__parser_acd80a931fcc87d41999397af1662fc3c}\label{structhttp__parser_acd80a931fcc87d41999397af1662fc3c} 
+unsigned int {\bfseries lenient\+\_\+http\+\_\+headers}\+: 1
+\item 
+\Hypertarget{structhttp__parser_a78085ca896bb3b9aa1ecb0f6fddc039d}\label{structhttp__parser_a78085ca896bb3b9aa1ecb0f6fddc039d} 
+uint32\+\_\+t {\bfseries nread}
+\item 
+\Hypertarget{structhttp__parser_a7fd5a194802b1206bb773e096d291f29}\label{structhttp__parser_a7fd5a194802b1206bb773e096d291f29} 
+uint64\+\_\+t {\bfseries content\+\_\+length}
+\item 
+unsigned short \mbox{\hyperlink{structhttp__parser_ac994a4a8268652f5ce82de5bde5c3f9d}{http\+\_\+major}}
+\item 
+\Hypertarget{structhttp__parser_ae8af6433c824f5348773842db62ad4ab}\label{structhttp__parser_ae8af6433c824f5348773842db62ad4ab} 
+unsigned short {\bfseries http\+\_\+minor}
+\item 
+\Hypertarget{structhttp__parser_a82f5aed92ca3566489def7bc384bab26}\label{structhttp__parser_a82f5aed92ca3566489def7bc384bab26} 
+unsigned int {\bfseries status\+\_\+code}\+: 16
+\item 
+\Hypertarget{structhttp__parser_a7955de339fafd81ad54380845913457d}\label{structhttp__parser_a7955de339fafd81ad54380845913457d} 
+unsigned int {\bfseries method}\+: 8
+\item 
+\Hypertarget{structhttp__parser_ab8638d65fa174bc1925d77e2533117fa}\label{structhttp__parser_ab8638d65fa174bc1925d77e2533117fa} 
+unsigned int {\bfseries http\+\_\+errno}\+: 7
+\item 
+\Hypertarget{structhttp__parser_a748f476eacc5ac56b84dd07dbafb42a4}\label{structhttp__parser_a748f476eacc5ac56b84dd07dbafb42a4} 
+unsigned int {\bfseries upgrade}\+: 1
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structhttp__parser_a7e87ce57b97f60f1fdb7039a8ecb0bca}{data}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-variable-members}
+\Hypertarget{structhttp__parser_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structhttp__parser_a7e87ce57b97f60f1fdb7039a8ecb0bca}\index{http\_parser@{http\_parser}!data@{data}}
+\index{data@{data}!http\_parser@{http\_parser}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily \label{structhttp__parser_a7e87ce57b97f60f1fdb7039a8ecb0bca} 
+void\texorpdfstring{$\ast$}{*} http\+\_\+parser\+::data}
+
+PUBLIC \Hypertarget{structhttp__parser_ac994a4a8268652f5ce82de5bde5c3f9d}\index{http\_parser@{http\_parser}!http\_major@{http\_major}}
+\index{http\_major@{http\_major}!http\_parser@{http\_parser}}
+\doxysubsubsection{\texorpdfstring{http\_major}{http\_major}}
+{\footnotesize\ttfamily \label{structhttp__parser_ac994a4a8268652f5ce82de5bde5c3f9d} 
+unsigned short http\+\_\+parser\+::http\+\_\+major}
+
+READ-\/\+ONLY \Hypertarget{structhttp__parser_ac6c327558547d55eb64a8aea1310cc2e}\index{http\_parser@{http\_parser}!type@{type}}
+\index{type@{type}!http\_parser@{http\_parser}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily \label{structhttp__parser_ac6c327558547d55eb64a8aea1310cc2e} 
+unsigned int http\+\_\+parser\+::type}
+
+PRIVATE 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/urlparse/http-\/parser/http\+\_\+parser.\+h\end{DoxyCompactItemize}

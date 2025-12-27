@@ -1,0 +1,180 @@
+\chapter{User visible changes in {\ttfamily mruby3.\+3} from {\ttfamily mruby3.\+2} }
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83}{}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83}\index{User visible changes in $<$tt$>$mruby3.3$<$/tt$>$ from $<$tt$>$mruby3.2$<$/tt$>$@{User visible changes in $<$tt$>$mruby3.3$<$/tt$>$ from $<$tt$>$mruby3.2$<$/tt$>$}}
+\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md498}%
+\Hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md498}%
+
+
+"{}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+\_\+\+NOTE\+\_\+\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+:"{} are changes to be aware of.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md499}{}\doxysection{\texorpdfstring{The language}{The language}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md499}
+
+\begin{DoxyItemize}
+\item aliases work properly with {\ttfamily super} (\href{https://github.com/mruby/mruby/commit/2ad3f0e}{\texttt{2ad3f0e}})
+\item {\ttfamily callee} method work differently with aliases in mruby (\href{https://github.com/mruby/mruby/commit/f2dc76e}{\texttt{f2dc76e}})
+\item define {\ttfamily Kernel\#respond\+\_\+to\+\_\+missing?} method (\href{https://github.com/mruby/mruby/commit/347586e}{\texttt{347586e}})
+\item {\ttfamily \+\_\+inspect} method ({\ttfamily inspect} with recursive check) is removed (\href{https://github.com/mruby/mruby/commit/e2bbf75}{\texttt{e2bbf75}}, \href{https://github.com/mruby/mruby/commit/5cb0c74}{\texttt{5cb0c74}}, \href{https://github.com/mruby/mruby/commit/113565a}{\texttt{113565a}}, \href{https://github.com/mruby/mruby/commit/0713f2a}{\texttt{0713f2a}}, \href{https://github.com/mruby/mruby/commit/6ae6b63}{\texttt{6ae6b63}}, \href{https://github.com/mruby/mruby/commit/fc9fffc}{\texttt{fc9fffc}})
+\item {\ttfamily \+\_\+\+\_\+printstr\+\_\+\+\_\+} method is removed; use {\ttfamily print} instead (\href{https://github.com/mruby/mruby/commit/acecee0}{\texttt{acecee0}}, \href{https://github.com/mruby/mruby/commit/192e6e3}{\texttt{192e6e3}})
+\item New method {\ttfamily String\#bytesplice} (\href{https://github.com/mruby/mruby/commit/5274647}{\texttt{5274647}}, \href{https://github.com/mruby/mruby/commit/a2e2e83}{\texttt{a2e2e83}})
+\item Allow {\ttfamily return} in blocks to cross C boundaries (\href{https://github.com/mruby/mruby/pull/6125}{\texttt{\#6125}})
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md500}{}\doxysection{\texorpdfstring{Configuration}{Configuration}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md500}
+
+\begin{DoxyItemize}
+\item mruby can be built using Docker now. Try {\ttfamily docker-\/compose build} for example. (\href{https://github.com/mruby/mruby/pull/5961}{\texttt{\#5961}})
+\item New Platform\+: DJGPP (MS-\/\+DOS) (\href{https://github.com/mruby/mruby/pull/6022}{\texttt{\#6022}})
+\item New Platform\+: Nintendo Wii (\href{https://github.com/mruby/mruby/pull/6086}{\texttt{\#6086}})
+\item Improved Platform\+: Android (\href{https://github.com/mruby/mruby/pull/6013}{\texttt{\#6013}})
+\item Improved Platform\+: Dreamcast (\href{https://github.com/mruby/mruby/pull/6130}{\texttt{\#6130}})
+\item Allow tests to be disabled for specific gems; warn about disabled tests (\href{https://github.com/mruby/mruby/pull/6012}{\texttt{\#6012}})
+\item Replace {\ttfamily MRB\+\_\+\+NO\+\_\+\+DIRECT\+\_\+\+THREADING} with {\ttfamily MRB\+\_\+\+USE\+\_\+\+VM\+\_\+\+SWITCH\+\_\+\+DISPATCH} (\href{https://github.com/mruby/mruby/pull/5902}{\texttt{\#5902}})
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md501}{}\doxysection{\texorpdfstring{mruby memory API}{mruby memory API}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md501}
+
+\begin{DoxyItemize}
+\item {\ttfamily \doxylink{mruby_8h_a2cf27f87c8bb7684e7f9ef73b4082893}{mrb\+\_\+default\+\_\+allocf}} can be overridden by the application (\href{https://github.com/mruby/mruby/commit/34c5d96}{\texttt{34c5d96}})
+\item {\ttfamily \doxylink{mruby_8h_aebfac968c84e9934f7f805c19c142018}{mrb\+\_\+open\+\_\+allocf}} will be deprecated (\href{https://github.com/mruby/mruby/commit/cfee5c2}{\texttt{cfee5c2}})
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md502}{}\doxysection{\texorpdfstring{Changes in C API}{Changes in C API}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md502}
+
+\begin{DoxyItemize}
+\item add new error handling API functions (\href{https://github.com/mruby/mruby/commit/8c8bbd9}{\texttt{8c8bbd9}})
+\item Add {\ttfamily \doxylink{proc_8h_a003982b556c0e2ff6d5bd7cf401f6a6f}{mrb\+\_\+vm\+\_\+ci\+\_\+env\+\_\+clear()}} function with {\ttfamily \doxylink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} (\href{https://github.com/mruby/mruby/pull/5945}{\texttt{\#5945}})
+\item a new function {\ttfamily mrb\+\_\+check\+\_\+frozen\+\_\+value()} (\href{https://github.com/mruby/mruby/commit/ccdf75c}{\texttt{ccdf75c}})
+\item avoid formatting in {\ttfamily mrb\+\_\+bug()} (\href{https://github.com/mruby/mruby/commit/82a48bd}{\texttt{82a48bd}}) ~\newline
+ {\bfseries{{\itshape NOTE}}}\+: If you are using it, you must give a simple string or replace it with a call to {\ttfamily mrb\+\_\+raise()} series.
+\item stop using {\ttfamily mrbc\+\_\+} prefix for compiler context (\href{https://github.com/mruby/mruby/commit/c5e3cbe}{\texttt{c5e3cbe}}) ~\newline
+ The same names are provided as before, but we recommend replacing them.
+\item Allow {\ttfamily Class\#allocate} to be prohibited (\href{https://github.com/mruby/mruby/pull/5979}{\texttt{\#5979}}, \href{https://github.com/mruby/mruby/pull/6122}{\texttt{\#6122}}, \href{https://github.com/mruby/mruby/pull/6123}{\texttt{\#6123}}) ~\newline
+ To disable {\ttfamily \#allocate}, use {\ttfamily MRB\+\_\+\+UNDEF\+\_\+\+ALLOCATOR()}. This is also automatically applied when the subclass is created, but to explicitly allow it, use {\ttfamily MRB\+\_\+\+DEFINE\+\_\+\+ALLOCATOR()}.
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md503}{}\doxysection{\texorpdfstring{Changes in mrbgems}{Changes in mrbgems}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md503}
+
+\begin{DoxyItemize}
+\item {\bfseries{default.\+gembox}}\+: Add mruby debugger mrdb ({\ttfamily mruby-\/bin-\/debugger}) (\href{https://github.com/mruby/mruby/pull/5966}{\texttt{\#5966}})
+\item {\bfseries{mruby-\/bin-\/config}}\+: new options {\ttfamily -\/-\/cxx}, {\ttfamily -\/-\/cxxflags}, {\ttfamily -\/-\/as}, {\ttfamily -\/-\/asflags}, {\ttfamily -\/-\/objc}, {\ttfamily -\/-\/objcflags} (\href{https://github.com/mruby/mruby/pull/6054}{\texttt{\#6054}})
+\item {\bfseries{mruby-\/binding}}\+: renamed from {\ttfamily mruby-\/binding-\/core} of mruby3.\+2 (\href{https://github.com/mruby/mruby/commit/11af5db}{\texttt{11af5db}}) ~\newline
+ {\bfseries{{\itshape NOTE}}}\+: If using {\ttfamily mruby-\/binding-\/core} of mruby 3.\+2, replace it with {\ttfamily mruby-\/binding}.
+\item {\bfseries{mruby-\/binding}}\+: implemented {\ttfamily Binding\#initialize\+\_\+copy} method (\href{https://github.com/mruby/mruby/pull/5517}{\texttt{\#5517}})
+\item {\bfseries{mruby-\/binding}}\+: {\ttfamily Kernel\#binding} responds only to calls from Ruby (\href{https://github.com/mruby/mruby/pull/5981}{\texttt{\#5981}})
+\item {\bfseries{mruby-\/compar-\/ext}}\+: Comparable\#clamp to accept nil as arguments (\href{https://github.com/mruby/mruby/commit/836bebc}{\texttt{836bebc}})
+\item {\bfseries{mruby-\/compiler}}\+: add print name for identifier tokens (\href{https://github.com/mruby/mruby/commit/d7b2e3a}{\texttt{d7b2e3a}})
+\item {\bfseries{mruby-\/data}}\+: allow empty Data (\href{https://github.com/mruby/mruby/commit/927a9df}{\texttt{927a9df}})
+\item {\bfseries{mruby-\/enumerator}}\+: remove internal attribute methods {\ttfamily obj}, {\ttfamily args}, {\ttfamily kwd}, {\ttfamily meth}, {\ttfamily fib}. (\href{https://github.com/mruby/mruby/commit/735fa24}{\texttt{735fa24}})
+\item {\bfseries{mruby-\/enumerator}}\+: add Enumerator\#size (\href{https://github.com/mruby/mruby/commit/861f8bd}{\texttt{861f8bd}})
+\item {\bfseries{mruby-\/eval}}\+: merged {\ttfamily mruby-\/binding} of mruby3.\+2 (\href{https://github.com/mruby/mruby/commit/501b22a}{\texttt{501b22a}}, \href{https://github.com/mruby/mruby/pull/5989}{\texttt{\#5989}}) ~\newline
+ {\bfseries{{\itshape NOTE}}}\+: If using {\ttfamily mruby-\/binding} of mruby 3.\+2, replace it with {\ttfamily mruby-\/eval}.
+\item {\bfseries{mruby-\/fiber}}\+: Add a new {\ttfamily \doxylink{mruby_8h_a386cf33084d5e1636b523f9304a4c49b}{mrb\+\_\+fiber\+\_\+new()}} with {\ttfamily \doxylink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} (\href{https://github.com/mruby/mruby/pull/6097}{\texttt{\#6097}})
+\item {\bfseries{mruby-\/fiber}}\+: Allows calling {\ttfamily Fiber\#resume} from C (\href{https://github.com/mruby/mruby/pull/6106}{\texttt{\#6106}})
+\item {\bfseries{mruby-\/fiber}}\+: {\ttfamily Fiber\#to\+\_\+s} format changed (\href{https://github.com/mruby/mruby/pull/6105}{\texttt{\#6105}})
+\item {\bfseries{mruby-\/io}}\+: add File\#atime and File\#ctime (\href{https://github.com/mruby/mruby/commit/321cfe9}{\texttt{321cfe9}})
+\item {\bfseries{mruby-\/io}}\+: Add "{}x"{} mode option for {\ttfamily IO.\+open} (\href{https://github.com/mruby/mruby/pull/6081}{\texttt{\#6081}})
+\item {\bfseries{mruby-\/io}}\+: File.\+new should not take blocks (\href{https://github.com/mruby/mruby/commit/53de964}{\texttt{53de964}})
+\item {\bfseries{mruby-\/method}}\+: {\ttfamily Method\#to\+\_\+s} format changed (\href{https://github.com/mruby/mruby/commit/f5bc82f}{\texttt{f5bc82f}}, \href{https://github.com/mruby/mruby/commit/02f189c}{\texttt{02f189c}})
+\item {\bfseries{mruby-\/numeric-\/ext}}\+: {\ttfamily int.\+pow(n,m)} to take bigint as exponential (\href{https://github.com/mruby/mruby/commit/d482eab}{\texttt{d482eab}})
+\item {\bfseries{mruby-\/pack}}\+: support new directives {\ttfamily j}, {\ttfamily J}, {\ttfamily b}, {\ttfamily B}, {\ttfamily \#} (\href{https://github.com/mruby/mruby/commit/2a1e3a5}{\texttt{2a1e3a5}}, \href{https://github.com/mruby/mruby/commit/e7021f1}{\texttt{e7021f1}}, \href{https://github.com/mruby/mruby/commit/e17f325}{\texttt{e17f325}})
+\item {\bfseries{mruby-\/range-\/ext}}\+: new method {\ttfamily Range\#overlap?} (\href{https://github.com/mruby/mruby/commit/384d0e2}{\texttt{384d0e2}})
+\item {\bfseries{mruby-\/string-\/ext}}\+: Add {\ttfamily String\#valid\+\_\+encoding?} method (\href{https://github.com/mruby/mruby/commit/eabe2d9}{\texttt{eabe2d9}})
+\item {\bfseries{mruby-\/struct}}\+: allow empty Struct when a name is not given (\href{https://github.com/mruby/mruby/commit/c212ede}{\texttt{c212ede}})
+\item {\bfseries{mruby-\/time}}\+: should allow year before 1900 (\href{https://github.com/mruby/mruby/commit/e5de08b}{\texttt{e5de08b}})
+\item {\bfseries{mruby-\/time}}\+: support bigint to time\+\_\+t if necessary (\href{https://github.com/mruby/mruby/commit/7096d27}{\texttt{7096d27}})
+\item {\bfseries{mruby-\/time}}\+: need to handle negative time\+\_\+t (\href{https://github.com/mruby/mruby/commit/b064d7e}{\texttt{b064d7e}})
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md504}{}\doxysection{\texorpdfstring{Changes in build system}{Changes in build system}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md504}
+
+\begin{DoxyItemize}
+\item Extended {\ttfamily rake install} task (\href{https://github.com/mruby/mruby/pull/5928}{\texttt{\#5928}}) ~\newline
+ {\bfseries{{\itshape NOTE}}}\+: Due to this impact, executable files in the {\ttfamily mruby/bin/} directory by default are now symbolic links (batch files on Windows). If previously relied on those executables, should be replaced with direct references to the entity created under the build directory (e.\+g. {\ttfamily mruby/build/host/bin/}).
+\item Encode and decode escape characters for presym (\href{https://github.com/mruby/mruby/pull/6011}{\texttt{\#6011}})
+\item Rakefile\+: remove default build target directories in {\ttfamily deep\+\_\+clean} (\href{https://github.com/mruby/mruby/pull/6032}{\texttt{\#6032}}, \href{https://github.com/mruby/mruby/commit/1e38569}{\texttt{1e38569}})
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md505}{}\doxysection{\texorpdfstring{Other breaking changes}{Other breaking changes}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md505}
+
+\begin{DoxyItemize}
+\item {\ttfamily mrb\+\_\+f\+\_\+raise()} is now an internal function (\href{https://github.com/mruby/mruby/pull/5923}{\texttt{\#5923}}, \href{https://github.com/mruby/mruby/pull/6070}{\texttt{\#6070}})
+\item {\ttfamily mrb\+\_\+make\+\_\+exception()} is now an internal function with different parameters (\href{https://github.com/mruby/mruby/commit/431f83e}{\texttt{431f83e}}, \href{https://github.com/mruby/mruby/commit/78137f3}{\texttt{78137f3}})
+\item The {\ttfamily File\#path} method no longer uses the {\ttfamily \#to\+\_\+path} method for implicit conversion (\href{https://github.com/mruby/mruby/commit/d86c4a7}{\texttt{d86c4a7}})
+\item stop mrb isolation for each test file (\href{https://github.com/mruby/mruby/commit/a20fbe5}{\texttt{a20fbe5}})
+\item \doxylink{structRBreak}{RBreak} remembers the CI location (\href{https://github.com/mruby/mruby/pull/6103}{\texttt{\#6103}})
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md506}{}\doxysection{\texorpdfstring{Bugs Fixed}{Bugs Fixed}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md506}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/mruby/mruby/issues/5724}{\texttt{\#5724}} Rational\#\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} is missing
+\item \href{https://github.com/mruby/mruby/issues/5725}{\texttt{\#5725}} weird const\+\_\+missing exceptions in mrblib code
+\item \href{https://github.com/mruby/mruby/issues/5789}{\texttt{\#5789}} No memory release of backtrace information due to stack error
+\item \href{https://github.com/mruby/mruby/issues/5932}{\texttt{\#5932}} How to create a block using the C API? mrb\+\_\+yield keeps crashing!
+\item \href{https://github.com/mruby/mruby/issues/5943}{\texttt{\#5943}} TCPSocket\#write is failed
+\item \href{https://github.com/mruby/mruby/issues/5944}{\texttt{\#5944}} Behavior of calling method with a hash variable
+\item \href{https://github.com/mruby/mruby/pull/5946}{\texttt{\#5946}} Don\textquotesingle{}t switch constant search path from modules to Object
+\item \href{https://github.com/mruby/mruby/issues/5949}{\texttt{\#5949}} Caller appears to report wrong line when block passed and brackets omitted
+\item \href{https://github.com/mruby/mruby/commit/0906cd7}{\texttt{0906cd7}} numeric.\+c\+: fix rounding function issues with big numbers
+\item \href{https://github.com/mruby/mruby/issues/5974}{\texttt{\#5974}} Invalid escape sequences in gem\+\_\+init.\+c on windows
+\item \href{https://github.com/mruby/mruby/issues/5975}{\texttt{\#5975}} Equals comparison fails on extreme ends of 64-\/bit integers
+\item \href{https://github.com/mruby/mruby/issues/5985}{\texttt{\#5985}} Sign extension with OP\+\_\+\+LOADI32 in get\+\_\+int\+\_\+operand()
+\item \href{https://github.com/mruby/mruby/issues/5986}{\texttt{\#5986}} Fix bugs in String\#bytesplice
+\item \href{https://github.com/mruby/mruby/issues/5987}{\texttt{\#5987}} \texorpdfstring{$\sim$}{\string~}(-\/1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 64) is incorrect
+\item \href{https://github.com/mruby/mruby/issues/5991}{\texttt{\#5991}} \textquotesingle{}gets\textquotesingle{} method not working in mruby-\/3.\+2.\+0
+\item \href{https://github.com/mruby/mruby/pull/5994}{\texttt{\#5994}} fix typo in mrbgems/mruby-\/io/src/io.\+c
+\item \href{https://github.com/mruby/mruby/issues/5995}{\texttt{\#5995}} One seemingly unnecessary parameter is passed in the block parameters
+\item \href{https://github.com/mruby/mruby/pull/6008}{\texttt{\#6008}} Make "{}bintest"{} independent of directory
+\item \href{https://github.com/mruby/mruby/commit/b47c8b7}{\texttt{b47c8b7}} gc.\+c (clear\+\_\+all\+\_\+old)\+: fix a generational GC bug
+\item \href{https://github.com/mruby/mruby/issues/6029}{\texttt{\#6029}} mruby build fails under mrbgems directory
+\item \href{https://github.com/mruby/mruby/commit/a264965}{\texttt{a264965}} mruby-\/os-\/memsize/memsize.\+c\+: fix irep size calculation
+\item \href{https://github.com/mruby/mruby/commit/3310e10}{\texttt{3310e10}} mruby-\/test/mrbgem.\+rake\+: fix \doxylink{structmrb__state}{mrb\+\_\+state} handling bug
+\item \href{https://github.com/mruby/mruby/issues/6041}{\texttt{\#6041}} GC Performance may have degraded
+\item \href{https://github.com/mruby/mruby/issues/6044}{\texttt{\#6044}} Generated presym/table.\+h contains invalid characters
+\item \href{https://github.com/mruby/mruby/issues/6051}{\texttt{\#6051}} Null pointer dereference in mrb\+\_\+addrinfo\+\_\+unix\+\_\+path
+\item \href{https://github.com/mruby/mruby/issues/6052}{\texttt{\#6052}} Null pointer dereference while handling the Proc class
+\item \href{https://github.com/mruby/mruby/pull/6055}{\texttt{\#6055}} Fix libmruby name for Visual\+C++
+\item \href{https://github.com/mruby/mruby/issues/6060}{\texttt{\#6060}} SEGFAULT Issue Related to Fiber Usage in ngx\+\_\+mruby Development
+\item \href{https://github.com/mruby/mruby/issues/6061}{\texttt{\#6061}} Performance issue in String\#codepoints
+\item \href{https://github.com/mruby/mruby/issues/6064}{\texttt{\#6064}} MRUBY\+\_\+\+PACKAGE\+\_\+\+DIR does not always have a value.
+\item \href{https://github.com/mruby/mruby/issues/6065}{\texttt{\#6065}} Null pointer dereference while handling the Proc class
+\item \href{https://github.com/mruby/mruby/issues/6066}{\texttt{\#6066}} Null pointer dereference involving Struct.\+new()
+\item \href{https://github.com/mruby/mruby/issues/6067}{\texttt{\#6067}} Null pointer dereference in mrb\+\_\+string\+\_\+value\+\_\+cstr
+\item \href{https://github.com/mruby/mruby/issues/6068}{\texttt{\#6068}} Stack overflow in mrb\+\_\+vm\+\_\+exec
+\item \href{https://github.com/mruby/mruby/pull/6076}{\texttt{\#6076}} Fixed unwinding block that could point to invalid PC
+\item \href{https://github.com/mruby/mruby/issues/6084}{\texttt{\#6084}} Incorrect symbolic sinks in binary built on Linux
+\item \href{https://github.com/mruby/mruby/issues/6087}{\texttt{\#6087}} \textquotesingle{}Remote branch HEAD not found in upstream origin\textquotesingle{} error on build
+\item \href{https://github.com/mruby/mruby/issues/6089}{\texttt{\#6089}} binding.\+eval() handles def expressions differently from CRuby
+\item \href{https://github.com/mruby/mruby/issues/6098}{\texttt{\#6098}} Fails to call superclass of wrapped method
+\item \href{https://github.com/mruby/mruby/issues/6099}{\texttt{\#6099}} {\ttfamily ensure} section is not executed if the function exits via a return in a proc
+\item \href{https://github.com/mruby/mruby/issues/6108}{\texttt{\#6108}} VM crashes with break
+\item \href{https://github.com/mruby/mruby/pull/6118}{\texttt{\#6118}} Fixed IO\#read with buf
+\item \href{https://github.com/mruby/mruby/pull/6120}{\texttt{\#6120}} Set EBADF if check\+\_\+file\+\_\+descriptor() fails
+\item \href{https://github.com/mruby/mruby/pull/6126}{\texttt{\#6126}} Fixed return value of {\ttfamily OP\+\_\+\+RETURN\+\_\+\+BLK} called directly under C function
+\item \href{https://github.com/mruby/mruby/issues/6134}{\texttt{\#6134}} String\#unpack1 returns an array instead of a single string
+\item \href{https://github.com/mruby/mruby/pull/6136}{\texttt{\#6136}} Fixed when combined {\ttfamily \doxylink{mruby_8h_a492957af8f74b2cd8ab329ca5bcd7787}{mrb\+\_\+fiber\+\_\+resume()}} and {\ttfamily Fiber\#transfer}
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md507}{}\doxysection{\texorpdfstring{Pull Requests (User Visible Ones)}{Pull Requests (User Visible Ones)}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2mruby3_83_autotoc_md507}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/mruby/mruby/pull/5517}{\texttt{\#5517}} Fixed local variables not separated between copied binding objects
+\item \href{https://github.com/mruby/mruby/pull/5902}{\texttt{\#5902}} Replace {\ttfamily MRB\+\_\+\+NO\+\_\+\+DIRECT\+\_\+\+THREADING} with {\ttfamily MRB\+\_\+\+USE\+\_\+\+VM\+\_\+\+SWITCH\+\_\+\+DISPATCH}
+\item \href{https://github.com/mruby/mruby/pull/5923}{\texttt{\#5923}} Demotion {\ttfamily mrb\+\_\+f\+\_\+raise()} from {\ttfamily \doxylink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}}
+\item \href{https://github.com/mruby/mruby/pull/5928}{\texttt{\#5928}} Improved {\ttfamily rake install}
+\item \href{https://github.com/mruby/mruby/pull/5945}{\texttt{\#5945}} Avoid exposure for {\ttfamily \doxylink{structREnv}{REnv}} objects
+\item \href{https://github.com/mruby/mruby/pull/5946}{\texttt{\#5946}} Don\textquotesingle{}t switch constant search path from modules to Object
+\item \href{https://github.com/mruby/mruby/pull/5966}{\texttt{\#5966}} Update default.\+gembox add mruby debugger mrdb
+\item \href{https://github.com/mruby/mruby/pull/5979}{\texttt{\#5979}} Allow Class\#allocate to be prohibited
+\item \href{https://github.com/mruby/mruby/pull/5981}{\texttt{\#5981}} {\ttfamily Kernel\#binding} responds only to calls from Ruby
+\item \href{https://github.com/mruby/mruby/pull/5989}{\texttt{\#5989}} Integrate mruby-\/binding-\/eval into mruby-\/eval
+\item \href{https://github.com/mruby/mruby/pull/5961}{\texttt{\#5961}} Add Docker to build and run all mruby tests. Run pre-\/commit and generate YARD docs with Docker
+\item \href{https://github.com/mruby/mruby/pull/5994}{\texttt{\#5994}} fix typo in mrbgems/mruby-\/io/src/io.\+c
+\item \href{https://github.com/mruby/mruby/pull/6008}{\texttt{\#6008}} Make "{}bintest"{} independent of directory
+\item \href{https://github.com/mruby/mruby/pull/6009}{\texttt{\#6009}} Avoid adding $<$\+MRUBY\+\_\+\+ROOT$>$/bintest which does not exist
+\item \href{https://github.com/mruby/mruby/pull/6011}{\texttt{\#6011}} Encode and decode escape characters for presym
+\item \href{https://github.com/mruby/mruby/pull/6012}{\texttt{\#6012}} Allow tests to be disabled for specific gems; warn about disabled tests
+\item \href{https://github.com/mruby/mruby/pull/6013}{\texttt{\#6013}} Fix Android toolchain
+\item \href{https://github.com/mruby/mruby/pull/6022}{\texttt{\#6022}} Build configuration for MS-\/\+DOS and DJGPP
+\item \href{https://github.com/mruby/mruby/pull/6032}{\texttt{\#6032}} Rake\+: update task clean to remove bin and build folders
+\item \href{https://github.com/mruby/mruby/pull/6045}{\texttt{\#6045}} Fixes escape sequence bug and enhancements in Presym scanning
+\item \href{https://github.com/mruby/mruby/pull/6054}{\texttt{\#6054}} Extends {\ttfamily bin/mruby-\/config}
+\item \href{https://github.com/mruby/mruby/pull/6055}{\texttt{\#6055}} Fix libmruby name for Visual\+C++
+\item \href{https://github.com/mruby/mruby/pull/6070}{\texttt{\#6070}} Demotion mrb\+\_\+f\+\_\+raise() in kernel.\+c from MRB\+\_\+\+API too
+\item \href{https://github.com/mruby/mruby/pull/6076}{\texttt{\#6076}} Fixed unwinding block that could point to invalid PC
+\item \href{https://github.com/mruby/mruby/pull/6081}{\texttt{\#6081}} Add "{}x"{} mode option for IO.\+open
+\item \href{https://github.com/mruby/mruby/pull/6086}{\texttt{\#6086}} Add build config for Nintendo Wii
+\item \href{https://github.com/mruby/mruby/pull/6097}{\texttt{\#6097}} Add a new \doxylink{mruby_8h_a386cf33084d5e1636b523f9304a4c49b}{mrb\+\_\+fiber\+\_\+new()} with MRB\+\_\+\+API
+\item \href{https://github.com/mruby/mruby/pull/6103}{\texttt{\#6103}} \doxylink{structRBreak}{RBreak} remembers the CI location
+\item \href{https://github.com/mruby/mruby/pull/6105}{\texttt{\#6105}} Implement {\ttfamily Fiber\#to\+\_\+s} method
+\item \href{https://github.com/mruby/mruby/pull/6106}{\texttt{\#6106}} Ease fiber limitations
+\item \href{https://github.com/mruby/mruby/pull/6118}{\texttt{\#6118}} Fixed IO\#read with buf
+\item \href{https://github.com/mruby/mruby/pull/6120}{\texttt{\#6120}} Set EBADF if check\+\_\+file\+\_\+descriptor() fails
+\item \href{https://github.com/mruby/mruby/pull/6122}{\texttt{\#6122}} Prohibit {\ttfamily Class\#allocate} in a different way
+\item \href{https://github.com/mruby/mruby/pull/6123}{\texttt{\#6123}} Inherit {\ttfamily MRB\+\_\+\+FL\+\_\+\+UNDEF\+\_\+\+ALLOCATE} in subclasses
+\item \href{https://github.com/mruby/mruby/pull/6125}{\texttt{\#6125}} Allow {\ttfamily OP\+\_\+\+RETURN\+\_\+\+BLK} to cross C boundaries
+\item \href{https://github.com/mruby/mruby/pull/6126}{\texttt{\#6126}} Fixed return value of {\ttfamily OP\+\_\+\+RETURN\+\_\+\+BLK} called directly under C function
+\item \href{https://github.com/mruby/mruby/pull/6130}{\texttt{\#6130}} {\ttfamily dreamcast\+\_\+shelf build config}\+: complete overhaul
+\item \href{https://github.com/mruby/mruby/pull/6136}{\texttt{\#6136}} Fixed when combined {\ttfamily \doxylink{mruby_8h_a492957af8f74b2cd8ab329ca5bcd7787}{mrb\+\_\+fiber\+\_\+resume()}} and {\ttfamily Fiber\#transfer} 
+\end{DoxyItemize}

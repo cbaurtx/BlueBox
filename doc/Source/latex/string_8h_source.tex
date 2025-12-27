@@ -1,0 +1,176 @@
+\doxysection{string.\+h}
+\hypertarget{string_8h_source}{}\label{string_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/string.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/string.h}}
+\mbox{\hyperlink{string_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_STRING\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_STRING\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{common_8h}{common.h}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00015\ \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\_BEGIN\_DECL}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{string_8h_aab8342c7db2c23f714e664cf0433104f}{mrb\_digitmap}}[];}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ RSTRING\_EMBED\_LEN\_MAX\ \(\backslash\)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\ \ ((mrb\_int)(sizeof(void*)\ *\ 3\ +\ sizeof(void*)\ -\/\ 32\ /\ CHAR\_BIT\ -\/\ 1))}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRString}{RString}}\ \{}
+\DoxyCodeLine{00023\ \ \ MRB\_OBJECT\_HEADER;}
+\DoxyCodeLine{00024\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ mrb\_ssize\ len;}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ mrb\_ssize\ capa;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__shared__string}{mrb\_shared\_string}}\ *shared;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRString}{RString}}\ *fshared;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \}\ aux;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *ptr;}
+\DoxyCodeLine{00033\ \ \ \ \ \}\ heap;}
+\DoxyCodeLine{00034\ \ \ \}\ as;}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRStringEmbed}{RStringEmbed}}\ \{}
+\DoxyCodeLine{00037\ \ \ MRB\_OBJECT\_HEADER;}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{char}\ ary[RSTRING\_EMBED\_LEN\_MAX+1];}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ RSTR\_SET\_TYPE\_FLAG(s,\ type)\ (RSTR\_UNSET\_TYPE\_FLAG(s),\ (s)-\/>flags\ |=\ MRB\_STR\_\#\#type)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ RSTR\_UNSET\_TYPE\_FLAG(s)\ ((s)-\/>flags\ \&=\ \string~(MRB\_STR\_TYPE\_MASK|MRB\_STR\_EMBED\_LEN\_MASK))}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ RSTR\_EMBED\_P(s)\ ((s)-\/>flags\ \&\ MRB\_STR\_EMBED)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ RSTR\_SET\_EMBED\_FLAG(s)\ ((s)-\/>flags\ |=\ MRB\_STR\_EMBED)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ RSTR\_UNSET\_EMBED\_FLAG(s)\ ((s)-\/>flags\ \&=\ \string~(MRB\_STR\_EMBED|MRB\_STR\_EMBED\_LEN\_MASK))}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ RSTR\_SET\_EMBED\_LEN(s,\ n)\ do\ \{\(\backslash\)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\ \ size\_t\ tmp\_n\ =\ (n);\(\backslash\)}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\ \ (s)-\/>flags\ \&=\ \string~MRB\_STR\_EMBED\_LEN\_MASK;\(\backslash\)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\ \ (s)-\/>flags\ |=\ (tmp\_n)\ <<\ MRB\_STR\_EMBED\_LEN\_SHIFT;\(\backslash\)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\}\ while\ (0)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ RSTR\_SET\_LEN(s,\ n)\ do\ \{\(\backslash\)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\ \ if\ (RSTR\_EMBED\_P(s))\ \{\(\backslash\)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\ \ \ \ RSTR\_SET\_EMBED\_LEN((s),(n));\(\backslash\)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\ \ \}\(\backslash\)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ else\ \{\(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\ \ \ \ (s)-\/>as.heap.len\ =\ (mrb\_ssize)(n);\(\backslash\)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\ \ \}\(\backslash\)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\}\ while\ (0)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ RSTR\_EMBED\_PTR(s)\ (((struct\ RStringEmbed*)(s))-\/>ary)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ RSTR\_EMBED\_LEN(s)\(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ (mrb\_int)(((s)-\/>flags\ \&\ MRB\_STR\_EMBED\_LEN\_MASK)\ >>\ MRB\_STR\_EMBED\_LEN\_SHIFT)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ RSTR\_EMBEDDABLE\_P(len)\ ((len)\ <=\ RSTRING\_EMBED\_LEN\_MAX)}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ RSTR\_PTR(s)\ ((RSTR\_EMBED\_P(s))\ ?\ RSTR\_EMBED\_PTR(s)\ :\ (s)-\/>as.heap.ptr)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ RSTR\_LEN(s)\ ((RSTR\_EMBED\_P(s))\ ?\ RSTR\_EMBED\_LEN(s)\ :\ (s)-\/>as.heap.len)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ RSTR\_CAPA(s)\ (RSTR\_EMBED\_P(s)\ ?\ RSTRING\_EMBED\_LEN\_MAX\ :\ (s)-\/>as.heap.aux.capa)}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ RSTR\_SHARED\_P(s)\ ((s)-\/>flags\ \&\ MRB\_STR\_SHARED)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ RSTR\_SET\_SHARED\_FLAG(s)\ ((s)-\/>flags\ |=\ MRB\_STR\_SHARED)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ RSTR\_UNSET\_SHARED\_FLAG(s)\ ((s)-\/>flags\ \&=\ \string~MRB\_STR\_SHARED)}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ RSTR\_FSHARED\_P(s)\ ((s)-\/>flags\ \&\ MRB\_STR\_FSHARED)}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ RSTR\_SET\_FSHARED\_FLAG(s)\ ((s)-\/>flags\ |=\ MRB\_STR\_FSHARED)}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ RSTR\_UNSET\_FSHARED\_FLAG(s)\ ((s)-\/>flags\ \&=\ \string~MRB\_STR\_FSHARED)}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ RSTR\_NOFREE\_P(s)\ ((s)-\/>flags\ \&\ MRB\_STR\_NOFREE)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ RSTR\_SET\_NOFREE\_FLAG(s)\ ((s)-\/>flags\ |=\ MRB\_STR\_NOFREE)}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ RSTR\_UNSET\_NOFREE\_FLAG(s)\ ((s)-\/>flags\ \&=\ \string~MRB\_STR\_NOFREE)}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#ifdef\ MRB\_UTF8\_STRING}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#\ define\ RSTR\_ASCII\_P(s)\ ((s)-\/>flags\ \&\ MRB\_STR\_ASCII)}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#\ define\ RSTR\_SET\_ASCII\_FLAG(s)\ ((s)-\/>flags\ |=\ MRB\_STR\_ASCII)}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#\ define\ RSTR\_UNSET\_ASCII\_FLAG(s)\ ((s)-\/>flags\ \&=\ \string~MRB\_STR\_ASCII)}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#\ define\ RSTR\_WRITE\_ASCII\_FLAG(s,\ v)\ (RSTR\_UNSET\_ASCII\_FLAG(s),\ (s)-\/>flags\ |=\ v)}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#\ define\ RSTR\_COPY\_ASCII\_FLAG(dst,\ src)\ RSTR\_WRITE\_ASCII\_FLAG(dst,\ RSTR\_ASCII\_P(src))}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#\ define\ RSTR\_ASCII\_P(s)\ (void)0}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#\ define\ RSTR\_SET\_ASCII\_FLAG(s)\ (void)0}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#\ define\ RSTR\_UNSET\_ASCII\_FLAG(s)\ (void)0}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#\ define\ RSTR\_WRITE\_ASCII\_FLAG(s,\ v)\ (void)0}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#\ define\ RSTR\_COPY\_ASCII\_FLAG(dst,\ src)\ (void)0}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ mrb\_str\_ptr(s)\ \ \ \ \ \ \ ((struct\ RString*)(mrb\_ptr(s)))}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ RSTRING(s)\ \ \ \ \ \ \ \ \ \ \ mrb\_str\_ptr(s)}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ RSTRING\_PTR(s)\ \ \ \ \ \ \ RSTR\_PTR(RSTRING(s))}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ RSTRING\_EMBED\_LEN(s)\ RSTR\_EMBED\_LEN(RSTRING(s))}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ RSTRING\_LEN(s)\ \ \ \ \ \ \ RSTR\_LEN(RSTRING(s))}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ RSTRING\_CAPA(s)\ \ \ \ \ \ RSTR\_CAPA(RSTRING(s))}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ RSTRING\_END(s)\ \ \ \ \ \ \ (RSTRING\_PTR(s)\ +\ RSTRING\_LEN(s))}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ RSTRING\_CSTR(mrb,s)\ \ mrb\_string\_cstr(mrb,\ s)}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ MRB\_STR\_SHARED\ \ \ \ 1}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ MRB\_STR\_FSHARED\ \ \ 2}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ MRB\_STR\_NOFREE\ \ \ \ 4}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ MRB\_STR\_EMBED\ \ \ \ \ 8\ \ }\textcolor{comment}{/*\ type\ flags\ up\ to\ here\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ MRB\_STR\_ASCII\ \ \ \ 16}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ MRB\_STR\_EMBED\_LEN\_SHIFT\ 6}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ MRB\_STR\_EMBED\_LEN\_BIT\ 5}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ MRB\_STR\_EMBED\_LEN\_MASK\ (((1\ <<\ MRB\_STR\_EMBED\_LEN\_BIT)\ -\/\ 1)\ <<\ MRB\_STR\_EMBED\_LEN\_SHIFT)}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ MRB\_STR\_TYPE\_MASK\ 15}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{void}\ mrb\_str\_modify(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRString}{RString}}\ *s);}
+\DoxyCodeLine{00118\ \textcolor{comment}{/*\ mrb\_str\_modify()\ with\ keeping\ ASCII\ flag\ if\ set\ */}}
+\DoxyCodeLine{00119\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{void}\ mrb\_str\_modify\_keep\_ascii(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRString}{RString}}\ *s);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00124\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ mrb\_int\ \mbox{\hyperlink{string_8h_a329816bb318b46f28eb4a34b80058b60}{mrb\_str\_index}}(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *p,\ mrb\_int\ len,\ mrb\_int\ offset);}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ mrb\_str\_index\_lit(mrb,\ str,\ lit,\ off)\ mrb\_str\_index(mrb,\ str,\ lit,\ mrb\_strlen\_lit(lit),\ off);}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00170\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{string_8h_a3a3bb2dc5f65827efd8c5a4ffaf80ce8}{mrb\_str\_concat}}(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ self,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ other);}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00223\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \mbox{\hyperlink{string_8h_afc93f995cf35a8e0f0f729624c8d723c}{mrb\_str\_plus}}(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ a,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ b);}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00232\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \mbox{\hyperlink{string_8h_aad5e4a69f15f8ce0302eb2e754e2f3a2}{mrb\_ptr\_to\_str}}(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keywordtype}{void}\ *p);}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00241\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \mbox{\hyperlink{string_8h_a12f6f54cb54b9119cebbc0b5d289d269}{mrb\_obj\_as\_string}}(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ obj);}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00280\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \mbox{\hyperlink{string_8h_afec250b09ad0c9cb76fa2ef1debd8913}{mrb\_str\_resize}}(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str,\ mrb\_int\ len);}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00322\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \mbox{\hyperlink{string_8h_a3ca67825de54270be2a47142ed5556aa}{mrb\_str\_substr}}(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str,\ mrb\_int\ beg,\ mrb\_int\ len);}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_str\_new\_capa(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ mrb\_int\ capa);}
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\#define\ mrb\_str\_buf\_new(mrb,\ capa)\ mrb\_str\_new\_capa(mrb,\ (capa))}}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \textcolor{comment}{/*\ NULL\ terminated\ C\ string\ from\ mrb\_value\ */}}
+\DoxyCodeLine{00328\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mrb\_string\_cstr(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str);}
+\DoxyCodeLine{00329\ \textcolor{comment}{/*\ NULL\ terminated\ C\ string\ from\ mrb\_value;\ \`{}str`\ will\ be\ updated\ */}}
+\DoxyCodeLine{00330\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mrb\_string\_value\_cstr(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ *str);}
+\DoxyCodeLine{00331\ \textcolor{comment}{/*\ obsolete:\ use\ RSTRING\_PTR()\ */}}
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\#define\ mrb\_string\_value\_ptr(mrb,\ str)\ RSTRING\_PTR(str)}}
+\DoxyCodeLine{00333\ \textcolor{comment}{/*\ obsolete:\ use\ RSTRING\_LEN()\ */}}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\#define\ mrb\_string\_value\_len(mrb,\ str)\ RSTRING\_LEN(str)}}
+\DoxyCodeLine{00335\ \textcolor{comment}{/*\ obsolete:\ substituted\ by\ a\ macro;\ shall\ be\ removed\ */}}
+\DoxyCodeLine{00336\ \textcolor{preprocessor}{\#define\ mrb\_str\_strlen(mrb,\ s)\ strlen(RSTR\_PTR(s))}}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00346\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \mbox{\hyperlink{string_8h_a343060b8ba12eadbe47c7f5a2674dd8e}{mrb\_str\_dup}}(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str);}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00355\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \mbox{\hyperlink{string_8h_acea5a239a66455acd3e5caac46be2850}{mrb\_str\_intern}}(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ self);}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_str\_to\_integer(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str,\ mrb\_int\ base,\ mrb\_bool\ badcheck);}
+\DoxyCodeLine{00358\ \textcolor{comment}{/*\ obsolete:\ use\ mrb\_str\_to\_integer()\ */}}
+\DoxyCodeLine{00359\ \textcolor{preprocessor}{\#define\ mrb\_str\_to\_inum(mrb,\ str,\ base,\ badcheck)\ mrb\_str\_to\_integer(mrb,\ str,\ base,\ badcheck)}}
+\DoxyCodeLine{00360\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{double}\ mrb\_str\_to\_dbl(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str,\ mrb\_bool\ badcheck);}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00370\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ mrb\_bool\ \mbox{\hyperlink{string_8h_a4dc30efb1939685d4f5c986fec3549b1}{mrb\_str\_equal}}(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str1,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str2);}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00382\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \mbox{\hyperlink{string_8h_ab2a1509f1b8da7063eca22622688c0af}{mrb\_str\_cat}}(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *ptr,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00393\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \mbox{\hyperlink{string_8h_a9dc5d8ecfa65b9d036afdd04b7c281be}{mrb\_str\_cat\_cstr}}(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *ptr);}
+\DoxyCodeLine{00394\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_str\_cat\_str(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str2);}
+\DoxyCodeLine{00395\ \textcolor{preprocessor}{\#define\ mrb\_str\_cat\_lit(mrb,\ str,\ lit)\ mrb\_str\_cat(mrb,\ str,\ lit,\ mrb\_strlen\_lit(lit))}}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00400\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ \mbox{\hyperlink{string_8h_ab24768835d228b7adc7dea7035d459b9}{mrb\_str\_append}}(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str2);}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00405\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{string_8h_acb25530f7781d08a4e308c2449184489}{mrb\_str\_cmp}}(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str1,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str2);}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00422\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{string_8h_a7eeb91cdb135a4de04ce5422dd0ccaa1}{mrb\_str\_to\_cstr}}(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str);}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \textcolor{comment}{/*\ For\ backward\ compatibility\ */}}
+\DoxyCodeLine{00425\ \textcolor{preprocessor}{\#define\ mrb\_str\_cat2(mrb,\ str,\ ptr)\ mrb\_str\_cat\_cstr(mrb,\ str,\ ptr)}}
+\DoxyCodeLine{00426\ \textcolor{preprocessor}{\#define\ mrb\_str\_buf\_cat(mrb,\ str,\ ptr,\ len)\ mrb\_str\_cat(mrb,\ str,\ ptr,\ len)}}
+\DoxyCodeLine{00427\ \textcolor{preprocessor}{\#define\ mrb\_str\_buf\_append(mrb,\ str,\ str2)\ mrb\_str\_cat\_str(mrb,\ str,\ str2)}}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \mbox{\hyperlink{common_8h_a7e9674ff871a8abbcaf9ba23fa4b72d3}{MRB\_END\_DECL}}}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00431\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_STRING\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

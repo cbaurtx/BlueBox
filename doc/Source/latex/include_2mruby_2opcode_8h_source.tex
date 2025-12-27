@@ -1,0 +1,71 @@
+\doxysection{opcode.\+h}
+\hypertarget{include_2mruby_2opcode_8h_source}{}\label{include_2mruby_2opcode_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/opcode.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/opcode.h}}
+\mbox{\hyperlink{include_2mruby_2opcode_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_OPCODE\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_OPCODE\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{enum}\ mrb\_insn\ \{}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ OPCODE(x,\_)\ OP\_\ \#\#\ x,}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}mruby/ops.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#undef\ OPCODE}}
+\DoxyCodeLine{00014\ \};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ OP\_L\_STRICT\ \ 1}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ OP\_L\_CAPTURE\ 2}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ OP\_L\_METHOD\ \ OP\_L\_STRICT}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ OP\_L\_LAMBDA\ \ (OP\_L\_STRICT|OP\_L\_CAPTURE)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ OP\_L\_BLOCK\ \ \ OP\_L\_CAPTURE}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ PEEK\_B(pc)\ (*(pc))}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ PEEK\_S(pc)\ ((pc)[0]<<8|(pc)[1])}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ PEEK\_W(pc)\ ((pc)[0]<<16|(pc)[1]<<8|(pc)[2])}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ READ\_B()\ PEEK\_B(pc++)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ READ\_S()\ (pc+=2,\ PEEK\_S(pc-\/2))}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ READ\_W()\ (pc+=3,\ PEEK\_W(pc-\/3))}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ FETCH\_Z()\ }\textcolor{comment}{/*\ nothing\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ FETCH\_B()\ do\ \{a=READ\_B();\}\ while\ (0)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ FETCH\_BB()\ do\ \{a=READ\_B();\ b=READ\_B();\}\ while\ (0)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ FETCH\_BBB()\ do\ \{a=READ\_B();\ b=READ\_B();\ c=READ\_B();\}\ while\ (0)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ FETCH\_BS()\ do\ \{a=READ\_B();\ b=READ\_S();\}\ while\ (0)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ FETCH\_BSS()\ do\ \{a=READ\_B();\ b=READ\_S();\ c=READ\_S();\}\ while\ (0)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ FETCH\_S()\ do\ \{a=READ\_S();\}\ while\ (0)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ FETCH\_W()\ do\ \{a=READ\_W();\}\ while\ (0)}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{/*\ with\ OP\_EXT1\ (1st\ 16bit)\ */}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ FETCH\_Z\_1()\ FETCH\_Z()}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ FETCH\_B\_1()\ FETCH\_S()}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ FETCH\_BB\_1()\ do\ \{a=READ\_S();\ b=READ\_B();\}\ while\ (0)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ FETCH\_BBB\_1()\ do\ \{a=READ\_S();\ b=READ\_B();\ c=READ\_B();\}\ while\ (0)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ FETCH\_BS\_1()\ do\ \{a=READ\_S();\ b=READ\_S();\}\ while\ (0)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ FETCH\_BSS\_1()\ do\ \{a=READ\_S();\ b=READ\_S();c=READ\_S();\}\ while\ (0)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ FETCH\_S\_1()\ FETCH\_S()}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ FETCH\_W\_1()\ FETCH\_W()}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{/*\ with\ OP\_EXT2\ (2nd\ 16bit)\ */}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ FETCH\_Z\_2()\ FETCH\_Z()}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ FETCH\_B\_2()\ FETCH\_B()}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ FETCH\_BB\_2()\ do\ \{a=READ\_B();\ b=READ\_S();\}\ while\ (0)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ FETCH\_BBB\_2()\ do\ \{a=READ\_B();\ b=READ\_S();\ c=READ\_B();\}\ while\ (0)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ FETCH\_BS\_2()\ FETCH\_BS()}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ FETCH\_BSS\_2()\ FETCH\_BSS()}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ FETCH\_S\_2()\ FETCH\_S()}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ FETCH\_W\_2()\ FETCH\_W()}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{comment}{/*\ with\ OP\_EXT3\ (1st\ \&\ 2nd\ 16bit)\ */}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ FETCH\_Z\_3()\ FETCH\_Z()}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ FETCH\_B\_3()\ FETCH\_B()}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ FETCH\_BB\_3()\ do\ \{a=READ\_S();\ b=READ\_S();\}\ while\ (0)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ FETCH\_BBB\_3()\ do\ \{a=READ\_S();\ b=READ\_S();\ c=READ\_B();\}\ while\ (0)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ FETCH\_BS\_3()\ do\ \{a=READ\_S();\ b=READ\_S();\}\ while\ (0)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ FETCH\_BSS\_3()\ FETCH\_BSS\_1()}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ FETCH\_S\_3()\ FETCH\_S()}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ FETCH\_W\_3()\ FETCH\_W()}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_OPCODE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

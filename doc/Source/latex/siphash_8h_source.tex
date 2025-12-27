@@ -1,0 +1,67 @@
+\doxysection{siphash.\+h}
+\hypertarget{siphash_8h_source}{}\label{siphash_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/siphash.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/siphash.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Copyright\ 2019\ The\ BoringSSL\ Authors}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Permission\ to\ use,\ copy,\ modify,\ and/or\ distribute\ this\ software\ for\ any}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ purpose\ with\ or\ without\ fee\ is\ hereby\ granted,\ provided\ that\ the\ above}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ copyright\ notice\ and\ this\ permission\ notice\ appear\ in\ all\ copies.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{}\ AND\ THE\ AUTHOR\ DISCLAIMS\ ALL\ WARRANTIES}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ WITH\ REGARD\ TO\ THIS\ SOFTWARE\ INCLUDING\ ALL\ IMPLIED\ WARRANTIES\ OF}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ MERCHANTABILITY\ AND\ FITNESS.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHOR\ BE\ LIABLE\ FOR\ ANY}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ SPECIAL,\ DIRECT,\ INDIRECT,\ OR\ CONSEQUENTIAL\ DAMAGES\ OR\ ANY\ DAMAGES}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ WHATSOEVER\ RESULTING\ FROM\ LOSS\ OF\ USE,\ DATA\ OR\ PROFITS,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ NEGLIGENCE\ OR\ OTHER\ TORTIOUS\ ACTION,\ ARISING\ OUT\ OF\ OR\ IN}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ CONNECTION\ WITH\ THE\ USE\ OR\ PERFORMANCE\ OF\ THIS\ SOFTWARE.\ */}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2025\ nghttp2\ contributors}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#ifndef\ SIPHASH\_H}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ SIPHASH\_H}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <bit>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <concepts>}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ <span>}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ SipHash\ is\ a\ fast,\ secure\ PRF\ that\ is\ often\ used\ for\ hash\ tables.}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{//\ siphash24\ implements\ SipHash-\/2-\/4.\ See}}
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ https://131002.net/siphash/siphash.pdf}}
+\DoxyCodeLine{00051\ uint64\_t\ siphash24(std::span<const\ uint64\_t,\ 2>\ key,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::span<const\ uint8\_t>\ input);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ Define\ here\ to\ be\ usable\ in\ tests.}}
+\DoxyCodeLine{00055\ \textcolor{keyword}{template}\ <std::\textcolor{keywordtype}{int}egral\ T>\ T\ byteswap(T\ v)\ \{}
+\DoxyCodeLine{00056\ \ \ \textcolor{keyword}{auto}\ c\ =\ std::bit\_cast<std::array<uint8\_t,\ \textcolor{keyword}{sizeof}(T)>>(v);}
+\DoxyCodeLine{00057\ \ \ std::ranges::reverse(c);}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordflow}{return}\ std::bit\_cast<T>(c);}
+\DoxyCodeLine{00059\ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SIPHASH\_H}}
+
+\end{DoxyCode}

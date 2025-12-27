@@ -1,0 +1,61 @@
+\doxysection{shrpx\+::Response Struct Reference}
+\hypertarget{structshrpx_1_1Response}{}\label{structshrpx_1_1Response}\index{shrpx::Response@{shrpx::Response}}
+
+
+Collaboration diagram for shrpx\+::Response\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=170pt]{structshrpx_1_1Response__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1Response_a05f018a9e180300fdfe84294fa66a415}\label{structshrpx_1_1Response_a05f018a9e180300fdfe84294fa66a415} 
+{\bfseries Response} (\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{Block\+Allocator}} \&balloc)
+\item 
+\Hypertarget{structshrpx_1_1Response_ad9131d21a389b23e907eac8bbe917210}\label{structshrpx_1_1Response_ad9131d21a389b23e907eac8bbe917210} 
+void {\bfseries consume} (size\+\_\+t len)
+\item 
+\Hypertarget{structshrpx_1_1Response_aa3f3784b5de804d96dc2c26649ad3031}\label{structshrpx_1_1Response_aa3f3784b5de804d96dc2c26649ad3031} 
+bool {\bfseries is\+\_\+resource\+\_\+pushed} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&scheme, const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&authority, const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&path) const
+\item 
+\Hypertarget{structshrpx_1_1Response_a6a27c3045c24f315ad1d314115d2dc21}\label{structshrpx_1_1Response_a6a27c3045c24f315ad1d314115d2dc21} 
+void {\bfseries resource\+\_\+pushed} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&scheme, const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&authority, const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&path)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1Response_a51b7cbe0698721bb5e4c242685786100}\label{structshrpx_1_1Response_a51b7cbe0698721bb5e4c242685786100} 
+\mbox{\hyperlink{classshrpx_1_1FieldStore}{Field\+Store}} {\bfseries fs}
+\item 
+\Hypertarget{structshrpx_1_1Response_ac024a1e3d9787edc6368cc9cae948a94}\label{structshrpx_1_1Response_ac024a1e3d9787edc6368cc9cae948a94} 
+std\+::unique\+\_\+ptr$<$ std\+::vector$<$ std\+::tuple$<$ \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}}, \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}}, \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} $>$ $>$ $>$ {\bfseries pushed\+\_\+resources}
+\item 
+\Hypertarget{structshrpx_1_1Response_aa56df6acac5adc4671e76c893a79ec73}\label{structshrpx_1_1Response_aa56df6acac5adc4671e76c893a79ec73} 
+int64\+\_\+t {\bfseries recv\+\_\+body\+\_\+length}
+\item 
+\Hypertarget{structshrpx_1_1Response_a77d821012490b7f41e24dba5fc2f82d9}\label{structshrpx_1_1Response_a77d821012490b7f41e24dba5fc2f82d9} 
+size\+\_\+t {\bfseries unconsumed\+\_\+body\+\_\+length}
+\item 
+\Hypertarget{structshrpx_1_1Response_a915dc163e4d4783376e806f2d5844c28}\label{structshrpx_1_1Response_a915dc163e4d4783376e806f2d5844c28} 
+unsigned int {\bfseries http\+\_\+status}
+\item 
+\Hypertarget{structshrpx_1_1Response_aa9e552cc2b120d20629c083ec275dd25}\label{structshrpx_1_1Response_aa9e552cc2b120d20629c083ec275dd25} 
+int {\bfseries http\+\_\+major}
+\item 
+\Hypertarget{structshrpx_1_1Response_aaeae3df36a4735b6cf2d0d3d87e90e24}\label{structshrpx_1_1Response_aaeae3df36a4735b6cf2d0d3d87e90e24} 
+int {\bfseries http\+\_\+minor}
+\item 
+\Hypertarget{structshrpx_1_1Response_ab6608ebd42b9845143cc35b8d759cbde}\label{structshrpx_1_1Response_ab6608ebd42b9845143cc35b8d759cbde} 
+bool {\bfseries connection\+\_\+close}
+\item 
+\Hypertarget{structshrpx_1_1Response_a28a60874347e1aeb7960dac1ab62c519}\label{structshrpx_1_1Response_a28a60874347e1aeb7960dac1ab62c519} 
+bool {\bfseries headers\+\_\+only}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+downstream.\+h\end{DoxyCompactItemize}

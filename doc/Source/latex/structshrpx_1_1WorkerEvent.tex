@@ -1,0 +1,39 @@
+\doxysection{shrpx\+::Worker\+Event Struct Reference}
+\hypertarget{structshrpx_1_1WorkerEvent}{}\label{structshrpx_1_1WorkerEvent}\index{shrpx::WorkerEvent@{shrpx::WorkerEvent}}
+
+
+Collaboration diagram for shrpx\+::Worker\+Event\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{structshrpx_1_1WorkerEvent__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1WorkerEvent_a95188036e3da8a0986a77e021266a503}\label{structshrpx_1_1WorkerEvent_a95188036e3da8a0986a77e021266a503} 
+Worker\+Event\+Type {\bfseries type}
+\item 
+\Hypertarget{structshrpx_1_1WorkerEvent_a95226f7704f33324aaf6cea5ad0f3920}\label{structshrpx_1_1WorkerEvent_a95226f7704f33324aaf6cea5ad0f3920} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>\mbox{\hyperlink{unionnghttp2_1_1sockaddr__union}{sockaddr\_union}} {\bfseries client\_addr}\\
+\>size\_t {\bfseries client\_addrlen}\\
+\>int {\bfseries client\_fd}\\
+\>const \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{UpstreamAddr}} \texorpdfstring{$\ast$}{*} {\bfseries faddr}\\
+\}; \\
+
+\end{tabbing}\item 
+\Hypertarget{structshrpx_1_1WorkerEvent_a66daa0d0c1e13b8d0627e62e40a3db7a}\label{structshrpx_1_1WorkerEvent_a66daa0d0c1e13b8d0627e62e40a3db7a} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1TicketKeys}{Ticket\+Keys}} $>$ {\bfseries ticket\+\_\+keys}
+\item 
+\Hypertarget{structshrpx_1_1WorkerEvent_a5338834b0ef36a87399a2c2ae357ed65}\label{structshrpx_1_1WorkerEvent_a5338834b0ef36a87399a2c2ae357ed65} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1DownstreamConfig}{Downstream\+Config}} $>$ {\bfseries downstreamconf}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+worker.\+h\end{DoxyCompactItemize}

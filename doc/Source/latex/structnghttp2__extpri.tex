@@ -1,0 +1,38 @@
+\doxysection{nghttp2\+\_\+extpri Struct Reference}
+\hypertarget{structnghttp2__extpri}{}\label{structnghttp2__extpri}\index{nghttp2\_extpri@{nghttp2\_extpri}}
+
+
+{\ttfamily \#include $<$nghttp2.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{structnghttp2__extpri_a08b16beb4834305a9d54fb46095bf66b}{urgency}}
+\item 
+int \mbox{\hyperlink{structnghttp2__extpri_a3566c073a385571290b4f4812d76f607}{inc}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\+:type\+:{\ttfamily \doxylink{structnghttp2__extpri}{nghttp2\+\_\+extpri}} is \+:rfc\+:{\ttfamily 9218} extensible priorities specification for a stream. 
+
+\label{doc-variable-members}
+\Hypertarget{structnghttp2__extpri_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structnghttp2__extpri_a3566c073a385571290b4f4812d76f607}\index{nghttp2\_extpri@{nghttp2\_extpri}!inc@{inc}}
+\index{inc@{inc}!nghttp2\_extpri@{nghttp2\_extpri}}
+\doxysubsubsection{\texorpdfstring{inc}{inc}}
+{\footnotesize\ttfamily \label{structnghttp2__extpri_a3566c073a385571290b4f4812d76f607} 
+int nghttp2\+\_\+extpri\+::inc}
+
+\+:member\+:{\ttfamily \doxylink{structnghttp2__extpri_a3566c073a385571290b4f4812d76f607}{inc}} indicates that a content can be processed incrementally or not. If inc is 0, it cannot be processed incrementally. If inc is 1, it can be processed incrementally. Other value is not permitted. \Hypertarget{structnghttp2__extpri_a08b16beb4834305a9d54fb46095bf66b}\index{nghttp2\_extpri@{nghttp2\_extpri}!urgency@{urgency}}
+\index{urgency@{urgency}!nghttp2\_extpri@{nghttp2\_extpri}}
+\doxysubsubsection{\texorpdfstring{urgency}{urgency}}
+{\footnotesize\ttfamily \label{structnghttp2__extpri_a08b16beb4834305a9d54fb46095bf66b} 
+uint32\+\_\+t nghttp2\+\_\+extpri\+::urgency}
+
+\+:member\+:{\ttfamily \doxylink{structnghttp2__extpri_a08b16beb4834305a9d54fb46095bf66b}{urgency}} is the urgency of a stream, it must be in \mbox{[}\+:macro\+:{\ttfamily NGHTTP2\+\_\+\+EXTPRI\+\_\+\+URGENCY\+\_\+\+HIGH}, \+:macro\+:{\ttfamily NGHTTP2\+\_\+\+EXTPRI\+\_\+\+URGENCY\+\_\+\+LOW}\mbox{]}, inclusive, and 0 is the highest urgency. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/lib/includes/nghttp2/nghttp2.\+h\end{DoxyCompactItemize}

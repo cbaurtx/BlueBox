@@ -1,0 +1,23 @@
+\chapter{Security Policy }
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2SECURITY}{}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2SECURITY}\index{Security Policy@{Security Policy}}
+\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2SECURITY_autotoc_md564}%
+\Hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2SECURITY_autotoc_md564}%
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2SECURITY_autotoc_md565}{}\doxysection{\texorpdfstring{Reporting a Vulnerability}{Reporting a Vulnerability}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2SECURITY_autotoc_md565}
+If you have any security concern, contact \href{mailto:matz@ruby.or.jp}{\texttt{matz@ruby.\+or.\+jp}}.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2SECURITY_autotoc_md566}{}\doxysection{\texorpdfstring{Scope}{Scope}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2SECURITY_autotoc_md566}
+We consider the following issues as vulnerabilities\+:
+
+
+\begin{DoxyItemize}
+\item Remote code execution
+\item Crash caused by a valid Ruby script
+\end{DoxyItemize}
+
+We {\itshape don\textquotesingle{}t} consider the following issues as vulnerabilities\+:
+
+
+\begin{DoxyItemize}
+\item Runtime C undefined behavior (including integer overflow)
+\item Crash caused by misused API
+\item Crash caused by modified compiled binary
+\item ASAN/\+Valgrind warning for too big memory allocation mruby assumes {\ttfamily malloc(3)} returns {\ttfamily NULL} for too big allocations 
+\end{DoxyItemize}

@@ -1,0 +1,109 @@
+\doxysection{h2load\+::Http2\+Session Class Reference}
+\hypertarget{classh2load_1_1Http2Session}{}\label{classh2load_1_1Http2Session}\index{h2load::Http2Session@{h2load::Http2Session}}
+
+
+Inheritance diagram for h2load\+::Http2\+Session\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{classh2load_1_1Http2Session__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for h2load\+::Http2\+Session\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{classh2load_1_1Http2Session__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classh2load_1_1Http2Session_a49daab3a5ea49b9a99fade6988eb2821}\label{classh2load_1_1Http2Session_a49daab3a5ea49b9a99fade6988eb2821} 
+{\bfseries Http2\+Session} (\mbox{\hyperlink{structh2load_1_1Client}{Client}} \texorpdfstring{$\ast$}{*}client)
+\item 
+virtual void \mbox{\hyperlink{classh2load_1_1Http2Session_a2a2e5a17072ed66451a9e90b0cea2055}{on\+\_\+connect}} ()
+\item 
+virtual int \mbox{\hyperlink{classh2load_1_1Http2Session_a3a585ef7647b3d57d6d9aefafdc9c737}{submit\+\_\+request}} ()
+\item 
+virtual int \mbox{\hyperlink{classh2load_1_1Http2Session_a1b61627729da8da68417681110ec7054}{on\+\_\+read}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\item 
+virtual int \mbox{\hyperlink{classh2load_1_1Http2Session_a003f8ffc28a82b91a381adcd93c8a382}{on\+\_\+write}} ()
+\item 
+virtual void \mbox{\hyperlink{classh2load_1_1Http2Session_a311e727d136c28160b712830fab3ff26}{terminate}} ()
+\item 
+virtual size\+\_\+t \mbox{\hyperlink{classh2load_1_1Http2Session_a9aa6c3d97299e0e87d738b64f3e5966e}{max\+\_\+concurrent\+\_\+streams}} ()
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{classh2load_1_1Http2Session_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classh2load_1_1Http2Session_a9aa6c3d97299e0e87d738b64f3e5966e}\index{h2load::Http2Session@{h2load::Http2Session}!max\_concurrent\_streams@{max\_concurrent\_streams}}
+\index{max\_concurrent\_streams@{max\_concurrent\_streams}!h2load::Http2Session@{h2load::Http2Session}}
+\doxysubsubsection{\texorpdfstring{max\_concurrent\_streams()}{max\_concurrent\_streams()}}
+{\footnotesize\ttfamily \label{classh2load_1_1Http2Session_a9aa6c3d97299e0e87d738b64f3e5966e} 
+size\+\_\+t h2load\+::\+Http2\+Session\+::max\+\_\+concurrent\+\_\+streams (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classh2load_1_1Session}{h2load\+::\+Session}}.
+
+\Hypertarget{classh2load_1_1Http2Session_a2a2e5a17072ed66451a9e90b0cea2055}\index{h2load::Http2Session@{h2load::Http2Session}!on\_connect@{on\_connect}}
+\index{on\_connect@{on\_connect}!h2load::Http2Session@{h2load::Http2Session}}
+\doxysubsubsection{\texorpdfstring{on\_connect()}{on\_connect()}}
+{\footnotesize\ttfamily \label{classh2load_1_1Http2Session_a2a2e5a17072ed66451a9e90b0cea2055} 
+void h2load\+::\+Http2\+Session\+::on\+\_\+connect (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classh2load_1_1Session}{h2load\+::\+Session}}.
+
+\Hypertarget{classh2load_1_1Http2Session_a1b61627729da8da68417681110ec7054}\index{h2load::Http2Session@{h2load::Http2Session}!on\_read@{on\_read}}
+\index{on\_read@{on\_read}!h2load::Http2Session@{h2load::Http2Session}}
+\doxysubsubsection{\texorpdfstring{on\_read()}{on\_read()}}
+{\footnotesize\ttfamily \label{classh2load_1_1Http2Session_a1b61627729da8da68417681110ec7054} 
+int h2load\+::\+Http2\+Session\+::on\+\_\+read (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classh2load_1_1Session}{h2load\+::\+Session}}.
+
+\Hypertarget{classh2load_1_1Http2Session_a003f8ffc28a82b91a381adcd93c8a382}\index{h2load::Http2Session@{h2load::Http2Session}!on\_write@{on\_write}}
+\index{on\_write@{on\_write}!h2load::Http2Session@{h2load::Http2Session}}
+\doxysubsubsection{\texorpdfstring{on\_write()}{on\_write()}}
+{\footnotesize\ttfamily \label{classh2load_1_1Http2Session_a003f8ffc28a82b91a381adcd93c8a382} 
+int h2load\+::\+Http2\+Session\+::on\+\_\+write (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classh2load_1_1Session}{h2load\+::\+Session}}.
+
+\Hypertarget{classh2load_1_1Http2Session_a3a585ef7647b3d57d6d9aefafdc9c737}\index{h2load::Http2Session@{h2load::Http2Session}!submit\_request@{submit\_request}}
+\index{submit\_request@{submit\_request}!h2load::Http2Session@{h2load::Http2Session}}
+\doxysubsubsection{\texorpdfstring{submit\_request()}{submit\_request()}}
+{\footnotesize\ttfamily \label{classh2load_1_1Http2Session_a3a585ef7647b3d57d6d9aefafdc9c737} 
+int h2load\+::\+Http2\+Session\+::submit\+\_\+request (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classh2load_1_1Session}{h2load\+::\+Session}}.
+
+\Hypertarget{classh2load_1_1Http2Session_a311e727d136c28160b712830fab3ff26}\index{h2load::Http2Session@{h2load::Http2Session}!terminate@{terminate}}
+\index{terminate@{terminate}!h2load::Http2Session@{h2load::Http2Session}}
+\doxysubsubsection{\texorpdfstring{terminate()}{terminate()}}
+{\footnotesize\ttfamily \label{classh2load_1_1Http2Session_a311e727d136c28160b712830fab3ff26} 
+void h2load\+::\+Http2\+Session\+::terminate (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classh2load_1_1Session}{h2load\+::\+Session}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/h2load\+\_\+http2\+\_\+session.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/h2load\+\_\+http2\+\_\+session.\+cc\end{DoxyCompactItemize}

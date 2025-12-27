@@ -1,0 +1,56 @@
+\doxysection{nghttp2\+\_\+ext\+\_\+altsvc Struct Reference}
+\hypertarget{structnghttp2__ext__altsvc}{}\label{structnghttp2__ext__altsvc}\index{nghttp2\_ext\_altsvc@{nghttp2\_ext\_altsvc}}
+
+
+{\ttfamily \#include $<$nghttp2.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structnghttp2__ext__altsvc_a27c76032846eed38f9d3ac3cbd817b8e}{origin}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structnghttp2__ext__altsvc_a62c942e112e7e3fef501775cf8dd500d}{origin\+\_\+len}}
+\item 
+uint8\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structnghttp2__ext__altsvc_a57eee8b79a4c9490f9d368159ac5c77a}{field\+\_\+value}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structnghttp2__ext__altsvc_aa235be4021cf18027c5a0b7cc45f142b}{field\+\_\+value\+\_\+len}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The payload of ALTSVC frame. ALTSVC frame is a non-\/critical extension to HTTP/2. If this frame is received, and {\ttfamily nghttp2\+\_\+option\+\_\+set\+\_\+user\+\_\+recv\+\_\+extension\+\_\+type()} is not set, and {\ttfamily nghttp2\+\_\+option\+\_\+set\+\_\+builtin\+\_\+recv\+\_\+extension\+\_\+type()} is set for \+:enum\+:{\ttfamily nghttp2\+\_\+frame\+\_\+type.\+NGHTTP2\+\_\+\+ALTSVC}, {\ttfamily \doxylink{structnghttp2__extension_afee3a625ad00125c1064c4182afed9a1}{nghttp2\+\_\+extension.\+payload}} will point to this struct.
+
+It has the following members\+: 
+
+\label{doc-variable-members}
+\Hypertarget{structnghttp2__ext__altsvc_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structnghttp2__ext__altsvc_a57eee8b79a4c9490f9d368159ac5c77a}\index{nghttp2\_ext\_altsvc@{nghttp2\_ext\_altsvc}!field\_value@{field\_value}}
+\index{field\_value@{field\_value}!nghttp2\_ext\_altsvc@{nghttp2\_ext\_altsvc}}
+\doxysubsubsection{\texorpdfstring{field\_value}{field\_value}}
+{\footnotesize\ttfamily \label{structnghttp2__ext__altsvc_a57eee8b79a4c9490f9d368159ac5c77a} 
+uint8\+\_\+t\texorpdfstring{$\ast$}{*} nghttp2\+\_\+ext\+\_\+altsvc\+::field\+\_\+value}
+
+The pointer to Alt-\/\+Svc field value contained in ALTSVC frame. This is not necessarily NULL-\/terminated. \Hypertarget{structnghttp2__ext__altsvc_aa235be4021cf18027c5a0b7cc45f142b}\index{nghttp2\_ext\_altsvc@{nghttp2\_ext\_altsvc}!field\_value\_len@{field\_value\_len}}
+\index{field\_value\_len@{field\_value\_len}!nghttp2\_ext\_altsvc@{nghttp2\_ext\_altsvc}}
+\doxysubsubsection{\texorpdfstring{field\_value\_len}{field\_value\_len}}
+{\footnotesize\ttfamily \label{structnghttp2__ext__altsvc_aa235be4021cf18027c5a0b7cc45f142b} 
+size\+\_\+t nghttp2\+\_\+ext\+\_\+altsvc\+::field\+\_\+value\+\_\+len}
+
+The length of the \texorpdfstring{$\vert$}{|}field\+\_\+value\texorpdfstring{$\vert$}{|}. \Hypertarget{structnghttp2__ext__altsvc_a27c76032846eed38f9d3ac3cbd817b8e}\index{nghttp2\_ext\_altsvc@{nghttp2\_ext\_altsvc}!origin@{origin}}
+\index{origin@{origin}!nghttp2\_ext\_altsvc@{nghttp2\_ext\_altsvc}}
+\doxysubsubsection{\texorpdfstring{origin}{origin}}
+{\footnotesize\ttfamily \label{structnghttp2__ext__altsvc_a27c76032846eed38f9d3ac3cbd817b8e} 
+uint8\+\_\+t\texorpdfstring{$\ast$}{*} nghttp2\+\_\+ext\+\_\+altsvc\+::origin}
+
+The pointer to origin which this alternative service is associated with. This is not necessarily NULL-\/terminated. \Hypertarget{structnghttp2__ext__altsvc_a62c942e112e7e3fef501775cf8dd500d}\index{nghttp2\_ext\_altsvc@{nghttp2\_ext\_altsvc}!origin\_len@{origin\_len}}
+\index{origin\_len@{origin\_len}!nghttp2\_ext\_altsvc@{nghttp2\_ext\_altsvc}}
+\doxysubsubsection{\texorpdfstring{origin\_len}{origin\_len}}
+{\footnotesize\ttfamily \label{structnghttp2__ext__altsvc_a62c942e112e7e3fef501775cf8dd500d} 
+size\+\_\+t nghttp2\+\_\+ext\+\_\+altsvc\+::origin\+\_\+len}
+
+The length of the \texorpdfstring{$\vert$}{|}origin\texorpdfstring{$\vert$}{|}. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/lib/includes/nghttp2/nghttp2.\+h\end{DoxyCompactItemize}

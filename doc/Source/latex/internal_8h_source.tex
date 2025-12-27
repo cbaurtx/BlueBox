@@ -1,0 +1,240 @@
+\doxysection{internal.\+h}
+\hypertarget{internal_8h_source}{}\label{internal_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/internal.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/internal.h}}
+\mbox{\hyperlink{internal_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_INTERNAL\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_INTERNAL\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifdef\ MRUBY\_ARRAY\_H}}
+\DoxyCodeLine{00011\ \textcolor{keywordtype}{void}\ mrb\_ary\_decref(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__shared__array}{mrb\_shared\_array}}*);}
+\DoxyCodeLine{00012\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_ary\_subseq(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ ary,\ mrb\_int\ beg,\ mrb\_int\ len);}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ mrb\_bool\ mrb\_inspect\_recursive\_p(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ self);}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifdef\ MRUBY\_CLASS\_H}}
+\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRClass}{RClass}}\ *mrb\_vm\_define\_class(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}},\ \mbox{\hyperlink{structmrb__value}{mrb\_value}},\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}});}
+\DoxyCodeLine{00019\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRClass}{RClass}}\ *mrb\_vm\_define\_module(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}},\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}});}
+\DoxyCodeLine{00020\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_instance\_new(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ cv);}
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{void}\ mrb\_class\_name\_class(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}*,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}});}
+\DoxyCodeLine{00022\ mrb\_bool\ mrb\_const\_name\_p(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*,\ mrb\_int);}
+\DoxyCodeLine{00023\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_class\_find\_path(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}*);}
+\DoxyCodeLine{00024\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_mod\_to\_s(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}});}
+\DoxyCodeLine{00025\ \textcolor{keywordtype}{void}\ mrb\_method\_added(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}\ *c,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}}\ mid);}
+\DoxyCodeLine{00026\ \mbox{\hyperlink{common_8h_acc1cbe3d5fc8be8ab6e6c747281e060b}{mrb\_noreturn}}\ \textcolor{keywordtype}{void}\ mrb\_method\_missing(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}}\ name,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ self,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ args);}
+\DoxyCodeLine{00027\ mrb\_method\_t\ mrb\_vm\_find\_method(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}\ *c,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}\ **cp,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}}\ mid);}
+\DoxyCodeLine{00028\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_mod\_const\_missing(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mod);}
+\DoxyCodeLine{00029\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_const\_missing(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mod,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}}\ sym);}
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{size\_t}\ mrb\_class\_mt\_memsize(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}*);}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_obj\_equal\_m(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}});}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{comment}{/*\ debug\ */}}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{size\_t}\ mrb\_packed\_int\_len(uint32\_t\ num);}
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{size\_t}\ mrb\_packed\_int\_encode(uint32\_t\ num,\ uint8\_t\ *p);}
+\DoxyCodeLine{00038\ uint32\_t\ mrb\_packed\_int\_decode(\textcolor{keyword}{const}\ uint8\_t\ *p,\ \textcolor{keyword}{const}\ uint8\_t\ **newpos);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{/*\ dump\ */}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifdef\ MRUBY\_IREP\_H}}
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{int}\ mrb\_dump\_irep(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}\ *irep,\ uint8\_t\ flags,\ uint8\_t\ **bin,\ \textcolor{keywordtype}{size\_t}\ *bin\_size);}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#ifndef\ MRB\_NO\_STDIO}}
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{int}\ mrb\_dump\_irep\_cfunc(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}*,\ uint8\_t\ flags,\ FILE\ *f,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *initname);}
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{int}\ mrb\_dump\_irep\_cstruct(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}*,\ uint8\_t\ flags,\ FILE\ *f,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *initname);}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{/*\ codedump\ */}}
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{void}\ mrb\_codedump\_all(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRProc}{RProc}}\ *proc);}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#ifndef\ MRB\_NO\_STDIO}}
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{void}\ mrb\_codedump\_all\_file(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRProc}{RProc}}\ *proc,\ FILE\ *out);}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{/*\ error\ */}}
+\DoxyCodeLine{00056\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_exc\_inspect(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ exc);}
+\DoxyCodeLine{00057\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_exc\_backtrace(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ exc);}
+\DoxyCodeLine{00058\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_get\_backtrace(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb);}
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{void}\ mrb\_exc\_mesg\_set(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRException}{RException}}\ *exc,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mesg);}
+\DoxyCodeLine{00060\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_exc\_mesg\_get(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRException}{RException}}\ *exc);}
+\DoxyCodeLine{00061\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_f\_raise(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}});}
+\DoxyCodeLine{00062\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_make\_exception(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ exc,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mesg);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{comment}{/*\ gc\ */}}
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{void}\ mrb\_gc\_mark\_mt(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}*);}
+\DoxyCodeLine{00066\ \textcolor{keywordtype}{size\_t}\ mrb\_gc\_mark\_mt\_size(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}*);}
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{void}\ mrb\_gc\_free\_mt(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}*);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{comment}{/*\ hash\ */}}
+\DoxyCodeLine{00070\ \textcolor{keywordtype}{size\_t}\ mrb\_hash\_memsize(\mbox{\hyperlink{structmrb__value}{mrb\_value}}\ obj);}
+\DoxyCodeLine{00071\ \textcolor{keywordtype}{void}\ mrb\_gc\_mark\_hash(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRHash}{RHash}}*);}
+\DoxyCodeLine{00072\ \textcolor{keywordtype}{size\_t}\ mrb\_gc\_mark\_hash\_size(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRHash}{RHash}}*);}
+\DoxyCodeLine{00073\ \textcolor{keywordtype}{void}\ mrb\_gc\_free\_hash(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRHash}{RHash}}*);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{comment}{/*\ irep\ */}}
+\DoxyCodeLine{00076\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__insn__data}{mrb\_insn\_data}}\ mrb\_decode\_insn(const\ \mbox{\hyperlink{mruby_8h_a9ecf6ce1e2166ff92259de77767bd930}{mrb\_code}}\ *pc);}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#ifdef\ MRUBY\_IREP\_H}}
+\DoxyCodeLine{00078\ \textcolor{keywordtype}{void}\ mrb\_irep\_free(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}*);}
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{void}\ mrb\_irep\_remove\_lv(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}\ *irep);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmrb__irep__catch__handler}{mrb\_irep\_catch\_handler}}\ *}
+\DoxyCodeLine{00082\ mrb\_irep\_catch\_handler\_table(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}\ *irep)}
+\DoxyCodeLine{00083\ \{}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordflow}{if}\ (irep-\/>clen\ >\ 0)\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structmrb__irep__catch__handler}{mrb\_irep\_catch\_handler}}*)(irep-\/>iseq\ +\ irep-\/>ilen);}
+\DoxyCodeLine{00086\ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structmrb__irep__catch__handler}{mrb\_irep\_catch\_handler}}*)NULL;}
+\DoxyCodeLine{00089\ \ \ \}}
+\DoxyCodeLine{00090\ \}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{comment}{/*\ numeric\ */}}
+\DoxyCodeLine{00094\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_div\_int\_value(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ mrb\_int\ x,\ mrb\_int\ y);}
+\DoxyCodeLine{00095\ mrb\_int\ mrb\_div\_int(mrb\_int\ x,\ mrb\_int\ y);}
+\DoxyCodeLine{00096\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_int\_add(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00097\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_int\_sub(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00098\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_int\_mul(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00099\ \mbox{\hyperlink{common_8h_acc1cbe3d5fc8be8ab6e6c747281e060b}{mrb\_noreturn}}\ \textcolor{keywordtype}{void}\ mrb\_int\_zerodiv(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb);}
+\DoxyCodeLine{00100\ \mbox{\hyperlink{common_8h_acc1cbe3d5fc8be8ab6e6c747281e060b}{mrb\_noreturn}}\ \textcolor{keywordtype}{void}\ mrb\_int\_overflow(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *reason);}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#ifndef\ MRB\_NO\_FLOAT}}
+\DoxyCodeLine{00102\ \textcolor{keywordtype}{void}\ mrb\_check\_num\_exact(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ mrb\_float\ num);}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#ifdef\ MRB\_USE\_COMPLEX}}
+\DoxyCodeLine{00106\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_complex\_new(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ mrb\_float\ x,\ mrb\_float\ y);}
+\DoxyCodeLine{00107\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_complex\_add(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00108\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_complex\_sub(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00109\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_complex\_mul(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00110\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_complex\_div(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00111\ \textcolor{keywordtype}{void}\ mrb\_complex\_copy(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#ifdef\ MRB\_USE\_RATIONAL}}
+\DoxyCodeLine{00114\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_rational\_new(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ mrb\_int\ x,\ mrb\_int\ y);}
+\DoxyCodeLine{00115\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_rational\_add(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00116\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_rational\_sub(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00117\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_rational\_mul(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00118\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_rational\_div(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00119\ \textcolor{keywordtype}{void}\ mrb\_rational\_copy(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#ifdef\ MRUBY\_PROC\_H}}
+\DoxyCodeLine{00123\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRProc}{RProc}}\ *mrb\_closure\_new(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}*);}
+\DoxyCodeLine{00124\ \textcolor{keywordtype}{void}\ mrb\_proc\_copy(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRProc}{RProc}}\ *a,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRProc}{RProc}}\ *b);}
+\DoxyCodeLine{00125\ mrb\_int\ mrb\_proc\_arity(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRProc}{RProc}}\ *p);}
+\DoxyCodeLine{00126\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structREnv}{REnv}}\ *mrb\_env\_new(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structmrb__context}{mrb\_context}}\ *c,\ \mbox{\hyperlink{structmrb__callinfo}{mrb\_callinfo}}\ *ci,\ \textcolor{keywordtype}{int}\ nstacks,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ *stack,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}\ *tc);}
+\DoxyCodeLine{00127\ \textcolor{keywordtype}{void}\ mrb\_proc\_merge\_lvar(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__irep}{mrb\_irep}}\ *irep,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structREnv}{REnv}}\ *env,\ \textcolor{keywordtype}{int}\ num,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}}\ *lv,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ *stack);}
+\DoxyCodeLine{00128\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_proc\_local\_variables(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRProc}{RProc}}\ *proc);}
+\DoxyCodeLine{00129\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRProc}{RProc}}\ *mrb\_proc\_get\_caller(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structREnv}{REnv}}\ **env);}
+\DoxyCodeLine{00130\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_proc\_get\_self(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRProc}{RProc}}\ *p,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}\ **target\_class\_p);}
+\DoxyCodeLine{00131\ mrb\_bool\ mrb\_proc\_eql(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ self,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ other);}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{comment}{/*\ range\ */}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#ifdef\ MRUBY\_RANGE\_H}}
+\DoxyCodeLine{00136\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_get\_values\_at(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ obj,\ mrb\_int\ olen,\ mrb\_int\ argc,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ *argv,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ (*func)(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}},\ mrb\_int));}
+\DoxyCodeLine{00137\ \textcolor{keywordtype}{void}\ mrb\_gc\_mark\_range(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRRange}{RRange}}\ *r);}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{comment}{/*\ string\ */}}
+\DoxyCodeLine{00141\ \textcolor{keywordtype}{void}\ mrb\_gc\_free\_str(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRString}{RString}}*);}
+\DoxyCodeLine{00142\ uint32\_t\ mrb\_str\_hash(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str);}
+\DoxyCodeLine{00143\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_str\_dump(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str);}
+\DoxyCodeLine{00144\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_str\_inspect(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str);}
+\DoxyCodeLine{00145\ mrb\_bool\ mrb\_str\_beg\_len(mrb\_int\ str\_len,\ mrb\_int\ *begp,\ mrb\_int\ *lenp);}
+\DoxyCodeLine{00146\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_str\_byte\_subseq(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str,\ mrb\_int\ beg,\ mrb\_int\ len);}
+\DoxyCodeLine{00147\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_str\_aref(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ str,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ idx,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ len);}
+\DoxyCodeLine{00148\ uint32\_t\ mrb\_byte\_hash(\textcolor{keyword}{const}\ uint8\_t*,\ mrb\_int);}
+\DoxyCodeLine{00149\ uint32\_t\ mrb\_byte\_hash\_step(\textcolor{keyword}{const}\ uint8\_t*,\ mrb\_int,\ uint32\_t);}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#ifdef\ MRB\_UTF8\_STRING}}
+\DoxyCodeLine{00152\ mrb\_int\ mrb\_utf8len(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *end);}
+\DoxyCodeLine{00153\ mrb\_int\ mrb\_utf8\_strlen(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str,\ mrb\_int\ byte\_len);}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{comment}{/*\ variable\ */}}
+\DoxyCodeLine{00157\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_vm\_special\_get(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}});}
+\DoxyCodeLine{00158\ \textcolor{keywordtype}{void}\ mrb\_vm\_special\_set(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}},\ \mbox{\hyperlink{structmrb__value}{mrb\_value}});}
+\DoxyCodeLine{00159\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_vm\_cv\_get(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}});}
+\DoxyCodeLine{00160\ \textcolor{keywordtype}{void}\ mrb\_vm\_cv\_set(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}},\ \mbox{\hyperlink{structmrb__value}{mrb\_value}});}
+\DoxyCodeLine{00161\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_vm\_const\_get(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}});}
+\DoxyCodeLine{00162\ \textcolor{keywordtype}{void}\ mrb\_vm\_const\_set(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}},\ \mbox{\hyperlink{structmrb__value}{mrb\_value}});}
+\DoxyCodeLine{00163\ \textcolor{keywordtype}{size\_t}\ mrb\_obj\_iv\_tbl\_memsize(\mbox{\hyperlink{structmrb__value}{mrb\_value}});}
+\DoxyCodeLine{00164\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_obj\_iv\_inspect(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRObject}{RObject}}*);}
+\DoxyCodeLine{00165\ \textcolor{keywordtype}{void}\ mrb\_obj\_iv\_set\_force(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRObject}{RObject}}\ *obj,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}}\ sym,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ v);}
+\DoxyCodeLine{00166\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_mod\_constants(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mod);}
+\DoxyCodeLine{00167\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_f\_global\_variables(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ self);}
+\DoxyCodeLine{00168\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_obj\_instance\_variables(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}});}
+\DoxyCodeLine{00169\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_mod\_class\_variables(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}});}
+\DoxyCodeLine{00170\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_mod\_cv\_get(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}\ *\ c,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}}\ sym);}
+\DoxyCodeLine{00171\ mrb\_bool\ mrb\_mod\_cv\_defined(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}\ *\ c,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}}\ sym);}
+\DoxyCodeLine{00172\ mrb\_bool\ mrb\_ident\_p(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *s,\ mrb\_int\ len);}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{comment}{/*\ GC\ functions\ */}}
+\DoxyCodeLine{00175\ \textcolor{keywordtype}{void}\ mrb\_gc\_mark\_gv(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*);}
+\DoxyCodeLine{00176\ \textcolor{keywordtype}{void}\ mrb\_gc\_free\_gv(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*);}
+\DoxyCodeLine{00177\ \textcolor{keywordtype}{void}\ mrb\_gc\_mark\_iv(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRObject}{RObject}}*);}
+\DoxyCodeLine{00178\ \textcolor{keywordtype}{size\_t}\ mrb\_gc\_mark\_iv\_size(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRObject}{RObject}}*);}
+\DoxyCodeLine{00179\ \textcolor{keywordtype}{void}\ mrb\_gc\_free\_iv(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRObject}{RObject}}*);}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \textcolor{comment}{/*\ VM\ */}}
+\DoxyCodeLine{00182\ mrb\_int\ mrb\_ci\_bidx(\mbox{\hyperlink{structmrb__callinfo}{mrb\_callinfo}}\ *ci);}
+\DoxyCodeLine{00183\ mrb\_int\ mrb\_ci\_nregs(\mbox{\hyperlink{structmrb__callinfo}{mrb\_callinfo}}\ *ci);}
+\DoxyCodeLine{00184\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_exec\_irep(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ self,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRProc}{RProc}}\ *p);}
+\DoxyCodeLine{00185\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_obj\_instance\_eval(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}});}
+\DoxyCodeLine{00186\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_mod\_module\_eval(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}});}
+\DoxyCodeLine{00187\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_f\_send(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ self);}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#ifdef\ MRB\_USE\_BIGINT}}
+\DoxyCodeLine{00190\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_new\_int(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ mrb\_int\ x);}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#ifdef\ MRB\_INT64}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#define\ mrb\_bint\_new\_int64(mrb,x)\ mrb\_bint\_new\_int((mrb),(mrb\_int)(x))}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00194\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_new\_int64(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ int64\_t\ x);}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00196\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_new\_uint64(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ uint64\_t\ x);}
+\DoxyCodeLine{00197\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_new\_str(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *x,\ mrb\_int\ len,\ mrb\_int\ base);}
+\DoxyCodeLine{00198\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_as\_bint(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x);}
+\DoxyCodeLine{00199\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_add(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00200\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_sub(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00201\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_add\_d(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00202\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_sub\_d(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00203\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_mul(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00204\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_div(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00205\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_divmod(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00206\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_add\_ii(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ mrb\_int\ x,\ mrb\_int\ y);}
+\DoxyCodeLine{00207\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_sub\_ii(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ mrb\_int\ x,\ mrb\_int\ y);}
+\DoxyCodeLine{00208\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_mul\_ii(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ mrb\_int\ x,\ mrb\_int\ y);}
+\DoxyCodeLine{00209\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_mod(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00210\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_rem(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00211\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_pow(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00212\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_powm(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ z);}
+\DoxyCodeLine{00213\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_and(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00214\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_or(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00215\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_xor(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00216\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_rev(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x);}
+\DoxyCodeLine{00217\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_lshift(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ mrb\_int\ width);}
+\DoxyCodeLine{00218\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_rshift(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ mrb\_int\ width);}
+\DoxyCodeLine{00219\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_to\_s(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ mrb\_int\ base);}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#ifndef\ MRB\_NO\_FLOAT}}
+\DoxyCodeLine{00221\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_new\_float(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ mrb\_float\ x);}
+\DoxyCodeLine{00222\ mrb\_float\ mrb\_bint\_as\_float(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x);}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00224\ mrb\_int\ mrb\_bint\_as\_int(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x);}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#ifdef\ MRB\_INT64}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#define\ mrb\_bint\_as\_int64(mrb,\ x)\ mrb\_bint\_as\_int((mrb),\ (x))}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00228\ int64\_t\ mrb\_bint\_as\_int64(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x);}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00230\ uint64\_t\ mrb\_bint\_as\_uint64(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x);}
+\DoxyCodeLine{00231\ mrb\_int\ mrb\_bint\_cmp(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00232\ \textcolor{keywordtype}{void}\ mrb\_gc\_free\_bint(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRBasic}{RBasic}}\ *x);}
+\DoxyCodeLine{00233\ \textcolor{keywordtype}{void}\ mrb\_bint\_copy(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ y);}
+\DoxyCodeLine{00234\ \textcolor{keywordtype}{size\_t}\ mrb\_bint\_memsize(\mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x);}
+\DoxyCodeLine{00235\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ mrb\_bint\_hash(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ x);}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_INTERNAL\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,61 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/tests/munit Directory Reference}
+\hypertarget{dir_52f015856f0e09ee2e46cf180f015917}{}\label{dir_52f015856f0e09ee2e46cf180f015917}\index{managed\_components/espressif\_\_nghttp/nghttp2/tests/munit Directory Reference@{managed\_components/espressif\_\_nghttp/nghttp2/tests/munit Directory Reference}}
+Directory dependency graph for munit\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=152pt]{dir_52f015856f0e09ee2e46cf180f015917_dep}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file {\bfseries munit.\+h}
+\item 
+file {\bfseries munitxx.\+h}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_52f015856f0e09ee2e46cf180f015917_autotoc_md209}{}\doxysubsection{\texorpdfstring{µnit}{µnit}}\label{dir_52f015856f0e09ee2e46cf180f015917_autotoc_md209}
+µnit is a small but full-\/featured unit testing framework for C. It has no dependencies (beyond libc), is permissively licensed (MIT), and is easy to include into any project.
+
+For more information, see \href{https://nemequ.github.io/munit}{\texttt{the µnit web site}}.
+
+\href{https://travis-ci.org/nemequ/munit}{\texttt{}} \href{https://ci.appveyor.com/project/quixdb/munit/branch/master}{\texttt{}}\hypertarget{dir_52f015856f0e09ee2e46cf180f015917_autotoc_md210}{}\doxysubsection{\texorpdfstring{Features}{Features}}\label{dir_52f015856f0e09ee2e46cf180f015917_autotoc_md210}
+Features µnit currently includes include\+:
+
+
+\begin{DoxyItemize}
+\item Handy assertion macros which make for nice error messages.
+\item Reproducible cross-\/platform random number generation, including support for supplying a seed via CLI.
+\item Timing of both wall-\/clock and CPU time.
+\item Parameterized tests.
+\item Nested test suites.
+\item Flexible CLI.
+\item Forking (\href{https://github.com/nemequ/munit/issues/2}{\texttt{except on Windows}}).
+\item Hiding output of successful tests.
+\end{DoxyItemize}
+
+Features µnit does not currently include, but some day may include (a.\+k.\+a., if you file a PR…), include\+:
+
+
+\begin{DoxyItemize}
+\item \href{http://testanything.org/}{\texttt{TAP}} support; feel free to discuss in \href{https://github.com/nemequ/munit/issues/1}{\texttt{issue \#1}}
+\end{DoxyItemize}\hypertarget{dir_52f015856f0e09ee2e46cf180f015917_autotoc_md211}{}\doxysubsubsection{\texorpdfstring{Include into your project with meson}{Include into your project with meson}}\label{dir_52f015856f0e09ee2e46cf180f015917_autotoc_md211}
+In your {\ttfamily subprojects} folder put a {\ttfamily munit.\+wrap} file containing\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{[wrap-\/git]}
+\DoxyCodeLine{directory=munit}
+\DoxyCodeLine{url=https://github.com/nemequ/munit/}
+\DoxyCodeLine{revision=head}
+
+\end{DoxyCode}
+
+
+Then you can use a subproject fallback when you include munit as a dependency to your project\+: {\ttfamily dependency(\textquotesingle{}munit\textquotesingle{}, fallback\+: \mbox{[}\textquotesingle{}munit\textquotesingle{}, \textquotesingle{}munit\+\_\+dep\textquotesingle{}\mbox{]})}\hypertarget{dir_52f015856f0e09ee2e46cf180f015917_autotoc_md212}{}\doxysubsection{\texorpdfstring{Documentation}{Documentation}}\label{dir_52f015856f0e09ee2e46cf180f015917_autotoc_md212}
+See \href{https://nemequ.github.io/munit}{\texttt{the µnit web site}}.
+
+Additionally, there is a heavily-\/commented \href{https://github.com/nemequ/munit/blob/master/example.c}{\texttt{example.\+c}} in the repository. 

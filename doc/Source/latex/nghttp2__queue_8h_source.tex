@@ -1,0 +1,57 @@
+\doxysection{nghttp2\+\_\+queue.\+h}
+\hypertarget{nghttp2__queue_8h_source}{}\label{nghttp2__queue_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_queue.h@{managed\_components/espressif\_\_nghttp/nghttp2/lib/nghttp2\_queue.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_QUEUE\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ NGHTTP2\_QUEUE\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifdef\ HAVE\_CONFIG\_H}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ \ include\ "{}config.h"{}}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_CONFIG\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__queue__cell}{nghttp2\_queue\_cell}}\ \{}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{void}\ *data;}
+\DoxyCodeLine{00036\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2__queue__cell}{nghttp2\_queue\_cell}}\ *next;}
+\DoxyCodeLine{00037\ \}\ \mbox{\hyperlink{structnghttp2__queue__cell}{nghttp2\_queue\_cell}};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00040\ \ \ \mbox{\hyperlink{structnghttp2__queue__cell}{nghttp2\_queue\_cell}}\ *front,\ *back;}
+\DoxyCodeLine{00041\ \}\ \mbox{\hyperlink{structnghttp2__queue}{nghttp2\_queue}};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ nghttp2\_queue\_init(\mbox{\hyperlink{structnghttp2__queue}{nghttp2\_queue}}\ *queue);}
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{void}\ nghttp2\_queue\_free(\mbox{\hyperlink{structnghttp2__queue}{nghttp2\_queue}}\ *queue);}
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{int}\ nghttp2\_queue\_push(\mbox{\hyperlink{structnghttp2__queue}{nghttp2\_queue}}\ *queue,\ \textcolor{keywordtype}{void}\ *data);}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{void}\ nghttp2\_queue\_pop(\mbox{\hyperlink{structnghttp2__queue}{nghttp2\_queue}}\ *queue);}
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{void}\ *nghttp2\_queue\_front(\mbox{\hyperlink{structnghttp2__queue}{nghttp2\_queue}}\ *queue);}
+\DoxyCodeLine{00048\ \textcolor{keywordtype}{void}\ *nghttp2\_queue\_back(\mbox{\hyperlink{structnghttp2__queue}{nghttp2\_queue}}\ *queue);}
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{int}\ nghttp2\_queue\_empty(\mbox{\hyperlink{structnghttp2__queue}{nghttp2\_queue}}\ *queue);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_QUEUE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

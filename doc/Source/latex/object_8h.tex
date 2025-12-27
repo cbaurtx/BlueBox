@@ -1,0 +1,172 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/object.h File Reference}
+\hypertarget{object_8h}{}\label{object_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/object.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/object.h}}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{object_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structRBasic}{RBasic}}
+\item 
+struct \mbox{\hyperlink{structRObject}{RObject}}
+\item 
+struct \mbox{\hyperlink{structRFiber}{RFiber}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{object_8h_a2fb2487b04e474c5085f178aa5947c01}{MRB\+\_\+\+OBJECT\+\_\+\+HEADER}}
+\item 
+\#define \mbox{\hyperlink{object_8h_a544e50fdd23b7e15e4ea63d31d0fe2ae}{MRB\+\_\+\+FLAG\+\_\+\+TEST}}(obj,  flag)
+\item 
+\#define \mbox{\hyperlink{object_8h_aec26908fe49ec2f1a3a77ee931dcb8f9}{mrb\+\_\+basic\+\_\+ptr}}(v)
+\item 
+\Hypertarget{object_8h_ac0f5192bf4de936b8273410e91e838fd}\label{object_8h_ac0f5192bf4de936b8273410e91e838fd} 
+\#define {\bfseries MRB\+\_\+\+FL\+\_\+\+OBJ\+\_\+\+IS\+\_\+\+FROZEN}~(1 $<$$<$ 20)
+\item 
+\#define \mbox{\hyperlink{object_8h_ae8363ccfb439e4ad7ee2a581c9593dcc}{MRB\+\_\+\+FROZEN\+\_\+P}}(o)
+\item 
+\#define \mbox{\hyperlink{object_8h_ac4072d1b10fcbd4ad4678584b337afd7}{MRB\+\_\+\+SET\+\_\+\+FROZEN\+\_\+\+FLAG}}(o)
+\item 
+\#define \mbox{\hyperlink{object_8h_a34a4b17d68fc0da1338e2706671fc0e0}{MRB\+\_\+\+UNSET\+\_\+\+FROZEN\+\_\+\+FLAG}}(o)
+\item 
+\#define \mbox{\hyperlink{object_8h_a687f919fd22c28549223c7008e60ea15}{mrb\+\_\+frozen\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{object_8h_aa4c4a94fbd7dff81f7307e1b3fae5537}{mrb\+\_\+obj\+\_\+ptr}}(v)
+\item 
+\#define \mbox{\hyperlink{object_8h_aaf955c11ce59f13e3e5b1e3e71178f6a}{mrb\+\_\+special\+\_\+const\+\_\+p}}(x)
+\item 
+\#define \mbox{\hyperlink{object_8h_abce80f2babd843e7a818c1d8b0ce6946}{mrb\+\_\+static\+\_\+assert\+\_\+object\+\_\+size}}(st)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item mruby object definition
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-define-members}
+\Hypertarget{object_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{object_8h_aec26908fe49ec2f1a3a77ee931dcb8f9}\index{object.h@{object.h}!mrb\_basic\_ptr@{mrb\_basic\_ptr}}
+\index{mrb\_basic\_ptr@{mrb\_basic\_ptr}!object.h@{object.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_basic\_ptr}{mrb\_basic\_ptr}}
+{\footnotesize\ttfamily \label{object_8h_aec26908fe49ec2f1a3a77ee931dcb8f9} 
+\#define mrb\+\_\+basic\+\_\+ptr(\begin{DoxyParamCaption}\item[{}]{v}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\textcolor{keyword}{struct\ }\mbox{\hyperlink{structRBasic}{RBasic}}*)(mrb\_ptr(v)))}
+
+\end{DoxyCode}
+\Hypertarget{object_8h_a544e50fdd23b7e15e4ea63d31d0fe2ae}\index{object.h@{object.h}!MRB\_FLAG\_TEST@{MRB\_FLAG\_TEST}}
+\index{MRB\_FLAG\_TEST@{MRB\_FLAG\_TEST}!object.h@{object.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_FLAG\_TEST}{MRB\_FLAG\_TEST}}
+{\footnotesize\ttfamily \label{object_8h_a544e50fdd23b7e15e4ea63d31d0fe2ae} 
+\#define MRB\+\_\+\+FLAG\+\_\+\+TEST(\begin{DoxyParamCaption}\item[{}]{obj}{, }\item[{}]{flag}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((obj)-\/>flags\ \&\ (flag))}
+
+\end{DoxyCode}
+\Hypertarget{object_8h_ae8363ccfb439e4ad7ee2a581c9593dcc}\index{object.h@{object.h}!MRB\_FROZEN\_P@{MRB\_FROZEN\_P}}
+\index{MRB\_FROZEN\_P@{MRB\_FROZEN\_P}!object.h@{object.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_FROZEN\_P}{MRB\_FROZEN\_P}}
+{\footnotesize\ttfamily \label{object_8h_ae8363ccfb439e4ad7ee2a581c9593dcc} 
+\#define MRB\+\_\+\+FROZEN\+\_\+P(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((o)-\/>flags\ \&\ MRB\_FL\_OBJ\_IS\_FROZEN)}
+
+\end{DoxyCode}
+\Hypertarget{object_8h_a687f919fd22c28549223c7008e60ea15}\index{object.h@{object.h}!mrb\_frozen\_p@{mrb\_frozen\_p}}
+\index{mrb\_frozen\_p@{mrb\_frozen\_p}!object.h@{object.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_frozen\_p}{mrb\_frozen\_p}}
+{\footnotesize\ttfamily \label{object_8h_a687f919fd22c28549223c7008e60ea15} 
+\#define mrb\+\_\+frozen\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{MRB\_FROZEN\_P(o)}
+
+\end{DoxyCode}
+\Hypertarget{object_8h_aa4c4a94fbd7dff81f7307e1b3fae5537}\index{object.h@{object.h}!mrb\_obj\_ptr@{mrb\_obj\_ptr}}
+\index{mrb\_obj\_ptr@{mrb\_obj\_ptr}!object.h@{object.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_obj\_ptr}{mrb\_obj\_ptr}}
+{\footnotesize\ttfamily \label{object_8h_aa4c4a94fbd7dff81f7307e1b3fae5537} 
+\#define mrb\+\_\+obj\+\_\+ptr(\begin{DoxyParamCaption}\item[{}]{v}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\textcolor{keyword}{struct\ }\mbox{\hyperlink{structRObject}{RObject}}*)(mrb\_ptr(v)))}
+
+\end{DoxyCode}
+\Hypertarget{object_8h_a2fb2487b04e474c5085f178aa5947c01}\index{object.h@{object.h}!MRB\_OBJECT\_HEADER@{MRB\_OBJECT\_HEADER}}
+\index{MRB\_OBJECT\_HEADER@{MRB\_OBJECT\_HEADER}!object.h@{object.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_OBJECT\_HEADER}{MRB\_OBJECT\_HEADER}}
+{\footnotesize\ttfamily \label{object_8h_a2fb2487b04e474c5085f178aa5947c01} 
+\#define MRB\+\_\+\+OBJECT\+\_\+\+HEADER}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRClass}{RClass}}\ *c;\ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRBasic}{RBasic}}\ *gcnext;\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keyword}{enum}\ mrb\_vtype\ tt:8;\ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ uint32\_t\ color:3;\ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ uint32\_t\ flags:21}
+
+\end{DoxyCode}
+\Hypertarget{object_8h_ac4072d1b10fcbd4ad4678584b337afd7}\index{object.h@{object.h}!MRB\_SET\_FROZEN\_FLAG@{MRB\_SET\_FROZEN\_FLAG}}
+\index{MRB\_SET\_FROZEN\_FLAG@{MRB\_SET\_FROZEN\_FLAG}!object.h@{object.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_SET\_FROZEN\_FLAG}{MRB\_SET\_FROZEN\_FLAG}}
+{\footnotesize\ttfamily \label{object_8h_ac4072d1b10fcbd4ad4678584b337afd7} 
+\#define MRB\+\_\+\+SET\+\_\+\+FROZEN\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((o)-\/>flags\ |=\ MRB\_FL\_OBJ\_IS\_FROZEN)}
+
+\end{DoxyCode}
+\Hypertarget{object_8h_aaf955c11ce59f13e3e5b1e3e71178f6a}\index{object.h@{object.h}!mrb\_special\_const\_p@{mrb\_special\_const\_p}}
+\index{mrb\_special\_const\_p@{mrb\_special\_const\_p}!object.h@{object.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_special\_const\_p}{mrb\_special\_const\_p}}
+{\footnotesize\ttfamily \label{object_8h_aaf955c11ce59f13e3e5b1e3e71178f6a} 
+\#define mrb\+\_\+special\+\_\+const\+\_\+p(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_immediate\_p(x)}
+
+\end{DoxyCode}
+\Hypertarget{object_8h_abce80f2babd843e7a818c1d8b0ce6946}\index{object.h@{object.h}!mrb\_static\_assert\_object\_size@{mrb\_static\_assert\_object\_size}}
+\index{mrb\_static\_assert\_object\_size@{mrb\_static\_assert\_object\_size}!object.h@{object.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_static\_assert\_object\_size}{mrb\_static\_assert\_object\_size}}
+{\footnotesize\ttfamily \label{object_8h_abce80f2babd843e7a818c1d8b0ce6946} 
+\#define mrb\+\_\+static\+\_\+assert\+\_\+object\+\_\+size(\begin{DoxyParamCaption}\item[{}]{st}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{mruby_8h_a7a701322aa08f9fcb1d342f1a4c358fd}{mrb\_static\_assert}}(\textcolor{keyword}{sizeof}(st)\ <=\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{void}*)\ *\ 6,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#st\ \textcolor{stringliteral}{"{}\ size\ must\ be\ within\ 6\ words"{}})}
+
+\end{DoxyCode}
+\Hypertarget{object_8h_a34a4b17d68fc0da1338e2706671fc0e0}\index{object.h@{object.h}!MRB\_UNSET\_FROZEN\_FLAG@{MRB\_UNSET\_FROZEN\_FLAG}}
+\index{MRB\_UNSET\_FROZEN\_FLAG@{MRB\_UNSET\_FROZEN\_FLAG}!object.h@{object.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_UNSET\_FROZEN\_FLAG}{MRB\_UNSET\_FROZEN\_FLAG}}
+{\footnotesize\ttfamily \label{object_8h_a34a4b17d68fc0da1338e2706671fc0e0} 
+\#define MRB\+\_\+\+UNSET\+\_\+\+FROZEN\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((o)-\/>flags\ \&=\ \string~MRB\_FL\_OBJ\_IS\_FROZEN)}
+
+\end{DoxyCode}

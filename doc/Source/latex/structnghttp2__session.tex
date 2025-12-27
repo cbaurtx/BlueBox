@@ -1,0 +1,183 @@
+\doxysection{nghttp2\+\_\+session Struct Reference}
+\hypertarget{structnghttp2__session}{}\label{structnghttp2__session}\index{nghttp2\_session@{nghttp2\_session}}
+
+
+Collaboration diagram for nghttp2\+\_\+session\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structnghttp2__session__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnghttp2__session_af3df2b75075384179a85f1b7f26a5a7a}\label{structnghttp2__session_af3df2b75075384179a85f1b7f26a5a7a} 
+\mbox{\hyperlink{structnghttp2__map}{nghttp2\+\_\+map}} {\bfseries streams}
+\item 
+\Hypertarget{structnghttp2__session_aba6a89e489a7ea68b53246328e4daae4}\label{structnghttp2__session_aba6a89e489a7ea68b53246328e4daae4} 
+\mbox{\hyperlink{structnghttp2__outbound__queue}{nghttp2\+\_\+outbound\+\_\+queue}} {\bfseries ob\+\_\+urgent}
+\item 
+\Hypertarget{structnghttp2__session_a3366858c5c1a2dfa9de43639279e448e}\label{structnghttp2__session_a3366858c5c1a2dfa9de43639279e448e} 
+\mbox{\hyperlink{structnghttp2__outbound__queue}{nghttp2\+\_\+outbound\+\_\+queue}} {\bfseries ob\+\_\+reg}
+\item 
+\Hypertarget{structnghttp2__session_a7ceacc863953d0ed16f0f55616972e08}\label{structnghttp2__session_a7ceacc863953d0ed16f0f55616972e08} 
+\mbox{\hyperlink{structnghttp2__outbound__queue}{nghttp2\+\_\+outbound\+\_\+queue}} {\bfseries ob\+\_\+syn}
+\item 
+\Hypertarget{structnghttp2__session_a866ac2f049fdc3898c72b857b5ef1954}\label{structnghttp2__session_a866ac2f049fdc3898c72b857b5ef1954} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>\mbox{\hyperlink{structnghttp2__pq}{nghttp2\_pq}} {\bfseries ob\_data}\\
+\} {\bfseries sched} \mbox{[}NGHTTP2\_EXTPRI\_URGENCY\_LEVELS\mbox{]}\\
+
+\end{tabbing}\item 
+\Hypertarget{structnghttp2__session_a29b963d15317e094932052da909411bd}\label{structnghttp2__session_a29b963d15317e094932052da909411bd} 
+\mbox{\hyperlink{structnghttp2__active__outbound__item}{nghttp2\+\_\+active\+\_\+outbound\+\_\+item}} {\bfseries aob}
+\item 
+\Hypertarget{structnghttp2__session_a5d2706d800ef3f0870442ce9f8516463}\label{structnghttp2__session_a5d2706d800ef3f0870442ce9f8516463} 
+\mbox{\hyperlink{structnghttp2__inbound__frame}{nghttp2\+\_\+inbound\+\_\+frame}} {\bfseries iframe}
+\item 
+\Hypertarget{structnghttp2__session_a5b1352231239058bbd4a4a9da86c606f}\label{structnghttp2__session_a5b1352231239058bbd4a4a9da86c606f} 
+\mbox{\hyperlink{structnghttp2__hd__deflater}{nghttp2\+\_\+hd\+\_\+deflater}} {\bfseries hd\+\_\+deflater}
+\item 
+\Hypertarget{structnghttp2__session_a7a2ed54cf57058a4328360be5b82b02c}\label{structnghttp2__session_a7a2ed54cf57058a4328360be5b82b02c} 
+\mbox{\hyperlink{structnghttp2__hd__inflater}{nghttp2\+\_\+hd\+\_\+inflater}} {\bfseries hd\+\_\+inflater}
+\item 
+\Hypertarget{structnghttp2__session_ab398e390fdd631cf78ae60f6bb404bdf}\label{structnghttp2__session_ab398e390fdd631cf78ae60f6bb404bdf} 
+\mbox{\hyperlink{structnghttp2__session__callbacks}{nghttp2\+\_\+session\+\_\+callbacks}} {\bfseries callbacks}
+\item 
+\Hypertarget{structnghttp2__session_ae09de70bb075ecc28ed4354fd0aae4ac}\label{structnghttp2__session_ae09de70bb075ecc28ed4354fd0aae4ac} 
+\mbox{\hyperlink{structnghttp2__mem}{nghttp2\+\_\+mem}} {\bfseries mem}
+\item 
+\Hypertarget{structnghttp2__session_a13175b3ee3741c4218653a649073fb0e}\label{structnghttp2__session_a13175b3ee3741c4218653a649073fb0e} 
+void \texorpdfstring{$\ast$}{*} {\bfseries user\+\_\+data}
+\item 
+\Hypertarget{structnghttp2__session_a531cb6ce006eab0ee0a5b7bf57aa53a6}\label{structnghttp2__session_a531cb6ce006eab0ee0a5b7bf57aa53a6} 
+\mbox{\hyperlink{structnghttp2__inflight__settings}{nghttp2\+\_\+inflight\+\_\+settings}} \texorpdfstring{$\ast$}{*} {\bfseries inflight\+\_\+settings\+\_\+head}
+\item 
+\Hypertarget{structnghttp2__session_a6a06c80625a6a1418189b887c86f78a6}\label{structnghttp2__session_a6a06c80625a6a1418189b887c86f78a6} 
+\mbox{\hyperlink{structnghttp2__ratelim}{nghttp2\+\_\+ratelim}} {\bfseries stream\+\_\+reset\+\_\+ratelim}
+\item 
+\Hypertarget{structnghttp2__session_a461128780d07531235f992706d957521}\label{structnghttp2__session_a461128780d07531235f992706d957521} 
+uint64\+\_\+t {\bfseries stream\+\_\+seq}
+\item 
+\Hypertarget{structnghttp2__session_a6361717811a8159dfd0fb12398ce575d}\label{structnghttp2__session_a6361717811a8159dfd0fb12398ce575d} 
+size\+\_\+t {\bfseries num\+\_\+outgoing\+\_\+streams}
+\item 
+\Hypertarget{structnghttp2__session_a25e274b203177402ac175db98b45db78}\label{structnghttp2__session_a25e274b203177402ac175db98b45db78} 
+size\+\_\+t {\bfseries num\+\_\+incoming\+\_\+streams}
+\item 
+\Hypertarget{structnghttp2__session_a6b29ac318584b1f40e894f128b83054e}\label{structnghttp2__session_a6b29ac318584b1f40e894f128b83054e} 
+size\+\_\+t {\bfseries num\+\_\+incoming\+\_\+reserved\+\_\+streams}
+\item 
+\Hypertarget{structnghttp2__session_ad2044dbba5dd6a44044c911fd83907b7}\label{structnghttp2__session_ad2044dbba5dd6a44044c911fd83907b7} 
+size\+\_\+t {\bfseries max\+\_\+incoming\+\_\+reserved\+\_\+streams}
+\item 
+\Hypertarget{structnghttp2__session_a1edc12343c4e0e9aaaefac70a11c80bf}\label{structnghttp2__session_a1edc12343c4e0e9aaaefac70a11c80bf} 
+size\+\_\+t {\bfseries num\+\_\+closed\+\_\+streams}
+\item 
+\Hypertarget{structnghttp2__session_ad06dd3e0183345b5eacbde869d8d564e}\label{structnghttp2__session_ad06dd3e0183345b5eacbde869d8d564e} 
+size\+\_\+t {\bfseries num\+\_\+idle\+\_\+streams}
+\item 
+\Hypertarget{structnghttp2__session_a9670a14bc3ab4e866e6f0787a5f63c6b}\label{structnghttp2__session_a9670a14bc3ab4e866e6f0787a5f63c6b} 
+size\+\_\+t {\bfseries nvbuflen}
+\item 
+\Hypertarget{structnghttp2__session_a379e54e7286d44f8e4afdccb71417755}\label{structnghttp2__session_a379e54e7286d44f8e4afdccb71417755} 
+size\+\_\+t {\bfseries obq\+\_\+flood\+\_\+counter\+\_\+}
+\item 
+\Hypertarget{structnghttp2__session_acf6a846e18a0db251a435d4451f6504c}\label{structnghttp2__session_acf6a846e18a0db251a435d4451f6504c} 
+size\+\_\+t {\bfseries max\+\_\+outbound\+\_\+ack}
+\item 
+\Hypertarget{structnghttp2__session_aa0ea2efdb3dfd726a2d796df0b44b26a}\label{structnghttp2__session_aa0ea2efdb3dfd726a2d796df0b44b26a} 
+size\+\_\+t {\bfseries max\+\_\+send\+\_\+header\+\_\+block\+\_\+length}
+\item 
+\Hypertarget{structnghttp2__session_a3cc042c1bfa2cc2642805a4588046a03}\label{structnghttp2__session_a3cc042c1bfa2cc2642805a4588046a03} 
+size\+\_\+t {\bfseries max\+\_\+settings}
+\item 
+\Hypertarget{structnghttp2__session_aa991a8ca179beb4b2503d310c06a4c63}\label{structnghttp2__session_aa991a8ca179beb4b2503d310c06a4c63} 
+size\+\_\+t {\bfseries max\+\_\+continuations}
+\item 
+\Hypertarget{structnghttp2__session_ae0818cbe6fe04f5bd8c4e9526444d280}\label{structnghttp2__session_ae0818cbe6fe04f5bd8c4e9526444d280} 
+size\+\_\+t {\bfseries num\+\_\+continuations}
+\item 
+\Hypertarget{structnghttp2__session_a1d675f614655b2032ca7fea7b2ab8d37}\label{structnghttp2__session_a1d675f614655b2032ca7fea7b2ab8d37} 
+uint32\+\_\+t {\bfseries next\+\_\+stream\+\_\+id}
+\item 
+\Hypertarget{structnghttp2__session_ae41cf48dad116c79f24569c4853556ca}\label{structnghttp2__session_ae41cf48dad116c79f24569c4853556ca} 
+int32\+\_\+t {\bfseries last\+\_\+sent\+\_\+stream\+\_\+id}
+\item 
+\Hypertarget{structnghttp2__session_a481cc0a5330f66204e77242e0ae5d693}\label{structnghttp2__session_a481cc0a5330f66204e77242e0ae5d693} 
+int32\+\_\+t {\bfseries last\+\_\+recv\+\_\+stream\+\_\+id}
+\item 
+\Hypertarget{structnghttp2__session_a1eaaa6c30ac0268ab825aec0a33045cb}\label{structnghttp2__session_a1eaaa6c30ac0268ab825aec0a33045cb} 
+int32\+\_\+t {\bfseries last\+\_\+proc\+\_\+stream\+\_\+id}
+\item 
+\Hypertarget{structnghttp2__session_ab29534774b3c350f08a0e942864c778f}\label{structnghttp2__session_ab29534774b3c350f08a0e942864c778f} 
+uint32\+\_\+t {\bfseries next\+\_\+unique\+\_\+id}
+\item 
+\Hypertarget{structnghttp2__session_a00832747dd3e7165e7ca932fca4658c9}\label{structnghttp2__session_a00832747dd3e7165e7ca932fca4658c9} 
+int32\+\_\+t {\bfseries local\+\_\+last\+\_\+stream\+\_\+id}
+\item 
+\Hypertarget{structnghttp2__session_a078f998a33229419ba1b0763f95c10ee}\label{structnghttp2__session_a078f998a33229419ba1b0763f95c10ee} 
+int32\+\_\+t {\bfseries remote\+\_\+last\+\_\+stream\+\_\+id}
+\item 
+\Hypertarget{structnghttp2__session_a8e31106f7faec24ddbfd467a064490ae}\label{structnghttp2__session_a8e31106f7faec24ddbfd467a064490ae} 
+int32\+\_\+t {\bfseries remote\+\_\+window\+\_\+size}
+\item 
+\Hypertarget{structnghttp2__session_aabacd00a89eccf35e77953304ed0cc78}\label{structnghttp2__session_aabacd00a89eccf35e77953304ed0cc78} 
+int32\+\_\+t {\bfseries recv\+\_\+window\+\_\+size}
+\item 
+\Hypertarget{structnghttp2__session_add8150e98d933dcc42dd20a2eaa85169}\label{structnghttp2__session_add8150e98d933dcc42dd20a2eaa85169} 
+int32\+\_\+t {\bfseries consumed\+\_\+size}
+\item 
+\Hypertarget{structnghttp2__session_a7cc07cd00060a4b299cc1e0eb9b7e8cc}\label{structnghttp2__session_a7cc07cd00060a4b299cc1e0eb9b7e8cc} 
+int32\+\_\+t {\bfseries recv\+\_\+reduction}
+\item 
+\Hypertarget{structnghttp2__session_a2beb81d984cd915ecf19d699114eec0b}\label{structnghttp2__session_a2beb81d984cd915ecf19d699114eec0b} 
+int32\+\_\+t {\bfseries local\+\_\+window\+\_\+size}
+\item 
+\Hypertarget{structnghttp2__session_a220014fbbf5946be9728678fb447dcf4}\label{structnghttp2__session_a220014fbbf5946be9728678fb447dcf4} 
+uint8\+\_\+t {\bfseries remote\+\_\+settings\+\_\+received}
+\item 
+\Hypertarget{structnghttp2__session_a7923c6946aafec485c7b651bc9708633}\label{structnghttp2__session_a7923c6946aafec485c7b651bc9708633} 
+\mbox{\hyperlink{structnghttp2__settings__storage}{nghttp2\+\_\+settings\+\_\+storage}} {\bfseries remote\+\_\+settings}
+\item 
+\Hypertarget{structnghttp2__session_aee39fa9b636ac1a7e8468bd69712ac25}\label{structnghttp2__session_aee39fa9b636ac1a7e8468bd69712ac25} 
+\mbox{\hyperlink{structnghttp2__settings__storage}{nghttp2\+\_\+settings\+\_\+storage}} {\bfseries local\+\_\+settings}
+\item 
+\Hypertarget{structnghttp2__session_a8ee6e9d89c63babca0b7590b1de47559}\label{structnghttp2__session_a8ee6e9d89c63babca0b7590b1de47559} 
+uint32\+\_\+t {\bfseries opt\+\_\+flags}
+\item 
+\Hypertarget{structnghttp2__session_a104ea655df7c223d5c9bf985ba1c0785}\label{structnghttp2__session_a104ea655df7c223d5c9bf985ba1c0785} 
+uint32\+\_\+t {\bfseries pending\+\_\+local\+\_\+max\+\_\+concurrent\+\_\+stream}
+\item 
+\Hypertarget{structnghttp2__session_a8c34df771a56809479ddce128b06b471}\label{structnghttp2__session_a8c34df771a56809479ddce128b06b471} 
+uint32\+\_\+t {\bfseries builtin\+\_\+recv\+\_\+ext\+\_\+types}
+\item 
+\Hypertarget{structnghttp2__session_afde8758e3498af7be528334a4e8d20ba}\label{structnghttp2__session_afde8758e3498af7be528334a4e8d20ba} 
+uint8\+\_\+t {\bfseries pending\+\_\+enable\+\_\+push}
+\item 
+\Hypertarget{structnghttp2__session_ae4e0958f9045391a3b6e51de8c1540d3}\label{structnghttp2__session_ae4e0958f9045391a3b6e51de8c1540d3} 
+uint8\+\_\+t {\bfseries pending\+\_\+enable\+\_\+connect\+\_\+protocol}
+\item 
+\Hypertarget{structnghttp2__session_a132f45c1ddeda41db46368bbf6083535}\label{structnghttp2__session_a132f45c1ddeda41db46368bbf6083535} 
+uint8\+\_\+t {\bfseries pending\+\_\+no\+\_\+rfc7540\+\_\+priorities}
+\item 
+\Hypertarget{structnghttp2__session_a4ce465bd3bfc26bcd15d9ff79031f373}\label{structnghttp2__session_a4ce465bd3bfc26bcd15d9ff79031f373} 
+uint8\+\_\+t {\bfseries server}
+\item 
+\Hypertarget{structnghttp2__session_a0f60709d759ac721921298daba577bcc}\label{structnghttp2__session_a0f60709d759ac721921298daba577bcc} 
+uint8\+\_\+t {\bfseries goaway\+\_\+flags}
+\item 
+\Hypertarget{structnghttp2__session_a45dbf48e65986cd998d9d9f284f5ff56}\label{structnghttp2__session_a45dbf48e65986cd998d9d9f284f5ff56} 
+uint8\+\_\+t {\bfseries window\+\_\+update\+\_\+queued}
+\item 
+\Hypertarget{structnghttp2__session_a9890d84fca28329474a782b5c8c43cc2}\label{structnghttp2__session_a9890d84fca28329474a782b5c8c43cc2} 
+uint8\+\_\+t {\bfseries user\+\_\+recv\+\_\+ext\+\_\+types} \mbox{[}32\mbox{]}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/lib/nghttp2\+\_\+session.\+h\end{DoxyCompactItemize}

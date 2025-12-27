@@ -1,0 +1,9 @@
+<map id="shrpx::HttpProxy" name="shrpx::HttpProxy">
+<area shape="rect" id="Node000001" title=" " alt="" coords="102,224,222,251"/>
+<area shape="rect" id="Node000002" href="$structnghttp2_1_1Address.html" title=" " alt="" coords="27,104,147,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,142,156,223,151,224,102,146"/>
+<area shape="rect" id="Node000003" href="$unionnghttp2_1_1sockaddr__union.html" title=" " alt="" coords="5,5,169,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="88,45,90,104,84,103,86,50"/>
+<area shape="rect" id="Node000004" href="$classnghttp2_1_1StringRef.html" title=" " alt="" coords="171,104,299,131"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="222,143,171,225,168,222,217,145"/>
+</map>

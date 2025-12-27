@@ -1,0 +1,217 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/compile.h File Reference}
+\hypertarget{compile_8h}{}\label{compile_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/compile.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/compile.h}}
+{\ttfamily \#include "{}common.\+h"{}}\newline
+{\ttfamily \#include $<$mruby.\+h$>$}\newline
+Include dependency graph for compile.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compile_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compile_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}}
+\item 
+struct \mbox{\hyperlink{structmrb__ast__node}{mrb\+\_\+ast\+\_\+node}}
+\item 
+struct \mbox{\hyperlink{structmrb__parser__message}{mrb\+\_\+parser\+\_\+message}}
+\item 
+struct \mbox{\hyperlink{structmrb__parser__heredoc__info}{mrb\+\_\+parser\+\_\+heredoc\+\_\+info}}
+\item 
+struct \mbox{\hyperlink{structmrb__parser__state}{mrb\+\_\+parser\+\_\+state}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{compile_8h_ab3000138992494e525c6d11f117270c4}\label{compile_8h_ab3000138992494e525c6d11f117270c4} 
+\#define {\bfseries mrbc\+\_\+context}~\mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}}
+\item 
+\Hypertarget{compile_8h_a7998d03fa5b36bb6251c28822e16f3c5}\label{compile_8h_a7998d03fa5b36bb6251c28822e16f3c5} 
+\#define {\bfseries mrbc\+\_\+context\+\_\+new}~mrb\+\_\+ccontext\+\_\+new
+\item 
+\Hypertarget{compile_8h_afc7a07009f7cbb7d49fd417f285b5f35}\label{compile_8h_afc7a07009f7cbb7d49fd417f285b5f35} 
+\#define {\bfseries mrbc\+\_\+context\+\_\+free}~mrb\+\_\+ccontext\+\_\+free
+\item 
+\Hypertarget{compile_8h_af4a3afb158d76f91cfb743e752e13564}\label{compile_8h_af4a3afb158d76f91cfb743e752e13564} 
+\#define {\bfseries mrbc\+\_\+filename}~mrb\+\_\+ccontext\+\_\+filename
+\item 
+\Hypertarget{compile_8h_a72d036fec1b8fb1ec74327d5286b40bf}\label{compile_8h_a72d036fec1b8fb1ec74327d5286b40bf} 
+\#define {\bfseries mrbc\+\_\+partial\+\_\+hook}~mrb\+\_\+ccontext\+\_\+partial\+\_\+hook
+\item 
+\Hypertarget{compile_8h_a214f455eb3d9aaa0168fa8adb19fcb3b}\label{compile_8h_a214f455eb3d9aaa0168fa8adb19fcb3b} 
+\#define {\bfseries mrbc\+\_\+cleanup\+\_\+local\+\_\+variables}~mrb\+\_\+ccontext\+\_\+cleanup\+\_\+local\+\_\+variables
+\item 
+\Hypertarget{compile_8h_a35649decb0395a94e2a5c741a6ae534f}\label{compile_8h_a35649decb0395a94e2a5c741a6ae534f} 
+\#define {\bfseries STR\+\_\+\+FUNC\+\_\+\+PARSING}~0x01
+\item 
+\Hypertarget{compile_8h_aefdd60ff387e322710ff80f16bedbeaa}\label{compile_8h_aefdd60ff387e322710ff80f16bedbeaa} 
+\#define {\bfseries STR\+\_\+\+FUNC\+\_\+\+EXPAND}~0x02
+\item 
+\Hypertarget{compile_8h_ad832f161067673ac6dfca392c45d77e7}\label{compile_8h_ad832f161067673ac6dfca392c45d77e7} 
+\#define {\bfseries STR\+\_\+\+FUNC\+\_\+\+REGEXP}~0x04
+\item 
+\Hypertarget{compile_8h_a79018983a3f8a8128d4e7ef212b1f59b}\label{compile_8h_a79018983a3f8a8128d4e7ef212b1f59b} 
+\#define {\bfseries STR\+\_\+\+FUNC\+\_\+\+WORD}~0x08
+\item 
+\Hypertarget{compile_8h_abb3433e9d5d8bb54d1731c2379ee48ff}\label{compile_8h_abb3433e9d5d8bb54d1731c2379ee48ff} 
+\#define {\bfseries STR\+\_\+\+FUNC\+\_\+\+SYMBOL}~0x10
+\item 
+\Hypertarget{compile_8h_a881792159f8e5bdd506d2ef949bc47c4}\label{compile_8h_a881792159f8e5bdd506d2ef949bc47c4} 
+\#define {\bfseries STR\+\_\+\+FUNC\+\_\+\+ARRAY}~0x20
+\item 
+\Hypertarget{compile_8h_af558663c120fd414e8c8aa58baf48906}\label{compile_8h_af558663c120fd414e8c8aa58baf48906} 
+\#define {\bfseries STR\+\_\+\+FUNC\+\_\+\+HEREDOC}~0x40
+\item 
+\Hypertarget{compile_8h_adc8a300abadf3c475c138da72b961226}\label{compile_8h_adc8a300abadf3c475c138da72b961226} 
+\#define {\bfseries STR\+\_\+\+FUNC\+\_\+\+XQUOTE}~0x80
+\item 
+\Hypertarget{compile_8h_a82a721d44d05c8f34295eaa300f5100b}\label{compile_8h_a82a721d44d05c8f34295eaa300f5100b} 
+\#define {\bfseries MRB\+\_\+\+PARSER\+\_\+\+TOKBUF\+\_\+\+MAX}~(UINT16\+\_\+\+MAX-\/1)
+\item 
+\Hypertarget{compile_8h_a532212cf69b8b93d07618c954e1e805e}\label{compile_8h_a532212cf69b8b93d07618c954e1e805e} 
+\#define {\bfseries MRB\+\_\+\+PARSER\+\_\+\+TOKBUF\+\_\+\+SIZE}~256
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{compile_8h_a4a9d8c0b865f1d68f64d05181f508da5}\label{compile_8h_a4a9d8c0b865f1d68f64d05181f508da5} 
+typedef struct mrb\+\_\+ccontext {\bfseries mrb\+\_\+ccontext}
+\item 
+\Hypertarget{compile_8h_a789b2f124d2b9a21f0882ae4ec9bb731}\label{compile_8h_a789b2f124d2b9a21f0882ae4ec9bb731} 
+typedef struct mrb\+\_\+ast\+\_\+node {\bfseries mrb\+\_\+ast\+\_\+node}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{compile_8h_abf634d8040a32c0cc31c7ec5dccd363a}\label{compile_8h_abf634d8040a32c0cc31c7ec5dccd363a} 
+enum {\bfseries mrb\+\_\+lex\+\_\+state\+\_\+enum} \{ \newline
+{\bfseries EXPR\+\_\+\+BEG}
+, {\bfseries EXPR\+\_\+\+END}
+, {\bfseries EXPR\+\_\+\+ENDARG}
+, {\bfseries EXPR\+\_\+\+ENDFN}
+, \newline
+{\bfseries EXPR\+\_\+\+ARG}
+, {\bfseries EXPR\+\_\+\+CMDARG}
+, {\bfseries EXPR\+\_\+\+MID}
+, {\bfseries EXPR\+\_\+\+FNAME}
+, \newline
+{\bfseries EXPR\+\_\+\+DOT}
+, {\bfseries EXPR\+\_\+\+CLASS}
+, {\bfseries EXPR\+\_\+\+VALUE}
+, {\bfseries EXPR\+\_\+\+MAX\+\_\+\+STATE}
+ \}
+\item 
+\Hypertarget{compile_8h_ac917a9ffadbc6cc6f83f3321ffa0369b}\label{compile_8h_ac917a9ffadbc6cc6f83f3321ffa0369b} 
+enum {\bfseries mrb\+\_\+string\+\_\+type} \{ \newline
+{\bfseries str\+\_\+not\+\_\+parsing} = (0)
+, {\bfseries str\+\_\+squote} = (STR\+\_\+\+FUNC\+\_\+\+PARSING)
+, {\bfseries str\+\_\+dquote} = (STR\+\_\+\+FUNC\+\_\+\+PARSING\texorpdfstring{$\vert$}{|}\+STR\+\_\+\+FUNC\+\_\+\+EXPAND)
+, {\bfseries str\+\_\+regexp} = (STR\+\_\+\+FUNC\+\_\+\+PARSING\texorpdfstring{$\vert$}{|}\+STR\+\_\+\+FUNC\+\_\+\+REGEXP\texorpdfstring{$\vert$}{|}\+STR\+\_\+\+FUNC\+\_\+\+EXPAND)
+, \newline
+{\bfseries str\+\_\+sword} = (STR\+\_\+\+FUNC\+\_\+\+PARSING\texorpdfstring{$\vert$}{|}\+STR\+\_\+\+FUNC\+\_\+\+WORD\texorpdfstring{$\vert$}{|}\+STR\+\_\+\+FUNC\+\_\+\+ARRAY)
+, {\bfseries str\+\_\+dword} = (STR\+\_\+\+FUNC\+\_\+\+PARSING\texorpdfstring{$\vert$}{|}\+STR\+\_\+\+FUNC\+\_\+\+WORD\texorpdfstring{$\vert$}{|}\+STR\+\_\+\+FUNC\+\_\+\+ARRAY\texorpdfstring{$\vert$}{|}\+STR\+\_\+\+FUNC\+\_\+\+EXPAND)
+, {\bfseries str\+\_\+ssym} = (STR\+\_\+\+FUNC\+\_\+\+PARSING\texorpdfstring{$\vert$}{|}\+STR\+\_\+\+FUNC\+\_\+\+SYMBOL)
+, {\bfseries str\+\_\+ssymbols} = (STR\+\_\+\+FUNC\+\_\+\+PARSING\texorpdfstring{$\vert$}{|}\+STR\+\_\+\+FUNC\+\_\+\+SYMBOL\texorpdfstring{$\vert$}{|}\+STR\+\_\+\+FUNC\+\_\+\+ARRAY)
+, \newline
+{\bfseries str\+\_\+dsymbols} = (STR\+\_\+\+FUNC\+\_\+\+PARSING\texorpdfstring{$\vert$}{|}\+STR\+\_\+\+FUNC\+\_\+\+SYMBOL\texorpdfstring{$\vert$}{|}\+STR\+\_\+\+FUNC\+\_\+\+ARRAY\texorpdfstring{$\vert$}{|}\+STR\+\_\+\+FUNC\+\_\+\+EXPAND)
+, {\bfseries str\+\_\+heredoc} = (STR\+\_\+\+FUNC\+\_\+\+PARSING\texorpdfstring{$\vert$}{|}\+STR\+\_\+\+FUNC\+\_\+\+HEREDOC)
+, {\bfseries str\+\_\+xquote} = (STR\+\_\+\+FUNC\+\_\+\+PARSING\texorpdfstring{$\vert$}{|}\+STR\+\_\+\+FUNC\+\_\+\+XQUOTE\texorpdfstring{$\vert$}{|}\+STR\+\_\+\+FUNC\+\_\+\+EXPAND)
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{compile_8h_ad91ecaf98da6251a69e925102af6c8cf}\label{compile_8h_ad91ecaf98da6251a69e925102af6c8cf} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+ccontext\+\_\+new} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb)
+\item 
+\Hypertarget{compile_8h_a4afc3e1fcc6a011d4f485fd49c307fb7}\label{compile_8h_a4afc3e1fcc6a011d4f485fd49c307fb7} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+ccontext\+\_\+free} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*}cxt)
+\item 
+\Hypertarget{compile_8h_a1b7223e734d57d0c3ee45ff13ad1c9b7}\label{compile_8h_a1b7223e734d57d0c3ee45ff13ad1c9b7} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} const char \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+ccontext\+\_\+filename} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*}c, const char \texorpdfstring{$\ast$}{*}s)
+\item 
+\Hypertarget{compile_8h_a1be0655c0e45538c18648ffab692e803}\label{compile_8h_a1be0655c0e45538c18648ffab692e803} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+ccontext\+\_\+partial\+\_\+hook} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*}c, int(\texorpdfstring{$\ast$}{*}partial\+\_\+hook)(struct \mbox{\hyperlink{structmrb__parser__state}{mrb\+\_\+parser\+\_\+state}} \texorpdfstring{$\ast$}{*}), void \texorpdfstring{$\ast$}{*}data)
+\item 
+\Hypertarget{compile_8h_a8d4bda445560e8876fa1a0bbf7a8cd6f}\label{compile_8h_a8d4bda445560e8876fa1a0bbf7a8cd6f} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+ccontext\+\_\+cleanup\+\_\+local\+\_\+variables} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*}c)
+\item 
+\Hypertarget{compile_8h_aefb1966172821a497380774c3b167e28}\label{compile_8h_aefb1966172821a497380774c3b167e28} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} struct \mbox{\hyperlink{structmrb__parser__state}{mrb\+\_\+parser\+\_\+state}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+parser\+\_\+new} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{compile_8h_a45cc9621d1857b74d6a9ccd14cbde706}\label{compile_8h_a45cc9621d1857b74d6a9ccd14cbde706} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+parser\+\_\+free} (struct \mbox{\hyperlink{structmrb__parser__state}{mrb\+\_\+parser\+\_\+state}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{compile_8h_a5a4e6bf97588aca2c3c757627696d5ec}\label{compile_8h_a5a4e6bf97588aca2c3c757627696d5ec} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+parser\+\_\+parse} (struct \mbox{\hyperlink{structmrb__parser__state}{mrb\+\_\+parser\+\_\+state}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{compile_8h_a22fa514fb7c9a893ed93666a315845fc}\label{compile_8h_a22fa514fb7c9a893ed93666a315845fc} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+parser\+\_\+set\+\_\+filename} (struct \mbox{\hyperlink{structmrb__parser__state}{mrb\+\_\+parser\+\_\+state}} \texorpdfstring{$\ast$}{*}, char const \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{compile_8h_ac928c3fbf79e941a26ee1ae556b29771}\label{compile_8h_ac928c3fbf79e941a26ee1ae556b29771} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}} {\bfseries mrb\+\_\+parser\+\_\+get\+\_\+filename} (struct \mbox{\hyperlink{structmrb__parser__state}{mrb\+\_\+parser\+\_\+state}} \texorpdfstring{$\ast$}{*}, uint16\+\_\+t idx)
+\item 
+\Hypertarget{compile_8h_a1e0521f60c67a6ff6c4616e60841682b}\label{compile_8h_a1e0521f60c67a6ff6c4616e60841682b} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} struct \mbox{\hyperlink{structmrb__parser__state}{mrb\+\_\+parser\+\_\+state}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+parse\+\_\+file} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, FILE \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{compile_8h_ac55f8b5fa4e7eba0028eb4bc629117fe}\label{compile_8h_ac55f8b5fa4e7eba0028eb4bc629117fe} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} struct \mbox{\hyperlink{structmrb__parser__state}{mrb\+\_\+parser\+\_\+state}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+parse\+\_\+string} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, const char \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{compile_8h_a1645357942258efdcc4748ae48b4b0a6}\label{compile_8h_a1645357942258efdcc4748ae48b4b0a6} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} struct \mbox{\hyperlink{structmrb__parser__state}{mrb\+\_\+parser\+\_\+state}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+parse\+\_\+nstring} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, const char \texorpdfstring{$\ast$}{*}, size\+\_\+t, \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{compile_8h_a04dc1f149d026e3c2368a3024eeb97f2}\label{compile_8h_a04dc1f149d026e3c2368a3024eeb97f2} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} struct \mbox{\hyperlink{structRProc}{RProc}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+generate\+\_\+code} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, struct \mbox{\hyperlink{structmrb__parser__state}{mrb\+\_\+parser\+\_\+state}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{compile_8h_aee966e626195639318ee03e024124e55}\label{compile_8h_aee966e626195639318ee03e024124e55} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+load\+\_\+exec} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structmrb__parser__state}{mrb\+\_\+parser\+\_\+state}} \texorpdfstring{$\ast$}{*}p, \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*}c)
+\item 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{compile_8h_aa89f44c443d9b33b553f089e03561700}{mrb\+\_\+load\+\_\+file}} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, FILE \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{compile_8h_a32f2c62f1af61620ea3bd3d693b9ab73}\label{compile_8h_a32f2c62f1af61620ea3bd3d693b9ab73} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+load\+\_\+file\+\_\+cxt} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}, FILE \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*}cxt)
+\item 
+\Hypertarget{compile_8h_a078a4347af318c48bae5c9cbef93acf5}\label{compile_8h_a078a4347af318c48bae5c9cbef93acf5} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+load\+\_\+detect\+\_\+file\+\_\+cxt} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, FILE \texorpdfstring{$\ast$}{*}fp, \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*}c)
+\item 
+\Hypertarget{compile_8h_a347e86a402517a386f316a154b3ba28f}\label{compile_8h_a347e86a402517a386f316a154b3ba28f} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+load\+\_\+string} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, const char \texorpdfstring{$\ast$}{*}s)
+\item 
+\Hypertarget{compile_8h_af1aa393850e2d0b59244879ec0553032}\label{compile_8h_af1aa393850e2d0b59244879ec0553032} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+load\+\_\+nstring} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, const char \texorpdfstring{$\ast$}{*}s, size\+\_\+t len)
+\item 
+\Hypertarget{compile_8h_a1235d202f8085cdcb99999d114ff75ec}\label{compile_8h_a1235d202f8085cdcb99999d114ff75ec} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+load\+\_\+string\+\_\+cxt} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, const char \texorpdfstring{$\ast$}{*}s, \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*}cxt)
+\item 
+\Hypertarget{compile_8h_a59da80b19a0e6930416619eca42feb50}\label{compile_8h_a59da80b19a0e6930416619eca42feb50} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+load\+\_\+nstring\+\_\+cxt} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, const char \texorpdfstring{$\ast$}{*}s, size\+\_\+t len, \mbox{\hyperlink{structmrb__ccontext}{mrb\+\_\+ccontext}} \texorpdfstring{$\ast$}{*}cxt)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item mruby parser
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-func-members}
+\Hypertarget{compile_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{compile_8h_aa89f44c443d9b33b553f089e03561700}\index{compile.h@{compile.h}!mrb\_load\_file@{mrb\_load\_file}}
+\index{mrb\_load\_file@{mrb\_load\_file}!compile.h@{compile.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_load\_file()}{mrb\_load\_file()}}
+{\footnotesize\ttfamily \label{compile_8h_aa89f44c443d9b33b553f089e03561700} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+load\+\_\+file (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{FILE \texorpdfstring{$\ast$}{*}}]{f}{}\end{DoxyParamCaption})}
+
+program load functions Please note! Currently due to interactions with the GC calling these functions will leak one \doxylink{structRProc}{RProc} object per function call. To prevent this save the current memory arena before calling and restore the arena right after, like so int ai = mrb\+\_\+gc\+\_\+arena\+\_\+save(mrb); \doxylink{structmrb__value}{mrb\+\_\+value} status = mrb\+\_\+load\+\_\+string(mrb, buffer); mrb\+\_\+gc\+\_\+arena\+\_\+restore(mrb, ai); 

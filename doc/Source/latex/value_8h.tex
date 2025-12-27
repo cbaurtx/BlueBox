@@ -1,0 +1,679 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/value.h File Reference}
+\hypertarget{value_8h}{}\label{value_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/value.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/value.h}}
+{\ttfamily \#include "{}common.\+h"{}}\newline
+{\ttfamily \#include $<$inttypes.\+h$>$}\newline
+{\ttfamily \#include $<$mruby/object.\+h$>$}\newline
+{\ttfamily \#include "{}boxing\+\_\+no.\+h"{}}\newline
+Include dependency graph for value.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{value_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{value_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{value_8h_aa93f0eb578d23995850d61f7d61c55c1}\label{value_8h_aa93f0eb578d23995850d61f7d61c55c1} 
+\#define {\bfseries FALSE}~0
+\item 
+\Hypertarget{value_8h_aa8cecfc5c5c054d2875c03e77b7be15d}\label{value_8h_aa8cecfc5c5c054d2875c03e77b7be15d} 
+\#define {\bfseries TRUE}~1
+\item 
+\Hypertarget{value_8h_a4f5f82309b709b6b6230a50dd7d0c1c8}\label{value_8h_a4f5f82309b709b6b6230a50dd7d0c1c8} 
+\#define {\bfseries MRB\+\_\+\+INT\+\_\+\+BIT}~32
+\item 
+\Hypertarget{value_8h_aee437ed70d95150d31aa71914e080d79}\label{value_8h_aee437ed70d95150d31aa71914e080d79} 
+\#define {\bfseries MRB\+\_\+\+INT\+\_\+\+MIN}~INT32\+\_\+\+MIN
+\item 
+\Hypertarget{value_8h_acf8474442a9b0629af40f70191907db9}\label{value_8h_acf8474442a9b0629af40f70191907db9} 
+\#define {\bfseries MRB\+\_\+\+INT\+\_\+\+MAX}~INT32\+\_\+\+MAX
+\item 
+\Hypertarget{value_8h_a0ff0a3aadd15980acb4db64891cd310e}\label{value_8h_a0ff0a3aadd15980acb4db64891cd310e} 
+\#define {\bfseries MRB\+\_\+\+PRIo}~PRIo32
+\item 
+\Hypertarget{value_8h_ac54610590dbbbc2e2c2c329bf0a6e843}\label{value_8h_ac54610590dbbbc2e2c2c329bf0a6e843} 
+\#define {\bfseries MRB\+\_\+\+PRId}~PRId32
+\item 
+\Hypertarget{value_8h_aaa4c3325113c7250c92bfa59bd8d2338}\label{value_8h_aaa4c3325113c7250c92bfa59bd8d2338} 
+\#define {\bfseries MRB\+\_\+\+PRIx}~PRIx32
+\item 
+\#define \mbox{\hyperlink{value_8h_acf97eafb17099f28018f770951378567}{MRB\+\_\+\+ENDIAN\+\_\+\+LOHI}}(a,  b)
+\item 
+\#define \mbox{\hyperlink{value_8h_a9b2d84ef4bb33333c68d67ec49892d20}{MRB\+\_\+\+VTYPE\+\_\+\+FOREACH}}(f)
+\item 
+\#define \mbox{\hyperlink{value_8h_a40ca3ffda178a51b0535d3c6c153a7f0}{MRB\+\_\+\+VTYPE\+\_\+\+DEFINE}}(tt,  type,  name)
+\item 
+\Hypertarget{value_8h_a2d8ce5ca550d1881f3e87aff4f47e9ea}\label{value_8h_a2d8ce5ca550d1881f3e87aff4f47e9ea} 
+\#define {\bfseries MRB\+\_\+\+TT\+\_\+\+DATA}~MRB\+\_\+\+TT\+\_\+\+CDATA
+\item 
+\#define \mbox{\hyperlink{value_8h_afb19fb30b76424cb0d2d23b290e6ac27}{MRB\+\_\+\+VTYPE\+\_\+\+TYPEOF}}(tt)
+\item 
+\#define \mbox{\hyperlink{value_8h_a8172b91a81a7c98490155a3ff39fccdb}{MRB\+\_\+\+VTYPE\+\_\+\+TYPEDEF}}(tt,  type,  name)
+\item 
+\Hypertarget{value_8h_a61f15e19c8a049db418f534d559ad454}\label{value_8h_a61f15e19c8a049db418f534d559ad454} 
+\#define {\bfseries MRB\+\_\+\+TT\+\_\+\+FIXNUM}~MRB\+\_\+\+TT\+\_\+\+INTEGER
+\item 
+\Hypertarget{value_8h_abfb5cd7d5bf6da29008b153ba7e7c5c0}\label{value_8h_abfb5cd7d5bf6da29008b153ba7e7c5c0} 
+\#define {\bfseries MRB\+\_\+\+SSIZE\+\_\+\+MAX}~MRB\+\_\+\+INT\+\_\+\+MAX
+\item 
+\#define \mbox{\hyperlink{value_8h_acc2a0c519d221a7cf64b6e27b9ac5bce}{mrb\+\_\+immediate\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_a664d202da985b1d53d8baea2e2fa7cc1}{mrb\+\_\+integer\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_aec9c48670db54f8935fd0ef8b27ce604}{mrb\+\_\+fixnum\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_a6d97d24af71adcbedc80d2fb44ea17d8}{mrb\+\_\+symbol\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_ab3f01d970b0026d35ea83dc3148ca736}{mrb\+\_\+undef\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_aeaaec3b3bc883275bd836e4a649b9fa7}{mrb\+\_\+nil\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_a75870285165d5bd59d783326b2a7b5aa}{mrb\+\_\+false\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_ad20ce757f75b080b1aeb2ad6760159ee}{mrb\+\_\+true\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_ad87200f5e4dec1ca2fb51efecc1be330}{mrb\+\_\+float\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_aa98cc9214b02a3b3d448829ca67205e4}{mrb\+\_\+array\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_a4d0818f455d8802b01b7ef17a0a84d73}{mrb\+\_\+string\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_aed78232f70cd5a0a79362b11a0706140}{mrb\+\_\+hash\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_a7f896d789bb569632911033827c8edb4}{mrb\+\_\+cptr\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_a42135a731c03d177551af1f7cf7ceca7}{mrb\+\_\+exception\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_aa0561506b5e6f11822f067f871152a24}{mrb\+\_\+free\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_af3561b4091c407404887e103b3248257}{mrb\+\_\+object\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_a33c429b0e68f5509c63df27bb61c375f}{mrb\+\_\+class\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_a2e63e70f89a6daaa0bb7ca6ddb6c4f65}{mrb\+\_\+module\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_afb2434d1c70bbf91a1ec3129a45ad1a8}{mrb\+\_\+iclass\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_aeb87b9c1c4de59178733eb9e3c7b493a}{mrb\+\_\+sclass\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_af411012cc3be87c43fedc66e428a17be}{mrb\+\_\+proc\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_afc24ce70d24cb99ec57b417d5a770e5c}{mrb\+\_\+range\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_a16eaf8e332e5fc7aec2f11b2330f8bea}{mrb\+\_\+env\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_ae3b035a99bd365d92ef41a4fd99dcf73}{mrb\+\_\+data\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_a6a83f3140ef3d06c4ba33a0e3fb37d93}{mrb\+\_\+fiber\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_aedb1216d33b124589cbd6a495ca135a1}{mrb\+\_\+istruct\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_a01407635a62011c06ba5fb1ac97246c0}{mrb\+\_\+break\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_aab05a1d7ef1e1c99a1019cea50a4aeaa}{mrb\+\_\+bool}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_a113eb4f521e57197c4df5a7ffc5c0583}{mrb\+\_\+test}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_a7a78310d035b9f9becc6460d0d2bbca5}{mrb\+\_\+bigint\+\_\+p}}(o)
+\item 
+\#define \mbox{\hyperlink{value_8h_a05a043322c7781bd1a9aa458cbd5af37}{mrb\+\_\+ro\+\_\+data\+\_\+p}}(p)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{value_8h_a56c8301ba379651ae4914f29fb937953}\label{value_8h_a56c8301ba379651ae4914f29fb937953} 
+typedef uint32\+\_\+t {\bfseries mrb\+\_\+sym}
+\item 
+\Hypertarget{value_8h_a2d41fdcc591aeeabd9d536a3a050b486}\label{value_8h_a2d41fdcc591aeeabd9d536a3a050b486} 
+typedef uint8\+\_\+t {\bfseries mrb\+\_\+bool}
+\item 
+\Hypertarget{value_8h_a56245ba9f3b7f058d9708b0ebf9b2a36}\label{value_8h_a56245ba9f3b7f058d9708b0ebf9b2a36} 
+typedef int32\+\_\+t {\bfseries mrb\+\_\+int}
+\item 
+\Hypertarget{value_8h_ab830007a55778aaa3ee409a5b80ae426}\label{value_8h_ab830007a55778aaa3ee409a5b80ae426} 
+typedef uint32\+\_\+t {\bfseries mrb\+\_\+uint}
+\item 
+\Hypertarget{value_8h_a9ecf512e7d452cd9cfc8c6db03de45cd}\label{value_8h_a9ecf512e7d452cd9cfc8c6db03de45cd} 
+typedef double {\bfseries mrb\+\_\+float}
+\item 
+\Hypertarget{value_8h_ab57444a88b6fd400775adaee3538bf3b}\label{value_8h_ab57444a88b6fd400775adaee3538bf3b} 
+typedef mrb\+\_\+int {\bfseries mrb\+\_\+ssize}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{value_8h_aa5ec3ae95e9aeb70c6a9862f9e1a5561}\label{value_8h_aa5ec3ae95e9aeb70c6a9862f9e1a5561} 
+enum {\bfseries mrb\+\_\+vtype} \{ {\bfseries MRB\+\_\+\+TT\+\_\+\+MAXDEFINE}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{value_8h_ac068b835dec942ae68ae3cd445f99e71}\label{value_8h_ac068b835dec942ae68ae3cd445f99e71} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries mrb\+\_\+read\+\_\+int} (const char \texorpdfstring{$\ast$}{*}p, const char \texorpdfstring{$\ast$}{*}e, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}endp, mrb\+\_\+int \texorpdfstring{$\ast$}{*}np)
+\item 
+\Hypertarget{value_8h_add97e5440fbc6bb5b51cff10a609414c}\label{value_8h_add97e5440fbc6bb5b51cff10a609414c} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} mrb\+\_\+int {\bfseries mrb\+\_\+int\+\_\+read} (const char \texorpdfstring{$\ast$}{*}, const char \texorpdfstring{$\ast$}{*}, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{value_8h_a0976b8f2a41953fbf6f1fefec43e2e8c}\label{value_8h_a0976b8f2a41953fbf6f1fefec43e2e8c} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} {\bfseries mrb\+\_\+read\+\_\+float} (const char \texorpdfstring{$\ast$}{*}p, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}endp, double \texorpdfstring{$\ast$}{*}fp)
+\item 
+\Hypertarget{value_8h_a68ffd96364afff5b438c110e6899f821}\label{value_8h_a68ffd96364afff5b438c110e6899f821} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} double {\bfseries mrb\+\_\+float\+\_\+read} (const char \texorpdfstring{$\ast$}{*}p, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}endp)
+\item 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{value_8h_a433acd8c8fa80ed9e56744fbf1745d48}{mrb\+\_\+float\+\_\+value}} (struct \mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, mrb\+\_\+float f)
+\item 
+\Hypertarget{value_8h_a45806023efacde31b1b47c3859b62dcf}\label{value_8h_a45806023efacde31b1b47c3859b62dcf} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+cptr\+\_\+value} (struct \mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, void \texorpdfstring{$\ast$}{*}p)
+\item 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{value_8h_adc316fcf5ff30a03be926179c8f276d1}{mrb\+\_\+int\+\_\+value}} (struct \mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, mrb\+\_\+int i)
+\item 
+\Hypertarget{value_8h_a071ec6b6ab498a664ed5aae54d693e7c}\label{value_8h_a071ec6b6ab498a664ed5aae54d693e7c} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+fixnum\+\_\+value} (mrb\+\_\+int i)
+\item 
+\Hypertarget{value_8h_a2f29b53fbbd4990606b34c9a515df21c}\label{value_8h_a2f29b53fbbd4990606b34c9a515df21c} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+symbol\+\_\+value} (\mbox{\hyperlink{classmrb__sym}{mrb\+\_\+sym}} i)
+\item 
+\Hypertarget{value_8h_afa46fd859eae1037a656db1645bdbda3}\label{value_8h_afa46fd859eae1037a656db1645bdbda3} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+obj\+\_\+value} (void \texorpdfstring{$\ast$}{*}p)
+\item 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{value_8h_aed2477aa94423b268ae791949313f277}{mrb\+\_\+nil\+\_\+value}} (void)
+\item 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{value_8h_aac8220a2fbc784eec48a661773276429}{mrb\+\_\+false\+\_\+value}} (void)
+\item 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} \mbox{\hyperlink{value_8h_ac80edd77fea9c97597aff8de37658585}{mrb\+\_\+true\+\_\+value}} (void)
+\item 
+\Hypertarget{value_8h_a3c2034b7b8e9d5f5ae18697b87342b48}\label{value_8h_a3c2034b7b8e9d5f5ae18697b87342b48} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+bool\+\_\+value} (\mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} boolean)
+\item 
+\Hypertarget{value_8h_a3f7b229cddded10ccd106fbbfb29a9b9}\label{value_8h_a3f7b229cddded10ccd106fbbfb29a9b9} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+undef\+\_\+value} (void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item mruby value definitions
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-define-members}
+\Hypertarget{value_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{value_8h_aa98cc9214b02a3b3d448829ca67205e4}\index{value.h@{value.h}!mrb\_array\_p@{mrb\_array\_p}}
+\index{mrb\_array\_p@{mrb\_array\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_array\_p}{mrb\_array\_p}}
+{\footnotesize\ttfamily \label{value_8h_aa98cc9214b02a3b3d448829ca67205e4} 
+\#define mrb\+\_\+array\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_ARRAY)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_a7a78310d035b9f9becc6460d0d2bbca5}\index{value.h@{value.h}!mrb\_bigint\_p@{mrb\_bigint\_p}}
+\index{mrb\_bigint\_p@{mrb\_bigint\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_bigint\_p}{mrb\_bigint\_p}}
+{\footnotesize\ttfamily \label{value_8h_a7a78310d035b9f9becc6460d0d2bbca5} 
+\#define mrb\+\_\+bigint\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_BIGINT)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_aab05a1d7ef1e1c99a1019cea50a4aeaa}\index{value.h@{value.h}!mrb\_bool@{mrb\_bool}}
+\index{mrb\_bool@{mrb\_bool}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_bool}{mrb\_bool}}
+{\footnotesize\ttfamily \label{value_8h_aab05a1d7ef1e1c99a1019cea50a4aeaa} 
+\#define mrb\+\_\+bool(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ !=\ MRB\_TT\_FALSE)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_a01407635a62011c06ba5fb1ac97246c0}\index{value.h@{value.h}!mrb\_break\_p@{mrb\_break\_p}}
+\index{mrb\_break\_p@{mrb\_break\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_break\_p}{mrb\_break\_p}}
+{\footnotesize\ttfamily \label{value_8h_a01407635a62011c06ba5fb1ac97246c0} 
+\#define mrb\+\_\+break\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_BREAK)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_a33c429b0e68f5509c63df27bb61c375f}\index{value.h@{value.h}!mrb\_class\_p@{mrb\_class\_p}}
+\index{mrb\_class\_p@{mrb\_class\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_class\_p}{mrb\_class\_p}}
+{\footnotesize\ttfamily \label{value_8h_a33c429b0e68f5509c63df27bb61c375f} 
+\#define mrb\+\_\+class\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_CLASS)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_a7f896d789bb569632911033827c8edb4}\index{value.h@{value.h}!mrb\_cptr\_p@{mrb\_cptr\_p}}
+\index{mrb\_cptr\_p@{mrb\_cptr\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_cptr\_p}{mrb\_cptr\_p}}
+{\footnotesize\ttfamily \label{value_8h_a7f896d789bb569632911033827c8edb4} 
+\#define mrb\+\_\+cptr\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_CPTR)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_ae3b035a99bd365d92ef41a4fd99dcf73}\index{value.h@{value.h}!mrb\_data\_p@{mrb\_data\_p}}
+\index{mrb\_data\_p@{mrb\_data\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_data\_p}{mrb\_data\_p}}
+{\footnotesize\ttfamily \label{value_8h_ae3b035a99bd365d92ef41a4fd99dcf73} 
+\#define mrb\+\_\+data\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_CDATA)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_acf97eafb17099f28018f770951378567}\index{value.h@{value.h}!MRB\_ENDIAN\_LOHI@{MRB\_ENDIAN\_LOHI}}
+\index{MRB\_ENDIAN\_LOHI@{MRB\_ENDIAN\_LOHI}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_ENDIAN\_LOHI}{MRB\_ENDIAN\_LOHI}}
+{\footnotesize\ttfamily \label{value_8h_acf97eafb17099f28018f770951378567} 
+\#define MRB\+\_\+\+ENDIAN\+\_\+\+LOHI(\begin{DoxyParamCaption}\item[{}]{a}{, }\item[{}]{b}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{b\ a}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_a16eaf8e332e5fc7aec2f11b2330f8bea}\index{value.h@{value.h}!mrb\_env\_p@{mrb\_env\_p}}
+\index{mrb\_env\_p@{mrb\_env\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_env\_p}{mrb\_env\_p}}
+{\footnotesize\ttfamily \label{value_8h_a16eaf8e332e5fc7aec2f11b2330f8bea} 
+\#define mrb\+\_\+env\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_ENV)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_a42135a731c03d177551af1f7cf7ceca7}\index{value.h@{value.h}!mrb\_exception\_p@{mrb\_exception\_p}}
+\index{mrb\_exception\_p@{mrb\_exception\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_exception\_p}{mrb\_exception\_p}}
+{\footnotesize\ttfamily \label{value_8h_a42135a731c03d177551af1f7cf7ceca7} 
+\#define mrb\+\_\+exception\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_EXCEPTION)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_a75870285165d5bd59d783326b2a7b5aa}\index{value.h@{value.h}!mrb\_false\_p@{mrb\_false\_p}}
+\index{mrb\_false\_p@{mrb\_false\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_false\_p}{mrb\_false\_p}}
+{\footnotesize\ttfamily \label{value_8h_a75870285165d5bd59d783326b2a7b5aa} 
+\#define mrb\+\_\+false\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_FALSE\ \&\&\ !!mrb\_fixnum(o))}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_a6a83f3140ef3d06c4ba33a0e3fb37d93}\index{value.h@{value.h}!mrb\_fiber\_p@{mrb\_fiber\_p}}
+\index{mrb\_fiber\_p@{mrb\_fiber\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_fiber\_p}{mrb\_fiber\_p}}
+{\footnotesize\ttfamily \label{value_8h_a6a83f3140ef3d06c4ba33a0e3fb37d93} 
+\#define mrb\+\_\+fiber\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_FIBER)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_aec9c48670db54f8935fd0ef8b27ce604}\index{value.h@{value.h}!mrb\_fixnum\_p@{mrb\_fixnum\_p}}
+\index{mrb\_fixnum\_p@{mrb\_fixnum\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_fixnum\_p}{mrb\_fixnum\_p}}
+{\footnotesize\ttfamily \label{value_8h_aec9c48670db54f8935fd0ef8b27ce604} 
+\#define mrb\+\_\+fixnum\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_integer\_p(o)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_ad87200f5e4dec1ca2fb51efecc1be330}\index{value.h@{value.h}!mrb\_float\_p@{mrb\_float\_p}}
+\index{mrb\_float\_p@{mrb\_float\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_float\_p}{mrb\_float\_p}}
+{\footnotesize\ttfamily \label{value_8h_ad87200f5e4dec1ca2fb51efecc1be330} 
+\#define mrb\+\_\+float\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_FLOAT)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_aa0561506b5e6f11822f067f871152a24}\index{value.h@{value.h}!mrb\_free\_p@{mrb\_free\_p}}
+\index{mrb\_free\_p@{mrb\_free\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_free\_p}{mrb\_free\_p}}
+{\footnotesize\ttfamily \label{value_8h_aa0561506b5e6f11822f067f871152a24} 
+\#define mrb\+\_\+free\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_FREE)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_aed78232f70cd5a0a79362b11a0706140}\index{value.h@{value.h}!mrb\_hash\_p@{mrb\_hash\_p}}
+\index{mrb\_hash\_p@{mrb\_hash\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_hash\_p}{mrb\_hash\_p}}
+{\footnotesize\ttfamily \label{value_8h_aed78232f70cd5a0a79362b11a0706140} 
+\#define mrb\+\_\+hash\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_HASH)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_afb2434d1c70bbf91a1ec3129a45ad1a8}\index{value.h@{value.h}!mrb\_iclass\_p@{mrb\_iclass\_p}}
+\index{mrb\_iclass\_p@{mrb\_iclass\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_iclass\_p}{mrb\_iclass\_p}}
+{\footnotesize\ttfamily \label{value_8h_afb2434d1c70bbf91a1ec3129a45ad1a8} 
+\#define mrb\+\_\+iclass\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_ICLASS)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_acc2a0c519d221a7cf64b6e27b9ac5bce}\index{value.h@{value.h}!mrb\_immediate\_p@{mrb\_immediate\_p}}
+\index{mrb\_immediate\_p@{mrb\_immediate\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_immediate\_p}{mrb\_immediate\_p}}
+{\footnotesize\ttfamily \label{value_8h_acc2a0c519d221a7cf64b6e27b9ac5bce} 
+\#define mrb\+\_\+immediate\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ <=\ MRB\_TT\_CPTR)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_a664d202da985b1d53d8baea2e2fa7cc1}\index{value.h@{value.h}!mrb\_integer\_p@{mrb\_integer\_p}}
+\index{mrb\_integer\_p@{mrb\_integer\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_integer\_p}{mrb\_integer\_p}}
+{\footnotesize\ttfamily \label{value_8h_a664d202da985b1d53d8baea2e2fa7cc1} 
+\#define mrb\+\_\+integer\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_INTEGER)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_aedb1216d33b124589cbd6a495ca135a1}\index{value.h@{value.h}!mrb\_istruct\_p@{mrb\_istruct\_p}}
+\index{mrb\_istruct\_p@{mrb\_istruct\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_istruct\_p}{mrb\_istruct\_p}}
+{\footnotesize\ttfamily \label{value_8h_aedb1216d33b124589cbd6a495ca135a1} 
+\#define mrb\+\_\+istruct\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_ISTRUCT)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_a2e63e70f89a6daaa0bb7ca6ddb6c4f65}\index{value.h@{value.h}!mrb\_module\_p@{mrb\_module\_p}}
+\index{mrb\_module\_p@{mrb\_module\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_module\_p}{mrb\_module\_p}}
+{\footnotesize\ttfamily \label{value_8h_a2e63e70f89a6daaa0bb7ca6ddb6c4f65} 
+\#define mrb\+\_\+module\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_MODULE)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_aeaaec3b3bc883275bd836e4a649b9fa7}\index{value.h@{value.h}!mrb\_nil\_p@{mrb\_nil\_p}}
+\index{mrb\_nil\_p@{mrb\_nil\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_nil\_p}{mrb\_nil\_p}}
+{\footnotesize\ttfamily \label{value_8h_aeaaec3b3bc883275bd836e4a649b9fa7} 
+\#define mrb\+\_\+nil\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_FALSE\ \&\&\ !mrb\_fixnum(o))}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_af3561b4091c407404887e103b3248257}\index{value.h@{value.h}!mrb\_object\_p@{mrb\_object\_p}}
+\index{mrb\_object\_p@{mrb\_object\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_object\_p}{mrb\_object\_p}}
+{\footnotesize\ttfamily \label{value_8h_af3561b4091c407404887e103b3248257} 
+\#define mrb\+\_\+object\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_OBJECT)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_af411012cc3be87c43fedc66e428a17be}\index{value.h@{value.h}!mrb\_proc\_p@{mrb\_proc\_p}}
+\index{mrb\_proc\_p@{mrb\_proc\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_proc\_p}{mrb\_proc\_p}}
+{\footnotesize\ttfamily \label{value_8h_af411012cc3be87c43fedc66e428a17be} 
+\#define mrb\+\_\+proc\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_PROC)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_afc24ce70d24cb99ec57b417d5a770e5c}\index{value.h@{value.h}!mrb\_range\_p@{mrb\_range\_p}}
+\index{mrb\_range\_p@{mrb\_range\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_range\_p}{mrb\_range\_p}}
+{\footnotesize\ttfamily \label{value_8h_afc24ce70d24cb99ec57b417d5a770e5c} 
+\#define mrb\+\_\+range\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_RANGE)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_a05a043322c7781bd1a9aa458cbd5af37}\index{value.h@{value.h}!mrb\_ro\_data\_p@{mrb\_ro\_data\_p}}
+\index{mrb\_ro\_data\_p@{mrb\_ro\_data\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_ro\_data\_p}{mrb\_ro\_data\_p}}
+{\footnotesize\ttfamily \label{value_8h_a05a043322c7781bd1a9aa458cbd5af37} 
+\#define mrb\+\_\+ro\+\_\+data\+\_\+p(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FALSE}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_aeb87b9c1c4de59178733eb9e3c7b493a}\index{value.h@{value.h}!mrb\_sclass\_p@{mrb\_sclass\_p}}
+\index{mrb\_sclass\_p@{mrb\_sclass\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_sclass\_p}{mrb\_sclass\_p}}
+{\footnotesize\ttfamily \label{value_8h_aeb87b9c1c4de59178733eb9e3c7b493a} 
+\#define mrb\+\_\+sclass\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_SCLASS)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_a4d0818f455d8802b01b7ef17a0a84d73}\index{value.h@{value.h}!mrb\_string\_p@{mrb\_string\_p}}
+\index{mrb\_string\_p@{mrb\_string\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_string\_p}{mrb\_string\_p}}
+{\footnotesize\ttfamily \label{value_8h_a4d0818f455d8802b01b7ef17a0a84d73} 
+\#define mrb\+\_\+string\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_STRING)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_a6d97d24af71adcbedc80d2fb44ea17d8}\index{value.h@{value.h}!mrb\_symbol\_p@{mrb\_symbol\_p}}
+\index{mrb\_symbol\_p@{mrb\_symbol\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_symbol\_p}{mrb\_symbol\_p}}
+{\footnotesize\ttfamily \label{value_8h_a6d97d24af71adcbedc80d2fb44ea17d8} 
+\#define mrb\+\_\+symbol\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_SYMBOL)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_a113eb4f521e57197c4df5a7ffc5c0583}\index{value.h@{value.h}!mrb\_test@{mrb\_test}}
+\index{mrb\_test@{mrb\_test}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_test}{mrb\_test}}
+{\footnotesize\ttfamily \label{value_8h_a113eb4f521e57197c4df5a7ffc5c0583} 
+\#define mrb\+\_\+test(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_bool(o)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_ad20ce757f75b080b1aeb2ad6760159ee}\index{value.h@{value.h}!mrb\_true\_p@{mrb\_true\_p}}
+\index{mrb\_true\_p@{mrb\_true\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_true\_p}{mrb\_true\_p}}
+{\footnotesize\ttfamily \label{value_8h_ad20ce757f75b080b1aeb2ad6760159ee} 
+\#define mrb\+\_\+true\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_TRUE)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_ab3f01d970b0026d35ea83dc3148ca736}\index{value.h@{value.h}!mrb\_undef\_p@{mrb\_undef\_p}}
+\index{mrb\_undef\_p@{mrb\_undef\_p}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_undef\_p}{mrb\_undef\_p}}
+{\footnotesize\ttfamily \label{value_8h_ab3f01d970b0026d35ea83dc3148ca736} 
+\#define mrb\+\_\+undef\+\_\+p(\begin{DoxyParamCaption}\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(mrb\_type(o)\ ==\ MRB\_TT\_UNDEF)}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_a40ca3ffda178a51b0535d3c6c153a7f0}\index{value.h@{value.h}!MRB\_VTYPE\_DEFINE@{MRB\_VTYPE\_DEFINE}}
+\index{MRB\_VTYPE\_DEFINE@{MRB\_VTYPE\_DEFINE}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_VTYPE\_DEFINE}{MRB\_VTYPE\_DEFINE}}
+{\footnotesize\ttfamily \label{value_8h_a40ca3ffda178a51b0535d3c6c153a7f0} 
+\#define MRB\+\_\+\+VTYPE\+\_\+\+DEFINE(\begin{DoxyParamCaption}\item[{}]{tt}{, }\item[{}]{type}{, }\item[{}]{name}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{tt,}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_a9b2d84ef4bb33333c68d67ec49892d20}\index{value.h@{value.h}!MRB\_VTYPE\_FOREACH@{MRB\_VTYPE\_FOREACH}}
+\index{MRB\_VTYPE\_FOREACH@{MRB\_VTYPE\_FOREACH}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_VTYPE\_FOREACH}{MRB\_VTYPE\_FOREACH}}
+{\footnotesize\ttfamily \label{value_8h_a9b2d84ef4bb33333c68d67ec49892d20} 
+\#define MRB\+\_\+\+VTYPE\+\_\+\+FOREACH(\begin{DoxyParamCaption}\item[{}]{f}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ mrb\_vtype\ */}\ \ \ \ \ \textcolor{comment}{/*\ c\ type\ */}\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ruby\ class\ */}\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_FALSE,\ \ \ \ \ \ \ \textcolor{keywordtype}{void},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}false"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_TRUE,\ \ \ \ \ \ \ \ \textcolor{keywordtype}{void},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}true"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_SYMBOL,\ \ \ \ \ \ \textcolor{keywordtype}{void},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Symbol"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_UNDEF,\ \ \ \ \ \ \ \textcolor{keywordtype}{void},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}undefined"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_FREE,\ \ \ \ \ \ \ \ \textcolor{keywordtype}{void},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}free"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_FLOAT,\ \ \ \ \ \ \ \textcolor{keyword}{struct}\ RFloat,\ \ \ \ \ \ \textcolor{stringliteral}{"{}Float"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_INTEGER,\ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRInteger}{RInteger}},\ \ \ \ \textcolor{stringliteral}{"{}Integer"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_CPTR,\ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ RCptr,\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}cptr"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_OBJECT,\ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRObject}{RObject}},\ \ \ \ \ \textcolor{stringliteral}{"{}Object"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_CLASS,\ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}},\ \ \ \ \ \ \textcolor{stringliteral}{"{}Class"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_MODULE,\ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}},\ \ \ \ \ \ \textcolor{stringliteral}{"{}Module"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_ICLASS,\ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}},\ \ \ \ \ \ \textcolor{stringliteral}{"{}iClass"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_SCLASS,\ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}},\ \ \ \ \ \ \textcolor{stringliteral}{"{}SClass"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_PROC,\ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRProc}{RProc}},\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Proc"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_ARRAY,\ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRArray}{RArray}},\ \ \ \ \ \ \textcolor{stringliteral}{"{}Array"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_HASH,\ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRHash}{RHash}},\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Hash"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_STRING,\ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRString}{RString}},\ \ \ \ \ \textcolor{stringliteral}{"{}String"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_RANGE,\ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRRange}{RRange}},\ \ \ \ \ \ \textcolor{stringliteral}{"{}Range"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_EXCEPTION,\ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRException}{RException}},\ \ \textcolor{stringliteral}{"{}Exception"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_ENV,\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structREnv}{REnv}},\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}env"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_CDATA,\ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRData}{RData}},\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}C\ data"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_FIBER,\ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRFiber}{RFiber}},\ \ \ \ \ \ \textcolor{stringliteral}{"{}Fiber"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_STRUCT,\ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRArray}{RArray}},\ \ \ \ \ \ \textcolor{stringliteral}{"{}Struct"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_ISTRUCT,\ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRIStruct}{RIStruct}},\ \ \ \ \textcolor{stringliteral}{"{}istruct"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_BREAK,\ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRBreak}{RBreak}},\ \ \ \ \ \ \textcolor{stringliteral}{"{}break"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_COMPLEX,\ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRComplex}{RComplex}},\ \ \ \ \textcolor{stringliteral}{"{}Complex"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_RATIONAL,\ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRRational}{RRational}},\ \ \ \textcolor{stringliteral}{"{}Rational"{}})\ \(\backslash\)}
+\DoxyCodeLine{\ \ f(MRB\_TT\_BIGINT,\ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRBigint}{RBigint}},\ \ \ \ \ \textcolor{stringliteral}{"{}Integer"{}})}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_a8172b91a81a7c98490155a3ff39fccdb}\index{value.h@{value.h}!MRB\_VTYPE\_TYPEDEF@{MRB\_VTYPE\_TYPEDEF}}
+\index{MRB\_VTYPE\_TYPEDEF@{MRB\_VTYPE\_TYPEDEF}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_VTYPE\_TYPEDEF}{MRB\_VTYPE\_TYPEDEF}}
+{\footnotesize\ttfamily \label{value_8h_a8172b91a81a7c98490155a3ff39fccdb} 
+\#define MRB\+\_\+\+VTYPE\+\_\+\+TYPEDEF(\begin{DoxyParamCaption}\item[{}]{tt}{, }\item[{}]{type}{, }\item[{}]{name}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ type\ MRB\_VTYPE\_TYPEOF(tt);}
+
+\end{DoxyCode}
+\Hypertarget{value_8h_afb19fb30b76424cb0d2d23b290e6ac27}\index{value.h@{value.h}!MRB\_VTYPE\_TYPEOF@{MRB\_VTYPE\_TYPEOF}}
+\index{MRB\_VTYPE\_TYPEOF@{MRB\_VTYPE\_TYPEOF}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{MRB\_VTYPE\_TYPEOF}{MRB\_VTYPE\_TYPEOF}}
+{\footnotesize\ttfamily \label{value_8h_afb19fb30b76424cb0d2d23b290e6ac27} 
+\#define MRB\+\_\+\+VTYPE\+\_\+\+TYPEOF(\begin{DoxyParamCaption}\item[{}]{tt}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{MRB\_TYPEOF\_\#\#tt}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{value_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{value_8h_aac8220a2fbc784eec48a661773276429}\index{value.h@{value.h}!mrb\_false\_value@{mrb\_false\_value}}
+\index{mrb\_false\_value@{mrb\_false\_value}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_false\_value()}{mrb\_false\_value()}}
+{\footnotesize\ttfamily \label{value_8h_aac8220a2fbc784eec48a661773276429} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+false\+\_\+value (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+Returns false in Ruby. \Hypertarget{value_8h_a433acd8c8fa80ed9e56744fbf1745d48}\index{value.h@{value.h}!mrb\_float\_value@{mrb\_float\_value}}
+\index{mrb\_float\_value@{mrb\_float\_value}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_float\_value()}{mrb\_float\_value()}}
+{\footnotesize\ttfamily \label{value_8h_a433acd8c8fa80ed9e56744fbf1745d48} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+float\+\_\+value (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{mrb\+\_\+float}]{f}{}\end{DoxyParamCaption})}
+
+Returns a float in Ruby.
+
+Takes a float and boxes it into an \doxylink{structmrb__value}{mrb\+\_\+value} \Hypertarget{value_8h_adc316fcf5ff30a03be926179c8f276d1}\index{value.h@{value.h}!mrb\_int\_value@{mrb\_int\_value}}
+\index{mrb\_int\_value@{mrb\_int\_value}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_int\_value()}{mrb\_int\_value()}}
+{\footnotesize\ttfamily \label{value_8h_adc316fcf5ff30a03be926179c8f276d1} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+int\+\_\+value (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{mrb}{, }\item[{mrb\+\_\+int}]{i}{}\end{DoxyParamCaption})}
+
+Returns an integer in Ruby. \Hypertarget{value_8h_aed2477aa94423b268ae791949313f277}\index{value.h@{value.h}!mrb\_nil\_value@{mrb\_nil\_value}}
+\index{mrb\_nil\_value@{mrb\_nil\_value}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_nil\_value()}{mrb\_nil\_value()}}
+{\footnotesize\ttfamily \label{value_8h_aed2477aa94423b268ae791949313f277} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+nil\+\_\+value (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+Get a nil \doxylink{structmrb__value}{mrb\+\_\+value} object.
+
+\begin{DoxyReturn}{Returns}
+nil \doxylink{structmrb__value}{mrb\+\_\+value} object reference. 
+\end{DoxyReturn}
+\Hypertarget{value_8h_ac80edd77fea9c97597aff8de37658585}\index{value.h@{value.h}!mrb\_true\_value@{mrb\_true\_value}}
+\index{mrb\_true\_value@{mrb\_true\_value}!value.h@{value.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_true\_value()}{mrb\_true\_value()}}
+{\footnotesize\ttfamily \label{value_8h_ac80edd77fea9c97597aff8de37658585} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} mrb\+\_\+true\+\_\+value (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+Returns true in Ruby. 

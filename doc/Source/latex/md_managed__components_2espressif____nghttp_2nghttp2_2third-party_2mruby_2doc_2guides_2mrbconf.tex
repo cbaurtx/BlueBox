@@ -1,0 +1,325 @@
+\chapter{mruby configuration macros }
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf}{}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf}\index{mruby configuration macros@{mruby configuration macros}}
+\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md348}%
+\Hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md348}%
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md349}{}\doxysection{\texorpdfstring{The configuration file}{The configuration file}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md349}
+You can do the build configuration in the build configuration file. The default configuration file is {\ttfamily build\+\_\+config/default.\+rb}.
+
+You can specify your own configuration file by the {\ttfamily MRUBY\+\_\+\+CONFIG} environment variable (you can use {\ttfamily CONFIG} for shorthand for {\ttfamily MRUBY\+\_\+\+CONFIG}). If the path doesn\textquotesingle{}t exist, {\ttfamily build\+\_\+config/\$\{MRUBY\+\_\+\+CONFIG\}.rb} is used.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md350}{}\doxysection{\texorpdfstring{How to use these macros}{How to use these macros}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md350}
+Just add the configuration value to the {\ttfamily MRuby\+::\+Build\#defines} attribute. This is the same for {\ttfamily MRuby\+::\+Cross\+Build}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ build\_config.rb}
+\DoxyCodeLine{}
+\DoxyCodeLine{MRuby::Build.new\ do\ |conf|}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \ conf.defines\ <<\ 'MRB\_GC\_FIXED\_ARENA'}
+\DoxyCodeLine{\ \ conf.defines\ <<\ 'MRB\_NO\_METHOD\_CACHE'}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+
+
+{\bfseries{{\itshape NOTE}}}
+
+
+\begin{DoxyItemize}
+\item Use common definitions ({\ttfamily conf.\+defines}) instead of per-\/compiler definitions (e.\+g., {\ttfamily conf.\+cc.\+defines}) unless there is a special reason not to.
+\item It is now deprecated to edit the {\ttfamily include/mruby/mrbconf.\+h} file or give it directly as a compiler flag, as was the case before.
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md351}{}\doxysection{\texorpdfstring{stdio setting}{stdio setting}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md351}
+{\ttfamily MRB\+\_\+\+NO\+\_\+\+STDIO}
+
+
+\begin{DoxyItemize}
+\item When defined {\ttfamily \texorpdfstring{$<$}{<}stdio.\+h\texorpdfstring{$>$}{>}} functions won\textquotesingle{}t be used.
+\item Some features will be disabled when this is enabled\+:
+\begin{DoxyItemize}
+\item {\ttfamily \doxylink{structmrb__irep}{mrb\+\_\+irep}} load/dump from/to file.
+\item Compiling mruby script from a file.
+\item Printing features in {\bfseries{src/print.\+c}}.
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md352}{}\doxysection{\texorpdfstring{Debug macros}{Debug macros}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md352}
+{\ttfamily MRB\+\_\+\+USE\+\_\+\+DEBUG\+\_\+\+HOOK}
+
+
+\begin{DoxyItemize}
+\item When defined code fetch hook and debug OP hook will be enabled.
+\item When using any of the hook set function pointer {\ttfamily code\+\_\+fetch\+\_\+hook} and/or {\ttfamily debug\+\_\+op\+\_\+hook} of {\ttfamily \doxylink{structmrb__state}{mrb\+\_\+state}}.
+\item Fetch hook will be called before any OP.
+\item Debug OP hook will be called when dispatching {\ttfamily OP\+\_\+\+DEBUG}.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+DEBUG}
+
+
+\begin{DoxyItemize}
+\item When defined {\ttfamily mrb\+\_\+assert\texorpdfstring{$\ast$}{*}} macro will be defined with macros from {\ttfamily \texorpdfstring{$<$}{<}assert.\+h\texorpdfstring{$>$}{>}}.
+\item Could be enabled via {\ttfamily enable\+\_\+debug} method of {\ttfamily MRuby\+::\+Build}.
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md353}{}\doxysection{\texorpdfstring{Stack configuration}{Stack configuration}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md353}
+{\ttfamily MRB\+\_\+\+STACK\+\_\+\+EXTEND\+\_\+\+DOUBLING}
+
+
+\begin{DoxyItemize}
+\item If defined doubles the stack size when extending it.
+\item Otherwise extends stack with {\ttfamily MRB\+\_\+\+STACK\+\_\+\+GROWTH}.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+STACK\+\_\+\+GROWTH}
+
+
+\begin{DoxyItemize}
+\item Default value is {\ttfamily 128}.
+\item Used in stack extending.
+\item Ignored when {\ttfamily MRB\+\_\+\+STACK\+\_\+\+EXTEND\+\_\+\+DOUBLING} is defined.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+STACK\+\_\+\+MAX}
+
+
+\begin{DoxyItemize}
+\item Default value is {\ttfamily 0x40000 -\/ MRB\+\_\+\+STACK\+\_\+\+GROWTH}.
+\item Raises {\ttfamily Runtime\+Error} when stack size exceeds this value.
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md354}{}\doxysection{\texorpdfstring{Primitive type configuration}{Primitive type configuration}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md354}
+{\ttfamily MRB\+\_\+\+USE\+\_\+\+FLOAT32}
+
+
+\begin{DoxyItemize}
+\item When defined single-\/precision floating-\/point type(C type {\ttfamily float}) is used as {\ttfamily mrb\+\_\+float}.
+\item Otherwise, double-\/precision floating-\/point type(C type {\ttfamily double}) is used as {\ttfamily mrb\+\_\+float}.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+NO\+\_\+\+FLOAT}
+
+
+\begin{DoxyItemize}
+\item When defined removes floating-\/point numbers from mruby.
+\item It makes mruby easier to handle in "{}\+Micro-\/controller without FPU"{} and "{}\+Kernel Space"{}.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+INT32}
+
+
+\begin{DoxyItemize}
+\item When defined, or {\ttfamily MRB\+\_\+\+INT64} are not defined on 32-\/bit CPU mode, {\ttfamily mrb\+\_\+int} will be defined as {\ttfamily int32\+\_\+t}.
+\item Conflicts with {\ttfamily MRB\+\_\+\+INT64}.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+INT64}
+
+
+\begin{DoxyItemize}
+\item When defined, or {\ttfamily MRB\+\_\+\+INT32} are not defined on 64-\/bit CPU mode, {\ttfamily mrb\+\_\+int} will be defined as {\ttfamily int64\+\_\+t}.
+\item Conflicts with {\ttfamily MRB\+\_\+\+INT32}.
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md355}{}\doxysection{\texorpdfstring{Garbage collector configuration}{Garbage collector configuration}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md355}
+{\ttfamily MRB\+\_\+\+GC\+\_\+\+STRESS}
+
+
+\begin{DoxyItemize}
+\item When defined full GC is emitted per each {\ttfamily \doxylink{structRBasic}{RBasic}} allocation.
+\item Mainly used in memory manager debugging.
+\item If defined at the same time as {\ttfamily MRB\+\_\+\+DEBUG}, full GC is emitted also per each heap allocation ({\ttfamily mrb\+\_\+malloc()} or etc.). This configuration slows down mruby execution by a factor of 2 to 3 or even more.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+GC\+\_\+\+TURN\+\_\+\+OFF\+\_\+\+GENERATIONAL}
+
+
+\begin{DoxyItemize}
+\item When defined turns generational GC by default.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+GC\+\_\+\+FIXED\+\_\+\+ARENA}
+
+
+\begin{DoxyItemize}
+\item When defined used fixed size GC arena.
+\item Raises {\ttfamily Runtime\+Error} when this is defined and GC arena size exceeds {\ttfamily MRB\+\_\+\+GC\+\_\+\+ARENA\+\_\+\+SIZE}.
+\item Useful tracking unnecessary mruby object allocation.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+GC\+\_\+\+ARENA\+\_\+\+SIZE}
+
+
+\begin{DoxyItemize}
+\item Default value is {\ttfamily 100}.
+\item Ignored when {\ttfamily MRB\+\_\+\+GC\+\_\+\+FIXED\+\_\+\+ARENA} isn\textquotesingle{}t defined.
+\item Defines fixed GC arena size.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+HEAP\+\_\+\+PAGE\+\_\+\+SIZE}
+
+
+\begin{DoxyItemize}
+\item Defines value is {\ttfamily 1024}.
+\item Specifies number of {\ttfamily \doxylink{structRBasic}{RBasic}} per each heap page.
+\item To calculate the number of bytes per heap page, it is "{}(size of management data per heap page) + (size per object) \textbackslash{}\texorpdfstring{$\ast$}{*} \`{}\+MRB\+\_\+\+HEAP\+\_\+\+PAGE\+\_\+\+SIZE\`{}"{}. In mruby 3.\+1.\+0, the "{}size of management data per heap page"{} is 6 words, also "{}size per object"{} is 6 words. For a 32-\/bit CPU, {\ttfamily (6 \texorpdfstring{$\ast$}{*} 4) + (6 \texorpdfstring{$\ast$}{*} 4) \texorpdfstring{$\ast$}{*} MRB\+\_\+\+HEAP\+\_\+\+PAGE\+\_\+\+SIZE} gives the bytes of size per heap page. Conversely, for example, to keep the size per heap page to 4 Ki bytes, calculate {\ttfamily (4096 -\/ (6 \texorpdfstring{$\ast$}{*} 4)) / (6 \texorpdfstring{$\ast$}{*} 4)} to specify {\ttfamily MRB\+\_\+\+HEAP\+\_\+\+PAGE\+\_\+\+SIZE=169}.
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md356}{}\doxysection{\texorpdfstring{Memory pool configuration}{Memory pool configuration}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md356}
+{\ttfamily POOL\+\_\+\+ALIGNMENT}
+
+
+\begin{DoxyItemize}
+\item Default value is {\ttfamily 4}.
+\item If you\textquotesingle{}re allocating data types that requires alignment more than default value define the largest value of required alignment.
+\end{DoxyItemize}
+
+{\ttfamily POOL\+\_\+\+PAGE\+\_\+\+SIZE}
+
+
+\begin{DoxyItemize}
+\item Default value is {\ttfamily 16000}.
+\item Specifies page size of pool page.
+\item Smaller the value is increases memory overhead.
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md357}{}\doxysection{\texorpdfstring{State atexit configuration}{State atexit configuration}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md357}
+{\ttfamily MRB\+\_\+\+FIXED\+\_\+\+STATE\+\_\+\+ATEXIT\+\_\+\+STACK}
+
+
+\begin{DoxyItemize}
+\item If defined enables fixed size {\ttfamily \doxylink{structmrb__state}{mrb\+\_\+state}} atexit stack.
+\item Raises {\ttfamily Runtime\+Error} when {\ttfamily mrb\+\_\+state\+\_\+atexit} call count to same {\ttfamily \doxylink{structmrb__state}{mrb\+\_\+state}} exceeds {\ttfamily MRB\+\_\+\+FIXED\+\_\+\+STATE\+\_\+\+ATEXIT\+\_\+\+STACK\+\_\+\+SIZE}\textquotesingle{}s value.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+FIXED\+\_\+\+STATE\+\_\+\+ATEXIT\+\_\+\+STACK\+\_\+\+SIZE}
+
+
+\begin{DoxyItemize}
+\item Default value is {\ttfamily 5}.
+\item If {\ttfamily MRB\+\_\+\+FIXED\+\_\+\+STATE\+\_\+\+ATEXIT\+\_\+\+STACK} isn\textquotesingle{}t defined this macro is ignored.
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md358}{}\doxysection{\texorpdfstring{{\ttfamily mrb\+\_\+value} configuration}{{\ttfamily mrb\+\_\+value} configuration}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md358}
+{\ttfamily MRB\+\_\+\+ENDIAN\+\_\+\+BIG}
+
+
+\begin{DoxyItemize}
+\item If defined compiles mruby for big endian machines.
+\item Used in {\ttfamily MRB\+\_\+\+NAN\+\_\+\+BOXING}.
+\item Some mrbgem use this mrbconf.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+NAN\+\_\+\+BOXING}
+
+
+\begin{DoxyItemize}
+\item If defined represent {\ttfamily \doxylink{structmrb__value}{mrb\+\_\+value}} in boxed {\ttfamily double}.
+\item Conflicts with {\ttfamily MRB\+\_\+\+USE\+\_\+\+FLOAT32} and {\ttfamily MRB\+\_\+\+NO\+\_\+\+FLOAT}.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+WORD\+\_\+\+BOXING}
+
+
+\begin{DoxyItemize}
+\item If defined represent {\ttfamily \doxylink{structmrb__value}{mrb\+\_\+value}} as a word.
+\item If defined {\ttfamily Float} will be a mruby object with {\ttfamily \doxylink{structRBasic}{RBasic}}.
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md359}{}\doxysection{\texorpdfstring{Reduce heap memory configuration}{Reduce heap memory configuration}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md359}
+{\ttfamily MRB\+\_\+\+USE\+\_\+\+ETEXT\+\_\+\+RO\+\_\+\+DATA\+\_\+P}
+
+
+\begin{DoxyItemize}
+\item Use {\ttfamily etext} and {\ttfamily edata} section addresses defined by the linker to detect read-\/only data.
+\item Those addresses are widely available, but not portable, nor standardized.
+\item This macro is defined by default on User-\/mode Linux.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+NO\+\_\+\+DEFAULT\+\_\+\+RO\+\_\+\+DATA\+\_\+P}
+
+
+\begin{DoxyItemize}
+\item Define this macro when the default {\ttfamily mrb\+\_\+ro\+\_\+data\+\_\+p()} does not work for any reason.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+USE\+\_\+\+CUSTOM\+\_\+\+RO\+\_\+\+DATA\+\_\+P}
+
+
+\begin{DoxyItemize}
+\item Please try if {\ttfamily MRB\+\_\+\+USE\+\_\+\+LINK\+\_\+\+TIME\+\_\+\+RO\+\_\+\+DATA\+\_\+P} is not available.
+\item The {\ttfamily mrb\+\_\+ro\+\_\+data\+\_\+p()} function is implemented by the user in an arbitrary file.
+\item The prototype declaration is {\ttfamily \doxylink{classmrb__bool}{mrb\+\_\+bool} mrb\+\_\+ro\+\_\+data\+\_\+p(const char \texorpdfstring{$\ast$}{*}ptr)}.
+\item Return {\ttfamily TRUE} if {\ttfamily ptr} is in the read-\/only section, otherwise return {\ttfamily FALSE}.
+\end{DoxyItemize}\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md360}{}\doxysection{\texorpdfstring{Other configuration}{Other configuration}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbconf_autotoc_md360}
+{\ttfamily MRB\+\_\+\+MALLOC\+\_\+\+TRIM}
+
+
+\begin{DoxyItemize}
+\item call malloc\+\_\+trim(0) for each mrb\+\_\+full\+\_\+gc() call
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+UTF8\+\_\+\+STRING}
+
+
+\begin{DoxyItemize}
+\item Adds UTF-\/8 encoding support to character-\/oriented String instance methods.
+\item If it isn\textquotesingle{}t defined, they only support the US-\/\+ASCII encoding.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+STR\+\_\+\+LENGTH\+\_\+\+MAX}
+
+
+\begin{DoxyItemize}
+\item The maximum length of strings (default 1MB)
+\item set this value to zero to skip the check
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+ARY\+\_\+\+LENGTH\+\_\+\+MAX}
+
+
+\begin{DoxyItemize}
+\item The maximum length of strings (default 1MB)
+\item set this value to zero to skip the check
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+FUNCALL\+\_\+\+ARGC\+\_\+\+MAX}
+
+
+\begin{DoxyItemize}
+\item Default value is {\ttfamily 16}.
+\item Specifies 4th argument({\ttfamily argc}) max value of {\ttfamily \doxylink{mruby_8h_ab0c4a601cb4dc2ddf3470d604dbc9113}{mrb\+\_\+funcall}}.
+\item Raises {\ttfamily Argument\+Error} when the {\ttfamily argc} argument is bigger then this value {\ttfamily \doxylink{mruby_8h_ab0c4a601cb4dc2ddf3470d604dbc9113}{mrb\+\_\+funcall}}.
+\end{DoxyItemize}
+
+{\ttfamily KHASH\+\_\+\+DEFAULT\+\_\+\+SIZE}
+
+
+\begin{DoxyItemize}
+\item Default value is {\ttfamily 32}.
+\item Specifies default size of khash table bucket.
+\item Used in {\ttfamily kh\+\_\+init\+\_\+ \#\# name} function.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+NO\+\_\+\+METHOD\+\_\+\+CACHE}
+
+
+\begin{DoxyItemize}
+\item Disable method cache to save memory.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+METHOD\+\_\+\+CACHE\+\_\+\+SIZE}
+
+
+\begin{DoxyItemize}
+\item Default value is {\ttfamily 256}.
+\item Ignored if {\ttfamily MRB\+\_\+\+NO\+\_\+\+METHOD\+\_\+\+CACHE} is defined.
+\item Need to be the power of 2.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+USE\+\_\+\+METHOD\+\_\+\+T\+\_\+\+STRUCT}
+
+
+\begin{DoxyItemize}
+\item Use C struct to represent {\ttfamily mrb\+\_\+method\+\_\+t}
+\item No {\ttfamily MRB\+\_\+\+USE\+\_\+\+METHOD\+\_\+\+T\+\_\+\+STRUCT} requires highest 2 bits of function pointers to be zero
+\item Define this macro on machines that use higher bits of pointers
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+USE\+\_\+\+ALL\+\_\+\+SYMBOLS}
+
+
+\begin{DoxyItemize}
+\item Make it available {\ttfamily Symbol.\+all\+\_\+symbols} in {\ttfamily mrbgems/mruby-\/symbol-\/ext}
+\item Increase heap memory usage.
+\end{DoxyItemize}
+
+{\ttfamily MRB\+\_\+\+USE\+\_\+\+VM\+\_\+\+SWITCH\+\_\+\+DISPATCH}
+
+
+\begin{DoxyItemize}
+\item Turn on switch dispatch in VM loop 
+\end{DoxyItemize}

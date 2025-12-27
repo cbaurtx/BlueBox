@@ -1,0 +1,450 @@
+\doxysection{http2.\+h}
+\hypertarget{http2_8h_source}{}\label{http2_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/http2.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/http2.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2013\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ HTTP2\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ HTTP2\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}nghttp2\_config.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <cstdio>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <nghttp2/nghttp2.h>}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ "{}urlparse.h"{}}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ "{}util.h"{}}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ "{}memchunk.h"{}}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ "{}template.h"{}}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ "{}allocator.h"{}}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}base64.h"{}}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{namespace\ }nghttp2\ \{}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{struct\ }Header\ \{}
+\DoxyCodeLine{00049\ \ \ Header(std::string\ name,\ std::string\ value,\ \textcolor{keywordtype}{bool}\ no\_index\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ int32\_t\ token\ =\ -\/1)}
+\DoxyCodeLine{00051\ \ \ \ \ :\ name(std::move(name)),}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ value(std::move(value)),}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ token(token),}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ no\_index(no\_index)\ \{\}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ Header()\ :\ token(-\/1),\ no\_index(\textcolor{keyword}{false})\ \{\}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ Header\ \&other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{return}\ name\ ==\ other.name\ \&\&\ value\ ==\ other.value;}
+\DoxyCodeLine{00060\ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{bool}\ operator<(\textcolor{keyword}{const}\ Header\ \&rhs)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{return}\ name\ <\ rhs.name\ ||\ (name\ ==\ rhs.name\ \&\&\ value\ <\ rhs.value);}
+\DoxyCodeLine{00064\ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ std::string\ name;}
+\DoxyCodeLine{00067\ \ \ std::string\ value;}
+\DoxyCodeLine{00068\ \ \ int32\_t\ token;}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{bool}\ no\_index;}
+\DoxyCodeLine{00070\ \};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{struct\ }HeaderRef\ \{}
+\DoxyCodeLine{00073\ \ \ HeaderRef(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&name,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&value,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ no\_index\ =\ \textcolor{keyword}{false},\ int32\_t\ token\ =\ -\/1)}
+\DoxyCodeLine{00075\ \ \ \ \ :\ name(name),\ value(value),\ token(token),\ no\_index(no\_index)\ \{\}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ HeaderRef()\ :\ token(-\/1),\ no\_index(\textcolor{keyword}{false})\ \{\}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ HeaderRef\ \&other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{return}\ name\ ==\ other.name\ \&\&\ value\ ==\ other.value;}
+\DoxyCodeLine{00081\ \ \ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{bool}\ operator<(\textcolor{keyword}{const}\ HeaderRef\ \&rhs)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{return}\ name\ <\ rhs.name\ ||\ (name\ ==\ rhs.name\ \&\&\ value\ <\ rhs.value);}
+\DoxyCodeLine{00085\ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ name;}
+\DoxyCodeLine{00088\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ value;}
+\DoxyCodeLine{00089\ \ \ int32\_t\ token;}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{bool}\ no\_index;}
+\DoxyCodeLine{00091\ \};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{using\ }Headers\ =\ std::vector<Header>;}
+\DoxyCodeLine{00094\ \textcolor{keyword}{using\ }HeaderRefs\ =\ std::vector<HeaderRef>;}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{keyword}{namespace\ }http2\ \{}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{comment}{//\ Returns\ reason-\/phrase\ for\ given\ |status\ code|.\ \ If\ there\ is\ no}}
+\DoxyCodeLine{00099\ \textcolor{comment}{//\ known\ reason-\/phrase\ for\ the\ given\ code,\ returns\ empty\ string.}}
+\DoxyCodeLine{00100\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ get\_reason\_phrase(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ status\_code);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{comment}{//\ Returns\ string\ version\ of\ |status\_code|.\ (e.g.,\ "{}404"{})}}
+\DoxyCodeLine{00103\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ stringify\_status(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&balloc,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ status\_code);}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keywordtype}{void}\ capitalize(DefaultMemchunks\ *buf,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&s);}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{comment}{//\ Returns\ true\ if\ |value|\ is\ LWS}}
+\DoxyCodeLine{00108\ \textcolor{keywordtype}{bool}\ lws(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *value);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{comment}{//\ Copies\ the\ |field|\ component\ value\ from\ |u|\ and\ |url|\ to\ the}}
+\DoxyCodeLine{00111\ \textcolor{comment}{//\ |dest|.\ If\ |u|\ does\ not\ have\ |field|,\ then\ this\ function\ does}}
+\DoxyCodeLine{00112\ \textcolor{comment}{//\ nothing.}}
+\DoxyCodeLine{00113\ \textcolor{keywordtype}{void}\ copy\_url\_component(std::string\ \&dest,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structurlparse__url}{urlparse\_url}}\ *u,\ \textcolor{keywordtype}{int}\ field,}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *url);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ Headers::value\_type\ to\_header(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&name,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&value,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ no\_index,\ int32\_t\ token);}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{comment}{//\ Add\ name/value\ pairs\ to\ |nva|.\ \ If\ |no\_index|\ is\ true,\ this}}
+\DoxyCodeLine{00120\ \textcolor{comment}{//\ name/value\ pair\ won't\ be\ indexed\ when\ it\ is\ forwarded\ to\ the\ next}}
+\DoxyCodeLine{00121\ \textcolor{comment}{//\ hop.}}
+\DoxyCodeLine{00122\ \textcolor{keywordtype}{void}\ add\_header(Headers\ \&nva,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&name,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&value,}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ no\_index,\ int32\_t\ token);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{comment}{//\ Returns\ pointer\ to\ the\ entry\ in\ |nva|\ which\ has\ name\ |name|.\ \ If}}
+\DoxyCodeLine{00126\ \textcolor{comment}{//\ more\ than\ one\ entries\ which\ have\ the\ name\ |name|,\ last\ occurrence}}
+\DoxyCodeLine{00127\ \textcolor{comment}{//\ in\ |nva|\ is\ returned.\ \ If\ no\ such\ entry\ exist,\ returns\ nullptr.}}
+\DoxyCodeLine{00128\ \textcolor{keyword}{const}\ Headers::value\_type\ *get\_header(\textcolor{keyword}{const}\ Headers\ \&nva,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{comment}{//\ Returns\ true\ if\ the\ value\ of\ |nv|\ is\ not\ empty.}}
+\DoxyCodeLine{00131\ \textcolor{keywordtype}{bool}\ non\_empty\_value(\textcolor{keyword}{const}\ HeaderRefs::value\_type\ *nv);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{comment}{//\ Create\ nghttp2\_nv\ from\ |name|,\ |value|\ and\ |flags|.}}
+\DoxyCodeLine{00134\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{structnghttp2__nv}{nghttp2\_nv}}\ make\_field\_flags(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&name,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&value,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ flags\ =\ NGHTTP2\_NV\_FLAG\_NONE)\ \{}
+\DoxyCodeLine{00137\ \ \ \textcolor{keyword}{auto}\ ns\ =\ as\_uint8\_span(std::span\{name\});}
+\DoxyCodeLine{00138\ \ \ \textcolor{keyword}{auto}\ vs\ =\ as\_uint8\_span(std::span\{value\});}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{keyword}{const\_cast<}uint8\_t\ *\textcolor{keyword}{>}(ns.data()),\ \textcolor{keyword}{const\_cast<}uint8\_t\ *\textcolor{keyword}{>}(vs.data()),}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ ns.size(),\ vs.size(),\ flags\};}
+\DoxyCodeLine{00142\ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{comment}{//\ Creates\ nghttp2\_nv\ from\ |name|,\ |value|\ and\ |flags|.\ \ nghttp2}}
+\DoxyCodeLine{00145\ \textcolor{comment}{//\ library\ does\ not\ copy\ them.}}
+\DoxyCodeLine{00146\ \textcolor{keyword}{inline}\ nghttp2\_nv\ make\_field(\textcolor{keyword}{const}\ StringRef\ \&name,\ \textcolor{keyword}{const}\ StringRef\ \&value,}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ flags\ =\ NGHTTP2\_NV\_FLAG\_NONE)\ \{}
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordflow}{return}\ make\_field\_flags(name,\ value,}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}uint8\_t\textcolor{keyword}{>}(NGHTTP2\_NV\_FLAG\_NO\_COPY\_NAME\ |}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ NGHTTP2\_NV\_FLAG\_NO\_COPY\_VALUE\ |}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flags));}
+\DoxyCodeLine{00152\ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{comment}{//\ Creates\ nghttp2\_nv\ from\ |name|,\ |value|\ and\ |flags|.\ \ nghttp2}}
+\DoxyCodeLine{00155\ \textcolor{comment}{//\ library\ copies\ |value|\ unless\ |flags|\ includes}}
+\DoxyCodeLine{00156\ \textcolor{comment}{//\ NGHTTP2\_NV\_FLAG\_NO\_COPY\_VALUE.}}
+\DoxyCodeLine{00157\ \textcolor{keyword}{inline}\ nghttp2\_nv\ make\_field\_v(\textcolor{keyword}{const}\ StringRef\ \&name,\ \textcolor{keyword}{const}\ StringRef\ \&value,}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ flags\ =\ NGHTTP2\_NV\_FLAG\_NONE)\ \{}
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordflow}{return}\ make\_field\_flags(}
+\DoxyCodeLine{00160\ \ \ \ \ name,\ value,\ \textcolor{keyword}{static\_cast<}uint8\_t\textcolor{keyword}{>}(NGHTTP2\_NV\_FLAG\_NO\_COPY\_NAME\ |\ flags));}
+\DoxyCodeLine{00161\ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{comment}{//\ Creates\ nghttp2\_nv\ from\ |name|,\ |value|\ and\ |flags|.\ \ nghttp2}}
+\DoxyCodeLine{00164\ \textcolor{comment}{//\ library\ copies\ |name|\ and\ |value|\ unless\ |flags|\ includes}}
+\DoxyCodeLine{00165\ \textcolor{comment}{//\ NGHTTP2\_NV\_FLAG\_NO\_COPY\_NAME\ or\ NGHTTP2\_NV\_FLAG\_NO\_COPY\_VALUE.}}
+\DoxyCodeLine{00166\ \textcolor{keyword}{inline}\ nghttp2\_nv\ make\_field\_nv(\textcolor{keyword}{const}\ StringRef\ \&name,\ \textcolor{keyword}{const}\ StringRef\ \&value,}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ flags\ =\ NGHTTP2\_NV\_FLAG\_NONE)\ \{}
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordflow}{return}\ make\_field\_flags(name,\ value,\ flags);}
+\DoxyCodeLine{00169\ \}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{comment}{//\ Returns\ NGHTTP2\_NV\_FLAG\_NO\_INDEX\ if\ |no\_index|\ is\ true,\ otherwise}}
+\DoxyCodeLine{00172\ \textcolor{comment}{//\ NGHTTP2\_NV\_FLAG\_NONE.}}
+\DoxyCodeLine{00173\ \textcolor{keyword}{inline}\ uint8\_t\ no\_index(\textcolor{keywordtype}{bool}\ no\_index)\ \{}
+\DoxyCodeLine{00174\ \ \ \textcolor{keywordflow}{return}\ no\_index\ ?\ NGHTTP2\_NV\_FLAG\_NO\_INDEX\ :\ NGHTTP2\_NV\_FLAG\_NONE;}
+\DoxyCodeLine{00175\ \}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{keyword}{enum}\ HeaderBuildOp\ \{}
+\DoxyCodeLine{00178\ \ \ HDOP\_NONE,}
+\DoxyCodeLine{00179\ \ \ \textcolor{comment}{//\ Forwarded\ header\ fields\ must\ be\ stripped.\ \ If\ this\ flag\ is\ not}}
+\DoxyCodeLine{00180\ \ \ \textcolor{comment}{//\ set,\ all\ Forwarded\ header\ fields\ other\ than\ last\ one\ are\ added.}}
+\DoxyCodeLine{00181\ \ \ HDOP\_STRIP\_FORWARDED\ =\ 1,}
+\DoxyCodeLine{00182\ \ \ \textcolor{comment}{//\ X-\/Forwarded-\/For\ header\ fields\ must\ be\ stripped.\ \ If\ this\ flag\ is}}
+\DoxyCodeLine{00183\ \ \ \textcolor{comment}{//\ not\ set,\ all\ X-\/Forwarded-\/For\ header\ fields\ other\ than\ last\ one}}
+\DoxyCodeLine{00184\ \ \ \textcolor{comment}{//\ are\ added.}}
+\DoxyCodeLine{00185\ \ \ HDOP\_STRIP\_X\_FORWARDED\_FOR\ =\ 1\ <<\ 1,}
+\DoxyCodeLine{00186\ \ \ \textcolor{comment}{//\ X-\/Forwarded-\/Proto\ header\ fields\ must\ be\ stripped.\ \ If\ this\ flag}}
+\DoxyCodeLine{00187\ \ \ \textcolor{comment}{//\ is\ not\ set,\ all\ X-\/Forwarded-\/Proto\ header\ fields\ other\ than\ last}}
+\DoxyCodeLine{00188\ \ \ \textcolor{comment}{//\ one\ are\ added.}}
+\DoxyCodeLine{00189\ \ \ HDOP\_STRIP\_X\_FORWARDED\_PROTO\ =\ 1\ <<\ 2,}
+\DoxyCodeLine{00190\ \ \ \textcolor{comment}{//\ Via\ header\ fields\ must\ be\ stripped.\ \ If\ this\ flag\ is\ not\ set,\ all}}
+\DoxyCodeLine{00191\ \ \ \textcolor{comment}{//\ Via\ header\ fields\ other\ than\ last\ one\ are\ added.}}
+\DoxyCodeLine{00192\ \ \ HDOP\_STRIP\_VIA\ =\ 1\ <<\ 3,}
+\DoxyCodeLine{00193\ \ \ \textcolor{comment}{//\ Early-\/Data\ header\ fields\ must\ be\ stripped.\ \ If\ this\ flag\ is\ not}}
+\DoxyCodeLine{00194\ \ \ \textcolor{comment}{//\ set,\ all\ Early-\/Data\ header\ fields\ are\ added.}}
+\DoxyCodeLine{00195\ \ \ HDOP\_STRIP\_EARLY\_DATA\ =\ 1\ <<\ 4,}
+\DoxyCodeLine{00196\ \ \ \textcolor{comment}{//\ Strip\ above\ all\ header\ fields.}}
+\DoxyCodeLine{00197\ \ \ HDOP\_STRIP\_ALL\ =\ HDOP\_STRIP\_FORWARDED\ |\ HDOP\_STRIP\_X\_FORWARDED\_FOR\ |}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HDOP\_STRIP\_X\_FORWARDED\_PROTO\ |\ HDOP\_STRIP\_VIA\ |}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HDOP\_STRIP\_EARLY\_DATA,}
+\DoxyCodeLine{00200\ \ \ \textcolor{comment}{//\ Sec-\/WebSocket-\/Accept\ header\ field\ must\ be\ stripped.\ \ If\ this\ flag}}
+\DoxyCodeLine{00201\ \ \ \textcolor{comment}{//\ is\ not\ set,\ all\ Sec-\/WebSocket-\/Accept\ header\ fields\ are\ added.}}
+\DoxyCodeLine{00202\ \ \ HDOP\_STRIP\_SEC\_WEBSOCKET\_ACCEPT\ =\ 1\ <<\ 5,}
+\DoxyCodeLine{00203\ \ \ \textcolor{comment}{//\ Sec-\/WebSocket-\/Key\ header\ field\ must\ be\ stripped.\ \ If\ this\ flag\ is}}
+\DoxyCodeLine{00204\ \ \ \textcolor{comment}{//\ not\ set,\ all\ Sec-\/WebSocket-\/Key\ header\ fields\ are\ added.}}
+\DoxyCodeLine{00205\ \ \ HDOP\_STRIP\_SEC\_WEBSOCKET\_KEY\ =\ 1\ <<\ 6,}
+\DoxyCodeLine{00206\ \ \ \textcolor{comment}{//\ Transfer-\/Encoding\ header\ field\ must\ be\ stripped.\ \ If\ this\ flag\ is}}
+\DoxyCodeLine{00207\ \ \ \textcolor{comment}{//\ not\ set,\ all\ Transfer-\/Encoding\ header\ fields\ are\ added.}}
+\DoxyCodeLine{00208\ \ \ HDOP\_STRIP\_TRANSFER\_ENCODING\ =\ 1\ <<\ 7,}
+\DoxyCodeLine{00209\ \};}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \textcolor{comment}{//\ Appends\ headers\ in\ |headers|\ to\ |nv|.\ \ |headers|\ must\ be\ indexed}}
+\DoxyCodeLine{00212\ \textcolor{comment}{//\ before\ this\ call\ (its\ element's\ token\ field\ is\ assigned).\ \ Certain}}
+\DoxyCodeLine{00213\ \textcolor{comment}{//\ headers,\ including\ disallowed\ headers\ in\ HTTP/2\ spec\ and\ headers}}
+\DoxyCodeLine{00214\ \textcolor{comment}{//\ which\ require\ special\ handling\ (i.e.\ via),\ are\ not\ copied.\ \ |flags|}}
+\DoxyCodeLine{00215\ \textcolor{comment}{//\ is\ one\ or\ more\ of\ HeaderBuildOp\ flags.\ \ They\ tell\ function\ that}}
+\DoxyCodeLine{00216\ \textcolor{comment}{//\ certain\ header\ fields\ should\ not\ be\ added.}}
+\DoxyCodeLine{00217\ \textcolor{keywordtype}{void}\ copy\_headers\_to\_nva(std::vector<nghttp2\_nv>\ \&nva,}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ HeaderRefs\ \&headers,\ uint32\_t\ flags);}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{comment}{//\ Just\ like\ copy\_headers\_to\_nva(),\ but\ this\ adds}}
+\DoxyCodeLine{00221\ \textcolor{comment}{//\ NGHTTP2\_NV\_FLAG\_NO\_COPY\_NAME\ and\ NGHTTP2\_NV\_FLAG\_NO\_COPY\_VALUE.}}
+\DoxyCodeLine{00222\ \textcolor{keywordtype}{void}\ copy\_headers\_to\_nva\_nocopy(std::vector<nghttp2\_nv>\ \&nva,}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ HeaderRefs\ \&headers,\ uint32\_t\ flags);}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \textcolor{comment}{//\ Appends\ HTTP/1.1\ style\ header\ lines\ to\ |buf|\ from\ headers\ in}}
+\DoxyCodeLine{00226\ \textcolor{comment}{//\ |headers|.\ \ |headers|\ must\ be\ indexed\ before\ this\ call\ (its}}
+\DoxyCodeLine{00227\ \textcolor{comment}{//\ element's\ token\ field\ is\ assigned).\ \ Certain\ headers,\ which}}
+\DoxyCodeLine{00228\ \textcolor{comment}{//\ requires\ special\ handling\ (i.e.\ via\ and\ cookie),\ are\ not\ appended.}}
+\DoxyCodeLine{00229\ \textcolor{comment}{//\ |flags|\ is\ one\ or\ more\ of\ HeaderBuildOp\ flags.\ \ They\ tell\ function}}
+\DoxyCodeLine{00230\ \textcolor{comment}{//\ that\ certain\ header\ fields\ should\ not\ be\ added.}}
+\DoxyCodeLine{00231\ \textcolor{keywordtype}{void}\ build\_http1\_headers\_from\_headers(DefaultMemchunks\ *buf,}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ HeaderRefs\ \&headers,}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ flags);}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \textcolor{comment}{//\ Return\ positive\ window\_size\_increment\ if\ WINDOW\_UPDATE\ should\ be}}
+\DoxyCodeLine{00236\ \textcolor{comment}{//\ sent\ for\ the\ stream\ |stream\_id|.\ If\ |stream\_id|\ ==\ 0,\ this\ function}}
+\DoxyCodeLine{00237\ \textcolor{comment}{//\ determines\ the\ necessity\ of\ the\ WINDOW\_UPDATE\ for\ a\ connection.}}
+\DoxyCodeLine{00238\ \textcolor{comment}{//}}
+\DoxyCodeLine{00239\ \textcolor{comment}{//\ If\ the\ function\ determines\ WINDOW\_UPDATE\ is\ not\ necessary\ at\ the}}
+\DoxyCodeLine{00240\ \textcolor{comment}{//\ moment,\ it\ returns\ -\/1.}}
+\DoxyCodeLine{00241\ int32\_t\ determine\_window\_update\_transmission(nghttp2\_session\ *session,}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ stream\_id);}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \textcolor{comment}{//\ Dumps\ name/value\ pairs\ in\ |nv|\ to\ |out|.\ The\ |nv|\ must\ be}}
+\DoxyCodeLine{00245\ \textcolor{comment}{//\ terminated\ by\ nullptr.}}
+\DoxyCodeLine{00246\ \textcolor{keywordtype}{void}\ dump\_nv(FILE\ *out,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **nv);}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \textcolor{comment}{//\ Dumps\ name/value\ pairs\ in\ |nva|\ to\ |out|.}}
+\DoxyCodeLine{00249\ \textcolor{keywordtype}{void}\ dump\_nv(FILE\ *out,\ \textcolor{keyword}{const}\ nghttp2\_nv\ *nva,\ \textcolor{keywordtype}{size\_t}\ nvlen);}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \textcolor{comment}{//\ Dumps\ name/value\ pairs\ in\ |nva|\ to\ |out|.}}
+\DoxyCodeLine{00252\ \textcolor{keywordtype}{void}\ dump\_nv(FILE\ *out,\ \textcolor{keyword}{const}\ Headers\ \&nva);}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \textcolor{keywordtype}{void}\ dump\_nv(FILE\ *out,\ \textcolor{keyword}{const}\ HeaderRefs\ \&nva);}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \textcolor{comment}{//\ Ereases\ header\ in\ |hd|.}}
+\DoxyCodeLine{00257\ \textcolor{keywordtype}{void}\ erase\_header(HeaderRef\ *hd);}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \textcolor{comment}{//\ Rewrites\ redirection\ URI\ which\ usually\ appears\ in\ location\ header}}
+\DoxyCodeLine{00260\ \textcolor{comment}{//\ field.\ The\ |uri|\ is\ the\ URI\ in\ the\ location\ header\ field.\ The\ |u|}}
+\DoxyCodeLine{00261\ \textcolor{comment}{//\ stores\ the\ result\ of\ parsed\ |uri|.\ The\ |request\_authority|\ is\ the}}
+\DoxyCodeLine{00262\ \textcolor{comment}{//\ host\ or\ :authority\ header\ field\ value\ in\ the\ request.\ The}}
+\DoxyCodeLine{00263\ \textcolor{comment}{//\ |upstream\_scheme|\ is\ either\ "{}https"{}\ or\ "{}http"{}\ in\ the\ upstream}}
+\DoxyCodeLine{00264\ \textcolor{comment}{//\ interface.\ \ Rewrite\ is\ done\ only\ if\ location\ header\ field\ value}}
+\DoxyCodeLine{00265\ \textcolor{comment}{//\ contains\ |match\_host|\ as\ host\ excluding\ port.\ \ The\ |match\_host|\ and}}
+\DoxyCodeLine{00266\ \textcolor{comment}{//\ |request\_authority|\ could\ be\ different.\ \ If\ |request\_authority|\ is}}
+\DoxyCodeLine{00267\ \textcolor{comment}{//\ empty,\ strip\ authority.}}
+\DoxyCodeLine{00268\ \textcolor{comment}{//}}
+\DoxyCodeLine{00269\ \textcolor{comment}{//\ This\ function\ returns\ the\ new\ rewritten\ URI\ on\ success.\ If\ the}}
+\DoxyCodeLine{00270\ \textcolor{comment}{//\ location\ URI\ is\ not\ subject\ to\ the\ rewrite,\ this\ function\ returns}}
+\DoxyCodeLine{00271\ \textcolor{comment}{//\ empty\ string.}}
+\DoxyCodeLine{00272\ StringRef\ rewrite\_location\_uri(BlockAllocator\ \&balloc,\ \textcolor{keyword}{const}\ StringRef\ \&uri,}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ urlparse\_url\ \&u,}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ StringRef\ \&match\_host,}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ StringRef\ \&request\_authority,}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ StringRef\ \&upstream\_scheme);}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \textcolor{comment}{//\ Returns\ parsed\ HTTP\ status\ code.\ \ Returns\ -\/1\ on\ failure.}}
+\DoxyCodeLine{00279\ \textcolor{keywordtype}{int}\ parse\_http\_status\_code(\textcolor{keyword}{const}\ StringRef\ \&src);}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \textcolor{comment}{//\ Header\ fields\ to\ be\ indexed,\ except\ HD\_MAXIDX\ which\ is\ convenient}}
+\DoxyCodeLine{00282\ \textcolor{comment}{//\ member\ to\ get\ maximum\ value.}}
+\DoxyCodeLine{00283\ \textcolor{comment}{//}}
+\DoxyCodeLine{00284\ \textcolor{comment}{//\ generated\ by\ genheaderfunc.py}}
+\DoxyCodeLine{00285\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00286\ \ \ HD\_\_AUTHORITY,}
+\DoxyCodeLine{00287\ \ \ HD\_\_HOST,}
+\DoxyCodeLine{00288\ \ \ HD\_\_METHOD,}
+\DoxyCodeLine{00289\ \ \ HD\_\_PATH,}
+\DoxyCodeLine{00290\ \ \ HD\_\_PROTOCOL,}
+\DoxyCodeLine{00291\ \ \ HD\_\_SCHEME,}
+\DoxyCodeLine{00292\ \ \ HD\_\_STATUS,}
+\DoxyCodeLine{00293\ \ \ HD\_ACCEPT\_ENCODING,}
+\DoxyCodeLine{00294\ \ \ HD\_ACCEPT\_LANGUAGE,}
+\DoxyCodeLine{00295\ \ \ HD\_ALT\_SVC,}
+\DoxyCodeLine{00296\ \ \ HD\_CACHE\_CONTROL,}
+\DoxyCodeLine{00297\ \ \ HD\_CONNECTION,}
+\DoxyCodeLine{00298\ \ \ HD\_CONTENT\_LENGTH,}
+\DoxyCodeLine{00299\ \ \ HD\_CONTENT\_TYPE,}
+\DoxyCodeLine{00300\ \ \ HD\_COOKIE,}
+\DoxyCodeLine{00301\ \ \ HD\_DATE,}
+\DoxyCodeLine{00302\ \ \ HD\_EARLY\_DATA,}
+\DoxyCodeLine{00303\ \ \ HD\_EXPECT,}
+\DoxyCodeLine{00304\ \ \ HD\_FORWARDED,}
+\DoxyCodeLine{00305\ \ \ HD\_HOST,}
+\DoxyCodeLine{00306\ \ \ HD\_HTTP2\_SETTINGS,}
+\DoxyCodeLine{00307\ \ \ HD\_IF\_MODIFIED\_SINCE,}
+\DoxyCodeLine{00308\ \ \ HD\_KEEP\_ALIVE,}
+\DoxyCodeLine{00309\ \ \ HD\_LINK,}
+\DoxyCodeLine{00310\ \ \ HD\_LOCATION,}
+\DoxyCodeLine{00311\ \ \ HD\_PRIORITY,}
+\DoxyCodeLine{00312\ \ \ HD\_PROXY\_CONNECTION,}
+\DoxyCodeLine{00313\ \ \ HD\_SEC\_WEBSOCKET\_ACCEPT,}
+\DoxyCodeLine{00314\ \ \ HD\_SEC\_WEBSOCKET\_KEY,}
+\DoxyCodeLine{00315\ \ \ HD\_SERVER,}
+\DoxyCodeLine{00316\ \ \ HD\_TE,}
+\DoxyCodeLine{00317\ \ \ HD\_TRAILER,}
+\DoxyCodeLine{00318\ \ \ HD\_TRANSFER\_ENCODING,}
+\DoxyCodeLine{00319\ \ \ HD\_UPGRADE,}
+\DoxyCodeLine{00320\ \ \ HD\_USER\_AGENT,}
+\DoxyCodeLine{00321\ \ \ HD\_VIA,}
+\DoxyCodeLine{00322\ \ \ HD\_X\_FORWARDED\_FOR,}
+\DoxyCodeLine{00323\ \ \ HD\_X\_FORWARDED\_PROTO,}
+\DoxyCodeLine{00324\ \ \ HD\_MAXIDX,}
+\DoxyCodeLine{00325\ \};}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \textcolor{keyword}{using\ }HeaderIndex\ =\ std::array<int16\_t,\ HD\_MAXIDX>;}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \textcolor{comment}{//\ Looks\ up\ header\ token\ for\ header\ name\ |name|.\ \ Only\ headers\ we\ are}}
+\DoxyCodeLine{00330\ \textcolor{comment}{//\ interested\ in\ are\ tokenized.\ \ If\ header\ name\ cannot\ be\ tokenized,}}
+\DoxyCodeLine{00331\ \textcolor{comment}{//\ returns\ -\/1.}}
+\DoxyCodeLine{00332\ \textcolor{keywordtype}{int}\ lookup\_token(\textcolor{keyword}{const}\ StringRef\ \&name);}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \textcolor{comment}{//\ Initializes\ |hdidx|,\ header\ index.\ \ The\ |hdidx|\ must\ point\ to\ the}}
+\DoxyCodeLine{00335\ \textcolor{comment}{//\ array\ containing\ at\ least\ HD\_MAXIDX\ elements.}}
+\DoxyCodeLine{00336\ \textcolor{keywordtype}{void}\ init\_hdidx(HeaderIndex\ \&hdidx);}
+\DoxyCodeLine{00337\ \textcolor{comment}{//\ Indexes\ header\ |token|\ using\ index\ |idx|.}}
+\DoxyCodeLine{00338\ \textcolor{keywordtype}{void}\ index\_header(HeaderIndex\ \&hdidx,\ int32\_t\ token,\ \textcolor{keywordtype}{size\_t}\ idx);}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \textcolor{comment}{//\ Returns\ header\ denoted\ by\ |token|\ using\ index\ |hdidx|.}}
+\DoxyCodeLine{00341\ \textcolor{keyword}{const}\ Headers::value\_type\ *get\_header(\textcolor{keyword}{const}\ HeaderIndex\ \&hdidx,\ int32\_t\ token,}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Headers\ \&nva);}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ Headers::value\_type\ *get\_header(\textcolor{keyword}{const}\ HeaderIndex\ \&hdidx,\ int32\_t\ token,}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Headers\ \&nva);}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnghttp2_1_1http2_1_1LinkHeader}{LinkHeader}}\ \{}
+\DoxyCodeLine{00348\ \ \ \textcolor{comment}{//\ The\ region\ of\ URI.\ \ This\ might\ not\ be\ NULL-\/terminated.}}
+\DoxyCodeLine{00349\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ uri;}
+\DoxyCodeLine{00350\ \};}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \textcolor{comment}{//\ Returns\ next\ URI-\/reference\ in\ Link\ header\ field\ value\ |src|.\ \ If\ no}}
+\DoxyCodeLine{00353\ \textcolor{comment}{//\ URI-\/reference\ found\ after\ searching\ all\ input,\ returned\ uri\ field}}
+\DoxyCodeLine{00354\ \textcolor{comment}{//\ is\ empty.\ \ This\ imply\ that\ empty\ URI-\/reference\ is\ ignored\ during}}
+\DoxyCodeLine{00355\ \textcolor{comment}{//\ parsing.}}
+\DoxyCodeLine{00356\ std::vector<LinkHeader>\ parse\_link\_header(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&src);}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \textcolor{comment}{//\ Constructs\ path\ by\ combining\ base\ path\ |base\_path|\ with\ another}}
+\DoxyCodeLine{00359\ \textcolor{comment}{//\ path\ |rel\_path|.\ \ The\ base\ path\ and\ another\ path\ can\ have\ optional}}
+\DoxyCodeLine{00360\ \textcolor{comment}{//\ query\ component.\ \ This\ function\ assumes\ |base\_path|\ is\ normalized.}}
+\DoxyCodeLine{00361\ \textcolor{comment}{//\ In\ other\ words,\ it\ does\ not\ contain\ "{}.."{}\ or\ "{}."{}\ \ path\ components}}
+\DoxyCodeLine{00362\ \textcolor{comment}{//\ and\ starts\ with\ "{}/"{}\ if\ it\ is\ not\ empty.}}
+\DoxyCodeLine{00363\ std::string\ path\_join(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&base,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&base\_query,}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&rel\_path,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&rel\_query);}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00366\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ path\_join(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&balloc,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&base\_path,}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&base\_query,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&rel\_path,}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&rel\_query);}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ \textcolor{comment}{//\ true\ if\ response\ has\ body,\ taking\ into\ account\ the\ request\ method}}
+\DoxyCodeLine{00371\ \textcolor{comment}{//\ and\ status\ code.}}
+\DoxyCodeLine{00372\ \textcolor{keywordtype}{bool}\ expect\_response\_body(\textcolor{keyword}{const}\ std::string\ \&method,\ \textcolor{keywordtype}{int}\ status\_code);}
+\DoxyCodeLine{00373\ \textcolor{keywordtype}{bool}\ expect\_response\_body(\textcolor{keywordtype}{int}\ method\_token,\ \textcolor{keywordtype}{int}\ status\_code);}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00375\ \textcolor{comment}{//\ true\ if\ response\ has\ body,\ taking\ into\ account\ status\ code\ only.}}
+\DoxyCodeLine{00376\ \textcolor{keywordtype}{bool}\ expect\_response\_body(\textcolor{keywordtype}{int}\ status\_code);}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \textcolor{comment}{//\ Looks\ up\ method\ token\ for\ method\ name\ |name|.\ \ Only\ methods\ defined}}
+\DoxyCodeLine{00379\ \textcolor{comment}{//\ in\ llhttp.h\ (llhttp\_method)\ are\ tokenized.\ \ If\ method\ name\ cannot}}
+\DoxyCodeLine{00380\ \textcolor{comment}{//\ be\ tokenized,\ returns\ -\/1.}}
+\DoxyCodeLine{00381\ \textcolor{keywordtype}{int}\ lookup\_method\_token(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&name);}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \textcolor{comment}{//\ Returns\ string\ representation\ of\ |method\_token|.\ \ This\ is\ wrapper}}
+\DoxyCodeLine{00384\ \textcolor{comment}{//\ around\ llhttp\_method\_name\ from\ llhttp.\ \ If\ |method\_token|\ is}}
+\DoxyCodeLine{00385\ \textcolor{comment}{//\ unknown,\ program\ aborts.\ \ The\ returned\ StringRef\ is\ guaranteed\ to}}
+\DoxyCodeLine{00386\ \textcolor{comment}{//\ be\ NULL-\/terminated.}}
+\DoxyCodeLine{00387\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ to\_method\_string(\textcolor{keywordtype}{int}\ method\_token);}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ normalize\_path(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&balloc,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&path,}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&query);}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00392\ \textcolor{comment}{//\ normalize\_path\_colon\ is\ like\ normalize\_path,\ but\ it\ additionally}}
+\DoxyCodeLine{00393\ \textcolor{comment}{//\ does\ percent-\/decoding\ \%3A\ in\ order\ to\ workaround\ the\ issue\ that\ ':'}}
+\DoxyCodeLine{00394\ \textcolor{comment}{//\ cannot\ be\ included\ in\ backend\ pattern.}}
+\DoxyCodeLine{00395\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ normalize\_path\_colon(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&balloc,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&path,}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&query);}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00398\ std::string\ normalize\_path(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&path,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&query);}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ rewrite\_clean\_path(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&balloc,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&src);}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00402\ \textcolor{comment}{//\ Returns\ path\ component\ of\ |uri|.\ \ The\ returned\ path\ does\ not}}
+\DoxyCodeLine{00403\ \textcolor{comment}{//\ include\ query\ component.\ \ This\ function\ returns\ empty\ string\ if\ it}}
+\DoxyCodeLine{00404\ \textcolor{comment}{//\ fails.}}
+\DoxyCodeLine{00405\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ get\_pure\_path\_component(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&uri);}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ \textcolor{comment}{//\ Deduces\ scheme,\ authority\ and\ path\ from\ given\ |uri|,\ and\ stores}}
+\DoxyCodeLine{00408\ \textcolor{comment}{//\ them\ in\ |scheme|,\ |authority|,\ and\ |path|\ respectively.\ \ If\ |uri|}}
+\DoxyCodeLine{00409\ \textcolor{comment}{//\ is\ relative\ path,\ path\ resolution\ takes\ place\ using\ path\ given\ in}}
+\DoxyCodeLine{00410\ \textcolor{comment}{//\ |base|\ of\ length\ |baselen|.\ \ This\ function\ returns\ 0\ if\ it}}
+\DoxyCodeLine{00411\ \textcolor{comment}{//\ succeeds,\ or\ -\/1.}}
+\DoxyCodeLine{00412\ \textcolor{keywordtype}{int}\ construct\_push\_component(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&balloc,\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&scheme,}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&authority,\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&path,}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&base,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&uri);}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \textcolor{comment}{//\ Copies\ |src|\ and\ return\ its\ lower-\/cased\ version.}}
+\DoxyCodeLine{00417\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ copy\_lower(\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{BlockAllocator}}\ \&balloc,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&src);}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \textcolor{comment}{//\ Returns\ true\ if\ te\ header\ field\ value\ |s|\ contains\ "{}trailers"{}.}}
+\DoxyCodeLine{00420\ \textcolor{keywordtype}{bool}\ contains\_trailers(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&s);}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \textcolor{comment}{//\ Creates\ Sec-\/WebSocket-\/Accept\ value\ for\ |key|.\ \ The\ capacity\ of}}
+\DoxyCodeLine{00423\ \textcolor{comment}{//\ buffer\ pointed\ by\ |dest|\ must\ have\ at\ least\ 24\ bytes\ (base64}}
+\DoxyCodeLine{00424\ \textcolor{comment}{//\ encoded\ length\ of\ 16\ bytes\ data).\ \ It\ returns\ empty\ string\ in\ case}}
+\DoxyCodeLine{00425\ \textcolor{comment}{//\ of\ error.}}
+\DoxyCodeLine{00426\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ make\_websocket\_accept\_token(uint8\_t\ *dest,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&key);}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \textcolor{comment}{//\ Returns\ true\ if\ HTTP\ version\ represents\ pre-\/HTTP/1.1\ (e.g.,}}
+\DoxyCodeLine{00429\ \textcolor{comment}{//\ HTTP/0.9\ or\ HTTP/1.0).}}
+\DoxyCodeLine{00430\ \textcolor{keywordtype}{bool}\ legacy\_http1(\textcolor{keywordtype}{int}\ major,\ \textcolor{keywordtype}{int}\ minor);}
+\DoxyCodeLine{00431\ }
+\DoxyCodeLine{00432\ \textcolor{comment}{//\ Returns\ true\ if\ transfer-\/encoding\ field\ value\ |s|\ conforms\ RFC}}
+\DoxyCodeLine{00433\ \textcolor{comment}{//\ strictly.\ \ This\ function\ does\ not\ allow\ empty\ value,\ BWS,\ and\ empty}}
+\DoxyCodeLine{00434\ \textcolor{comment}{//\ list\ elements.}}
+\DoxyCodeLine{00435\ \textcolor{keywordtype}{bool}\ check\_transfer\_encoding(\textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&s);}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \textcolor{comment}{//\ Encodes\ |extpri|\ in\ the\ wire\ format.}}
+\DoxyCodeLine{00438\ std::string\ encode\_extpri(\textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2__extpri}{nghttp2\_extpri}}\ \&extpri);}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \}\ \textcolor{comment}{//\ namespace\ http2}}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00442\ \}\ \textcolor{comment}{//\ namespace\ nghttp2}}
+\DoxyCodeLine{00443\ }
+\DoxyCodeLine{00444\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ HTTP2\_H}}
+
+\end{DoxyCode}

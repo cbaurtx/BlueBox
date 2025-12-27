@@ -1,0 +1,127 @@
+\doxysection{shrpx\+\_\+dns\+\_\+tracker.\+h}
+\hypertarget{shrpx__dns__tracker_8h_source}{}\label{shrpx__dns__tracker_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_dns\_tracker.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_dns\_tracker.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2016\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_DNS\_TRACKER\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_DNS\_TRACKER\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}shrpx\_dual\_dns\_resolver.h"{}}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{using\ namespace\ }nghttp2;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{struct\ }DNSQuery\ \{}
+\DoxyCodeLine{00040\ \ \ DNSQuery(\mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ host,\ CompleteCb\ cb)}
+\DoxyCodeLine{00041\ \ \ \ \ :\ host(std::move(host)),}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ cb(std::move(cb)),}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ dlnext(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ dlprev(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ status(DNSResolverStatus::IDLE),}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ in\_qlist(\textcolor{keyword}{false})\ \{\}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \textcolor{comment}{//\ Host\ name\ we\ lookup\ for.}}
+\DoxyCodeLine{00049\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ host;}
+\DoxyCodeLine{00050\ \ \ \textcolor{comment}{//\ Callback\ function\ called\ when\ name\ lookup\ finished.\ \ This}}
+\DoxyCodeLine{00051\ \ \ \textcolor{comment}{//\ callback\ is\ not\ called\ if\ name\ lookup\ finishes\ within}}
+\DoxyCodeLine{00052\ \ \ \textcolor{comment}{//\ DNSTracker::resolve().}}
+\DoxyCodeLine{00053\ \ \ CompleteCb\ cb;}
+\DoxyCodeLine{00054\ \ \ DNSQuery\ *dlnext,\ *dlprev;}
+\DoxyCodeLine{00055\ \ \ DNSResolverStatus\ status;}
+\DoxyCodeLine{00056\ \ \ \textcolor{comment}{//\ true\ if\ this\ object\ is\ in\ linked\ list\ ResolverEntry::qlist.}}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{bool}\ in\_qlist;}
+\DoxyCodeLine{00058\ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1ResolverEntry}{ResolverEntry}}\ \{}
+\DoxyCodeLine{00061\ \ \ \textcolor{comment}{//\ Host\ name\ this\ entry\ lookups\ for.}}
+\DoxyCodeLine{00062\ \ \ \mbox{\hyperlink{classnghttp2_1_1ImmutableString}{ImmutableString}}\ host;}
+\DoxyCodeLine{00063\ \ \ \textcolor{comment}{//\ DNS\ resolver.\ \ Only\ non-\/nullptr\ if\ status\ is}}
+\DoxyCodeLine{00064\ \ \ \textcolor{comment}{//\ DNSResolverStatus::RUNNING.}}
+\DoxyCodeLine{00065\ \ \ std::unique\_ptr<DualDNSResolver>\ resolv;}
+\DoxyCodeLine{00066\ \ \ \textcolor{comment}{//\ DNSQuery\ interested\ in\ this\ name\ lookup\ result.\ \ The\ result\ is}}
+\DoxyCodeLine{00067\ \ \ \textcolor{comment}{//\ notified\ to\ them\ all.}}
+\DoxyCodeLine{00068\ \ \ \mbox{\hyperlink{structnghttp2_1_1DList}{DList<DNSQuery>}}\ qlist;}
+\DoxyCodeLine{00069\ \ \ \textcolor{comment}{//\ Use\ the\ same\ enum\ with\ DNSResolverStatus}}
+\DoxyCodeLine{00070\ \ \ DNSResolverStatus\ status;}
+\DoxyCodeLine{00071\ \ \ \textcolor{comment}{//\ result\ and\ its\ expiry\ time}}
+\DoxyCodeLine{00072\ \ \ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ result;}
+\DoxyCodeLine{00073\ \ \ \textcolor{comment}{//\ time\ point\ when\ cached\ result\ expires.}}
+\DoxyCodeLine{00074\ \ \ std::chrono::steady\_clock::time\_point\ expiry;}
+\DoxyCodeLine{00075\ \};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{class\ }DNSTracker\ \{}
+\DoxyCodeLine{00078\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00079\ \ \ DNSTracker(\textcolor{keyword}{struct}\ ev\_loop\ *loop,\ \textcolor{keywordtype}{int}\ family);}
+\DoxyCodeLine{00080\ \ \ \string~DNSTracker();}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \textcolor{comment}{//\ Lookups\ host\ name\ described\ in\ |dnsq|.\ \ If\ name\ lookup\ finishes}}
+\DoxyCodeLine{00083\ \ \ \textcolor{comment}{//\ within\ this\ function\ (either\ it\ came\ from\ /etc/hosts,\ host\ name}}
+\DoxyCodeLine{00084\ \ \ \textcolor{comment}{//\ is\ numeric,\ lookup\ result\ is\ cached,\ etc),\ it\ returns}}
+\DoxyCodeLine{00085\ \ \ \textcolor{comment}{//\ DNSResolverStatus::OK\ or\ DNSResolverStatus::ERROR.\ \ If\ lookup\ is}}
+\DoxyCodeLine{00086\ \ \ \textcolor{comment}{//\ successful,\ DNSResolverStatus::OK\ is\ returned,\ and\ |result|\ is}}
+\DoxyCodeLine{00087\ \ \ \textcolor{comment}{//\ filled.\ \ If\ lookup\ failed,\ DNSResolverStatus::ERROR\ is\ returned.}}
+\DoxyCodeLine{00088\ \ \ \textcolor{comment}{//\ If\ name\ lookup\ is\ being\ done\ background,\ it\ returns}}
+\DoxyCodeLine{00089\ \ \ \textcolor{comment}{//\ DNSResolverStatus::RUNNING.\ \ Its\ completion\ is\ notified\ by}}
+\DoxyCodeLine{00090\ \ \ \textcolor{comment}{//\ calling\ dnsq-\/>cb.}}
+\DoxyCodeLine{00091\ \ \ DNSResolverStatus\ resolve(\mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ *result,\ \mbox{\hyperlink{structshrpx_1_1DNSQuery}{DNSQuery}}\ *dnsq);}
+\DoxyCodeLine{00092\ \ \ \textcolor{comment}{//\ Cancels\ name\ lookup\ requested\ by\ |dnsq|.}}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{void}\ cancel(\mbox{\hyperlink{structshrpx_1_1DNSQuery}{DNSQuery}}\ *dnsq);}
+\DoxyCodeLine{00094\ \ \ \textcolor{comment}{//\ Removes\ expired\ entries\ from\ ents\_.}}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{void}\ gc();}
+\DoxyCodeLine{00096\ \ \ \textcolor{comment}{//\ Starts\ GC\ timer.}}
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{void}\ start\_gc\_timer();}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00100\ \ \ \mbox{\hyperlink{structshrpx_1_1ResolverEntry}{ResolverEntry}}\ make\_entry(std::unique\_ptr<DualDNSResolver>\ resolv,}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classnghttp2_1_1ImmutableString}{ImmutableString}}\ host,\ DNSResolverStatus\ status,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ *result);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{void}\ update\_entry(\mbox{\hyperlink{structshrpx_1_1ResolverEntry}{ResolverEntry}}\ \&ent,\ std::unique\_ptr<DualDNSResolver>\ resolv,}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DNSResolverStatus\ status,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ *result);}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{void}\ add\_to\_qlist(\mbox{\hyperlink{structshrpx_1_1ResolverEntry}{ResolverEntry}}\ \&ent,\ \mbox{\hyperlink{structshrpx_1_1DNSQuery}{DNSQuery}}\ *dnsq);}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ std::map<StringRef,\ ResolverEntry>\ ents\_;}
+\DoxyCodeLine{00110\ \ \ \textcolor{comment}{//\ Periodically\ iterates\ ents\_,\ and\ removes\ expired\ entries\ to\ avoid}}
+\DoxyCodeLine{00111\ \ \ \textcolor{comment}{//\ excessive\ use\ of\ memory.\ \ Since\ only\ backend\ API\ can\ potentially}}
+\DoxyCodeLine{00112\ \ \ \textcolor{comment}{//\ increase\ memory\ consumption,\ interval\ could\ be\ very\ long.}}
+\DoxyCodeLine{00113\ \ \ ev\_timer\ gc\_timer\_;}
+\DoxyCodeLine{00114\ \ \ \textcolor{keyword}{struct\ }ev\_loop\ *loop\_;}
+\DoxyCodeLine{00115\ \ \ \textcolor{comment}{//\ IP\ version\ preference.}}
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{int}\ family\_;}
+\DoxyCodeLine{00117\ \};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_DNS\_TRACKER\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,220 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/data.h File Reference}
+\hypertarget{data_8h}{}\label{data_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/data.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/data.h}}
+{\ttfamily \#include "{}common.\+h"{}}\newline
+Include dependency graph for data.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{data_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structmrb__data__type}{mrb\+\_\+data\+\_\+type}}
+\item 
+struct \mbox{\hyperlink{structRData}{RData}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{data_8h_a63c30486eb78e644db75431ff841979d}{Data\+\_\+\+Wrap\+\_\+\+Struct}}(mrb,  klass,  type,  ptr)
+\item 
+\#define \mbox{\hyperlink{data_8h_a6590364f8783e54b527c0e1e2b12482f}{Data\+\_\+\+Make\+\_\+\+Struct}}(mrb,  klass,  strct,  type,  sval,  data\+\_\+obj)
+\item 
+\#define \mbox{\hyperlink{data_8h_aa38eb1376d31aae1fe0b334b9b76f2ef}{RDATA}}(obj)
+\item 
+\#define \mbox{\hyperlink{data_8h_a8b49df52bfa5fe200ec670cc26416843}{DATA\+\_\+\+PTR}}(d)
+\item 
+\#define \mbox{\hyperlink{data_8h_a12397524c9643db5ff170f5cd3331f02}{DATA\+\_\+\+TYPE}}(d)
+\item 
+\#define \mbox{\hyperlink{data_8h_ae1b4b8c95c3ff6e99955e658ace0cf43}{DATA\+\_\+\+GET\+\_\+\+PTR}}(mrb,  obj,  dtype,  type)
+\item 
+\#define \mbox{\hyperlink{data_8h_aaa86dab90d8e9b8d36a43a66494c72d9}{DATA\+\_\+\+CHECK\+\_\+\+GET\+\_\+\+PTR}}(mrb,  obj,  dtype,  type)
+\item 
+\#define \mbox{\hyperlink{data_8h_a008aed66963c6cdb1dd3b7cd04337cd0}{mrb\+\_\+data\+\_\+check\+\_\+and\+\_\+get}}(mrb,  obj,  dtype)
+\item 
+\#define \mbox{\hyperlink{data_8h_a13847082e84f317bf7d8d8a22c44f2d0}{mrb\+\_\+get\+\_\+datatype}}(mrb,  val,  type)
+\item 
+\#define \mbox{\hyperlink{data_8h_a875eade1db6e4631b757714966b0b9c3}{mrb\+\_\+check\+\_\+datatype}}(mrb,  val,  type)
+\item 
+\#define \mbox{\hyperlink{data_8h_a4667dea5e5ff93ac556f692f482c0a88}{Data\+\_\+\+Get\+\_\+\+Struct}}(mrb,  obj,  type,  sval)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\+\_\+\+BEGIN\+\_\+\+DECL}} struct mrb\+\_\+data\+\_\+type \mbox{\hyperlink{data_8h_a9bc05964f7551aee4bc7af6c454f91be}{mrb\+\_\+data\+\_\+type}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{data_8h_a77b1016cc134a1f97398ffac8cb21dbc}\label{data_8h_a77b1016cc134a1f97398ffac8cb21dbc} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} struct \mbox{\hyperlink{structRData}{RData}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+data\+\_\+object\+\_\+alloc} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, struct \mbox{\hyperlink{structRClass}{RClass}} \texorpdfstring{$\ast$}{*}klass, void \texorpdfstring{$\ast$}{*}datap, const \mbox{\hyperlink{structmrb__data__type}{mrb\+\_\+data\+\_\+type}} \texorpdfstring{$\ast$}{*}type)
+\item 
+\Hypertarget{data_8h_a797b77486ad1a7511534f73dd47d7b55}\label{data_8h_a797b77486ad1a7511534f73dd47d7b55} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void {\bfseries mrb\+\_\+data\+\_\+check\+\_\+type} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}, const \mbox{\hyperlink{structmrb__data__type}{mrb\+\_\+data\+\_\+type}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{data_8h_abe2cb30ac852a42c0ffb64af6213e0e7}\label{data_8h_abe2cb30ac852a42c0ffb64af6213e0e7} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+data\+\_\+get\+\_\+ptr} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}, const \mbox{\hyperlink{structmrb__data__type}{mrb\+\_\+data\+\_\+type}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{data_8h_a3802c12072dff44800fea9c2bda1a155}\label{data_8h_a3802c12072dff44800fea9c2bda1a155} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} void \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+data\+\_\+check\+\_\+get\+\_\+ptr} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}}, const \mbox{\hyperlink{structmrb__data__type}{mrb\+\_\+data\+\_\+type}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{data_8h_aa8c1e1bd764b88606d2530baac135013}\label{data_8h_aa8c1e1bd764b88606d2530baac135013} 
+\mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\+\_\+\+INLINE}} void {\bfseries mrb\+\_\+data\+\_\+init} (\mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} v, void \texorpdfstring{$\ast$}{*}ptr, const \mbox{\hyperlink{structmrb__data__type}{mrb\+\_\+data\+\_\+type}} \texorpdfstring{$\ast$}{*}type)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item Data class
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-define-members}
+\Hypertarget{data_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{data_8h_aaa86dab90d8e9b8d36a43a66494c72d9}\index{data.h@{data.h}!DATA\_CHECK\_GET\_PTR@{DATA\_CHECK\_GET\_PTR}}
+\index{DATA\_CHECK\_GET\_PTR@{DATA\_CHECK\_GET\_PTR}!data.h@{data.h}}
+\doxysubsubsection{\texorpdfstring{DATA\_CHECK\_GET\_PTR}{DATA\_CHECK\_GET\_PTR}}
+{\footnotesize\ttfamily \label{data_8h_aaa86dab90d8e9b8d36a43a66494c72d9} 
+\#define DATA\+\_\+\+CHECK\+\_\+\+GET\+\_\+\+PTR(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{obj}{, }\item[{}]{dtype}{, }\item[{}]{type}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(type*)mrb\_data\_check\_get\_ptr(mrb,obj,dtype)}
+
+\end{DoxyCode}
+\Hypertarget{data_8h_ae1b4b8c95c3ff6e99955e658ace0cf43}\index{data.h@{data.h}!DATA\_GET\_PTR@{DATA\_GET\_PTR}}
+\index{DATA\_GET\_PTR@{DATA\_GET\_PTR}!data.h@{data.h}}
+\doxysubsubsection{\texorpdfstring{DATA\_GET\_PTR}{DATA\_GET\_PTR}}
+{\footnotesize\ttfamily \label{data_8h_ae1b4b8c95c3ff6e99955e658ace0cf43} 
+\#define DATA\+\_\+\+GET\+\_\+\+PTR(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{obj}{, }\item[{}]{dtype}{, }\item[{}]{type}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(type*)mrb\_data\_get\_ptr(mrb,obj,dtype)}
+
+\end{DoxyCode}
+\Hypertarget{data_8h_a4667dea5e5ff93ac556f692f482c0a88}\index{data.h@{data.h}!Data\_Get\_Struct@{Data\_Get\_Struct}}
+\index{Data\_Get\_Struct@{Data\_Get\_Struct}!data.h@{data.h}}
+\doxysubsubsection{\texorpdfstring{Data\_Get\_Struct}{Data\_Get\_Struct}}
+{\footnotesize\ttfamily \label{data_8h_a4667dea5e5ff93ac556f692f482c0a88} 
+\#define Data\+\_\+\+Get\+\_\+\+Struct(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{obj}{, }\item[{}]{type}{, }\item[{}]{sval}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\(\backslash\)}
+\DoxyCodeLine{\ \ *(\textcolor{keywordtype}{void}**)\&sval\ =\ mrb\_data\_get\_ptr(mrb,\ obj,\ type);\ \(\backslash\)}
+\DoxyCodeLine{\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{data_8h_a6590364f8783e54b527c0e1e2b12482f}\index{data.h@{data.h}!Data\_Make\_Struct@{Data\_Make\_Struct}}
+\index{Data\_Make\_Struct@{Data\_Make\_Struct}!data.h@{data.h}}
+\doxysubsubsection{\texorpdfstring{Data\_Make\_Struct}{Data\_Make\_Struct}}
+{\footnotesize\ttfamily \label{data_8h_a6590364f8783e54b527c0e1e2b12482f} 
+\#define Data\+\_\+\+Make\+\_\+\+Struct(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{klass}{, }\item[{}]{strct}{, }\item[{}]{type}{, }\item[{}]{sval}{, }\item[{}]{data\+\_\+obj}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ (data\_obj)\ =\ Data\_Wrap\_Struct(mrb,klass,type,NULL);\(\backslash\)}
+\DoxyCodeLine{\ \ (sval)\ =\ (strct*)mrb\_malloc(mrb,\ \textcolor{keyword}{sizeof}(strct));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \{\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ strct\ zero\ =\ \{\ 0\ \};\ *(sval)\ =\ zero;\ \};\(\backslash\)}
+\DoxyCodeLine{\ \ (data\_obj)-\/>data\ =\ (sval);\(\backslash\)}
+\DoxyCodeLine{\}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+\Hypertarget{data_8h_a8b49df52bfa5fe200ec670cc26416843}\index{data.h@{data.h}!DATA\_PTR@{DATA\_PTR}}
+\index{DATA\_PTR@{DATA\_PTR}!data.h@{data.h}}
+\doxysubsubsection{\texorpdfstring{DATA\_PTR}{DATA\_PTR}}
+{\footnotesize\ttfamily \label{data_8h_a8b49df52bfa5fe200ec670cc26416843} 
+\#define DATA\+\_\+\+PTR(\begin{DoxyParamCaption}\item[{}]{d}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(RDATA(d)-\/>data)}
+
+\end{DoxyCode}
+\Hypertarget{data_8h_a12397524c9643db5ff170f5cd3331f02}\index{data.h@{data.h}!DATA\_TYPE@{DATA\_TYPE}}
+\index{DATA\_TYPE@{DATA\_TYPE}!data.h@{data.h}}
+\doxysubsubsection{\texorpdfstring{DATA\_TYPE}{DATA\_TYPE}}
+{\footnotesize\ttfamily \label{data_8h_a12397524c9643db5ff170f5cd3331f02} 
+\#define DATA\+\_\+\+TYPE(\begin{DoxyParamCaption}\item[{}]{d}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(RDATA(d)-\/>type)}
+
+\end{DoxyCode}
+\Hypertarget{data_8h_a63c30486eb78e644db75431ff841979d}\index{data.h@{data.h}!Data\_Wrap\_Struct@{Data\_Wrap\_Struct}}
+\index{Data\_Wrap\_Struct@{Data\_Wrap\_Struct}!data.h@{data.h}}
+\doxysubsubsection{\texorpdfstring{Data\_Wrap\_Struct}{Data\_Wrap\_Struct}}
+{\footnotesize\ttfamily \label{data_8h_a63c30486eb78e644db75431ff841979d} 
+\#define Data\+\_\+\+Wrap\+\_\+\+Struct(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{klass}{, }\item[{}]{type}{, }\item[{}]{ptr}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ mrb\_data\_object\_alloc(mrb,klass,ptr,type)}
+
+\end{DoxyCode}
+\Hypertarget{data_8h_a875eade1db6e4631b757714966b0b9c3}\index{data.h@{data.h}!mrb\_check\_datatype@{mrb\_check\_datatype}}
+\index{mrb\_check\_datatype@{mrb\_check\_datatype}!data.h@{data.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_check\_datatype}{mrb\_check\_datatype}}
+{\footnotesize\ttfamily \label{data_8h_a875eade1db6e4631b757714966b0b9c3} 
+\#define mrb\+\_\+check\+\_\+datatype(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{val}{, }\item[{}]{type}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_data\_get\_ptr(mrb,\ val,\ type)}
+
+\end{DoxyCode}
+\Hypertarget{data_8h_a008aed66963c6cdb1dd3b7cd04337cd0}\index{data.h@{data.h}!mrb\_data\_check\_and\_get@{mrb\_data\_check\_and\_get}}
+\index{mrb\_data\_check\_and\_get@{mrb\_data\_check\_and\_get}!data.h@{data.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_data\_check\_and\_get}{mrb\_data\_check\_and\_get}}
+{\footnotesize\ttfamily \label{data_8h_a008aed66963c6cdb1dd3b7cd04337cd0} 
+\#define mrb\+\_\+data\+\_\+check\+\_\+and\+\_\+get(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{obj}{, }\item[{}]{dtype}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_data\_get\_ptr(mrb,obj,dtype)}
+
+\end{DoxyCode}
+\Hypertarget{data_8h_a13847082e84f317bf7d8d8a22c44f2d0}\index{data.h@{data.h}!mrb\_get\_datatype@{mrb\_get\_datatype}}
+\index{mrb\_get\_datatype@{mrb\_get\_datatype}!data.h@{data.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_get\_datatype}{mrb\_get\_datatype}}
+{\footnotesize\ttfamily \label{data_8h_a13847082e84f317bf7d8d8a22c44f2d0} 
+\#define mrb\+\_\+get\+\_\+datatype(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{val}{, }\item[{}]{type}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_data\_get\_ptr(mrb,\ val,\ type)}
+
+\end{DoxyCode}
+\Hypertarget{data_8h_aa38eb1376d31aae1fe0b334b9b76f2ef}\index{data.h@{data.h}!RDATA@{RDATA}}
+\index{RDATA@{RDATA}!data.h@{data.h}}
+\doxysubsubsection{\texorpdfstring{RDATA}{RDATA}}
+{\footnotesize\ttfamily \label{data_8h_aa38eb1376d31aae1fe0b334b9b76f2ef} 
+\#define RDATA(\begin{DoxyParamCaption}\item[{}]{obj}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\textcolor{keyword}{struct\ }\mbox{\hyperlink{structRData}{RData}}*)(mrb\_ptr(obj)))}
+
+\end{DoxyCode}
+
+
+\label{doc-typedef-members}
+\Hypertarget{data_8h_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{data_8h_a9bc05964f7551aee4bc7af6c454f91be}\index{data.h@{data.h}!mrb\_data\_type@{mrb\_data\_type}}
+\index{mrb\_data\_type@{mrb\_data\_type}!data.h@{data.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_data\_type}{mrb\_data\_type}}
+{\footnotesize\ttfamily \label{data_8h_a9bc05964f7551aee4bc7af6c454f91be} 
+typedef \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\+\_\+\+BEGIN\+\_\+\+DECL}} struct mrb\+\_\+data\+\_\+type mrb\+\_\+data\+\_\+type}
+
+Custom C wrapped data.
+
+Defining Ruby wrappers around native objects. Custom data type description. 

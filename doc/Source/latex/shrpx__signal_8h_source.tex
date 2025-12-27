@@ -1,0 +1,66 @@
+\doxysection{shrpx\+\_\+signal.\+h}
+\hypertarget{shrpx__signal_8h_source}{}\label{shrpx__signal_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_signal.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_signal.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2015\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_SIGNAL\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_SIGNAL\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <signal.h>}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ REOPEN\_LOG\_SIGNAL\ =\ SIGUSR1;}
+\DoxyCodeLine{00035\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ EXEC\_BINARY\_SIGNAL\ =\ SIGUSR2;}
+\DoxyCodeLine{00036\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ GRACEFUL\_SHUTDOWN\_SIGNAL\ =\ SIGQUIT;}
+\DoxyCodeLine{00037\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ RELOAD\_SIGNAL\ =\ SIGHUP;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ Blocks\ all\ signals.\ \ The\ previous\ signal\ mask\ is\ stored\ into}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ |oldset|\ if\ it\ is\ not\ nullptr.\ \ This\ function\ returns\ 0\ if\ it}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ succeeds,\ or\ -\/1.\ \ The\ errno\ will\ indicate\ the\ error.}}
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{int}\ shrpx\_signal\_block\_all(sigset\_t\ *oldset);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{comment}{//\ Unblocks\ all\ signals.\ \ This\ function\ returns\ 0\ if\ it\ succeeds,\ or}}
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ -\/1.\ \ The\ errno\ will\ indicate\ the\ error.}}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{int}\ shrpx\_signal\_unblock\_all();}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{//\ Sets\ signal\ mask\ |set|.\ \ This\ function\ returns\ 0\ if\ it\ succeeds,\ or}}
+\DoxyCodeLine{00049\ \textcolor{comment}{//\ -\/1.\ \ The\ errno\ will\ indicate\ the\ error.}}
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{int}\ shrpx\_signal\_set(sigset\_t\ *set);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{int}\ shrpx\_signal\_set\_main\_proc\_ign\_handler();}
+\DoxyCodeLine{00053\ \textcolor{keywordtype}{int}\ shrpx\_signal\_unset\_main\_proc\_ign\_handler();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{int}\ shrpx\_signal\_set\_worker\_proc\_ign\_handler();}
+\DoxyCodeLine{00056\ \textcolor{keywordtype}{int}\ shrpx\_signal\_unset\_worker\_proc\_ign\_handler();}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_SIGNAL\_H}}
+
+\end{DoxyCode}

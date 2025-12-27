@@ -1,0 +1,119 @@
+\doxysection{nghttp2\+\_\+frame Union Reference}
+\hypertarget{unionnghttp2__frame}{}\label{unionnghttp2__frame}\index{nghttp2\_frame@{nghttp2\_frame}}
+
+
+{\ttfamily \#include $<$nghttp2.\+h$>$}
+
+
+
+Collaboration diagram for nghttp2\+\_\+frame\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{unionnghttp2__frame__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\+\_\+frame\+\_\+hd}} \mbox{\hyperlink{unionnghttp2__frame_a026e2265c51dca6f79bc13982d27ca5f}{hd}}
+\item 
+\mbox{\hyperlink{structnghttp2__data}{nghttp2\+\_\+data}} \mbox{\hyperlink{unionnghttp2__frame_a4e9d2f95111c489af2ce8b3ac080f890}{data}}
+\item 
+\mbox{\hyperlink{structnghttp2__headers}{nghttp2\+\_\+headers}} \mbox{\hyperlink{unionnghttp2__frame_aa1bcd9fd616caeeeece3fe8c4cb75e98}{headers}}
+\item 
+\mbox{\hyperlink{structnghttp2__priority}{nghttp2\+\_\+priority}} \mbox{\hyperlink{unionnghttp2__frame_a1033c5fb9cb48e9531826b93103effa6}{priority}}
+\item 
+\mbox{\hyperlink{structnghttp2__rst__stream}{nghttp2\+\_\+rst\+\_\+stream}} \mbox{\hyperlink{unionnghttp2__frame_aab7250727586c8823746ed79be5fc9e3}{rst\+\_\+stream}}
+\item 
+\mbox{\hyperlink{structnghttp2__settings}{nghttp2\+\_\+settings}} \mbox{\hyperlink{unionnghttp2__frame_a93e48e9a83cad4bd0b7a042914988eb5}{settings}}
+\item 
+\mbox{\hyperlink{structnghttp2__push__promise}{nghttp2\+\_\+push\+\_\+promise}} \mbox{\hyperlink{unionnghttp2__frame_a3b107c1b5f4d3bd756d9ba5ecb4becd2}{push\+\_\+promise}}
+\item 
+\mbox{\hyperlink{structnghttp2__ping}{nghttp2\+\_\+ping}} \mbox{\hyperlink{unionnghttp2__frame_a6b11f0d32245c33006579d5f77416939}{ping}}
+\item 
+\mbox{\hyperlink{structnghttp2__goaway}{nghttp2\+\_\+goaway}} \mbox{\hyperlink{unionnghttp2__frame_a2dc34d5643a119742867ccd93d1be5bf}{goaway}}
+\item 
+\mbox{\hyperlink{structnghttp2__window__update}{nghttp2\+\_\+window\+\_\+update}} \mbox{\hyperlink{unionnghttp2__frame_a2efaff82a3337c536f3bfa5149bdffef}{window\+\_\+update}}
+\item 
+\mbox{\hyperlink{structnghttp2__extension}{nghttp2\+\_\+extension}} \mbox{\hyperlink{unionnghttp2__frame_a28d37d3ec9881d5b25c01c9568805677}{ext}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This union includes all frames to pass them to various function calls as \doxylink{unionnghttp2__frame}{nghttp2\+\_\+frame} type. The CONTINUATION frame is omitted from here because the library deals with it internally. 
+
+\label{doc-variable-members}
+\Hypertarget{unionnghttp2__frame_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{unionnghttp2__frame_a4e9d2f95111c489af2ce8b3ac080f890}\index{nghttp2\_frame@{nghttp2\_frame}!data@{data}}
+\index{data@{data}!nghttp2\_frame@{nghttp2\_frame}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily \label{unionnghttp2__frame_a4e9d2f95111c489af2ce8b3ac080f890} 
+\mbox{\hyperlink{structnghttp2__data}{nghttp2\+\_\+data}} nghttp2\+\_\+frame\+::data}
+
+The DATA frame. \Hypertarget{unionnghttp2__frame_a28d37d3ec9881d5b25c01c9568805677}\index{nghttp2\_frame@{nghttp2\_frame}!ext@{ext}}
+\index{ext@{ext}!nghttp2\_frame@{nghttp2\_frame}}
+\doxysubsubsection{\texorpdfstring{ext}{ext}}
+{\footnotesize\ttfamily \label{unionnghttp2__frame_a28d37d3ec9881d5b25c01c9568805677} 
+\mbox{\hyperlink{structnghttp2__extension}{nghttp2\+\_\+extension}} nghttp2\+\_\+frame\+::ext}
+
+The extension frame. \Hypertarget{unionnghttp2__frame_a2dc34d5643a119742867ccd93d1be5bf}\index{nghttp2\_frame@{nghttp2\_frame}!goaway@{goaway}}
+\index{goaway@{goaway}!nghttp2\_frame@{nghttp2\_frame}}
+\doxysubsubsection{\texorpdfstring{goaway}{goaway}}
+{\footnotesize\ttfamily \label{unionnghttp2__frame_a2dc34d5643a119742867ccd93d1be5bf} 
+\mbox{\hyperlink{structnghttp2__goaway}{nghttp2\+\_\+goaway}} nghttp2\+\_\+frame\+::goaway}
+
+The GOAWAY frame. \Hypertarget{unionnghttp2__frame_a026e2265c51dca6f79bc13982d27ca5f}\index{nghttp2\_frame@{nghttp2\_frame}!hd@{hd}}
+\index{hd@{hd}!nghttp2\_frame@{nghttp2\_frame}}
+\doxysubsubsection{\texorpdfstring{hd}{hd}}
+{\footnotesize\ttfamily \label{unionnghttp2__frame_a026e2265c51dca6f79bc13982d27ca5f} 
+\mbox{\hyperlink{structnghttp2__frame__hd}{nghttp2\+\_\+frame\+\_\+hd}} nghttp2\+\_\+frame\+::hd}
+
+The frame header, which is convenient to inspect frame header. \Hypertarget{unionnghttp2__frame_aa1bcd9fd616caeeeece3fe8c4cb75e98}\index{nghttp2\_frame@{nghttp2\_frame}!headers@{headers}}
+\index{headers@{headers}!nghttp2\_frame@{nghttp2\_frame}}
+\doxysubsubsection{\texorpdfstring{headers}{headers}}
+{\footnotesize\ttfamily \label{unionnghttp2__frame_aa1bcd9fd616caeeeece3fe8c4cb75e98} 
+\mbox{\hyperlink{structnghttp2__headers}{nghttp2\+\_\+headers}} nghttp2\+\_\+frame\+::headers}
+
+The HEADERS frame. \Hypertarget{unionnghttp2__frame_a6b11f0d32245c33006579d5f77416939}\index{nghttp2\_frame@{nghttp2\_frame}!ping@{ping}}
+\index{ping@{ping}!nghttp2\_frame@{nghttp2\_frame}}
+\doxysubsubsection{\texorpdfstring{ping}{ping}}
+{\footnotesize\ttfamily \label{unionnghttp2__frame_a6b11f0d32245c33006579d5f77416939} 
+\mbox{\hyperlink{structnghttp2__ping}{nghttp2\+\_\+ping}} nghttp2\+\_\+frame\+::ping}
+
+The PING frame. \Hypertarget{unionnghttp2__frame_a1033c5fb9cb48e9531826b93103effa6}\index{nghttp2\_frame@{nghttp2\_frame}!priority@{priority}}
+\index{priority@{priority}!nghttp2\_frame@{nghttp2\_frame}}
+\doxysubsubsection{\texorpdfstring{priority}{priority}}
+{\footnotesize\ttfamily \label{unionnghttp2__frame_a1033c5fb9cb48e9531826b93103effa6} 
+\mbox{\hyperlink{structnghttp2__priority}{nghttp2\+\_\+priority}} nghttp2\+\_\+frame\+::priority}
+
+The PRIORITY frame. \Hypertarget{unionnghttp2__frame_a3b107c1b5f4d3bd756d9ba5ecb4becd2}\index{nghttp2\_frame@{nghttp2\_frame}!push\_promise@{push\_promise}}
+\index{push\_promise@{push\_promise}!nghttp2\_frame@{nghttp2\_frame}}
+\doxysubsubsection{\texorpdfstring{push\_promise}{push\_promise}}
+{\footnotesize\ttfamily \label{unionnghttp2__frame_a3b107c1b5f4d3bd756d9ba5ecb4becd2} 
+\mbox{\hyperlink{structnghttp2__push__promise}{nghttp2\+\_\+push\+\_\+promise}} nghttp2\+\_\+frame\+::push\+\_\+promise}
+
+The PUSH\+\_\+\+PROMISE frame. \Hypertarget{unionnghttp2__frame_aab7250727586c8823746ed79be5fc9e3}\index{nghttp2\_frame@{nghttp2\_frame}!rst\_stream@{rst\_stream}}
+\index{rst\_stream@{rst\_stream}!nghttp2\_frame@{nghttp2\_frame}}
+\doxysubsubsection{\texorpdfstring{rst\_stream}{rst\_stream}}
+{\footnotesize\ttfamily \label{unionnghttp2__frame_aab7250727586c8823746ed79be5fc9e3} 
+\mbox{\hyperlink{structnghttp2__rst__stream}{nghttp2\+\_\+rst\+\_\+stream}} nghttp2\+\_\+frame\+::rst\+\_\+stream}
+
+The RST\+\_\+\+STREAM frame. \Hypertarget{unionnghttp2__frame_a93e48e9a83cad4bd0b7a042914988eb5}\index{nghttp2\_frame@{nghttp2\_frame}!settings@{settings}}
+\index{settings@{settings}!nghttp2\_frame@{nghttp2\_frame}}
+\doxysubsubsection{\texorpdfstring{settings}{settings}}
+{\footnotesize\ttfamily \label{unionnghttp2__frame_a93e48e9a83cad4bd0b7a042914988eb5} 
+\mbox{\hyperlink{structnghttp2__settings}{nghttp2\+\_\+settings}} nghttp2\+\_\+frame\+::settings}
+
+The SETTINGS frame. \Hypertarget{unionnghttp2__frame_a2efaff82a3337c536f3bfa5149bdffef}\index{nghttp2\_frame@{nghttp2\_frame}!window\_update@{window\_update}}
+\index{window\_update@{window\_update}!nghttp2\_frame@{nghttp2\_frame}}
+\doxysubsubsection{\texorpdfstring{window\_update}{window\_update}}
+{\footnotesize\ttfamily \label{unionnghttp2__frame_a2efaff82a3337c536f3bfa5149bdffef} 
+\mbox{\hyperlink{structnghttp2__window__update}{nghttp2\+\_\+window\+\_\+update}} nghttp2\+\_\+frame\+::window\+\_\+update}
+
+The WINDOW\+\_\+\+UPDATE frame. 
+
+The documentation for this union was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/lib/includes/nghttp2/nghttp2.\+h\end{DoxyCompactItemize}

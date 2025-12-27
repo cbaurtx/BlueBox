@@ -1,0 +1,61 @@
+\doxysection{proto\+\_\+to\+\_\+ruby.\+h}
+\hypertarget{proto__to__ruby_8h_source}{}\label{proto__to__ruby_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/oss-\/fuzz/proto\_to\_ruby.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/oss-\/fuzz/proto\_to\_ruby.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <ostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stack>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <ruby.pb.h>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{namespace\ }ruby\_fuzzer\ \{}
+\DoxyCodeLine{00010\ \ \ \textcolor{keyword}{class\ }protoConverter}
+\DoxyCodeLine{00011\ \ \ \{}
+\DoxyCodeLine{00012\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ protoConverter()\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ m\_numLiveVars\ =\ 1;}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ m\_numVarsPerScope.push(m\_numLiveVars);}
+\DoxyCodeLine{00016\ \ \ \ \ \}}
+\DoxyCodeLine{00017\ \ \ \ \ protoConverter(protoConverter\ \textcolor{keyword}{const}\&\ x)\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ m\_numLiveVars\ =\ x.m\_numLiveVars;}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ m\_numVarsPerScope\ =\ x.m\_numVarsPerScope;}
+\DoxyCodeLine{00020\ \ \ \ \ \}}
+\DoxyCodeLine{00021\ \ \ \ \ \string~protoConverter()\ \{\}}
+\DoxyCodeLine{00022\ \ \ \ \ std::string\ FunctionToString(Function\ \textcolor{keyword}{const}\&\ \_input);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(ArrType\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(Array\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(AssignmentStatement\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(BinaryOp\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(BuiltinFuncs\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(Const\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(Function\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(HashType\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(IfElse\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(KVPair\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(MathConst\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(MathOps\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(MathType\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(ObjectSpace\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(Rvalue\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(Statement\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(StatementSeq\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(StringExtNoArg\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(Ternary\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(Time\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(VarRef\ \textcolor{keyword}{const}\&);}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ visit(google::protobuf::RepeatedPtrField<T>\ \textcolor{keyword}{const}\&\ \_repeated\_field);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ std::string\ removeSpecial(\textcolor{keyword}{const}\ std::string\ \&x);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ std::ostringstream\ m\_output;}
+\DoxyCodeLine{00052\ \ \ \ \ std::stack<uint8\_t>\ m\_numVarsPerScope;}
+\DoxyCodeLine{00053\ \ \ \ \ int32\_t\ m\_numLiveVars;}
+\DoxyCodeLine{00054\ \ \ \};}
+\DoxyCodeLine{00055\ \}}
+
+\end{DoxyCode}

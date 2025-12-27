@@ -1,0 +1,161 @@
+\doxysection{shrpx\+\_\+memcached\+\_\+connection.\+h}
+\hypertarget{shrpx__memcached__connection_8h_source}{}\label{shrpx__memcached__connection_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_memcached\_connection.h@{managed\_components/espressif\_\_nghttp/nghttp2/src/shrpx\_memcached\_connection.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2015\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ SHRPX\_MEMCACHED\_CONNECTION\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SHRPX\_MEMCACHED\_CONNECTION\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}shrpx.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <deque>}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <ev.h>}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}shrpx\_connection.h"{}}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}shrpx\_tls.h"{}}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ "{}shrpx\_connect\_blocker.h"{}}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ "{}buffer.h"{}}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ "{}network.h"{}}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{using\ namespace\ }nghttp2;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{namespace\ }shrpx\ \{}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1MemcachedRequest}{MemcachedRequest}};}
+\DoxyCodeLine{00046\ \textcolor{keyword}{enum\ class}\ MemcachedOp\ :\ uint8\_t;}
+\DoxyCodeLine{00047\ \textcolor{keyword}{enum\ class}\ MemcachedStatusCode\ :\ uint16\_t;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{enum\ class}\ MemcachedParseState\ \{}
+\DoxyCodeLine{00050\ \ \ HEADER24,}
+\DoxyCodeLine{00051\ \ \ EXTRA,}
+\DoxyCodeLine{00052\ \ \ VALUE,}
+\DoxyCodeLine{00053\ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{//\ Stores\ state\ when\ parsing\ response\ from\ memcached\ server}}
+\DoxyCodeLine{00056\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1MemcachedParseContext}{MemcachedParseContext}}\ \{}
+\DoxyCodeLine{00057\ \ \ \textcolor{comment}{//\ Buffer\ for\ value,\ dynamically\ allocated.}}
+\DoxyCodeLine{00058\ \ \ std::vector<uint8\_t>\ value;}
+\DoxyCodeLine{00059\ \ \ \textcolor{comment}{//\ cas\ in\ response}}
+\DoxyCodeLine{00060\ \ \ uint64\_t\ cas;}
+\DoxyCodeLine{00061\ \ \ \textcolor{comment}{//\ keylen\ in\ response}}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{size\_t}\ keylen;}
+\DoxyCodeLine{00063\ \ \ \textcolor{comment}{//\ extralen\ in\ response}}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{size\_t}\ extralen;}
+\DoxyCodeLine{00065\ \ \ \textcolor{comment}{//\ totalbody\ in\ response.\ \ The\ length\ of\ value\ is\ totalbody\ -\/}}
+\DoxyCodeLine{00066\ \ \ \textcolor{comment}{//\ extralen\ -\/\ keylen.}}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{size\_t}\ totalbody;}
+\DoxyCodeLine{00068\ \ \ \textcolor{comment}{//\ Number\ of\ bytes\ left\ to\ read\ variable\ length\ field.}}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{size\_t}\ read\_left;}
+\DoxyCodeLine{00070\ \ \ \textcolor{comment}{//\ Parser\ state;\ see\ enum\ above}}
+\DoxyCodeLine{00071\ \ \ MemcachedParseState\ state;}
+\DoxyCodeLine{00072\ \ \ \textcolor{comment}{//\ status\_code\ in\ response}}
+\DoxyCodeLine{00073\ \ \ MemcachedStatusCode\ status\_code;}
+\DoxyCodeLine{00074\ \ \ \textcolor{comment}{//\ op\ in\ response}}
+\DoxyCodeLine{00075\ \ \ MemcachedOp\ op;}
+\DoxyCodeLine{00076\ \};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structshrpx_1_1MemcachedSendbuf}{MemcachedSendbuf}}\ \{}
+\DoxyCodeLine{00079\ \ \ \textcolor{comment}{//\ Buffer\ for\ header\ +\ extra\ +\ key}}
+\DoxyCodeLine{00080\ \ \ \mbox{\hyperlink{structnghttp2_1_1Buffer}{Buffer<512>}}\ headbuf;}
+\DoxyCodeLine{00081\ \ \ \textcolor{comment}{//\ MemcachedRequest\ associated\ to\ this\ object}}
+\DoxyCodeLine{00082\ \ \ \mbox{\hyperlink{structshrpx_1_1MemcachedRequest}{MemcachedRequest}}\ *req;}
+\DoxyCodeLine{00083\ \ \ \textcolor{comment}{//\ Number\ of\ bytes\ left\ when\ sending\ value}}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{size\_t}\ send\_value\_left;}
+\DoxyCodeLine{00085\ \ \ \textcolor{comment}{//\ Returns\ the\ number\ of\ bytes\ this\ object\ transmits.}}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{size\_t}\ left()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ headbuf.rleft()\ +\ send\_value\_left;\ \}}
+\DoxyCodeLine{00087\ \};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{constexpr}\ uint8\_t\ MEMCACHED\_REQ\_MAGIC\ =\ 0x80;}
+\DoxyCodeLine{00090\ \textcolor{keyword}{constexpr}\ uint8\_t\ MEMCACHED\_RES\_MAGIC\ =\ 0x81;}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{comment}{//\ MemcachedConnection\ implements\ part\ of\ memcached\ binary\ protocol.}}
+\DoxyCodeLine{00093\ \textcolor{comment}{//\ This\ is\ not\ full\ brown\ implementation.\ \ Just\ the\ part\ we\ need\ is}}
+\DoxyCodeLine{00094\ \textcolor{comment}{//\ implemented.\ \ We\ only\ use\ GET\ and\ ADD.}}
+\DoxyCodeLine{00095\ \textcolor{comment}{//}}
+\DoxyCodeLine{00096\ \textcolor{comment}{//\ https://github.com/memcached/memcached/blob/master/doc/protocol-\/binary.xml}}
+\DoxyCodeLine{00097\ \textcolor{comment}{//\ https://code.google.com/p/memcached/wiki/MemcacheBinaryProtocol}}
+\DoxyCodeLine{00098\ \textcolor{keyword}{class\ }MemcachedConnection\ \{}
+\DoxyCodeLine{00099\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00100\ \ \ MemcachedConnection(\textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ *addr,\ \textcolor{keyword}{struct}\ ev\_loop\ *loop,}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SSL\_CTX\ *ssl\_ctx,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ \&sni\_name,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MemchunkPool\ *mcpool,\ std::mt19937\ \&gen);}
+\DoxyCodeLine{00103\ \ \ \string~MemcachedConnection();}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{void}\ disconnect();}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{int}\ add\_request(std::unique\_ptr<MemcachedRequest>\ req);}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{int}\ initiate\_connection();}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordtype}{int}\ connected();}
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordtype}{int}\ on\_write();}
+\DoxyCodeLine{00112\ \ \ \textcolor{keywordtype}{int}\ on\_read();}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordtype}{int}\ write\_clear();}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{int}\ read\_clear();}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{int}\ tls\_handshake();}
+\DoxyCodeLine{00118\ \ \ \textcolor{keywordtype}{int}\ write\_tls();}
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{int}\ read\_tls();}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{size\_t}\ fill\_request\_buffer(\textcolor{keyword}{struct}\ iovec\ *iov,\ \textcolor{keywordtype}{size\_t}\ iovlen);}
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{void}\ drain\_send\_queue(\textcolor{keywordtype}{size\_t}\ nwrite);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{void}\ make\_request(\mbox{\hyperlink{structshrpx_1_1MemcachedSendbuf}{MemcachedSendbuf}}\ *sendbuf,\ \mbox{\hyperlink{structshrpx_1_1MemcachedRequest}{MemcachedRequest}}\ *req);}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{int}\ parse\_packet();}
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{size\_t}\ serialized\_size(\mbox{\hyperlink{structshrpx_1_1MemcachedRequest}{MemcachedRequest}}\ *req);}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{void}\ signal\_write();}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{int}\ noop();}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordtype}{void}\ reconnect\_or\_fail();}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00135\ \ \ \mbox{\hyperlink{structshrpx_1_1Connection}{Connection}}\ conn\_;}
+\DoxyCodeLine{00136\ \ \ std::deque<std::unique\_ptr<MemcachedRequest>>\ recvq\_;}
+\DoxyCodeLine{00137\ \ \ std::deque<std::unique\_ptr<MemcachedRequest>>\ sendq\_;}
+\DoxyCodeLine{00138\ \ \ std::deque<MemcachedSendbuf>\ sendbufv\_;}
+\DoxyCodeLine{00139\ \ \ std::function<int(MemcachedConnection\ \&)>\ do\_read\_,\ do\_write\_;}
+\DoxyCodeLine{00140\ \ \ \mbox{\hyperlink{classnghttp2_1_1StringRef}{StringRef}}\ sni\_name\_;}
+\DoxyCodeLine{00141\ \ \ \mbox{\hyperlink{structshrpx_1_1tls_1_1TLSSessionCache}{tls::TLSSessionCache}}\ tls\_session\_cache\_;}
+\DoxyCodeLine{00142\ \ \ \mbox{\hyperlink{classshrpx_1_1ConnectBlocker}{ConnectBlocker}}\ connect\_blocker\_;}
+\DoxyCodeLine{00143\ \ \ \mbox{\hyperlink{structshrpx_1_1MemcachedParseContext}{MemcachedParseContext}}\ parse\_state\_;}
+\DoxyCodeLine{00144\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structnghttp2_1_1Address}{Address}}\ *addr\_;}
+\DoxyCodeLine{00145\ \ \ SSL\_CTX\ *ssl\_ctx\_;}
+\DoxyCodeLine{00146\ \ \ \textcolor{comment}{//\ Sum\ of\ the\ bytes\ to\ be\ transmitted\ in\ sendbufv\_.}}
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordtype}{size\_t}\ sendsum\_;}
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordtype}{size\_t}\ try\_count\_;}
+\DoxyCodeLine{00149\ \ \ \textcolor{keywordtype}{bool}\ connected\_;}
+\DoxyCodeLine{00150\ \ \ \mbox{\hyperlink{structnghttp2_1_1Buffer}{Buffer<8\_k>}}\ recvbuf\_;}
+\DoxyCodeLine{00151\ \};}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \}\ \textcolor{comment}{//\ namespace\ shrpx}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SHRPX\_MEMCACHED\_CONNECTION\_H}}
+
+\end{DoxyCode}

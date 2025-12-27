@@ -1,0 +1,53 @@
+\doxysection{shrpx\+::Close\+Wait Struct Reference}
+\hypertarget{structshrpx_1_1CloseWait}{}\label{structshrpx_1_1CloseWait}\index{shrpx::CloseWait@{shrpx::CloseWait}}
+
+
+Collaboration diagram for shrpx\+::Close\+Wait\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{structshrpx_1_1CloseWait__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1CloseWait_ac83814f4de112d52e48a177fed225ba6}\label{structshrpx_1_1CloseWait_ac83814f4de112d52e48a177fed225ba6} 
+{\bfseries Close\+Wait} (\mbox{\hyperlink{classshrpx_1_1Worker}{Worker}} \texorpdfstring{$\ast$}{*}worker, std\+::vector$<$ ngtcp2\+\_\+cid $>$ scids, std\+::vector$<$ uint8\+\_\+t $>$ pkt, ev\+\_\+tstamp period)
+\item 
+\Hypertarget{structshrpx_1_1CloseWait_a024aa5175264fc42b66097997d1010d3}\label{structshrpx_1_1CloseWait_a024aa5175264fc42b66097997d1010d3} 
+int {\bfseries handle\+\_\+packet} (const \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{Upstream\+Addr}} \texorpdfstring{$\ast$}{*}faddr, const \mbox{\hyperlink{structnghttp2_1_1Address}{Address}} \&remote\+\_\+addr, const \mbox{\hyperlink{structnghttp2_1_1Address}{Address}} \&local\+\_\+addr, const ngtcp2\+\_\+pkt\+\_\+info \&pi, std\+::span$<$ const uint8\+\_\+t $>$ data)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1CloseWait_a2ed401d86ced307f564b44b154a4beb8}\label{structshrpx_1_1CloseWait_a2ed401d86ced307f564b44b154a4beb8} 
+\mbox{\hyperlink{classshrpx_1_1Worker}{Worker}} \texorpdfstring{$\ast$}{*} {\bfseries worker}
+\item 
+\Hypertarget{structshrpx_1_1CloseWait_aa12ac14517eb6d20a348bfd6324207b8}\label{structshrpx_1_1CloseWait_aa12ac14517eb6d20a348bfd6324207b8} 
+std\+::vector$<$ ngtcp2\+\_\+cid $>$ {\bfseries scids}
+\item 
+\Hypertarget{structshrpx_1_1CloseWait_ad3db8148d92ff6d5f2df9ef57dc8f685}\label{structshrpx_1_1CloseWait_ad3db8148d92ff6d5f2df9ef57dc8f685} 
+std\+::vector$<$ uint8\+\_\+t $>$ {\bfseries pkt}
+\item 
+\Hypertarget{structshrpx_1_1CloseWait_abc94cbd670236cf61b461ccf9b84504b}\label{structshrpx_1_1CloseWait_abc94cbd670236cf61b461ccf9b84504b} 
+ev\+\_\+timer {\bfseries timer}
+\item 
+\Hypertarget{structshrpx_1_1CloseWait_a18d42a93143d7ab2c92cd69ba2895c58}\label{structshrpx_1_1CloseWait_a18d42a93143d7ab2c92cd69ba2895c58} 
+size\+\_\+t {\bfseries bytes\+\_\+recv}
+\item 
+\Hypertarget{structshrpx_1_1CloseWait_a6fb78de6acb02c5f0eb4c47e57318aa5}\label{structshrpx_1_1CloseWait_a6fb78de6acb02c5f0eb4c47e57318aa5} 
+size\+\_\+t {\bfseries bytes\+\_\+sent}
+\item 
+\Hypertarget{structshrpx_1_1CloseWait_a5e6e1d793ccd7820ab189d4ffcc5d317}\label{structshrpx_1_1CloseWait_a5e6e1d793ccd7820ab189d4ffcc5d317} 
+size\+\_\+t {\bfseries num\+\_\+pkts\+\_\+recv}
+\item 
+\Hypertarget{structshrpx_1_1CloseWait_a5ba6ee693227447d9012638d5c3a4eb7}\label{structshrpx_1_1CloseWait_a5ba6ee693227447d9012638d5c3a4eb7} 
+size\+\_\+t {\bfseries next\+\_\+pkts\+\_\+recv}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+quic\+\_\+connection\+\_\+handler.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+quic\+\_\+connection\+\_\+handler.\+cc\end{DoxyCompactItemize}

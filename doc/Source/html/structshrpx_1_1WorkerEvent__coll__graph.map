@@ -1,0 +1,9 @@
+<map id="shrpx::WorkerEvent" name="shrpx::WorkerEvent">
+<area shape="rect" id="Node000001" title=" " alt="" coords="70,224,206,251"/>
+<area shape="rect" id="Node000002" href="$unionnghttp2_1_1sockaddr__union.html" title=" " alt="" coords="5,125,169,152"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,164,134,224,129,224,99,168"/>
+<area shape="rect" id="Node000003" href="$structshrpx_1_1UpstreamAddr.html" title=" " alt="" coords="193,125,338,152"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="243,162,197,202,161,226,158,221,193,198,238,164"/>
+<area shape="rect" id="Node000004" href="$classnghttp2_1_1StringRef.html" title=" " alt="" coords="202,5,329,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="267,46,268,126,263,124,264,50"/>
+</map>

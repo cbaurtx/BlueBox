@@ -1,0 +1,29 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/neverbleed Directory Reference}
+\hypertarget{dir_efc3d0a136386add3ec4f1e1c9425c76}{}\label{dir_efc3d0a136386add3ec4f1e1c9425c76}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/neverbleed Directory Reference@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/neverbleed Directory Reference}}
+Directory dependency graph for neverbleed\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=176pt]{dir_efc3d0a136386add3ec4f1e1c9425c76_dep}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file {\bfseries neverbleed.\+h}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Neverbleed is an \href{https://www.openssl.org/docs/man1.0.2/crypto/engine.html}{\texttt{Open\+SSL engine}} that runs RSA private key operations in an isolated process, thereby minimizing the risk of private key leak in case of vulnerability such as \href{http://heartbleed.com/}{\texttt{Heartbleed}}.
+
+The engine is known to work together with existing versions of Open\+SSL or Libre\+SSL, with minimal changes to the server source code.\hypertarget{dir_efc3d0a136386add3ec4f1e1c9425c76_autotoc_md570}{}\doxysubsection{\texorpdfstring{FAQ}{FAQ}}\label{dir_efc3d0a136386add3ec4f1e1c9425c76_autotoc_md570}
+\hypertarget{dir_efc3d0a136386add3ec4f1e1c9425c76_autotoc_md571}{}\doxysubsubsection{\texorpdfstring{Q. How much is the overhead?}{Q. How much is the overhead?}}\label{dir_efc3d0a136386add3ec4f1e1c9425c76_autotoc_md571}
+Virtually none.
+
+Generally speaking, private key operations are much more heavier than the overhead of inter-\/process communication. On my Linux VM running on Core i7 @ 2.\+4\+GHz (Mac\+Book Pro 15"{} Late 2013), Open\+SSL 1.\+0.\+2 without privilege separation processes 319.\+56 full TLS handshakes per second, whereas Open\+SSL with privilege separation processes 316.\+72 handshakes per second (note\+: RSA key length\+: 2,048 bits, selected cipher-\/suite\+: ECDHE-\/\+RSA-\/\+AES128-\/\+GCM-\/\+SHA256).  @subsection autotoc\+\_\+md572 Q. Why does the library only protect the private keys?  \+Because private keys are the only $<$em$>$long-\/term$<$/em$>$ secret being used for encrypting and/or digitally-\/signing the communication.  \+Depending on how Open\+SSL is used, it might be beneficial to separate symmetric cipher operations or TLS operations as a whole. \+But even in such case, it would still be a good idea to isolate private key operations from them considering the impact of private key leaks. \+In other words, separating private key operations only to an isolated process in always a good thing to do.  @subsection autotoc\+\_\+md573 Q. Is there any HTTP server that uses Neverbleed?  \+Neverbleed is used by $<$a href="{}\href{https://h2o.examp1e.net/}{\texttt{https\+://h2o.\+examp1e.\+net/}}"{} $>$\+H2\+O$<$/a$>$ HTTP2 server since version $<$a href="{}\href{https://github.com/h2o/h2o/releases/tag/v1.5.0-beta4}{\texttt{https\+://github.\+com/h2o/h2o/releases/tag/v1.\+5.\+0-\/beta4}}"{} $>$1.\+5.\+0-\/beta4$<$/a$>$.  @section autotoc\+\_\+md574 How-\/to   \+The library exposes two functions\+: $<$tt$>$neverbleed\+\_\+init$<$/tt$>$ and $<$tt$>$neverbleed\+\_\+load\+\_\+private\+\_\+key\+\_\+file$<$/tt$>$.  \+The first function spawns an external process dedicated to private key operations, and the second function assigns a RSA private key stored in the specified file to an existing SSL context ($<$tt$>$\+SSL\+\_\+\+CTX$<$/tt$>$).  \+By  1. adding call to $<$tt$>$neverbleed\+\_\+init$<$/tt$>$ 2. replacing call to $<$tt$>$\+SSL\+\_\+\+CTX\+\_\+use\+\_\+\+Private\+Key\+\_\+file$<$/tt$>$ with $<$tt$>$neverbleed\+\_\+load\+\_\+private\+\_\+key\+\_\+file$<$/tt$>$  the privilege separation engine will be used for all the incoming TLS connections.  @icode    neverbleed\+\_\+t nb;   char errbuf\mbox{[}\+NEVERBLEED\+\_\+\+ERRBUF\+\_\+\+SIZE\mbox{]};    /\texorpdfstring{$\ast$}{*} initialize the Open\+SSL library and the neverbleed engine \texorpdfstring{$\ast$}{*}/   SSL\+\_\+load\+\_\+error\+\_\+strings();   SSL\+\_\+library\+\_\+init();   Open\+SSL\+\_\+add\+\_\+all\+\_\+algorithms();   if (neverbleed\+\_\+init(\&nb, errbuf) != 0) \{     fprintf(stderr, "{}neverbleed\+\_\+init failed\+: s~\newline
+"{}, errbuf);     ...   \}    ...    /\texorpdfstring{$\ast$}{*} load certificate chain and private key \texorpdfstring{$\ast$}{*}/   if (\+SSL\+\_\+\+CTX\+\_\+use\+\_\+certificate\+\_\+chain\+\_\+file(ssl\+\_\+ctx, certchain\+\_\+fn) != 1) \{     fprintf(stderr, "{}failed to load certificate chain \href{file:\%s}{\texttt{file\+:\%s}}~\newline
+"{}, certchain\+\_\+fn);     ...   \}   if (neverbleed\+\_\+load\+\_\+private\+\_\+key\+\_\+file(\&nb, ctx, privkey\+\_\+fn, errbuf) != 1) \{     fprintf(stderr, "{}failed to load private key from \href{file:\%s:\%s}{\texttt{file\+:\%s\+:\%s}}~\newline
+"{}, privkey\+\_\+fn, errbuf); ... \} 
+
+Also, {\ttfamily neverbleed\+\_\+setuidgid} function can be used to drop the privileges of the daemon process once it completes loading all the private keys. 

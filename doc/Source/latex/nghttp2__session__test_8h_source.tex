@@ -1,0 +1,175 @@
+\doxysection{nghttp2\+\_\+session\+\_\+test.\+h}
+\hypertarget{nghttp2__session__test_8h_source}{}\label{nghttp2__session__test_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/tests/nghttp2\_session\_test.h@{managed\_components/espressif\_\_nghttp/nghttp2/tests/nghttp2\_session\_test.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ nghttp2\ -\/\ HTTP/2\ C\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012\ Tatsuhiro\ Tsujikawa}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ NGHTTP2\_SESSION\_TEST\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ NGHTTP2\_SESSION\_TEST\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifdef\ HAVE\_CONFIG\_H}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ \ include\ <config.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_CONFIG\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ MUNIT\_ENABLE\_ASSERT\_ALIASES}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}munit.h"{}}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ MunitSuite\ session\_suite;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv)}
+\DoxyCodeLine{00039\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_invalid\_stream\_id)}
+\DoxyCodeLine{00040\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_invalid\_frame)}
+\DoxyCodeLine{00041\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_eof)}
+\DoxyCodeLine{00042\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_data)}
+\DoxyCodeLine{00043\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_data\_no\_auto\_flow\_control)}
+\DoxyCodeLine{00044\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_continuation)}
+\DoxyCodeLine{00045\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_headers\_with\_priority)}
+\DoxyCodeLine{00046\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_headers\_with\_padding)}
+\DoxyCodeLine{00047\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_headers\_early\_response)}
+\DoxyCodeLine{00048\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_headers\_for\_closed\_stream)}
+\DoxyCodeLine{00049\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_headers\_with\_extpri)}
+\DoxyCodeLine{00050\ munit\_void\_test\_decl(test\_nghttp2\_session\_server\_recv\_push\_response)}
+\DoxyCodeLine{00051\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_premature\_headers)}
+\DoxyCodeLine{00052\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_unknown\_frame)}
+\DoxyCodeLine{00053\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_unexpected\_continuation)}
+\DoxyCodeLine{00054\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_settings\_header\_table\_size)}
+\DoxyCodeLine{00055\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_too\_large\_frame\_length)}
+\DoxyCodeLine{00056\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_extension)}
+\DoxyCodeLine{00057\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_altsvc)}
+\DoxyCodeLine{00058\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_origin)}
+\DoxyCodeLine{00059\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_priority\_update)}
+\DoxyCodeLine{00060\ munit\_void\_test\_decl(test\_nghttp2\_session\_continue)}
+\DoxyCodeLine{00061\ munit\_void\_test\_decl(test\_nghttp2\_session\_add\_frame)}
+\DoxyCodeLine{00062\ munit\_void\_test\_decl(test\_nghttp2\_session\_on\_request\_headers\_received)}
+\DoxyCodeLine{00063\ munit\_void\_test\_decl(test\_nghttp2\_session\_on\_response\_headers\_received)}
+\DoxyCodeLine{00064\ munit\_void\_test\_decl(test\_nghttp2\_session\_on\_headers\_received)}
+\DoxyCodeLine{00065\ munit\_void\_test\_decl(test\_nghttp2\_session\_on\_push\_response\_headers\_received)}
+\DoxyCodeLine{00066\ munit\_void\_test\_decl(test\_nghttp2\_session\_on\_rst\_stream\_received)}
+\DoxyCodeLine{00067\ munit\_void\_test\_decl(test\_nghttp2\_session\_on\_settings\_received)}
+\DoxyCodeLine{00068\ munit\_void\_test\_decl(test\_nghttp2\_session\_on\_push\_promise\_received)}
+\DoxyCodeLine{00069\ munit\_void\_test\_decl(test\_nghttp2\_session\_on\_ping\_received)}
+\DoxyCodeLine{00070\ munit\_void\_test\_decl(test\_nghttp2\_session\_on\_goaway\_received)}
+\DoxyCodeLine{00071\ munit\_void\_test\_decl(test\_nghttp2\_session\_on\_window\_update\_received)}
+\DoxyCodeLine{00072\ munit\_void\_test\_decl(test\_nghttp2\_session\_on\_data\_received)}
+\DoxyCodeLine{00073\ munit\_void\_test\_decl(test\_nghttp2\_session\_on\_data\_received\_fail\_fast)}
+\DoxyCodeLine{00074\ munit\_void\_test\_decl(test\_nghttp2\_session\_on\_altsvc\_received)}
+\DoxyCodeLine{00075\ munit\_void\_test\_decl(test\_nghttp2\_session\_send\_headers\_start\_stream)}
+\DoxyCodeLine{00076\ munit\_void\_test\_decl(test\_nghttp2\_session\_send\_headers\_reply)}
+\DoxyCodeLine{00077\ munit\_void\_test\_decl(test\_nghttp2\_session\_send\_headers\_frame\_size\_error)}
+\DoxyCodeLine{00078\ munit\_void\_test\_decl(test\_nghttp2\_session\_send\_headers\_push\_reply)}
+\DoxyCodeLine{00079\ munit\_void\_test\_decl(test\_nghttp2\_session\_send\_rst\_stream)}
+\DoxyCodeLine{00080\ munit\_void\_test\_decl(test\_nghttp2\_session\_send\_push\_promise)}
+\DoxyCodeLine{00081\ munit\_void\_test\_decl(test\_nghttp2\_session\_is\_my\_stream\_id)}
+\DoxyCodeLine{00082\ munit\_void\_test\_decl(test\_nghttp2\_session\_upgrade2)}
+\DoxyCodeLine{00083\ munit\_void\_test\_decl(test\_nghttp2\_submit\_data)}
+\DoxyCodeLine{00084\ munit\_void\_test\_decl(test\_nghttp2\_submit\_data\_read\_length\_too\_large)}
+\DoxyCodeLine{00085\ munit\_void\_test\_decl(test\_nghttp2\_submit\_data\_read\_length\_smallest)}
+\DoxyCodeLine{00086\ munit\_void\_test\_decl(test\_nghttp2\_submit\_data\_twice)}
+\DoxyCodeLine{00087\ munit\_void\_test\_decl(test\_nghttp2\_submit\_request\_with\_data)}
+\DoxyCodeLine{00088\ munit\_void\_test\_decl(test\_nghttp2\_submit\_request\_without\_data)}
+\DoxyCodeLine{00089\ munit\_void\_test\_decl(test\_nghttp2\_submit\_response\_with\_data)}
+\DoxyCodeLine{00090\ munit\_void\_test\_decl(test\_nghttp2\_submit\_response\_without\_data)}
+\DoxyCodeLine{00091\ munit\_void\_test\_decl(test\_nghttp2\_submit\_response\_push\_response)}
+\DoxyCodeLine{00092\ munit\_void\_test\_decl(test\_nghttp2\_submit\_trailer)}
+\DoxyCodeLine{00093\ munit\_void\_test\_decl(test\_nghttp2\_submit\_headers\_start\_stream)}
+\DoxyCodeLine{00094\ munit\_void\_test\_decl(test\_nghttp2\_submit\_headers\_reply)}
+\DoxyCodeLine{00095\ munit\_void\_test\_decl(test\_nghttp2\_submit\_headers\_push\_reply)}
+\DoxyCodeLine{00096\ munit\_void\_test\_decl(test\_nghttp2\_submit\_headers)}
+\DoxyCodeLine{00097\ munit\_void\_test\_decl(test\_nghttp2\_submit\_headers\_continuation)}
+\DoxyCodeLine{00098\ munit\_void\_test\_decl(test\_nghttp2\_submit\_headers\_continuation\_extra\_large)}
+\DoxyCodeLine{00099\ munit\_void\_test\_decl(test\_nghttp2\_submit\_settings)}
+\DoxyCodeLine{00100\ munit\_void\_test\_decl(test\_nghttp2\_submit\_settings\_update\_local\_window\_size)}
+\DoxyCodeLine{00101\ munit\_void\_test\_decl(test\_nghttp2\_submit\_settings\_multiple\_times)}
+\DoxyCodeLine{00102\ munit\_void\_test\_decl(test\_nghttp2\_submit\_push\_promise)}
+\DoxyCodeLine{00103\ munit\_void\_test\_decl(test\_nghttp2\_submit\_window\_update)}
+\DoxyCodeLine{00104\ munit\_void\_test\_decl(test\_nghttp2\_submit\_window\_update\_local\_window\_size)}
+\DoxyCodeLine{00105\ munit\_void\_test\_decl(test\_nghttp2\_submit\_shutdown\_notice)}
+\DoxyCodeLine{00106\ munit\_void\_test\_decl(test\_nghttp2\_submit\_invalid\_nv)}
+\DoxyCodeLine{00107\ munit\_void\_test\_decl(test\_nghttp2\_submit\_extension)}
+\DoxyCodeLine{00108\ munit\_void\_test\_decl(test\_nghttp2\_submit\_altsvc)}
+\DoxyCodeLine{00109\ munit\_void\_test\_decl(test\_nghttp2\_submit\_origin)}
+\DoxyCodeLine{00110\ munit\_void\_test\_decl(test\_nghttp2\_submit\_priority\_update)}
+\DoxyCodeLine{00111\ munit\_void\_test\_decl(test\_nghttp2\_submit\_rst\_stream)}
+\DoxyCodeLine{00112\ munit\_void\_test\_decl(test\_nghttp2\_session\_open\_stream)}
+\DoxyCodeLine{00113\ munit\_void\_test\_decl(test\_nghttp2\_session\_get\_next\_ob\_item)}
+\DoxyCodeLine{00114\ munit\_void\_test\_decl(test\_nghttp2\_session\_pop\_next\_ob\_item)}
+\DoxyCodeLine{00115\ munit\_void\_test\_decl(test\_nghttp2\_session\_reply\_fail)}
+\DoxyCodeLine{00116\ munit\_void\_test\_decl(test\_nghttp2\_session\_max\_concurrent\_streams)}
+\DoxyCodeLine{00117\ munit\_void\_test\_decl(test\_nghttp2\_session\_stop\_data\_with\_rst\_stream)}
+\DoxyCodeLine{00118\ munit\_void\_test\_decl(test\_nghttp2\_session\_defer\_data)}
+\DoxyCodeLine{00119\ munit\_void\_test\_decl(test\_nghttp2\_session\_flow\_control)}
+\DoxyCodeLine{00120\ munit\_void\_test\_decl(test\_nghttp2\_session\_flow\_control\_data\_recv)}
+\DoxyCodeLine{00121\ munit\_void\_test\_decl(test\_nghttp2\_session\_flow\_control\_data\_with\_padding\_recv)}
+\DoxyCodeLine{00122\ munit\_void\_test\_decl(test\_nghttp2\_session\_data\_read\_temporal\_failure)}
+\DoxyCodeLine{00123\ munit\_void\_test\_decl(test\_nghttp2\_session\_on\_stream\_close)}
+\DoxyCodeLine{00124\ munit\_void\_test\_decl(test\_nghttp2\_session\_on\_ctrl\_not\_send)}
+\DoxyCodeLine{00125\ munit\_void\_test\_decl(test\_nghttp2\_session\_get\_outbound\_queue\_size)}
+\DoxyCodeLine{00126\ munit\_void\_test\_decl(test\_nghttp2\_session\_get\_effective\_local\_window\_size)}
+\DoxyCodeLine{00127\ munit\_void\_test\_decl(test\_nghttp2\_session\_set\_option)}
+\DoxyCodeLine{00128\ munit\_void\_test\_decl(test\_nghttp2\_session\_data\_backoff\_by\_high\_pri\_frame)}
+\DoxyCodeLine{00129\ munit\_void\_test\_decl(test\_nghttp2\_session\_pack\_data\_with\_padding)}
+\DoxyCodeLine{00130\ munit\_void\_test\_decl(test\_nghttp2\_session\_pack\_headers\_with\_padding)}
+\DoxyCodeLine{00131\ munit\_void\_test\_decl(test\_nghttp2\_pack\_settings\_payload)}
+\DoxyCodeLine{00132\ munit\_void\_test\_decl(test\_nghttp2\_session\_stream\_get\_state)}
+\DoxyCodeLine{00133\ munit\_void\_test\_decl(test\_nghttp2\_session\_find\_stream)}
+\DoxyCodeLine{00134\ munit\_void\_test\_decl(test\_nghttp2\_session\_graceful\_shutdown)}
+\DoxyCodeLine{00135\ munit\_void\_test\_decl(test\_nghttp2\_session\_on\_header\_temporal\_failure)}
+\DoxyCodeLine{00136\ munit\_void\_test\_decl(test\_nghttp2\_session\_recv\_client\_magic)}
+\DoxyCodeLine{00137\ munit\_void\_test\_decl(test\_nghttp2\_session\_delete\_data\_item)}
+\DoxyCodeLine{00138\ munit\_void\_test\_decl(test\_nghttp2\_session\_open\_idle\_stream)}
+\DoxyCodeLine{00139\ munit\_void\_test\_decl(test\_nghttp2\_session\_cancel\_reserved\_remote)}
+\DoxyCodeLine{00140\ munit\_void\_test\_decl(test\_nghttp2\_session\_reset\_pending\_headers)}
+\DoxyCodeLine{00141\ munit\_void\_test\_decl(test\_nghttp2\_session\_send\_data\_callback)}
+\DoxyCodeLine{00142\ munit\_void\_test\_decl(test\_nghttp2\_session\_on\_begin\_headers\_temporal\_failure)}
+\DoxyCodeLine{00143\ munit\_void\_test\_decl(test\_nghttp2\_session\_defer\_then\_close)}
+\DoxyCodeLine{00144\ munit\_void\_test\_decl(test\_nghttp2\_session\_detach\_item\_from\_closed\_stream)}
+\DoxyCodeLine{00145\ munit\_void\_test\_decl(test\_nghttp2\_session\_flooding)}
+\DoxyCodeLine{00146\ munit\_void\_test\_decl(test\_nghttp2\_session\_change\_extpri\_stream\_priority)}
+\DoxyCodeLine{00147\ munit\_void\_test\_decl(test\_nghttp2\_session\_set\_local\_window\_size)}
+\DoxyCodeLine{00148\ munit\_void\_test\_decl(test\_nghttp2\_session\_cancel\_from\_before\_frame\_send)}
+\DoxyCodeLine{00149\ munit\_void\_test\_decl(test\_nghttp2\_session\_too\_many\_settings)}
+\DoxyCodeLine{00150\ munit\_void\_test\_decl(test\_nghttp2\_session\_removed\_closed\_stream)}
+\DoxyCodeLine{00151\ munit\_void\_test\_decl(test\_nghttp2\_session\_pause\_data)}
+\DoxyCodeLine{00152\ munit\_void\_test\_decl(test\_nghttp2\_session\_no\_closed\_streams)}
+\DoxyCodeLine{00153\ munit\_void\_test\_decl(test\_nghttp2\_session\_set\_stream\_user\_data)}
+\DoxyCodeLine{00154\ munit\_void\_test\_decl(test\_nghttp2\_session\_no\_rfc7540\_priorities)}
+\DoxyCodeLine{00155\ munit\_void\_test\_decl(test\_nghttp2\_session\_stream\_reset\_ratelim)}
+\DoxyCodeLine{00156\ munit\_void\_test\_decl(test\_nghttp2\_http\_mandatory\_headers)}
+\DoxyCodeLine{00157\ munit\_void\_test\_decl(test\_nghttp2\_http\_content\_length)}
+\DoxyCodeLine{00158\ munit\_void\_test\_decl(test\_nghttp2\_http\_content\_length\_mismatch)}
+\DoxyCodeLine{00159\ munit\_void\_test\_decl(test\_nghttp2\_http\_non\_final\_response)}
+\DoxyCodeLine{00160\ munit\_void\_test\_decl(test\_nghttp2\_http\_trailer\_headers)}
+\DoxyCodeLine{00161\ munit\_void\_test\_decl(test\_nghttp2\_http\_ignore\_regular\_header)}
+\DoxyCodeLine{00162\ munit\_void\_test\_decl(test\_nghttp2\_http\_ignore\_content\_length)}
+\DoxyCodeLine{00163\ munit\_void\_test\_decl(test\_nghttp2\_http\_record\_request\_method)}
+\DoxyCodeLine{00164\ munit\_void\_test\_decl(test\_nghttp2\_http\_push\_promise)}
+\DoxyCodeLine{00165\ munit\_void\_test\_decl(test\_nghttp2\_http\_head\_method\_upgrade\_workaround)}
+\DoxyCodeLine{00166\ munit\_void\_test\_decl(}
+\DoxyCodeLine{00167\ \ \ test\_nghttp2\_http\_no\_rfc9113\_leading\_and\_trailing\_ws\_validation)}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ NGHTTP2\_SESSION\_TEST\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,13 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "ttgo-esp32")(type "Legacy")(uri "/home/cb/Development/Electronics/KiCad_custom/KiCad_libs/symbols/ttgo-esp32.lib")(options "")(descr "")(disabled))
+  (lib (name "CODECODER-VS1053B_LQFP48_")(type "KiCad")(uri "${KIPRJMOD}/KiCad_custom/KiCad_libs/vs1053b.kicad_sym")(options "")(descr ""))
+  (lib (name "Homebrew")(type "KiCad")(uri "/home/cb/Development/Electronics/KiCad_custom/KiCad_libs/Homebrew.kicad_sym")(options "")(descr "")(disabled)(hidden))
+  (lib (name "ESP32-WROOM-32D")(type "KiCad")(uri "${KIPRJMOD}/KiCad_custom/KiCad_libs/ESP32-WROOM-32D.kicad_sym")(options "")(descr ""))
+  (lib (name "SSD1315_OLED_SPI")(type "KiCad")(uri "${KIPRJMOD}/KiCad_custom/KiCad_libs/SSD1315_OLED_SPI.kicad_sym")(options "")(descr ""))
+  (lib (name "ao6401")(type "KiCad")(uri "${KIPRJMOD}/KiCad_custom/KiCad_libs/ao6401.kicad_sym")(options "")(descr ""))
+  (lib (name "vs1053b")(type "KiCad")(uri "${KIPRJMOD}/KiCad_custom/KiCad_libs/vs1053b.kicad_sym")(options "")(descr ""))
+  (lib (name "ESP32-WROVER_E")(type "KiCad")(uri "${KIPRJMOD}/KiCad_custom/KiCad_libs/ESP32-WROVER_E.kicad_sym")(options "")(descr ""))
+  (lib (name "Espressif")(type "KiCad")(uri "${KIPRJMOD}/KiCad_custom/KiCad_libs/Espressif.kicad_sym")(options "")(descr ""))
+  (lib (name "TAS5805MPWPR")(type "KiCad")(uri "${KIPRJMOD}/KiCad_custom/KiCad_libs/TAS5805MPWPR.kicad_sym")(options "")(descr ""))
+)

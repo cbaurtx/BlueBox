@@ -1,0 +1,188 @@
+\doxysection{managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/third-\/party/mruby/include/mruby/range.h File Reference}
+\hypertarget{range_8h}{}\label{range_8h}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/range.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/range.h}}
+{\ttfamily \#include "{}common.\+h"{}}\newline
+Include dependency graph for range.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{range_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structmrb__range__edges}{mrb\+\_\+range\+\_\+edges}}
+\item 
+struct \mbox{\hyperlink{structRRange}{RRange}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{range_8h_ad60d1d09ecdfed4b029229800c75f007}{mrb\+\_\+gc\+\_\+free\+\_\+range}}(mrb,  p)
+\item 
+\#define \mbox{\hyperlink{range_8h_ae9d35e4805275e133b159d8aa9dc991f}{RANGE\+\_\+\+BEG}}(p)
+\item 
+\#define \mbox{\hyperlink{range_8h_ad98c5b664ceaed906c8aa1f08433b159}{RANGE\+\_\+\+END}}(p)
+\item 
+\#define \mbox{\hyperlink{range_8h_a8110f41ed33c12f1d68f517363e83345}{mrb\+\_\+range\+\_\+beg}}(mrb,  r)
+\item 
+\#define \mbox{\hyperlink{range_8h_a058b8283d522ba9a5baa1bf5054553e5}{mrb\+\_\+range\+\_\+end}}(mrb,  r)
+\item 
+\#define \mbox{\hyperlink{range_8h_a1bebf940c0ebf3c3c36113a6dcdb8ee0}{mrb\+\_\+range\+\_\+excl\+\_\+p}}(mrb,  r)
+\item 
+\#define \mbox{\hyperlink{range_8h_a984a2442b5c09d4d8a0186f3789bc11f}{mrb\+\_\+range\+\_\+raw\+\_\+ptr}}(r)
+\item 
+\#define \mbox{\hyperlink{range_8h_abcd1e61017fdaa4699eab023d4f777a5}{mrb\+\_\+range\+\_\+value}}(p)
+\item 
+\#define \mbox{\hyperlink{range_8h_a16a872e59d618bfe0f06c3944eee8da3}{RANGE\+\_\+\+EXCL}}(p)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\+\_\+\+BEGIN\+\_\+\+DECL}} struct mrb\+\_\+range\+\_\+edges \mbox{\hyperlink{range_8h_abfbf9b1fd0923b3ee1dbbea987c08a4b}{mrb\+\_\+range\+\_\+edges}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{range_8h_a585a4c1788db06fca181bd502f3ba631}\label{range_8h_a585a4c1788db06fca181bd502f3ba631} 
+enum {\bfseries mrb\+\_\+range\+\_\+beg\+\_\+len} \{ {\bfseries MRB\+\_\+\+RANGE\+\_\+\+TYPE\+\_\+\+MISMATCH} = 0
+, {\bfseries MRB\+\_\+\+RANGE\+\_\+\+OK} = 1
+, {\bfseries MRB\+\_\+\+RANGE\+\_\+\+OUT} = 2
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{range_8h_ad8feddc7ac4da340380bb11ff3a48155}\label{range_8h_ad8feddc7ac4da340380bb11ff3a48155} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} struct \mbox{\hyperlink{structRRange}{RRange}} \texorpdfstring{$\ast$}{*} {\bfseries mrb\+\_\+range\+\_\+ptr} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} range)
+\item 
+\Hypertarget{range_8h_ad3bcba819d231f90ce5f93b803f1b456}\label{range_8h_ad3bcba819d231f90ce5f93b803f1b456} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} {\bfseries mrb\+\_\+range\+\_\+new} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} start, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} end, \mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} exclude)
+\item 
+\Hypertarget{range_8h_a4b1b6cc1800637d76afb6407cf47cde5}\label{range_8h_a4b1b6cc1800637d76afb6407cf47cde5} 
+\mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\+\_\+\+API}} enum mrb\+\_\+range\+\_\+beg\+\_\+len {\bfseries mrb\+\_\+range\+\_\+beg\+\_\+len} (\mbox{\hyperlink{structmrb__state}{mrb\+\_\+state}} \texorpdfstring{$\ast$}{*}mrb, \mbox{\hyperlink{structmrb__value}{mrb\+\_\+value}} range, mrb\+\_\+int \texorpdfstring{$\ast$}{*}begp, mrb\+\_\+int \texorpdfstring{$\ast$}{*}lenp, mrb\+\_\+int len, \mbox{\hyperlink{classmrb__bool}{mrb\+\_\+bool}} trunc)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item Range class
+\end{DoxyItemize}
+
+See Copyright Notice in \doxylink{mruby_8h}{mruby.\+h} 
+
+\label{doc-define-members}
+\Hypertarget{range_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{range_8h_ad60d1d09ecdfed4b029229800c75f007}\index{range.h@{range.h}!mrb\_gc\_free\_range@{mrb\_gc\_free\_range}}
+\index{mrb\_gc\_free\_range@{mrb\_gc\_free\_range}!range.h@{range.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_gc\_free\_range}{mrb\_gc\_free\_range}}
+{\footnotesize\ttfamily \label{range_8h_ad60d1d09ecdfed4b029229800c75f007} 
+\#define mrb\+\_\+gc\+\_\+free\+\_\+range(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_free(mrb,\ (p)-\/>edges)}
+
+\end{DoxyCode}
+\Hypertarget{range_8h_a8110f41ed33c12f1d68f517363e83345}\index{range.h@{range.h}!mrb\_range\_beg@{mrb\_range\_beg}}
+\index{mrb\_range\_beg@{mrb\_range\_beg}!range.h@{range.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_range\_beg}{mrb\_range\_beg}}
+{\footnotesize\ttfamily \label{range_8h_a8110f41ed33c12f1d68f517363e83345} 
+\#define mrb\+\_\+range\+\_\+beg(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{r}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{RANGE\_BEG(mrb\_range\_ptr(mrb,\ r))}
+
+\end{DoxyCode}
+\Hypertarget{range_8h_a058b8283d522ba9a5baa1bf5054553e5}\index{range.h@{range.h}!mrb\_range\_end@{mrb\_range\_end}}
+\index{mrb\_range\_end@{mrb\_range\_end}!range.h@{range.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_range\_end}{mrb\_range\_end}}
+{\footnotesize\ttfamily \label{range_8h_a058b8283d522ba9a5baa1bf5054553e5} 
+\#define mrb\+\_\+range\+\_\+end(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{r}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{RANGE\_END(mrb\_range\_ptr(mrb,\ r))}
+
+\end{DoxyCode}
+\Hypertarget{range_8h_a1bebf940c0ebf3c3c36113a6dcdb8ee0}\index{range.h@{range.h}!mrb\_range\_excl\_p@{mrb\_range\_excl\_p}}
+\index{mrb\_range\_excl\_p@{mrb\_range\_excl\_p}!range.h@{range.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_range\_excl\_p}{mrb\_range\_excl\_p}}
+{\footnotesize\ttfamily \label{range_8h_a1bebf940c0ebf3c3c36113a6dcdb8ee0} 
+\#define mrb\+\_\+range\+\_\+excl\+\_\+p(\begin{DoxyParamCaption}\item[{}]{mrb}{, }\item[{}]{r}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{RANGE\_EXCL(mrb\_range\_ptr(mrb,\ r))}
+
+\end{DoxyCode}
+\Hypertarget{range_8h_a984a2442b5c09d4d8a0186f3789bc11f}\index{range.h@{range.h}!mrb\_range\_raw\_ptr@{mrb\_range\_raw\_ptr}}
+\index{mrb\_range\_raw\_ptr@{mrb\_range\_raw\_ptr}!range.h@{range.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_range\_raw\_ptr}{mrb\_range\_raw\_ptr}}
+{\footnotesize\ttfamily \label{range_8h_a984a2442b5c09d4d8a0186f3789bc11f} 
+\#define mrb\+\_\+range\+\_\+raw\+\_\+ptr(\begin{DoxyParamCaption}\item[{}]{r}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\textcolor{keyword}{struct\ }\mbox{\hyperlink{structRRange}{RRange}}*)mrb\_ptr(r))}
+
+\end{DoxyCode}
+\Hypertarget{range_8h_abcd1e61017fdaa4699eab023d4f777a5}\index{range.h@{range.h}!mrb\_range\_value@{mrb\_range\_value}}
+\index{mrb\_range\_value@{mrb\_range\_value}!range.h@{range.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_range\_value}{mrb\_range\_value}}
+{\footnotesize\ttfamily \label{range_8h_abcd1e61017fdaa4699eab023d4f777a5} 
+\#define mrb\+\_\+range\+\_\+value(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mrb\_obj\_value((\textcolor{keywordtype}{void}*)(p))}
+
+\end{DoxyCode}
+\Hypertarget{range_8h_ae9d35e4805275e133b159d8aa9dc991f}\index{range.h@{range.h}!RANGE\_BEG@{RANGE\_BEG}}
+\index{RANGE\_BEG@{RANGE\_BEG}!range.h@{range.h}}
+\doxysubsubsection{\texorpdfstring{RANGE\_BEG}{RANGE\_BEG}}
+{\footnotesize\ttfamily \label{range_8h_ae9d35e4805275e133b159d8aa9dc991f} 
+\#define RANGE\+\_\+\+BEG(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((p)-\/>edges-\/>beg)}
+
+\end{DoxyCode}
+\Hypertarget{range_8h_ad98c5b664ceaed906c8aa1f08433b159}\index{range.h@{range.h}!RANGE\_END@{RANGE\_END}}
+\index{RANGE\_END@{RANGE\_END}!range.h@{range.h}}
+\doxysubsubsection{\texorpdfstring{RANGE\_END}{RANGE\_END}}
+{\footnotesize\ttfamily \label{range_8h_ad98c5b664ceaed906c8aa1f08433b159} 
+\#define RANGE\+\_\+\+END(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((p)-\/>edges-\/>end)}
+
+\end{DoxyCode}
+\Hypertarget{range_8h_a16a872e59d618bfe0f06c3944eee8da3}\index{range.h@{range.h}!RANGE\_EXCL@{RANGE\_EXCL}}
+\index{RANGE\_EXCL@{RANGE\_EXCL}!range.h@{range.h}}
+\doxysubsubsection{\texorpdfstring{RANGE\_EXCL}{RANGE\_EXCL}}
+{\footnotesize\ttfamily \label{range_8h_a16a872e59d618bfe0f06c3944eee8da3} 
+\#define RANGE\+\_\+\+EXCL(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((p)-\/>excl)}
+
+\end{DoxyCode}
+
+
+\label{doc-typedef-members}
+\Hypertarget{range_8h_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{range_8h_abfbf9b1fd0923b3ee1dbbea987c08a4b}\index{range.h@{range.h}!mrb\_range\_edges@{mrb\_range\_edges}}
+\index{mrb\_range\_edges@{mrb\_range\_edges}!range.h@{range.h}}
+\doxysubsubsection{\texorpdfstring{mrb\_range\_edges}{mrb\_range\_edges}}
+{\footnotesize\ttfamily \label{range_8h_abfbf9b1fd0923b3ee1dbbea987c08a4b} 
+typedef \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\+\_\+\+BEGIN\+\_\+\+DECL}} struct mrb\+\_\+range\+\_\+edges mrb\+\_\+range\+\_\+edges}
+
+Range class 

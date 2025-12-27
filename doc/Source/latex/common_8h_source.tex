@@ -1,0 +1,90 @@
+\doxysection{common.\+h}
+\hypertarget{common_8h_source}{}\label{common_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/common.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/common.h}}
+\mbox{\hyperlink{common_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_COMMON\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_COMMON\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifdef\ \_\_APPLE\_\_}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\ \ \#ifndef\ \_\_TARGETCONDITIONALS\_\_}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \ \#include\ "{}TargetConditionals.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\ \ \#endif}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifdef\ MRB\_USE\_CXX\_ABI}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ MRB\_BEGIN\_DECL}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ MRB\_END\_DECL}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#\ define\ MRB\_BEGIN\_DECL\ extern\ "{}C"{}\ \{}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#\ define\ MRB\_END\_DECL\ \}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#else}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#\ define\ MRB\_BEGIN\_DECL}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#\ define\ MRB\_END\_DECL}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <sys/types.h>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#if\ defined\ \_MSC\_VER}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <BaseTsd.h>}}
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ SSIZE\_T\ ssize\_t;}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00040\ \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\_BEGIN\_DECL}}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#if\ defined\ \_\_STDC\_VERSION\_\_\ \&\&\ \_\_STDC\_VERSION\_\_\ >=\ 201112L}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#\ define\ mrb\_noreturn\ \_Noreturn}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#elif\ defined\ \_\_GNUC\_\_\ \&\&\ !defined\ \_\_STRICT\_ANSI\_\_}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#\ define\ mrb\_noreturn\ \_\_attribute\_\_((noreturn))}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#elif\ defined\ \_MSC\_VER}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#\ define\ mrb\_noreturn\ \_\_declspec(noreturn)}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#\ define\ mrb\_noreturn}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#if\ defined\ \_\_GNUC\_\_\ \&\&\ !defined\ \_\_STRICT\_ANSI\_\_}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#\ define\ mrb\_deprecated\ \_\_attribute\_\_((deprecated))}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#elif\ defined\ \_MSC\_VER}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#\ define\ mrb\_deprecated\ \_\_declspec(deprecated)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#\ define\ mrb\_deprecated}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#if\ defined\ \_MSC\_VER\ \&\&\ \_MSC\_VER\ <\ 1900}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#\ ifndef\ \_\_cplusplus}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#\ \ define\ inline\ \_\_inline}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ MRB\_INLINE\ static\ inline}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#ifndef\ MRB\_API}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#if\ defined(MRB\_BUILD\_AS\_DLL)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#if\ defined(MRB\_CORE)\ ||\ defined(MRB\_LIB)}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#\ define\ MRB\_API\ \_\_declspec(dllexport)}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#\ define\ MRB\_API\ \_\_declspec(dllimport)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#\ define\ MRB\_API\ extern}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#if\ defined(\_\_MINGW32\_\_)\ ||\ defined(\_\_MINGW64\_\_)}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#\ include\ <\_mingw.h>}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#\ if\ defined(\_\_MINGW64\_VERSION\_MAJOR)}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#\ \ define\ MRB\_MINGW64\_VERSION\ \ (\_\_MINGW64\_VERSION\_MAJOR\ *\ 1000\ +\ \_\_MINGW64\_VERSION\_MINOR)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#\ elif\ defined(\_\_MINGW32\_MAJOR\_VERSION)}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#\ \ define\ MRB\_MINGW32\_VERSION\ \ (\_\_MINGW32\_MAJOR\_VERSION\ *\ 1000\ +\ \_\_MINGW32\_MINOR\_VERSION)}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#\ if\ defined(\_\_MINGW32\_\_)\ \&\&\ !defined(\_\_MINGW64\_\_)}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#\ \ \ define\ MRB\_MINGW32\_LEGACY}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \mbox{\hyperlink{common_8h_a7e9674ff871a8abbcaf9ba23fa4b72d3}{MRB\_END\_DECL}}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_COMMON\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

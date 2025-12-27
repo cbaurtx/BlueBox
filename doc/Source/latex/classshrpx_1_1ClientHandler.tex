@@ -1,0 +1,203 @@
+\doxysection{shrpx\+::Client\+Handler Class Reference}
+\hypertarget{classshrpx_1_1ClientHandler}{}\label{classshrpx_1_1ClientHandler}\index{shrpx::ClientHandler@{shrpx::ClientHandler}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a77f2e6fb5c6675c6f5e8ad2010e7cea4}\label{classshrpx_1_1ClientHandler_a77f2e6fb5c6675c6f5e8ad2010e7cea4} 
+using {\bfseries Read\+Buf} = Default\+Memchunk\+Buffer
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a4aa9f7b4c49ccf8cd9f54685234d9b83}\label{classshrpx_1_1ClientHandler_a4aa9f7b4c49ccf8cd9f54685234d9b83} 
+{\bfseries Client\+Handler} (\mbox{\hyperlink{classshrpx_1_1Worker}{Worker}} \texorpdfstring{$\ast$}{*}worker, int fd, SSL \texorpdfstring{$\ast$}{*}ssl, const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&ipaddr, const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&port, int family, const \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{Upstream\+Addr}} \texorpdfstring{$\ast$}{*}faddr)
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a3e6f90c4bb80340414d9222f0b2a1064}\label{classshrpx_1_1ClientHandler_a3e6f90c4bb80340414d9222f0b2a1064} 
+int {\bfseries noop} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_ab14fca0c57f01f0d5c36ba2c4b294a68}\label{classshrpx_1_1ClientHandler_ab14fca0c57f01f0d5c36ba2c4b294a68} 
+int {\bfseries read\+\_\+clear} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a432c91a233372a8d09811ff71423d156}\label{classshrpx_1_1ClientHandler_a432c91a233372a8d09811ff71423d156} 
+int {\bfseries write\+\_\+clear} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a1f7ae1670aaf3e0a988ae0dbaeb565b8}\label{classshrpx_1_1ClientHandler_a1f7ae1670aaf3e0a988ae0dbaeb565b8} 
+int {\bfseries proxy\+\_\+protocol\+\_\+peek\+\_\+clear} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a5a348fdcf1c69ad1e57da775bc2f90bf}\label{classshrpx_1_1ClientHandler_a5a348fdcf1c69ad1e57da775bc2f90bf} 
+int {\bfseries tls\+\_\+handshake} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a1ebb2a96aa1806c33184ec1ba6956c13}\label{classshrpx_1_1ClientHandler_a1ebb2a96aa1806c33184ec1ba6956c13} 
+int {\bfseries read\+\_\+tls} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_ac3385444960e1f0d3d9f8a3dab9f40da}\label{classshrpx_1_1ClientHandler_ac3385444960e1f0d3d9f8a3dab9f40da} 
+int {\bfseries write\+\_\+tls} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a407de114367ffadf14d929c22c89997a}\label{classshrpx_1_1ClientHandler_a407de114367ffadf14d929c22c89997a} 
+int {\bfseries upstream\+\_\+noop} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a031408b625e48267aa37e3ee472f93e3}\label{classshrpx_1_1ClientHandler_a031408b625e48267aa37e3ee472f93e3} 
+int {\bfseries upstream\+\_\+read} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a1d29a0db05ddf5ce09aa7a607e77c9d0}\label{classshrpx_1_1ClientHandler_a1d29a0db05ddf5ce09aa7a607e77c9d0} 
+int {\bfseries upstream\+\_\+http2\+\_\+connhd\+\_\+read} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a68a0a97549804ac8f33c8b01170e485a}\label{classshrpx_1_1ClientHandler_a68a0a97549804ac8f33c8b01170e485a} 
+int {\bfseries upstream\+\_\+http1\+\_\+connhd\+\_\+read} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a2b89520379c595c2b357f685787fbd87}\label{classshrpx_1_1ClientHandler_a2b89520379c595c2b357f685787fbd87} 
+int {\bfseries upstream\+\_\+write} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_aebb3caaf4055e786cbe50713c6d61175}\label{classshrpx_1_1ClientHandler_aebb3caaf4055e786cbe50713c6d61175} 
+int {\bfseries proxy\+\_\+protocol\+\_\+read} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_abcf6b3dd4add5c89c81f16b2d8b06dba}\label{classshrpx_1_1ClientHandler_abcf6b3dd4add5c89c81f16b2d8b06dba} 
+int {\bfseries proxy\+\_\+protocol\+\_\+v2\+\_\+read} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a31dabcc07bfb1699301042a13083d287}\label{classshrpx_1_1ClientHandler_a31dabcc07bfb1699301042a13083d287} 
+int {\bfseries on\+\_\+proxy\+\_\+protocol\+\_\+finish} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a7e17c6d7df765bbce3d0010a97067f25}\label{classshrpx_1_1ClientHandler_a7e17c6d7df765bbce3d0010a97067f25} 
+int {\bfseries do\+\_\+read} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_aeb5260270467ea8cbdb4ee3071bc0fc8}\label{classshrpx_1_1ClientHandler_aeb5260270467ea8cbdb4ee3071bc0fc8} 
+int {\bfseries do\+\_\+write} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_aa55469079ea9a39f4a52661a9a3bfcde}\label{classshrpx_1_1ClientHandler_aa55469079ea9a39f4a52661a9a3bfcde} 
+int {\bfseries on\+\_\+read} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a107899955bc6d35a763aa58de8f13ee1}\label{classshrpx_1_1ClientHandler_a107899955bc6d35a763aa58de8f13ee1} 
+int {\bfseries on\+\_\+write} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a6868d66f5df4f8d109f5ed79a177c013}\label{classshrpx_1_1ClientHandler_a6868d66f5df4f8d109f5ed79a177c013} 
+struct ev\+\_\+loop \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+loop} () const
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a3be311b572b01b2917aaecf8d6422434}\label{classshrpx_1_1ClientHandler_a3be311b572b01b2917aaecf8d6422434} 
+void {\bfseries reset\+\_\+upstream\+\_\+read\+\_\+timeout} (ev\+\_\+tstamp t)
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a18975de6f6f973211d022d6a938bc737}\label{classshrpx_1_1ClientHandler_a18975de6f6f973211d022d6a938bc737} 
+void {\bfseries reset\+\_\+upstream\+\_\+write\+\_\+timeout} (ev\+\_\+tstamp t)
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_ad4c3697b56429fb343a070b1382e2a4b}\label{classshrpx_1_1ClientHandler_ad4c3697b56429fb343a070b1382e2a4b} 
+int {\bfseries validate\+\_\+next\+\_\+proto} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_acd5dcc688ccfff44fa334c24c71deab5}\label{classshrpx_1_1ClientHandler_acd5dcc688ccfff44fa334c24c71deab5} 
+const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \& {\bfseries get\+\_\+ipaddr} () const
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_ab624fb8ada74708f2f08cfba833359ad}\label{classshrpx_1_1ClientHandler_ab624fb8ada74708f2f08cfba833359ad} 
+bool {\bfseries get\+\_\+should\+\_\+close\+\_\+after\+\_\+write} () const
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_afdd2f93c48b1b5044b426556cdd09e06}\label{classshrpx_1_1ClientHandler_afdd2f93c48b1b5044b426556cdd09e06} 
+void {\bfseries set\+\_\+should\+\_\+close\+\_\+after\+\_\+write} (bool f)
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_ab94852bdeac75903363b0a92647c6570}\label{classshrpx_1_1ClientHandler_ab94852bdeac75903363b0a92647c6570} 
+\mbox{\hyperlink{classshrpx_1_1Upstream}{Upstream}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+upstream} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a6d1bf638964ae77382fc964753e83e64}\label{classshrpx_1_1ClientHandler_a6d1bf638964ae77382fc964753e83e64} 
+void {\bfseries pool\+\_\+downstream\+\_\+connection} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{Downstream\+Connection}} $>$ dconn)
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a3aa4b80afce40b050cd08940f880f7c5}\label{classshrpx_1_1ClientHandler_a3aa4b80afce40b050cd08940f880f7c5} 
+void {\bfseries remove\+\_\+downstream\+\_\+connection} (\mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{Downstream\+Connection}} \texorpdfstring{$\ast$}{*}dconn)
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a03a9650432ceff4eb5e5658ec2eb4304}\label{classshrpx_1_1ClientHandler_a03a9650432ceff4eb5e5658ec2eb4304} 
+\mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{Downstream\+Addr}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+downstream\+\_\+addr} (int \&err, \mbox{\hyperlink{structshrpx_1_1DownstreamAddrGroup}{Downstream\+Addr\+Group}} \texorpdfstring{$\ast$}{*}group, \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a7ce473e5fb0e33007850509842f08667}\label{classshrpx_1_1ClientHandler_a7ce473e5fb0e33007850509842f08667} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classshrpx_1_1DownstreamConnection}{Downstream\+Connection}} $>$ {\bfseries get\+\_\+downstream\+\_\+connection} (int \&err, \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_af719a63f93e7377fb21e05080a019b94}\label{classshrpx_1_1ClientHandler_af719a63f93e7377fb21e05080a019b94} 
+Memchunk\+Pool \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+mcpool} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a535ee4b59954432ffa5ce4137746572b}\label{classshrpx_1_1ClientHandler_a535ee4b59954432ffa5ce4137746572b} 
+SSL \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+ssl} () const
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_aaf188c4c0f1b3c653a3fb8d83b19397b}\label{classshrpx_1_1ClientHandler_aaf188c4c0f1b3c653a3fb8d83b19397b} 
+void {\bfseries direct\+\_\+http2\+\_\+upgrade} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a50cf1d75f7f74895de6b725775fa01f3}\label{classshrpx_1_1ClientHandler_a50cf1d75f7f74895de6b725775fa01f3} 
+int {\bfseries perform\+\_\+http2\+\_\+upgrade} (\mbox{\hyperlink{classshrpx_1_1HttpsUpstream}{Https\+Upstream}} \texorpdfstring{$\ast$}{*}http)
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a048a521a737b734820fd1b7a66547b8d}\label{classshrpx_1_1ClientHandler_a048a521a737b734820fd1b7a66547b8d} 
+bool {\bfseries get\+\_\+http2\+\_\+upgrade\+\_\+allowed} () const
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a1a112ba099d3aa730e1407d26ff6cdd2}\label{classshrpx_1_1ClientHandler_a1a112ba099d3aa730e1407d26ff6cdd2} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries get\+\_\+upstream\+\_\+scheme} () const
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_ae7e382f177ac8b1b37d6418ccf4b0143}\label{classshrpx_1_1ClientHandler_ae7e382f177ac8b1b37d6418ccf4b0143} 
+void {\bfseries start\+\_\+immediate\+\_\+shutdown} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a67b1cb4a89fd66eeec23b83ceb1a2f07}\label{classshrpx_1_1ClientHandler_a67b1cb4a89fd66eeec23b83ceb1a2f07} 
+void {\bfseries write\+\_\+accesslog} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a89e0dc40e8fad17c39c2922d98926800}\label{classshrpx_1_1ClientHandler_a89e0dc40e8fad17c39c2922d98926800} 
+\mbox{\hyperlink{classshrpx_1_1Worker}{Worker}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+worker} () const
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_abf00f32b6bd282eb033ccbbebd723891}\label{classshrpx_1_1ClientHandler_abf00f32b6bd282eb033ccbbebd723891} 
+void {\bfseries init\+\_\+forwarded\+\_\+for} (int family, const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&ipaddr)
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a5684364ac78f625dafeb3fcb7ed824a5}\label{classshrpx_1_1ClientHandler_a5684364ac78f625dafeb3fcb7ed824a5} 
+Read\+Buf \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+rb} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_afd6a0822bf5c5e7d85e10c6dd0b9edce}\label{classshrpx_1_1ClientHandler_afd6a0822bf5c5e7d85e10c6dd0b9edce} 
+\mbox{\hyperlink{classshrpx_1_1RateLimit}{Rate\+Limit}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+rlimit} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a63983567da686fe0997ada58dd22abe9}\label{classshrpx_1_1ClientHandler_a63983567da686fe0997ada58dd22abe9} 
+\mbox{\hyperlink{classshrpx_1_1RateLimit}{Rate\+Limit}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+wlimit} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a3bfcfce28ef7b2f02fa278faa7c42290}\label{classshrpx_1_1ClientHandler_a3bfcfce28ef7b2f02fa278faa7c42290} 
+void {\bfseries signal\+\_\+write} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_ab2490bd7ff7d7d76b0af625a73d900c2}\label{classshrpx_1_1ClientHandler_ab2490bd7ff7d7d76b0af625a73d900c2} 
+ev\+\_\+io \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+wev} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a9935f09b39dbcab1b72d905be9b8cf3a}\label{classshrpx_1_1ClientHandler_a9935f09b39dbcab1b72d905be9b8cf3a} 
+void {\bfseries setup\+\_\+upstream\+\_\+io\+\_\+callback} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a455ce94f423dc56e4d83af6b1a03dd24}\label{classshrpx_1_1ClientHandler_a455ce94f423dc56e4d83af6b1a03dd24} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries get\+\_\+forwarded\+\_\+by} () const
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_abb7321d6c4a0c75a48aa04764eff75b9}\label{classshrpx_1_1ClientHandler_abb7321d6c4a0c75a48aa04764eff75b9} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries get\+\_\+forwarded\+\_\+for} () const
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a889312386ea0bc64334d5f4fea5ce517}\label{classshrpx_1_1ClientHandler_a889312386ea0bc64334d5f4fea5ce517} 
+\mbox{\hyperlink{classshrpx_1_1Http2Session}{Http2\+Session}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+http2\+\_\+session} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1DownstreamAddrGroup}{Downstream\+Addr\+Group}} $>$ \&group, \mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{Downstream\+Addr}} \texorpdfstring{$\ast$}{*}addr)
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a75d0b19ee50fd282acaa57777c6f664d}\label{classshrpx_1_1ClientHandler_a75d0b19ee50fd282acaa57777c6f664d} 
+uint32\+\_\+t {\bfseries get\+\_\+affinity\+\_\+cookie} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream, const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&cookie\+\_\+name)
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_afea745c3a0c2994247964eaba6b24772}\label{classshrpx_1_1ClientHandler_afea745c3a0c2994247964eaba6b24772} 
+\mbox{\hyperlink{structshrpx_1_1DownstreamAddr}{Downstream\+Addr}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+downstream\+\_\+addr\+\_\+strict\+\_\+affinity} (int \&err, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structshrpx_1_1SharedDownstreamAddr}{Shared\+Downstream\+Addr}} $>$ \&shared\+\_\+addr, \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_af51ac4237a2adf54d6da35f932ff19c7}\label{classshrpx_1_1ClientHandler_af51ac4237a2adf54d6da35f932ff19c7} 
+const \mbox{\hyperlink{structshrpx_1_1UpstreamAddr}{Upstream\+Addr}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+upstream\+\_\+addr} () const
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_adc4d3b1a49668912e264447d44b94e6e}\label{classshrpx_1_1ClientHandler_adc4d3b1a49668912e264447d44b94e6e} 
+void {\bfseries repeat\+\_\+read\+\_\+timer} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a18f749b1ff07340fda3d895f499963ec}\label{classshrpx_1_1ClientHandler_a18f749b1ff07340fda3d895f499963ec} 
+void {\bfseries stop\+\_\+read\+\_\+timer} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a6e2baf3a1cddd64a1a12a340cc57e43a}\label{classshrpx_1_1ClientHandler_a6e2baf3a1cddd64a1a12a340cc57e43a} 
+\mbox{\hyperlink{structConnection}{Connection}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+connection} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_afd6af1988e143db190dfaf100b8b52be}\label{classshrpx_1_1ClientHandler_afd6af1988e143db190dfaf100b8b52be} 
+void {\bfseries set\+\_\+tls\+\_\+sni} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&sni)
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_ab51072aea503e29a17bf5940df1433c1}\label{classshrpx_1_1ClientHandler_ab51072aea503e29a17bf5940df1433c1} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries get\+\_\+tls\+\_\+sni} () const
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_ae55eb84e9ff9e08b0b784f2123084924}\label{classshrpx_1_1ClientHandler_ae55eb84e9ff9e08b0b784f2123084924} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries get\+\_\+alpn} () const
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_a5393c1d4bfd0324cd3711ae7f5c3eea2}\label{classshrpx_1_1ClientHandler_a5393c1d4bfd0324cd3711ae7f5c3eea2} 
+\mbox{\hyperlink{structnghttp2_1_1BlockAllocator}{Block\+Allocator}} \& {\bfseries get\+\_\+block\+\_\+allocator} ()
+\item 
+\Hypertarget{classshrpx_1_1ClientHandler_aed0ec28b438e58f5b5339220a49d2784}\label{classshrpx_1_1ClientHandler_aed0ec28b438e58f5b5339220a49d2784} 
+void {\bfseries set\+\_\+alpn\+\_\+from\+\_\+conn} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+client\+\_\+handler.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+client\+\_\+handler.\+cc\end{DoxyCompactItemize}

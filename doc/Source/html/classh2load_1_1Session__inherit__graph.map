@@ -1,0 +1,9 @@
+<map id="h2load::Session" name="h2load::Session">
+<area shape="rect" id="Node000001" title=" " alt="" coords="192,5,306,32"/>
+<area shape="rect" id="Node000002" href="$classh2load_1_1Http1Session.html" title=" " alt="" coords="5,80,152,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,39,109,82,107,77,203,38"/>
+<area shape="rect" id="Node000003" href="$classh2load_1_1Http2Session.html" title=" " alt="" coords="176,80,322,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="251,46,251,81,247,78,247,50"/>
+<area shape="rect" id="Node000004" href="$classh2load_1_1Http3Session.html" title=" " alt="" coords="347,80,493,107"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="294,36,393,79,387,80,292,41"/>
+</map>

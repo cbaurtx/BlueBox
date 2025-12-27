@@ -1,0 +1,15 @@
+<map id="MunitTestRunner" name="MunitTestRunner">
+<area shape="rect" id="Node000001" title=" " alt="" coords="95,323,216,349"/>
+<area shape="rect" id="Node000002" href="$structMunitSuite__.html" title=" " alt="" coords="110,224,200,251"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,265,158,323,153,321,153,268"/>
+<area shape="poly" id="edge5_Node000002_Node000002" title=" " alt="" coords="216,227,227,237,219,246,201,249,200,244,216,242,222,237,215,233"/>
+<area shape="rect" id="Node000003" href="$structMunitTest.html" title=" " alt="" coords="127,125,205,152"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="164,166,159,225,154,223,161,170"/>
+<area shape="rect" id="Node000004" href="$structMunitParameter.html" title=" " alt="" coords="5,5,119,32"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="61,45,65,89,69,140,81,196,100,250,124,289,148,322,143,322,120,292,96,252,75,198,64,141,59,89,61,50"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="83,41,157,124,152,126,83,46"/>
+<area shape="rect" id="Node000005" href="$structMunitParameterEnum.html" title=" " alt="" coords="143,5,290,32"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="207,44,174,126,169,124,204,49"/>
+<area shape="rect" id="Node000006" href="$structMunitReport.html" title=" " alt="" coords="292,224,384,251"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="303,258,180,325,178,320,298,258"/>
+</map>

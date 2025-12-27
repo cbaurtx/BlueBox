@@ -1,0 +1,100 @@
+\doxysection{board\+\_\+pins\+\_\+config.\+h}
+\hypertarget{board__pins__config_8h_source}{}\label{board__pins__config_8h_source}\index{components/audioboard/include/board\_pins\_config.h@{components/audioboard/include/board\_pins\_config.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ ESPRESSIF\ MIT\ License}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2019\ <ESPRESSIF\ SYSTEMS\ (SHANGHAI)\ CO.,\ LTD>}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted\ for\ use\ on\ all\ ESPRESSIF\ SYSTEMS\ products,\ in\ which\ case,}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ it\ is\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ copy\ of\ this\ software\ and\ associated}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ documentation\ files\ (the\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ to\ do\ so,\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ all\ copies\ or}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ FITNESS}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ \_BOARD\_PINS\_CONFIG\_H\_}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ \_BOARD\_PINS\_CONFIG\_H\_}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}driver/i2c.h"{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}driver/i2s.h"{}}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}driver/spi\_common.h"{}}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ "{}driver/spi\_master.h"{}}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ "{}driver/spi\_slave.h"{}}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00035\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structboard__i2s__pin__t_abaa23423cd559dd048a4cdb65c31a178}{mck\_io\_num}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structboard__i2s__pin__t_a758cdf2ec2c06f1f6960723bc342dbf9}{bck\_io\_num}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structboard__i2s__pin__t_a0d807580eb77ac4279f3f19628e5c0bf}{ws\_io\_num}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structboard__i2s__pin__t_afd9e458fc1d8078f37004e312087fc0e}{data\_out\_num}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structboard__i2s__pin__t_a00caedad7d0f009d4799708337dae9c7}{data\_in\_num}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00047\ \}\ \mbox{\hyperlink{structboard__i2s__pin__t}{board\_i2s\_pin\_t}};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00059\ esp\_err\_t\ get\_i2c\_pins(i2c\_port\_t\ port,\ i2c\_config\_t\ *i2c\_config);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00071\ esp\_err\_t\ get\_i2s\_pins(i2s\_port\_t\ port,\ \mbox{\hyperlink{structboard__i2s__pin__t}{board\_i2s\_pin\_t}}\ *i2s\_config);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00083\ esp\_err\_t\ get\_spi\_pins(spi\_bus\_config\_t\ *spi\_config,\ spi\_device\_interface\_config\_t\ *spi\_device\_interface\_config);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00091\ int8\_t\ get\_sdcard\_intr\_gpio(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00099\ int8\_t\ get\_sdcard\_open\_file\_num\_max(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00107\ int8\_t\ get\_auxin\_detect\_gpio(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00115\ int8\_t\ get\_headphone\_detect\_gpio(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00123\ int8\_t\ get\_pa\_enable\_gpio(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00131\ int8\_t\ get\_adc\_detect\_gpio(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00140\ int8\_t\ get\_mute\_gpio(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00149\ int8\_t\ get\_es7243\_mclk\_gpio(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00157\ int8\_t\ get\_input\_rec\_id(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00165\ int8\_t\ get\_input\_mode\_id(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00173\ int8\_t\ get\_input\_set\_id(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00181\ int8\_t\ get\_input\_play\_id(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00189\ int8\_t\ get\_input\_volup\_id(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00197\ int8\_t\ get\_input\_voldown\_id(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00205\ int8\_t\ get\_reset\_codec\_gpio(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00213\ int8\_t\ get\_reset\_board\_gpio(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00221\ int8\_t\ get\_green\_led\_gpio(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00229\ int8\_t\ get\_blue\_led\_gpio(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00232\ \}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

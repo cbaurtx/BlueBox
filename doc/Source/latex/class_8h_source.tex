@@ -1,0 +1,103 @@
+\doxysection{class.\+h}
+\hypertarget{class_8h_source}{}\label{class_8h_source}\index{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/class.h@{managed\_components/espressif\_\_nghttp/nghttp2/third-\/party/mruby/include/mruby/class.h}}
+\mbox{\hyperlink{class_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MRUBY\_CLASS\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MRUBY\_CLASS\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{common_8h}{common.h}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00015\ \mbox{\hyperlink{common_8h_a97677ac769c7bdd7f18d40d387f36553}{MRB\_BEGIN\_DECL}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRClass}{RClass}}\ \{}
+\DoxyCodeLine{00018\ \ \ MRB\_OBJECT\_HEADER;}
+\DoxyCodeLine{00019\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structiv__tbl}{iv\_tbl}}\ *iv;}
+\DoxyCodeLine{00020\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmt__tbl}{mt\_tbl}}\ *mt;}
+\DoxyCodeLine{00021\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRClass}{RClass}}\ *super;}
+\DoxyCodeLine{00022\ \};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ mrb\_class\_ptr(v)\ \ \ \ ((struct\ RClass*)(mrb\_ptr(v)))}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \mbox{\hyperlink{common_8h_a353a83c732e8058f59de922c52588fa6}{MRB\_INLINE}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRClass}{RClass}}*}
+\DoxyCodeLine{00027\ mrb\_class(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \mbox{\hyperlink{structmrb__value}{mrb\_value}}\ v)}
+\DoxyCodeLine{00028\ \{}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordflow}{if}\ (!mrb\_immediate\_p(v))\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordflow}{return}\ mrb\_obj\_ptr(v)-\/>c;}
+\DoxyCodeLine{00031\ \ \ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordflow}{switch}\ (mrb\_type(v))\ \{}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordflow}{case}\ MRB\_TT\_FALSE:}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{if}\ (mrb\_fixnum(v))}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mrb-\/>false\_class;}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{return}\ mrb-\/>nil\_class;}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordflow}{case}\ MRB\_TT\_TRUE:}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{return}\ mrb-\/>true\_class;}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordflow}{case}\ MRB\_TT\_SYMBOL:}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{return}\ mrb-\/>symbol\_class;}
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordflow}{case}\ MRB\_TT\_INTEGER:}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{return}\ mrb-\/>integer\_class;}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#ifndef\ MRB\_NO\_FLOAT}}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordflow}{case}\ MRB\_TT\_FLOAT:}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{return}\ mrb-\/>float\_class;}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordflow}{case}\ MRB\_TT\_CPTR:}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{return}\ mrb-\/>object\_class;}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00052\ \ \ \}}
+\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{/*\ flags:}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ \ \ 20:\ \ \ frozen}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ \ 19:\ \ \ is\_prepended}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ \ \ 18:\ \ \ is\_origin}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ \ \ 17:\ \ \ is\_inherited\ (used\ by\ method\ cache)}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ \ \ 7-\/16:\ unused}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ \ \ 6:\ \ \ \ prohibit\ Class\#allocate}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ \ \ 0-\/5:\ \ instance\ type}}
+\DoxyCodeLine{00063\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ MRB\_FL\_CLASS\_IS\_PREPENDED\ (1\ <<\ 19)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ MRB\_FL\_CLASS\_IS\_ORIGIN\ (1\ <<\ 18)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ MRB\_CLASS\_ORIGIN(c)\ do\ \{\(\backslash\)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\ \ if\ ((c)-\/>flags\ \&\ MRB\_FL\_CLASS\_IS\_PREPENDED)\ \{\(\backslash\)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\ \ \ \ (c)\ =\ (c)-\/>super;\(\backslash\)}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\ \ \ \ while\ (!((c)-\/>flags\ \&\ MRB\_FL\_CLASS\_IS\_ORIGIN))\ \{\(\backslash\)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\ \ \ \ \ \ (c)\ =\ (c)-\/>super;\(\backslash\)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \ \ \}\(\backslash\)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\ \ \}\(\backslash\)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\}\ while\ (0)}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ MRB\_FL\_CLASS\_IS\_INHERITED\ (1\ <<\ 17)}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ MRB\_INSTANCE\_TT\_MASK\ (0x1F)}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ MRB\_SET\_INSTANCE\_TT(c,\ tt)\ ((c)-\/>flags\ =\ (((c)-\/>flags\ \&\ \string~MRB\_INSTANCE\_TT\_MASK)\ |\ (char)(tt)))}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ MRB\_INSTANCE\_TT(c)\ (enum\ mrb\_vtype)((c)-\/>flags\ \&\ MRB\_INSTANCE\_TT\_MASK)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ MRB\_FL\_UNDEF\_ALLOCATE\ (1\ <<\ 6)}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ MRB\_UNDEF\_ALLOCATOR(c)\ (mrb\_assert((c)-\/>tt\ ==\ MRB\_TT\_CLASS),\ (c)-\/>flags\ |=\ MRB\_FL\_UNDEF\_ALLOCATE)}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ MRB\_UNDEF\_ALLOCATOR\_P(c)\ ((c)-\/>flags\ \&\ MRB\_FL\_UNDEF\_ALLOCATE)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ MRB\_DEFINE\_ALLOCATOR(c)\ ((c)-\/>flags\ \&=\ \string~MRB\_FL\_UNDEF\_ALLOCATE)}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{void}\ mrb\_define\_method\_raw(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}*,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}},\ mrb\_method\_t);}
+\DoxyCodeLine{00084\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{void}\ mrb\_alias\_method(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}\ *c,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}}\ a,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}}\ b);}
+\DoxyCodeLine{00085\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{void}\ mrb\_remove\_method(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}\ *c,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}}\ sym);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ mrb\_method\_t\ mrb\_method\_search\_vm(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}**,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}});}
+\DoxyCodeLine{00088\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ mrb\_method\_t\ mrb\_method\_search(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}*,\ \mbox{\hyperlink{classmrb__sym}{mrb\_sym}});}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRClass}{RClass}}*\ mrb\_class\_real(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}*\ cl);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#ifndef\ MRB\_NO\_METHOD\_CACHE}}
+\DoxyCodeLine{00093\ \textcolor{keywordtype}{void}\ mrb\_mc\_clear\_by\_class(\mbox{\hyperlink{structmrb__state}{mrb\_state}}\ *mrb,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}*\ c);}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ mrb\_mc\_clear\_by\_class(mrb,c)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{comment}{/*\ return\ non\ zero\ to\ break\ the\ loop\ */}}
+\DoxyCodeLine{00099\ \textcolor{keyword}{typedef}\ int\ (mrb\_mt\_foreach\_func)(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\mbox{\hyperlink{classmrb__sym}{mrb\_sym}},mrb\_method\_t,\textcolor{keywordtype}{void}*);}
+\DoxyCodeLine{00100\ \mbox{\hyperlink{common_8h_ab33860705c91ca5736335f59d007845c}{MRB\_API}}\ \textcolor{keywordtype}{void}\ mrb\_mt\_foreach(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structRClass}{RClass}}*,\ mrb\_mt\_foreach\_func*,\ \textcolor{keywordtype}{void}*);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \mbox{\hyperlink{common_8h_a7e9674ff871a8abbcaf9ba23fa4b72d3}{MRB\_END\_DECL}}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ MRUBY\_CLASS\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

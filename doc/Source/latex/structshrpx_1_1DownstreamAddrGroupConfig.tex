@@ -1,0 +1,58 @@
+\doxysection{shrpx\+::Downstream\+Addr\+Group\+Config Struct Reference}
+\hypertarget{structshrpx_1_1DownstreamAddrGroupConfig}{}\label{structshrpx_1_1DownstreamAddrGroupConfig}\index{shrpx::DownstreamAddrGroupConfig@{shrpx::DownstreamAddrGroupConfig}}
+
+
+Collaboration diagram for shrpx\+::Downstream\+Addr\+Group\+Config\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=311pt]{structshrpx_1_1DownstreamAddrGroupConfig__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddrGroupConfig_a134ad29395c599c343bf8e4216976a06}\label{structshrpx_1_1DownstreamAddrGroupConfig_a134ad29395c599c343bf8e4216976a06} 
+{\bfseries Downstream\+Addr\+Group\+Config} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&pattern)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddrGroupConfig_a6bdd37f2698043676e480b450a39b94b}\label{structshrpx_1_1DownstreamAddrGroupConfig_a6bdd37f2698043676e480b450a39b94b} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries pattern}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddrGroupConfig_a51344de60373d2937e910e830649f2e2}\label{structshrpx_1_1DownstreamAddrGroupConfig_a51344de60373d2937e910e830649f2e2} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries mruby\+\_\+file}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddrGroupConfig_a28d61134c6c07376d043c3ae21afa767}\label{structshrpx_1_1DownstreamAddrGroupConfig_a28d61134c6c07376d043c3ae21afa767} 
+std\+::vector$<$ \mbox{\hyperlink{structshrpx_1_1DownstreamAddrConfig}{Downstream\+Addr\+Config}} $>$ {\bfseries addrs}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddrGroupConfig_ac96d2376476fbdf457ee0d4a6ddbde71}\label{structshrpx_1_1DownstreamAddrGroupConfig_ac96d2376476fbdf457ee0d4a6ddbde71} 
+std\+::vector$<$ \mbox{\hyperlink{structshrpx_1_1AffinityHash}{Affinity\+Hash}} $>$ {\bfseries affinity\+\_\+hash}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddrGroupConfig_acc06305514585520333db359245df766}\label{structshrpx_1_1DownstreamAddrGroupConfig_acc06305514585520333db359245df766} 
+std\+::unordered\+\_\+map$<$ uint32\+\_\+t, size\+\_\+t $>$ {\bfseries affinity\+\_\+hash\+\_\+map}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddrGroupConfig_a3df27eacad7326089a8566d54a080186}\label{structshrpx_1_1DownstreamAddrGroupConfig_a3df27eacad7326089a8566d54a080186} 
+\mbox{\hyperlink{structshrpx_1_1AffinityConfig}{Affinity\+Config}} {\bfseries affinity}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddrGroupConfig_a8d2111f8394c987d8cfdb8a85ebfc4f3}\label{structshrpx_1_1DownstreamAddrGroupConfig_a8d2111f8394c987d8cfdb8a85ebfc4f3} 
+bool {\bfseries redirect\+\_\+if\+\_\+not\+\_\+tls}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddrGroupConfig_a8c3c39940273ecee7192899b9e2de4b6}\label{structshrpx_1_1DownstreamAddrGroupConfig_a8c3c39940273ecee7192899b9e2de4b6} 
+bool {\bfseries dnf}
+\item 
+\Hypertarget{structshrpx_1_1DownstreamAddrGroupConfig_ae7238d5979b9f5ae1738619aea04f77b}\label{structshrpx_1_1DownstreamAddrGroupConfig_ae7238d5979b9f5ae1738619aea04f77b} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>ev\_tstamp {\bfseries read}\\
+\>ev\_tstamp {\bfseries write}\\
+\} {\bfseries timeout}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+config.\+h\end{DoxyCompactItemize}

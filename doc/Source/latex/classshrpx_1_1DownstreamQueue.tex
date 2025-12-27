@@ -1,0 +1,55 @@
+\doxysection{shrpx\+::Downstream\+Queue Class Reference}
+\hypertarget{classshrpx_1_1DownstreamQueue}{}\label{classshrpx_1_1DownstreamQueue}\index{shrpx::DownstreamQueue@{shrpx::DownstreamQueue}}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structshrpx_1_1DownstreamQueue_1_1HostEntry}{Host\+Entry}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1DownstreamQueue_a9abd66137eb782002726fda6024d11aa}\label{classshrpx_1_1DownstreamQueue_a9abd66137eb782002726fda6024d11aa} 
+using {\bfseries Host\+Entry\+Map} = std\+::map$<$\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}}, \mbox{\hyperlink{structshrpx_1_1DownstreamQueue_1_1HostEntry}{Host\+Entry}}$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classshrpx_1_1DownstreamQueue_a32626e52ce333d3bfbfc9e933cd7ce36}\label{classshrpx_1_1DownstreamQueue_a32626e52ce333d3bfbfc9e933cd7ce36} 
+{\bfseries Downstream\+Queue} (size\+\_\+t conn\+\_\+max\+\_\+per\+\_\+host=0, bool unified\+\_\+host=true)
+\item 
+\Hypertarget{classshrpx_1_1DownstreamQueue_ad29c1acd3a19de80dc836eeb773dd69e}\label{classshrpx_1_1DownstreamQueue_ad29c1acd3a19de80dc836eeb773dd69e} 
+void {\bfseries add\+\_\+pending} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} $>$ downstream)
+\item 
+\Hypertarget{classshrpx_1_1DownstreamQueue_a71efecb84077382f38964dc24bf8aac1}\label{classshrpx_1_1DownstreamQueue_a71efecb84077382f38964dc24bf8aac1} 
+void {\bfseries mark\+\_\+failure} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+\Hypertarget{classshrpx_1_1DownstreamQueue_addc700b34769ad7d6bfac817fdba4ae5}\label{classshrpx_1_1DownstreamQueue_addc700b34769ad7d6bfac817fdba4ae5} 
+void {\bfseries mark\+\_\+active} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+\Hypertarget{classshrpx_1_1DownstreamQueue_a2cd94a47551885de42bd4f2ed0c3e9b5}\label{classshrpx_1_1DownstreamQueue_a2cd94a47551885de42bd4f2ed0c3e9b5} 
+void {\bfseries mark\+\_\+blocked} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+\Hypertarget{classshrpx_1_1DownstreamQueue_a5df779343f1fc5d1abf4de52bb3a2496}\label{classshrpx_1_1DownstreamQueue_a5df779343f1fc5d1abf4de52bb3a2496} 
+bool {\bfseries can\+\_\+activate} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&host) const
+\item 
+\Hypertarget{classshrpx_1_1DownstreamQueue_ae0e482d48bfd2a951c277fd79480b3c7}\label{classshrpx_1_1DownstreamQueue_ae0e482d48bfd2a951c277fd79480b3c7} 
+\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*} {\bfseries remove\+\_\+and\+\_\+get\+\_\+blocked} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream, bool next\+\_\+blocked=true)
+\item 
+\Hypertarget{classshrpx_1_1DownstreamQueue_a3e03d0e287eac3903c18b0b69549c31a}\label{classshrpx_1_1DownstreamQueue_a3e03d0e287eac3903c18b0b69549c31a} 
+\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+downstreams} () const
+\item 
+\Hypertarget{classshrpx_1_1DownstreamQueue_a568b1afb2f59f88a78f3110065ed9232}\label{classshrpx_1_1DownstreamQueue_a568b1afb2f59f88a78f3110065ed9232} 
+\mbox{\hyperlink{structshrpx_1_1DownstreamQueue_1_1HostEntry}{Host\+Entry}} \& {\bfseries find\+\_\+host\+\_\+entry} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&host)
+\item 
+\Hypertarget{classshrpx_1_1DownstreamQueue_ac09f9c0bcc40dd34392393064912f830}\label{classshrpx_1_1DownstreamQueue_ac09f9c0bcc40dd34392393064912f830} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries make\+\_\+host\+\_\+key} (const \mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} \&host) const
+\item 
+\Hypertarget{classshrpx_1_1DownstreamQueue_af8ea37ab53314148fb139417a9179037}\label{classshrpx_1_1DownstreamQueue_af8ea37ab53314148fb139417a9179037} 
+\mbox{\hyperlink{classnghttp2_1_1StringRef}{String\+Ref}} {\bfseries make\+\_\+host\+\_\+key} (\mbox{\hyperlink{classshrpx_1_1Downstream}{Downstream}} \texorpdfstring{$\ast$}{*}downstream) const
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+downstream\+\_\+queue.\+h\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+downstream\+\_\+queue.\+cc\end{DoxyCompactItemize}

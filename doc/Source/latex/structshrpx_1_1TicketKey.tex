@@ -1,0 +1,29 @@
+\doxysection{shrpx\+::Ticket\+Key Struct Reference}
+\hypertarget{structshrpx_1_1TicketKey}{}\label{structshrpx_1_1TicketKey}\index{shrpx::TicketKey@{shrpx::TicketKey}}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structshrpx_1_1TicketKey_aab31c362ea5add7f55a872d86d87f7a4}\label{structshrpx_1_1TicketKey_aab31c362ea5add7f55a872d86d87f7a4} 
+const EVP\+\_\+\+CIPHER \texorpdfstring{$\ast$}{*} {\bfseries cipher}
+\item 
+\Hypertarget{structshrpx_1_1TicketKey_a8588491c12be61cc48c0bdf417adb7e5}\label{structshrpx_1_1TicketKey_a8588491c12be61cc48c0bdf417adb7e5} 
+const EVP\+\_\+\+MD \texorpdfstring{$\ast$}{*} {\bfseries hmac}
+\item 
+\Hypertarget{structshrpx_1_1TicketKey_ac2578f5e4add521864769611f7fe16f5}\label{structshrpx_1_1TicketKey_ac2578f5e4add521864769611f7fe16f5} 
+size\+\_\+t {\bfseries hmac\+\_\+keylen}
+\item 
+\Hypertarget{structshrpx_1_1TicketKey_ab8c35bd47eeb3cd6c1886ba37297fd89}\label{structshrpx_1_1TicketKey_ab8c35bd47eeb3cd6c1886ba37297fd89} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>std::array$<$ uint8\_t, 16 $>$ {\bfseries name}\\
+\>std::array$<$ uint8\_t, 32 $>$ {\bfseries enc\_key}\\
+\>std::array$<$ uint8\_t, 32 $>$ {\bfseries hmac\_key}\\
+\} {\bfseries data}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/src/shrpx\+\_\+config.\+h\end{DoxyCompactItemize}

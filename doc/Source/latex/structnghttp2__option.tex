@@ -1,0 +1,169 @@
+\doxysection{nghttp2\+\_\+option Struct Reference}
+\hypertarget{structnghttp2__option}{}\label{structnghttp2__option}\index{nghttp2\_option@{nghttp2\_option}}
+
+
+{\ttfamily \#include $<$nghttp2\+\_\+option.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint64\+\_\+t \mbox{\hyperlink{structnghttp2__option_a586c9e8c9402b746b93af50b006c8cde}{stream\+\_\+reset\+\_\+burst}}
+\item 
+\Hypertarget{structnghttp2__option_ae55b6d669ed6cac9b989251b91c7c535}\label{structnghttp2__option_ae55b6d669ed6cac9b989251b91c7c535} 
+uint64\+\_\+t {\bfseries stream\+\_\+reset\+\_\+rate}
+\item 
+size\+\_\+t \mbox{\hyperlink{structnghttp2__option_ad15a2bc13fd4d1d638866ed4dfcf9175}{max\+\_\+send\+\_\+header\+\_\+block\+\_\+length}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structnghttp2__option_ae07e6f30af3dd81d0a54be823ec80ef5}{max\+\_\+deflate\+\_\+dynamic\+\_\+table\+\_\+size}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structnghttp2__option_a8b3b05d0e38cd9e391d5681daa771a71}{max\+\_\+outbound\+\_\+ack}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structnghttp2__option_a1fd895e140d787a473b9a9539d5d984b}{max\+\_\+settings}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structnghttp2__option_a8719831f6eedcc464ffdc853d4bec62e}{max\+\_\+continuations}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{structnghttp2__option_a166844d97fa18930c769f5cc213d9a6c}{opt\+\_\+set\+\_\+mask}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{structnghttp2__option_af859dd7e0f7df3f4f2593907c41d18fe}{peer\+\_\+max\+\_\+concurrent\+\_\+streams}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{structnghttp2__option_aad216dc3c0261e0a0c905c83ab83098f}{max\+\_\+reserved\+\_\+remote\+\_\+streams}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{structnghttp2__option_ae6c43602d0215e2d3b0f7f218403615d}{builtin\+\_\+recv\+\_\+ext\+\_\+types}}
+\item 
+int \mbox{\hyperlink{structnghttp2__option_ad4fdc819777d00d0f26f68b7a62bf690}{no\+\_\+auto\+\_\+window\+\_\+update}}
+\item 
+int \mbox{\hyperlink{structnghttp2__option_acf40fb2d9588fa9a4ae08873e7d7bfd4}{no\+\_\+recv\+\_\+client\+\_\+magic}}
+\item 
+int \mbox{\hyperlink{structnghttp2__option_affa77ab45db39216551c125ab0782787}{no\+\_\+http\+\_\+messaging}}
+\item 
+int \mbox{\hyperlink{structnghttp2__option_af2526586de4ba1ca33a4de299f51ab1f}{no\+\_\+auto\+\_\+ping\+\_\+ack}}
+\item 
+int \mbox{\hyperlink{structnghttp2__option_a0ca772a437cf8eb3c1ca6691815a26a4}{no\+\_\+closed\+\_\+streams}}
+\item 
+int \mbox{\hyperlink{structnghttp2__option_a48fb8222fde33801a91759d24dbfb2bd}{server\+\_\+fallback\+\_\+rfc7540\+\_\+priorities}}
+\item 
+int \mbox{\hyperlink{structnghttp2__option_a7059033fabf2c1dd980cf937e7365730}{no\+\_\+rfc9113\+\_\+leading\+\_\+and\+\_\+trailing\+\_\+ws\+\_\+validation}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structnghttp2__option_aff319af8049d9b671b9dd0abea717d57}{user\+\_\+recv\+\_\+ext\+\_\+types}} \mbox{[}32\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct to store option values for \doxylink{structnghttp2__session}{nghttp2\+\_\+session}. 
+
+\label{doc-variable-members}
+\Hypertarget{structnghttp2__option_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structnghttp2__option_ae6c43602d0215e2d3b0f7f218403615d}\index{nghttp2\_option@{nghttp2\_option}!builtin\_recv\_ext\_types@{builtin\_recv\_ext\_types}}
+\index{builtin\_recv\_ext\_types@{builtin\_recv\_ext\_types}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{builtin\_recv\_ext\_types}{builtin\_recv\_ext\_types}}
+{\footnotesize\ttfamily \label{structnghttp2__option_ae6c43602d0215e2d3b0f7f218403615d} 
+uint32\+\_\+t nghttp2\+\_\+option\+::builtin\+\_\+recv\+\_\+ext\+\_\+types}
+
+NGHTTP2\+\_\+\+OPT\+\_\+\+BUILTIN\+\_\+\+RECV\+\_\+\+EXT\+\_\+\+TYPES \Hypertarget{structnghttp2__option_a8719831f6eedcc464ffdc853d4bec62e}\index{nghttp2\_option@{nghttp2\_option}!max\_continuations@{max\_continuations}}
+\index{max\_continuations@{max\_continuations}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{max\_continuations}{max\_continuations}}
+{\footnotesize\ttfamily \label{structnghttp2__option_a8719831f6eedcc464ffdc853d4bec62e} 
+size\+\_\+t nghttp2\+\_\+option\+::max\+\_\+continuations}
+
+NGHTTP2\+\_\+\+OPT\+\_\+\+MAX\+\_\+\+CONTINUATIONS \Hypertarget{structnghttp2__option_ae07e6f30af3dd81d0a54be823ec80ef5}\index{nghttp2\_option@{nghttp2\_option}!max\_deflate\_dynamic\_table\_size@{max\_deflate\_dynamic\_table\_size}}
+\index{max\_deflate\_dynamic\_table\_size@{max\_deflate\_dynamic\_table\_size}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{max\_deflate\_dynamic\_table\_size}{max\_deflate\_dynamic\_table\_size}}
+{\footnotesize\ttfamily \label{structnghttp2__option_ae07e6f30af3dd81d0a54be823ec80ef5} 
+size\+\_\+t nghttp2\+\_\+option\+::max\+\_\+deflate\+\_\+dynamic\+\_\+table\+\_\+size}
+
+NGHTTP2\+\_\+\+OPT\+\_\+\+MAX\+\_\+\+DEFLATE\+\_\+\+DYNAMIC\+\_\+\+TABLE\+\_\+\+SIZE \Hypertarget{structnghttp2__option_a8b3b05d0e38cd9e391d5681daa771a71}\index{nghttp2\_option@{nghttp2\_option}!max\_outbound\_ack@{max\_outbound\_ack}}
+\index{max\_outbound\_ack@{max\_outbound\_ack}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{max\_outbound\_ack}{max\_outbound\_ack}}
+{\footnotesize\ttfamily \label{structnghttp2__option_a8b3b05d0e38cd9e391d5681daa771a71} 
+size\+\_\+t nghttp2\+\_\+option\+::max\+\_\+outbound\+\_\+ack}
+
+NGHTTP2\+\_\+\+OPT\+\_\+\+MAX\+\_\+\+OUTBOUND\+\_\+\+ACK \Hypertarget{structnghttp2__option_aad216dc3c0261e0a0c905c83ab83098f}\index{nghttp2\_option@{nghttp2\_option}!max\_reserved\_remote\_streams@{max\_reserved\_remote\_streams}}
+\index{max\_reserved\_remote\_streams@{max\_reserved\_remote\_streams}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{max\_reserved\_remote\_streams}{max\_reserved\_remote\_streams}}
+{\footnotesize\ttfamily \label{structnghttp2__option_aad216dc3c0261e0a0c905c83ab83098f} 
+uint32\+\_\+t nghttp2\+\_\+option\+::max\+\_\+reserved\+\_\+remote\+\_\+streams}
+
+NGHTTP2\+\_\+\+OPT\+\_\+\+MAX\+\_\+\+RESERVED\+\_\+\+REMOTE\+\_\+\+STREAMS \Hypertarget{structnghttp2__option_ad15a2bc13fd4d1d638866ed4dfcf9175}\index{nghttp2\_option@{nghttp2\_option}!max\_send\_header\_block\_length@{max\_send\_header\_block\_length}}
+\index{max\_send\_header\_block\_length@{max\_send\_header\_block\_length}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{max\_send\_header\_block\_length}{max\_send\_header\_block\_length}}
+{\footnotesize\ttfamily \label{structnghttp2__option_ad15a2bc13fd4d1d638866ed4dfcf9175} 
+size\+\_\+t nghttp2\+\_\+option\+::max\+\_\+send\+\_\+header\+\_\+block\+\_\+length}
+
+NGHTTP2\+\_\+\+OPT\+\_\+\+MAX\+\_\+\+SEND\+\_\+\+HEADER\+\_\+\+BLOCK\+\_\+\+LENGTH \Hypertarget{structnghttp2__option_a1fd895e140d787a473b9a9539d5d984b}\index{nghttp2\_option@{nghttp2\_option}!max\_settings@{max\_settings}}
+\index{max\_settings@{max\_settings}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{max\_settings}{max\_settings}}
+{\footnotesize\ttfamily \label{structnghttp2__option_a1fd895e140d787a473b9a9539d5d984b} 
+size\+\_\+t nghttp2\+\_\+option\+::max\+\_\+settings}
+
+NGHTTP2\+\_\+\+OPT\+\_\+\+MAX\+\_\+\+SETTINGS \Hypertarget{structnghttp2__option_af2526586de4ba1ca33a4de299f51ab1f}\index{nghttp2\_option@{nghttp2\_option}!no\_auto\_ping\_ack@{no\_auto\_ping\_ack}}
+\index{no\_auto\_ping\_ack@{no\_auto\_ping\_ack}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{no\_auto\_ping\_ack}{no\_auto\_ping\_ack}}
+{\footnotesize\ttfamily \label{structnghttp2__option_af2526586de4ba1ca33a4de299f51ab1f} 
+int nghttp2\+\_\+option\+::no\+\_\+auto\+\_\+ping\+\_\+ack}
+
+NGHTTP2\+\_\+\+OPT\+\_\+\+NO\+\_\+\+AUTO\+\_\+\+PING\+\_\+\+ACK \Hypertarget{structnghttp2__option_ad4fdc819777d00d0f26f68b7a62bf690}\index{nghttp2\_option@{nghttp2\_option}!no\_auto\_window\_update@{no\_auto\_window\_update}}
+\index{no\_auto\_window\_update@{no\_auto\_window\_update}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{no\_auto\_window\_update}{no\_auto\_window\_update}}
+{\footnotesize\ttfamily \label{structnghttp2__option_ad4fdc819777d00d0f26f68b7a62bf690} 
+int nghttp2\+\_\+option\+::no\+\_\+auto\+\_\+window\+\_\+update}
+
+NGHTTP2\+\_\+\+OPT\+\_\+\+NO\+\_\+\+AUTO\+\_\+\+WINDOW\+\_\+\+UPDATE \Hypertarget{structnghttp2__option_a0ca772a437cf8eb3c1ca6691815a26a4}\index{nghttp2\_option@{nghttp2\_option}!no\_closed\_streams@{no\_closed\_streams}}
+\index{no\_closed\_streams@{no\_closed\_streams}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{no\_closed\_streams}{no\_closed\_streams}}
+{\footnotesize\ttfamily \label{structnghttp2__option_a0ca772a437cf8eb3c1ca6691815a26a4} 
+int nghttp2\+\_\+option\+::no\+\_\+closed\+\_\+streams}
+
+NGHTTP2\+\_\+\+OPT\+\_\+\+NO\+\_\+\+CLOSED\+\_\+\+STREAMS \Hypertarget{structnghttp2__option_affa77ab45db39216551c125ab0782787}\index{nghttp2\_option@{nghttp2\_option}!no\_http\_messaging@{no\_http\_messaging}}
+\index{no\_http\_messaging@{no\_http\_messaging}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{no\_http\_messaging}{no\_http\_messaging}}
+{\footnotesize\ttfamily \label{structnghttp2__option_affa77ab45db39216551c125ab0782787} 
+int nghttp2\+\_\+option\+::no\+\_\+http\+\_\+messaging}
+
+NGHTTP2\+\_\+\+OPT\+\_\+\+NO\+\_\+\+HTTP\+\_\+\+MESSAGING \Hypertarget{structnghttp2__option_acf40fb2d9588fa9a4ae08873e7d7bfd4}\index{nghttp2\_option@{nghttp2\_option}!no\_recv\_client\_magic@{no\_recv\_client\_magic}}
+\index{no\_recv\_client\_magic@{no\_recv\_client\_magic}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{no\_recv\_client\_magic}{no\_recv\_client\_magic}}
+{\footnotesize\ttfamily \label{structnghttp2__option_acf40fb2d9588fa9a4ae08873e7d7bfd4} 
+int nghttp2\+\_\+option\+::no\+\_\+recv\+\_\+client\+\_\+magic}
+
+NGHTTP2\+\_\+\+OPT\+\_\+\+NO\+\_\+\+RECV\+\_\+\+CLIENT\+\_\+\+MAGIC \Hypertarget{structnghttp2__option_a7059033fabf2c1dd980cf937e7365730}\index{nghttp2\_option@{nghttp2\_option}!no\_rfc9113\_leading\_and\_trailing\_ws\_validation@{no\_rfc9113\_leading\_and\_trailing\_ws\_validation}}
+\index{no\_rfc9113\_leading\_and\_trailing\_ws\_validation@{no\_rfc9113\_leading\_and\_trailing\_ws\_validation}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{no\_rfc9113\_leading\_and\_trailing\_ws\_validation}{no\_rfc9113\_leading\_and\_trailing\_ws\_validation}}
+{\footnotesize\ttfamily \label{structnghttp2__option_a7059033fabf2c1dd980cf937e7365730} 
+int nghttp2\+\_\+option\+::no\+\_\+rfc9113\+\_\+leading\+\_\+and\+\_\+trailing\+\_\+ws\+\_\+validation}
+
+NGHTTP2\+\_\+\+OPT\+\_\+\+NO\+\_\+\+RFC9113\+\_\+\+LEADING\+\_\+\+AND\+\_\+\+TRAILING\+\_\+\+WS\+\_\+\+VALIDATION \Hypertarget{structnghttp2__option_a166844d97fa18930c769f5cc213d9a6c}\index{nghttp2\_option@{nghttp2\_option}!opt\_set\_mask@{opt\_set\_mask}}
+\index{opt\_set\_mask@{opt\_set\_mask}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{opt\_set\_mask}{opt\_set\_mask}}
+{\footnotesize\ttfamily \label{structnghttp2__option_a166844d97fa18930c769f5cc213d9a6c} 
+uint32\+\_\+t nghttp2\+\_\+option\+::opt\+\_\+set\+\_\+mask}
+
+Bitwise OR of nghttp2\+\_\+option\+\_\+flag to determine that which fields are specified. \Hypertarget{structnghttp2__option_af859dd7e0f7df3f4f2593907c41d18fe}\index{nghttp2\_option@{nghttp2\_option}!peer\_max\_concurrent\_streams@{peer\_max\_concurrent\_streams}}
+\index{peer\_max\_concurrent\_streams@{peer\_max\_concurrent\_streams}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{peer\_max\_concurrent\_streams}{peer\_max\_concurrent\_streams}}
+{\footnotesize\ttfamily \label{structnghttp2__option_af859dd7e0f7df3f4f2593907c41d18fe} 
+uint32\+\_\+t nghttp2\+\_\+option\+::peer\+\_\+max\+\_\+concurrent\+\_\+streams}
+
+NGHTTP2\+\_\+\+OPT\+\_\+\+PEER\+\_\+\+MAX\+\_\+\+CONCURRENT\+\_\+\+STREAMS \Hypertarget{structnghttp2__option_a48fb8222fde33801a91759d24dbfb2bd}\index{nghttp2\_option@{nghttp2\_option}!server\_fallback\_rfc7540\_priorities@{server\_fallback\_rfc7540\_priorities}}
+\index{server\_fallback\_rfc7540\_priorities@{server\_fallback\_rfc7540\_priorities}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{server\_fallback\_rfc7540\_priorities}{server\_fallback\_rfc7540\_priorities}}
+{\footnotesize\ttfamily \label{structnghttp2__option_a48fb8222fde33801a91759d24dbfb2bd} 
+int nghttp2\+\_\+option\+::server\+\_\+fallback\+\_\+rfc7540\+\_\+priorities}
+
+NGHTTP2\+\_\+\+OPT\+\_\+\+SERVER\+\_\+\+FALLBACK\+\_\+\+RFC7540\+\_\+\+PRIORITIES \Hypertarget{structnghttp2__option_a586c9e8c9402b746b93af50b006c8cde}\index{nghttp2\_option@{nghttp2\_option}!stream\_reset\_burst@{stream\_reset\_burst}}
+\index{stream\_reset\_burst@{stream\_reset\_burst}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{stream\_reset\_burst}{stream\_reset\_burst}}
+{\footnotesize\ttfamily \label{structnghttp2__option_a586c9e8c9402b746b93af50b006c8cde} 
+uint64\+\_\+t nghttp2\+\_\+option\+::stream\+\_\+reset\+\_\+burst}
+
+NGHTTP2\+\_\+\+OPT\+\_\+\+STREAM\+\_\+\+RESET\+\_\+\+RATE\+\_\+\+LIMIT \Hypertarget{structnghttp2__option_aff319af8049d9b671b9dd0abea717d57}\index{nghttp2\_option@{nghttp2\_option}!user\_recv\_ext\_types@{user\_recv\_ext\_types}}
+\index{user\_recv\_ext\_types@{user\_recv\_ext\_types}!nghttp2\_option@{nghttp2\_option}}
+\doxysubsubsection{\texorpdfstring{user\_recv\_ext\_types}{user\_recv\_ext\_types}}
+{\footnotesize\ttfamily \label{structnghttp2__option_aff319af8049d9b671b9dd0abea717d57} 
+uint8\+\_\+t nghttp2\+\_\+option\+::user\+\_\+recv\+\_\+ext\+\_\+types\mbox{[}32\mbox{]}}
+
+NGHTTP2\+\_\+\+OPT\+\_\+\+USER\+\_\+\+RECV\+\_\+\+EXT\+\_\+\+TYPES 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+managed\+\_\+components/espressif\+\_\+\+\_\+nghttp/nghttp2/lib/nghttp2\+\_\+option.\+h\end{DoxyCompactItemize}

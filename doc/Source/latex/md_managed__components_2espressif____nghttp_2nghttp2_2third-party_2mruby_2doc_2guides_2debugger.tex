@@ -1,0 +1,410 @@
+\chapter{How to Use the mruby Debugger }
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger}{}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger}\index{How to Use the mruby Debugger@{How to Use the mruby Debugger}}
+\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md315}%
+\Hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md315}%
+
+
+copyright (c) 2014 Specified Non-\/\+Profit Corporation mruby Forum\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md316}{}\doxysection{\texorpdfstring{1. Summary}{1. Summary}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md316}
+This file documents the mruby debugger (\textquotesingle{}mrdb\textquotesingle{}) methods.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md317}{}\doxysection{\texorpdfstring{2 Debugging with mrdb}{2 Debugging with mrdb}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md317}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md318}{}\doxysection{\texorpdfstring{2.\+1 Building mrdb}{2.\+1 Building mrdb}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md318}
+The trunk of the mruby source tree, with the most recent mrdb, can be checked out with the following command\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ git\ clone\ https://github.com/mruby/mruby.git}
+
+\end{DoxyCode}
+
+
+To run the {\ttfamily make} command\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ cd\ mruby}
+\DoxyCodeLine{\$\ make}
+
+\end{DoxyCode}
+
+
+By default, the {\ttfamily make} command will install the debugger files into mruby/bin.
+
+You can add the path for mrdb on your host environment with the following command\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ echo\ "{}export\ PATH=\(\backslash\)\$PATH:MRUBY\_ROOT/bin"{}\ >>\ \string~/.bashrc}
+\DoxyCodeLine{\$\ source\ \string~/.bashrc}
+
+\end{DoxyCode}
+
+
+{\ttfamily \texorpdfstring{$\ast$}{*}\+MRUBY\+\_\+\+ROOT} is the directory in which mruby source code will be installed.
+
+To confirm mrdb was installed properly, run mrdb with the {\ttfamily -\/-\/version} option\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ mrdb\ -\/-\/version}
+\DoxyCodeLine{mruby\ 3.3.0\ (2024-\/02-\/14)}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md319}{}\doxysection{\texorpdfstring{2.\+2 Basic Operation}{2.\+2 Basic Operation}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md319}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md320}{}\doxysubsection{\texorpdfstring{2.\+2.\+1 Debugging mruby Script Files (rb file) with mrdb}{2.\+2.\+1 Debugging mruby Script Files (rb file) with mrdb}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md320}
+To invoke the mruby debugger, just type {\ttfamily mrdb}.
+
+To specify the script file\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ mrdb\ [option]\ file\ name}
+
+\end{DoxyCode}
+
+
+For example\+: Debugging sample.\+rb
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ mrdb\ sample.rb}
+
+\end{DoxyCode}
+
+
+You can execute the shell commands listed below\+:
+
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}command  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}description  \\
+\SetCell{c}run  &execute programs  \\
+\SetCell{c}step  &execute stepping  \\
+\SetCell{c}continue  &execute continuing program  \\
+\SetCell{c}break  &configure the breaking point  \\
+\SetCell{c}delete  &deleting the breaking points  \\
+\SetCell{c}disable  &disabling the breaking points  \\
+\SetCell{c}enable  &enabling the breaking points  \\
+\SetCell{c}info breakpoints  &showing list of the breaking points  \\
+\SetCell{c}print  &evaluating and printing the values of the mruby expressions in the script  \\
+\SetCell{c}list  &displaying the source cords  \\
+\SetCell{c}help  &showing help  \\
+\SetCell{c}quit  &terminating the mruby debugger  \\
+\end{DoxyTable}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md321}{}\doxysubsection{\texorpdfstring{2.\+2.\+2 Debugging mruby Binary Files (mrb file) with mrdb}{2.\+2.\+2 Debugging mruby Binary Files (mrb file) with mrdb}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md321}
+You can debug the mruby binary files.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md322}{}\doxysubsubsection{\texorpdfstring{2.\+2.\+2.\+1 Debugging the binary files}{2.\+2.\+2.\+1 Debugging the binary files}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md322}
+
+\begin{DoxyItemize}
+\item notice To debug mruby binary files, you need to compile mruby files with option {\ttfamily -\/g}.
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ mrbc\ -\/g\ sample.rb}
+
+\end{DoxyCode}
+
+
+You can debug the mruby binary files with following command and the option {\ttfamily -\/b}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ mrdb\ -\/b\ sample.mrb}
+
+\end{DoxyCode}
+
+
+Then you can execute all debugger shell commands.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md323}{}\doxysubsubsection{\texorpdfstring{Break Command}{Break Command}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md323}
+You can use any breakpoint to stop the program by specifying the line number and method name. The breakpoint list will be displayed after you have set the breakpoint successfully.
+
+Usage\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{break\ [file:]linenum}
+\DoxyCodeLine{b\ [file:]linenum}
+\DoxyCodeLine{break\ [class:]method}
+\DoxyCodeLine{b\ [class:]method}
+
+\end{DoxyCode}
+
+
+The breakpoint will be ordered in serial from 1. The number, which was given to the deleted breakpoint, will never be given to another breakpoint again.
+
+You can give multiple breakpoints to the specified the line number and method. Be aware that the breakpoint command will not check the validity of the class name and method name.
+
+You can get the current breakpoint information by the following options.
+
+breakpoint breakpoint number \+: file name. line number
+
+breakpoint breakpoint number \+: \mbox{[}class name,\mbox{]} method name\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md324}{}\doxysubsubsection{\texorpdfstring{Continue Command}{Continue Command}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md324}
+Usage\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{continue\ [N]}
+\DoxyCodeLine{c\ [N]}
+
+\end{DoxyCode}
+
+
+N\+: the next breakpoint number
+
+When resuming the program, it will stop at breakpoint N (N-\/1 breakpoint will be ignored).
+
+When you run the {\ttfamily continue} command without specifying N, the program will be stopped at the next breakpoint.
+
+Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(foo.rb:1)\ continue\ 3}
+
+\end{DoxyCode}
+
+
+This will resume the program and stop it at the third breakpoint.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md325}{}\doxysubsubsection{\texorpdfstring{Delete Command}{Delete Command}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md325}
+This will delete the specified breakpoint.
+
+Usage\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{delete\ [breakpoint-\/no]}
+\DoxyCodeLine{d\ [breakpoint-\/no]}
+
+\end{DoxyCode}
+
+
+breakpoint-\/no\+: breakpoint number
+
+Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(foo.rb:1)\ delete}
+
+\end{DoxyCode}
+
+
+This will delete all the breakpoints.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(foo.rb:1)\ delete\ 1\ 3}
+
+\end{DoxyCode}
+
+
+This will delete the breakpoint at 1 and 3.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md326}{}\doxysubsubsection{\texorpdfstring{Disable Command}{Disable Command}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md326}
+This will disable the specified breakpoint.
+
+Usage\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{disable\ [breakpoint-\/no]}
+\DoxyCodeLine{dis\ [breakpoint-\/no]}
+
+\end{DoxyCode}
+
+
+reappointing\+: breakpoint number
+
+Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(foo.rb:1)\ disable}
+
+\end{DoxyCode}
+
+
+Use {\ttfamily disable} if you would like to disable all the breakpoints.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(foo.rb:1)\ disable\ 1\ 3}
+
+\end{DoxyCode}
+
+
+This will disable the breakpoints at 1 and 3.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md327}{}\doxysubsubsection{\texorpdfstring{Enable Command}{Enable Command}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md327}
+This will enable the specified breakpoints.
+
+Usage\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{enable\ [breakpoint-\/no]}
+\DoxyCodeLine{e\ [breakpoint-\/no]}
+
+\end{DoxyCode}
+
+
+breakpoint-\/no\+: breakpoint number
+
+Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(foo.rb:1)\ enable}
+
+\end{DoxyCode}
+
+
+Enabling all breakpoints
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(foo.rb:1)\ enable\ 1\ 3}
+
+\end{DoxyCode}
+
+
+Enabling the breakpoint 1 and 3\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md328}{}\doxysubsubsection{\texorpdfstring{eval command}{eval command}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md328}
+Evaluating the string as source code and printing the value.
+
+Same as print command, please see print command.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md329}{}\doxysubsubsection{\texorpdfstring{help command}{help command}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md329}
+Displaying the help message.
+
+Usage\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{help\ [command]}
+\DoxyCodeLine{h\ [command]}
+
+\end{DoxyCode}
+
+
+Typing {\ttfamily help} without any options will display the command list.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md330}{}\doxysubsubsection{\texorpdfstring{Info Breakpoints Command}{Info Breakpoints Command}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md330}
+Displaying the specified breakpoint information.
+
+Usage\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{info\ breakpoints\ [breakpoint-\/no]}
+\DoxyCodeLine{i\ b\ [breakpoint-\/no]}
+
+\end{DoxyCode}
+
+
+breakpoint-\/no\+: breakpoint number
+
+Typing "{}info breakpoints"{} without ant option will display all breakpoint information. Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(sample.rb:1)\ info\ breakpoints}
+\DoxyCodeLine{Num\ \ \ \ \ Type\ \ \ \ \ \ \ \ \ \ \ Enb\ What}
+\DoxyCodeLine{1\ \ \ \ \ \ \ breakpoint\ \ \ \ \ y\ \ \ at\ sample.rb:3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>\ file\ name,line\ number}
+\DoxyCodeLine{2\ \ \ \ \ \ \ breakpoint\ \ \ \ \ n\ \ \ in\ Sample\_class:sample\_class\_method\ -\/>\ [class:]method\ name}
+\DoxyCodeLine{3\ \ \ \ \ \ \ breakpoint\ \ \ \ \ y\ \ \ in\ sample\_global\_method}
+
+\end{DoxyCode}
+
+
+Displaying the specified breakpoint number\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(foo.rb:1)\ info\ breakpoints\ 1\ 3}
+\DoxyCodeLine{Num\ \ \ \ \ Type\ \ \ \ \ \ \ \ \ \ \ Enb\ What}
+\DoxyCodeLine{1\ \ \ \ \ \ \ breakpoint\ \ \ \ \ y\ \ \ at\ sample.rb:3}
+\DoxyCodeLine{3\ \ \ \ \ \ \ breakpoint\ \ \ \ \ y\ \ \ in\ sample\_global\_method}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md331}{}\doxysubsubsection{\texorpdfstring{List Command}{List Command}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md331}
+To display the code of the source file.
+
+Usage\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{list\ [filename:]first[,last]}
+\DoxyCodeLine{l\ [filename]:first[,last]}
+
+\end{DoxyCode}
+
+
+first\+: the opening row number last \+: the closing row number
+
+When you specify the {\ttfamily first}, but not the {\ttfamily last} option, you will receive 10 rows. When you do not specify both the {\ttfamily first} and {\ttfamily last} options, you will receive the next 10 rows.
+
+Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Specifying\ file\ name\ and\ first\ row\ number}
+\DoxyCodeLine{sample.rb:1)\ list\ sample2.rb:5}
+
+\end{DoxyCode}
+
+
+Specifying the file name and the first and last row number\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(sample.rb:1)\ list\ sample2.rb:6,7}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md332}{}\doxysubsubsection{\texorpdfstring{Print Command}{Print Command}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md332}
+Evaluating the string as source code and printing the value.
+
+Usage\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{print\ [expr]}
+\DoxyCodeLine{p\ [expr]}
+
+\end{DoxyCode}
+
+
+expr\+: expression
+
+The expression is mandatory. The displayed expressions will be serially ordered from 1. If an exception occurs, the exception information will be displayed, and the debugging will be continued.
+
+Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(sample.rb:1)\ print\ 1+2}
+\DoxyCodeLine{\$1\ =\ 3}
+\DoxyCodeLine{(sample.rb:1)\ print\ self}
+\DoxyCodeLine{\$2\ =\ main}
+
+\end{DoxyCode}
+
+
+Below is the case of the exception\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(sample.rb:1)\ print\ (1+2}
+\DoxyCodeLine{\$1\ =\ \ SyntaxError:\ line\ 1:\ syntax\ error,\ unexpected\ \$end,\ expecting\ ')'}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md333}{}\doxysubsubsection{\texorpdfstring{Quit Command}{Quit Command}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md333}
+Quitting the debugger.
+
+Usage\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{quit}
+\DoxyCodeLine{q}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md334}{}\doxysubsubsection{\texorpdfstring{Run Command}{Run Command}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md334}
+Running the program and stopping at the first breakpoint.
+
+Usage\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{run}
+\DoxyCodeLine{r}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md335}{}\doxysubsubsection{\texorpdfstring{Step Command}{Step Command}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2debugger_autotoc_md335}
+This will run the program step by step. When the method and the block are invoked, the program will stop at the first row. The program, which is developed in C, will be ignored. 

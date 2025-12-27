@@ -1,0 +1,426 @@
+\chapter{mrbgems }
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems}{}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems}\index{mrbgems@{mrbgems}}
+\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md361}%
+\Hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md361}%
+
+
+mrbgems is a library manager to integrate C and Ruby extensions in an easy and standardised way into mruby. Conventionally, each mrbgem name is prefixed by {\ttfamily mruby-\/}, e.\+g. {\ttfamily mruby-\/time} for a gem that provides {\ttfamily Time} class functionality.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md362}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md362}
+You have to activate mrbgems explicitly in your build configuration. To add a gem, add the following line to your build configuration file, for example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.gem\ '/path/to/your/gem/dir'}
+
+\end{DoxyCode}
+
+
+You can also use a relative path to specify a gem.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.gem\ 'examples/mrbgems/ruby\_extension\_example'}
+
+\end{DoxyCode}
+
+
+In that case,
+
+
+\begin{DoxyItemize}
+\item if your build configuration file is in the {\ttfamily build\+\_\+config} directory, it\textquotesingle{}s relative from {\ttfamily MRUBY\+\_\+\+ROOT}.
+\item otherwise, it is relative from the directory where your build configuration is.
+\end{DoxyItemize}
+
+A remote GIT repository location for a GEM is also supported\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.gem\ :git\ =>\ 'https://github.com/masuidrive/mrbgems-\/example.git',\ :branch\ =>\ 'master'}
+\DoxyCodeLine{conf.gem\ :github\ =>\ 'masuidrive/mrbgems-\/example',\ :branch\ =>\ 'master'}
+\DoxyCodeLine{conf.gem\ :bitbucket\ =>\ 'mruby/mrbgems-\/example',\ :branch\ =>\ 'master'}
+
+\end{DoxyCode}
+
+
+NOTE\+: {\ttfamily \+:bitbucket} option supports only git. Hg is unsupported in this version.
+
+You can specify the subdirectory of the repository with {\ttfamily \+:path} option\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.gem\ github:\ 'mruby/mruby',\ path:\ 'mrbgems/mruby-\/socket'}
+
+\end{DoxyCode}
+
+
+To use mrbgem from \href{https://github.com/mruby/mgem-list}{\texttt{mgem-\/list}} use {\ttfamily \+:mgem} option\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.gem\ :mgem\ =>\ 'mruby-\/yaml'}
+\DoxyCodeLine{conf.gem\ :mgem\ =>\ 'yaml'\ \#\ 'mruby-\/'\ prefix\ could\ be\ omitted}
+
+\end{DoxyCode}
+
+
+For specifying the commit hash to checkout use {\ttfamily \+:checksum\+\_\+hash} option\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.gem\ mgem:\ 'mruby-\/redis',\ checksum\_hash:\ '3446d19fc4a3f9697b5ddbf2a904f301c42f2f4e'}
+
+\end{DoxyCode}
+
+
+If there are missing dependencies, mrbgem dependencies solver will reference mrbgem from the core or mgem-\/list.
+
+Note that if more than one git-\/based gem has the same base name (i.\+e. the default checkout directory name), it is (now) an error {\bfseries{UNLESS}} they have the same repository URL, branch name and commit-\/id (i.\+e. checksum hash). You can bypass this by explicitly importing your preferred version {\bfseries{first}} and setting the {\ttfamily canonical\+:} option to {\ttfamily true}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.gem\ github:\ 'me/mruby-\/yaml',\ branch:\ 'my-\/hacked-\/branch',\ canonical:\ true}
+
+\end{DoxyCode}
+
+
+If you do this, the system will (mostly) silently ignore other attempts to clone a gem with this name.
+
+Note that this only affects cloning the gem from git. It does not resolve version conflicts. If the version as specified in the gem\textquotesingle{}s rakefile is incompatible with a dependency, your build will still fail.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md363}{}\doxysubsection{\texorpdfstring{Tweak the gem in your build configuration file}{Tweak the gem in your build configuration file}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md363}
+You can give blocks in the {\ttfamily conf.\+gem} call to make adjustments for environments where the original gem does not expect them\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.gem\ core:\ "{}mruby-\/bin-\/mirb"{}\ do\ |g|}
+\DoxyCodeLine{\ \ \#\ For\ cross\ build\ to\ NetBSD}
+\DoxyCodeLine{\ \ g.linker.libraries\ =\ \%w(edit\ termcap)}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+
+
+However, it should be used with caution, as it may deviate from the intent of the gem\textquotesingle{}s author.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md364}{}\doxysubsection{\texorpdfstring{Gem Testing}{Gem Testing}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md364}
+If you enable unit tests in your build with {\ttfamily enable\+\_\+test}, tests will be generated for all gems and their dependencies by default. If necessary, it is possible to suppress tests for a specific gem like so\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.gem\ 'mruby-\/noisygem'\ do\ |g|}
+\DoxyCodeLine{\ \ g.skip\_test\ =\ true}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+
+
+However, it is considered best practice to leave all tests enabled whenever possible. A warning message will be generated for each gem with disabled tests.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md365}{}\doxysection{\texorpdfstring{Gem\+Box}{Gem\+Box}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md365}
+There are instances when you wish to add a collection of mrbgems into mruby at once, or be able to substitute mrbgems based on configuration, without having to add each gem to your build configuration file. A packaged collection of mrbgems is called a Gem\+Box. A Gem\+Box is a file that contains a list of mrbgems to load into mruby, in the same format as if you were adding them to the build config via {\ttfamily config.\+gem}, but wrapped in an {\ttfamily MRuby\+::\+Gem\+Box} object. Gem\+Boxes are loaded into mruby via {\ttfamily config.\+gembox \textquotesingle{}boxname\textquotesingle{}}.
+
+Below we have created a Gem\+Box containing {\ttfamily mruby-\/time} and {\ttfamily mrbgems-\/example}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{MRuby::GemBox.new\ do\ |conf|}
+\DoxyCodeLine{\ \ conf.gem\ "{}\#\{root\}/mrbgems/mruby-\/time"{}}
+\DoxyCodeLine{\ \ conf.gem\ :github\ =>\ 'masuidrive/mrbgems-\/example'}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+
+
+As mentioned, the Gem\+Box uses the same conventions as {\ttfamily MRuby\+::\+Build}. The Gem\+Box must be saved with a {\ttfamily .gembox} extension inside the {\ttfamily mrbgems} directory to be picked up by mruby.
+
+To use this example Gem\+Box, we save it as {\ttfamily custom.\+gembox} inside the {\ttfamily mrbgems} directory in mruby, and add the following to your build configuration file inside the build block\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.gembox\ 'custom'}
+
+\end{DoxyCode}
+
+
+This will cause the {\ttfamily custom} Gem\+Box to be read in during the build process, adding {\ttfamily mruby-\/time} and {\ttfamily mrbgems-\/example} to the build.
+
+If you want, you can put Gem\+Box outside the mruby directory. In that case you must specify an absolute path like below.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conf.gembox\ "{}\#\{ENV["{}HOME"{}]\}/mygemboxes/custom"{}}
+
+\end{DoxyCode}
+
+
+There are two Gem\+Boxes that ship with mruby\+: \href{../../mrbgems/default.gembox}{\texttt{default}} and \href{../../mrbgems/full-core.gembox}{\texttt{full-\/core}}. The \href{../../mrbgems/default.gembox}{\texttt{default}} Gem\+Box contains several core components of mruby, and \href{../../mrbgems/full-core.gembox}{\texttt{full-\/core}} contains every gem found in the {\ttfamily mrbgems} directory.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md366}{}\doxysection{\texorpdfstring{GEM Structure}{GEM Structure}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md366}
+The maximal GEM structure looks like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{+-\/\ GEM\_NAME\ \ \ \ \ \ \ \ \ \ \ \ \ <-\/\ Name\ of\ GEM}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ README.md\ \ \ \ \ \ \ \ <-\/\ Readme\ for\ GEM}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ mrbgem.rake\ \ \ \ \ \ <-\/\ GEM\ Specification}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ include/\ \ \ \ \ \ \ \ \ <-\/\ Header\ for\ Ruby\ extension\ (will\ exported)}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ mrblib/\ \ \ \ \ \ \ \ \ \ <-\/\ Source\ for\ Ruby\ extension}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ src/\ \ \ \ \ \ \ \ \ \ \ \ \ <-\/\ Source\ for\ C\ extension}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ tools/\ \ \ \ \ \ \ \ \ \ \ <-\/\ Source\ for\ Executable\ (in\ C)}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ test/\ \ \ \ \ \ \ \ \ \ \ \ <-\/\ Test\ code\ (Ruby)}
+
+\end{DoxyCode}
+
+
+The {\ttfamily mrblib} directory contains pure Ruby files to extend mruby. The {\ttfamily src} directory contains C/\+C++ files to extend mruby. The {\ttfamily include} directory contains C/\+C++ header files. The {\ttfamily test} directory contains C/\+C++ and pure Ruby files for testing purposes which will be used by {\ttfamily mrbtest}. {\ttfamily mrbgem.\+rake} contains the specification to compile C and Ruby files. {\ttfamily README.\+md} is a short description of your GEM.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md367}{}\doxysection{\texorpdfstring{Build process}{Build process}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md367}
+mrbgems expects a specification file called {\ttfamily mrbgem.\+rake} inside of your GEM directory. A typical GEM specification could look like this for example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{MRuby::Gem::Specification.new('c\_and\_ruby\_extension\_example')\ do\ |spec|}
+\DoxyCodeLine{\ \ spec.license\ =\ 'MIT'}
+\DoxyCodeLine{\ \ spec.author\ \ =\ 'mruby\ developers'}
+\DoxyCodeLine{\ \ spec.summary\ =\ 'Example\ mrbgem\ using\ C\ and\ Ruby'}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+
+
+The mrbgems build process will use this specification to compile Object and Ruby files. The compilation results will be added to {\ttfamily lib/libmruby.\+a}. This file exposes the GEM functionality to tools like {\ttfamily mruby} and {\ttfamily mirb}.
+
+The following properties can be set inside your {\ttfamily MRuby\+::\+Gem\+::\+Specification} for information purpose\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily spec.\+license} or {\ttfamily spec.\+licenses} (A single license or a list of them under which this GEM is licensed)
+\item {\ttfamily spec.\+author} or {\ttfamily spec.\+authors} (Developer name or a list of them)
+\item {\ttfamily spec.\+version} (Current version)
+\item {\ttfamily spec.\+description} (Detailed description)
+\item {\ttfamily spec.\+summary}
+\begin{DoxyItemize}
+\item One line short description of mrbgem.
+\item Printed in build summary of rake when set.
+\end{DoxyItemize}
+\item {\ttfamily spec.\+homepage} (Homepage)
+\item {\ttfamily spec.\+requirements} (External requirements as information for user)
+\end{DoxyItemize}
+
+The {\ttfamily license} and {\ttfamily author} properties are required in every GEM!
+
+In case your GEM is depending on other GEMs please use {\ttfamily spec.\+add\+\_\+dependency(gem, \texorpdfstring{$\ast$}{*}requirements\mbox{[}, default\+\_\+get\+\_\+info\mbox{]})} like\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{MRuby::Gem::Specification.new('c\_and\_ruby\_extension\_example')\ do\ |spec|}
+\DoxyCodeLine{\ \ spec.license\ =\ 'MIT'}
+\DoxyCodeLine{\ \ spec.author\ \ =\ 'mruby\ developers'}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \#\ Add\ GEM\ dependency\ mruby-\/parser.}
+\DoxyCodeLine{\ \ \#\ The\ version\ must\ be\ between\ 1.0.0\ and\ 1.5.2\ .}
+\DoxyCodeLine{\ \ spec.add\_dependency('mruby-\/parser',\ '>=\ 1.0.0',\ '<=\ 1.5.2')}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \#\ Use\ any\ version\ of\ mruby-\/uv\ from\ GitHub.}
+\DoxyCodeLine{\ \ spec.add\_dependency('mruby-\/uv',\ '>=\ 0.0.0',\ :github\ =>\ 'mattn/mruby-\/uv')}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \#\ Use\ latest\ mruby-\/onig-\/regexp\ from\ GitHub.\ (version\ requirements\ can\ be\ omitted)}
+\DoxyCodeLine{\ \ spec.add\_dependency('mruby-\/onig-\/regexp',\ :github\ =>\ 'mattn/mruby-\/onig-\/regexp')}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \#\ You\ can\ add\ extra\ mgems\ active\ only\ on\ test}
+\DoxyCodeLine{\ \ spec.add\_test\_dependency('mruby-\/process',\ :github\ =>\ 'iij/mruby-\/process')}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+
+
+The version requirements and default gem information are optional.
+
+Version requirement supports following operators\+:
+
+
+\begin{DoxyItemize}
+\item \textquotesingle{}=\textquotesingle{}\+: is equal
+\item \textquotesingle{}!=\textquotesingle{}\+: is not equal
+\item \textquotesingle{}\texorpdfstring{$>$}{>}\textquotesingle{}\+: is greater
+\item \textquotesingle{}\texorpdfstring{$<$}{<}\textquotesingle{}\+: is lesser
+\item \textquotesingle{}\texorpdfstring{$>$}{>}=\textquotesingle{}\+: is equal or greater
+\item \textquotesingle{}\texorpdfstring{$<$}{<}=\textquotesingle{}\+: is equal or lesser
+\item \textquotesingle{}\texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>}\textquotesingle{}\+: is equal or greater and is lesser than the next major version
+\begin{DoxyItemize}
+\item example 1\+: \textquotesingle{}\texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} 2.\+2.\+2\textquotesingle{} means \textquotesingle{}\texorpdfstring{$>$}{>}= 2.\+2.\+2\textquotesingle{} and \textquotesingle{}\texorpdfstring{$<$}{<} 2.\+3.\+0\textquotesingle{}
+\item example 2\+: \textquotesingle{}\texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} 2.\+2\textquotesingle{} means \textquotesingle{}\texorpdfstring{$>$}{>}= 2.\+2.\+0\textquotesingle{} and \textquotesingle{}\texorpdfstring{$<$}{<} 3.\+0.\+0\textquotesingle{}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+When more than one version requirements is passed, the dependency must satisfy all of it.
+
+You can have default gem to use as dependency when it\textquotesingle{}s not defined in your build configuration. When the last argument of {\ttfamily add\+\_\+dependency} call is {\ttfamily Hash}, it will be treated as default gem information. Its format is same as argument of method {\ttfamily MRuby\+::\+Build\#gem}, expect that it can\textquotesingle{}t be treated as path gem location.
+
+When a special version of dependency is required, use {\ttfamily MRuby\+::\+Build\#gem} in the build configuration to override default gem.
+
+If you have conflicting GEMs use the following method\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily spec.\+add\+\_\+conflict(gem, \texorpdfstring{$\ast$}{*}requirements)}
+\begin{DoxyItemize}
+\item The {\ttfamily requirements} argument is same as in {\ttfamily add\+\_\+dependency} method.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+like following code\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{MRuby::Gem::Specification.new\ 'some-\/regexp-\/binding'\ do\ |spec|}
+\DoxyCodeLine{\ \ spec.license\ =\ 'BSD'}
+\DoxyCodeLine{\ \ spec.author\ =\ 'John\ Doe'}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ spec.add\_conflict\ 'mruby-\/onig-\/regexp',\ '>\ 0.0.0'}
+\DoxyCodeLine{\ \ spec.add\_conflict\ 'mruby-\/hs-\/regexp'}
+\DoxyCodeLine{\ \ spec.add\_conflict\ 'mruby-\/pcre-\/regexp'}
+\DoxyCodeLine{\ \ spec.add\_conflict\ 'mruby-\/regexp-\/pcre'}
+\DoxyCodeLine{end}
+
+\end{DoxyCode}
+
+
+In case your GEM has more complex build requirements you can use the following options additionally inside your GEM specification\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily spec.\+cc.\+flags} (C compiler flags)
+\item {\ttfamily spec.\+cc.\+defines} (C compiler defines)
+\item {\ttfamily spec.\+cc.\+include\+\_\+paths} (C compiler include paths)
+\item {\ttfamily spec.\+linker.\+flags} (Linker flags)
+\item {\ttfamily spec.\+linker.\+libraries} (Linker libraries)
+\item {\ttfamily spec.\+linker.\+library\+\_\+paths} (Linker additional library path)
+\item {\ttfamily spec.\+bins} (Generate binary file)
+\item {\ttfamily spec.\+rbfiles} (Ruby files to compile)
+\item {\ttfamily spec.\+objs} (Object files to compile)
+\item {\ttfamily spec.\+test\+\_\+rbfiles} (Ruby test files for integration into mrbtest)
+\item {\ttfamily spec.\+test\+\_\+objs} (Object test files for integration into mrbtest)
+\item {\ttfamily spec.\+test\+\_\+preload} (Initialization files for mrbtest)
+\end{DoxyItemize}
+
+You also can use {\ttfamily spec.\+mruby.\+cc} and {\ttfamily spec.\+mruby.\+linker} to add extra global parameters for the compiler and linker.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md368}{}\doxysubsection{\texorpdfstring{include\+\_\+paths and dependency}{include\+\_\+paths and dependency}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md368}
+Your GEM can export include paths to another GEMs that depends on your GEM. By default, {\ttfamily /...absolute path.../\{GEM\+\_\+\+NAME\}/include} will be exported. So it is recommended not to put GEM\textquotesingle{}s local header files on include/.
+
+These exports are retroactive. For example\+: when B depends on C and A depends on B, A will get include paths exported by C.
+
+Exported include\+\_\+paths are automatically appended to GEM local include\+\_\+paths by rake. You can use {\ttfamily spec.\+export\+\_\+include\+\_\+paths} accessor if you want more complex build.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md369}{}\doxysection{\texorpdfstring{C Extension}{C Extension}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md369}
+mruby can be extended with C. This is possible by using the C API to integrate C libraries into mruby.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md370}{}\doxysubsection{\texorpdfstring{Preconditions}{Preconditions}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md370}
+mrbgems expects that you have implemented a C method called {\ttfamily mrb\+\_\+\+YOURGEMNAME\+\_\+gem\+\_\+init(mrb\+\_\+state)}. {\ttfamily YOURGEMNAME} will be replaced by the name of your GEM. If you call your GEM {\ttfamily c\+\_\+extension\+\_\+example}, your initialisation method could look like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}}
+\DoxyCodeLine{mrb\_c\_extension\_example\_gem\_init(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*\ mrb)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRClass}{RClass}}\ *class\_cextension\ =\ \mbox{\hyperlink{mruby_8h_a7c32aaed6e60dca3fa630a7779fadd3c}{mrb\_define\_module}}(mrb,\ \textcolor{stringliteral}{"{}CExtension"{}});}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{mruby_8h_a145ba480099bf3cbbd206c22f9e985df}{mrb\_define\_class\_method}}(mrb,\ class\_cextension,\ \textcolor{stringliteral}{"{}c\_method"{}},\ mrb\_c\_method,\ \mbox{\hyperlink{mruby_8h_aa6e2ec577d218326a3546a7028b23c3c}{MRB\_ARGS\_NONE}}());}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md371}{}\doxysubsection{\texorpdfstring{Finalize}{Finalize}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md371}
+mrbgems expects that you have implemented a C method called {\ttfamily mrb\+\_\+\+YOURGEMNAME\+\_\+gem\+\_\+final(mrb\+\_\+state)}. {\ttfamily YOURGEMNAME} will be replaced by the name of your GEM. If you call your GEM {\ttfamily c\+\_\+extension\+\_\+example}, your finalizer method could look like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}}
+\DoxyCodeLine{mrb\_c\_extension\_example\_gem\_final(\mbox{\hyperlink{structmrb__state}{mrb\_state}}*\ mrb)\ \{}
+\DoxyCodeLine{\ \ free(someone);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md372}{}\doxysubsection{\texorpdfstring{Example}{Example}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md372}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{+-\/\ c\_extension\_example/}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ README.md\ \ \ \ \ \ \ \ (Optional)}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ src/}
+\DoxyCodeLine{\ \ \ \ |\ \ \ |}
+\DoxyCodeLine{\ \ \ \ |\ \ \ +-\/\ example.c\ \ \ \ <-\/\ C\ extension\ source}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ test/}
+\DoxyCodeLine{\ \ \ \ |\ \ \ |}
+\DoxyCodeLine{\ \ \ \ |\ \ \ +-\/\ example.rb\ \ \ <-\/\ Test\ code\ for\ C\ extension}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ mrbgem.rake\ \ \ \ \ \ <-\/\ GEM\ specification}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md373}{}\doxysection{\texorpdfstring{Ruby Extension}{Ruby Extension}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md373}
+mruby can be extended with pure Ruby. It is possible to override existing classes or add new ones in this way. Put all Ruby files into the {\ttfamily mrblib} directory.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md374}{}\doxysubsection{\texorpdfstring{Pre-\/\+Conditions}{Pre-\/\+Conditions}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md374}
+none\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md375}{}\doxysubsection{\texorpdfstring{Example}{Example}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md375}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{+-\/\ ruby\_extension\_example/}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ README.md\ \ \ \ \ \ \ \ (Optional)}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ mrblib/}
+\DoxyCodeLine{\ \ \ \ |\ \ \ |}
+\DoxyCodeLine{\ \ \ \ |\ \ \ +-\/\ example.rb\ \ \ <-\/\ Ruby\ extension\ source}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ test/}
+\DoxyCodeLine{\ \ \ \ |\ \ \ |}
+\DoxyCodeLine{\ \ \ \ |\ \ \ +-\/\ example.rb\ \ \ <-\/\ Test\ code\ for\ Ruby\ extension}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ mrbgem.rake\ \ \ \ \ \ <-\/\ GEM\ specification}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md376}{}\doxysection{\texorpdfstring{C and Ruby Extension}{C and Ruby Extension}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md376}
+mruby can be extended with C and Ruby at the same time. It is possible to override existing classes or add new ones in this way. Put all Ruby files into the {\ttfamily mrblib} directory and all C files into the {\ttfamily src} directory.
+
+mruby codes under {\ttfamily mrblib} directory would be executed after gem init C function is called. Make sure {\itshape mruby script} depends on {\itshape C code} and {\itshape C code} doesn\textquotesingle{}t depend on {\itshape mruby script}.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md377}{}\doxysubsection{\texorpdfstring{Pre-\/\+Conditions}{Pre-\/\+Conditions}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md377}
+See C and Ruby example.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md378}{}\doxysubsection{\texorpdfstring{Example}{Example}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md378}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{+-\/\ c\_and\_ruby\_extension\_example/}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ README.md\ \ \ \ \ \ \ \ (Optional)}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ mrblib/}
+\DoxyCodeLine{\ \ \ \ |\ \ \ |}
+\DoxyCodeLine{\ \ \ \ |\ \ \ +-\/\ example.rb\ \ \ <-\/\ Ruby\ extension\ source}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ src/}
+\DoxyCodeLine{\ \ \ \ |\ \ \ |}
+\DoxyCodeLine{\ \ \ \ |\ \ \ +-\/\ example.c\ \ \ \ <-\/\ C\ extension\ source}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ test/}
+\DoxyCodeLine{\ \ \ \ |\ \ \ |}
+\DoxyCodeLine{\ \ \ \ |\ \ \ +-\/\ example.rb\ \ \ <-\/\ Test\ code\ for\ C\ and\ Ruby\ extension}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ mrbgem.rake\ \ \ \ \ \ <-\/\ GEM\ specification}
+
+\end{DoxyCode}
+\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md379}{}\doxysection{\texorpdfstring{Binary gems}{Binary gems}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md379}
+Some gems can generate executables under {\ttfamily bin} directory. Those gems are called binary gems. Names of binary gems are conventionally prefixed by {\ttfamily mruby-\/bin}, e.\+g. {\ttfamily mruby-\/bin-\/mirb} and {\ttfamily mruby-\/bin-\/strip}.
+
+To specify the name of executable, you need to specify {\ttfamily spec.\+bins} in the {\ttfamily mrbgem.\+rake}. The entry point {\ttfamily main()} should be in the C source file under {\ttfamily tools/\texorpdfstring{$<$}{<}bin\texorpdfstring{$>$}{>}/\texorpdfstring{$\ast$}{*}.c} where {\ttfamily \texorpdfstring{$<$}{<}bin\texorpdfstring{$>$}{>}} is a name of the executable. C files under the {\ttfamily \texorpdfstring{$<$}{<}bin\texorpdfstring{$>$}{>}} directory are compiled and linked to the executable, but not included in {\ttfamily libmruby.\+a}, whereas files under {\ttfamily mrblib} and {\ttfamily src} are.
+
+It is strongly recommended not to include {\ttfamily mrblib} and {\ttfamily src} directories in the binary gems, to separate normal gems and binary gems.\hypertarget{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md380}{}\doxysubsection{\texorpdfstring{Example}{Example}}\label{md_managed__components_2espressif____nghttp_2nghttp2_2third-party_2mruby_2doc_2guides_2mrbgems_autotoc_md380}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{+-\/\ mruby-\/bin-\/example/}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ README.md\ \ \ \ \ \ \ \ \ \ (Optional)}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ bintest/}
+\DoxyCodeLine{\ \ \ \ |\ \ \ |}
+\DoxyCodeLine{\ \ \ \ |\ \ \ +-\/\ example.rb\ \ \ \ \ <-\/\ Test\ code\ for\ binary\ gem}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ mrbgem.rake\ \ \ \ \ \ \ \ <-\/\ Gem\ specification}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ mrblib/\ \ \ \ \ \ \ \ \ \ \ \ <-\/\ Source\ for\ Ruby\ extension\ (Optional)}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ src/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <-\/\ Source\ for\ C\ extension\ (Optional)}
+\DoxyCodeLine{\ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ +-\/\ tools/}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ +-\/\ example/\ \ \ \ \ \ \ <-\/\ Executable\ name\ directory}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ +-\/\ example.c\ \ <-\/\ Source\ for\ Executable\ (includes\ main)}
+
+\end{DoxyCode}
+ 
