@@ -14,8 +14,8 @@ programming can damage the ESP32
 
 |Board            |Test status           |Result                     |
 |-----------------|----------------------|---------------------------|
-|BlueBox_board_TH |I2S source tested     |Missing 5V power isolation |
-|                 |                      |Missing I2S bus termination|
+|BlueBox_board_TH |I2S source tested with|Missing 5V power isolation |
+|                 |Wrover B and WROOM    |Missing I2S bus termination|
 |BlueBox_board_SMD|Not tested at all     |                           |
 
 # Roadmap
@@ -26,6 +26,13 @@ Support Bluetooth sink as well (if ESP32 allow to do so).
 **Caution!**  
 The board needs to have the wide form factor.
 The distance between the headers needs to be 25.4mm  
+
+### WROOM ESP32 module (Devkit C)
+**Caution!**  
+The board needs to have the wide form factor.
+The distance between the headers needs to be 25.4mm   
+The code needs to be compiled without PSRAM support  
+(use menuconfig to conficure accordingly)
 
 ### I2S output port
 Tested I2S sink: PCM5102A codec (RetroBox).
