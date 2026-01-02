@@ -32,7 +32,7 @@ The distance between the headers needs to be 25.4mm
 The board needs to have the wide form factor.
 The distance between the headers needs to be 25.4mm   
 The code needs to be compiled without PSRAM support  
-(use menuconfig to conficure accordingly)
+(use menuconfig to configure accordingly)
 
 ### I2S output port
 Tested I2S sink: PCM5102A codec (RetroBox).
